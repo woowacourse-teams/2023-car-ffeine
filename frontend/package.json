@@ -31,12 +31,14 @@
     "@types/react-dom": "^18.2.6",
     "@typescript-eslint/eslint-plugin": "^5.60.1",
     "@typescript-eslint/parser": "^5.60.1",
+    "copy-webpack-plugin": "^11.0.0",
     "dotenv-webpack": "^8.0.1",
     "eslint": "^8.43.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-storybook": "^0.6.12",
     "html-webpack-plugin": "^5.5.3",
+    "msw": "^1.2.2",
     "prettier": "^2.8.8",
     "storybook": "^7.0.24",
     "ts-loader": "^9.4.4",
@@ -44,5 +46,8 @@
     "webpack": "^5.88.1",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
