@@ -1,7 +1,8 @@
-import App from './App';
-import { createRoot } from 'react-dom/client';
-import { worker } from './mocks/browser';
 import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+
+import App from './App';
+import { worker } from './mocks/browser';
 
 const main = async () => {
   if (process.env.NODE_ENV === 'development') {

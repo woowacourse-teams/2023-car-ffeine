@@ -4,5 +4,14 @@
   "tabWidth": 2,
   "printWidth": 100,
   "semi": true,
-  "trailingComma": "es5"
+  "trailingComma": "es5",
+  "importOrder": [
+    "^@utils/(.*)$",
+    "^@hooks/(.*)$",
+    "^@common/(.*)$",
+    "^@components/(.*)$",
+    "^@styles/(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": true
 }
