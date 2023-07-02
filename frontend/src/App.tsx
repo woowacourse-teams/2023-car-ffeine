@@ -1,4 +1,4 @@
-function App() {
+const App = () => {
   const fetchLogin = async () => {
     const response = await fetch('/login', {
       method: 'POST',
@@ -17,6 +17,6 @@ function App() {
       <button onClick={() => fetchUser()}>user</button>
     </>
   );
-}
+};
 
 export default App;
