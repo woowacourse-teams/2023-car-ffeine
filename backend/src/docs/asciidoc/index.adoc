@@ -1,0 +1,10 @@
+ifndef::snippets[]
+:snippets: ../../../build/generated-snippets
+endif::[]
+= Car-ffeine
+:doctype: book
+:toc: left
+:source-highlighter: highlightjs
+:sectlinks:
+
+include::test.adoc[]

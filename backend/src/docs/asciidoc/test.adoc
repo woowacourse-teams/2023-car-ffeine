@@ -1,0 +1,36 @@
+= Home API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+
+== Test
+
+=== Request
+
+include::{snippets}/test/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/test/http-response.adoc[]
+
+== Query
+
+=== Request
+
+include::{snippets}/test/query/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/test/query/http-response.adoc[]
+
+== Body
+
+=== Request
+
+include::{snippets}/test/body/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/test/body/http-response.adoc[]
