@@ -1,9 +1,12 @@
 package com.carffeine.carffeine.domain;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +15,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
+@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Charger {
@@ -36,6 +41,7 @@ public class Charger {
 
     private String state;
 
+    @Column(scale = 2)
     private BigDecimal capacity;
 
     // 추후 enum으로 바꿀 수 있다면 바꾸기
