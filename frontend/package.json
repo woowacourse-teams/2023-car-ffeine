@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "webpack-dev-server --open --mode development --hot --port 3000",
     "build": "webpack --mode production",
     "storybook": "storybook dev -p 6006",
