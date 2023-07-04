@@ -10,7 +10,11 @@
       }
     ],
     "@babel/preset-typescript",
-    "@babel/preset-react"
+    ["@babel/preset-react", { "runtime": "automatic" }]
   ],
-  "plugins": []
+  "env": {
+    "test": {
+      "plugins": ["@babel/plugin-transform-modules-commonjs", "@babel/plugin-transform-runtime"]
+    }
+  }
 }
