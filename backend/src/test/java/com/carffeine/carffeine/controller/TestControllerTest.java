@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static com.carffeine.carffeine.helper.RestDocsHelper.customDocument;
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -26,7 +27,7 @@ class TestControllerTest {
         mockMvc.perform(get("/test"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("message").value(containsString("Hello, world!")))
-                .andDo(document("test"));
+                .andDo(customDocument("test"));
     }
 
     @Test
