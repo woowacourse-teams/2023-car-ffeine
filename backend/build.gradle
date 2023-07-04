@@ -53,15 +53,15 @@ tasks.named('asciidoctor') {
     dependsOn test
 }
 
-asciidoctor { // (7)
-    inputs.dir snippetsDir // (8)
-    configurations 'asciidoctorExt' // (9)
-    dependsOn test // (10)
+asciidoctor {
+    inputs.dir snippetsDir
+    configurations 'asciidoctorExt'
+    dependsOn test
 }
 
 bootJar {
-    dependsOn asciidoctor // (1)
-    from("${asciidoctor.outputDir}") { // (2)
+    dependsOn asciidoctor
+    from("${asciidoctor.outputDir}") {
         into 'static/docs'
     }
 }
