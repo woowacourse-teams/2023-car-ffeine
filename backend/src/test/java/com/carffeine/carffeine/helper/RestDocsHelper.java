@@ -9,12 +9,11 @@ import static org.springframework.restdocs.operation.preprocess.Preprocessors.pr
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 
 public class RestDocsHelper {
-    public static RestDocumentationResultHandler customDocument(final String identifier, final Snippet... snippets) {
+
+    public static RestDocumentationResultHandler customDocument(String identifier, Snippet... snippets) {
         return document("{class-name}/" + identifier,
-                preprocessRequest(
-                        prettyPrint()),
-                preprocessResponse(
-                        prettyPrint()),
+                preprocessRequest(prettyPrint()),
+                preprocessResponse(prettyPrint()),
                 snippets
         );
     }
