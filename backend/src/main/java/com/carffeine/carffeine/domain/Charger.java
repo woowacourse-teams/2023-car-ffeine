@@ -1,44 +1,43 @@
 package com.carffeine.carffeine.domain;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Charger {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	private String chargerId;
+    private String chargerId;
 
-	// 추후에 enum으로 바꿀 수 있으면 바꾸기
-	private String type;
+    // 추후에 enum으로 바꿀 수 있으면 바꾸기
+    private String type;
 
-	// issue 추후에 가격은 직접 조사 후 채우기
-	// private String price;
+    // issue 추후에 가격은 직접 조사 후 채우기
+    // private String price;
 
-	private LocalDateTime latestEndTime;
+    private LocalDateTime latestEndTime;
 
-	private LocalDateTime latestStartTime;
+    private LocalDateTime latestStartTime;
 
-	private LocalDateTime startTimeWhenCharging;
+    private LocalDateTime startTimeWhenCharging;
 
-	private String state;
+    private String state;
 
-	private BigDecimal capacity;
+    private BigDecimal capacity;
 
-	// 추후 enum으로 바꿀 수 있다면 바꾸기
-	private String method;
+    // 추후 enum으로 바꿀 수 있다면 바꾸기
+    private String method;
 }

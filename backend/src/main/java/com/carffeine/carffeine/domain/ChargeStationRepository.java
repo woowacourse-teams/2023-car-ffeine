@@ -1,12 +1,12 @@
 package com.carffeine.carffeine.domain;
 
-import java.util.List;
-
 import org.springframework.data.repository.Repository;
 
-public interface ChargeStationRepository extends Repository<ChargeStation,Long> {
+import java.util.List;
 
-	List<ChargeStation> findAll();
+public interface ChargeStationRepository extends Repository<ChargeStation, Long> {
 
-	ChargeStation save(ChargeStation chargeStation);
+    List<ChargeStation> findAll();
+
+    ChargeStation save(ChargeStation chargeStation);
 }
