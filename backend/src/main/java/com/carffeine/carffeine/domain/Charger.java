@@ -1,16 +1,11 @@
 package com.carffeine.carffeine.domain;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -19,12 +14,15 @@ import java.time.LocalDateTime;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@IdClass(ChargerId.class)
 public class Charger {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "station_id")
+    private String stationId;
 
+    @Id
+    @Column(name = "charger_id")
     private String chargerId;
 
     // 추후에 enum으로 바꿀 수 있으면 바꾸기
@@ -34,8 +32,6 @@ public class Charger {
     // private String price;
 
     private LocalDateTime latestEndTime;
-
-    private LocalDateTime latestStartTime;
 
     private LocalDateTime startTimeWhenCharging;
 
