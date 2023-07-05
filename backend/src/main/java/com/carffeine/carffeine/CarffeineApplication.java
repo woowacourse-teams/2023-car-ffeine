@@ -9,5 +9,4 @@ public class CarffeineApplication {
     public static void main(String[] args) {
         SpringApplication.run(CarffeineApplication.class, args);
     }
-
 }

@@ -1,6 +1,5 @@
 package com.carffeine.carffeine.domain;
 
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
