@@ -8,7 +8,8 @@
     "start": "webpack-dev-server --open --mode development --hot --port 3000",
     "build": "webpack --mode production",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "cypress": "cypress open"
   },
   "author": "",
   "license": "ISC",
@@ -38,6 +39,7 @@
     "@typescript-eslint/eslint-plugin": "^5.60.1",
     "@typescript-eslint/parser": "^5.60.1",
     "copy-webpack-plugin": "^11.0.0",
+    "cypress": "^12.16.0",
     "dotenv-webpack": "^8.0.1",
     "eslint": "^8.43.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",
