@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 
 import App from './App';
 import { worker } from './mocks/browser';
+import { GlobalStyle } from './style/GlobalStyle';
 
 const main = async () => {
   if (process.env.NODE_ENV === 'development') {
@@ -18,6 +19,7 @@ const main = async () => {
 
   root.render(
     <StrictMode>
+      <GlobalStyle />
       <App />
     </StrictMode>
   );
