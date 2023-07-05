@@ -2,6 +2,7 @@ package com.carffeine.carffeine.dto;
 
 import com.carffeine.carffeine.domain.ChargeStation;
 import com.carffeine.carffeine.domain.Charger;
+import com.carffeine.carffeine.domain.ChargerStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -59,16 +60,29 @@ public record ChargeStationInfoRequest(
                 .contact(busiCall)
                 .stationState(note)
                 .privateReason(limitDetail)
-                .chargers(List.of(Charger.builder()
+                .chargers(toChargers())
+                .build();
+    }
+
+    private List<Charger> toChargers() {
+        return List.of(
+                Charger.builder()
                         .stationId(statId)
                         .chargerId(chgerId)
                         .type(chgerType)
-                        .latestEndTime(parseDateTimeFromString(lastTedt))
-                        .startTimeWhenCharging(parseDateTimeFromString(nowTsdt))
-                        .state(stat)
+                        .chargerStatus(toChargerStatus())
                         .capacity(parseBigDecimalFromString(output))
                         .method(method)
-                        .build()))
+                        .build()
+        );
+    }
+
+    private ChargerStatus toChargerStatus() {
+        return ChargerStatus.builder()
+                .stationId(statId)
+                .chargerId(chgerId)
+                .latestUpdateTime(parseDateTimeFromString(lastTedt))
+                .state(stat)
                 .build();
     }
 
