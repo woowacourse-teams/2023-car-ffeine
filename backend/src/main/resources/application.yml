@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: ENC(6/ZOojQlvtQdd5CBHi/Yu9wLLwHm4ITUTWTt4xkN/4gEVW/siBnE3K9/qlDJvma0tQNwJhDbFpUqVg4RjEQBDJB2x5bGbGXpm3vWpDaMowHIdQ0bhMu2JR0RLawtlFC4ngBubRZOfd/+xx85JS/Y/0BStoh9nJ/jB+Ch4lVAEHk=)
+    username: ENC(2qYUzBqHIyJrAeNbobMeVg==)
+    password: ENC(EXG5dToAHMHVGIt4VO2K9MfHB7ulok8i)
+  driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      use-new-id-generator-mappings: false
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+jasypt:
+  encryptor:
+    bean: jasyptEncryptor
+    service_key: ENC(xfiBen0RepbCMGTLJ5LzQD+u4Gl9l+vLasashUXbTXQYrD9BuprtsKILCWHziiEG7fDEOx7+7nIOL/nNl9pSA1E2GDSg53b3fh008jiQOzzVexBHEcPRc1Fxsnj3hnqosgSOnYIIy6Q=_

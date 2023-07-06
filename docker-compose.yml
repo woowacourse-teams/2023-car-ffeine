@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  mysqldb:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: ENC(8PiQYofLqIKF9ERsUUCqug==)
+      MYSQL_ROOT_PASSWORD: ENC(nnGUzxCY5lunZR6l+jvF4w==)
+    ports:
+      - 13306:3306
