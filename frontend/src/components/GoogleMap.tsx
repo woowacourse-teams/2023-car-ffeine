@@ -1,19 +1,14 @@
 import { useEffect, useRef } from 'react';
 
+import { INITIAL_CENTER, INITIAL_ZOOM_SIZE } from '../constants';
+
 const GoogleMap = () => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const initialCenter = {
-      lat: 37.5056102333107,
-      lng: 127.05081496722168,
-    };
-
-    const initialZoomSize = 14;
-
     const initialMap = new window.google.maps.Map(ref.current, {
-      center: initialCenter,
-      zoom: initialZoomSize,
+      center: INITIAL_CENTER,
+      zoom: INITIAL_ZOOM_SIZE,
       disableDefaultUI: true,
     });
   }, []);
