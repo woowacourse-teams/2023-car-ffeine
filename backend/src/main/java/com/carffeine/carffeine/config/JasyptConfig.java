@@ -14,6 +14,7 @@ import java.util.List;
 @Configuration
 public class JasyptConfig {
 
+    private static final int KEY_LINE = 0;
     private final String encryptKey;
 
     public JasyptConfig() {
@@ -21,7 +22,7 @@ public class JasyptConfig {
             String path = getClass().getClassLoader().getResource("encryptKey.txt").getPath();
             BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
             List<String> lines = bufferedReader.lines().toList();
-            encryptKey = lines.get(0);
+            encryptKey = lines.get(KEY_LINE);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
