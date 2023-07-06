@@ -3,7 +3,7 @@ export interface Position {
   lng: number;
 }
 
-export interface Marker extends Position {
+export interface Station extends Position {
   id: number;
   title: string;
 }

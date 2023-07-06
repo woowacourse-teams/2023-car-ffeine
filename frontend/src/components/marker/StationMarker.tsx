@@ -1,22 +1,24 @@
 import { useEffect } from 'react';
 
-import type { Position } from '../../types';
+import type { Station } from '../../types';
 
 interface Props {
   map: google.maps.Map;
-  position: Position;
+  station: Station;
+  onClick: () => void;
 }
 
-const UserMarker = ({ map, position }: Props) => {
-  const { lat, lng } = position;
+const StationMarker = ({ map, station, onClick }: Props) => {
+  const { lat, lng, title } = station;
 
   useEffect(() => {
     const newMarker = new google.maps.Marker({
       position: { lat, lng },
       map: map,
+      title: title,
     });
 
-    newMarker.addListener('click', () => console.log(`현재 위치: ${lat} ${lng}`));
+    newMarker.addListener('click', onClick);
 
     return () => {
       newMarker.setMap(null);
@@ -26,4 +28,4 @@ const UserMarker = ({ map, position }: Props) => {
   return <></>;
 };
 
-export default UserMarker;
+export default StationMarker;
