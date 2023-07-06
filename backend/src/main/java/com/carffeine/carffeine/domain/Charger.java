@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import java.math.BigDecimal;
 
@@ -50,4 +51,8 @@ public class Charger {
             @JoinColumn(name = "fk_charger_id")
     })
     private ChargerStatus chargerStatus;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "station_id", insertable = false, updatable = false)
+    private ChargeStation chargeStation;
 }
