@@ -15,7 +15,7 @@ public class ChargeStationFixture {
             .isPrivate(false)
             .stationName("선릉역 충전소")
             .latitude(BigDecimal.valueOf(38.3994933))
-            .longitude(BigDecimal.valueOf(38.3994933))
+            .longitude(BigDecimal.valueOf(128.3994933))
             .operatingTime("24시간 이용가능")
             .isParkingFree(true)
             .detailLocation("2층")
