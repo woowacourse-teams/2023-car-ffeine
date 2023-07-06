@@ -15,6 +15,7 @@ import java.util.List;
 public class JasyptConfig {
 
     private static final int KEY_LINE = 0;
+
     private final String encryptKey;
 
     public JasyptConfig() {
