@@ -1,9 +1,19 @@
 package com.carffeine.carffeine.domain;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -40,9 +50,9 @@ public class ChargeStation {
 
     private String privateReason;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "station_id")
-    private List<Charger> chargers;
+    @Builder.Default
+    @OneToMany(mappedBy = "chargeStation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Charger> chargers = new ArrayList<>();
 
     public void setChargers(List<Charger> chargers) {
         this.chargers = chargers;
