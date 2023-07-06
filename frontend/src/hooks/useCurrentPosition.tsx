@@ -1,11 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { INITIAL_CENTER } from '../constants';
-
-interface Position {
-  lat: number;
-  lng: number;
-}
+import type { Position } from '../types';
 
 export const useCurrentPosition = () => {
   const [position, setPosition] = useState<Position>();
