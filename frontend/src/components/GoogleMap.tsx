@@ -1,17 +1,21 @@
 import { useEffect, useRef } from 'react';
 
-import { INITIAL_CENTER, INITIAL_ZOOM_SIZE } from '../constants';
+import { INITIAL_ZOOM_SIZE } from '../constants';
+import { useCurrentPosition } from '../hooks/useCurrentPosition';
 
 const GoogleMap = () => {
   const ref = useRef<HTMLDivElement>(null);
+  const position = useCurrentPosition();
 
   useEffect(() => {
-    const initialMap = new window.google.maps.Map(ref.current, {
-      center: INITIAL_CENTER,
-      zoom: INITIAL_ZOOM_SIZE,
-      disableDefaultUI: true,
-    });
-  }, []);
+    if (position != undefined) {
+      new window.google.maps.Map(ref.current, {
+        center: position,
+        zoom: INITIAL_ZOOM_SIZE,
+        disableDefaultUI: true,
+      });
+    }
+  }, [position]);
 
   return <div ref={ref} id="map" style={{ minHeight: '100vh' }} />;
 };
