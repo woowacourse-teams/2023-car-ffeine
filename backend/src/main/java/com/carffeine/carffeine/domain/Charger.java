@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
@@ -43,10 +44,10 @@ public class Charger {
     // 추후 enum으로 바꿀 수 있다면 바꾸기
     private String method;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumns({
-            @JoinColumn(name = "station_id"),
-            @JoinColumn(name = "charger_id")
+            @JoinColumn(name = "fk_station_id"),
+            @JoinColumn(name = "fk_charger_id")
     })
     private ChargerStatus chargerStatus;
 }

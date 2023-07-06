@@ -50,7 +50,7 @@ public class ChargeStation {
 
     private String privateReason;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "station_id")
     private List<Charger> chargers;
 
