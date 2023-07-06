@@ -1,6 +1,6 @@
 import { Status, Wrapper } from '@googlemaps/react-wrapper';
 
-import GoogleMap from './components/GoogleMap';
+import CarFfeineMap from './components/map/CarFfeineMap';
 
 const render = (status: Status) => {
   switch (status) {
@@ -9,16 +9,12 @@ const render = (status: Status) => {
     case Status.FAILURE:
       return <>에러 발생</>;
     case Status.SUCCESS:
-      return <GoogleMap />;
+      return <CarFfeineMap />;
   }
 };
 
 const App = () => {
-  return (
-    <>
-      <Wrapper apiKey={`${process.env.GOOGLE_MAPS_API_KEY}`} render={render} />
-    </>
-  );
+  return <Wrapper apiKey={`${process.env.GOOGLE_MAPS_API_KEY}`} render={render} />;
 };
 
 export default App;
