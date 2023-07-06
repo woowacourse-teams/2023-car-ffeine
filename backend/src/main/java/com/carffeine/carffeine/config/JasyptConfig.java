@@ -14,14 +14,13 @@ import java.util.List;
 @Configuration
 public class JasyptConfig {
 
-    List<String> lines;
-    String encryptKey;
+    private final String encryptKey;
 
     public JasyptConfig() {
         try {
             String path = getClass().getClassLoader().getResource("encryptKey.txt").getPath();
             BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
-            lines = bufferedReader.lines().toList();
+            List<String> lines = bufferedReader.lines().toList();
             encryptKey = lines.get(0);
         } catch (IOException e) {
             throw new RuntimeException(e);
