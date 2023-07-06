@@ -23,4 +23,4 @@ spring:
 jasypt:
   encryptor:
     bean: jasyptEncryptor
-    service_key: ENC(xfiBen0RepbCMGTLJ5LzQD+u4Gl9l+vLasashUXbTXQYrD9BuprtsKILCWHziiEG7fDEOx7+7nIOL/nNl9pSA1E2GDSg53b3fh008jiQOzzVexBHEcPRc1Fxsnj3hnqosgSOnYIIy6Q=_
+    service_key: ENC(P3v7QzEVc5mhR7pRefrPGH5UCTNQo7qr36NqJ42UDaWtX3TzXSiPCkWdWLCVMuGo3yQnnZygYeHZrHKJsnJBe1o5SmVUR+Eb06FuuU9DR4MNwMi2MA+U9MhnFwUyV1WZygWc+TxCwFo=)
