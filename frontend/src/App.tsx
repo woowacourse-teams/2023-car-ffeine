@@ -1,20 +1,22 @@
+import { Status, Wrapper } from '@googlemaps/react-wrapper';
+
+import GoogleMap from './components/GoogleMap';
+
+const render = (status: Status) => {
+  switch (status) {
+    case Status.LOADING:
+      return <>로딩중...</>;
+    case Status.FAILURE:
+      return <>에러 발생</>;
+    case Status.SUCCESS:
+      return <GoogleMap />;
+  }
+};
+
 const App = () => {
-  const fetchLogin = async () => {
-    const response = await fetch('/login', {
-      method: 'POST',
-    });
-    console.log(JSON.stringify(response));
-  };
-
-  const fetchUser = async () => {
-    const response = await fetch('/user');
-    console.log(JSON.stringify(response));
-  };
-
   return (
     <>
-      <button onClick={() => fetchLogin()}>login</button>
-      <button onClick={() => fetchUser()}>user</button>
+      <Wrapper apiKey={`${process.env.GOOGLE_MAPS_API_KEY}`} render={render} />
     </>
   );
 };
