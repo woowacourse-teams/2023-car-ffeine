@@ -57,4 +57,14 @@ public class ChargeStation {
     public void setChargers(List<Charger> chargers) {
         this.chargers = chargers;
     }
+
+    public int getTotalCount() {
+        return chargers.size();
+    }
+
+    public int getAvailableCount() {
+        return (int) chargers.stream()
+                .filter(Charger::isAvailable)
+                .count();
+    }
 }

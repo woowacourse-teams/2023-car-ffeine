@@ -30,5 +30,9 @@ public class ChargerStatus {
 
     private LocalDateTime latestUpdateTime;
 
-    private String state;
+    private ChargerState chargerState;
+
+    public boolean isAvailable() {
+        return chargerState.isStandBy();
+    }
 }

@@ -1,0 +1,16 @@
+= Home API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+
+== Test
+
+=== Request
+
+include::{snippets}/charger-station-controller-test/findChargeStation/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/charger-station-controller-test/findChargeStation/http-response.adoc[]

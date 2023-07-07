@@ -2,6 +2,7 @@ package com.carffeine.carffeine.dto;
 
 import com.carffeine.carffeine.domain.ChargeStation;
 import com.carffeine.carffeine.domain.Charger;
+import com.carffeine.carffeine.domain.ChargerState;
 import com.carffeine.carffeine.domain.ChargerStatus;
 
 import java.math.BigDecimal;
@@ -82,8 +83,16 @@ public record ChargeStationInfoRequest(
                 .stationId(statId)
                 .chargerId(chgerId)
                 .latestUpdateTime(parseDateTimeFromString(lastTedt))
-                .state(stat)
+                .chargerState(parseChargeState(stat))
                 .build();
+    }
+
+    private ChargerState parseChargeState(String stat) {
+        if (stat == null || stat.isBlank()) {
+            return null;
+        }
+        int input = Integer.parseInt(stat);
+        return ChargerState.of(input);
     }
 
     private boolean isYes(String input) {

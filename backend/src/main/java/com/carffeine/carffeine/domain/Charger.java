@@ -55,4 +55,8 @@ public class Charger {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "station_id", insertable = false, updatable = false)
     private ChargeStation chargeStation;
+
+    public boolean isAvailable() {
+        return chargerStatus.isAvailable();
+    }
 }
