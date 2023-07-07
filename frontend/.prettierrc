@@ -10,7 +10,7 @@
     "^@hooks/(.*)$",
     "^@common/(.*)$",
     "^@components/(.*)$",
-    "^@styles/(.*)$",
+    "^@style/(.*)$",
     "^[./]"
   ],
   "importOrderSeparation": true
