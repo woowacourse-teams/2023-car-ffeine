@@ -7,7 +7,7 @@ import UserMarker from '../marker/UserMarker';
 const CarFfeineMap = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [googleMap, setGoogleMap] = useState<google.maps.Map>();
-  
+
   const position = useCurrentPosition();
 
   const isClientReady = position !== undefined && googleMap !== undefined;
