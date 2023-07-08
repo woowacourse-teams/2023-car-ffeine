@@ -4,7 +4,7 @@ services:
     image: mysql
     restart: always
     environment:
-      MYSQL_DATABASE: ENC(8PiQYofLqIKF9ERsUUCqug==)
-      MYSQL_ROOT_PASSWORD: ENC(nnGUzxCY5lunZR6l+jvF4w==)
+      MYSQL_DATABASE: ENC(Fw2m3tTRDhkVAlUe7CBjFQ==)
+      MYSQL_ROOT_PASSWORD: ENC(9aCVr6s/zRQo/ib0a+E7eA==)
     ports:
       - 13306:3306

@@ -27,7 +27,7 @@ public class ScrapperService {
     private static final String DATA_TYPE = "JSON";
     private final RestTemplate restTemplate;
     private final ChargeStationRepository chargeStationRepository;
-    @Value("${jasypt.encryptor.service_key}")
+    @Value("${api.service_key}")
     private String SERVICE_KEY;
 
     @Transactional

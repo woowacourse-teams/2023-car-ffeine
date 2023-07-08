@@ -3,31 +3,14 @@ package com.carffeine.carffeine.config;
 import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
 import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.List;
-
 @Configuration
 public class JasyptConfig {
-
-    private static final int KEY_LINE = 0;
-
-    private final String encryptKey;
-
-    public JasyptConfig() {
-        try {
-            String path = getClass().getClassLoader().getResource("encryptKey.txt").getPath();
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
-            List<String> lines = bufferedReader.lines().toList();
-            encryptKey = lines.get(KEY_LINE);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    @Value("${jasypt.encryptor.password}")
+    private String ENCRYPT_KEY;
 
     @Bean(name = "jasyptEncryptor")
     public StringEncryptor stringEncryptor() {
@@ -35,7 +18,7 @@ public class JasyptConfig {
 
         SimpleStringPBEConfig config = new SimpleStringPBEConfig();
 
-        config.setPassword(encryptKey);
+        config.setPassword(ENCRYPT_KEY);
         config.setAlgorithm("PBEWithMD5AndDES");
         config.setKeyObtentionIterations(1000);
         config.setPoolSize(1);
