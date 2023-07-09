@@ -23,7 +23,7 @@ public class ChargerStationController {
     @GetMapping
     public ResponseEntity<ChargeStationsSimpleResponse> getStations(@RequestBody CoordinateRequest request) {
         List<ChargeStation> chargeStations = chargerStationService.findByCoordinate(request);
-        ChargeStationsSimpleResponse chargerStationsSimpleResponse = ChargeStationsSimpleResponse.of(chargeStations);
+        ChargeStationsSimpleResponse chargerStationsSimpleResponse = ChargeStationsSimpleResponse.from(chargeStations);
         return ResponseEntity.ok(chargerStationsSimpleResponse);
     }
 }
