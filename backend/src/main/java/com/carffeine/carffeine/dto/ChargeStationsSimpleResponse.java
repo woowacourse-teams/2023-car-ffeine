@@ -18,7 +18,9 @@ public record ChargeStationsSimpleResponse(List<ChargeStationSimpleResponse> sta
                         it.getDetailLocation(),
                         it.getLatitude().getValue(),
                         it.getLongitude().getValue(),
-                        it.getIsPrivate()
+                        it.getIsPrivate(),
+                        it.getTotalCount(),
+                        it.getAvailableCount()
                 ))
                 .toList();
         return new ChargeStationsSimpleResponse(simpleResponses);

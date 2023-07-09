@@ -8,22 +8,20 @@ import java.util.List;
 
 public record ChargerSimpleResponse(
         String type,
-        int totalCount,
-        int availableCount,
+        BigDecimal price,
         BigDecimal capacity
 ) {
 
     public static List<ChargerSimpleResponse> from(ChargeStation station) {
         return station.getChargers().stream()
-                .map(it -> ChargerSimpleResponse.of(station, it))
+                .map(ChargerSimpleResponse::from)
                 .toList();
     }
 
-    private static ChargerSimpleResponse of(ChargeStation station, Charger charger) {
+    private static ChargerSimpleResponse from(Charger charger) {
         return new ChargerSimpleResponse(
                 charger.getType(),
-                station.getTotalCount(),
-                station.getAvailableCount(),
+                charger.getPrice(),
                 charger.getCapacity()
         );
     }

@@ -13,6 +13,8 @@ public record ChargeStationSimpleResponse(
         String detailLocation,
         BigDecimal latitude,
         BigDecimal longitude,
-        Boolean isPrivate
+        Boolean isPrivate,
+        int totalCount,
+        int availableCount
 ) {
 }

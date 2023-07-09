@@ -3,9 +3,9 @@ package com.carffeine.carffeine.dto;
 import java.math.BigDecimal;
 
 public record CoordinateRequest(
-        BigDecimal centerX,
-        BigDecimal centerY,
-        BigDecimal deltaX,
-        BigDecimal deltaY
+        BigDecimal centerLatitude,
+        BigDecimal centerLongitude,
+        BigDecimal deltaLatitude,
+        BigDecimal deltaLongitude
 ) {
 }
