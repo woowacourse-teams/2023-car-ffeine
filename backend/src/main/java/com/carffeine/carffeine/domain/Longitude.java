@@ -19,7 +19,7 @@ public class Longitude {
     @Column(name = "longitude", scale = 7, precision = 13)
     private BigDecimal value;
 
-    protected Longitude(BigDecimal value) {
+    private Longitude(BigDecimal value) {
         validateKoreaLongitude(value);
         this.value = value;
     }
