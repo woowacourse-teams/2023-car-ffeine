@@ -2,6 +2,8 @@ package com.carffeine.carffeine.service;
 
 import com.carffeine.carffeine.domain.ChargeStation;
 import com.carffeine.carffeine.domain.ChargeStationRepository;
+import com.carffeine.carffeine.domain.Latitude;
+import com.carffeine.carffeine.domain.Longitude;
 import com.carffeine.carffeine.dto.CoordinateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,15 +20,16 @@ public class ChargerStationService {
 
     @Transactional(readOnly = true)
     public List<ChargeStation> findByCoordinate(CoordinateRequest request) {
-        BigDecimal centerX = request.centerX();
-        BigDecimal centerY = request.centerY();
+        Latitude originLatitude = Latitude.from(request.centerX());
         BigDecimal deltaX = request.deltaX();
-        BigDecimal deltaY = request.deltaY();
+        Latitude minLatitude = originLatitude.minLatitude(deltaX);
+        Latitude maxLatitude = originLatitude.maxLatitude(deltaX);
 
-        BigDecimal minLatitude = centerX.subtract(deltaX);
-        BigDecimal maxLatitude = centerX.add(deltaX);
-        BigDecimal minLongitude = centerY.subtract(deltaY);
-        BigDecimal maxLongitude = centerY.add(deltaY);
+        Longitude originLongitude = Longitude.from(request.centerY());
+        BigDecimal deltaY = request.deltaY();
+        Longitude minLongitude = originLongitude.minLongitude(deltaY);
+        Longitude maxLongitude = originLongitude.maxLongitude(deltaY);
+
         return chargeStationRepository.findAllByLatitudeBetweenAndLongitudeBetween(minLatitude, maxLatitude, minLongitude, maxLongitude);
     }
 }

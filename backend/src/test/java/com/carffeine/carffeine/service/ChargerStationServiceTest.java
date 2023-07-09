@@ -33,8 +33,8 @@ class ChargerStationServiceTest {
         // given
         ChargeStation chargeStation = ChargeStationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
         chargeStationRepository.save(chargeStation);
-        BigDecimal centerX = BigDecimal.valueOf(38.3994933);
-        BigDecimal centerY = BigDecimal.valueOf(128.3994933);
+        BigDecimal centerX = BigDecimal.valueOf(37.3994933);
+        BigDecimal centerY = BigDecimal.valueOf(127.3994933);
         BigDecimal deltaX = BigDecimal.valueOf(1);
         BigDecimal deltaY = BigDecimal.valueOf(1);
         CoordinateRequest coordinateRequest = new CoordinateRequest(centerX, centerY, deltaX, deltaY);
@@ -51,8 +51,8 @@ class ChargerStationServiceTest {
         // given
         ChargeStation chargeStation = ChargeStationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
         chargeStationRepository.save(chargeStation);
-        BigDecimal centerX = BigDecimal.valueOf(40.3994933);
-        BigDecimal centerY = BigDecimal.valueOf(129.3994933);
+        BigDecimal centerX = BigDecimal.valueOf(36.3994933);
+        BigDecimal centerY = BigDecimal.valueOf(127.3994933);
         BigDecimal deltaX = BigDecimal.valueOf(1);
         BigDecimal deltaY = BigDecimal.valueOf(1);
         CoordinateRequest coordinateRequest = new CoordinateRequest(centerX, centerY, deltaX, deltaY);
