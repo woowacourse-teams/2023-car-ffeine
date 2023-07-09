@@ -3,6 +3,7 @@ package com.carffeine.carffeine.domain;
 import java.util.Arrays;
 
 public enum ChargerState {
+
     COMMUNICATION_ERROR(1),
     STANDBY(2),
     CHARGING_IN_PROGRESS(3),
