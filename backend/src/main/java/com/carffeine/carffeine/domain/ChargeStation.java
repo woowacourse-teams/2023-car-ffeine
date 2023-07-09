@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -35,10 +34,8 @@ public class ChargeStation {
 
     private String detailLocation;
 
-    @Embedded
     private Latitude latitude;
 
-    @Embedded
     private Longitude longitude;
 
     private Boolean isPrivate;
