@@ -29,7 +29,7 @@ class LongitudeTest {
         Longitude longitude = Longitude.from("126.4");
 
         //when
-        Longitude actual = longitude.minLongitude(BigDecimal.valueOf(1));
+        Longitude actual = longitude.minLongitudeByDelta(BigDecimal.valueOf(1));
 
         //then
         assertThat(actual.getValue()).isEqualTo(BigDecimal.valueOf(125.4));
@@ -41,7 +41,7 @@ class LongitudeTest {
         Longitude longitude = Longitude.from("126.4");
 
         //when
-        Longitude actual = longitude.maxLongitude(BigDecimal.valueOf(1));
+        Longitude actual = longitude.maxLongitudeByDelta(BigDecimal.valueOf(1));
 
         //then
         assertThat(actual.getValue()).isEqualTo(BigDecimal.valueOf(127.4));

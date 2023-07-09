@@ -22,13 +22,13 @@ public class ChargerStationService {
     public List<ChargeStation> findByCoordinate(CoordinateRequest request) {
         Latitude originLatitude = Latitude.from(request.latitude());
         BigDecimal deltaX = request.latitudeDelta();
-        Latitude minLatitude = originLatitude.minLatitude(deltaX);
-        Latitude maxLatitude = originLatitude.maxLatitude(deltaX);
+        Latitude minLatitude = originLatitude.minLatitudeByDelta(deltaX);
+        Latitude maxLatitude = originLatitude.maxLatitudeByDelta(deltaX);
 
         Longitude originLongitude = Longitude.from(request.longitude());
         BigDecimal deltaY = request.latitudeDelta();
-        Longitude minLongitude = originLongitude.minLongitude(deltaY);
-        Longitude maxLongitude = originLongitude.maxLongitude(deltaY);
+        Longitude minLongitude = originLongitude.minLongitudeByDelta(deltaY);
+        Longitude maxLongitude = originLongitude.maxLongitudeByDelta(deltaY);
 
         return chargeStationRepository.findAllByLatitudeBetweenAndLongitudeBetween(minLatitude, maxLatitude, minLongitude, maxLongitude);
     }
