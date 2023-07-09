@@ -47,11 +47,11 @@ class ChargerStationControllerTest {
     @Test
     void 충전소를_위도_경도로_조회한다() throws Exception {
         // given
-        BigDecimal centerLatitude = BigDecimal.valueOf(35.3994933);
-        BigDecimal centerLongitude = BigDecimal.valueOf(127.3994933);
-        BigDecimal deltaLatitude = BigDecimal.valueOf(1);
-        BigDecimal deltaLongitude = BigDecimal.valueOf(1);
-        CoordinateRequest coordinateRequest = new CoordinateRequest(centerLatitude, centerLongitude, deltaLatitude, deltaLongitude);
+        BigDecimal latitude = BigDecimal.valueOf(35.3994933);
+        BigDecimal longitude = BigDecimal.valueOf(127.3994933);
+        BigDecimal latitudeDelta = BigDecimal.valueOf(1);
+        BigDecimal longitudeDelta = BigDecimal.valueOf(1);
+        CoordinateRequest coordinateRequest = new CoordinateRequest(latitude, longitude, latitudeDelta, longitudeDelta);
         String request = objectMapper.writeValueAsString(coordinateRequest);
 
         // when
@@ -67,10 +67,10 @@ class ChargerStationControllerTest {
                 .andExpect(jsonPath("$.stations", hasSize(1)))
                 .andDo(customDocument("findChargeStation",
                         requestFields(
-                                fieldWithPath("centerLatitude").type(JsonFieldType.NUMBER).description("기준 위도"),
-                                fieldWithPath("centerLongitude").type(JsonFieldType.NUMBER).description("기준 경도"),
-                                fieldWithPath("deltaLatitude").type(JsonFieldType.NUMBER).description("변화 위도"),
-                                fieldWithPath("deltaLongitude").type(JsonFieldType.NUMBER).description("변화 경도")
+                                fieldWithPath("latitude").type(JsonFieldType.NUMBER).description("기준 위도"),
+                                fieldWithPath("longitude").type(JsonFieldType.NUMBER).description("기준 경도"),
+                                fieldWithPath("latitudeDelta").type(JsonFieldType.NUMBER).description("변화 위도"),
+                                fieldWithPath("longitudeDelta").type(JsonFieldType.NUMBER).description("변화 경도")
                         ),
                         responseFields(
                                 fieldWithPath("stations").type(JsonFieldType.ARRAY).description("충전소들"),
