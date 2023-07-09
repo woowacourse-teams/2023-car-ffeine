@@ -94,7 +94,7 @@ public record ChargeStationInfoRequest(
             return null;
         }
         int input = Integer.parseInt(stat);
-        return ChargerState.of(input);
+        return ChargerState.from(input);
     }
 
     private boolean isYes(String input) {

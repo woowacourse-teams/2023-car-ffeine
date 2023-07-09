@@ -38,11 +38,11 @@ public class Longitude {
         }
     }
 
-    public Longitude minLongitudeByDelta(BigDecimal delta) {
+    public Longitude calculateMinLongitudeByDelta(BigDecimal delta) {
         return new Longitude(value.subtract(delta));
     }
 
-    public Longitude maxLongitudeByDelta(BigDecimal delta) {
+    public Longitude calculateMaxLongitudeByDelta(BigDecimal delta) {
         return new Longitude(value.add(delta));
     }
 }

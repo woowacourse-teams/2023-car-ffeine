@@ -29,7 +29,7 @@ class LatitudeTest {
         Latitude latitude = Latitude.from("34.4");
 
         //when
-        Latitude actual = latitude.minLatitudeByDelta(BigDecimal.valueOf(1));
+        Latitude actual = latitude.calculateMinLatitudeByDelta(BigDecimal.valueOf(1));
 
         //then
         assertThat(actual.getValue()).isEqualTo(BigDecimal.valueOf(33.4));
@@ -41,7 +41,7 @@ class LatitudeTest {
         Latitude latitude = Latitude.from("34.4");
 
         //when
-        Latitude actual = latitude.maxLatitudeByDelta(BigDecimal.valueOf(1));
+        Latitude actual = latitude.calculateMaxLatitudeByDelta(BigDecimal.valueOf(1));
 
         //then
         assertThat(actual.getValue()).isEqualTo(BigDecimal.valueOf(35.4));

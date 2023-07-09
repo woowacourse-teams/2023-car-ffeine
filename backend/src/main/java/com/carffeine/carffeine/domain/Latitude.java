@@ -38,11 +38,11 @@ public class Latitude {
         }
     }
 
-    public Latitude minLatitudeByDelta(BigDecimal delta) {
+    public Latitude calculateMinLatitudeByDelta(BigDecimal delta) {
         return new Latitude(value.subtract(delta));
     }
 
-    public Latitude maxLatitudeByDelta(BigDecimal delta) {
+    public Latitude calculateMaxLatitudeByDelta(BigDecimal delta) {
         return new Latitude(value.add(delta));
     }
 }

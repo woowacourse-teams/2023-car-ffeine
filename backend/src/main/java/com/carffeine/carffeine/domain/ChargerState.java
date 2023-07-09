@@ -17,7 +17,7 @@ public enum ChargerState {
         this.value = value;
     }
 
-    public static ChargerState of(int input) {
+    public static ChargerState from(int input) {
         return Arrays.stream(ChargerState.values())
                 .filter(it -> it.value == input)
                 .findAny()
