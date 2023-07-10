@@ -7,12 +7,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,11 +34,9 @@ public class ChargeStation {
 
     private String detailLocation;
 
-    @Column(scale = 7, precision = 13)
-    private BigDecimal latitude;
+    private Latitude latitude;
 
-    @Column(scale = 7, precision = 13)
-    private BigDecimal longitude;
+    private Longitude longitude;
 
     private Boolean isPrivate;
 

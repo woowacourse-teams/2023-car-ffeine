@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.dto;
+package com.carffeine.carffeine.service.dto;
 
 import com.carffeine.carffeine.domain.ChargeStation;
 

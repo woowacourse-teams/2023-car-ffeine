@@ -1,8 +1,9 @@
 package com.carffeine.carffeine.fixture;
 
 import com.carffeine.carffeine.domain.ChargeStation;
+import com.carffeine.carffeine.domain.Latitude;
+import com.carffeine.carffeine.domain.Longitude;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @SuppressWarnings("NonAsciiCharacters")
@@ -14,8 +15,8 @@ public class ChargeStationFixture {
             .contact("02-0202-0202")
             .isPrivate(false)
             .stationName("선릉역 충전소")
-            .latitude(BigDecimal.valueOf(38.3994933))
-            .longitude(BigDecimal.valueOf(128.3994933))
+            .latitude(Latitude.from("38.3994933"))
+            .longitude(Longitude.from("128.3994933"))
             .operatingTime("24시간 이용가능")
             .isParkingFree(true)
             .detailLocation("2층")

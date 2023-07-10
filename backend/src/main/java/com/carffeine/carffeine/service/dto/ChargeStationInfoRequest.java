@@ -1,9 +1,11 @@
-package com.carffeine.carffeine.dto;
+package com.carffeine.carffeine.service.dto;
 
 import com.carffeine.carffeine.domain.ChargeStation;
 import com.carffeine.carffeine.domain.Charger;
 import com.carffeine.carffeine.domain.ChargerState;
 import com.carffeine.carffeine.domain.ChargerStatus;
+import com.carffeine.carffeine.domain.Latitude;
+import com.carffeine.carffeine.domain.Longitude;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -55,8 +57,8 @@ public record ChargeStationInfoRequest(
                 .isParkingFree(isYes(parkingFree))
                 .operatingTime(useTime)
                 .detailLocation(location)
-                .latitude(new BigDecimal(lat))
-                .longitude(new BigDecimal(lng))
+                .latitude(Latitude.from(lat))
+                .longitude(Longitude.from(lng))
                 .isPrivate(isYes(limitYn))
                 .contact(busiCall)
                 .stationState(note)
@@ -92,7 +94,7 @@ public record ChargeStationInfoRequest(
             return null;
         }
         int input = Integer.parseInt(stat);
-        return ChargerState.of(input);
+        return ChargerState.from(input);
     }
 
     private boolean isYes(String input) {

@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.dto;
+package com.carffeine.carffeine.service.dto;
 
 public record ChargeStationRequest(
         int numOfRows,

@@ -3,7 +3,7 @@ package com.carffeine.carffeine.service;
 import com.carffeine.carffeine.domain.ChargeStation;
 import com.carffeine.carffeine.domain.ChargeStationRepository;
 import com.carffeine.carffeine.domain.Charger;
-import com.carffeine.carffeine.dto.ChargeStationRequest;
+import com.carffeine.carffeine.service.dto.ChargeStationRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

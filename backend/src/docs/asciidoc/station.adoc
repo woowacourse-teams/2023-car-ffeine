@@ -10,7 +10,9 @@
 === Request
 
 include::{snippets}/charger-station-controller-test/findChargeStation/http-request.adoc[]
+include::{snippets}/charger-station-controller-test/findChargeStation/request-fields.adoc[]
 
 === Response
 
 include::{snippets}/charger-station-controller-test/findChargeStation/http-response.adoc[]
+include::{snippets}/charger-station-controller-test/findChargeStation/response-fields.adoc[]

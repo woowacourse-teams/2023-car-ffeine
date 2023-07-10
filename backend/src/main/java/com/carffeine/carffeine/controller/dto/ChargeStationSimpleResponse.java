@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.dto;
+package com.carffeine.carffeine.controller.dto;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -13,6 +13,8 @@ public record ChargeStationSimpleResponse(
         String detailLocation,
         BigDecimal latitude,
         BigDecimal longitude,
-        Boolean isPrivate
+        Boolean isPrivate,
+        int totalCount,
+        int availableCount
 ) {
 }
