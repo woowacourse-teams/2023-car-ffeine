@@ -1,5 +1,6 @@
-package com.carffeine.carffeine.domain;
+package com.carffeine.carffeine.domain.chargerStation.chargeStation;
 
+import com.carffeine.carffeine.fixture.chargerStation.ChargeStationFixture;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
@@ -72,5 +73,18 @@ class ChargeStationRepositoryTest {
 
         //then
         assertThat(chargeStations).hasSize(0);
+    }
+
+    @Test
+    void 충전소_id_값으로_충전소를_조회한다() {
+        // given
+        ChargeStation chargeStation = ChargeStationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
+        chargeStationRepository.save(chargeStation);
+
+        //when
+        ChargeStation chargeStationById = chargeStationRepository.findChargeStationByStationId(chargeStation.getStationId()).get();
+
+        //then
+        assertThat(chargeStationById).usingRecursiveComparison().isEqualTo(chargeStation);
     }
 }
