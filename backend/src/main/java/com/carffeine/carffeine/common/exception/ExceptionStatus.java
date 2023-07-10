@@ -19,7 +19,8 @@ public enum ExceptionStatus {
     }
 
     public static ExceptionStatus from(Status input) {
-        return Arrays.stream(ExceptionStatus.values()).filter(exceptionStatus -> exceptionStatus.status == input)
+        return Arrays.stream(ExceptionStatus.values())
+                .filter(it -> it.status == input)
                 .findAny()
                 .orElse(INTERNAL_SERVER_ERROR);
     }
