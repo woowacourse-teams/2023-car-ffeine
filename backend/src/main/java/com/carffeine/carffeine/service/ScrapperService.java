@@ -5,6 +5,7 @@ import com.carffeine.carffeine.domain.ChargeStationRepository;
 import com.carffeine.carffeine.domain.Charger;
 import com.carffeine.carffeine.dto.ChargeStationRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -22,12 +23,12 @@ import java.util.Objects;
 public class ScrapperService {
 
     private static final String REQUEST_URL = "/getChargerInfo";
-    private static final String SERVICE_KEY = "A";
     private static final int ROW_SIZE = 100;
     private static final String DATA_TYPE = "JSON";
-
     private final RestTemplate restTemplate;
     private final ChargeStationRepository chargeStationRepository;
+    @Value("${api.service_key}")
+    private String SERVICE_KEY;
 
     @Transactional
     public void scrap() {
