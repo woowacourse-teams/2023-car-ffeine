@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.dto;
+package com.carffeine.carffeine.controller.dto;
 
 import java.math.BigDecimal;
 import java.util.List;

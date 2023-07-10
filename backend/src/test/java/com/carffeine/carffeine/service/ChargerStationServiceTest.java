@@ -2,9 +2,9 @@ package com.carffeine.carffeine.service;
 
 import com.carffeine.carffeine.domain.ChargeStation;
 import com.carffeine.carffeine.domain.ChargeStationRepository;
-import com.carffeine.carffeine.dto.CoordinateRequest;
 import com.carffeine.carffeine.fake.FakeChargeStationRepository;
 import com.carffeine.carffeine.fixture.ChargeStationFixture;
+import com.carffeine.carffeine.service.dto.CoordinateRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
