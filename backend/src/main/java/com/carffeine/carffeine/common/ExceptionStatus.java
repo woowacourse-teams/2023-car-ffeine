@@ -7,7 +7,8 @@ import java.util.Arrays;
 public enum ExceptionStatus {
 
     INVALID(Status.INVALID, HttpStatus.BAD_REQUEST),
-    INTERNAL_SERVER_ERROR(Status.SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR);
+    INTERNAL_SERVER_ERROR(Status.SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR),
+    NOT_FOUND(Status.NOT_FOUND, HttpStatus.NOT_FOUND);
 
     private final Status status;
     private final HttpStatus httpStatus;

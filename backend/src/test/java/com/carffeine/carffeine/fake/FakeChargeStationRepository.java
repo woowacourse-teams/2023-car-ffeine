@@ -8,6 +8,7 @@ import com.carffeine.carffeine.domain.Longitude;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class FakeChargeStationRepository implements ChargeStationRepository {
 
@@ -25,5 +26,12 @@ public class FakeChargeStationRepository implements ChargeStationRepository {
                 .filter(it -> it.getLatitude().getValue().compareTo(minLatitude.getValue()) >= 0 && it.getLatitude().getValue().compareTo(maxLatitude.getValue()) <= 0)
                 .filter(it -> it.getLongitude().getValue().compareTo(minLongitude.getValue()) >= 0 && it.getLongitude().getValue().compareTo(maxLongitude.getValue()) <= 0)
                 .toList();
+    }
+
+    @Override
+    public Optional<ChargeStation> findChargeStationByStationId(final String stationId) {
+        return map.values().stream()
+                .filter(it -> it.getStationId().equals(stationId))
+                .findAny();
     }
 }

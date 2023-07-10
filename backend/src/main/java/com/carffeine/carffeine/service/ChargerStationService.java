@@ -1,6 +1,8 @@
 package com.carffeine.carffeine.service;
 
 import com.carffeine.carffeine.domain.ChargeStation;
+import com.carffeine.carffeine.domain.ChargeStationException;
+import com.carffeine.carffeine.domain.ChargeStationExceptionType;
 import com.carffeine.carffeine.domain.ChargeStationRepository;
 import com.carffeine.carffeine.domain.Latitude;
 import com.carffeine.carffeine.domain.Longitude;
@@ -31,5 +33,10 @@ public class ChargerStationService {
         Longitude maxLongitude = originLongitude.calculateMaxLongitudeByDelta(deltaLongitude);
 
         return chargeStationRepository.findAllByLatitudeBetweenAndLongitudeBetween(minLatitude, maxLatitude, minLongitude, maxLongitude);
+    }
+
+    public ChargeStation findStationById(final String stationId) {
+        return chargeStationRepository.findChargeStationByStationId(stationId)
+                .orElseThrow(() -> new ChargeStationException(ChargeStationExceptionType.CHARGE_STATION_NOT_FOUND));
     }
 }

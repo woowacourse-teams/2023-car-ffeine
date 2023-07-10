@@ -1,6 +1,7 @@
 package com.carffeine.carffeine.service;
 
 import com.carffeine.carffeine.domain.ChargeStation;
+import com.carffeine.carffeine.domain.ChargeStationException;
 import com.carffeine.carffeine.domain.ChargeStationRepository;
 import com.carffeine.carffeine.fake.FakeChargeStationRepository;
 import com.carffeine.carffeine.fixture.ChargeStationFixture;
@@ -14,6 +15,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
@@ -62,5 +64,30 @@ class ChargerStationServiceTest {
 
         // then
         assertThat(chargeStations).isEmpty();
+    }
+
+    @Test
+    void 충전소_id_값으로_충전소를_조회한다() {
+        // given
+        ChargeStation chargeStation = ChargeStationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
+        chargeStationRepository.save(chargeStation);
+
+        // when
+        ChargeStation chargeStationById = chargerStationService.findStationById(chargeStation.getStationId());
+
+        // then
+        assertThat(chargeStationById).usingRecursiveComparison().isEqualTo(chargeStation);
+    }
+
+    @Test
+    void 충전소_id가_존재하지_않다면_조회되지_않는다() {
+        // given
+        ChargeStation chargeStation = ChargeStationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
+        String invalidChargeStationId = "INVALID_ID_001";
+        chargeStationRepository.save(chargeStation);
+
+        // when & then
+        assertThatThrownBy(() -> chargerStationService.findStationById(invalidChargeStationId))
+                .isInstanceOf(ChargeStationException.class);
     }
 }
