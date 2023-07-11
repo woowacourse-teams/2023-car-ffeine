@@ -13,7 +13,7 @@ public class JasyptConfig {
     private String ENCRYPT_KEY;
 
     @Bean(name = "jasyptEncryptor")
-    public StringEncryptor stringEncryptor() {
+    public StringEncryptor encrypt() {
         PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
 
         SimpleStringPBEConfig config = new SimpleStringPBEConfig();
