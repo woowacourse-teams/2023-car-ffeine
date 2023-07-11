@@ -1,4 +1,3 @@
-import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import App from './App';
@@ -23,13 +22,11 @@ const main = async () => {
   const root = createRoot(domNode);
 
   root.render(
-    <StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <GlobalStyle />
-        <App />
-        <ReactQueryDevtools initialIsOpen={true} />
-      </QueryClientProvider>
-    </StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <GlobalStyle />
+      <App />
+      <ReactQueryDevtools initialIsOpen={true} />
+    </QueryClientProvider>
   );
 };
 
