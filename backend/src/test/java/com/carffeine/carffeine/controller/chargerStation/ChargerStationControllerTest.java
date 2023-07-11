@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.controller;
+package com.carffeine.carffeine.controller.chargerStation;
 
 import com.carffeine.carffeine.controller.chargerStation.ChargerStationController;
 import com.carffeine.carffeine.domain.chargerStation.chargeStation.ChargeStation;
@@ -84,6 +84,7 @@ class ChargerStationControllerTest {
                                 fieldWithPath("stations[].chargers").type(JsonFieldType.ARRAY).description("충전소의 충전기들"),
                                 fieldWithPath("stations[].chargers[].type").type(JsonFieldType.STRING).description("충전기 종류"),
                                 fieldWithPath("stations[].chargers[].capacity").type(JsonFieldType.NUMBER).description("충전기 용량"),
+                                fieldWithPath("stations[].chargers[].address").type(JsonFieldType.STRING).description("충전기 위치"),
                                 fieldWithPath("stations[].chargers[].price").type(JsonFieldType.NUMBER).description("충전기 kWh당 가격"),
                                 fieldWithPath("stations[].isParkingFree").type(JsonFieldType.BOOLEAN).description("주차 무료"),
                                 fieldWithPath("stations[].operatingTime").type(JsonFieldType.STRING).description("이용 가능 시간"),
@@ -123,6 +124,7 @@ class ChargerStationControllerTest {
                                 fieldWithPath("chargers[].latestUpdateTime").type(JsonFieldType.STRING).description("마지막 충전기 사용유무 업데이트 시간"),
                                 fieldWithPath("chargers[].state").type(JsonFieldType.BOOLEAN).description("충전기 사용 유무"),
                                 fieldWithPath("chargers[].method").type(JsonFieldType.STRING).description("충전 여부 (단독 / 동시)"),
+                                fieldWithPath("chargers[].address").type(JsonFieldType.STRING).description("충전기 위치"),
                                 fieldWithPath("isParkingFree").type(JsonFieldType.BOOLEAN).description("주차 무료 여부"),
                                 fieldWithPath("operatingTime").type(JsonFieldType.STRING).description("이용 가능 시간"),
                                 fieldWithPath("detailLocation").type(JsonFieldType.STRING).description("상세 위치"),

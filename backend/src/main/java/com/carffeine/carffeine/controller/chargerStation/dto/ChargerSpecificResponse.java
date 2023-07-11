@@ -10,6 +10,7 @@ public record ChargerSpecificResponse(
         String type,
         BigDecimal price,
         BigDecimal capacity,
+        String address,
         LocalDateTime latestUpdateTime,
         Boolean state,
         String method
@@ -21,6 +22,7 @@ public record ChargerSpecificResponse(
                         it.getType(),
                         it.getPrice(),
                         it.getCapacity(),
+                        it.getAddress(),
                         it.getChargerStatus().getLatestUpdateTime(),
                         it.getChargerStatus().getChargerState().isStandBy(),
                         it.getMethod())

@@ -9,7 +9,8 @@ import java.util.List;
 public record ChargerSimpleResponse(
         String type,
         BigDecimal price,
-        BigDecimal capacity
+        BigDecimal capacity,
+        String address
 ) {
 
     public static List<ChargerSimpleResponse> from(ChargeStation station) {
@@ -22,7 +23,8 @@ public record ChargerSimpleResponse(
         return new ChargerSimpleResponse(
                 charger.getType(),
                 charger.getPrice(),
-                charger.getCapacity()
+                charger.getCapacity(),
+                charger.getAddress()
         );
     }
 }
