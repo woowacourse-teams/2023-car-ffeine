@@ -1,5 +1,6 @@
 package com.carffeine.carffeine.service;
 
+import com.carffeine.carffeine.service.chargerStation.ScrapperService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
