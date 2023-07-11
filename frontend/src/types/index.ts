@@ -16,3 +16,10 @@ export interface Station {
   totalCount: number;
   availableCount: number;
 }
+
+export interface DisplayPosition {
+  longitude: number;
+  latitude: number;
+  longitudeDelta: number;
+  latitudeDelta: number;
+}
