@@ -138,7 +138,7 @@ class ChargerStationControllerTest {
     @Test
     void 충전소_id가_존재하지_않다면_NOT_FOUND_예외가_발생한다() throws Exception {
         // when
-        when(chargerStationService.findStationById("errorId")).thenThrow(new ChargeStationException(ChargeStationExceptionType.CHARGE_STATION_NOT_FOUND));
+        when(chargerStationService.findStationById("errorId")).thenThrow(new ChargeStationException(ChargeStationExceptionType.NOT_FOUND_ID));
 
         // then
         mockMvc.perform(RestDocumentationRequestBuilders.get("/api/stations/" + "errorId"))

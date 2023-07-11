@@ -29,7 +29,7 @@ public class FakeChargeStationRepository implements ChargeStationRepository {
     }
 
     @Override
-    public Optional<ChargeStation> findChargeStationByStationId(final String stationId) {
+    public Optional<ChargeStation> findChargeStationByStationId(String stationId) {
         return map.values().stream()
                 .filter(it -> it.getStationId().equals(stationId))
                 .findAny();
