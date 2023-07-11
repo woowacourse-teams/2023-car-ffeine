@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true" scanPeriod="60 seconds">
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <property name="LOG_FILE" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/spring.log}"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+    <include resource="org/springframework/boot/logging/logback/file-appender.xml"/>
+    <root level="INFO">
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </root>
+    <appender name="SLACK_APPENDER" class="com.carffeine.carffeine.log.SlackAppender">
+    </appender>
+    <appender name="ASYNC_SLACK_APPENDER" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="SLACK_APPENDER"/>
+    </appender>
+    <springProfile name="local">
+        <logger name="com.carffeine.carffeine" level="DEBUG" additivity="true">
+            <appender-ref ref="ASYNC_SLACK_APPENDER"/>
+        </logger>
+    </springProfile>
+</configuration>
