@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public class SlackAppender extends AppenderBase<ILoggingEvent> {
-    private static final String WBHOOK_URL = "https://hooks.slack.com/services/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";
+    private static final String WBHOOK_URL = System.getenv("SLACK_WEBHOOK_URL");
 
     @Override
     protected void append(ILoggingEvent eventObject) {
