@@ -5,6 +5,11 @@ import App from './App';
 import { worker } from './mocks/browser';
 import { GlobalStyle } from './style/GlobalStyle';
 
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
+const queryClient = new QueryClient();
+
 const main = async () => {
   if (process.env.NODE_ENV === 'development') {
     await worker.start({
@@ -19,8 +24,11 @@ const main = async () => {
 
   root.render(
     <StrictMode>
-      <GlobalStyle />
-      <App />
+      <QueryClientProvider client={queryClient}>
+        <GlobalStyle />
+        <App />
+        <ReactQueryDevtools initialIsOpen={true} />
+      </QueryClientProvider>
     </StrictMode>
   );
 };
