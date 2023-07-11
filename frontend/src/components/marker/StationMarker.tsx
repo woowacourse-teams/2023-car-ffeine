@@ -9,13 +9,13 @@ interface Props {
 }
 
 const StationMarker = ({ map, station, onClick }: Props) => {
-  const { lat, lng, title } = station;
+  const { latitude, longitude, stationName } = station;
 
   useEffect(() => {
     const newMarker = new google.maps.Marker({
-      position: { lat, lng },
+      position: { lat: latitude, lng: longitude },
       map: map,
-      title: title,
+      title: stationName,
     });
 
     newMarker.addListener('click', onClick);

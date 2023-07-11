@@ -11,7 +11,7 @@ const StationMarkersContainer = ({ map, stations }: Props) => {
     <>
       {stations.map((station) => (
         <StationMarker
-          key={station.id}
+          key={station.stationId}
           map={map}
           station={station}
           onClick={() => console.log(station)}
