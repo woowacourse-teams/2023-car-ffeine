@@ -1,10 +1,8 @@
 import { useEffect } from 'react';
 
-import type { Position } from '../../types';
-
 interface Props {
   map: google.maps.Map;
-  position: Position;
+  position: google.maps.LatLngLiteral;
 }
 
 const UserMarker = ({ map, position }: Props) => {

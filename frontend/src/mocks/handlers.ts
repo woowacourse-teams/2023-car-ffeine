@@ -1,37 +1,41 @@
-// src/mocks/handlers.js
 import { rest } from 'msw';
 
+import type { Station } from '../types';
+import { stations } from './data';
+
 export const handlers = [
-  rest.post('/login', (req, res, ctx) => {
-    // Persist user's authentication in the session
-    sessionStorage.setItem('is-authenticated', 'true');
+  rest.post('/stations', async (req, res, ctx) => {
+    const body = await req.json();
+    const { latitude, longitude, latitudeDelta, longitudeDelta } = body;
 
-    return res(
-      // Respond with a 200 status code
-      ctx.status(200)
-    );
-  }),
+    const northEastBoundary = {
+      latitude: latitude + latitudeDelta,
+      longitude: longitude + longitudeDelta,
+    };
 
-  rest.get('/user', (req, res, ctx) => {
-    // Check if the user is authenticated in this session
-    const isAuthenticated = sessionStorage.getItem('is-authenticated');
+    const southWestBoundary = {
+      latitude: latitude - latitudeDelta,
+      longitude: longitude - longitudeDelta,
+    };
 
-    if (!isAuthenticated) {
-      // If not authenticated, respond with a 403 error
-      return res(
-        ctx.status(403),
-        ctx.json({
-          errorMessage: 'Not authorized',
-        })
+    const isStationLatitudeWithinBounds = (station: Station) => {
+      return (
+        station.latitude > southWestBoundary.latitude &&
+        station.latitude < northEastBoundary.latitude
       );
-    }
+    };
 
-    // If authenticated, return a mocked user details
-    return res(
-      ctx.status(200),
-      ctx.json({
-        username: 'admin',
-      })
+    const isStationLongitudeWithinBounds = (station: Station) => {
+      return (
+        station.longitude > southWestBoundary.longitude &&
+        station.longitude < northEastBoundary.longitude
+      );
+    };
+
+    const foundStations: Station[] = stations.filter(
+      (station) => isStationLatitudeWithinBounds(station) && isStationLongitudeWithinBounds(station)
     );
+
+    return res(ctx.status(200), ctx.json(foundStations));
   }),
 ];
