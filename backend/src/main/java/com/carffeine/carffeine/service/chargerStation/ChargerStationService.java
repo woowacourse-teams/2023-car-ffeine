@@ -35,8 +35,9 @@ public class ChargerStationService {
         return chargeStationRepository.findAllByLatitudeBetweenAndLongitudeBetween(minLatitude, maxLatitude, minLongitude, maxLongitude);
     }
 
-    public ChargeStation findStationById(final String stationId) {
+    @Transactional(readOnly = true)
+    public ChargeStation findStationById(String stationId) {
         return chargeStationRepository.findChargeStationByStationId(stationId)
-                .orElseThrow(() -> new ChargeStationException(ChargeStationExceptionType.CHARGE_STATION_NOT_FOUND));
+                .orElseThrow(() -> new ChargeStationException(ChargeStationExceptionType.NOT_FOUND_ID));
     }
 }
