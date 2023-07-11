@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public class SlackAppender extends AppenderBase<ILoggingEvent> {
+
     private static final String WBHOOK_URL = System.getenv("SLACK_WEBHOOK_URL");
 
     @Override
@@ -34,9 +35,14 @@ public class SlackAppender extends AppenderBase<ILoggingEvent> {
     }
 
     private String createMessage(ILoggingEvent eventObject) {
-        final String baseMessage = "에러가 발생했습니다.\n";
-        final String pattern = baseMessage + "```%s %s %s [%s] - %s```";
+        String baseMessage = "에러가 발생했습니다.\n";
+        String pattern = baseMessage + "```%s %s %s [%s] - %s```";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        return String.format(pattern, simpleDateFormat.format(eventObject.getTimeStamp()), eventObject.getLevel(), eventObject.getThreadName(), eventObject.getLoggerName(), eventObject.getFormattedMessage());
+        return String.format(pattern,
+                simpleDateFormat.format(eventObject.getTimeStamp()),
+                eventObject.getLevel(),
+                eventObject.getThreadName(),
+                eventObject.getLoggerName(),
+                eventObject.getFormattedMessage());
     }
 }
