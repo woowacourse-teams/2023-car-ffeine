@@ -3,6 +3,7 @@ package com.carffeine.carffeine.service.chargerStation;
 import com.carffeine.carffeine.domain.chargerStation.chargeStation.ChargeStation;
 import com.carffeine.carffeine.domain.chargerStation.exception.ChargeStationException;
 import com.carffeine.carffeine.domain.chargerStation.chargeStation.ChargeStationRepository;
+import com.carffeine.carffeine.domain.chargerStation.exception.ChargeStationExceptionType;
 import com.carffeine.carffeine.fake.chargerStation.FakeChargeStationRepository;
 import com.carffeine.carffeine.fixture.chargerStation.ChargeStationFixture;
 import com.carffeine.carffeine.service.chargerStation.dto.CoordinateRequest;
@@ -76,7 +77,8 @@ class ChargerStationServiceTest {
         ChargeStation chargeStationById = chargerStationService.findStationById(chargeStation.getStationId());
 
         // then
-        assertThat(chargeStationById).usingRecursiveComparison().isEqualTo(chargeStation);
+        assertThat(chargeStationById).usingRecursiveComparison()
+                .isEqualTo(chargeStation);
     }
 
     @Test
@@ -88,6 +90,7 @@ class ChargerStationServiceTest {
 
         // when & then
         assertThatThrownBy(() -> chargerStationService.findStationById(invalidChargeStationId))
-                .isInstanceOf(ChargeStationException.class);
+                .isInstanceOf(ChargeStationException.class)
+                .hasMessage(ChargeStationExceptionType.NOT_FOUND_ID.message());
     }
 }
