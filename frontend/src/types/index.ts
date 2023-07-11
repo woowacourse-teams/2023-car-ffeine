@@ -1,9 +1,4 @@
-export interface Position {
-  lat: number;
-  lng: number;
-}
-
-export interface Station extends Position {
+export interface Station {
   id: number;
   title: string;
 }
