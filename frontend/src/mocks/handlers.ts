@@ -1,12 +1,12 @@
 import { rest } from 'msw';
 
-import type { Station } from '../types';
+import type { DisplayPosition, Station } from '../types';
 import { stations } from './data';
 
 export const handlers = [
   rest.post('/stations', async (req, res, ctx) => {
     const body = await req.json();
-    const { latitude, longitude, latitudeDelta, longitudeDelta } = body;
+    const { latitude, longitude, latitudeDelta, longitudeDelta }: DisplayPosition = body;
 
     const northEastBoundary = {
       latitude: latitude + latitudeDelta,
@@ -35,6 +35,8 @@ export const handlers = [
     const foundStations: Station[] = stations.filter(
       (station) => isStationLatitudeWithinBounds(station) && isStationLongitudeWithinBounds(station)
     );
+
+    console.log('찾은 충전소 갯수: ' + foundStations.length);
 
     return res(ctx.status(200), ctx.json(foundStations));
   }),

@@ -1,12 +1,18 @@
-import type { Station } from '../../types';
 import StationMarker from './StationMarker';
+import { useStations } from '../../hooks/useStations';
 
 interface Props {
   map: google.maps.Map;
-  stations: Station[];
 }
 
-const StationMarkersContainer = ({ map, stations }: Props) => {
+const StationMarkersContainer = ({ map }: Props) => {
+  const { ...queryInfo } = useStations(map);
+  const stations = queryInfo.data;
+
+  if (!stations || !queryInfo.isSuccess) {
+    return <></>;
+  }
+
   return (
     <>
       {stations.map((station) => (
