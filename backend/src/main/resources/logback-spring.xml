@@ -14,7 +14,7 @@
     <appender name="ASYNC_SLACK_APPENDER" class="ch.qos.logback.classic.AsyncAppender">
         <appender-ref ref="SLACK_APPENDER"/>
     </appender>
-    <springProfile name="local">
+    <springProfile name="!local">
         <logger name="com.carffeine.carffeine" level="DEBUG" additivity="true">
             <appender-ref ref="ASYNC_SLACK_APPENDER"/>
         </logger>
