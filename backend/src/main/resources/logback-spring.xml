@@ -12,6 +12,9 @@
     <appender name="SLACK_APPENDER" class="com.carffeine.carffeine.log.SlackAppender">
     </appender>
     <appender name="ASYNC_SLACK_APPENDER" class="ch.qos.logback.classic.AsyncAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
         <appender-ref ref="SLACK_APPENDER"/>
     </appender>
     <springProfile name="!local">
