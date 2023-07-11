@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 
 import { INITIAL_CENTER } from '../constants';
-import type { Position } from '../types';
 
 export const useCurrentPosition = () => {
-  const [position, setPosition] = useState<Position>();
+  const [position, setPosition] = useState<google.maps.LatLngLiteral>();
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
