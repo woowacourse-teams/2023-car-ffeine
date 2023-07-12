@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { INITIAL_ZOOM_SIZE } from '../../constants';
-import { useCurrentPosition } from '../../hooks/useCurrentPosition';
+import { INITIAL_ZOOM_SIZE } from '../../../constants';
+import { useCurrentPosition } from '../../../hooks/useCurrentPosition';
 import UserMarker from '../marker/UserMarker';
 import StationMarkersContainer from '../marker/StationMarkersContainer';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { fetchStation } from '../../hooks/useStations';
+import { fetchStation } from '../../../hooks/useStations';
 
 interface Props {
   map: google.maps.Map;
