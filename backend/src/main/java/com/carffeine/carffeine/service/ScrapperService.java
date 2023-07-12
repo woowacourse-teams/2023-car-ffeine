@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Random;
 
 @RequiredArgsConstructor
 @Service
@@ -27,11 +28,17 @@ public class ScrapperService {
     private static final String DATA_TYPE = "JSON";
     private final RestTemplate restTemplate;
     private final ChargeStationRepository chargeStationRepository;
+
+    private final Random random = new Random();
     @Value("${api.service_key}")
-    private String SERVICE_KEY;
+    private List<String> serviceKeys;
 
     @Transactional
     public void scrap() {
+
+        int randomIndex = random.nextInt(serviceKeys.size() - 1);
+        String SERVICE_KEY = serviceKeys.get(randomIndex);
+
         URI uri = UriComponentsBuilder.fromUriString("https://apis.data.go.kr/B552584/EvCharger")
                 .path(REQUEST_URL)
                 .queryParam("serviceKey", SERVICE_KEY)
