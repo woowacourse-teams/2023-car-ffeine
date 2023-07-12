@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import type { Station } from '../../types';
+import type { Station } from '../../../types';
 
 interface Props {
   map: google.maps.Map;
