@@ -5,9 +5,9 @@ spring:
   flyway:
     enabled: false
   datasource:
-    url: jdbc:mysql://localhost:3306/charge?useSSL=false&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true
+    url: ENC(D6dCO3e8DX1Wuj6p5ZWMm9Cfk/k6YKeTa9qkVMqe4jEl9/Euw8AEcMBHgntlaZYGlMnw0sEvtXSu1ZyHLmQioxRS3Kdjd5OKczqSVA72eI9qldasSyoSLEDKBkBly8MYdsKOPpGIH08S9IG6QculCz66TDuBNNZEldt8GcQHAeM=)
     username: root
-    password: super6031^^
+    password: ENC(0OkM1cOAS6M6p3TO8BJDMU3eBtGcB0/E)
   driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
@@ -22,8 +22,6 @@ spring:
         show_sql: true
         format_sql: true
         use_sql_comments: true
-  profiles:
-    active: local
 jasypt:
   encryptor:
     bean: jasyptEncryptor
