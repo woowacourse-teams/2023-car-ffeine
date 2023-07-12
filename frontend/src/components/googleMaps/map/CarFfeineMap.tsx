@@ -8,7 +8,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { fetchStation } from '../../../hooks/useStations';
 import type { googleMap } from '../../../types';
 
-const CarFfeinMapListener = ({ googleMap }: googleMap) => {
+const CarFfeineMapListener = ({ googleMap }: googleMap) => {
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation(['stations'], {
@@ -63,7 +63,7 @@ const CarFfeineMap = () => {
       <div ref={ref} id="map" style={{ minHeight: '100vh' }} />
       {isClientReady && (
         <>
-          <CarFfeinMapListener googleMap={googleMap} />
+          <CarFfeineMapListener googleMap={googleMap} />
           <StationMarkersContainer googleMap={googleMap} />
           <UserMarker googleMap={googleMap} position={position} />
         </>
