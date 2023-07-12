@@ -2,7 +2,12 @@ export interface googleMap {
   googleMap: google.maps.Map;
 }
 
-export interface Station {
+interface Coordinates {
+  latitude: number;
+  longitude: number;
+}
+
+export interface Station extends Coordinates {
   stationId: number;
   stationName: string;
   companyName: string;
@@ -14,16 +19,12 @@ export interface Station {
   isParkingFree: boolean;
   operatingTime: string;
   detailLocation: string;
-  latitude: number;
-  longitude: number;
   isPrivate: boolean;
   totalCount: number;
   availableCount: number;
 }
 
-export interface DisplayPosition {
-  longitude: number;
-  latitude: number;
+export interface DisplayPosition extends Coordinates {
   longitudeDelta: number;
   latitudeDelta: number;
 }
