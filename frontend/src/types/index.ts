@@ -1,3 +1,7 @@
+export interface googleMap {
+  googleMap: google.maps.Map;
+}
+
 export interface Station {
   stationId: number;
   stationName: string;

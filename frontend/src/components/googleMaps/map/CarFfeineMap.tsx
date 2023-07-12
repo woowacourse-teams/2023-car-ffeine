@@ -6,12 +6,9 @@ import UserMarker from '../marker/UserMarker';
 import StationMarkersContainer from '../marker/StationMarkersContainer';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { fetchStation } from '../../../hooks/useStations';
+import type { googleMap } from '../../../types';
 
-interface Props {
-  googleMap: google.maps.Map;
-}
-
-const CarFfeinMapListener = ({ googleMap }: Props) => {
+const CarFfeinMapListener = ({ googleMap }: googleMap) => {
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation(['stations'], {

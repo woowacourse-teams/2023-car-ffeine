@@ -1,15 +1,12 @@
 import { useEffect, useState } from 'react';
-import type { Root } from 'react-dom/client';
 import { createRoot } from 'react-dom/client';
+import type { Root } from 'react-dom/client';
 
 import StationMarker from './StationMarker';
 import { useStations } from '../../../hooks/useStations';
+import type { googleMap } from '../../../types';
 
-interface Props {
-  googleMap: google.maps.Map;
-}
-
-const StationMarkersContainer = ({ googleMap }: Props) => {
+const StationMarkersContainer = ({ googleMap }: googleMap) => {
   const { ...queryInfo } = useStations(googleMap);
   const stations = queryInfo.data;
 
