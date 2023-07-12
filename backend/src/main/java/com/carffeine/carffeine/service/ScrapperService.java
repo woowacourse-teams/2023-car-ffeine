@@ -3,9 +3,9 @@ package com.carffeine.carffeine.service;
 import com.carffeine.carffeine.domain.ChargeStation;
 import com.carffeine.carffeine.domain.ChargeStationRepository;
 import com.carffeine.carffeine.domain.Charger;
+import com.carffeine.carffeine.domain.RandomKeySelector;
 import com.carffeine.carffeine.service.dto.ChargeStationRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -17,7 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Random;
 
 @RequiredArgsConstructor
 @Service
@@ -28,16 +27,12 @@ public class ScrapperService {
     private static final String DATA_TYPE = "JSON";
     private final RestTemplate restTemplate;
     private final ChargeStationRepository chargeStationRepository;
-
-    private final Random random = new Random();
-    @Value("${api.service_key}")
-    private List<String> serviceKeys;
+    private final RandomKeySelector randomKeySelector;
 
     @Transactional
     public void scrap() {
 
-        int randomIndex = random.nextInt(serviceKeys.size() - 1);
-        String SERVICE_KEY = serviceKeys.get(randomIndex);
+        String SERVICE_KEY = randomKeySelector.getRandomKey();
 
         URI uri = UriComponentsBuilder.fromUriString("https://apis.data.go.kr/B552584/EvCharger")
                 .path(REQUEST_URL)
