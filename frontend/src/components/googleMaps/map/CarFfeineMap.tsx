@@ -8,10 +8,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { fetchStation } from '../../../hooks/useStations';
 
 interface Props {
-  map: google.maps.Map;
+  googleMap: google.maps.Map;
 }
 
-const CarFfeinMapListener = ({ map }: Props) => {
+const CarFfeinMapListener = ({ googleMap }: Props) => {
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation(['stations'], {
@@ -22,18 +22,18 @@ const CarFfeinMapListener = ({ map }: Props) => {
   });
 
   useEffect(() => {
-    map.addListener('dragend', () => {
+    googleMap.addListener('dragend', () => {
       console.log('dragend');
-      mutate(map);
+      mutate(googleMap);
     });
 
-    map.addListener('zoom_changed', () => {
+    googleMap.addListener('zoom_changed', () => {
       console.log('zoom_changed');
-      mutate(map);
+      mutate(googleMap);
     });
 
-    const initMarkersEvent = map.addListener('bounds_changed', () => {
-      mutate(map);
+    const initMarkersEvent = googleMap.addListener('bounds_changed', () => {
+      mutate(googleMap);
       google.maps.event.removeListener(initMarkersEvent);
     });
   }, []);
@@ -66,9 +66,9 @@ const CarFfeineMap = () => {
       <div ref={ref} id="map" style={{ minHeight: '100vh' }} />
       {isClientReady && (
         <>
-          <CarFfeinMapListener map={googleMap} />
-          <StationMarkersContainer map={googleMap} />
-          <UserMarker map={googleMap} position={position} />
+          <CarFfeinMapListener googleMap={googleMap} />
+          <StationMarkersContainer googleMap={googleMap} />
+          <UserMarker googleMap={googleMap} position={position} />
         </>
       )}
     </>

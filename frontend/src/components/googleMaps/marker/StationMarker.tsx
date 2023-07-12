@@ -6,13 +6,13 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { fetchStation } from '../../../hooks/useStations';
 
 interface Props {
-  map: google.maps.Map;
+  googleMap: google.maps.Map;
   station: Station;
   briefStationInfoRoot: Root;
   infoWindow: google.maps.InfoWindow;
 }
 
-const StationMarker = ({ map, station, briefStationInfoRoot, infoWindow }: Props) => {
+const StationMarker = ({ googleMap, station, briefStationInfoRoot, infoWindow }: Props) => {
   const { latitude, longitude, stationName } = station;
 
   const queryClient = useQueryClient();
@@ -27,19 +27,19 @@ const StationMarker = ({ map, station, briefStationInfoRoot, infoWindow }: Props
   useEffect(() => {
     const markerInstance = new google.maps.Marker({
       position: { lat: latitude, lng: longitude },
-      map: map,
+      map: googleMap,
       title: stationName,
     });
 
     markerInstance.addListener('click', () => {
       infoWindow.open({
         anchor: markerInstance,
-        map,
+        map: googleMap,
       });
 
       briefStationInfoRoot.render(<BriefStationInfo station={station} />);
-      map.panTo(markerInstance.getPosition());
-      mutate(map);
+      googleMap.panTo(markerInstance.getPosition());
+      mutate(googleMap);
     });
 
     return () => {

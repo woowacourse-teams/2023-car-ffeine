@@ -6,11 +6,11 @@ import StationMarker from './StationMarker';
 import { useStations } from '../../../hooks/useStations';
 
 interface Props {
-  map: google.maps.Map;
+  googleMap: google.maps.Map;
 }
 
-const StationMarkersContainer = ({ map }: Props) => {
-  const { ...queryInfo } = useStations(map);
+const StationMarkersContainer = ({ googleMap }: Props) => {
+  const { ...queryInfo } = useStations(googleMap);
   const stations = queryInfo.data;
 
   const [briefStationInfoRoot, setBriefStationInfoRoot] = useState<Root>();
@@ -36,7 +36,7 @@ const StationMarkersContainer = ({ map }: Props) => {
       {stations.map((station) => (
         <StationMarker
           key={station.stationId}
-          map={map}
+          googleMap={googleMap}
           station={station}
           briefStationInfoRoot={briefStationInfoRoot}
           infoWindow={infoWindow}
