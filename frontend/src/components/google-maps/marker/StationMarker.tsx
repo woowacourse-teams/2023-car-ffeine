@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import type { Root } from 'react-dom/client';
 
-import BriefStationInfo from '../../BriefStationInfo';
+import BriefStationInfo from '../../ui/BriefStationInfo';
 import { useUpdateStations } from '../../../hooks/useUpdateStations';
 import type { Station } from '../../../types';
 
