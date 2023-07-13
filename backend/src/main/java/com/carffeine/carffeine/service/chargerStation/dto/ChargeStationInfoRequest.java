@@ -1,16 +1,15 @@
 package com.carffeine.carffeine.service.chargerStation.dto;
 
 import com.carffeine.carffeine.domain.chargerStation.chargeStation.ChargeStation;
+import com.carffeine.carffeine.domain.chargerStation.chargeStation.Latitude;
+import com.carffeine.carffeine.domain.chargerStation.chargeStation.Longitude;
 import com.carffeine.carffeine.domain.chargerStation.charger.Charger;
 import com.carffeine.carffeine.domain.chargerStation.charger.ChargerState;
 import com.carffeine.carffeine.domain.chargerStation.charger.ChargerStatus;
-import com.carffeine.carffeine.domain.chargerStation.chargeStation.Latitude;
-import com.carffeine.carffeine.domain.chargerStation.chargeStation.Longitude;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 public record ChargeStationInfoRequest(
         String trafficYn,
@@ -49,7 +48,7 @@ public record ChargeStationInfoRequest(
 
     private static final String YES = "Y";
 
-    public ChargeStation toDomain() {
+    public ChargeStation toStation() {
         return ChargeStation.builder()
                 .stationId(statId)
                 .stationName(statNm)
@@ -63,22 +62,19 @@ public record ChargeStationInfoRequest(
                 .contact(busiCall)
                 .stationState(note)
                 .privateReason(limitDetail)
-                .chargers(toChargers())
                 .build();
     }
 
-    private List<Charger> toChargers() {
-        return List.of(
-                Charger.builder()
-                        .stationId(statId)
-                        .chargerId(chgerId)
-                        .type(chgerType)
-                        .address(addr)
-                        .chargerStatus(toChargerStatus())
-                        .capacity(parseBigDecimalFromString(output))
-                        .method(method)
-                        .build()
-        );
+    public Charger toCharger() {
+        return Charger.builder()
+                .stationId(statId)
+                .chargerId(chgerId)
+                .type(chgerType)
+                .address(addr)
+                .chargerStatus(toChargerStatus())
+                .capacity(parseBigDecimalFromString(output))
+                .method(method)
+                .build();
     }
 
     private ChargerStatus toChargerStatus() {
