@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import type { Station } from '../types';
 import { getDisplayPosition } from '../utils/google-maps';
+import type { Station } from '../types';
 
 export const fetchStation = async (map: google.maps.Map) => {
   const stationQuery = getDisplayPosition(map);

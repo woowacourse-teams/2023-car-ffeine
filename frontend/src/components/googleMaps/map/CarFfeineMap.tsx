@@ -4,42 +4,11 @@ import { INITIAL_ZOOM_SIZE } from '../../../constants';
 import { useCurrentPosition } from '../../../hooks/useCurrentPosition';
 import UserMarker from '../marker/UserMarker';
 import StationMarkersContainer from '../marker/StationMarkersContainer';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { fetchStation } from '../../../hooks/useStations';
+import { useUpdateStations } from '../../../hooks/useUpdateStations';
 
 interface Props {
-  map: google.maps.Map;
+  googleMap: google.maps.Map;
 }
-
-const CarFfeinMapListener = ({ map }: Props) => {
-  const queryClient = useQueryClient();
-
-  const { mutate } = useMutation(['stations'], {
-    mutationFn: fetchStation,
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['stations'] });
-    },
-  });
-
-  useEffect(() => {
-    map.addListener('dragend', () => {
-      console.log('dragend');
-      mutate(map);
-    });
-
-    map.addListener('zoom_changed', () => {
-      console.log('zoom_changed');
-      mutate(map);
-    });
-
-    const initMarkersEvent = map.addListener('bounds_changed', () => {
-      mutate(map);
-      google.maps.event.removeListener(initMarkersEvent);
-    });
-  }, []);
-
-  return <></>;
-};
 
 const CarFfeineMap = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -66,13 +35,36 @@ const CarFfeineMap = () => {
       <div ref={ref} id="map" style={{ minHeight: '100vh' }} />
       {isClientReady && (
         <>
-          <CarFfeinMapListener map={googleMap} />
-          <StationMarkersContainer map={googleMap} />
-          <UserMarker map={googleMap} position={position} />
+          <CarFfeineMapListener googleMap={googleMap} />
+          <StationMarkersContainer googleMap={googleMap} />
+          <UserMarker googleMap={googleMap} position={position} />
         </>
       )}
     </>
   );
+};
+
+const CarFfeineMapListener = ({ googleMap }: Props) => {
+  const { updateStations } = useUpdateStations();
+
+  useEffect(() => {
+    googleMap.addListener('dragend', () => {
+      console.log('dragend');
+      updateStations(googleMap);
+    });
+
+    googleMap.addListener('zoom_changed', () => {
+      console.log('zoom_changed');
+      updateStations(googleMap);
+    });
+
+    const initMarkersEvent = googleMap.addListener('bounds_changed', () => {
+      updateStations(googleMap);
+      google.maps.event.removeListener(initMarkersEvent);
+    });
+  }, []);
+
+  return <></>;
 };
 
 export default CarFfeineMap;
