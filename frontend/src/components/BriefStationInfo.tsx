@@ -8,7 +8,7 @@ const BriefStationInfo = ({ station }: Props) => {
   return (
     <>
       <div>{station.stationName}</div>
-      <button onClick={() => alert(station.stationName)}>나의 이름은?</button>
+      <button onClick={() => alert(JSON.stringify(station))}>나의 정보는?</button>
     </>
   );
 };
