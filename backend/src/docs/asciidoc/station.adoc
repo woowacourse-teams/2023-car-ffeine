@@ -38,4 +38,3 @@ include::{snippets}/charger-station-controller-test/findChargeStationByInvalidId
 
 include::{snippets}/charger-station-controller-test/findChargeStationByInvalidId/http-response.adoc[]
 include::{snippets}/charger-station-controller-test/findChargeStationByInvalidId/response-fields.adoc[]
-
