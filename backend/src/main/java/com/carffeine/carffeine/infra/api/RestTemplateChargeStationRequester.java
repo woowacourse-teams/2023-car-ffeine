@@ -22,6 +22,7 @@ public class RestTemplateChargeStationRequester implements ChargeStationRequeste
     private static final String REQUEST_URL = "/getChargerInfo";
     private static final int ROW_SIZE = 9999;
     private static final String DATA_TYPE = "JSON";
+    private static final int ONE_SECOND = 1000;
     private final RestTemplate restTemplate;
 
     @Value("${api.service_key}")
@@ -64,7 +65,7 @@ public class RestTemplateChargeStationRequester implements ChargeStationRequeste
 
     private void waitForRetry() {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(ONE_SECOND);
         } catch (InterruptedException exception) {
             throw new RuntimeException(exception);
         }
