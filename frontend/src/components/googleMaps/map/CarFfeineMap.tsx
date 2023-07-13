@@ -10,29 +10,6 @@ interface Props {
   googleMap: google.maps.Map;
 }
 
-const CarFfeineMapListener = ({ googleMap }: Props) => {
-  const { updateStations } = useUpdateStations();
-
-  useEffect(() => {
-    googleMap.addListener('dragend', () => {
-      console.log('dragend');
-      updateStations(googleMap);
-    });
-
-    googleMap.addListener('zoom_changed', () => {
-      console.log('zoom_changed');
-      updateStations(googleMap);
-    });
-
-    const initMarkersEvent = googleMap.addListener('bounds_changed', () => {
-      updateStations(googleMap);
-      google.maps.event.removeListener(initMarkersEvent);
-    });
-  }, []);
-
-  return <></>;
-};
-
 const CarFfeineMap = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [googleMap, setGoogleMap] = useState<google.maps.Map>();
@@ -65,6 +42,29 @@ const CarFfeineMap = () => {
       )}
     </>
   );
+};
+
+const CarFfeineMapListener = ({ googleMap }: Props) => {
+  const { updateStations } = useUpdateStations();
+
+  useEffect(() => {
+    googleMap.addListener('dragend', () => {
+      console.log('dragend');
+      updateStations(googleMap);
+    });
+
+    googleMap.addListener('zoom_changed', () => {
+      console.log('zoom_changed');
+      updateStations(googleMap);
+    });
+
+    const initMarkersEvent = googleMap.addListener('bounds_changed', () => {
+      updateStations(googleMap);
+      google.maps.event.removeListener(initMarkersEvent);
+    });
+  }, []);
+
+  return <></>;
 };
 
 export default CarFfeineMap;
