@@ -13,7 +13,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -32,9 +31,9 @@ public class RestTemplateChargeStationRequester implements ChargeStationRequeste
     public ChargeStationRequest requestChargeStationRequest(int pageNo) {
         while (true) {
             try {
-                Optional<ChargeStationRequest> result = requestChargeStationRequestWithRetry(pageNo);
-                if (result.isPresent()) {
-                    return result.get();
+                ChargeStationRequest result = requestChargeStationRequestWithRetry(pageNo);
+                if (result != null) {
+                    return result;
                 }
             } catch (Exception e) {
                 log.warn("페이지 요청 실패, 재시도합니다. pageNo: {}", pageNo);
@@ -43,13 +42,13 @@ public class RestTemplateChargeStationRequester implements ChargeStationRequeste
         }
     }
 
-    private Optional<ChargeStationRequest> requestChargeStationRequestWithRetry(int pageNo) {
+    private ChargeStationRequest requestChargeStationRequestWithRetry(int pageNo) {
         URI uri = requestWithDecodedKey(pageNo);
         ResponseEntity<ChargeStationRequest> exchange = restTemplate.exchange(new RequestEntity<>(null, HttpMethod.GET, uri), ChargeStationRequest.class);
         if (exchange.getHeaders().getContentType().getSubtype().equals("xml")) {
-            return Optional.empty();
+            return null;
         }
-        return Optional.ofNullable(exchange.getBody());
+        return exchange.getBody();
     }
 
     private URI requestWithDecodedKey(int pageNo) {
