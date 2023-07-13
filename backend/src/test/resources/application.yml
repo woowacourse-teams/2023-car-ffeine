@@ -1,35 +1,18 @@
-server:
-  port: 8080
-
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/charge?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true
-    username: root
-    password: root
-  driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:h2:mem:charge;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: sa
+    driver-class-name: org.h2.Driver
   jpa:
     hibernate:
       ddl-auto: create
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-      use-new-id-generator-mappings: false
-    database: mysql
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    properties:
-      hibernate:
-        show_sql: true
-        format_sql: true
-        use_sql_comments: true
-  flyway:
-    enabled: false
-  profiles:
-    active: local
 jasypt:
   encryptor:
-    bean: jasyptEncryptor
-    password: carffeineKey!!
+    password: password
 
-api:
-  service_key: ENC(JvewbNZd+69ZLsg8C7xwFTL+TCQHOo6USr7GysV0rRSGxkP4cVpFwrxGLfm0rOA1zhc+e20NOvR8fYTYsI8pfLm42m75XbqJRuuYheZ8R6lXREjwP/syRe5a9MSJDvQ69af1BFhsLi4=)
 initialize-charge:
   enabled: false
+
+api:
+  service_key: service_key
