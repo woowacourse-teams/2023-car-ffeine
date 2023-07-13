@@ -29,4 +29,30 @@ class ChargeStationTest {
 
         assertThat(actual).isEqualTo(1);
     }
+
+    @Test
+    void 충전소가_업데이트_된다면_true를_반환한다() {
+        // given
+        ChargeStation station = ChargeStationFixture.선릉역_충전소_충전기_2개_사용가능_1개_완속;
+        ChargeStation updatedStation = ChargeStationFixture.선릉역_충전소_충전기_2개_사용가능_1개_이름_변경됨;
+
+        // when
+        boolean isUpdated = station.isUpdated(updatedStation);
+
+        // then
+        assertThat(isUpdated).isTrue();
+    }
+
+    @Test
+    void 충전소가_업데이트가_안된다면_false를_반환한다() {
+        // given
+        ChargeStation station = ChargeStationFixture.선릉역_충전소_충전기_2개_사용가능_1개_완속;
+        ChargeStation updatedStation = ChargeStationFixture.선릉역_충전소_충전기_2개_사용가능_1개_완속;
+
+        // when
+        boolean isUpdated = station.isUpdated(updatedStation);
+
+        // then
+        assertThat(isUpdated).isFalse();
+    }
 }
