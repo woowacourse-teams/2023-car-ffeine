@@ -34,4 +34,10 @@ public class FakeChargeStationRepository implements ChargeStationRepository {
                 .filter(it -> it.getStationId().equals(stationId))
                 .findAny();
     }
+
+    @Override
+    public List<ChargeStation> findAll() {
+        return map.values().stream()
+                .toList();
+    }
 }
