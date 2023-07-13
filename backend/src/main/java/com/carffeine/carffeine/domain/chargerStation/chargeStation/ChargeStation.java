@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Builder
@@ -63,5 +64,65 @@ public class ChargeStation {
         return (int) chargers.stream()
                 .filter(Charger::isAvailable)
                 .count();
+    }
+
+    public boolean isUpdated(final ChargeStation station) {
+        if (!stationName.equals(station.stationName)) {
+            return true;
+        }
+
+        if (!companyName.equals(station.companyName)) {
+            return true;
+        }
+
+        if (!isParkingFree.equals(station.isParkingFree)) {
+            return true;
+        }
+
+        if (!operatingTime.equals(station.operatingTime)) {
+            return true;
+        }
+
+        if (!detailLocation.equals(station.detailLocation)) {
+            return true;
+        }
+
+        if (!latitude.getValue().equals(station.getLatitude().getValue())) {
+            return true;
+        }
+
+        if (!longitude.getValue().equals(station.longitude.getValue())) {
+            return true;
+        }
+
+        if (!isPrivate.equals(station.isPrivate)) {
+            return true;
+        }
+
+        if (!contact.equals(station.contact)) {
+            return true;
+        }
+
+        if (!stationState.equals(station.stationState)) {
+            return true;
+        }
+
+        if (!privateReason.equals(station.privateReason)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ChargeStation that)) return false;
+        return Objects.equals(stationId, that.stationId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(stationId);
     }
 }

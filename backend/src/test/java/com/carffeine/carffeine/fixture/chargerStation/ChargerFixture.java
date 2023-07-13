@@ -41,4 +41,20 @@ public class ChargerFixture {
                     .latestUpdateTime(LocalDateTime.now())
                     .build())
             .build();
+
+    public static final Charger 선릉역_충전기_2번_변경됨 = Charger.builder()
+            .stationId("ME101010")
+            .chargerId("02")
+            .price(BigDecimal.valueOf(324.4))
+            .method("단독")
+            .address("서울특별시 강남구 선릉로100길 2 선릉역2")
+            .capacity(BigDecimal.valueOf(50.0))
+            .type("완속")
+            .chargerStatus(ChargerStatus.builder()
+                    .stationId("ME101010")
+                    .chargerId("02")
+                    .chargerState(ChargerState.CHARGING_IN_PROGRESS)
+                    .latestUpdateTime(LocalDateTime.now())
+                    .build())
+            .build();
 }

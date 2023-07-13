@@ -1,6 +1,5 @@
 package com.carffeine.carffeine.domain.chargerStation.charger;
 
-import com.carffeine.carffeine.domain.chargerStation.charger.Charger;
 import com.carffeine.carffeine.fixture.chargerStation.ChargerFixture;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -19,5 +18,31 @@ class ChargerTest {
         boolean expect = charger.isAvailable();
 
         assertThat(expect).isTrue();
+    }
+
+    @Test
+    void 충전기가_업데이트_된다면_true를_반환한다() {
+        // given
+        Charger charger = ChargerFixture.선릉역_충전기_2번_사용_중;
+        Charger updateCharger = ChargerFixture.선릉역_충전기_2번_변경됨;
+
+        // when
+        boolean isUpdated = charger.isUpdated(updateCharger);
+
+        // then
+        assertThat(isUpdated).isTrue();
+    }
+
+    @Test
+    void 충전기가_업데이트가_안된다면_false를_반환한다() {
+        // given
+        Charger charger = ChargerFixture.선릉역_충전기_2번_사용_중;
+        Charger updateCharger = ChargerFixture.선릉역_충전기_2번_사용_중;
+
+        // when
+        boolean isUpdated = charger.isUpdated(updateCharger);
+
+        // then
+        assertThat(isUpdated).isFalse();
     }
 }
