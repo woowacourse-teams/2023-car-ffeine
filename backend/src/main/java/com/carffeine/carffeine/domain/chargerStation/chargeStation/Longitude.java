@@ -1,7 +1,5 @@
 package com.carffeine.carffeine.domain.chargerStation.chargeStation;
 
-import com.carffeine.carffeine.domain.chargerStation.exception.ChargeStationException;
-import com.carffeine.carffeine.domain.chargerStation.exception.ChargeStationExceptionType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,9 +33,9 @@ public class Longitude {
     }
 
     private void validateKoreaLongitude(BigDecimal value) {
-        if (value.compareTo(KOREA_MIN_LONGITUDE) < 0 || value.compareTo(KOREA_MAX_LONGITUDE) > 0) {
-            throw new ChargeStationException(ChargeStationExceptionType.INVALID_LONGITUDE);
-        }
+//        if (value.compareTo(KOREA_MIN_LONGITUDE) < 0 || value.compareTo(KOREA_MAX_LONGITUDE) > 0) {
+//            throw new ChargeStationException(ChargeStationExceptionType.INVALID_LONGITUDE);
+//        }
     }
 
     public Longitude calculateMinLongitudeByDelta(BigDecimal delta) {
