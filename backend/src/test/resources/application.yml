@@ -27,9 +27,9 @@ spring:
 jasypt:
   encryptor:
     bean: jasyptEncryptor
-    password: ${ENCRYPT_KEY}
+    password: carffeineKey!!
 
 api:
   service_key: ENC(JvewbNZd+69ZLsg8C7xwFTL+TCQHOo6USr7GysV0rRSGxkP4cVpFwrxGLfm0rOA1zhc+e20NOvR8fYTYsI8pfLm42m75XbqJRuuYheZ8R6lXREjwP/syRe5a9MSJDvQ69af1BFhsLi4=)
 initialize-charge:
-  enabled: true
+  enabled: false
