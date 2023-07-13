@@ -31,15 +31,13 @@ public class RestTemplateChargeStationRequester implements ChargeStationRequeste
     @Override
     public ChargeStationRequest requestChargeStationRequest(int pageNo) {
         while (true) {
-            try {
-                ChargeStationRequest result = requestChargeStationRequestWithRetry(pageNo);
-                if (result != null) {
-                    return result;
-                }
-            } catch (Exception e) {
-                log.warn("페이지 요청 실패, 재시도합니다. pageNo: {}", pageNo);
-                waitForRetry();
+            ChargeStationRequest result = requestChargeStationRequestWithRetry(pageNo);
+            if (result != null) {
+                return result;
             }
+
+            log.warn("페이지 요청 실패, 재시도합니다. pageNo: {}", pageNo);
+            waitForRetry();
         }
     }
 
@@ -53,7 +51,7 @@ public class RestTemplateChargeStationRequester implements ChargeStationRequeste
     }
 
     private URI requestWithDecodedKey(int pageNo) {
-        return UriComponentsBuilder.fromUriString("https://apis.data.go.kr/B552584/EvCharger")
+        return UriComponentsBuilder.fromUriString("https://apis.d584/EvCharger")
                 .path(REQUEST_URL)
                 .queryParam("serviceKey", serviceKey)
                 .queryParam("pageNo", pageNo)
@@ -67,7 +65,7 @@ public class RestTemplateChargeStationRequester implements ChargeStationRequeste
         try {
             Thread.sleep(ONE_SECOND);
         } catch (InterruptedException exception) {
-            throw new RuntimeException(exception);
+            throw new RuntimeException("작업을 기다리는 도중에 문제가 발생했습니다", exception);
         }
     }
 }
