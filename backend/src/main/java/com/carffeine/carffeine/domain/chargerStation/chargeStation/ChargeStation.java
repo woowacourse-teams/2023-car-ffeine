@@ -64,13 +64,6 @@ public class ChargeStation {
                 .count();
     }
 
-    public void addCharger(Charger charger) {
-        if (chargers == null) {
-            chargers = new ArrayList<>();
-        }
-        chargers.add(charger);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
