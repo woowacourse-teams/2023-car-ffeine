@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -44,5 +45,22 @@ public class Longitude {
 
     public Longitude calculateMaxLongitudeByDelta(BigDecimal delta) {
         return new Longitude(value.add(delta));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Longitude longitude = (Longitude) o;
+        return Objects.equals(value, longitude.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
     }
 }
