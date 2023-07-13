@@ -12,14 +12,17 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@Table(name = "charge_station")
 public class ChargeStation {
 
     @Id
@@ -51,10 +54,6 @@ public class ChargeStation {
     @OneToMany(mappedBy = "chargeStation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Charger> chargers = new ArrayList<>();
 
-    public void setChargers(List<Charger> chargers) {
-        this.chargers = chargers;
-    }
-
     public int getTotalCount() {
         return chargers.size();
     }
@@ -63,5 +62,29 @@ public class ChargeStation {
         return (int) chargers.stream()
                 .filter(Charger::isAvailable)
                 .count();
+    }
+
+    public void addCharger(Charger charger) {
+        if (chargers == null) {
+            chargers = new ArrayList<>();
+        }
+        chargers.add(charger);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ChargeStation that = (ChargeStation) o;
+        return Objects.equals(stationId, that.stationId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(stationId);
     }
 }
