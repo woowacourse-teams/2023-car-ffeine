@@ -1,74 +1,57 @@
 package com.carffeine.carffeine.service.chargerStation;
 
 import com.carffeine.carffeine.domain.chargerStation.chargeStation.ChargeStation;
-import com.carffeine.carffeine.domain.chargerStation.chargeStation.ChargeStationRepository;
+import com.carffeine.carffeine.domain.chargerStation.chargeStation.ChargeStationRequester;
+import com.carffeine.carffeine.domain.chargerStation.chargeStation.CustomChargeStationRepository;
 import com.carffeine.carffeine.domain.chargerStation.charger.Charger;
+import com.carffeine.carffeine.domain.chargerStation.charger.CustomChargerRepository;
 import com.carffeine.carffeine.service.chargerStation.dto.ChargeStationRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class ScrapperService {
 
-    private static final String REQUEST_URL = "/getChargerInfo";
-    private static final int ROW_SIZE = 100;
-    private static final String DATA_TYPE = "JSON";
-    private final RestTemplate restTemplate;
-    private final ChargeStationRepository chargeStationRepository;
-    @Value("${api.service_key}")
-    private String SERVICE_KEY;
+    private static final int THREAD_COUNT = 8;
 
-    @Transactional
-    public void scrap() {
-        URI uri = UriComponentsBuilder.fromUriString("https://apis.data.go.kr/B552584/EvCharger")
-                .path(REQUEST_URL)
-                .queryParam("serviceKey", SERVICE_KEY)
-                .queryParam("pageNo", 1)
-                .queryParam("numOfRows", ROW_SIZE)
-                .queryParam("dataType", DATA_TYPE)
-                .build()
-                .toUri();
+    private final CustomChargeStationRepository customChargeStationRepository;
+    private final ChargeStationRequester chargeStationRequester;
+    private final CustomChargerRepository customChargerRepository;
 
-        ChargeStationRequest chargeStationRequest = restTemplate.getForObject(uri, ChargeStationRequest.class);
-        List<ChargeStation> chargeStations = Objects.requireNonNull(chargeStationRequest)
-                .items()
-                .toDomains();
-
-        Map<String, List<Charger>> chargersByStationId = new HashMap<>();
-        Map<String, ChargeStation> chargeStationByStationId = new HashMap<>();
-
-        for (ChargeStation chargeStation : chargeStations) {
-            String chargeStationId = chargeStation.getStationId();
-            chargeStationByStationId.put(chargeStationId, chargeStation);
-
-            List<Charger> chargers = chargersByStationId.getOrDefault(chargeStationId, new ArrayList<>());
-
-            chargers.add(chargeStation.getChargers().get(0));
-            chargersByStationId.put(chargeStationId, chargers);
+    public void scrap() throws InterruptedException {
+        ExecutorService executorService = Executors.newFixedThreadPool(THREAD_COUNT);
+        List<Callable<Void>> tasks = new ArrayList<>();
+        for (int i = 1; i <= 24; i++) {
+            int page = i;
+            executorService.submit(() -> scrapPage(page));
         }
+        executorService.invokeAll(tasks);
+        executorService.shutdown();
+    }
 
-        List<ChargeStation> chargeStationsToSave = new ArrayList<>();
-
-        for (String stationId : chargersByStationId.keySet()) {
-            ChargeStation chargeStation = chargeStationByStationId.get(stationId);
-            chargeStation.setChargers(chargersByStationId.get(stationId));
-            chargeStationsToSave.add(chargeStation);
-        }
-
-        for (ChargeStation chargeStation : chargeStationsToSave) {
-            chargeStationRepository.save(chargeStation);
+    private void scrapPage(int page) {
+        try {
+            ChargeStationRequest chargeStationRequest = chargeStationRequester.requestChargeStationRequest(page);
+            List<ChargeStation> chargeStations = chargeStationRequest.toStations();
+            List<Charger> chargers = chargeStationRequest.toChargers();
+            if (page != 24 && chargers.size() < 5000) {
+                log.error("공공데이터 API 의 사이즈가 이상해요 page: {}, size: {}", page, chargers.size());
+            }
+            customChargeStationRepository.saveAll(new HashSet<>(chargeStations));
+            customChargerRepository.saveAll(chargers);
+            log.info("page: {}, size: {} 저장 완료", page, chargers.size());
+        } catch (Exception e) {
+            log.error("page: {}", page, e);
         }
     }
 }
