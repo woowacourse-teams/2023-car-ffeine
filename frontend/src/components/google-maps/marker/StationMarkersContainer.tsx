@@ -10,8 +10,7 @@ interface Props {
 }
 
 const StationMarkersContainer = ({ googleMap }: Props) => {
-  const { ...queryInfo } = useStations(googleMap);
-  const stations = queryInfo.data;
+  const { data: stations, isSuccess } = useStations(googleMap);
 
   const [briefStationInfoRoot, setBriefStationInfoRoot] = useState<Root>();
   const [infoWindow, setInfoWindow] = useState<google.maps.InfoWindow>();
@@ -27,7 +26,7 @@ const StationMarkersContainer = ({ googleMap }: Props) => {
     setInfoWindow(initialInfoWindow);
   }, []);
 
-  if (!stations || !queryInfo.isSuccess) {
+  if (!stations || !isSuccess) {
     return <></>;
   }
 

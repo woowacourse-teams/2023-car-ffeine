@@ -7,6 +7,7 @@ import StationMarkersContainer from '../marker/StationMarkersContainer';
 import { useUpdateStations } from '../../../hooks/useUpdateStations';
 import { useExternalState } from '../../../utils/external-state';
 import { googleMapStore } from '../../../stores/googleMapStore';
+import StationList from '../../ui/StationList';
 
 interface Props {
   googleMap: google.maps.Map;
@@ -40,6 +41,7 @@ const CarFfeineMap = () => {
           <CarFfeineMapListener googleMap={googleMap} />
           <StationMarkersContainer googleMap={googleMap} />
           <UserMarker googleMap={googleMap} position={position} />
+          <StationList />
         </>
       )}
     </>
