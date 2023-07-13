@@ -23,6 +23,7 @@ import java.util.concurrent.Executors;
 public class ScrapperService {
 
     private static final int THREAD_COUNT = 8;
+    private static final int MAX_PAGE_SIZE = 24;
 
     private final CustomChargeStationRepository customChargeStationRepository;
     private final ChargeStationRequester chargeStationRequester;
@@ -31,7 +32,7 @@ public class ScrapperService {
     public void scrap() throws InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(THREAD_COUNT);
         List<Callable<Void>> tasks = new ArrayList<>();
-        for (int i = 1; i <= 24; i++) {
+        for (int i = 1; i <= MAX_PAGE_SIZE; i++) {
             int page = i;
             executorService.submit(() -> scrapPage(page));
         }
@@ -44,7 +45,7 @@ public class ScrapperService {
             ChargeStationRequest chargeStationRequest = chargeStationRequester.requestChargeStationRequest(page);
             List<ChargeStation> chargeStations = chargeStationRequest.toStations();
             List<Charger> chargers = chargeStationRequest.toChargers();
-            if (page != 24 && chargers.size() < 5000) {
+            if (page != MAX_PAGE_SIZE && chargers.size() < 5000) {
                 log.error("공공데이터 API 의 사이즈가 이상해요 page: {}, size: {}", page, chargers.size());
             }
             customChargeStationRepository.saveAll(new HashSet<>(chargeStations));
