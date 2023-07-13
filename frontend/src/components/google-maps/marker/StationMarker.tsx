@@ -4,18 +4,21 @@ import type { Root } from 'react-dom/client';
 import BriefStationInfo from '../../ui/BriefStationInfo';
 import { useUpdateStations } from '../../../hooks/useUpdateStations';
 import type { Station } from '../../../types';
+import { useExternalValue } from '../../../utils/external-state';
+import { briefStationInfoWindowStore } from '../../../stores/briefStationInfoWindowStore';
 
 interface Props {
   googleMap: google.maps.Map;
   station: Station;
-  briefStationInfoRoot: Root;
-  infoWindow: google.maps.InfoWindow;
 }
 
-const StationMarker = ({ googleMap, station, briefStationInfoRoot, infoWindow }: Props) => {
+const StationMarker = ({ googleMap, station }: Props) => {
   const { latitude, longitude, stationName } = station;
 
   const { updateStations } = useUpdateStations();
+  const { briefStationInfoRoot, infoWindowInstance } = useExternalValue(
+    briefStationInfoWindowStore
+  );
 
   useEffect(() => {
     const markerInstance = new google.maps.Marker({
@@ -25,7 +28,7 @@ const StationMarker = ({ googleMap, station, briefStationInfoRoot, infoWindow }:
     });
 
     markerInstance.addListener('click', () => {
-      infoWindow.open({
+      infoWindowInstance.open({
         anchor: markerInstance,
         map: googleMap,
       });

@@ -17,9 +17,20 @@ const StationList = () => {
     <Container>
       {isSuccess && (
         <ul>
-          {stations.map((station) => (
-            <li key={station.stationId}>{station.stationName}</li>
-          ))}
+          {stations.map((station) => {
+            const { stationId, stationName, availableCount, totalCount } = station;
+
+            return (
+              <li key={stationId}>
+                <button onClick={() => console.log(stationId)}>
+                  {stationName}
+                  <p>
+                    {availableCount}/{totalCount}
+                  </p>
+                </button>
+              </li>
+            );
+          })}
         </ul>
       )}
     </Container>

@@ -5,9 +5,11 @@ import { useCurrentPosition } from '../../../hooks/useCurrentPosition';
 import UserMarker from '../marker/UserMarker';
 import StationMarkersContainer from '../marker/StationMarkersContainer';
 import { useUpdateStations } from '../../../hooks/useUpdateStations';
-import { useExternalState } from '../../../utils/external-state';
+import { useExternalState, useSetExternalState } from '../../../utils/external-state';
 import { googleMapStore } from '../../../stores/googleMapStore';
 import StationList from '../../ui/StationList';
+import { createRoot } from 'react-dom/client';
+import { briefStationInfoWindowStore } from '../../../stores/briefStationInfoWindowStore';
 
 interface Props {
   googleMap: google.maps.Map;
@@ -39,6 +41,8 @@ const CarFfeineMap = () => {
       {isClientReady && (
         <>
           <CarFfeineMapListener googleMap={googleMap} />
+          <CarFfeineInfoWindowInitializer />
+
           <StationMarkersContainer googleMap={googleMap} />
           <UserMarker googleMap={googleMap} position={position} />
           <StationList />
@@ -66,6 +70,27 @@ const CarFfeineMapListener = ({ googleMap }: Props) => {
       updateStations(googleMap);
       google.maps.event.removeListener(initMarkersEvent);
     });
+  }, []);
+
+  return <></>;
+};
+
+const CarFfeineInfoWindowInitializer = () => {
+  const setBriefStationInfoWindow = useSetExternalState(briefStationInfoWindowStore);
+
+  useEffect(() => {
+    const container = document.createElement('div');
+    const briefStationInfoRoot = createRoot(container);
+    const infoWindowInstance = new google.maps.InfoWindow({
+      content: container,
+    });
+
+    const initialBriefStationInfoWindow = {
+      briefStationInfoRoot,
+      infoWindowInstance,
+    };
+
+    setBriefStationInfoWindow(initialBriefStationInfoWindow);
   }, []);
 
   return <></>;
