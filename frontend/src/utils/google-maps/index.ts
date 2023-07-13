@@ -1,8 +1,6 @@
-import type { DisplayPosition } from '../../types';
-
 export const getDisplayPosition = (map: google.maps.Map) => {
-  const center = map.getCenter() as google.maps.LatLng;
-  const bounds = map.getBounds() as google.maps.LatLngBounds;
+  const center = map.getCenter();
+  const bounds = map.getBounds();
 
   const longitudeDelta = bounds
     ? (bounds.getNorthEast().lng() - bounds.getSouthWest().lng()) / 2
@@ -18,5 +16,5 @@ export const getDisplayPosition = (map: google.maps.Map) => {
     latitude,
     longitudeDelta,
     latitudeDelta,
-  } as DisplayPosition;
+  };
 };
