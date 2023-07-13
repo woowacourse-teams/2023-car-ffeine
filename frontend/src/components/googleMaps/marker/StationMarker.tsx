@@ -4,9 +4,10 @@ import type { Root } from 'react-dom/client';
 import BriefStationInfo from '../../BriefStationInfo';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { fetchStation } from '../../../hooks/useStations';
-import type { Station, googleMap } from '../../../types';
+import type { Station } from '../../../types';
 
-interface Props extends googleMap {
+interface Props {
+  googleMap: google.maps.Map;
   station: Station;
   briefStationInfoRoot: Root;
   infoWindow: google.maps.InfoWindow;

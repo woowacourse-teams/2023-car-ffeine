@@ -1,7 +1,3 @@
-export interface googleMap {
-  googleMap: google.maps.Map;
-}
-
 interface Coordinates {
   latitude: number;
   longitude: number;

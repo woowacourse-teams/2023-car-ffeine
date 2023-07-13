@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 
-import type { googleMap } from '../../../types';
-
-interface Props extends googleMap {
+interface Props {
+  googleMap: google.maps.Map;
   position: google.maps.LatLngLiteral;
 }
 

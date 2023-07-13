@@ -4,9 +4,12 @@ import type { Root } from 'react-dom/client';
 
 import StationMarker from './StationMarker';
 import { useStations } from '../../../hooks/useStations';
-import type { googleMap } from '../../../types';
 
-const StationMarkersContainer = ({ googleMap }: googleMap) => {
+interface Props {
+  googleMap: google.maps.Map;
+}
+
+const StationMarkersContainer = ({ googleMap }: Props) => {
   const { ...queryInfo } = useStations(googleMap);
   const stations = queryInfo.data;
 
