@@ -1,10 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { INITIAL_ZOOM_SIZE } from '../../../constants';
 import { useCurrentPosition } from '../../../hooks/useCurrentPosition';
 import UserMarker from '../marker/UserMarker';
 import StationMarkersContainer from '../marker/StationMarkersContainer';
 import { useUpdateStations } from '../../../hooks/useUpdateStations';
+import { useExternalState } from '../../../utils/external-state';
+import { googleMapStore } from '../../../stores/googleMapStore';
 
 interface Props {
   googleMap: google.maps.Map;
@@ -12,11 +14,11 @@ interface Props {
 
 const CarFfeineMap = () => {
   const ref = useRef<HTMLDivElement>(null);
-  const [googleMap, setGoogleMap] = useState<google.maps.Map>();
+  const [googleMap, setGoogleMap] = useExternalState<google.maps.Map>(googleMapStore);
 
   const position = useCurrentPosition();
 
-  const isClientReady = position !== undefined && googleMap !== undefined;
+  const isClientReady = position !== undefined && googleMap;
 
   useEffect(() => {
     if (position != undefined) {
