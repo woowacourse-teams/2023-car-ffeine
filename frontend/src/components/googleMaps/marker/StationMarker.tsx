@@ -2,8 +2,7 @@ import { useEffect } from 'react';
 import type { Root } from 'react-dom/client';
 
 import BriefStationInfo from '../../BriefStationInfo';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { fetchStation } from '../../../hooks/useStations';
+import { useUpdateStations } from '../../../hooks/useUpdateStations';
 import type { Station } from '../../../types';
 
 interface Props {
@@ -16,14 +15,7 @@ interface Props {
 const StationMarker = ({ googleMap, station, briefStationInfoRoot, infoWindow }: Props) => {
   const { latitude, longitude, stationName } = station;
 
-  const queryClient = useQueryClient();
-
-  const { mutate } = useMutation(['stations'], {
-    mutationFn: fetchStation,
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['stations'] });
-    },
-  }); // TODO: 다른 곳에서도 코드 그대로 사용 중이므로 모듈화 필요
+  const { updateStations } = useUpdateStations();
 
   useEffect(() => {
     const markerInstance = new google.maps.Marker({
@@ -40,7 +32,7 @@ const StationMarker = ({ googleMap, station, briefStationInfoRoot, infoWindow }:
 
       briefStationInfoRoot.render(<BriefStationInfo station={station} />);
       googleMap.panTo(markerInstance.getPosition());
-      mutate(googleMap);
+      updateStations(googleMap);
     });
 
     return () => {

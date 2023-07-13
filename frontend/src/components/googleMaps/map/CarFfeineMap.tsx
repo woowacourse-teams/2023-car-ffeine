@@ -4,36 +4,28 @@ import { INITIAL_ZOOM_SIZE } from '../../../constants';
 import { useCurrentPosition } from '../../../hooks/useCurrentPosition';
 import UserMarker from '../marker/UserMarker';
 import StationMarkersContainer from '../marker/StationMarkersContainer';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { fetchStation } from '../../../hooks/useStations';
+import { useUpdateStations } from '../../../hooks/useUpdateStations';
 
 interface Props {
   googleMap: google.maps.Map;
 }
 
 const CarFfeineMapListener = ({ googleMap }: Props) => {
-  const queryClient = useQueryClient();
-
-  const { mutate } = useMutation(['stations'], {
-    mutationFn: fetchStation,
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['stations'] });
-    },
-  });
+  const { updateStations } = useUpdateStations();
 
   useEffect(() => {
     googleMap.addListener('dragend', () => {
       console.log('dragend');
-      mutate(googleMap);
+      updateStations(googleMap);
     });
 
     googleMap.addListener('zoom_changed', () => {
       console.log('zoom_changed');
-      mutate(googleMap);
+      updateStations(googleMap);
     });
 
     const initMarkersEvent = googleMap.addListener('bounds_changed', () => {
-      mutate(googleMap);
+      updateStations(googleMap);
       google.maps.event.removeListener(initMarkersEvent);
     });
   }, []);
