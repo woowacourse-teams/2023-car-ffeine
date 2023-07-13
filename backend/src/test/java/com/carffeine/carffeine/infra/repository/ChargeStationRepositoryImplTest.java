@@ -25,12 +25,13 @@ class ChargeStationRepositoryImplTest {
     private ChargeStationRepository chargeStationRepository;
 
     @Test
-    void 충전소가_잘_저장된다() {
+    void 충전소가_저장된다() {
         // given
         ChargeStation chargeStation = ChargeStationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
 
         // when
         chargeStationRepositoryImpl.saveAll(List.of(chargeStation));
+
         // then
         ChargeStation savedChargeStation = chargeStationRepository.findChargeStationByStationId(chargeStation.getStationId()).get();
         assertSoftly(softly -> {
