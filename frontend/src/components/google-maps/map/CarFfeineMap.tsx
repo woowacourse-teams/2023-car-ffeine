@@ -10,6 +10,7 @@ import { googleMapStore } from '../../../stores/googleMapStore';
 import StationList from '../../ui/StationList';
 import { createRoot } from 'react-dom/client';
 import { briefStationInfoWindowStore } from '../../../stores/briefStationInfoWindowStore';
+import MarkerList from '../../ui/MarkerList';
 
 interface Props {
   googleMap: google.maps.Map;
@@ -46,6 +47,7 @@ const CarFfeineMap = () => {
           <StationMarkersContainer googleMap={googleMap} />
           <UserMarker googleMap={googleMap} position={position} />
           <StationList />
+          <MarkerList />
         </>
       )}
     </>

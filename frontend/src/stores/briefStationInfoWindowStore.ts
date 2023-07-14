@@ -1,6 +1,6 @@
-import type { Root } from "react-dom/client";
+import type { Root } from 'react-dom/client';
 
-import { store } from "../utils/external-state";
+import { store } from '../utils/external-state';
 
 interface BriefStationInfoWindowStore {
   briefStationInfoRoot: Root;

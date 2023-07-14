@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
-import type { Root } from 'react-dom/client';
 
 import BriefStationInfo from '../../ui/BriefStationInfo';
 import { useUpdateStations } from '../../../hooks/useUpdateStations';
 import type { Station } from '../../../types';
-import { useExternalValue } from '../../../utils/external-state';
+import { useExternalValue, useSetExternalState } from '../../../utils/external-state';
 import { briefStationInfoWindowStore } from '../../../stores/briefStationInfoWindowStore';
+import { markerInstanceStore } from '../../../stores/markerIntanceStore';
+import { getStoreSnapshot } from '../../../utils/external-state/tools';
 
 interface Props {
   googleMap: google.maps.Map;
@@ -13,12 +14,14 @@ interface Props {
 }
 
 const StationMarker = ({ googleMap, station }: Props) => {
-  const { latitude, longitude, stationName } = station;
+  const { latitude, longitude, stationName, stationId } = station;
 
   const { updateStations } = useUpdateStations();
   const { briefStationInfoRoot, infoWindowInstance } = useExternalValue(
     briefStationInfoWindowStore
   );
+
+  const setMarkerInstanceState = useSetExternalState(markerInstanceStore);
 
   useEffect(() => {
     const markerInstance = new google.maps.Marker({
@@ -26,6 +29,15 @@ const StationMarker = ({ googleMap, station }: Props) => {
       map: googleMap,
       title: stationName,
     });
+
+    const prevMarkerInstances = getStoreSnapshot(markerInstanceStore);
+    setMarkerInstanceState([
+      ...prevMarkerInstances,
+      {
+        stationId,
+        markerInstance,
+      },
+    ]);
 
     markerInstance.addListener('click', () => {
       infoWindowInstance.open({
@@ -39,6 +51,12 @@ const StationMarker = ({ googleMap, station }: Props) => {
     });
 
     return () => {
+      const prevMarkerInstances = getStoreSnapshot(markerInstanceStore);
+      setMarkerInstanceState(
+        prevMarkerInstances
+        .filter((stationMarker) => stationMarker.stationId !== stationId)
+      );
+
       markerInstance.setMap(null);
     };
   }, []);

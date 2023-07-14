@@ -27,3 +27,7 @@ export const useExternalValue = <T>(store: DataObserver<T>): T => {
 
   return state;
 };
+
+export const getStoreSnapshot = <T>(store: DataObserver<T>): T => {
+  return store.getState();
+};
