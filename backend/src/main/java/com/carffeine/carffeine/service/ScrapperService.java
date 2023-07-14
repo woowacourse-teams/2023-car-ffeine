@@ -32,11 +32,11 @@ public class ScrapperService {
     @Transactional
     public void scrap() {
 
-        String SERVICE_KEY = randomKeySelector.getRandomKey();
+        String serviceKey = randomKeySelector.getRandomKey();
 
         URI uri = UriComponentsBuilder.fromUriString("https://apis.data.go.kr/B552584/EvCharger")
                 .path(REQUEST_URL)
-                .queryParam("serviceKey", SERVICE_KEY)
+                .queryParam("serviceKey", serviceKey)
                 .queryParam("pageNo", 1)
                 .queryParam("numOfRows", ROW_SIZE)
                 .queryParam("dataType", DATA_TYPE)
