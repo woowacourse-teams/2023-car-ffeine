@@ -1,6 +1,5 @@
 package com.carffeine.carffeine.controller.chargerStation;
 
-import com.carffeine.carffeine.controller.RequestManyParams;
 import com.carffeine.carffeine.controller.chargerStation.dto.ChargeStationSpecificResponse;
 import com.carffeine.carffeine.controller.chargerStation.dto.ChargeStationsSimpleResponse;
 import com.carffeine.carffeine.domain.chargestation.ChargeStation;
@@ -23,7 +22,7 @@ public class ChargerStationController {
     private final ChargerStationService chargerStationService;
 
     @GetMapping("/stations")
-    public ResponseEntity<ChargeStationsSimpleResponse> getStations(@RequestManyParams CoordinateRequest request) {
+    public ResponseEntity<ChargeStationsSimpleResponse> getStations(CoordinateRequest request) {
         List<ChargeStation> chargeStations = chargerStationService.findByCoordinate(request);
         ChargeStationsSimpleResponse chargerStationsSimpleResponse = ChargeStationsSimpleResponse.from(chargeStations);
         return ResponseEntity.ok(chargerStationsSimpleResponse);
