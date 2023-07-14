@@ -10,7 +10,6 @@ import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 
 import static com.carffeine.carffeine.integration.AcceptanceTestFixture.상태_코드를_검증한다;
@@ -22,7 +21,6 @@ import static com.carffeine.carffeine.integration.chargestation.ChargerStationIn
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ChargerStationIntegrationTest extends IntegrationTest {
 
     @Autowired
