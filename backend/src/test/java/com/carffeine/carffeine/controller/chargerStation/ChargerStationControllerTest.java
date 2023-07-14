@@ -27,8 +27,9 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -55,7 +56,6 @@ class ChargerStationControllerTest {
         BigDecimal latitudeDelta = BigDecimal.valueOf(1);
         BigDecimal longitudeDelta = BigDecimal.valueOf(1);
         CoordinateRequest coordinateRequest = new CoordinateRequest(latitude, longitude, latitudeDelta, longitudeDelta);
-        String request = objectMapper.writeValueAsString(coordinateRequest);
 
         // when
         List<ChargeStation> fakeChargeStations = List.of(선릉역_충전소_충전기_2개_사용가능_1개);
@@ -63,17 +63,20 @@ class ChargerStationControllerTest {
 
         // then
         mockMvc.perform(get("/api/stations")
-                        .content(request)
+                        .param("latitude", latitude.toString())
+                        .param("longitude", longitude.toString())
+                        .param("latitudeDelta", latitudeDelta.toString())
+                        .param("longitudeDelta", longitudeDelta.toString())
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.stations", hasSize(1)))
                 .andDo(customDocument("findChargeStation",
-                        requestFields(
-                                fieldWithPath("latitude").type(JsonFieldType.NUMBER).description("기준 위도"),
-                                fieldWithPath("longitude").type(JsonFieldType.NUMBER).description("기준 경도"),
-                                fieldWithPath("latitudeDelta").type(JsonFieldType.NUMBER).description("변화 위도"),
-                                fieldWithPath("longitudeDelta").type(JsonFieldType.NUMBER).description("변화 경도")
+                        requestParameters(
+                                parameterWithName("latitude").description("기준 위도"),
+                                parameterWithName("longitude").description("기준 경도"),
+                                parameterWithName("latitudeDelta").description("변화 위도"),
+                                parameterWithName("longitudeDelta").description("변화 경도")
                         ),
                         responseFields(
                                 fieldWithPath("stations").type(JsonFieldType.ARRAY).description("충전소들"),
