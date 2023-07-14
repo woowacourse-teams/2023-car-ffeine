@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.infra.api;
 
-import com.carffeine.carffeine.domain.chargerStation.chargeStation.ChargeStationRequester;
+import com.carffeine.carffeine.service.chargerStation.ChargeStationRequester;
 import com.carffeine.carffeine.service.chargerStation.dto.ChargeStationRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

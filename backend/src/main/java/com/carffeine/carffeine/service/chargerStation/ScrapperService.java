@@ -1,7 +1,6 @@
 package com.carffeine.carffeine.service.chargerStation;
 
 import com.carffeine.carffeine.domain.chargerStation.chargeStation.ChargeStation;
-import com.carffeine.carffeine.domain.chargerStation.chargeStation.ChargeStationRequester;
 import com.carffeine.carffeine.domain.chargerStation.chargeStation.CustomChargeStationRepository;
 import com.carffeine.carffeine.domain.chargerStation.charger.Charger;
 import com.carffeine.carffeine.domain.chargerStation.charger.CustomChargerRepository;

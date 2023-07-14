@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.domain.chargerStation.chargeStation;
+package com.carffeine.carffeine.service.chargerStation;
 
 import com.carffeine.carffeine.service.chargerStation.dto.ChargeStationRequest;
 
