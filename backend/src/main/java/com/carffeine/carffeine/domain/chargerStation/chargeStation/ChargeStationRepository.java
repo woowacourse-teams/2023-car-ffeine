@@ -17,5 +17,7 @@ public interface ChargeStationRepository extends Repository<ChargeStation, Long>
     Optional<ChargeStation> findChargeStationByStationId(String stationId);
 
     @Query("SELECT DISTINCT c FROM ChargeStation c JOIN FETCH c.chargers")
+    List<ChargeStation> findAllFetch();
+
     List<ChargeStation> findAll();
 }

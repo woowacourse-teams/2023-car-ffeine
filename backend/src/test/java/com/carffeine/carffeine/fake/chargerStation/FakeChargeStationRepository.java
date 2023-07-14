@@ -5,6 +5,7 @@ import com.carffeine.carffeine.domain.chargerStation.chargeStation.ChargeStation
 import com.carffeine.carffeine.domain.chargerStation.chargeStation.Latitude;
 import com.carffeine.carffeine.domain.chargerStation.chargeStation.Longitude;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,8 +37,13 @@ public class FakeChargeStationRepository implements ChargeStationRepository {
     }
 
     @Override
-    public List<ChargeStation> findAll() {
+    public List<ChargeStation> findAllFetch() {
         return map.values().stream()
                 .toList();
+    }
+
+    @Override
+    public List<ChargeStation> findAll() {
+        return new ArrayList<>(map.values());
     }
 }

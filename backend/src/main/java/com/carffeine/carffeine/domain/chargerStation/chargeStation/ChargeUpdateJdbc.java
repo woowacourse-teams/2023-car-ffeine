@@ -19,7 +19,7 @@ public class ChargeUpdateJdbc {
     }
 
     public void saveAllStationsBatch(List<ChargeStation> chargeStations) {
-        String sql = "INSERT INTO ChargeStation (stationId, stationName, companyName, isParkingFree, operatingTime, detailLocation, latitude, longitude, isPrivate, contact, stationState, privateReason)" +
+        String sql = "INSERT INTO charge_station (station_id, station_name, company_name, is_parking_free, operating_time, detail_location, latitude, longitude, is_private, contact, station_state, private_reason)" +
                 " VALUES (:stationId, :stationName, :companyName, :isParkingFree, :operatingTime, :detailLocation, :latitude, :longitude, :isPrivate, :contact, :stationState, :privateReason)";
 
         namedParameterJdbcTemplate.batchUpdate(sql, chargeStationSqlParameterSource(chargeStations));
@@ -48,16 +48,16 @@ public class ChargeUpdateJdbc {
     }
 
     public void updateAllStationsBatch(List<ChargeStation> chargeStations) {
-        String sql = "UPDATE ChargeStation " +
-                "SET contact = :contact, companyName = :companyName, detailLocation = :detailLocation, isParkingFree = :isParkingFree, isPrivate = :isPrivate, latitude = :latitude, longitude = :longitude, operatingTime = :operatingTime, privateReason = :privateReason, stationName = :stationName, stationState =:stationState " +
-                "WHERE stationId = :stationId";
+        String sql = "UPDATE charge_station " +
+                "SET contact = :contact, company_name = :companyName, detail_location = :detailLocation, is_parking_free = :isParkingFree, is_private = :isPrivate, latitude = :latitude, longitude = :longitude, operating_time = :operatingTime, private_reason = :privateReason, station_name = :stationName, station_state =:stationState " +
+                "WHERE station_id = :stationId";
 
 
         namedParameterJdbcTemplate.batchUpdate(sql, chargeStationSqlParameterSource(chargeStations));
     }
 
     public void saveAllChargersBatch(List<Charger> chargeStations) {
-        String chargerStatusSql = "INSERT INTO ChargerStatus (charger_id, station_id, chargerState, latestUpdateTime)" +
+        String chargerStatusSql = "INSERT INTO charger_status (charger_id, station_id, charger_state, latest_update_time)" +
                 " VALUES (:chargerId, :stationId, :chargerState, :latestUpdateTime)";
 
         List<ChargerStatus> collect = chargeStations.stream()
@@ -66,14 +66,14 @@ public class ChargeUpdateJdbc {
 
         namedParameterJdbcTemplate.batchUpdate(chargerStatusSql, chargerStatusSqlParameterSource(collect));
 
-        String sql = "INSERT INTO Charger (station_id, charger_id, type, address, price, capacity, method, fk_station_id, fk_charger_id)" +
+        String sql = "INSERT INTO charger (station_id, charger_id, type, address, price, capacity, method, fk_station_id, fk_charger_id)" +
                 " VALUES (:stationId, :chargerId, :type, :address, :price, :capacity, :method, :fkStationId, :fkChargerId)";
 
         namedParameterJdbcTemplate.batchUpdate(sql, chargerSqlParameterSource(chargeStations));
     }
 
     public void updateAllChargersBatch(List<Charger> chargeStations) {
-        String sql = "UPDATE Charger SET type = :type, address = :address, price = :price, capacity = :capacity, method = :method " +
+        String sql = "UPDATE charger SET type = :type, address = :address, price = :price, capacity = :capacity, method = :method " +
                 "WHERE station_id = :stationId AND charger_id = :chargerId";
 
         namedParameterJdbcTemplate.batchUpdate(sql, chargerSqlParameterSource(chargeStations));
