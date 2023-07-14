@@ -16,7 +16,7 @@ public class IntegrationTestHelper extends AbstractTestExecutionListener {
         executeTruncateTables(jdbcTemplate, truncateAllQueries);
     }
 
-    private static void executeTruncateTables(JdbcTemplate jdbcTemplate, List<String> truncateAllTablesQuery) {
+    private void executeTruncateTables(JdbcTemplate jdbcTemplate, List<String> truncateAllTablesQuery) {
         jdbcTemplate.execute("SET FOREIGN_KEY_CHECKS = 0");
 
         for (String truncateQuery : truncateAllTablesQuery) {
@@ -26,7 +26,7 @@ public class IntegrationTestHelper extends AbstractTestExecutionListener {
         jdbcTemplate.execute("SET FOREIGN_KEY_CHECKS = 1");
     }
 
-    private static List<String> getQueriesForTruncateAllTables(JdbcTemplate jdbcTemplate) {
+    private List<String> getQueriesForTruncateAllTables(JdbcTemplate jdbcTemplate) {
         return jdbcTemplate.queryForList("SELECT CONCAT('TRUNCATE TABLE ', TABLE_NAME, ';') AS q FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'PUBLIC'", String.class);
     }
 }
