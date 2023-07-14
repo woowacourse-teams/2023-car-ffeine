@@ -21,6 +21,7 @@ public class ScrapperService {
 
     private static final int THREAD_COUNT = 8;
     private static final int MAX_PAGE_SIZE = 24;
+    private static final int MIN_SIZE = 5000;
 
     private final CustomChargeStationRepository customChargeStationRepository;
     private final ChargeStationRequester chargeStationRequester;
@@ -40,7 +41,7 @@ public class ScrapperService {
             ChargeStationRequest chargeStationRequest = chargeStationRequester.requestChargeStationRequest(page);
             List<ChargeStation> chargeStations = chargeStationRequest.toStations();
             List<Charger> chargers = chargeStationRequest.toChargers();
-            if (page != MAX_PAGE_SIZE && chargers.size() < 5000) {
+            if (page != MAX_PAGE_SIZE && chargers.size() < MIN_SIZE) {
                 log.error("공공데이터 API 의 사이즈가 이상해요 page: {}, size: {}", page, chargers.size());
             }
             customChargeStationRepository.saveAll(new HashSet<>(chargeStations));
