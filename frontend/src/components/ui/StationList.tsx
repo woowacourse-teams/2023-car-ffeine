@@ -3,7 +3,7 @@ import { useStations } from '../../hooks/useStations';
 import { googleMapStore } from '../../stores/googleMapStore';
 import { useExternalValue } from '../../utils/external-state';
 import { markerInstanceStore } from '../../stores/markerIntanceStore';
-import { briefStationInfoWindowStore } from '../../stores/briefStationInfoWindowStore';
+import { getBriefStationInfoWindowStore } from '../../stores/briefStationInfoWindowStore';
 import BriefStationInfo from './BriefStationInfo';
 import { useUpdateStations } from '../../hooks/useUpdateStations';
 import type { Station } from '../../types';
@@ -15,7 +15,7 @@ const StationList = () => {
   const stationMarkers = useExternalValue(markerInstanceStore);
 
   const { infoWindowInstance, briefStationInfoRoot } = useExternalValue(
-    briefStationInfoWindowStore
+    getBriefStationInfoWindowStore()
   );
 
   const { updateStations } = useUpdateStations();

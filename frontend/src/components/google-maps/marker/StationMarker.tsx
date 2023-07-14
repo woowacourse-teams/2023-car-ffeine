@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 
 import BriefStationInfo from '../../ui/BriefStationInfo';
 import { useUpdateStations } from '../../../hooks/useUpdateStations';
-import type { Station } from '../../../types';
 import { useExternalValue, useSetExternalState } from '../../../utils/external-state';
-import { briefStationInfoWindowStore } from '../../../stores/briefStationInfoWindowStore';
+import { getBriefStationInfoWindowStore } from '../../../stores/briefStationInfoWindowStore';
 import { markerInstanceStore } from '../../../stores/markerIntanceStore';
 import { getStoreSnapshot } from '../../../utils/external-state/tools';
+import type { Station } from '../../../types';
 
 interface Props {
   googleMap: google.maps.Map;
@@ -18,7 +18,7 @@ const StationMarker = ({ googleMap, station }: Props) => {
 
   const { updateStations } = useUpdateStations();
   const { briefStationInfoRoot, infoWindowInstance } = useExternalValue(
-    briefStationInfoWindowStore
+    getBriefStationInfoWindowStore()
   );
 
   const setMarkerInstanceState = useSetExternalState(markerInstanceStore);
@@ -53,8 +53,7 @@ const StationMarker = ({ googleMap, station }: Props) => {
     return () => {
       const prevMarkerInstances = getStoreSnapshot(markerInstanceStore);
       setMarkerInstanceState(
-        prevMarkerInstances
-        .filter((stationMarker) => stationMarker.stationId !== stationId)
+        prevMarkerInstances.filter((stationMarker) => stationMarker.stationId !== stationId)
       );
 
       markerInstance.setMap(null);
