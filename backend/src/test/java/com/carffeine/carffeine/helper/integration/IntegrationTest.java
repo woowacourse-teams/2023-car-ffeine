@@ -13,18 +13,22 @@ import java.util.List;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class IntegrationTest extends AbstractTestExecutionListener {
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
     @LocalServerPort
     int port;
+    
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @BeforeEach
     void init() {
         RestAssured.port = this.port;
-
+        validateH2Database();
         List<String> truncateAllTablesQuery = jdbcTemplate.queryForList("SELECT CONCAT('TRUNCATE TABLE ', TABLE_NAME, ';') AS q FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'PUBLIC'", String.class);
         truncateAllTables(truncateAllTablesQuery);
+    }
+
+    private void validateH2Database() {
+        jdbcTemplate.queryForObject("SELECT H2VERSION() FROM DUAL", String.class);
     }
 
     private void truncateAllTables(List<String> truncateAllTablesQuery) {
