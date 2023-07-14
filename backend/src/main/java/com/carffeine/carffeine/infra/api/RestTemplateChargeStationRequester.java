@@ -1,7 +1,7 @@
 package com.carffeine.carffeine.infra.api;
 
-import com.carffeine.carffeine.service.chargerStation.ChargeStationRequester;
-import com.carffeine.carffeine.service.chargerStation.dto.ChargeStationRequest;
+import com.carffeine.carffeine.service.chargerstation.ChargeStationRequester;
+import com.carffeine.carffeine.service.chargerstation.dto.ChargeStationRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

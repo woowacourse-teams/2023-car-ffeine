@@ -1,11 +1,10 @@
 package com.carffeine.carffeine.controller.chargerStation;
 
-import com.carffeine.carffeine.controller.chargerStation.ChargerStationController;
-import com.carffeine.carffeine.domain.chargerStation.chargeStation.ChargeStation;
-import com.carffeine.carffeine.domain.chargerStation.exception.ChargeStationException;
-import com.carffeine.carffeine.domain.chargerStation.exception.ChargeStationExceptionType;
-import com.carffeine.carffeine.service.chargerStation.ChargerStationService;
-import com.carffeine.carffeine.service.chargerStation.dto.CoordinateRequest;
+import com.carffeine.carffeine.domain.chargestation.ChargeStation;
+import com.carffeine.carffeine.domain.chargestation.exception.ChargeStationException;
+import com.carffeine.carffeine.domain.chargestation.exception.ChargeStationExceptionType;
+import com.carffeine.carffeine.service.chargerstation.ChargerStationService;
+import com.carffeine.carffeine.service.chargerstation.dto.CoordinateRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -22,7 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static com.carffeine.carffeine.fixture.chargerStation.ChargeStationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
+import static com.carffeine.carffeine.fixture.chargerstation.ChargeStationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
 import static com.carffeine.carffeine.helper.RestDocsHelper.customDocument;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.when;

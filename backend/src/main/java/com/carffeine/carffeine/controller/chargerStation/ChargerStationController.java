@@ -2,9 +2,9 @@ package com.carffeine.carffeine.controller.chargerStation;
 
 import com.carffeine.carffeine.controller.chargerStation.dto.ChargeStationSpecificResponse;
 import com.carffeine.carffeine.controller.chargerStation.dto.ChargeStationsSimpleResponse;
-import com.carffeine.carffeine.domain.chargerStation.chargeStation.ChargeStation;
-import com.carffeine.carffeine.service.chargerStation.ChargerStationService;
-import com.carffeine.carffeine.service.chargerStation.dto.CoordinateRequest;
+import com.carffeine.carffeine.domain.chargestation.ChargeStation;
+import com.carffeine.carffeine.service.chargerstation.ChargerStationService;
+import com.carffeine.carffeine.service.chargerstation.dto.CoordinateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
