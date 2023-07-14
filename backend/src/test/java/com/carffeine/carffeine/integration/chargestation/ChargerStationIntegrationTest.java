@@ -3,7 +3,7 @@ package com.carffeine.carffeine.integration.chargestation;
 import com.carffeine.carffeine.domain.chargestation.ChargeStation;
 import com.carffeine.carffeine.domain.chargestation.ChargeStationRepository;
 import com.carffeine.carffeine.fixture.chargerstation.ChargeStationFixture;
-import io.restassured.RestAssured;
+import com.carffeine.carffeine.helper.integration.IntegrationTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 
 import static com.carffeine.carffeine.integration.AcceptanceTestFixture.상태_코드를_검증한다;
@@ -24,7 +23,7 @@ import static com.carffeine.carffeine.integration.chargestation.ChargerStationIn
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ChargerStationIntegrationTest {
+public class ChargerStationIntegrationTest extends IntegrationTest {
 
     @Autowired
     private ChargeStationRepository chargeStationRepository;
@@ -32,8 +31,7 @@ public class ChargerStationIntegrationTest {
     private ChargeStation 충전소;
 
     @BeforeEach
-    void setUp(@LocalServerPort int port) {
-        RestAssured.port = port;
+    void setUp() {
         충전소 = ChargeStationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
     }
 
