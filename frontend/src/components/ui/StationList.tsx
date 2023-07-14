@@ -3,12 +3,38 @@ import { useStations } from '../../hooks/useStations';
 import { googleMapStore } from '../../stores/googleMapStore';
 import { useExternalValue } from '../../utils/external-state';
 import { markerInstanceStore } from '../../stores/markerIntanceStore';
+import { briefStationInfoWindowStore } from '../../stores/briefStationInfoWindowStore';
+import BriefStationInfo from './BriefStationInfo';
+import { useUpdateStations } from '../../hooks/useUpdateStations';
+import type { Station } from '../../types';
 
 const StationList = () => {
   const googleMap = useExternalValue(googleMapStore);
 
   const { data: stations, isSuccess, isFetching } = useStations(googleMap);
-  const markers = useExternalValue(markerInstanceStore);
+  const stationMarkers = useExternalValue(markerInstanceStore);
+
+  const { infoWindowInstance, briefStationInfoRoot } = useExternalValue(
+    briefStationInfoWindowStore
+  );
+
+  const { updateStations } = useUpdateStations();
+
+  const handleStationInfoOpen = (station: Station) => {
+    const { stationId, latitude: lat, longitude: lng } = station;
+
+    const selectedStation = stationMarkers.find((marker) => marker.stationId === stationId);
+
+    googleMap.panTo({ lat, lng });
+    updateStations(googleMap);
+
+    infoWindowInstance.open({
+      anchor: selectedStation.markerInstance,
+      map: googleMap,
+    });
+
+    briefStationInfoRoot.render(<BriefStationInfo station={station} />);
+  };
 
   // TODO: 스켈레톤으로 바꾸기
   if (isFetching) {
@@ -22,8 +48,9 @@ const StationList = () => {
           <div>
             불일치 충전소 개수:
             {
-              stations.filter(
-                (station) => !markers.map((marker) => marker.stationId).includes(station.stationId)
+              stationMarkers.filter(
+                (station) =>
+                  !stationMarkers.map((marker) => marker.stationId).includes(station.stationId)
               ).length
             }
           </div>
@@ -33,7 +60,7 @@ const StationList = () => {
 
               return (
                 <li key={stationId}>
-                  <button onClick={() => console.log(stationId)}>{stationName}</button>
+                  <button onClick={() => handleStationInfoOpen(station)}>{stationName}</button>
                 </li>
               );
             })}
