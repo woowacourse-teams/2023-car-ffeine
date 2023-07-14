@@ -15,7 +15,7 @@ public class InitialChargeStationLoader implements ApplicationRunner {
     private final ScrapperService scrapperService;
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
         scrapperService.scrap();
     }
 }

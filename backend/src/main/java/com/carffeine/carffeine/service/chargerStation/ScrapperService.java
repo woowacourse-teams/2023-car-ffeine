@@ -10,10 +10,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -29,14 +27,12 @@ public class ScrapperService {
     private final ChargeStationRequester chargeStationRequester;
     private final CustomChargerRepository customChargerRepository;
 
-    public void scrap() throws InterruptedException {
+    public void scrap() {
         ExecutorService executorService = Executors.newFixedThreadPool(THREAD_COUNT);
-        List<Callable<Void>> tasks = new ArrayList<>();
         for (int i = 1; i <= MAX_PAGE_SIZE; i++) {
             int page = i;
             executorService.submit(() -> scrapPage(page));
         }
-        executorService.invokeAll(tasks);
         executorService.shutdown();
     }
 
