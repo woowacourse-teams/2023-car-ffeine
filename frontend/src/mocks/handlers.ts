@@ -38,6 +38,6 @@ export const handlers = [
 
     console.log('찾은 충전소 갯수: ' + foundStations.length);
 
-    return res(ctx.status(200), ctx.json(foundStations));
+    return res(ctx.delay(200), ctx.status(200), ctx.json(foundStations));
   }),
 ];
