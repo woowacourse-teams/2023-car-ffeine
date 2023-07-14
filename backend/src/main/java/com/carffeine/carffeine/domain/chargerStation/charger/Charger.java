@@ -40,8 +40,6 @@ public class Charger {
     // 추후에 enum으로 바꿀 수 있으면 바꾸기
     private String type;
 
-    private String address;
-
     private BigDecimal price;
 
     @Column(scale = 2)

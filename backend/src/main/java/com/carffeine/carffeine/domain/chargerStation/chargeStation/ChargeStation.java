@@ -32,6 +32,8 @@ public class ChargeStation {
 
     private String companyName;
 
+    private String address;
+
     private Boolean isParkingFree;
 
     private String operatingTime;

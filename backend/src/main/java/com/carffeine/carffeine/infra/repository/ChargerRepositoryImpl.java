@@ -18,7 +18,7 @@ public class ChargerRepositoryImpl implements CustomChargerRepository {
     @Override
     public void saveAll(List<Charger> chargers) {
         String sql = "INSERT IGNORE INTO charger (station_id, charger_id, type, address, price, capacity, method)" +
-                " VALUES (:stationId, :chargerId, :type, :address, :price, :capacity, :method)";
+                " VALUES (:stationId, :chargerId, :type, :price, :capacity, :method)";
 
         namedParameterJdbcTemplate.batchUpdate(sql, chargerSqlParameterSource(chargers));
     }
@@ -34,7 +34,6 @@ public class ChargerRepositoryImpl implements CustomChargerRepository {
                 .addValue("stationId", charger.getStationId())
                 .addValue("chargerId", charger.getChargerId())
                 .addValue("type", charger.getType())
-                .addValue("address", charger.getAddress())
                 .addValue("price", charger.getPrice())
                 .addValue("capacity", charger.getCapacity())
                 .addValue("method", charger.getMethod());

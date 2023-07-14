@@ -38,8 +38,8 @@ public record ChargeStationInfoRequest(
         String lng,
         String lat,
         String useTime,
-        String location,
         String addr,
+        String location,
         String chgerType,
         String chgerId,
         String statId,
@@ -53,6 +53,7 @@ public record ChargeStationInfoRequest(
                 .stationId(statId)
                 .stationName(statNm)
                 .companyName(busiNm)
+                .address(addr)
                 .isParkingFree(isYes(parkingFree))
                 .operatingTime(useTime)
                 .detailLocation(location)
@@ -70,7 +71,6 @@ public record ChargeStationInfoRequest(
                 .stationId(statId)
                 .chargerId(chgerId)
                 .type(chgerType)
-                .address(addr)
                 .chargerStatus(toChargerStatus())
                 .capacity(parseBigDecimalFromString(output))
                 .method(method)

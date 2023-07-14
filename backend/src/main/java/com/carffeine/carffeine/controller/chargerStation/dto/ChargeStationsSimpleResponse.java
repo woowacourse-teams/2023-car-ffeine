@@ -12,6 +12,7 @@ public record ChargeStationsSimpleResponse(List<ChargeStationSimpleResponse> sta
                         it.getStationId(),
                         it.getStationName(),
                         it.getCompanyName(),
+                        it.getAddress(),
                         ChargerSimpleResponse.from(it),
                         it.getIsParkingFree(),
                         it.getOperatingTime(),

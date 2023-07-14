@@ -13,6 +13,7 @@ public class ChargeStationFixture {
             .stationId("ME101010")
             .stationName("선릉역 충전소")
             .companyName("볼튼")
+            .address("역삼동 12번지 123, 123")
             .isParkingFree(true)
             .operatingTime("24시간 이용가능")
             .detailLocation("2층")
