@@ -9,4 +9,6 @@ public interface PeriodicCongestionRepository extends Repository<PeriodicCongest
     List<PeriodicCongestion> findAllByDayOfWeekAndStartTime(DayOfWeek dayOfWeek, RequestPeriod startTime);
 
     PeriodicCongestion save(PeriodicCongestion periodicCongestion);
+
+    List<PeriodicCongestion> findAllByStationId(String stationId);
 }
