@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: ENC(DR0RaV+v+UeGBHYRkdmVN7zqR782LpqPp+83nh7Jd2Wl/f13pCNHcORYANVXVNwumhEIYlZhJT9jVNpI3y0AbJ+S6wJ8JX6zyRuseCh9E9ux1fn1HvuxZhO2nbR3h8OEpa1l7s2G1doZHXjKVwrZnxdxN+uwJ3kCAskv7VOvRSA=)
-    username: ENC(Pcbw8DunWO7Gw8Ji1aZZDw==)
-    password: ENC(cC5dJEszKWMzZLKIgNs14/PEqCtjA5nP)
+    url: jdbc:mysql://localhost:3306/charge?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true
+    username: root
+    password: root
   driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
@@ -20,6 +20,8 @@ spring:
         show_sql: true
         format_sql: true
         use_sql_comments: true
+  flyway:
+    enabled: false
   profiles:
     active: local
 jasypt:
@@ -29,3 +31,5 @@ jasypt:
 
 api:
   service_key: ENC(JvewbNZd+69ZLsg8C7xwFTL+TCQHOo6USr7GysV0rRSGxkP4cVpFwrxGLfm0rOA1zhc+e20NOvR8fYTYsI8pfLm42m75XbqJRuuYheZ8R6lXREjwP/syRe5a9MSJDvQ69af1BFhsLi4=)
+initialize-charge:
+  enabled: true
