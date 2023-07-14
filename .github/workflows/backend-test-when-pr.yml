@@ -3,14 +3,18 @@ name: backend-test
 on:
   pull_request:
     branches:
+      - main
       - develop
+    paths:
+      - backend/**
+      - .github/**
 
 permissions:
   contents: read
 
 jobs:
   test:
-    name: merge-when-test
+    name: pull-request-when-test
     runs-on: ubuntu-latest
     environment: test
     defaults:
@@ -26,4 +30,4 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Test with Gradle
-        run: ./gradlew build
+        run: ./gradlew test
