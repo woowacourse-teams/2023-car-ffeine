@@ -1,7 +1,5 @@
 package com.carffeine.carffeine.domain.chargerStation.chargeStation;
 
-import com.carffeine.carffeine.domain.chargerStation.exception.ChargeStationException;
-import com.carffeine.carffeine.domain.chargerStation.exception.ChargeStationExceptionType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -35,9 +34,9 @@ public class Longitude {
     }
 
     private void validateKoreaLongitude(BigDecimal value) {
-        if (value.compareTo(KOREA_MIN_LONGITUDE) < 0 || value.compareTo(KOREA_MAX_LONGITUDE) > 0) {
-            throw new ChargeStationException(ChargeStationExceptionType.INVALID_LONGITUDE);
-        }
+//        if (value.compareTo(KOREA_MIN_LONGITUDE) < 0 || value.compareTo(KOREA_MAX_LONGITUDE) > 0) {
+//            throw new ChargeStationException(ChargeStationExceptionType.INVALID_LONGITUDE);
+//        }
     }
 
     public Longitude calculateMinLongitudeByDelta(BigDecimal delta) {
@@ -46,5 +45,22 @@ public class Longitude {
 
     public Longitude calculateMaxLongitudeByDelta(BigDecimal delta) {
         return new Longitude(value.add(delta));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Longitude longitude = (Longitude) o;
+        return Objects.equals(value, longitude.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
     }
 }

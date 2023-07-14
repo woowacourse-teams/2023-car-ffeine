@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:charge;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MySQL
+    username: sa
+    password: sa
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+jasypt:
+  encryptor:
+    password: password
+
+initialize-charge:
+  enabled: false
+
+api:
+  service_key: service_key
