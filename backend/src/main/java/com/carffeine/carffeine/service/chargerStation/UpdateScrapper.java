@@ -37,7 +37,7 @@ public class UpdateScrapper {
         ChargeStationRequest chargeStationRequest = restTemplate.getForObject(uri, ChargeStationRequest.class);
         List<ChargeStation> chargeStations = Objects.requireNonNull(chargeStationRequest)
                 .items()
-                .toDomains();
+                .toStations();
 
         Map<String, List<Charger>> chargersByStationId = new HashMap<>();
         Map<String, ChargeStation> chargeStationByStationId = new HashMap<>();

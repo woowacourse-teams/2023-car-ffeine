@@ -24,7 +24,7 @@ public class ChargerStationUpdateService {
 
     @Transactional
     public void updateStations() {
-        List<ChargeStation> chargeStations = chargeStationRepository.findAll();
+        List<ChargeStation> chargeStations = chargeStationRepository.findAllFetch();
         List<ChargeStation> updatedStations = updateScrapper.updateData();
 
         Map<String, ChargeStation> savedStationsByStationId = chargeStations.stream()
