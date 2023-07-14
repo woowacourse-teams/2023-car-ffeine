@@ -10,9 +10,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-      use-new-id-generator-mappings: false
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     properties:
