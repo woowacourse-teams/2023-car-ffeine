@@ -6,12 +6,21 @@
   "semi": true,
   "trailingComma": "es5",
   "importOrder": [
+    "^react(.*)",
+    "^@tanstack/(.*)$",
+    "^@map/(.*)$",
+    "^@marker/(.*)$",
     "^@utils/(.*)$",
+    "^@stores/(.*)$",
     "^@hooks/(.*)$",
     "^@common/(.*)$",
     "^@components/(.*)$",
-    "^@style/(.*)$",
-    "^[./]"
+    "^App",
+    "^mocks",
+    "^style/(.*)$",
+    "^@constants",
+    "^[./]",
+    "^types"
   ],
   "importOrderSeparation": true
 }
