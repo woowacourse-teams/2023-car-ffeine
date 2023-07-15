@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 import { useStations } from '../../hooks/useStations';
 import { googleMapStore } from '../../stores/googleMapStore';
 import { useExternalValue } from '../../utils/external-state';
-import { markerInstanceStore } from '../../stores/markerIntanceStore';
+import { markerInstanceStore } from '../../stores/markerInstanceStore';
 import { getBriefStationInfoWindowStore } from '../../stores/briefStationInfoWindowStore';
 import BriefStationInfo from './BriefStationInfo';
 import { useUpdateStations } from '../../hooks/useUpdateStations';

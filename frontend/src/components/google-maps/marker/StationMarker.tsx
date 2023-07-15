@@ -4,7 +4,7 @@ import BriefStationInfo from '../../ui/BriefStationInfo';
 import { useUpdateStations } from '../../../hooks/useUpdateStations';
 import { useExternalValue, useSetExternalState } from '../../../utils/external-state';
 import { getBriefStationInfoWindowStore } from '../../../stores/briefStationInfoWindowStore';
-import { markerInstanceStore } from '../../../stores/markerIntanceStore';
+import { markerInstanceStore } from '../../../stores/markerInstanceStore';
 import { getStoreSnapshot } from '../../../utils/external-state/tools';
 import type { Station } from '../../../types';
 
