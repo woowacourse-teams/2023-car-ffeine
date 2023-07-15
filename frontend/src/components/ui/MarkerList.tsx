@@ -1,6 +1,8 @@
 import { styled } from 'styled-components';
-import { useExternalValue } from '../../utils/external-state';
-import { markerInstanceStore } from '../../stores/markerInstanceStore';
+
+import { useExternalValue } from '@utils/external-state';
+
+import { markerInstanceStore } from '@stores/markerInstanceStore';
 
 const MarkerList = () => {
   const markers = useExternalValue(markerInstanceStore);

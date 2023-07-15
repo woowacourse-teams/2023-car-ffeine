@@ -1,12 +1,16 @@
 import { useEffect } from 'react';
 
-import BriefStationInfo from '../../ui/BriefStationInfo';
-import { useUpdateStations } from '../../../hooks/useUpdateStations';
-import { useExternalValue, useSetExternalState } from '../../../utils/external-state';
-import { getBriefStationInfoWindowStore } from '../../../stores/briefStationInfoWindowStore';
-import { markerInstanceStore } from '../../../stores/markerInstanceStore';
-import { getStoreSnapshot } from '../../../utils/external-state/tools';
-import type { Station } from '../../../types';
+import { useExternalValue, useSetExternalState } from '@utils/external-state';
+import { getStoreSnapshot } from '@utils/external-state/tools';
+
+import { getBriefStationInfoWindowStore } from '@stores/briefStationInfoWindowStore';
+import { markerInstanceStore } from '@stores/markerInstanceStore';
+
+import { useUpdateStations } from '@hooks/useUpdateStations';
+
+import BriefStationInfo from '@components/BriefStationInfo';
+
+import type { Station } from 'types';
 
 interface Props {
   googleMap: google.maps.Map;

@@ -1,6 +1,6 @@
 import { Status, Wrapper } from '@googlemaps/react-wrapper';
 
-import CarFfeineMap from './components/google-maps/map/CarFfeineMap';
+import CarFfeineMap from '@map/CarFfeineMap';
 
 const render = (status: Status) => {
   switch (status) {
