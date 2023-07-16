@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { INITIAL_CENTER } from '../constants';
+import { INITIAL_CENTER } from '@constants';
 
 export const useCurrentPosition = () => {
   const [position, setPosition] = useState<google.maps.LatLngLiteral>();

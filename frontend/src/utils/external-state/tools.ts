@@ -1,6 +1,7 @@
 import { useSyncExternalStore } from 'react';
-import type { DataObserver } from './StateManager';
+
 import StateManager from './StateManager';
+import type { DataObserver } from './StateManager';
 
 export const store = <T>(initialState: T): StateManager<T> => {
   const stateManager = new StateManager<T>(initialState);

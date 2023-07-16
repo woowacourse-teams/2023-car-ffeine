@@ -1,8 +1,8 @@
 import { createRoot } from 'react-dom/client';
 import type { Root } from 'react-dom/client';
 
-import { store } from '../utils/external-state';
-import type StateManager from '../utils/external-state/StateManager';
+import { store } from '@utils/external-state';
+import type StateManager from '@utils/external-state/StateManager';
 
 interface BriefStationInfoWindowStore {
   briefStationInfoRoot: Root;

@@ -1,7 +1,8 @@
 import { rest } from 'msw';
 
-import type { DisplayPosition, Station } from '../types';
 import { stations } from './data';
+
+import type { DisplayPosition, Station } from 'types';
 
 export const handlers = [
   rest.post('/stations', async (req, res, ctx) => {
