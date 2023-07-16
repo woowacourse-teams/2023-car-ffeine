@@ -12,6 +12,7 @@ import { useUpdateStations } from '@hooks/useUpdateStations';
 
 import MarkerList from '@ui/MarkerList';
 import StationList from '@ui/StationList';
+import ZoomController from '@ui/ZoomController';
 
 import { INITIAL_ZOOM_SIZE } from '@constants';
 
@@ -49,6 +50,7 @@ const CarFfeineMap = () => {
           <UserMarker googleMap={googleMap} position={position} />
           <StationList />
           <MarkerList />
+          <ZoomController />
         </>
       )}
     </>
