@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 
-import { googleMapActions } from '../../stores/googleMapStore';
+import { googleMapActions } from '@stores/googleMapStore';
 
 const ZoomController = () => {
   const handleZoomUpButton = () => {
