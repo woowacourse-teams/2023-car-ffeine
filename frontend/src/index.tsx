@@ -1,11 +1,13 @@
 import { createRoot } from 'react-dom/client';
 
-import App from './App';
-import { worker } from './mocks/browser';
-import { GlobalStyle } from './style/GlobalStyle';
-
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
+import App from 'App';
+
+import { worker } from 'mocks/browser';
+
+import { GlobalStyle } from 'style/GlobalStyle';
 
 const queryClient = new QueryClient();
 

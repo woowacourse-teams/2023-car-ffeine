@@ -1,5 +1,6 @@
+import { useStations } from '@hooks/useStations';
+
 import StationMarker from './StationMarker';
-import { useStations } from '../../../hooks/useStations';
 
 interface Props {
   googleMap: google.maps.Map;

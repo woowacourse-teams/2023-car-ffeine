@@ -1,4 +1,4 @@
-import type { Station } from '../../types';
+import type { Station } from 'types';
 
 interface Props {
   station: Station;

@@ -1,4 +1,4 @@
-import { store } from '../utils/external-state';
+import { store } from '@utils/external-state';
 
 export interface StationMarker {
   stationId: number;
