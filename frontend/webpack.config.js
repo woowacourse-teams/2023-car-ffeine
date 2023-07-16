@@ -30,6 +30,16 @@ module.exports = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+    alias: {
+      '@map': path.resolve(__dirname, './src/components/google-maps/map'),
+      '@marker': path.resolve(__dirname, './src/components/google-maps/marker'),
+      '@components': path.resolve(__dirname, './src/components/ui'),
+      '@utils': path.resolve(__dirname, './src/utils'),
+      '@hooks': path.resolve(__dirname, './src/hooks'),
+      '@stores': path.resolve(__dirname, './src/stores'),
+      '@constants': path.resolve(__dirname, './src/constants/index'),
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({
