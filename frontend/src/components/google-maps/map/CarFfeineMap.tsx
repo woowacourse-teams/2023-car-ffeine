@@ -9,6 +9,7 @@ import { googleMapStore } from '../../../stores/googleMapStore';
 import StationList from '../../ui/StationList';
 import MarkerList from '../../ui/MarkerList';
 import { INITIAL_ZOOM_SIZE } from '../../../constants';
+import ZoomController from '../../ui/ZoomController';
 
 interface Props {
   googleMap: google.maps.Map;
@@ -44,6 +45,7 @@ const CarFfeineMap = () => {
           <UserMarker googleMap={googleMap} position={position} />
           <StationList />
           <MarkerList />
+          <ZoomController />
         </>
       )}
     </>
