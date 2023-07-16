@@ -15,6 +15,7 @@
     "^@hooks/(.*)$",
     "^@common/(.*)$",
     "^@components/(.*)$",
+    "^@ui/(.*)$",
     "^App",
     "^mocks",
     "^style/(.*)$",

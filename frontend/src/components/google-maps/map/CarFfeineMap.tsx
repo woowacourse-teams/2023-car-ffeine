@@ -10,8 +10,8 @@ import { googleMapStore } from '@stores/googleMapStore';
 import { useCurrentPosition } from '@hooks/useCurrentPosition';
 import { useUpdateStations } from '@hooks/useUpdateStations';
 
-import MarkerList from '@components/MarkerList';
-import StationList from '@components/StationList';
+import MarkerList from '@ui/MarkerList';
+import StationList from '@ui/StationList';
 
 import { INITIAL_ZOOM_SIZE } from '@constants';
 

@@ -8,7 +8,7 @@ import { markerInstanceStore } from '@stores/markerInstanceStore';
 
 import { useUpdateStations } from '@hooks/useUpdateStations';
 
-import BriefStationInfo from '@components/BriefStationInfo';
+import BriefStationInfo from '@ui/BriefStationInfo';
 
 import type { Station } from 'types';
 
