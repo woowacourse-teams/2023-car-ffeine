@@ -1,15 +1,19 @@
 import { useEffect, useRef } from 'react';
 
-import { useCurrentPosition } from '../../../hooks/useCurrentPosition';
-import UserMarker from '../marker/UserMarker';
-import StationMarkersContainer from '../marker/StationMarkersContainer';
-import { useUpdateStations } from '../../../hooks/useUpdateStations';
-import { useExternalState } from '../../../utils/external-state';
-import { googleMapStore } from '../../../stores/googleMapStore';
-import StationList from '../../ui/StationList';
-import MarkerList from '../../ui/MarkerList';
-import { INITIAL_ZOOM_SIZE } from '../../../constants';
-import ZoomController from '../../ui/ZoomController';
+import StationMarkersContainer from '@marker/StationMarkersContainer';
+import UserMarker from '@marker/UserMarker';
+
+import { useExternalState } from '@utils/external-state';
+
+import { googleMapStore } from '@stores/googleMapStore';
+
+import { useCurrentPosition } from '@hooks/useCurrentPosition';
+import { useUpdateStations } from '@hooks/useUpdateStations';
+
+import MarkerList from '@ui/MarkerList';
+import StationList from '@ui/StationList';
+
+import { INITIAL_ZOOM_SIZE } from '@constants';
 
 interface Props {
   googleMap: google.maps.Map;
@@ -45,7 +49,6 @@ const CarFfeineMap = () => {
           <UserMarker googleMap={googleMap} position={position} />
           <StationList />
           <MarkerList />
-          <ZoomController />
         </>
       )}
     </>

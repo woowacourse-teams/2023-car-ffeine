@@ -10,7 +10,7 @@
 === Request
 
 include::{snippets}/charger-station-controller-test/findChargeStation/http-request.adoc[]
-include::{snippets}/charger-station-controller-test/findChargeStation/request-fields.adoc[]
+include::{snippets}/charger-station-controller-test/findChargeStation/request-parameters.adoc[]
 
 === Response
 
@@ -28,7 +28,6 @@ include::{snippets}/charger-station-controller-test/findChargeStationById/http-r
 include::{snippets}/charger-station-controller-test/findChargeStationById/http-response.adoc[]
 include::{snippets}/charger-station-controller-test/findChargeStationById/response-body.adoc[]
 
-
 == 잘못된 충전소 id 값으로 충전소를 상세 조회하는 경우 예외가 발생한다. (/stations/{stationId})
 
 === Request
@@ -36,6 +35,7 @@ include::{snippets}/charger-station-controller-test/findChargeStationById/respon
 include::{snippets}/charger-station-controller-test/findChargeStationByInvalidId/http-request.adoc[]
 
 === Response
+
 include::{snippets}/charger-station-controller-test/findChargeStationByInvalidId/http-response.adoc[]
 include::{snippets}/charger-station-controller-test/findChargeStationByInvalidId/response-fields.adoc[]
 

@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.controller.chargerStation.dto;
 
-import com.carffeine.carffeine.domain.chargerStation.chargeStation.ChargeStation;
+import com.carffeine.carffeine.domain.chargestation.ChargeStation;
 
 import java.math.BigDecimal;
 import java.util.List;
