@@ -2,9 +2,9 @@ package com.carffeine.carffeine.infra.api;
 
 import com.carffeine.carffeine.service.chargerStation.ChargeStationRequester;
 import com.carffeine.carffeine.service.chargerStation.dto.ChargeStationRequest;
+import com.carffeine.carffeine.service.chargerStation.dto.RandomKeySelector;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +24,6 @@ public class RestTemplateChargeStationRequester implements ChargeStationRequeste
     private static final String DATA_TYPE = "JSON";
     private static final int ONE_SECOND = 1000;
     private final RestTemplate restTemplate;
-
-    @Value("${api.service_key}")
-    private String serviceKey;
 
     @Override
     public ChargeStationRequest requestChargeStationRequest(int pageNo) {
@@ -51,6 +48,7 @@ public class RestTemplateChargeStationRequester implements ChargeStationRequeste
     }
 
     private URI requestWithDecodedKey(int pageNo) {
+        String serviceKey = RandomKeySelector.generateRandomKey();
         return UriComponentsBuilder.fromUriString("https://apis.d584/EvCharger")
                 .path(REQUEST_URL)
                 .queryParam("serviceKey", serviceKey)
