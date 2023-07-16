@@ -1,3 +1,12 @@
 {
-  "testEnvironment": "jsdom"
+  "testEnvironment": "jsdom",
+  "moduleNameMapper": {
+    "^@components/(.*)$": "<rootDir>/src/components/ui/$1",
+    "^@utils/(.*)$": "<rootDir>/src/utils/$1",
+    "^@map/(.*)$": "<rootDir>/src/components/google-maps/map/$1",
+    "^@marker/(.*)$": "<rootDir>/src/components/google-maps/marker/$1",
+    "^@hooks/(.*)$": "<rootDir>/src/hooks/$1",
+    "^@stores/(.*)$": "<rootDir>/src/stores/$1",
+    "^@constants": "<rootDir>/src/constants/index"
+  }
 }
