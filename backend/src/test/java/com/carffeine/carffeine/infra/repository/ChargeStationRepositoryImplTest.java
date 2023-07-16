@@ -1,8 +1,8 @@
 package com.carffeine.carffeine.infra.repository;
 
-import com.carffeine.carffeine.domain.chargerStation.chargeStation.ChargeStation;
-import com.carffeine.carffeine.domain.chargerStation.chargeStation.ChargeStationRepository;
-import com.carffeine.carffeine.fixture.chargerStation.ChargeStationFixture;
+import com.carffeine.carffeine.domain.chargestation.ChargeStation;
+import com.carffeine.carffeine.domain.chargestation.ChargeStationRepository;
+import com.carffeine.carffeine.fixture.chargerstation.ChargeStationFixture;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator.ReplaceUnderscores;
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.config;
 
-import com.carffeine.carffeine.service.chargerStation.ScrapperService;
+import com.carffeine.carffeine.service.chargerstation.ScrapperService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
