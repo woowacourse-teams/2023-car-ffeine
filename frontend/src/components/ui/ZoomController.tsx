@@ -2,11 +2,11 @@ import { styled } from 'styled-components';
 import { googleMapActions } from '../../stores/googleMapStore';
 
 const ZoomController = () => {
-  const handleZoomControlButton = (foo: '+' | '-') => {
-    if (foo === '+') {
+  const handleZoomControlButton = (type: '+' | '-') => {
+    if (type === '+') {
       googleMapActions.zoomUp();
     }
-    if (foo === '-') {
+    if (type === '-') {
       googleMapActions.zoomDown();
     }
   };
