@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 
 import { useExternalValue, useSetExternalState } from '@utils/external-state';
-import { getStoreSnapshot } from '@utils/external-state/tools';
 
 import { getBriefStationInfoWindowStore } from '@stores/briefStationInfoWindowStore';
 import { markerInstanceStore } from '@stores/markerInstanceStore';
@@ -34,9 +33,8 @@ const StationMarker = ({ googleMap, station }: Props) => {
       title: stationName,
     });
 
-    const prevMarkerInstances = getStoreSnapshot(markerInstanceStore);
-    setMarkerInstanceState([
-      ...prevMarkerInstances,
+    setMarkerInstanceState((previewsMarkerInstances) => [
+      ...previewsMarkerInstances,
       {
         stationId,
         markerInstance,
@@ -55,8 +53,7 @@ const StationMarker = ({ googleMap, station }: Props) => {
     });
 
     return () => {
-      const prevMarkerInstances = getStoreSnapshot(markerInstanceStore);
-      setMarkerInstanceState(
+      setMarkerInstanceState((prevMarkerInstances) =>
         prevMarkerInstances.filter((stationMarker) => stationMarker.stationId !== stationId)
       );
 
