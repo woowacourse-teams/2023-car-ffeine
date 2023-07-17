@@ -66,5 +66,4 @@ public class UpdateScrapper {
 
         return chargeStationsToSave;
     }
-
 }
