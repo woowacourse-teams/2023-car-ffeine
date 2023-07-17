@@ -23,7 +23,9 @@ public class RestTemplateChargeStationRequester implements ChargeStationRequeste
     private static final int ROW_SIZE = 9999;
     private static final String DATA_TYPE = "JSON";
     private static final int ONE_SECOND = 1000;
+
     private final RestTemplate restTemplate;
+    private final RandomKeySelector randomKeySelector;
 
     @Override
     public ChargeStationRequest requestChargeStationRequest(int pageNo) {
@@ -48,7 +50,7 @@ public class RestTemplateChargeStationRequester implements ChargeStationRequeste
     }
 
     private URI requestWithDecodedKey(int pageNo) {
-        String serviceKey = RandomKeySelector.generateRandomKey();
+        String serviceKey = randomKeySelector.generateRandomKey();
         return UriComponentsBuilder.fromUriString("https://apis.d584/EvCharger")
                 .path(REQUEST_URL)
                 .queryParam("serviceKey", serviceKey)
