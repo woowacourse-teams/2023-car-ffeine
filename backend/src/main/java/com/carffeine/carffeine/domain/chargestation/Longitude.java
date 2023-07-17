@@ -52,10 +52,11 @@ public class Longitude {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+
+        if (!(o instanceof Longitude longitude)) {
             return false;
         }
-        Longitude longitude = (Longitude) o;
+
         return Objects.equals(value, longitude.value);
     }
 

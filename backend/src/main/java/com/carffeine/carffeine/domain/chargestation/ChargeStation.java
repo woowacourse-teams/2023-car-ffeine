@@ -32,6 +32,8 @@ public class ChargeStation {
 
     private String companyName;
 
+    private String address;
+
     private Boolean isParkingFree;
 
     private String operatingTime;
@@ -68,12 +70,16 @@ public class ChargeStation {
         this.chargers = chargers;
     }
 
-    public boolean isUpdated(final ChargeStation station) {
+    public boolean isUpdated(ChargeStation station) {
         if (!stationName.equals(station.stationName)) {
             return true;
         }
 
         if (!companyName.equals(station.companyName)) {
+            return true;
+        }
+
+        if (!address.equals(station.address)) {
             return true;
         }
 
@@ -89,11 +95,11 @@ public class ChargeStation {
             return true;
         }
 
-        if (!latitude.getValue().equals(station.getLatitude().getValue())) {
+        if (!latitude.equals(station.getLatitude())) {
             return true;
         }
 
-        if (!longitude.getValue().equals(station.longitude.getValue())) {
+        if (!longitude.equals(station.longitude)) {
             return true;
         }
 
@@ -117,7 +123,7 @@ public class ChargeStation {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ChargeStation that)) return false;
         return Objects.equals(stationId, that.stationId);
