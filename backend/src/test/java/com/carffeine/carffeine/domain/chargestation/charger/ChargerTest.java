@@ -19,4 +19,30 @@ class ChargerTest {
 
         assertThat(expect).isTrue();
     }
+
+    @Test
+    void 충전기가_업데이트_된다면_true를_반환한다() {
+        // given
+        Charger charger = ChargerFixture.선릉역_충전기_2번_사용_중;
+        Charger updateCharger = ChargerFixture.선릉역_충전기_2번_변경됨;
+
+        // when
+        boolean isUpdated = charger.isUpdated(updateCharger);
+
+        // then
+        assertThat(isUpdated).isTrue();
+    }
+
+    @Test
+    void 충전기가_업데이트가_안된다면_false를_반환한다() {
+        // given
+        Charger charger = ChargerFixture.선릉역_충전기_2번_사용_중;
+        Charger updateCharger = ChargerFixture.선릉역_충전기_2번_사용_중;
+
+        // when
+        boolean isUpdated = charger.isUpdated(updateCharger);
+
+        // then
+        assertThat(isUpdated).isFalse();
+    }
 }
