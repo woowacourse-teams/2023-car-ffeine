@@ -5,6 +5,7 @@ import com.carffeine.carffeine.domain.chargestation.charger.Charger;
 import com.carffeine.carffeine.service.chargerstation.dto.ChargeStationRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -18,12 +19,15 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Service
 public class UpdateScrapper {
+
     private static final String REQUEST_URL = "/getChargerInfo";
     private static final int ROW_SIZE = 9999;
     private static final String DATA_TYPE = "JSON";
-    private final RestTemplate restTemplate;
     private static final String SERVICE_KEY = "";
 
+    private final RestTemplate restTemplate;
+
+    @Transactional
     public List<ChargeStation> updateData() {
         URI uri = UriComponentsBuilder.fromUriString("https://apis.data.go.kr/B552584/EvCharger")
                 .path(REQUEST_URL)
