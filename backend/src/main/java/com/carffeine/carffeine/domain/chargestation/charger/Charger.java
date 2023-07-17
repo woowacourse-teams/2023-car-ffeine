@@ -9,8 +9,10 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
@@ -57,7 +59,7 @@ public class Charger {
     private ChargerStatus chargerStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "station_id", insertable = false, updatable = false)
+    @JoinColumn(name = "station_id", insertable = false, updatable = false, foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private ChargeStation chargeStation;
 
     public boolean isAvailable() {
@@ -72,5 +74,25 @@ public class Charger {
             return false;
         }
         return capacity.compareTo(OUTPUT_THRESHOLD) >= 0;
+    }
+
+    public boolean isUpdated(final Charger charger) {
+        if (!this.type.equals(charger.type)) {
+            return true;
+        }
+
+        if (!this.address.equals(charger.address)) {
+            return true;
+        }
+
+        if (this.capacity != null && this.capacity.compareTo(charger.capacity) != 0) {
+            return true;
+        }
+
+        if (!this.method.equals(charger.method)) {
+            return true;
+        }
+
+        return false;
     }
 }
