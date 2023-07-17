@@ -44,6 +44,7 @@ class ChargeUpdateJdbcTest extends IntegrationTest {
             softly.assertThat(result.get(0).getStationId()).isEqualTo(chargeStations.get(0).getStationId());
             softly.assertThat(result.get(0).getCompanyName()).isEqualTo(chargeStations.get(0).getCompanyName());
             softly.assertThat(result.get(0).getContact()).isEqualTo(chargeStations.get(0).getContact());
+            softly.assertThat(result.get(0).getAddress()).isEqualTo(chargeStations.get(0).getAddress());
             softly.assertThat(result.get(0).getIsPrivate()).isEqualTo(chargeStations.get(0).getIsPrivate());
             softly.assertThat(result.get(0).getStationName()).isEqualTo(chargeStations.get(0).getStationName());
             softly.assertThat(result.get(0).getLatitude()).isEqualTo(chargeStations.get(0).getLatitude());
@@ -84,7 +85,6 @@ class ChargeUpdateJdbcTest extends IntegrationTest {
             softly.assertThat(result.getStationId()).isEqualTo(charger.getStationId());
             softly.assertThat(result.getChargerId()).isEqualTo(charger.getChargerId());
             softly.assertThat(result.getType()).isEqualTo(charger.getType());
-            softly.assertThat(result.getAddress()).isEqualTo(charger.getAddress());
             softly.assertThat(result.getPrice()).isEqualByComparingTo(charger.getPrice());
             softly.assertThat(result.getCapacity()).isEqualByComparingTo(charger.getCapacity());
             softly.assertThat(result.getMethod()).isEqualTo(charger.getMethod());
@@ -107,7 +107,6 @@ class ChargeUpdateJdbcTest extends IntegrationTest {
             softly.assertThat(updated.getStationId()).isEqualTo(result.getStationId());
             softly.assertThat(updated.getChargerId()).isEqualTo(result.getChargerId());
             softly.assertThat(updated.getType()).isEqualTo(result.getType());
-            softly.assertThat(updated.getAddress()).isEqualTo(result.getAddress());
             softly.assertThat(updated.getPrice()).isEqualByComparingTo(result.getPrice());
             softly.assertThat(updated.getCapacity()).isEqualByComparingTo(result.getCapacity());
             softly.assertThat(updated.getMethod()).isEqualTo(result.getMethod());

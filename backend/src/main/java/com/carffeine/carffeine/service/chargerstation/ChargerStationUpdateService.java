@@ -23,7 +23,7 @@ public class ChargerStationUpdateService {
     private final CustomChargeStationRepository customChargeStationRepository;
     private final CustomChargerRepository customChargerRepository;
 
-    //    @Transactional
+    @Transactional
     public void updateStations(List<ChargeStation> updatedStations) {
         List<ChargeStation> chargeStations = chargeStationRepository.findAllFetch();
 

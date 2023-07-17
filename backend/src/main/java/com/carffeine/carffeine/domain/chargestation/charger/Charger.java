@@ -30,6 +30,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "charger")
 public class Charger {
+
     private static final BigDecimal OUTPUT_THRESHOLD = BigDecimal.valueOf(50);
 
     @Id
@@ -67,22 +68,6 @@ public class Charger {
         return chargerStatus.isAvailable();
     }
 
-    public boolean isUpdated(Charger charger) {
-        if (!this.type.equals(charger.type)) {
-            return true;
-        }
-
-        if (this.capacity != null && this.capacity.compareTo(charger.capacity) != 0) {
-            return true;
-        }
-
-        if (!this.method.equals(charger.method)) {
-            return true;
-        }
-
-        return false;
-    }
-
     public boolean isQuick() {
         if (capacity == null) {
             return false;
@@ -92,10 +77,6 @@ public class Charger {
 
     public boolean isUpdated(final Charger charger) {
         if (!this.type.equals(charger.type)) {
-            return true;
-        }
-
-        if (!this.address.equals(charger.address)) {
             return true;
         }
 

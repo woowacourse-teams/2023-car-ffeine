@@ -67,8 +67,8 @@ public class ChargeUpdateJdbc {
 
         namedParameterJdbcTemplate.batchUpdate(chargerStatusSql, chargerStatusSqlParameterSource(collect));
 
-        String sql = "INSERT INTO charger (station_id, charger_id, type, price, capacity, method, fk_station_id, fk_charger_id)" +
-                " VALUES (:stationId, :chargerId, :type, :price, :capacity, :method, :fkStationId, :fkChargerId)";
+        String sql = "INSERT INTO charger (station_id, charger_id, type, price, capacity, method)" +
+                " VALUES (:stationId, :chargerId, :type, :price, :capacity, :method)";
 
         namedParameterJdbcTemplate.batchUpdate(sql, chargerSqlParameterSource(chargeStations));
     }
@@ -97,19 +97,16 @@ public class ChargeUpdateJdbc {
                 .addValue("stationId", charger.getStationId())
                 .addValue("chargerId", charger.getChargerId())
                 .addValue("type", charger.getType())
-                .addValue("address", charger.getAddress())
                 .addValue("price", charger.getPrice())
                 .addValue("capacity", charger.getCapacity())
-                .addValue("method", charger.getMethod())
-                .addValue("fkStationId", charger.getStationId())
-                .addValue("fkChargerId", charger.getChargerId());
+                .addValue("method", charger.getMethod());
     }
 
     private MapSqlParameterSource changeToChargerStatusSqlParameterSource(ChargerStatus chargerStatus) {
         return new MapSqlParameterSource()
                 .addValue("chargerId", chargerStatus.getChargerId())
                 .addValue("stationId", chargerStatus.getStationId())
-                .addValue("chargerState", chargerStatus.getChargerState().getValue())
+                .addValue("chargerState", chargerStatus.getChargerState().name())
                 .addValue("latestUpdateTime", chargerStatus.getLatestUpdateTime());
     }
 }
