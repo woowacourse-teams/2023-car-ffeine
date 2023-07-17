@@ -37,7 +37,6 @@ public class Charger {
     @Column(name = "charger_id")
     private String chargerId;
 
-    // 추후에 enum으로 바꿀 수 있으면 바꾸기
     private String type;
 
     private String address;
@@ -47,7 +46,6 @@ public class Charger {
     @Column(scale = 2)
     private BigDecimal capacity;
 
-    // 추후 enum으로 바꿀 수 있다면 바꾸기
     private String method;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

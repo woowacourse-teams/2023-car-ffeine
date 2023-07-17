@@ -28,7 +28,7 @@ class ChargerStationServiceTest {
     @BeforeEach
     void before() {
         chargeStationRepository = new FakeChargeStationRepository();
-        chargerStationService = new ChargerStationService(chargeStationRepository);
+        chargerStationService = new ChargerStationService(chargeStationRepository, null, null);
     }
 
     @Test
