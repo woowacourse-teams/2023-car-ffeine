@@ -42,5 +42,4 @@ public class ChargerStatus {
     public boolean isAvailable() {
         return chargerState.isStandBy();
     }
-
 }
