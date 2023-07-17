@@ -42,8 +42,6 @@ public class Charger {
 
     private String type;
 
-    private String address;
-
     private BigDecimal price;
 
     @Column(scale = 2)
@@ -78,10 +76,6 @@ public class Charger {
 
     public boolean isUpdated(final Charger charger) {
         if (!this.type.equals(charger.type)) {
-            return true;
-        }
-
-        if (!this.address.equals(charger.address)) {
             return true;
         }
 
