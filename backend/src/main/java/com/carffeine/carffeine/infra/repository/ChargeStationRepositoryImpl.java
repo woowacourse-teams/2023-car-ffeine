@@ -17,8 +17,8 @@ public class ChargeStationRepositoryImpl implements CustomChargeStationRepositor
 
     @Override
     public void saveAll(Collection<ChargeStation> chargeStations) {
-        String sql = "INSERT IGNORE INTO charge_station (station_id, station_name, company_name, is_parking_free, operating_time, detail_location, latitude, longitude, is_private, contact, station_state, private_reason)" +
-                " VALUES (:stationId, :stationName, :companyName, :isParkingFree, :operatingTime, :detailLocation, :latitude, :longitude, :isPrivate, :contact, :stationState, :privateReason)";
+        String sql = "INSERT IGNORE INTO charge_station (station_id, station_name, company_name, address, is_parking_free, operating_time, detail_location, latitude, longitude, is_private, contact, station_state, private_reason)" +
+                " VALUES (:stationId, :stationName, :companyName, :address, :isParkingFree, :operatingTime, :detailLocation, :latitude, :longitude, :isPrivate, :contact, :stationState, :privateReason)";
         namedParameterJdbcTemplate.batchUpdate(sql, chargeStationSqlParameterSource(chargeStations));
     }
 
@@ -33,6 +33,7 @@ public class ChargeStationRepositoryImpl implements CustomChargeStationRepositor
                 .addValue("stationId", chargeStation.getStationId())
                 .addValue("stationName", chargeStation.getStationName())
                 .addValue("companyName", chargeStation.getCompanyName())
+                .addValue("address", chargeStation.getAddress())
                 .addValue("isParkingFree", chargeStation.getIsParkingFree())
                 .addValue("operatingTime", chargeStation.getOperatingTime())
                 .addValue("detailLocation", chargeStation.getDetailLocation())
