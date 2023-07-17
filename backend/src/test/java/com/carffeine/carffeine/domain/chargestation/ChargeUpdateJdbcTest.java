@@ -84,6 +84,7 @@ class ChargeUpdateJdbcTest extends IntegrationTest {
             softly.assertThat(result.getStationId()).isEqualTo(charger.getStationId());
             softly.assertThat(result.getChargerId()).isEqualTo(charger.getChargerId());
             softly.assertThat(result.getType()).isEqualTo(charger.getType());
+            softly.assertThat(result.getAddress()).isEqualTo(charger.getAddress());
             softly.assertThat(result.getPrice()).isEqualByComparingTo(charger.getPrice());
             softly.assertThat(result.getCapacity()).isEqualByComparingTo(charger.getCapacity());
             softly.assertThat(result.getMethod()).isEqualTo(charger.getMethod());
@@ -106,6 +107,7 @@ class ChargeUpdateJdbcTest extends IntegrationTest {
             softly.assertThat(updated.getStationId()).isEqualTo(result.getStationId());
             softly.assertThat(updated.getChargerId()).isEqualTo(result.getChargerId());
             softly.assertThat(updated.getType()).isEqualTo(result.getType());
+            softly.assertThat(updated.getAddress()).isEqualTo(result.getAddress());
             softly.assertThat(updated.getPrice()).isEqualByComparingTo(result.getPrice());
             softly.assertThat(updated.getCapacity()).isEqualByComparingTo(result.getCapacity());
             softly.assertThat(updated.getMethod()).isEqualTo(result.getMethod());
