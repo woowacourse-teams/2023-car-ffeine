@@ -97,6 +97,7 @@ public class ChargeUpdateJdbc {
                 .addValue("stationId", charger.getStationId())
                 .addValue("chargerId", charger.getChargerId())
                 .addValue("type", charger.getType())
+                .addValue("address", charger.getAddress())
                 .addValue("price", charger.getPrice())
                 .addValue("capacity", charger.getCapacity())
                 .addValue("method", charger.getMethod())

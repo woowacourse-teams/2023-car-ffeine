@@ -89,4 +89,24 @@ public class Charger {
         }
         return capacity.compareTo(OUTPUT_THRESHOLD) >= 0;
     }
+
+    public boolean isUpdated(final Charger charger) {
+        if (!this.type.equals(charger.type)) {
+            return true;
+        }
+
+        if (!this.address.equals(charger.address)) {
+            return true;
+        }
+
+        if (this.capacity != null && this.capacity.compareTo(charger.capacity) != 0) {
+            return true;
+        }
+
+        if (!this.method.equals(charger.method)) {
+            return true;
+        }
+
+        return false;
+    }
 }
