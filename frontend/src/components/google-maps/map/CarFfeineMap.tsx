@@ -1,16 +1,20 @@
 import { useEffect, useRef } from 'react';
-import { createRoot } from 'react-dom/client';
 
-import { useCurrentPosition } from '../../../hooks/useCurrentPosition';
-import UserMarker from '../marker/UserMarker';
-import StationMarkersContainer from '../marker/StationMarkersContainer';
-import { useUpdateStations } from '../../../hooks/useUpdateStations';
-import { useExternalState } from '../../../utils/external-state';
-import { googleMapStore } from '../../../stores/googleMapStore';
-import StationList from '../../ui/StationList';
-import { briefStationInfoWindowStore } from '../../../stores/briefStationInfoWindowStore';
-import MarkerList from '../../ui/MarkerList';
-import { INITIAL_ZOOM_SIZE } from '../../../constants';
+import StationMarkersContainer from '@marker/StationMarkersContainer';
+import UserMarker from '@marker/UserMarker';
+
+import { useExternalState } from '@utils/external-state';
+
+import { googleMapStore } from '@stores/googleMapStore';
+
+import { useCurrentPosition } from '@hooks/useCurrentPosition';
+import { useUpdateStations } from '@hooks/useUpdateStations';
+
+import MarkerList from '@ui/MarkerList';
+import StationList from '@ui/StationList';
+import ZoomController from '@ui/ZoomController';
+
+import { INITIAL_ZOOM_SIZE } from '@constants';
 
 interface Props {
   googleMap: google.maps.Map;
@@ -42,10 +46,11 @@ const CarFfeineMap = () => {
       {isClientReady && (
         <>
           <CarFfeineMapListener googleMap={googleMap} />
-          <CarFfeineInfoWindowInitializer />
-
           <StationMarkersContainer googleMap={googleMap} />
           <UserMarker googleMap={googleMap} position={position} />
+          <StationList />
+          <MarkerList />
+          <ZoomController />
         </>
       )}
     </>
@@ -73,38 +78,6 @@ const CarFfeineMapListener = ({ googleMap }: Props) => {
   }, []);
 
   return <></>;
-};
-
-const CarFfeineInfoWindowInitializer = () => {
-  const [briefStationInfoWindow, setBriefStationInfoWindow] = useExternalState(
-    briefStationInfoWindowStore
-  );
-
-  useEffect(() => {
-    const container = document.createElement('div');
-    const briefStationInfoRoot = createRoot(container);
-    const infoWindowInstance = new google.maps.InfoWindow({
-      content: container,
-    });
-
-    const initialBriefStationInfoWindow = {
-      briefStationInfoRoot,
-      infoWindowInstance,
-    };
-
-    setBriefStationInfoWindow(initialBriefStationInfoWindow);
-  }, []);
-
-  return (
-    <>
-      {briefStationInfoWindow && (
-        <>
-          <StationList />
-          <MarkerList />
-        </>
-      )}
-    </>
-  );
 };
 
 export default CarFfeineMap;

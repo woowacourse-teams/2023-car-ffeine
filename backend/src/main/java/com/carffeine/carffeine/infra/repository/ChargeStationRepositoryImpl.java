@@ -1,7 +1,7 @@
 package com.carffeine.carffeine.infra.repository;
 
-import com.carffeine.carffeine.domain.chargerStation.chargeStation.ChargeStation;
-import com.carffeine.carffeine.domain.chargerStation.chargeStation.CustomChargeStationRepository;
+import com.carffeine.carffeine.domain.chargestation.ChargeStation;
+import com.carffeine.carffeine.domain.chargestation.CustomChargeStationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;

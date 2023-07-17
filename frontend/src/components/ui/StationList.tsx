@@ -1,12 +1,17 @@
 import { styled } from 'styled-components';
-import { useStations } from '../../hooks/useStations';
-import { googleMapStore } from '../../stores/googleMapStore';
-import { useExternalValue } from '../../utils/external-state';
-import { markerInstanceStore } from '../../stores/markerIntanceStore';
-import { briefStationInfoWindowStore } from '../../stores/briefStationInfoWindowStore';
+
+import { useExternalValue } from '@utils/external-state';
+
+import { getBriefStationInfoWindowStore } from '@stores/briefStationInfoWindowStore';
+import { googleMapStore } from '@stores/googleMapStore';
+import { markerInstanceStore } from '@stores/markerInstanceStore';
+
+import { useStations } from '@hooks/useStations';
+import { useUpdateStations } from '@hooks/useUpdateStations';
+
 import BriefStationInfo from './BriefStationInfo';
-import { useUpdateStations } from '../../hooks/useUpdateStations';
-import type { Station } from '../../types';
+
+import type { Station } from 'types';
 
 const StationList = () => {
   const googleMap = useExternalValue(googleMapStore);
@@ -15,7 +20,7 @@ const StationList = () => {
   const stationMarkers = useExternalValue(markerInstanceStore);
 
   const { infoWindowInstance, briefStationInfoRoot } = useExternalValue(
-    briefStationInfoWindowStore
+    getBriefStationInfoWindowStore()
   );
 
   const { updateStations } = useUpdateStations();

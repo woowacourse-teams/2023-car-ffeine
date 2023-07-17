@@ -1,15 +1,17 @@
 import { styled } from 'styled-components';
-import { useExternalValue } from '../../utils/external-state';
-import { markerInstanceStore } from '../../stores/markerIntanceStore';
+
+import { useExternalValue } from '@utils/external-state';
+
+import { markerInstanceStore } from '@stores/markerInstanceStore';
 
 const MarkerList = () => {
   const markers = useExternalValue(markerInstanceStore);
 
   return (
     <Container>
-        {
-          markers.map(marker =><div key={marker.stationId}>{marker.stationId}</div>)
-        }
+      {markers.map((marker) => (
+        <div key={marker.stationId}>{marker.stationId}</div>
+      ))}
     </Container>
   );
 };
