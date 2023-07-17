@@ -1,9 +1,12 @@
 package com.carffeine.carffeine.domain.chargerStation.congestion;
 
-import com.carffeine.carffeine.domain.chargerStation.charger.Charger;
+import com.carffeine.carffeine.domain.chargestation.charger.Charger;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -13,6 +16,7 @@ import javax.persistence.Table;
 import java.time.DayOfWeek;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Entity
 @Table(name = "periodic_congestion")
@@ -31,7 +35,11 @@ public class PeriodicCongestion {
             @JoinColumn(name = "charger_id", referencedColumnName = "charger_id", insertable = false, updatable = false)
     })
     private Charger charger;
+
+    @Column(name = "station_id")
     private String stationId;
+
+    @Column(name = "charger_id")
     private String chargerId;
 
     public PeriodicCongestion(String id, DayOfWeek dayOfWeek, RequestPeriod startTime, int useCount, int totalCount, double congestion, String stationId, String chargerId) {

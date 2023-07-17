@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.domain.chargerStation.congestion;
 
-import com.carffeine.carffeine.domain.chargerStation.charger.Charger;
+import com.carffeine.carffeine.domain.chargestation.charger.Charger;
 
 import java.time.DayOfWeek;
 

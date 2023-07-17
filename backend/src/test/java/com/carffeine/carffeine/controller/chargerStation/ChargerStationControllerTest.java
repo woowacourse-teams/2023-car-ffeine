@@ -3,7 +3,7 @@ package com.carffeine.carffeine.controller.chargerStation;
 import com.carffeine.carffeine.domain.chargestation.ChargeStation;
 import com.carffeine.carffeine.domain.chargestation.exception.ChargeStationException;
 import com.carffeine.carffeine.domain.chargestation.exception.ChargeStationExceptionType;
-import com.carffeine.carffeine.service.chargerstation.ChargerStationService;
+import com.carffeine.carffeine.service.chargerStation.ChargerStationService;
 import com.carffeine.carffeine.service.chargerstation.dto.CoordinateRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayNameGeneration;
