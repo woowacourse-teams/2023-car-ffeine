@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.service.chargerStation.dto;
+package com.carffeine.carffeine.service.chargerstation.dto;
 
 public record ChargersForCongestionRequest(
         Items items,

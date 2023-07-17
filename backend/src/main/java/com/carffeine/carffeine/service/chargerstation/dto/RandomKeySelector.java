@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.service.chargerStation.dto;
+package com.carffeine.carffeine.service.chargerstation.dto;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

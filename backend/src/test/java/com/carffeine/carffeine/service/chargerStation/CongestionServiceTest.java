@@ -1,11 +1,11 @@
-package com.carffeine.carffeine.service.chargerStation;
+package com.carffeine.carffeine.service.chargerstation;
 
 import com.carffeine.carffeine.controller.chargerStation.dto.CongestionInfoResponse;
 import com.carffeine.carffeine.controller.chargerStation.dto.CongestionResponse;
 import com.carffeine.carffeine.controller.chargerStation.dto.StatisticsResponse;
-import com.carffeine.carffeine.domain.chargerStation.charger.ChargerRepository;
-import com.carffeine.carffeine.domain.chargerStation.congestion.PeriodicCongestionRepository;
-import com.carffeine.carffeine.service.chargerStation.dto.StatisticsRequest;
+import com.carffeine.carffeine.domain.chargestation.charger.ChargerRepository;
+import com.carffeine.carffeine.domain.chargestation.congestion.PeriodicCongestionRepository;
+import com.carffeine.carffeine.service.chargerstation.dto.StatisticsRequest;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator.ReplaceUnderscores;

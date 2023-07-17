@@ -1,14 +1,14 @@
-package com.carffeine.carffeine.service.chargerStation;
+package com.carffeine.carffeine.service.chargerstation;
 
 import com.carffeine.carffeine.controller.chargerStation.dto.CongestionInfoResponse;
 import com.carffeine.carffeine.controller.chargerStation.dto.CongestionResponse;
 import com.carffeine.carffeine.controller.chargerStation.dto.StatisticsResponse;
-import com.carffeine.carffeine.domain.chargerStation.charger.ChargerRepository;
-import com.carffeine.carffeine.domain.chargerStation.congestion.PeriodicCongestion;
-import com.carffeine.carffeine.domain.chargerStation.congestion.PeriodicCongestionRepository;
-import com.carffeine.carffeine.domain.chargerStation.congestion.RequestPeriod;
 import com.carffeine.carffeine.domain.chargestation.charger.Charger;
-import com.carffeine.carffeine.service.chargerStation.dto.StatisticsRequest;
+import com.carffeine.carffeine.domain.chargestation.charger.ChargerRepository;
+import com.carffeine.carffeine.domain.chargestation.congestion.PeriodicCongestion;
+import com.carffeine.carffeine.domain.chargestation.congestion.PeriodicCongestionRepository;
+import com.carffeine.carffeine.domain.chargestation.congestion.RequestPeriod;
+import com.carffeine.carffeine.service.chargerstation.dto.StatisticsRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

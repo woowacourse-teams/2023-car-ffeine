@@ -1,6 +1,5 @@
-package com.carffeine.carffeine.domain.chargerStation.charger;
+package com.carffeine.carffeine.domain.chargestation.charger;
 
-import com.carffeine.carffeine.domain.chargestation.charger.Charger;
 import org.springframework.data.repository.Repository;
 
 import java.util.List;

@@ -6,7 +6,6 @@ import com.carffeine.carffeine.domain.chargestation.exception.ChargeStationExcep
 import com.carffeine.carffeine.domain.chargestation.exception.ChargeStationExceptionType;
 import com.carffeine.carffeine.fake.chargerstation.FakeChargeStationRepository;
 import com.carffeine.carffeine.fixture.chargerstation.ChargeStationFixture;
-import com.carffeine.carffeine.service.chargerStation.ChargerStationService;
 import com.carffeine.carffeine.service.chargerstation.dto.CoordinateRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;

@@ -3,11 +3,11 @@ package com.carffeine.carffeine.controller.chargerStation;
 import com.carffeine.carffeine.domain.chargestation.ChargeStation;
 import com.carffeine.carffeine.domain.chargestation.exception.ChargeStationException;
 import com.carffeine.carffeine.domain.chargestation.exception.ChargeStationExceptionType;
-import com.carffeine.carffeine.service.chargerStation.ChargerStationService;
+import com.carffeine.carffeine.service.chargerstation.ChargerStationService;
 import com.carffeine.carffeine.service.chargerstation.dto.CoordinateRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayNameGeneration;
-import org.junit.jupiter.api.DisplayNameGenerator;
+import org.junit.jupiter.api.DisplayNameGenerator.ReplaceUnderscores;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
@@ -33,7 +33,7 @@ import static org.springframework.restdocs.request.RequestDocumentation.requestP
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+@DisplayNameGeneration(ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
 @WebMvcTest(ChargerStationController.class)
 @AutoConfigureRestDocs
