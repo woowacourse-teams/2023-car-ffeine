@@ -22,7 +22,7 @@ public class ChargerFixture {
                     .stationId("ME101010")
                     .chargerId("01")
                     .chargerState(ChargerState.STANDBY)
-                    .latestUpdateTime(LocalDateTime.now())
+                    .latestUpdateTime(LocalDateTime.of(2021, 1, 1, 0, 0, 0))
                     .build())
             .build();
 
@@ -38,7 +38,7 @@ public class ChargerFixture {
                     .stationId("ME101010")
                     .chargerId("02")
                     .chargerState(ChargerState.CHARGING_IN_PROGRESS)
-                    .latestUpdateTime(LocalDateTime.now())
+                    .latestUpdateTime(LocalDateTime.of(2021, 1, 1, 0, 0, 0))
                     .build())
             .build();
 }

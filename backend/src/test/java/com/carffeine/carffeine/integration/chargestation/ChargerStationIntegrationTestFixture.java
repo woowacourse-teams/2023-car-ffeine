@@ -10,6 +10,7 @@ import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -50,6 +51,7 @@ public abstract class ChargerStationIntegrationTestFixture extends AcceptanceTes
         var response = 응답.as(ChargeStationSpecificResponse.class);
         assertThat(response).usingRecursiveComparison()
                 .withEqualsForType((i, i2) -> i.compareTo(i2) == 0, BigDecimal.class)
+                .withEqualsForType(LocalDateTime::isEqual, LocalDateTime.class)
                 .isEqualTo(ChargeStationSpecificResponse.from(충전소));
     }
 }
