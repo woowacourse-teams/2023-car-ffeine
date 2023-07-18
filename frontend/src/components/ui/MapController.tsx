@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 
 import { googleMapActions } from '@stores/googleMapStore';
 
-const ZoomController = () => {
+const MapController = () => {
   const handleZoomUpButton = () => {
     googleMapActions.zoomUp();
   };
@@ -13,11 +13,14 @@ const ZoomController = () => {
 
   return (
     <Container>
-      <div>
-        <Button onClick={() => handleZoomUpButton()}>+</Button>
+      <div style={{ marginBottom: '10px' }}>
+        <Button>🧭</Button>
       </div>
       <div>
-        <Button onClick={() => handleZoomDownButton()}>-</Button>
+        <Button onClick={() => handleZoomUpButton()}>➕</Button>
+      </div>
+      <div>
+        <Button onClick={() => handleZoomDownButton()}>➖</Button>
       </div>
     </Container>
   );
@@ -28,13 +31,14 @@ const Container = styled.div`
   bottom: 10px;
   right: 10px;
   z-index: 999;
-  padding: 10px;
-  background-color: white;
-  box-shadow: 1px 1px 2px gray;
 `;
 
 const Button = styled.button`
+  background-color: white;
   padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
-export default ZoomController;
+export default MapController;
