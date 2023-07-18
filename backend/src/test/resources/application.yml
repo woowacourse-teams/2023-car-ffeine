@@ -18,3 +18,11 @@ initialize-charge:
 
 api:
   service_key: service_key
+oauth2:
+  provider:
+    google:
+      id: google-client-id
+      secret: google-secret
+      redirect-url: google-redirect-url
+      token-url: http://localhost:8080/oauth2/v4/token
+      info-url: http://localhost:8080/oauth2/v2/userinfo
