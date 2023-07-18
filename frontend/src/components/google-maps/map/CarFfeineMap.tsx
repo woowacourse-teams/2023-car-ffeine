@@ -8,9 +8,9 @@ import { getGoogleMapStore } from '@stores/googleMapStore';
 
 import { useUpdateStations } from '@hooks/useUpdateStations';
 
+import MapController from '@ui/MapController';
 import MarkerList from '@ui/MarkerList';
 import StationList from '@ui/StationList';
-import ZoomController from '@ui/ZoomController';
 
 const CarFfeineMap = () => {
   return (
@@ -19,7 +19,7 @@ const CarFfeineMap = () => {
       <StationMarkersContainer />
       <StationList />
       <MarkerList />
-      <ZoomController />
+      <MapController />
     </>
   );
 };
