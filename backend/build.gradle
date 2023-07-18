@@ -46,6 +46,8 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
     testImplementation 'io.rest-assured:rest-assured:4.4.0'
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
     asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 }
 
