@@ -27,3 +27,12 @@ management:
 jwt:
   secret: ENC(t6iKCv1Nj+ygRxG2oZCw3l4v9y0ALS2GfQwYIKvO0tRuPzFp4UYRZYfBFdBW+xQl77rOLbfIPJ13tys/tXj3Qw==)
   expiration-period: ENC(Ua9DcFiPKX/5r0/WGkN5JQ==)
+
+oauth2:
+  provider:
+    google:
+      id: 482896035816-ldevmjo314h6d42vns69v7q58d7me3ks.apps.googleusercontent.com
+      secret: ENC(SqpABZuVRJAtZUv7L1/oCS4LzsaSduagft+YLUKOUM2Zr+tuXYg+/DqPMxd/vKd8)
+      redirect-url: http://localhost:8080/login/oauth2/code/google
+      token-url: https://www.googleapis.com/oauth2/v4/token
+      info-url: https://www.googleapis.com/oauth2/v2/userinfo
