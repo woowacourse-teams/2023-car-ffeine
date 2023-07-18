@@ -1,8 +1,20 @@
 import { styled } from 'styled-components';
 
-import { googleMapActions } from '@stores/googleMapStore';
+import { useExternalValue } from '@utils/external-state';
+
+import { getGoogleMapStore, googleMapActions } from '@stores/googleMapStore';
+
+import { useCurrentPosition } from '@hooks/useCurrentPosition';
 
 const MapController = () => {
+  const position = useCurrentPosition();
+  const googleMap = useExternalValue(getGoogleMapStore());
+
+  const handleCurrentPositionButton = () => {
+    googleMap.panTo({ lat: position.lat, lng: position.lng });
+    googleMap.setZoom(14);
+  };
+
   const handleZoomUpButton = () => {
     googleMapActions.zoomUp();
   };
@@ -14,7 +26,7 @@ const MapController = () => {
   return (
     <Container>
       <div style={{ marginBottom: '10px' }}>
-        <Button>🧭</Button>
+        <Button onClick={() => handleCurrentPositionButton()}>🧭</Button>
       </div>
       <div>
         <Button onClick={() => handleZoomUpButton()}>➕</Button>
