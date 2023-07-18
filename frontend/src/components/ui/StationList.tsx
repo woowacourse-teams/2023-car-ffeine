@@ -14,7 +14,7 @@ import BriefStationInfo from './BriefStationInfo';
 import type { Station } from 'types';
 
 const StationList = () => {
-  const googleMap = useExternalValue(googleMapStore);
+  const googleMap = useExternalValue(googleMapStore());
 
   const { data: stations, isSuccess, isFetching } = useStations(googleMap);
   const stationMarkers = useExternalValue(markerInstanceStore);

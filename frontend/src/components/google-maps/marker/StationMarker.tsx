@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useExternalValue, useSetExternalState } from '@utils/external-state';
 
 import { getBriefStationInfoWindowStore } from '@stores/briefStationInfoWindowStore';
+import { googleMapStore } from '@stores/googleMapStore';
 import { markerInstanceStore } from '@stores/markerInstanceStore';
 
 import { useUpdateStations } from '@hooks/useUpdateStations';
@@ -12,12 +13,12 @@ import BriefStationInfo from '@ui/BriefStationInfo';
 import type { Station } from 'types';
 
 interface Props {
-  googleMap: google.maps.Map;
   station: Station;
 }
 
-const StationMarker = ({ googleMap, station }: Props) => {
+const StationMarker = ({ station }: Props) => {
   const { latitude, longitude, stationName, stationId } = station;
+  const googleMap = useExternalValue(googleMapStore());
 
   const { updateStations } = useUpdateStations();
   const { briefStationInfoRoot, infoWindowInstance } = useExternalValue(

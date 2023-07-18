@@ -1,12 +1,13 @@
+import { useExternalValue } from '@utils/external-state';
+
+import { googleMapStore } from '@stores/googleMapStore';
+
 import { useStations } from '@hooks/useStations';
 
 import StationMarker from './StationMarker';
 
-interface Props {
-  googleMap: google.maps.Map;
-}
-
-const StationMarkersContainer = ({ googleMap }: Props) => {
+const StationMarkersContainer = () => {
+  const googleMap = useExternalValue(googleMapStore());
   const { data: stations, isSuccess } = useStations(googleMap);
 
   if (!stations || !isSuccess) {
@@ -16,7 +17,7 @@ const StationMarkersContainer = ({ googleMap }: Props) => {
   return (
     <>
       {stations.map((station) => {
-        return <StationMarker key={station.stationId} googleMap={googleMap} station={station} />;
+        return <StationMarker key={station.stationId} station={station} />;
       })}
     </>
   );
