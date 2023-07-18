@@ -18,8 +18,6 @@ spring:
         show_sql: true
         format_sql: true
         use_sql_comments: true
-  flyway:
-    enabled: false
   profiles:
     active: local
 jasypt:
@@ -29,12 +27,6 @@ jasypt:
 
 api:
   service_key:
-    ENC(9Gw2IrF1u/7Pt/rcC1Rwp7vbO7k34/al/B9/KRJ+cghR7xAivEN3fgfx+6nXtdFDCqPDi+Zj6tKc52diibRDXlb3XcaC9L7S3Ruafwnp6Em23om/VxqwbEMPRAt/VU++H/myjcB61RA=),
-    ENC(Koj9uZI7YtwNsnJecp/SDimwWJeK9n3zzbWPxlmwtprE2h05hStPQ+W4T344V4Y7SJbo5zpx7b0nHCH+7JOUgMJAk/ctr9F4ZUMD8894s9d1sI4cwIGht4XZDOIlWd8ZjUCk63l0C/4=),
-    ENC(3SYxfkd6fWdjkFuGbK/3+5ot1td2eqTngVAynzJj4o3/6CuRiW4mkLltHRynNLL3Tawlqqd39iQCuQEANWhpFpbvnpVfZeEzgOtY96xlJ9lzNu0Z8ONAUQIIKH+LN7tbUfGtSjfFUmE=),
-    ENC(lU0FBnShiEmEVKr3rQTW7a6BjLslR9/0Gv8Y596dNqGXVh7KJEQRlZViIzKo0fxX6KiMWyFuTdWrrH2D7ylp73JlDdVaCpUte9G1dUghSHFsb28z2B6bIAPM5uZj7MB4EdkblDbG+Mw=),
-    ENC(Sdiq67tsnKr3xlFROykuG6efvhNA4tqATObZZEeirXxF4VnwHbwfd1BNMRA1EXQnm2asRfz0qOmMV1xKczfIwqveIRlOZtBPx74cE0tqI23tir6PX2913V22W21C0CuWapkqUAWv/uM=),
-    ENC(/2YcNiK1XrrIM9ncuZBnIfUexobz4f+eRDUauI/VcoBzTbiY2VgVshA41nAQzzwrs7CWyKwJzkmf2DN6LCC82OJAg7TWOm4uCxtGcJ3mOsjlNiUYu8Mew2+2RhWjTBOceJLIUOBiXPo=),
-    ENC(qCPTBO4uzXuWoTJ4vxJ6vNkueRbpj/bee/CMo1mNt9RsjK8hobh6hZLTCWC2qa6dR0S/bDpTgTBV9+HXZ2lYPrOQmyFUrYAznn3iGn+n7fxX2O5rqAgirimQgyFxxem61hJmSa2zyxE=)
+    ENC(qKM+pC2sfTXqlFeYMn0Q/8b5QlCMQbO03PptUKkzDkUd1S3PD9aM2q1VL/ZA+vMlpJyLWcCBEZnPWkITbudrMTSorPAZ+hn+9LJN47wdq4JsX4BwUiUsjaokPIhNqJLZwWRm7wZf4/CUvnz2zoy60hTrArxO8tNgYnn+LeDX0t+sPGEmwT33N8xJZ8DyLVV927PwzvwIvdfrtK4aPY34fg8FEFW8deRfFEL4GVRsGsMf/Hc+5N359AAUR/mo712l+/J7QhCw5jJPgOl0T9MIhASk9A2UN3PftlQN4le6aErkQUpxd2/emXSYPK6OxdO+N97VTMJbcailHK5iC38k8uKrZNULv8YJ5vroaGdU4Moh9XfImxQCbVOGB4ysHAWewgYS+8sVgVAJr5VvP24/PBK1B7HMXVQggK8BuOHqgmdEDWsM8LIKIPdr49+99uKlvcY4jPWsIBoGst51NeBbY42LP/dEU0/U8uWeHnZBY3E=)
 initialize-charge:
-  enabled: true
+  enabled: a
