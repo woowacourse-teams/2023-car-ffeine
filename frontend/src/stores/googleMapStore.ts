@@ -5,16 +5,16 @@ import { INITIAL_CENTER, INITIAL_ZOOM_SIZE } from '@constants';
 export const getGoogleMapStore = (() => {
   let googleMap: google.maps.Map;
 
-  const mapDiv = document.createElement('div');
+  const container = document.createElement('div');
 
-  mapDiv.id = 'map';
-  mapDiv.style.minHeight = '100vh';
+  container.id = 'map';
+  container.style.minHeight = '100vh';
 
-  document.body.appendChild(mapDiv);
+  document.body.appendChild(container);
 
   return () => {
     if (!googleMap) {
-      googleMap = new window.google.maps.Map(mapDiv, {
+      googleMap = new window.google.maps.Map(container, {
         center: INITIAL_CENTER,
         zoom: INITIAL_ZOOM_SIZE,
         disableDefaultUI: true,
