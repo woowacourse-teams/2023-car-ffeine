@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/react';
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 
 import Button, { BUTTON_PADDING_SIZE } from './Button';
 
@@ -65,9 +65,6 @@ const meta = {
     },
     css: {
       description: '원하는 css를 적용할 수 있습니다.',
-    },
-    onClick: {
-      control: {},
     },
   },
 } satisfies Meta<typeof Button>;
