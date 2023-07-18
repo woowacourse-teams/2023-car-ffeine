@@ -69,8 +69,5 @@ export const Primary: Story = {
     css: {
       description: '원하는 css를 적용할 수 있습니다.',
     },
-    onClick: {
-      control: {},
-    },
   },
 };
