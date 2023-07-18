@@ -1,64 +1,32 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 import StationMarkersContainer from '@marker/StationMarkersContainer';
-import UserMarker from '@marker/UserMarker';
 
-import { useExternalState } from '@utils/external-state';
+import { useExternalValue } from '@utils/external-state';
 
-import { googleMapStore } from '@stores/googleMapStore';
+import { getGoogleMapStore } from '@stores/googleMapStore';
 
-import { useCurrentPosition } from '@hooks/useCurrentPosition';
 import { useUpdateStations } from '@hooks/useUpdateStations';
 
 import MarkerList from '@ui/MarkerList';
 import StationList from '@ui/StationList';
 import ZoomController from '@ui/ZoomController';
 
-import { INITIAL_ZOOM_SIZE } from '@constants';
-
-interface Props {
-  googleMap: google.maps.Map;
-}
-
 const CarFfeineMap = () => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [googleMap, setGoogleMap] = useExternalState<google.maps.Map>(googleMapStore);
-
-  const position = useCurrentPosition();
-
-  const isClientReady = position !== undefined && googleMap;
-
-  useEffect(() => {
-    if (position != undefined) {
-      const initialMap = new window.google.maps.Map(ref.current, {
-        center: position,
-        zoom: INITIAL_ZOOM_SIZE,
-        disableDefaultUI: true,
-      });
-
-      setGoogleMap(initialMap);
-    }
-  }, [position]);
-
   return (
     <>
-      <div ref={ref} id="map" style={{ minHeight: '100vh' }} />
-      {isClientReady && (
-        <>
-          <CarFfeineMapListener googleMap={googleMap} />
-          <StationMarkersContainer googleMap={googleMap} />
-          <UserMarker googleMap={googleMap} position={position} />
-          <StationList />
-          <MarkerList />
-          <ZoomController />
-        </>
-      )}
+      <CarFfeineMapListener />
+      <StationMarkersContainer />
+      <StationList />
+      <MarkerList />
+      <ZoomController />
     </>
   );
 };
 
-const CarFfeineMapListener = ({ googleMap }: Props) => {
+const CarFfeineMapListener = () => {
   const { updateStations } = useUpdateStations();
+  const googleMap = useExternalValue(getGoogleMapStore());
 
   useEffect(() => {
     googleMap.addListener('dragend', () => {

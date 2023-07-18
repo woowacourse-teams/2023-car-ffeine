@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 import { useExternalValue } from '@utils/external-state';
 
 import { getBriefStationInfoWindowStore } from '@stores/briefStationInfoWindowStore';
-import { googleMapStore } from '@stores/googleMapStore';
+import { getGoogleMapStore } from '@stores/googleMapStore';
 import { markerInstanceStore } from '@stores/markerInstanceStore';
 
 import { useStations } from '@hooks/useStations';
@@ -14,7 +14,7 @@ import BriefStationInfo from './BriefStationInfo';
 import type { Station } from 'types';
 
 const StationList = () => {
-  const googleMap = useExternalValue(googleMapStore);
+  const googleMap = useExternalValue(getGoogleMapStore());
 
   const { data: stations, isSuccess, isFetching } = useStations(googleMap);
   const stationMarkers = useExternalValue(markerInstanceStore);
