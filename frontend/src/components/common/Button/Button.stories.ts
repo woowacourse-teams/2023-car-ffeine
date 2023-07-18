@@ -23,15 +23,19 @@ export const Primary: Story = {
   },
 
   argTypes: {
+    children: {
+      description:
+        '버튼 내용을 입력할 수 있습니다.<br> 원하는 컴포넌트, 텍스트 등을 넣을 수 있습니다.',
+    },
     variant: {
-      options: ['pill'],
+      options: { none: undefined, pill: 'pill' },
       control: {
         type: 'select',
       },
       description: '버튼 모양을 변경할 수 있습니다.',
     },
     noRadius: {
-      options: ['top', 'bottom'],
+      options: { none: undefined, all: 'all', top: 'top', bottom: 'bottom' },
       control: {
         type: 'select',
       },
@@ -44,7 +48,7 @@ export const Primary: Story = {
       description: 'true: 버튼 주변으로 그림자가 생깁니다.',
     },
     size: {
-      options: Object.keys(BUTTON_PADDING_SIZE),
+      options: Object.keys({ ...BUTTON_PADDING_SIZE, none: undefined }),
       control: {
         type: 'select',
       },
