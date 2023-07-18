@@ -7,7 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
@@ -31,8 +33,8 @@ public class PeriodicCongestion {
 
     @ManyToOne
     @JoinColumns({
-            @JoinColumn(name = "station_id", referencedColumnName = "station_id", insertable = false, updatable = false),
-            @JoinColumn(name = "charger_id", referencedColumnName = "charger_id", insertable = false, updatable = false)
+            @JoinColumn(name = "station_id", referencedColumnName = "station_id", insertable = false, updatable = false, foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT)),
+            @JoinColumn(name = "charger_id", referencedColumnName = "charger_id", insertable = false, updatable = false, foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     })
     private Charger charger;
 
