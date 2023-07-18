@@ -4,7 +4,7 @@ import StationMarkersContainer from '@marker/StationMarkersContainer';
 
 import { useExternalValue } from '@utils/external-state';
 
-import { googleMapStore } from '@stores/googleMapStore';
+import { getGoogleMapStore } from '@stores/googleMapStore';
 
 import { useUpdateStations } from '@hooks/useUpdateStations';
 
@@ -26,7 +26,7 @@ const CarFfeineMap = () => {
 
 const CarFfeineMapListener = () => {
   const { updateStations } = useUpdateStations();
-  const googleMap = useExternalValue(googleMapStore());
+  const googleMap = useExternalValue(getGoogleMapStore());
 
   useEffect(() => {
     googleMap.addListener('dragend', () => {

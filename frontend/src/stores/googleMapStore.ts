@@ -2,7 +2,7 @@ import { store } from '@utils/external-state';
 
 import { INITIAL_CENTER, INITIAL_ZOOM_SIZE } from '@constants';
 
-export const googleMapStore = (() => {
+export const getGoogleMapStore = (() => {
   let googleMap: google.maps.Map;
 
   const mapDiv = document.createElement('div');
@@ -27,12 +27,12 @@ export const googleMapStore = (() => {
 
 export const googleMapActions = {
   zoomUp: () => {
-    const googleMap = googleMapStore().getState();
+    const googleMap = getGoogleMapStore().getState();
     const prevZoom = googleMap.getZoom();
     googleMap.setZoom(prevZoom + 1);
   },
   zoomDown: () => {
-    const googleMap = googleMapStore().getState();
+    const googleMap = getGoogleMapStore().getState();
     const prevZoom = googleMap.getZoom();
     googleMap.setZoom(prevZoom - 1);
   },
