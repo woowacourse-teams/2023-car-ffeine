@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 
 import type { ButtonHTMLAttributes, MouseEventHandler } from 'react';
 
-type DirectionType = 'top' | 'bottom';
+type DirectionType = 'all' | 'top' | 'bottom';
 type VariantType = 'pill';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -70,6 +70,7 @@ export const pillStyle = css`
 `;
 
 export const borderRadius = (direction: DirectionType) => css`
+  ${direction === 'all' && 'border-radius: 0;'}
   ${direction === 'top' && 'border-top-left-radius: 0;'}
   ${direction === 'top' && 'border-top-right-radius: 0;'}
   ${direction === 'bottom' && 'border-bottom-left-radius: 0;'}
