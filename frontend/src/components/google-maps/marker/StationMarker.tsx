@@ -10,6 +10,8 @@ import { useUpdateStations } from '@hooks/useUpdateStations';
 
 import BriefStationInfo from '@ui/BriefStationInfo';
 
+import BlueMarker from '@assets/blue-marker.svg';
+
 import type { Station } from 'types';
 
 interface Props {
@@ -32,6 +34,7 @@ const StationMarker = ({ station }: Props) => {
       position: { lat: latitude, lng: longitude },
       map: googleMap,
       title: stationName,
+      icon: BlueMarker,
     });
 
     setMarkerInstanceState((previewsMarkerInstances) => [
