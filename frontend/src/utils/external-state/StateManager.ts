@@ -1,4 +1,4 @@
-type SetStateCallback<T> = (prevState: T) => T;
+export type SetStateCallback<T> = (prevState: T) => T;
 
 export interface DataObserver<T> {
   setState: (param: SetStateCallback<T> | T) => void;
