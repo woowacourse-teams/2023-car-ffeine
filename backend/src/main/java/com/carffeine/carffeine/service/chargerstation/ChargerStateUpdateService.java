@@ -1,7 +1,7 @@
 package com.carffeine.carffeine.service.chargerstation;
 
+import com.carffeine.carffeine.service.chargerstation.dto.ChargerStateRequest;
 import com.carffeine.carffeine.service.chargerstation.dto.ChargerStateUpdateRequest;
-import com.carffeine.carffeine.service.chargerstation.dto.Item;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -20,15 +20,13 @@ public class ChargerStateUpdateService {
     @Scheduled(cron = "0 0/7 * * * *")
     public void update() {
         for (int page = 1; page <= MAX_PAGE_SIZE; page++) {
-            System.out.println("page = " + page);
             updateChargerState(page);
-            System.out.println("page = " + page + " end");
         }
     }
 
     private void updateChargerState(int pageNo) {
         ChargerStateUpdateRequest chargerStateUpdateRequest = chargerStateRequester.requestChargerStatusUpdateRequest(pageNo);
-        List<Item> items = chargerStateUpdateRequest.items().item();
-        chargerStatusCustomRepository.saveAll(items);
+        List<ChargerStateRequest> chargerStateRequests = chargerStateUpdateRequest.items().item();
+        chargerStatusCustomRepository.saveAll(chargerStateRequests);
     }
 }

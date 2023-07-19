@@ -1,10 +1,10 @@
 package com.carffeine.carffeine.service.chargerstation;
 
-import com.carffeine.carffeine.service.chargerstation.dto.Item;
+import com.carffeine.carffeine.service.chargerstation.dto.ChargerStateRequest;
 
 import java.util.List;
 
 public interface ChargerStatusCustomRepository {
 
-    void saveAll(List<Item> item);
+    void saveAll(List<ChargerStateRequest> item);
 }

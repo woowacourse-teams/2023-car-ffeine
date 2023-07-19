@@ -23,6 +23,7 @@ import java.time.DayOfWeek;
 @Entity
 @Table(name = "periodic_congestion")
 public class PeriodicCongestion {
+
     @Id
     private String id;
     private DayOfWeek dayOfWeek;
@@ -53,15 +54,6 @@ public class PeriodicCongestion {
         this.congestion = congestion;
         this.stationId = stationId;
         this.chargerId = chargerId;
-    }
-
-    public PeriodicCongestion(Charger charger, DayOfWeek dayOfWeek, RequestPeriod startTime, int useCount, int totalCount, double congestion) {
-        id = IdGenerator.generateIdWithCharger(dayOfWeek, startTime, charger);
-        this.dayOfWeek = dayOfWeek;
-        this.startTime = startTime;
-        this.useCount = useCount;
-        this.totalCount = totalCount;
-        this.congestion = congestion;
     }
 
     public static PeriodicCongestion of(DayOfWeek dayOfWeek, RequestPeriod startTime, int useCount, int totalCount, String stationId, String chargerId) {

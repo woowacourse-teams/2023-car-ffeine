@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.service.chargerstation.dto;
 
-public record Item(
+public record ChargerStateRequest(
         String busiId,
         String statId,
         String chgerId,

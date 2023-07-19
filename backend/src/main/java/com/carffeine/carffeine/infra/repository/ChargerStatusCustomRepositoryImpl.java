@@ -2,7 +2,7 @@ package com.carffeine.carffeine.infra.repository;
 
 import com.carffeine.carffeine.domain.chargestation.charger.ChargerState;
 import com.carffeine.carffeine.service.chargerstation.ChargerStatusCustomRepository;
-import com.carffeine.carffeine.service.chargerstation.dto.Item;
+import com.carffeine.carffeine.service.chargerstation.dto.ChargerStateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -22,7 +22,7 @@ public class ChargerStatusCustomRepositoryImpl implements ChargerStatusCustomRep
 
     @Override
     @Transactional
-    public void saveAll(List<Item> item) {
+    public void saveAll(List<ChargerStateRequest> item) {
         String sql = "INSERT INTO charger_status (station_id, charger_id, latest_update_time, charger_state) " +
                 "VALUES (:stationId, :chargerId, :latestUpdateTime, :chargerState) " +
                 "ON DUPLICATE KEY UPDATE latest_update_time = :latestUpdateTime, charger_state = :chargerState";
@@ -32,7 +32,7 @@ public class ChargerStatusCustomRepositoryImpl implements ChargerStatusCustomRep
         namedParameterJdbcTemplate.batchUpdate(sql, sqlParameterSources);
     }
 
-    private MapSqlParameterSource changeToSqlParameterSource(Item item) {
+    private MapSqlParameterSource changeToSqlParameterSource(ChargerStateRequest item) {
         return new MapSqlParameterSource()
                 .addValue("stationId", item.statId())
                 .addValue("chargerId", item.chgerId())
