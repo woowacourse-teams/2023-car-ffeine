@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @ToString
 @Getter
 @Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @IdClass(ChargerId.class)
 @Entity

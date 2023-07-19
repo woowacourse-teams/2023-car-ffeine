@@ -28,6 +28,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "charger")
 public class Charger {
+    private static final BigDecimal OUTPUT_THRESHOLD = BigDecimal.valueOf(50);
 
     @Id
     @Column(name = "station_id")
@@ -61,5 +62,12 @@ public class Charger {
 
     public boolean isAvailable() {
         return chargerStatus.isAvailable();
+    }
+
+    public boolean isQuick() {
+        if (capacity == null) {
+            return false;
+        }
+        return capacity.compareTo(OUTPUT_THRESHOLD) >= 0;
     }
 }

@@ -46,7 +46,7 @@ public class CongestionService {
 
     private Map<String, List<CongestionInfoResponse>> calculateQuick(List<PeriodicCongestion> congestions, List<Charger> chargers) {
         List<String> quickChargerIds = chargers.stream()
-                .filter(it -> it.getCapacity().intValue() >= OUTPUT_THRESHOLD)
+                .filter(Charger::isQuick)
                 .map(Charger::getChargerId)
                 .toList();
 
@@ -55,7 +55,7 @@ public class CongestionService {
 
     private Map<String, List<CongestionInfoResponse>> calculateStandard(List<PeriodicCongestion> congestions, List<Charger> chargers) {
         List<String> standardChargerIds = chargers.stream()
-                .filter(it -> it.getCapacity().intValue() < OUTPUT_THRESHOLD)
+                .filter(it -> !it.isQuick())
                 .map(Charger::getChargerId)
                 .toList();
 

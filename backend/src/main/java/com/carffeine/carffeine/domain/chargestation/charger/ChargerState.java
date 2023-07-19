@@ -4,19 +4,17 @@ import java.util.Arrays;
 
 public enum ChargerState {
 
-    COMMUNICATION_ERROR(1, "1"),
-    STANDBY(2, "2"),
-    CHARGING_IN_PROGRESS(3, "3"),
-    OPERATION_SUSPENDED(4, "4"),
-    UNDER_INSPECTION(5, "5"),
-    STATUS_UNKNOWN(9, "9");
+    COMMUNICATION_ERROR(1),
+    STANDBY(2),
+    CHARGING_IN_PROGRESS(3),
+    OPERATION_SUSPENDED(4),
+    UNDER_INSPECTION(5),
+    STATUS_UNKNOWN(9);
 
     private final int value;
-    private final String valueString;
 
-    ChargerState(int value, String valueString) {
+    ChargerState(int value) {
         this.value = value;
-        this.valueString = valueString;
     }
 
     public static ChargerState from(int input) {
@@ -28,7 +26,7 @@ public enum ChargerState {
 
     public static ChargerState from(String input) {
         return Arrays.stream(ChargerState.values())
-                .filter(it -> it.valueString.equals(input))
+                .filter(it -> it.value == input.charAt(0) - '0')
                 .findAny()
                 .orElse(STATUS_UNKNOWN);
     }

@@ -4,5 +4,5 @@ import com.carffeine.carffeine.service.chargerstation.dto.ChargerStateUpdateRequ
 
 public interface ChargerStateRequester {
 
-    ChargerStateUpdateRequest requestChargerStatusUpdateRequest(int pageNo);
+    ChargerStateUpdateRequest requestChargerStatusUpdate(int pageNo);
 }

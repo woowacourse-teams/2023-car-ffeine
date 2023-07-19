@@ -33,10 +33,10 @@ public class PeriodicCongestion {
     private double congestion;
 
     @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "station_id", referencedColumnName = "station_id", insertable = false, updatable = false, foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT)),
-            @JoinColumn(name = "charger_id", referencedColumnName = "charger_id", insertable = false, updatable = false, foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
-    })
+    @JoinColumns(value = {
+            @JoinColumn(name = "station_id", referencedColumnName = "station_id", insertable = false, updatable = false),
+            @JoinColumn(name = "charger_id", referencedColumnName = "charger_id", insertable = false, updatable = false)
+    }, foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     private Charger charger;
 
     @Column(name = "station_id")

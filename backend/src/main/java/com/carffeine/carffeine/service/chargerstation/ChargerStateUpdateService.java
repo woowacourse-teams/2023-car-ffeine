@@ -1,5 +1,6 @@
 package com.carffeine.carffeine.service.chargerstation;
 
+import com.carffeine.carffeine.domain.chargestation.charger.ChargerStatus;
 import com.carffeine.carffeine.service.chargerstation.dto.ChargerStateRequest;
 import com.carffeine.carffeine.service.chargerstation.dto.ChargerStateUpdateRequest;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +26,11 @@ public class ChargerStateUpdateService {
     }
 
     private void updateChargerState(int pageNo) {
-        ChargerStateUpdateRequest chargerStateUpdateRequest = chargerStateRequester.requestChargerStatusUpdateRequest(pageNo);
+        ChargerStateUpdateRequest chargerStateUpdateRequest = chargerStateRequester.requestChargerStatusUpdate(pageNo);
         List<ChargerStateRequest> chargerStateRequests = chargerStateUpdateRequest.items().item();
-        chargerStatusCustomRepository.saveAll(chargerStateRequests);
+        List<ChargerStatus> chargerStatuses = chargerStateRequests.stream()
+                .map(ChargerStateRequest::toChargerStatus)
+                .toList();
+        chargerStatusCustomRepository.saveAll(chargerStatuses);
     }
 }

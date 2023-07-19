@@ -47,7 +47,7 @@ public class RestTemplateChargeStationRequester implements ChargeStationRequeste
     }
 
     @Override
-    public ChargerStateUpdateRequest requestChargerStatusUpdateRequest(int pageNo) {
+    public ChargerStateUpdateRequest requestChargerStatusUpdate(int pageNo) {
         while (true) {
             try {
                 ChargerStateUpdateRequest result = requestChargeStateUpdateRequestWithRetry(pageNo);

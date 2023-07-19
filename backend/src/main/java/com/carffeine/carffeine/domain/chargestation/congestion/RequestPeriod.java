@@ -12,10 +12,11 @@ public enum RequestPeriod {
     ZERO(0),
     TWELVE(1200);
 
+    private static final int UNIT = 100;
     private static final List<RequestPeriod> periods = Arrays.stream(values())
             .sorted(Comparator.comparingInt(RequestPeriod::getSection))
             .toList();
-    private static final int UNIT = 100;
+
     private final int section;
 
     RequestPeriod(int section) {
