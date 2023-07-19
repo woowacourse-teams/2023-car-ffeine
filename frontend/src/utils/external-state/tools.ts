@@ -1,7 +1,7 @@
 import { useSyncExternalStore } from 'react';
 
 import StateManager from './StateManager';
-import type { DataObserver, SetStateCallback } from './StateManager';
+import type { DataObserver, SetStateCallbackType } from './StateManager';
 
 export const store = <T>(initialState: T) => {
   const stateManager = new StateManager<T>(initialState);
@@ -11,7 +11,7 @@ export const store = <T>(initialState: T) => {
 
 export const useExternalState = <T>(
   store: DataObserver<T>
-): [T, (param: SetStateCallback<T> | T) => void] => {
+): [T, (param: SetStateCallbackType<T> | T) => void] => {
   const { subscribe, getState, setState } = store;
   const state = useSyncExternalStore(subscribe, getState);
 

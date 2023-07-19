@@ -6,40 +6,44 @@ import { stationFilterStore } from '@stores/stationFilterStore';
 
 const FilterButtonList = () => {
   const [
-    { showAvailableStationOnly, showFasterChargeStationOnly, showParkingFreeStationOnly },
+    {
+      isShowingAvailableStationOnly,
+      isShowingFastChargeStationOnly,
+      isShowingParkingFreeStationOnly,
+    },
     setFilterOption,
   ] = useExternalState(stationFilterStore);
 
   const toggleAvailableStation = () => {
     setFilterOption((prev) => ({
       ...prev,
-      showAvailableStationOnly: !prev.showAvailableStationOnly,
+      isShowingAvailableStationOnly: !prev.isShowingAvailableStationOnly,
     }));
   };
 
   const toggleParkingFreeStation = () => {
     setFilterOption((prev) => ({
       ...prev,
-      showParkingFreeStationOnly: !prev.showParkingFreeStationOnly,
+      isShowingParkingFreeStationOnly: !prev.isShowingParkingFreeStationOnly,
     }));
   };
 
-  const toggleFasterChargeStation = () => {
+  const toggleFastChargeStation = () => {
     setFilterOption((prev) => ({
       ...prev,
-      showFasterChargeStationOnly: !prev.showFasterChargeStationOnly,
+      isShowingFastChargeStationOnly: !prev.isShowingFastChargeStationOnly,
     }));
   };
 
   return (
     <Container>
-      <Button onClick={toggleAvailableStation} isActive={showAvailableStationOnly}>
+      <Button onClick={toggleAvailableStation} isActive={isShowingAvailableStationOnly}>
         현재 사용 가능
       </Button>
-      <Button onClick={toggleParkingFreeStation} isActive={showParkingFreeStationOnly}>
+      <Button onClick={toggleParkingFreeStation} isActive={isShowingParkingFreeStationOnly}>
         주차 무료
       </Button>
-      <Button onClick={toggleFasterChargeStation} isActive={showFasterChargeStationOnly}>
+      <Button onClick={toggleFastChargeStation} isActive={isShowingFastChargeStationOnly}>
         급속
       </Button>
     </Container>

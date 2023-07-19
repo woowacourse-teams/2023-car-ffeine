@@ -19,8 +19,11 @@ export const fetchStation = async (map: google.maps.Map) => {
 };
 
 export const useStations = (map: google.maps.Map) => {
-  const { showAvailableStationOnly, showFasterChargeStationOnly, showParkingFreeStationOnly } =
-    useExternalValue(stationFilterStore);
+  const {
+    isShowingAvailableStationOnly,
+    isShowingFastChargeStationOnly,
+    isShowingParkingFreeStationOnly,
+  } = useExternalValue(stationFilterStore);
 
   return useQuery({
     queryKey: ['stations'],
@@ -29,10 +32,10 @@ export const useStations = (map: google.maps.Map) => {
       return data.filter((station) => {
         const { availableCount, isParkingFree, chargers } = station;
 
-        if (showAvailableStationOnly && availableCount === 0) return false;
-        if (showFasterChargeStationOnly && !chargers.some((charger) => charger.type === '급속'))
+        if (isShowingAvailableStationOnly && availableCount === 0) return false;
+        if (isShowingFastChargeStationOnly && !chargers.some((charger) => charger.type === '급속'))
           return false;
-        if (showParkingFreeStationOnly && !isParkingFree) return false;
+        if (isShowingParkingFreeStationOnly && !isParkingFree) return false;
 
         return true;
       });
