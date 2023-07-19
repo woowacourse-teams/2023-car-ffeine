@@ -50,8 +50,8 @@ public class Charger {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumns({
-            @JoinColumn(name = "fk_station_id"),
-            @JoinColumn(name = "fk_charger_id")
+            @JoinColumn(name = "station_id"),
+            @JoinColumn(name = "charger_id")
     })
     private ChargerStatus chargerStatus;
 

@@ -10,7 +10,7 @@ public interface ChargeStationRepository extends Repository<ChargeStation, Long>
 
     ChargeStation save(ChargeStation chargeStation);
 
-    @EntityGraph(attributePaths = "chargers")
+    @EntityGraph(attributePaths = {"chargers", "chargers.chargerStatus"})
     List<ChargeStation> findAllByLatitudeBetweenAndLongitudeBetween(Latitude minLatitude, Latitude maxLatitude, Longitude minLongitude, Longitude maxLongitude);
 
     Optional<ChargeStation> findChargeStationByStationId(String stationId);
