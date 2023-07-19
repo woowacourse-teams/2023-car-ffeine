@@ -4,6 +4,7 @@ import com.carffeine.carffeine.common.exception.ExceptionType;
 import com.carffeine.carffeine.common.exception.Status;
 
 public enum MemberExceptionType implements ExceptionType {
+
     INVALID_AUTH_PROVIDER(Status.UNAUTHORIZED, 2001, "지원하지 않는 로그인 플랫폼입니다"),
     ;
 

@@ -37,13 +37,16 @@ class AuthServiceTest {
 
     @Test
     void 소셜_로그인_후_회원을_반환한다() {
+        // given
         given(oAuthRequester.login(any()))
                 .willReturn(new GoogleMember(OAuthFixture.구글_회원_정보));
 
+        // when
         Member member = authService.oAuthLogin(new OAuthLoginRequest("google", "carffeine"));
+
+        // then
         Member findMember = memberRepository.findByEmail(member.getEmail()).get();
         assertThat(member).usingRecursiveComparison()
                 .isEqualTo(findMember);
     }
-
 }
