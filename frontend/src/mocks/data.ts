@@ -41,6 +41,6 @@ export const stations: Station[] = Array.from({ length: 3000 }).map((_, index) =
     longitude: 127 + 9999 * Math.random() * 0.0001,
     isPrivate: generateRandomData<boolean>([true, false]),
     totalCount: generateRandomData<number>([3, 4, 5]), // 전체 충전기 갯수
-    availableCount: generateRandomData<number>([1, 2, 3]), // 사용가능한 충전기 갯수
+    availableCount: generateRandomData<number>([0, 1, 2, 3]), // 사용가능한 충전기 갯수
   };
 });
