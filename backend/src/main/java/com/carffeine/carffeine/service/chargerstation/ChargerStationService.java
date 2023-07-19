@@ -50,7 +50,7 @@ public class ChargerStationService {
         Latitude maxLatitude = originLatitude.calculateMaxLatitudeByDelta(deltaLatitude);
 
         Longitude originLongitude = Longitude.from(request.longitude());
-        BigDecimal deltaLongitude = request.latitudeDelta();
+        BigDecimal deltaLongitude = request.longitudeDelta();
         Longitude minLongitude = originLongitude.calculateMinLongitudeByDelta(deltaLongitude);
         Longitude maxLongitude = originLongitude.calculateMaxLongitudeByDelta(deltaLongitude);
 
