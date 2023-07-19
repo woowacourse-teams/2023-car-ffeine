@@ -32,8 +32,11 @@ public class RestTemplateOAuthRequesterTest {
 
     @Test
     void 구글_로그인을_하면_회원_정보를_반환한다() {
-        OAuthMember googleMember = requester.login(new OAuthLoginRequest("google", "carffeine"));
+        // given
+        OAuthLoginRequest request = new OAuthLoginRequest("google", "carffeine");
 
+        // when & then
+        OAuthMember googleMember = requester.login(request);
         assertSoftly(softly -> {
             softly.assertThat(googleMember.id()).isEqualTo("12345");
             softly.assertThat(googleMember.email()).isEqualTo("carffeine@gmail.com");

@@ -9,5 +9,4 @@ public interface MemberRepository extends Repository<Member, Long> {
     Optional<Member> findByEmail(String email);
 
     Member save(Member member);
-
 }

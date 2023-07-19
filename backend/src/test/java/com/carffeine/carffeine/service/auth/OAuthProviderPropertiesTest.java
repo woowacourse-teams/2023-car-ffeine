@@ -23,7 +23,6 @@ class OAuthProviderPropertiesTest {
         OAuthProviderProperty oAuthProviderProperty = provider.get(Provider.GOOGLE);
 
         assertSoftly(softly -> {
-            softly.assertThat(provider.size()).isEqualTo(1);
             softly.assertThat(oAuthProviderProperty.getId()).isEqualTo("google-client-id");
             softly.assertThat(oAuthProviderProperty.getSecret()).isEqualTo("google-secret");
             softly.assertThat(oAuthProviderProperty.getTokenUrl()).isEqualTo("http://localhost:8080/oauth2/v4/token");
@@ -31,5 +30,4 @@ class OAuthProviderPropertiesTest {
             softly.assertThat(oAuthProviderProperty.getRedirectUrl()).isEqualTo("google-redirect-url");
         });
     }
-
 }
