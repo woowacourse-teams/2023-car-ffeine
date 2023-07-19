@@ -10,7 +10,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "cypress": "cypress open",
-    "prepare": "cd .. && husky install frontend/.husky && cd frontend"
+    "prepare": "cd .. && husky install frontend/.husky && cd frontend",
+    "prepare:mac": "cd .. && husky install frontend/.husky && chmod +x frontend/.husky/* && git update-index --chmod=+x && cd frontend"
   },
   "author": "",
   "license": "ISC",
