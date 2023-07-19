@@ -1,13 +1,13 @@
 import { store } from '@utils/external-state';
 
 interface StationFilter {
-  isShowingFastChargeStationOnly: boolean;
-  isShowingAvailableStationOnly: boolean;
-  isShowingParkingFreeStationOnly: boolean;
+  isFastChargeStationFilterSelected: boolean;
+  isAvailableStationFilterSelected: boolean;
+  isParkingFreeStationFilterSelected: boolean;
 }
 
 export const stationFilterStore = store<StationFilter>({
-  isShowingAvailableStationOnly: false,
-  isShowingFastChargeStationOnly: false,
-  isShowingParkingFreeStationOnly: false,
+  isAvailableStationFilterSelected: false,
+  isFastChargeStationFilterSelected: false,
+  isParkingFreeStationFilterSelected: false,
 });

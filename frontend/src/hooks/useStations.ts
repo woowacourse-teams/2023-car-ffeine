@@ -20,9 +20,9 @@ export const fetchStation = async (map: google.maps.Map) => {
 
 export const useStations = (map: google.maps.Map) => {
   const {
-    isShowingAvailableStationOnly,
-    isShowingFastChargeStationOnly,
-    isShowingParkingFreeStationOnly,
+    isAvailableStationFilterSelected,
+    isFastChargeStationFilterSelected,
+    isParkingFreeStationFilterSelected,
   } = useExternalValue(stationFilterStore);
 
   return useQuery({
@@ -32,11 +32,12 @@ export const useStations = (map: google.maps.Map) => {
       return data.filter((station) => {
         const { availableCount, isParkingFree, chargers } = station;
 
-        if (isShowingAvailableStationOnly && availableCount === 0) return false;
-        if (isShowingFastChargeStationOnly && !chargers.some((charger) => charger.type === '급속'))
-          return false;
-        if (isShowingParkingFreeStationOnly && !isParkingFree) return false;
+        const isNoAvailable = isAvailableStationFilterSelected && availableCount === 0;
+        const isNoFastCharge =
+          isFastChargeStationFilterSelected && !chargers.some((charger) => charger.type === '급속');
+        const isNoFreeParking = isParkingFreeStationFilterSelected && !isParkingFree;
 
+        if (isNoAvailable || isNoFastCharge || isNoFreeParking) return false;
         return true;
       });
     },
