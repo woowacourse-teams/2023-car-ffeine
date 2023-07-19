@@ -15,8 +15,6 @@ import MapController from '@ui/MapController';
 import MarkerList from '@ui/MarkerList';
 import StationList from '@ui/StationList';
 
-import type { Coordinates } from '../../../types';
-
 const CarFfeineMap = () => {
   return (
     <>
