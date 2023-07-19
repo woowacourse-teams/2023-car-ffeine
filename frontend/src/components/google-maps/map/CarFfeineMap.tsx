@@ -8,6 +8,7 @@ import { getGoogleMapStore } from '@stores/googleMapStore';
 
 import { useUpdateStations } from '@hooks/useUpdateStations';
 
+import FilterButtonList from '@ui/FilterButtonList';
 import MapController from '@ui/MapController';
 import MarkerList from '@ui/MarkerList';
 import StationList from '@ui/StationList';
@@ -20,6 +21,7 @@ const CarFfeineMap = () => {
       <StationList />
       <MarkerList />
       <MapController />
+      <FilterButtonList />
     </>
   );
 };
