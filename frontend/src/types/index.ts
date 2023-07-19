@@ -7,7 +7,7 @@ export interface Charger {
   capacity: CapacityType;
 }
 
-interface Coordinates {
+export interface Coordinates {
   latitude: number;
   longitude: number;
 }

@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import StationMarkersContainer from '@marker/StationMarkersContainer';
 
 import { useExternalValue } from '@utils/external-state';
+import { setLocalStorage } from '@utils/storage';
+import { LOCAL_STORAGE_KEY_LAST_POSITION } from '@utils/storage/keys';
 
 import { getGoogleMapStore } from '@stores/googleMapStore';
 
@@ -12,6 +14,8 @@ import FilterButtonList from '@ui/FilterButtonList';
 import MapController from '@ui/MapController';
 import MarkerList from '@ui/MarkerList';
 import StationList from '@ui/StationList';
+
+import type { Coordinates } from '../../../types';
 
 const CarFfeineMap = () => {
   return (
@@ -31,6 +35,13 @@ const CarFfeineMapListener = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
 
   useEffect(() => {
+    googleMap.addListener('idle', () => {
+      setLocalStorage<google.maps.LatLngLiteral>(LOCAL_STORAGE_KEY_LAST_POSITION, {
+        lat: googleMap.getCenter().lat(),
+        lng: googleMap.getCenter().lng(),
+      });
+    });
+
     googleMap.addListener('dragend', () => {
       console.log('dragend');
       updateStations(googleMap);
