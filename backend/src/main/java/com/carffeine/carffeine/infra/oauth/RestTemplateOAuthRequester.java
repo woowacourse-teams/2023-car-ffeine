@@ -38,6 +38,7 @@ public class RestTemplateOAuthRequester implements OAuthRequester {
     private final RestTemplate restTemplate;
     private final OAuthProviderProperties oAuthProviderProperties;
 
+    @Override
     public OAuthMember login(OAuthLoginRequest request) {
         Provider provider = Provider.from(request.provider());
         OAuthProviderProperty property = oAuthProviderProperties.getProviderProperties(provider);

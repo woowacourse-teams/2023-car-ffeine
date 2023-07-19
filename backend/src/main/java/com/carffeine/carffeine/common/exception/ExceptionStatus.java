@@ -8,7 +8,8 @@ public enum ExceptionStatus {
 
     INVALID(Status.INVALID, HttpStatus.BAD_REQUEST),
     INTERNAL_SERVER_ERROR(Status.SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR),
-    NOT_FOUND(Status.NOT_FOUND, HttpStatus.NOT_FOUND);
+    NOT_FOUND(Status.NOT_FOUND, HttpStatus.NOT_FOUND),
+    UNAUTHORIZED(Status.UNAUTHORIZED, HttpStatus.UNAUTHORIZED);
 
     private final Status status;
     private final HttpStatus httpStatus;
