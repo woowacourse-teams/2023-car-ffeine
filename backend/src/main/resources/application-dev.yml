@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: ${DATABASE_URL}
+    url: ${DATABASE_URL}?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true
     username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
   driver-class-name: com.mysql.cj.jdbc.Driver
