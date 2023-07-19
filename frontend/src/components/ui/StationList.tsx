@@ -11,7 +11,7 @@ import { useUpdateStations } from '@hooks/useUpdateStations';
 
 import BriefStationInfo from './BriefStationInfo';
 
-import type { Station } from 'types';
+import type { StationSummary } from 'types';
 
 const StationList = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
@@ -25,7 +25,7 @@ const StationList = () => {
 
   const { updateStations } = useUpdateStations();
 
-  const handleStationInfoOpen = (station: Station) => {
+  const handleBriefStationInfoOpen = (station: StationSummary) => {
     const { stationId, latitude: lat, longitude: lng } = station;
 
     const selectedStation = stationMarkers.find((marker) => marker.stationId === stationId);
@@ -65,7 +65,7 @@ const StationList = () => {
 
               return (
                 <li key={stationId}>
-                  <button onClick={() => handleStationInfoOpen(station)}>{stationName}</button>
+                  <button onClick={() => handleBriefStationInfoOpen(station)}>{stationName}</button>
                 </li>
               );
             })}

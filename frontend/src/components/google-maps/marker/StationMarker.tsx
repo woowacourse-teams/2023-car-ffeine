@@ -12,10 +12,10 @@ import BriefStationInfo from '@ui/BriefStationInfo';
 
 import BlueMarker from '@assets/blue-marker.svg';
 
-import type { Station } from 'types';
+import type { StationSummary } from 'types';
 
 interface Props {
-  station: Station;
+  station: StationSummary;
 }
 
 const StationMarker = ({ station }: Props) => {

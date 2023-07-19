@@ -5,7 +5,7 @@ import { getDisplayPosition } from '@utils/google-maps';
 
 import { stationFilterStore } from '@stores/stationFilterStore';
 
-import type { Station } from 'types';
+import type { StationSummary } from 'types';
 
 export const fetchStation = async (map: google.maps.Map) => {
   const stationQuery = getDisplayPosition(map);
@@ -13,7 +13,7 @@ export const fetchStation = async (map: google.maps.Map) => {
   const stations = await fetch('/stations', {
     method: 'POST',
     body: JSON.stringify(stationQuery),
-  }).then<Station[]>((response) => response.json());
+  }).then<StationSummary[]>((response) => response.json());
 
   return stations;
 };
