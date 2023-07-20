@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: ${DATABASE_URL}?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true
-    username: ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
-  driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ENC(grdqltHbM0ugWJ7lefJ1n5Uke5ixEm+eMbV/awp82gZapyPFnoLcBJXQ0kvC52BmARifWn8clbCNm5YirMsiXmUZC9F8tA7TT9ncO/Cx8NiSqSfx+SHsHOKQQpPerTbAlMOrTUtBRDKiJnQBTuiisaus5+UGbtnnz2gEfJByvFhEQtxKGz8qnUm4dBJ+9TfockXlf78gCAs=)
+    username: ENC(+Nr8j1yK+PV6GlSQpsvnziSp3h4Sc2i7)
+    password: ENC(+OxEEXGFOlQWHM52liwkhtaMIotzZjNU)
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
