@@ -3,6 +3,7 @@ package com.carffeine.carffeine.fixture.chargerstation;
 import com.carffeine.carffeine.domain.chargestation.charger.Charger;
 import com.carffeine.carffeine.domain.chargestation.charger.ChargerState;
 import com.carffeine.carffeine.domain.chargestation.charger.ChargerStatus;
+import com.carffeine.carffeine.domain.chargestation.charger.ChargerType;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -17,7 +18,7 @@ public class ChargerFixture {
             .method("단독")
             .address("서울특별시 강남구 선릉로100길 2 선릉역1")
             .capacity(BigDecimal.valueOf(50.0))
-            .type("급속")
+            .type(ChargerType.DC_COMBO)
             .chargerStatus(ChargerStatus.builder()
                     .stationId("ME101010")
                     .chargerId("01")
@@ -33,7 +34,7 @@ public class ChargerFixture {
             .method("단독")
             .address("서울특별시 강남구 선릉로100길 2 선릉역2")
             .capacity(BigDecimal.valueOf(50.0))
-            .type("급속")
+            .type(ChargerType.AC_3PHASE)
             .chargerStatus(ChargerStatus.builder()
                     .stationId("ME101010")
                     .chargerId("02")

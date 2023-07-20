@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
@@ -38,7 +40,8 @@ public class Charger {
     @Column(name = "charger_id")
     private String chargerId;
 
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private ChargerType type;
 
     private String address;
 
@@ -68,9 +71,17 @@ public class Charger {
     }
 
     public boolean isQuick() {
+        BigDecimal capacity = this.capacity;
         if (capacity == null) {
-            return false;
+            capacity = type.getDefaultCapacity();
         }
         return capacity.compareTo(OUTPUT_THRESHOLD) >= 0;
+    }
+
+    public BigDecimal getCapacity() {
+        if (capacity == null) {
+            return type.getDefaultCapacity();
+        }
+        return capacity;
     }
 }
