@@ -14,7 +14,7 @@ const meta = {
       control: {
         type: 'text',
       },
-      description: '글자를 입력하세요',
+      description: '글자를 입력할 수 있어요',
     },
     variant: {
       options: {
@@ -34,7 +34,7 @@ const meta = {
       control: {
         type: 'select',
       },
-      description: '글자 크기를 결정하세요',
+      description: '글자의 기본 효과를 설정합니다.',
     },
   },
 } satisfies Meta<typeof Text>;
