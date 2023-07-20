@@ -1,16 +1,17 @@
 package com.carffeine.carffeine.domain.chargestation;
 
 import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.math.BigDecimal;
-import java.util.Objects;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode(of = "value")
 @Embeddable
 public class Longitude {
 
@@ -45,23 +46,5 @@ public class Longitude {
 
     public Longitude calculateMaxLongitudeByDelta(BigDecimal delta) {
         return new Longitude(value.add(delta));
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (!(o instanceof Longitude longitude)) {
-            return false;
-        }
-
-        return Objects.equals(value, longitude.value);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(value);
     }
 }
