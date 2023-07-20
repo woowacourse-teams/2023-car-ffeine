@@ -61,6 +61,9 @@ public class Charger {
     private ChargeStation chargeStation;
 
     public boolean isAvailable() {
+        if (chargerStatus == null) {
+            return false;
+        }
         return chargerStatus.isAvailable();
     }
 
