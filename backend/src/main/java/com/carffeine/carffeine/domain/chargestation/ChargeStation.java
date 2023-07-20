@@ -4,6 +4,7 @@ import com.carffeine.carffeine.domain.chargestation.charger.Charger;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,13 +16,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Getter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@EqualsAndHashCode(of = "stationId")
 @Table(name = "charge_station")
 public class ChargeStation {
 
@@ -62,22 +63,5 @@ public class ChargeStation {
         return (int) chargers.stream()
                 .filter(Charger::isAvailable)
                 .count();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        ChargeStation that = (ChargeStation) o;
-        return Objects.equals(stationId, that.stationId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(stationId);
     }
 }

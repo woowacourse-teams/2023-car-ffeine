@@ -6,7 +6,6 @@ import com.carffeine.carffeine.controller.chargerStation.dto.StatisticsResponse;
 import com.carffeine.carffeine.domain.chargestation.charger.ChargerRepository;
 import com.carffeine.carffeine.domain.chargestation.congestion.PeriodicCongestionRepository;
 import com.carffeine.carffeine.service.chargerstation.dto.StatisticsRequest;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator.ReplaceUnderscores;
 import org.junit.jupiter.api.Test;
@@ -16,6 +15,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayNameGeneration(ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
@@ -30,13 +31,13 @@ class CongestionServiceTest {
     }
 
     @Test
-    void 혼잡도_계산() {
+    void 상태값이_없는_데이터일_경우_음수가_반환된다() {
         StatisticsRequest statisticsRequest = new StatisticsRequest("ME174003");
         StatisticsResponse statisticsResponse = congestionService.calculateCongestion(statisticsRequest);
 
         CongestionResponse expected = getExpected();
 
-        Assertions.assertThat(expected).usingRecursiveComparison()
+        assertThat(expected).usingRecursiveComparison()
                 .isEqualTo(statisticsResponse.congestion());
     }
 

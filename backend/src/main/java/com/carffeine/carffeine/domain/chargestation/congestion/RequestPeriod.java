@@ -8,12 +8,15 @@ import java.util.List;
 
 @Getter
 public enum RequestPeriod {
+
     ZERO(0),
     TWELVE(1200);
 
+    private static final int UNIT = 100;
     private static final List<RequestPeriod> periods = Arrays.stream(values())
             .sorted(Comparator.comparingInt(RequestPeriod::getSection))
             .toList();
+
     private final int section;
 
     RequestPeriod(int section) {
@@ -22,7 +25,7 @@ public enum RequestPeriod {
 
     public static RequestPeriod from(int hour) {
         return periods.stream()
-                .filter(it -> it.section <= hour * 100)
+                .filter(it -> it.section <= hour * UNIT)
                 .findFirst()
                 .orElseThrow();
     }
