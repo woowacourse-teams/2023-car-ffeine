@@ -3,9 +3,9 @@ import { styled } from 'styled-components';
 import { useSelectedStation } from '@hooks/useSelectedStation';
 
 const DetailedStationInfo = () => {
-  const { data: station, isLoading } = useSelectedStation();
+  const { data: station, isLoading, isError } = useSelectedStation();
 
-  if (isLoading) return <></>;
+  if (isLoading || isError) return <></>;
 
   const {
     stationName,
