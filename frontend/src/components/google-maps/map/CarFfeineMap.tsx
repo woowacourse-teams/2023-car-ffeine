@@ -7,19 +7,24 @@ import { setLocalStorage } from '@utils/storage';
 import { LOCAL_STORAGE_KEY_LAST_POSITION } from '@utils/storage/keys';
 
 import { getGoogleMapStore } from '@stores/googleMapStore';
+import { selectedStationIdStore } from '@stores/selectedStationStore';
 
 import { useUpdateStations } from '@hooks/useUpdateStations';
 
+import DetailedStationInfo from '@ui/DetailedStationInfo';
 import FilterButtonList from '@ui/FilterButtonList';
 import MapController from '@ui/MapController';
 import StationList from '@ui/StationList';
 
 const CarFfeineMap = () => {
+  const selectedStationId = useExternalValue(selectedStationIdStore);
+
   return (
     <>
       <CarFfeineMapListener />
       <StationMarkersContainer />
       <StationList />
+      {selectedStationId !== null && <DetailedStationInfo />}
       <MapController />
       <FilterButtonList />
     </>

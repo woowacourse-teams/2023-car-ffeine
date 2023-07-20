@@ -1,10 +1,11 @@
 import { styled } from 'styled-components';
 
-import { useExternalValue } from '@utils/external-state';
+import { useExternalValue, useSetExternalState } from '@utils/external-state';
 
 import { getBriefStationInfoWindowStore } from '@stores/briefStationInfoWindowStore';
 import { getGoogleMapStore } from '@stores/googleMapStore';
 import { markerInstanceStore } from '@stores/markerInstanceStore';
+import { selectedStationIdStore } from '@stores/selectedStationStore';
 
 import { useStations } from '@hooks/useStations';
 import { useUpdateStations } from '@hooks/useUpdateStations';
@@ -22,6 +23,7 @@ const StationList = () => {
   const { infoWindowInstance, briefStationInfoRoot } = useExternalValue(
     getBriefStationInfoWindowStore()
   );
+  const setSelectedStationId = useSetExternalState(selectedStationIdStore);
 
   const { updateStations } = useUpdateStations();
 
@@ -39,6 +41,10 @@ const StationList = () => {
     });
 
     briefStationInfoRoot.render(<BriefStationInfo station={station} />);
+  };
+
+  const handleStationDetailsOpen = (stationId: number) => {
+    setSelectedStationId(stationId);
   };
 
   // TODO: 스켈레톤으로 바꾸기
@@ -65,7 +71,14 @@ const StationList = () => {
 
               return (
                 <li key={stationId}>
-                  <button onClick={() => handleBriefStationInfoOpen(station)}>{stationName}</button>
+                  <button
+                    onClick={() => {
+                      handleBriefStationInfoOpen(station);
+                      handleStationDetailsOpen(stationId);
+                    }}
+                  >
+                    {stationName}
+                  </button>
                 </li>
               );
             })}
