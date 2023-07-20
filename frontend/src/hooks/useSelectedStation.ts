@@ -4,10 +4,12 @@ import { useExternalValue } from '@utils/external-state';
 
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
+import { BASE_URL } from '@constants';
+
 import type { StationDetails } from 'types';
 
 export const fetchStationDetails = async (selectedStationId: number) => {
-  const stationDetails = await fetch(`/stations/${selectedStationId}`, {
+  const stationDetails = await fetch(`${BASE_URL}/stations/${selectedStationId}`, {
     method: 'GET',
   }).then<StationDetails>(async (response) => {
     if (!response.ok) {

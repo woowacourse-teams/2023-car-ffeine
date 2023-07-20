@@ -1,11 +1,13 @@
 import { rest } from 'msw';
 
+import { DEVELOP_URL } from '@constants';
+
 import { stations } from './data';
 
 import type { StationSummary } from 'types';
 
 export const handlers = [
-  rest.get('/stations', async (req, res, ctx) => {
+  rest.get(`${DEVELOP_URL}/stations`, async (req, res, ctx) => {
     const { searchParams } = req.url;
 
     const latitude = Number(searchParams.get('latitude'));
@@ -46,7 +48,7 @@ export const handlers = [
     return res(ctx.delay(200), ctx.status(200), ctx.json(foundStations));
   }),
 
-  rest.get('/stations/:id', async (req, res, ctx) => {
+  rest.get(`${DEVELOP_URL}/stations/:id`, async (req, res, ctx) => {
     const stationId = Number(req.params.id);
     const selectedStation = stations.find((station) => station.stationId === stationId);
 
