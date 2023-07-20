@@ -72,7 +72,6 @@ public record ChargeStationInfoRequest(
                 .stationId(statId)
                 .chargerId(chgerId)
                 .type(ChargerType.from(chgerType))
-                .address(addr)
                 .chargerStatus(toChargerStatus())
                 .capacity(parseBigDecimalFromString(output))
                 .method(method)
