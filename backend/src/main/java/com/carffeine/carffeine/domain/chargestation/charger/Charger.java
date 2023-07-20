@@ -67,14 +67,7 @@ public class Charger {
         return chargerStatus.isAvailable();
     }
 
-    public boolean isQuick() {
-        if (capacity == null) {
-            return false;
-        }
-        return capacity.compareTo(OUTPUT_THRESHOLD) >= 0;
-    }
-
-    public boolean isUpdated(final Charger charger) {
+    public boolean isUpdated(Charger charger) {
         if (!this.type.equals(charger.type)) {
             return true;
         }
@@ -88,5 +81,12 @@ public class Charger {
         }
 
         return false;
+    }
+
+    public boolean isQuick() {
+        if (capacity == null) {
+            return false;
+        }
+        return capacity.compareTo(OUTPUT_THRESHOLD) >= 0;
     }
 }
