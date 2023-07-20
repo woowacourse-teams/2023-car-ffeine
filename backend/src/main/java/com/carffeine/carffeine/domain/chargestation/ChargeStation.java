@@ -33,6 +33,8 @@ public class ChargeStation {
 
     private String companyName;
 
+    private String address;
+
     private Boolean isParkingFree;
 
     private String operatingTime;
@@ -63,5 +65,61 @@ public class ChargeStation {
         return (int) chargers.stream()
                 .filter(Charger::isAvailable)
                 .count();
+    }
+
+    public void setChargers(List<Charger> chargers) {
+        this.chargers = chargers;
+    }
+
+    public boolean isUpdated(ChargeStation station) {
+        if (!stationName.equals(station.stationName)) {
+            return true;
+        }
+
+        if (!companyName.equals(station.companyName)) {
+            return true;
+        }
+
+        if (!address.equals(station.address)) {
+            return true;
+        }
+
+        if (!isParkingFree.equals(station.isParkingFree)) {
+            return true;
+        }
+
+        if (!operatingTime.equals(station.operatingTime)) {
+            return true;
+        }
+
+        if (!detailLocation.equals(station.detailLocation)) {
+            return true;
+        }
+
+        if (!latitude.equals(station.getLatitude())) {
+            return true;
+        }
+
+        if (!longitude.equals(station.longitude)) {
+            return true;
+        }
+
+        if (!isPrivate.equals(station.isPrivate)) {
+            return true;
+        }
+
+        if (!contact.equals(station.contact)) {
+            return true;
+        }
+
+        if (!stationState.equals(station.stationState)) {
+            return true;
+        }
+
+        if (!privateReason.equals(station.privateReason)) {
+            return true;
+        }
+
+        return false;
     }
 }

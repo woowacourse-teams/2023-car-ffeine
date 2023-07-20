@@ -7,6 +7,7 @@ public record ChargeStationSimpleResponse(
         String stationId,
         String stationName,
         String companyName,
+        String address,
         List<ChargerSimpleResponse> chargers,
         Boolean isParkingFree,
         String operatingTime,

@@ -1,6 +1,5 @@
-package com.carffeine.carffeine.domain.chargerStation.congestion;
+package com.carffeine.carffeine.domain.chargestation.congestion;
 
-import com.carffeine.carffeine.domain.chargestation.congestion.RequestPeriod;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator.ReplaceUnderscores;
 import org.junit.jupiter.params.ParameterizedTest;

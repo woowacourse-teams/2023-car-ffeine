@@ -34,4 +34,8 @@ public enum ChargerState {
     public boolean isStandBy() {
         return this == STANDBY;
     }
+
+    public int getValue() {
+        return value;
+    }
 }

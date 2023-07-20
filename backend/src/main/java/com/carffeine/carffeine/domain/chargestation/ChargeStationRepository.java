@@ -1,6 +1,7 @@
 package com.carffeine.carffeine.domain.chargestation;
 
 import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 
 import java.util.List;
@@ -14,4 +15,9 @@ public interface ChargeStationRepository extends Repository<ChargeStation, Long>
     List<ChargeStation> findAllByLatitudeBetweenAndLongitudeBetween(Latitude minLatitude, Latitude maxLatitude, Longitude minLongitude, Longitude maxLongitude);
 
     Optional<ChargeStation> findChargeStationByStationId(String stationId);
+
+    @Query("SELECT DISTINCT c FROM ChargeStation c JOIN FETCH c.chargers")
+    List<ChargeStation> findAllFetch();
+
+    List<ChargeStation> findAll();
 }
