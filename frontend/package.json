@@ -17,6 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "@googlemaps/react-wrapper": "^1.1.35",
+    "@tanstack/react-query": "^4.29.25",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -33,7 +34,6 @@
     "@storybook/react": "^7.0.24",
     "@storybook/react-webpack5": "^7.0.24",
     "@storybook/testing-library": "^0.0.14-next.2",
-    "@tanstack/react-query": "^4.29.19",
     "@tanstack/react-query-devtools": "^4.29.19",
     "@testing-library/react": "^14.0.0",
     "@trivago/prettier-plugin-sort-imports": "^4.1.1",
