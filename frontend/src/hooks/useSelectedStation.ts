@@ -24,7 +24,7 @@ export const useSelectedStation = () => {
   const selectedStationId = useExternalValue(selectedStationIdStore);
 
   return useQuery({
-    queryKey: ['stationDetails'],
+    queryKey: ['stationDetails', selectedStationId],
     queryFn: () => fetchStationDetails(selectedStationId),
   });
 };

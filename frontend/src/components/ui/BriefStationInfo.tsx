@@ -10,6 +10,7 @@ interface Props {
 
 const BriefStationInfo = ({ station }: Props) => {
   const setSelectedStationId = useSetExternalState(selectedStationIdStore);
+
   const {
     stationId,
     chargers,
