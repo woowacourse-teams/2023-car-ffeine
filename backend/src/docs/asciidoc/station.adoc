@@ -38,3 +38,14 @@ include::{snippets}/charger-station-controller-test/findChargeStationByInvalidId
 
 include::{snippets}/charger-station-controller-test/findChargeStationByInvalidId/http-response.adoc[]
 include::{snippets}/charger-station-controller-test/findChargeStationByInvalidId/response-fields.adoc[]
+
+== 충전소의 id 값을 기준으로 충전소의 혼잡도를 조회한다 (/stations/{stationId}/statistics)
+
+=== Request
+
+include::{snippets}/congestion-controller-test/statistics/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/congestion-controller-test/statistics/http-response.adoc[]
+include::{snippets}/congestion-controller-test/statistics/response-fields.adoc[]

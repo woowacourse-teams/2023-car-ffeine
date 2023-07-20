@@ -28,6 +28,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "charger")
 public class Charger {
+    private static final BigDecimal OUTPUT_THRESHOLD = BigDecimal.valueOf(50);
 
     @Id
     @Column(name = "station_id")
@@ -50,8 +51,8 @@ public class Charger {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumns({
-            @JoinColumn(name = "fk_station_id"),
-            @JoinColumn(name = "fk_charger_id")
+            @JoinColumn(name = "station_id"),
+            @JoinColumn(name = "charger_id")
     })
     private ChargerStatus chargerStatus;
 
@@ -60,6 +61,16 @@ public class Charger {
     private ChargeStation chargeStation;
 
     public boolean isAvailable() {
+        if (chargerStatus == null) {
+            return false;
+        }
         return chargerStatus.isAvailable();
+    }
+
+    public boolean isQuick() {
+        if (capacity == null) {
+            return false;
+        }
+        return capacity.compareTo(OUTPUT_THRESHOLD) >= 0;
     }
 }

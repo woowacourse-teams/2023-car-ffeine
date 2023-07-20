@@ -1,0 +1,37 @@
+package com.carffeine.carffeine.service.chargerstation.dto;
+
+import com.carffeine.carffeine.domain.chargestation.charger.ChargerState;
+import com.carffeine.carffeine.domain.chargestation.charger.ChargerStatus;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public record ChargerStateRequest(
+        String busiId,
+        String statId,
+        String chgerId,
+        String stat,
+        String statUpdDt,
+        String lastTsdt,
+        String lastTedt,
+        String nowTsdt) {
+
+    private static final int DATETIME_LENGTH = 14;
+
+    public ChargerStatus toChargerStatus() {
+        return ChargerStatus.builder()
+                .stationId(statId)
+                .chargerId(chgerId)
+                .latestUpdateTime(parseDateTimeFromString(statUpdDt))
+                .chargerState(ChargerState.from(stat))
+                .build();
+    }
+
+    private LocalDateTime parseDateTimeFromString(String input) {
+        if (input == null || input.length() != DATETIME_LENGTH) {
+            return null;
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        return LocalDateTime.parse(input, formatter);
+    }
+}
