@@ -25,7 +25,6 @@ import java.util.Map;
 public class CongestionService {
 
     private static final int PERIOD_SIZE = 24;
-    private static final int OUTPUT_THRESHOLD = 50;
     private static final int DEFAULT_VALUE = -1;
     private static final int PERCENTAGE = 100;
 

@@ -2,32 +2,32 @@ package com.carffeine.carffeine.service.chargerstation;
 
 import com.carffeine.carffeine.domain.chargestation.ChargeStation;
 import com.carffeine.carffeine.domain.chargestation.ChargeStationRepository;
-import com.carffeine.carffeine.domain.chargestation.ChargeUpdateJdbc;
+import com.carffeine.carffeine.domain.chargestation.CustomChargeStationRepository;
 import com.carffeine.carffeine.domain.chargestation.charger.Charger;
+import com.carffeine.carffeine.domain.chargestation.charger.CustomChargerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class ChargerStationUpdateService {
 
-    private final UpdateScrapper updateScrapper;
     private final ChargeStationRepository chargeStationRepository;
-    private final ChargeUpdateJdbc chargeUpdateJdbc;
+    private final CustomChargeStationRepository customChargeStationRepository;
+    private final CustomChargerRepository customChargerRepository;
 
-    @Transactional
-    public void updateStations() {
+    //    @Transactional
+    public void updateStations(List<ChargeStation> updatedStations) {
         List<ChargeStation> chargeStations = chargeStationRepository.findAllFetch();
-        List<ChargeStation> updatedStations = updateScrapper.updateData();
 
         Map<String, ChargeStation> savedStationsByStationId = chargeStations.stream()
-                .collect(Collectors.toMap(ChargeStation::getStationId, it -> it));
+                .collect(Collectors.toMap(ChargeStation::getStationId, Function.identity()));
 
         List<ChargeStation> toSaveStations = new ArrayList<>();
         List<ChargeStation> toUpdateStations = new ArrayList<>();
@@ -66,7 +66,7 @@ public class ChargerStationUpdateService {
             List<Charger> toUpdateChargers
     ) {
         Map<String, Charger> savedChargerByChargerId = savedStations.getChargers().stream()
-                .collect(Collectors.toMap(Charger::getChargerId, it -> it));
+                .collect(Collectors.toMap(Charger::getChargerId, Function.identity()));
 
         for (Charger updatedCharger : updatedStations.getChargers()) {
             if (isNewCharger(savedChargerByChargerId, updatedCharger)) {
@@ -85,28 +85,19 @@ public class ChargerStationUpdateService {
         return !savedChargerByChargerId.containsKey(updatedCharger.getChargerId());
     }
 
-
     private void saveAllStations(List<ChargeStation> toSaveStations) {
-        if (!toSaveStations.isEmpty()) {
-            chargeUpdateJdbc.saveAllStationsBatch(toSaveStations);
-        }
+        customChargeStationRepository.saveAllStationsBatch(toSaveStations);
     }
 
     private void updateAllStations(List<ChargeStation> toUpdateStations) {
-        if (!toUpdateStations.isEmpty()) {
-            chargeUpdateJdbc.updateAllStationsBatch(toUpdateStations);
-        }
+        customChargeStationRepository.updateAllStationsBatch(toUpdateStations);
     }
 
     private void saveAllChargers(List<Charger> toSaveChargers) {
-        if (!toSaveChargers.isEmpty()) {
-            chargeUpdateJdbc.saveAllChargersBatch(toSaveChargers);
-        }
+        customChargerRepository.saveAllChargersBatch(toSaveChargers);
     }
 
     private void updateAllChargers(List<Charger> toUpdateChargers) {
-        if (!toUpdateChargers.isEmpty()) {
-            chargeUpdateJdbc.updateAllChargersBatch(toUpdateChargers);
-        }
+        customChargerRepository.updateAllChargersBatch(toUpdateChargers);
     }
 }

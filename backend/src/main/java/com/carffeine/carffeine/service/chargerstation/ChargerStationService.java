@@ -29,6 +29,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Service
 public class ChargerStationService {
+
     private final ChargeStationRepository chargeStationRepository;
     private final PeriodicCongestionRepository periodicCongestionRepository;
     private final ChargerStatusRepository chargerStatusRepository;

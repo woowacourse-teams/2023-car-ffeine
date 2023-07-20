@@ -3,6 +3,7 @@ package com.carffeine.carffeine.controller.chargerStation;
 import com.carffeine.carffeine.controller.chargerStation.dto.ChargeStationSpecificResponse;
 import com.carffeine.carffeine.controller.chargerStation.dto.ChargeStationsSimpleResponse;
 import com.carffeine.carffeine.domain.chargestation.ChargeStation;
+import com.carffeine.carffeine.service.chargerstation.ChargeStationPeriodicUpdateService;
 import com.carffeine.carffeine.service.chargerstation.ChargerStationService;
 import com.carffeine.carffeine.service.chargerstation.dto.CoordinateRequest;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import java.util.List;
 public class ChargerStationController {
 
     private final ChargerStationService chargerStationService;
+    private final ChargeStationPeriodicUpdateService chargeStationPeriodicUpdateService;
 
     @GetMapping("/stations")
     public ResponseEntity<ChargeStationsSimpleResponse> getStations(CoordinateRequest request) {
@@ -32,5 +34,11 @@ public class ChargerStationController {
     public ResponseEntity<ChargeStationSpecificResponse> getStationById(@PathVariable String stationId) {
         ChargeStation chargeStation = chargerStationService.findStationById(stationId);
         return ResponseEntity.ok(ChargeStationSpecificResponse.from(chargeStation));
+    }
+
+    @GetMapping
+    public void a() {
+        chargeStationPeriodicUpdateService.updatePeriodicStations();
+
     }
 }
