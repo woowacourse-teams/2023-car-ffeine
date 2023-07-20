@@ -3,6 +3,7 @@ package com.carffeine.carffeine.fixture.chargerstation;
 import com.carffeine.carffeine.domain.chargestation.charger.Charger;
 import com.carffeine.carffeine.domain.chargestation.charger.ChargerState;
 import com.carffeine.carffeine.domain.chargestation.charger.ChargerStatus;
+import com.carffeine.carffeine.domain.chargestation.charger.ChargerType;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -16,7 +17,7 @@ public class ChargerFixture {
             .price(BigDecimal.valueOf(324.4))
             .method("단독")
             .capacity(BigDecimal.valueOf(50.0))
-            .type("급속")
+            .type(ChargerType.DC_COMBO)
             .chargerStatus(ChargerStatus.builder()
                     .stationId("ME101010")
                     .chargerId("01")
@@ -31,7 +32,7 @@ public class ChargerFixture {
             .price(BigDecimal.valueOf(324.4))
             .method("단독")
             .capacity(BigDecimal.valueOf(50.0))
-            .type("급속")
+            .type(ChargerType.AC_3PHASE)
             .chargerStatus(ChargerStatus.builder()
                     .stationId("ME101010")
                     .chargerId("02")
@@ -46,7 +47,7 @@ public class ChargerFixture {
             .price(BigDecimal.valueOf(324.4))
             .method("단독")
             .capacity(BigDecimal.valueOf(50.0))
-            .type("급속")
+            .type(ChargerType.DC_COMBO)
             .chargerStatus(ChargerStatus.builder()
                     .stationId("ME101011")
                     .chargerId("01")
@@ -61,7 +62,7 @@ public class ChargerFixture {
             .price(BigDecimal.valueOf(324.4))
             .method("단독")
             .capacity(BigDecimal.valueOf(50.0))
-            .type("완속")
+            .type(ChargerType.DC_COMBO)
             .chargerStatus(ChargerStatus.builder()
                     .stationId("ME101010")
                     .chargerId("02")

@@ -18,7 +18,7 @@ public record ChargerSpecificResponse(
     public static List<ChargerSpecificResponse> from(ChargeStation station) {
         return station.getChargers().stream()
                 .map(it -> new ChargerSpecificResponse(
-                        it.getType(),
+                        it.getType().name(),
                         it.getPrice(),
                         it.getCapacity(),
                         it.getChargerStatus().getLatestUpdateTime(),

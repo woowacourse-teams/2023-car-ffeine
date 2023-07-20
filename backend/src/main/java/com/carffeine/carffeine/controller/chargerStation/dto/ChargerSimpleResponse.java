@@ -20,7 +20,7 @@ public record ChargerSimpleResponse(
 
     private static ChargerSimpleResponse from(Charger charger) {
         return new ChargerSimpleResponse(
-                charger.getType(),
+                charger.getType().name(),
                 charger.getPrice(),
                 charger.getCapacity()
         );

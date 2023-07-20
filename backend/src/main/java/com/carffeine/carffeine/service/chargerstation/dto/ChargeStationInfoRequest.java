@@ -6,6 +6,7 @@ import com.carffeine.carffeine.domain.chargestation.Longitude;
 import com.carffeine.carffeine.domain.chargestation.charger.Charger;
 import com.carffeine.carffeine.domain.chargestation.charger.ChargerState;
 import com.carffeine.carffeine.domain.chargestation.charger.ChargerStatus;
+import com.carffeine.carffeine.domain.chargestation.charger.ChargerType;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -70,7 +71,7 @@ public record ChargeStationInfoRequest(
         return Charger.builder()
                 .stationId(statId)
                 .chargerId(chgerId)
-                .type(chgerType)
+                .type(ChargerType.from(chgerType))
                 .chargerStatus(toChargerStatus())
                 .capacity(parseBigDecimalFromString(output))
                 .method(method)

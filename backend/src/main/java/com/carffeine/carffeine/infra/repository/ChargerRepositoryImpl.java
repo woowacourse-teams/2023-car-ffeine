@@ -34,7 +34,8 @@ public class ChargerRepositoryImpl implements CustomChargerRepository {
         return new MapSqlParameterSource()
                 .addValue("stationId", charger.getStationId())
                 .addValue("chargerId", charger.getChargerId())
-                .addValue("type", charger.getType())
+                .addValue("type", charger.getType().name())
+                .addValue("type", charger.getType().name())
                 .addValue("price", charger.getPrice())
                 .addValue("capacity", charger.getCapacity())
                 .addValue("method", charger.getMethod());
