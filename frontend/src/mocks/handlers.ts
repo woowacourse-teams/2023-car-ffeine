@@ -2,7 +2,7 @@ import { rest } from 'msw';
 
 import { stations } from './data';
 
-import type { DisplayPosition, Station } from 'types';
+import type { DisplayPosition, StationSummary } from 'types';
 
 export const handlers = [
   rest.post('/stations', async (req, res, ctx) => {
@@ -19,21 +19,21 @@ export const handlers = [
       longitude: longitude - longitudeDelta,
     };
 
-    const isStationLatitudeWithinBounds = (station: Station) => {
+    const isStationLatitudeWithinBounds = (station: StationSummary) => {
       return (
         station.latitude > southWestBoundary.latitude &&
         station.latitude < northEastBoundary.latitude
       );
     };
 
-    const isStationLongitudeWithinBounds = (station: Station) => {
+    const isStationLongitudeWithinBounds = (station: StationSummary) => {
       return (
         station.longitude > southWestBoundary.longitude &&
         station.longitude < northEastBoundary.longitude
       );
     };
 
-    const foundStations: Station[] = stations.filter(
+    const foundStations: StationSummary[] = stations.filter(
       (station) => isStationLatitudeWithinBounds(station) && isStationLongitudeWithinBounds(station)
     );
 
