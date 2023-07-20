@@ -2,24 +2,9 @@ server:
   port: 8080
 
 spring:
-  flyway:
-    enabled: false
-  datasource:
-    url: jdbc:mysql://localhost:3306/charge?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true
-    username: root
-    password: root
-  driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    hibernate:
-      ddl-auto: create
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    properties:
-      hibernate:
-        show_sql: true
-        format_sql: true
-        use_sql_comments: true
   profiles:
     active: local
+
 jasypt:
   encryptor:
     bean: jasyptEncryptor
@@ -28,5 +13,6 @@ jasypt:
 api:
   service_key:
     ENC(qKM+pC2sfTXqlFeYMn0Q/8b5QlCMQbO03PptUKkzDkUd1S3PD9aM2q1VL/ZA+vMlpJyLWcCBEZnPWkITbudrMTSorPAZ+hn+9LJN47wdq4JsX4BwUiUsjaokPIhNqJLZwWRm7wZf4/CUvnz2zoy60hTrArxO8tNgYnn+LeDX0t+sPGEmwT33N8xJZ8DyLVV927PwzvwIvdfrtK4aPY34fg8FEFW8deRfFEL4GVRsGsMf/Hc+5N359AAUR/mo712l+/J7QhCw5jJPgOl0T9MIhASk9A2UN3PftlQN4le6aErkQUpxd2/emXSYPK6OxdO+N97VTMJbcailHK5iC38k8uKrZNULv8YJ5vroaGdU4Moh9XfImxQCbVOGB4ysHAWewgYS+8sVgVAJr5VvP24/PBK1B7HMXVQggK8BuOHqgmdEDWsM8LIKIPdr49+99uKlvcY4jPWsIBoGst51NeBbY42LP/dEU0/U8uWeHnZBY3E=)
+    
 initialize-charge:
   enabled: true
