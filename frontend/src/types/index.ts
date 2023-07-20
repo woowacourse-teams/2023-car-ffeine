@@ -1,4 +1,3 @@
-export type ChargerType = '완속' | '급속';
 export type CapacityType = 3 | 7 | 50 | 100 | 200;
 export type ChargerStateType =
   | 'AVAILABLE'
@@ -11,7 +10,7 @@ export type ChargerStateType =
 export type ChargerMethodType = '단독' | '동시' | null;
 
 export interface ChargerSummary {
-  type: ChargerType;
+  type: string;
   price: number;
   capacity: CapacityType;
 }
