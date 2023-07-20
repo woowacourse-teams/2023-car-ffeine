@@ -16,6 +16,6 @@ public class InitialChargeStationLoader implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-//        scrapperService.scrap();
+        scrapperService.scrap();
     }
 }
