@@ -21,7 +21,7 @@ const BriefStationInfo = ({ station }: Props) => {
     isPrivate,
   } = station;
 
-  const slowChargerCount = chargers.filter((charger) => charger.type === '완속').length;
+  const slowChargerCount = chargers.filter((charger) => charger.capacity < 50).length;
   const fastChargerCount = chargers.length - slowChargerCount;
 
   const handleOpenStationDetail = () => {

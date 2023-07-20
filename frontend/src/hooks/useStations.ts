@@ -38,7 +38,7 @@ export const useStations = (map: google.maps.Map) => {
 
         const isNoAvailable = isAvailableStationFilterSelected && availableCount === 0;
         const isNoFastCharge =
-          isFastChargeStationFilterSelected && !chargers.some((charger) => charger.type === '급속');
+          isFastChargeStationFilterSelected && !chargers.some((charger) => charger.capacity >= 50);
         const isNoFreeParking = isParkingFreeStationFilterSelected && !isParkingFree;
 
         if (isNoAvailable || isNoFastCharge || isNoFreeParking) return false;
