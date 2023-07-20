@@ -54,6 +54,7 @@ public record ChargeStationInfoRequest(
                 .stationId(statId)
                 .stationName(statNm)
                 .companyName(busiNm)
+                .address(addr)
                 .isParkingFree(isYes(parkingFree))
                 .operatingTime(useTime)
                 .detailLocation(location)
