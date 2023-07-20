@@ -4,10 +4,11 @@ import { reset } from './reset';
 
 export const GlobalStyle = createGlobalStyle`
   ${reset}
-  
-  /********** hidden scroll **********/
+    /********** hidden scroll **********/
   html,
   body {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 62.5%;
     scrollbar-width: none;
   }
 
@@ -16,6 +17,6 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   :root {
-    
+
   }
 `;
