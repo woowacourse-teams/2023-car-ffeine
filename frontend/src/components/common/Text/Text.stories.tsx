@@ -53,44 +53,18 @@ export const Default = (args: Props) => {
 export const Sizes = () => {
   return (
     <>
-      <div>
-        <div>
-          <Text variant="h1">Heading 1</Text>
-        </div>
-        <div>
-          <Text variant="h2">Heading 2</Text>
-        </div>
-        <div>
-          <Text variant="h3">Heading 3</Text>
-        </div>
-        <div>
-          <Text variant="h4">Heading 4</Text>
-        </div>
-        <div>
-          <Text variant="h5">Heading 5</Text>
-        </div>
-        <div>
-          <Text variant="h6">Heading 6</Text>
-        </div>
-        <div>
-          <Text variant="title">Title</Text>
-        </div>
-        <div>
-          <Text variant="subtitle1">Subtitle 1</Text>
-        </div>
-        <div>
-          <Text variant="subtitle2">Subtitle 2</Text>
-        </div>
-        <div>
-          <Text variant="body">Body Text</Text>
-        </div>
-        <div>
-          <Text variant="caption">Caption Text</Text>
-        </div>
-        <div>
-          <Text>You forget a thousand things every day. Make sure this is one of them.</Text>
-        </div>
-      </div>
+      <Text variant="h1">Heading 1</Text>
+      <Text variant="h2">Heading 2</Text>
+      <Text variant="h3">Heading 3</Text>
+      <Text variant="h4">Heading 4</Text>
+      <Text variant="h5">Heading 5</Text>
+      <Text variant="h6">Heading 6</Text>
+      <Text variant="title">Title</Text>
+      <Text variant="subtitle1">Subtitle 1</Text>
+      <Text variant="subtitle2">Subtitle 2</Text>
+      <Text variant="body">Body Text</Text>
+      <Text variant="caption">Caption Text</Text>
+      <Text>You forget a thousand things every day. Make sure this is one of them.</Text>
     </>
   );
 };

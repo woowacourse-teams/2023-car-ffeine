@@ -1,65 +1,63 @@
 import styled, { css } from 'styled-components';
 
-const Text = styled.span<{ variant?: string }>`
+const Text = styled.p<{ variant?: string }>`
   ${({ variant }) => {
     switch (variant) {
       case 'h1':
         return css`
-          font-size: 3rem;
+          font-size: 4.8rem;
           font-weight: bold;
         `;
       case 'h2':
         return css`
-          font-size: 2.5rem;
+          font-size: 4rem;
           font-weight: bold;
         `;
       case 'h3':
         return css`
-          font-size: 2rem;
+          font-size: 3.2rem;
           font-weight: bold;
         `;
       case 'h4':
         return css`
-          font-size: 1.5rem;
+          font-size: 2.4rem;
           font-weight: bold;
         `;
       case 'h5':
         return css`
-          font-size: 1.25rem;
+          font-size: 2rem;
           font-weight: bold;
         `;
       case 'h6':
         return css`
-          font-size: 1rem;
+          font-size: 1.6rem;
           font-weight: bold;
         `;
       case 'title':
         return css`
-          font-size: 1.5rem;
+          font-size: 2.4rem;
           font-weight: bold;
         `;
-      case 'subtitle1':
+      case 'subtitle':
         return css`
-          font-size: 1rem;
-          /* font-weight: bold; */
+          font-size: 1.6rem;
         `;
-      case 'subtitle2':
+      case 'label':
         return css`
-          font-size: 0.875rem;
-          /* font-weight: bold; */
+          font-size: 1.4rem;
         `;
       case 'body':
         return css`
-          font-size: 1rem;
+          font-size: 1.6rem;
         `;
       case 'caption':
         return css`
-          font-size: 0.75rem;
+          font-size: 1.2rem;
           color: #666;
         `;
       default:
         return css`
-          font-size: 1rem;
+          font-size: 1.6rem;
         `;
     }
   }}
