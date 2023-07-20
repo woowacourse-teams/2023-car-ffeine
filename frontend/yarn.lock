@@ -3120,7 +3120,7 @@
 
 "@types/google.maps@^3.53.4":
   version "3.53.4"
-  resolved "https://registry.npmjs.org/@types/google.maps/-/google.maps-3.53.4.tgz"
+  resolved "https://registry.yarnpkg.com/@types/google.maps/-/google.maps-3.53.4.tgz#741442764ebaef1a6705f3ab2c047ffeba333020"
   integrity sha512-IiDAYTONQEKCBssPtoM0XqWF8YIIk2leba4NOf9qVQ/d8l5gLuS3QT87TrX6/u8rMonQAXC9KEDmM4q7sT6MWg==
 
 "@types/graceful-fs@^4.1.3":
