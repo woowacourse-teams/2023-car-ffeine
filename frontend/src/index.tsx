@@ -14,12 +14,14 @@ import { GlobalStyle } from 'style/GlobalStyle';
 const queryClient = new QueryClient();
 
 const main = async () => {
-  await worker.start({
-    serviceWorker: {
-      url: '/mockServiceWorker.js',
-    },
-    onUnhandledRequest: 'bypass',
-  });
+  if (process.env.NODE_ENV === 'development') {
+    await worker.start({
+      serviceWorker: {
+        url: '/mockServiceWorker.js',
+      },
+      onUnhandledRequest: 'bypass',
+    });
+  }
 
   const domNode = document.getElementById('root');
   const root = createRoot(domNode);

@@ -17,7 +17,11 @@ export const fetchStation = async (map: google.maps.Map) => {
 
   const stations = await fetch(`/stations?${displayPositionParams}`, {
     method: 'GET',
-  }).then<StationSummary[]>((response) => response.json());
+  }).then<StationSummary[]>(async (response) => {
+    const data = await response.json();
+    
+    return data.stations;
+  });
 
   return stations;
 };
