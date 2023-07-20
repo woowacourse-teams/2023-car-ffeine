@@ -5,6 +5,7 @@ import { useExternalValue, useSetExternalState } from '@utils/external-state';
 import { getBriefStationInfoWindowStore } from '@stores/briefStationInfoWindowStore';
 import { getGoogleMapStore } from '@stores/googleMapStore';
 import { markerInstanceStore } from '@stores/markerInstanceStore';
+import { selectedStationIdStore } from '@stores/selectedStationStore';
 
 import { useUpdateStations } from '@hooks/useUpdateStations';
 
@@ -12,10 +13,10 @@ import BriefStationInfo from '@ui/BriefStationInfo';
 
 import BlueMarker from '@assets/blue-marker.svg';
 
-import type { Station } from 'types';
+import type { StationSummary } from 'types';
 
 interface Props {
-  station: Station;
+  station: StationSummary;
 }
 
 const StationMarker = ({ station }: Props) => {
@@ -28,6 +29,7 @@ const StationMarker = ({ station }: Props) => {
   );
 
   const setMarkerInstanceState = useSetExternalState(markerInstanceStore);
+  const setSelectedStationId = useSetExternalState(selectedStationIdStore);
 
   useEffect(() => {
     const markerInstance = new google.maps.Marker({
@@ -51,6 +53,7 @@ const StationMarker = ({ station }: Props) => {
         map: googleMap,
       });
 
+      setSelectedStationId(stationId);
       briefStationInfoRoot.render(<BriefStationInfo station={station} />);
       googleMap.panTo(markerInstance.getPosition());
       updateStations(googleMap);

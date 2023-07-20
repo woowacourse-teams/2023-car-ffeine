@@ -57,7 +57,7 @@ interface ButtonProps {
 const Container = styled.div`
   position: fixed;
   top: 10px;
-  left: 300px;
+  left: 180px;
   z-index: 999;
   padding: 10px;
   background-color: white;

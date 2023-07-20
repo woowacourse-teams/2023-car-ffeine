@@ -1,26 +1,42 @@
-import type { Station } from 'types';
+import { useSetExternalState } from '@utils/external-state';
+
+import { selectedStationIdStore } from '@stores/selectedStationStore';
+
+import type { StationSummary } from 'types';
 
 interface Props {
-  station: Station;
+  station: StationSummary;
 }
 
 const BriefStationInfo = ({ station }: Props) => {
-  const slowChargerCount = station.chargers.filter((charger) => charger.type === '완속').length;
-  const fastChargerCount = station.chargers.length - slowChargerCount;
+  const setSelectedStationId = useSetExternalState(selectedStationIdStore);
+
+  const {
+    stationId,
+    chargers,
+    companyName,
+    stationName,
+    detailLocation,
+    isParkingFree,
+    isPrivate,
+  } = station;
+
+  const slowChargerCount = chargers.filter((charger) => charger.type === '완속').length;
+  const fastChargerCount = chargers.length - slowChargerCount;
 
   const handleOpenStationDetail = () => {
-    console.log('야미 형님 여기서 상세 정보 불러오기 작업하시면 됩니다');
+    setSelectedStationId(stationId);
   };
 
   return (
     <div style={{ minWidth: '200px' }}>
-      <div>{station.companyName}</div>
-      <div>{station.stationName}</div>
-      <div>{station.detailLocation}</div>
+      <div>{companyName}</div>
+      <div>{stationName}</div>
+      <div>{detailLocation}</div>
 
       <div style={{ display: 'flex', gap: 10 }}>
-        {station.isParkingFree && <div>주차 무료</div>}
-        {station.isPrivate && <div>이용 제한</div>}
+        {isParkingFree && <div>주차 무료</div>}
+        {isPrivate && <div>이용 제한</div>}
       </div>
 
       <div style={{ display: 'flex', gap: 10 }}>
