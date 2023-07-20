@@ -1,3 +1,7 @@
+import { useSetExternalState } from '@utils/external-state';
+
+import { selectedStationIdStore } from '@stores/selectedStationStore';
+
 import type { StationSummary } from 'types';
 
 interface Props {
@@ -5,13 +9,22 @@ interface Props {
 }
 
 const BriefStationInfo = ({ station }: Props) => {
-  const { chargers, companyName, stationName, detailLocation, isParkingFree, isPrivate } = station;
+  const setSelectedStationId = useSetExternalState(selectedStationIdStore);
+  const {
+    stationId,
+    chargers,
+    companyName,
+    stationName,
+    detailLocation,
+    isParkingFree,
+    isPrivate,
+  } = station;
 
   const slowChargerCount = chargers.filter((charger) => charger.type === '완속').length;
   const fastChargerCount = chargers.length - slowChargerCount;
 
   const handleOpenStationDetail = () => {
-    console.log('야미 형님 여기서 상세 정보 불러오기 작업하시면 됩니다');
+    setSelectedStationId(stationId);
   };
 
   return (
