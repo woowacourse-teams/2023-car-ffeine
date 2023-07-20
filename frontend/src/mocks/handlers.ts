@@ -2,12 +2,16 @@ import { rest } from 'msw';
 
 import { stations } from './data';
 
-import type { DisplayPosition, StationSummary } from 'types';
+import type { StationSummary } from 'types';
 
 export const handlers = [
-  rest.post('/stations', async (req, res, ctx) => {
-    const body = await req.json();
-    const { latitude, longitude, latitudeDelta, longitudeDelta }: DisplayPosition = body;
+  rest.get('/stations', async (req, res, ctx) => {
+    const { searchParams } = req.url;
+
+    const latitude = Number(searchParams.get('latitude'));
+    const longitude = Number(searchParams.get('longitude'));
+    const latitudeDelta = Number(searchParams.get('latitudeDelta'));
+    const longitudeDelta = Number(searchParams.get('longitudeDelta'));
 
     const northEastBoundary = {
       latitude: latitude + latitudeDelta,

@@ -8,11 +8,15 @@ import { stationFilterStore } from '@stores/stationFilterStore';
 import type { StationSummary } from 'types';
 
 export const fetchStation = async (map: google.maps.Map) => {
-  const stationQuery = getDisplayPosition(map);
+  const displayPosition = getDisplayPosition(map);
+  const displayPositionString = Object.fromEntries(
+    Object.entries(displayPosition).map(([key, value]) => [key, String(value)])
+  );
 
-  const stations = await fetch('/stations', {
-    method: 'POST',
-    body: JSON.stringify(stationQuery),
+  const displayPositionParams = String(new URLSearchParams(displayPositionString));
+
+  const stations = await fetch(`/stations?${displayPositionParams}`, {
+    method: 'GET',
   }).then<StationSummary[]>((response) => response.json());
 
   return stations;
