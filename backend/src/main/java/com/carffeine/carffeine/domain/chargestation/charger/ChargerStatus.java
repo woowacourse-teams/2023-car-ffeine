@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import java.time.LocalDateTime;
@@ -30,6 +32,7 @@ public class ChargerStatus {
 
     private LocalDateTime latestUpdateTime;
 
+    @Enumerated(EnumType.STRING)
     private ChargerState chargerState;
 
     public boolean isAvailable() {
