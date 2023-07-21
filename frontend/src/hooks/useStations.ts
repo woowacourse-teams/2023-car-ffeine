@@ -5,6 +5,8 @@ import { getDisplayPosition } from '@utils/google-maps';
 
 import { stationFilterStore } from '@stores/stationFilterStore';
 
+import { BASE_URL } from '@constants';
+
 import type { StationSummary } from 'types';
 
 export const fetchStation = async (map: google.maps.Map) => {
@@ -15,7 +17,7 @@ export const fetchStation = async (map: google.maps.Map) => {
 
   const displayPositionParams = String(new URLSearchParams(displayPositionString));
 
-  const stations = await fetch(`/stations?${displayPositionParams}`, {
+  const stations = await fetch(`${BASE_URL}/stations?${displayPositionParams}`, {
     method: 'GET',
   }).then<StationSummary[]>(async (response) => {
     const data = await response.json();

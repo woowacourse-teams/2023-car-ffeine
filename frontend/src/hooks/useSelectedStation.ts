@@ -4,17 +4,29 @@ import { useExternalValue } from '@utils/external-state';
 
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
+import { BASE_URL, ERROR_MESSAGES, INVALID_VALUE_LIST } from '@constants';
+
 import type { StationDetails } from 'types';
 
 export const fetchStationDetails = async (selectedStationId: number) => {
-  const stationDetails = await fetch(`/stations/${selectedStationId}`, {
+  const stationDetails = await fetch(`${BASE_URL}/stations/${selectedStationId}`, {
     method: 'GET',
-  }).then<StationDetails>((response) => {
+  }).then<StationDetails>(async (response) => {
     if (!response.ok) {
-      throw new Error('[error] 충전소 세부 정보를 불러올 수 없습니다.');
+      throw new Error(ERROR_MESSAGES.STATION_DETAILS_FETCH_ERROR);
     }
 
-    return response.json();
+    const data: StationDetails = await response.json();
+
+    const changedDataList = Object.entries(data).map(([key, value]) => {
+      if (INVALID_VALUE_LIST.includes(value)) {
+        return [key, null];
+      }
+
+      return [key, value];
+    });
+
+    return Object.fromEntries(changedDataList);
   });
 
   return stationDetails;
