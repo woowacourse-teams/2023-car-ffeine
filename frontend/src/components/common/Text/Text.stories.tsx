@@ -26,8 +26,8 @@ const meta = {
         h5: 'h5',
         h6: 'h6',
         title: 'title',
-        subtitle1: 'subtitle1',
-        subtitle2: 'subtitle2',
+        subtitle: 'subtitle',
+        label: 'label',
         body: 'body',
         caption: 'caption',
       },
@@ -87,8 +87,8 @@ export const Sizes = () => {
       <Text variant="h5">Heading 5</Text>
       <Text variant="h6">Heading 6</Text>
       <Text variant="title">Title</Text>
-      <Text variant="subtitle1">Subtitle 1</Text>
-      <Text variant="subtitle2">Subtitle 2</Text>
+      <Text variant="subtitle">Subtitle</Text>
+      <Text variant="label">Label</Text>
       <Text variant="body">Body Text</Text>
       <Text variant="caption">Caption Text</Text>
       <Text>You forget a thousand things every day. Make sure this is one of them.</Text>
@@ -120,11 +120,11 @@ export const MarginBottoms = () => {
       <Text variant="title" marginBottom={4}>
         Title
       </Text>
-      <Text variant="subtitle1" marginBottom={3}>
-        Subtitle 1
+      <Text variant="subtitle" marginBottom={3}>
+        Subtitle
       </Text>
-      <Text variant="subtitle2" marginBottom={2}>
-        Subtitle 2
+      <Text variant="label" marginBottom={2}>
+        Label
       </Text>
       <Text variant="body" marginBottom={1}>
         Body Text
@@ -157,8 +157,8 @@ export const Aligns = () => {
         Heading 6
       </Text>
       <Text variant="title">Title</Text>
-      <Text variant="subtitle1">Subtitle 1</Text>
-      <Text variant="subtitle2">Subtitle 2</Text>
+      <Text variant="subtitle">Subtitle</Text>
+      <Text variant="label">Label</Text>
       <Text variant="body">Body Text</Text>
       <Text variant="caption">Caption Text</Text>
       <Text>You forget a thousand things every day. Make sure this is one of them.</Text>
