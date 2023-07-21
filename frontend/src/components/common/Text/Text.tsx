@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components';
 
-const Text = styled.p<{ variant?: string }>`
+const Text = styled.p<{ variant?: string; marginBottom?: number }>`
+  margin-bottom: ${({ marginBottom }) => (marginBottom ? `${marginBottom * 0.5}rem` : `${0.5}rem`)};
+
   ${({ variant }) => {
     switch (variant) {
       case 'h1':
