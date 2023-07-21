@@ -51,6 +51,18 @@ const meta = {
       description:
         '글자의 하단 간격을 조절합니다. 프롭이 없는 경우에는 기본적으로 약간의 간격이 주어집니다.',
     },
+    align: {
+      options: {
+        none: false,
+        center: 'center',
+        left: 'left',
+        right: 'right',
+      },
+      control: {
+        type: 'select',
+      },
+      description: '글자를 정렬합니다.',
+    },
   },
 } satisfies Meta<typeof Text>;
 
@@ -117,6 +129,37 @@ export const MarginBottoms = () => {
       <Text variant="body" marginBottom={1}>
         Body Text
       </Text>
+      <Text variant="caption">Caption Text</Text>
+      <Text>You forget a thousand things every day. Make sure this is one of them.</Text>
+    </>
+  );
+};
+
+export const Aligns = () => {
+  return (
+    <>
+      <Text variant="h1" align="center">
+        Heading 1
+      </Text>
+      <Text variant="h2" align="left">
+        Heading 2
+      </Text>
+      <Text variant="h3" align="right">
+        Heading 3
+      </Text>
+      <Text variant="h4" align="center">
+        Heading 4
+      </Text>
+      <Text variant="h5" align="left">
+        Heading 5
+      </Text>
+      <Text variant="h6" align="right">
+        Heading 6
+      </Text>
+      <Text variant="title">Title</Text>
+      <Text variant="subtitle1">Subtitle 1</Text>
+      <Text variant="subtitle2">Subtitle 2</Text>
+      <Text variant="body">Body Text</Text>
       <Text variant="caption">Caption Text</Text>
       <Text>You forget a thousand things every day. Make sure this is one of them.</Text>
     </>

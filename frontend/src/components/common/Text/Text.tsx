@@ -1,7 +1,30 @@
 import styled, { css } from 'styled-components';
 
-const Text = styled.p<{ variant?: string; marginBottom?: number }>`
+const Text = styled.p<{
+  variant?: string;
+  marginBottom?: number;
+  align?: 'center' | 'left' | 'right';
+}>`
   margin-bottom: ${({ marginBottom }) => (marginBottom ? `${marginBottom * 0.5}rem` : `0.5rem`)};
+
+  ${({ variant }) => {
+    switch (variant) {
+      case 'center':
+        return css`
+          text-align: center;
+        `;
+      case 'left':
+        return css`
+          text-align: left;
+        `;
+      case 'right':
+        return css`
+          text-align: right;
+        `;
+      default:
+        return ``;
+    }
+  }}
 
   ${({ variant }) => {
     switch (variant) {
