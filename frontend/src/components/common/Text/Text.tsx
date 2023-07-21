@@ -73,7 +73,7 @@ const Text = styled.p<{
         `;
       case 'body':
         return css`
-          font-size: 1.6rem;
+          font-size: 1.5rem;
         `;
       case 'caption':
         return css`
