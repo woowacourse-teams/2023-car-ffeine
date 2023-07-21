@@ -1,6 +1,6 @@
 import { rest } from 'msw';
 
-import { DEVELOP_URL } from '@constants';
+import { DEVELOP_URL, ERROR_MESSAGES } from '@constants';
 
 import { stations } from './data';
 
@@ -53,7 +53,7 @@ export const handlers = [
     const selectedStation = stations.find((station) => station.stationId === stationId);
 
     if (!selectedStation) {
-      return res(ctx.status(404), ctx.json({ message: '해당 충전소가 존재하지 않습니다.' }));
+      return res(ctx.status(404), ctx.json({ message: ERROR_MESSAGES.NO_STATION_FOUND }));
     }
 
     return res(ctx.delay(200), ctx.status(200), ctx.json(selectedStation));

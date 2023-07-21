@@ -4,7 +4,7 @@ import { useExternalValue } from '@utils/external-state';
 
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
-import { BASE_URL, INVALID_VALUE_LIST } from '@constants';
+import { BASE_URL, ERROR_MESSAGES, INVALID_VALUE_LIST } from '@constants';
 
 import type { StationDetails } from 'types';
 
@@ -13,7 +13,7 @@ export const fetchStationDetails = async (selectedStationId: number) => {
     method: 'GET',
   }).then<StationDetails>(async (response) => {
     if (!response.ok) {
-      throw new Error('[error] 충전소 세부 정보를 불러올 수 없습니다.');
+      throw new Error(ERROR_MESSAGES.STATION_DETAILS_FETCH_ERROR);
     }
 
     const data: StationDetails = await response.json();
