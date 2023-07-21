@@ -4,7 +4,7 @@ import { useExternalValue } from '@utils/external-state';
 
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
-import { BASE_URL } from '@constants';
+import { BASE_URL, INVALID_VALUE_LIST } from '@constants';
 
 import type { StationDetails } from 'types';
 
@@ -18,10 +18,8 @@ export const fetchStationDetails = async (selectedStationId: number) => {
 
     const data: StationDetails = await response.json();
 
-    const invalidValueList = ['null', '.', '1', '#'];
-
     const changedDataList = Object.entries(data).map(([key, value]) => {
-      if (invalidValueList.includes(value)) value = null;
+      if (INVALID_VALUE_LIST.includes(value)) value = null;
 
       return [key, value];
     });
