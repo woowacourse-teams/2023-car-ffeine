@@ -1,6 +1,4 @@
 spring:
-  flyway:
-    enabled: false
 
   datasource:
     url: jdbc:mysql://localhost:3306/charge?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true
