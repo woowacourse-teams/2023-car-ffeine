@@ -83,3 +83,42 @@ export const Sizes = () => {
     </>
   );
 };
+
+export const MarginBottoms = () => {
+  return (
+    <>
+      <Text variant="h1" marginBottom={5}>
+        Heading 1
+      </Text>
+      <Text variant="h2" marginBottom={4}>
+        Heading 2
+      </Text>
+      <Text variant="h3" marginBottom={3}>
+        Heading 3
+      </Text>
+      <Text variant="h4" marginBottom={2}>
+        Heading 4
+      </Text>
+      <Text variant="h5" marginBottom={1}>
+        Heading 5
+      </Text>
+      <Text variant="h6" marginBottom={5}>
+        Heading 6
+      </Text>
+      <Text variant="title" marginBottom={4}>
+        Title
+      </Text>
+      <Text variant="subtitle1" marginBottom={3}>
+        Subtitle 1
+      </Text>
+      <Text variant="subtitle2" marginBottom={2}>
+        Subtitle 2
+      </Text>
+      <Text variant="body" marginBottom={1}>
+        Body Text
+      </Text>
+      <Text variant="caption">Caption Text</Text>
+      <Text>You forget a thousand things every day. Make sure this is one of them.</Text>
+    </>
+  );
+};
