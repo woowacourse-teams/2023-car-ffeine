@@ -34,7 +34,22 @@ const meta = {
       control: {
         type: 'select',
       },
-      description: '글자의 기본 효과를 설정합니다.',
+      description: '글자의 기본 효과를 설정합니다. 프롭이 없는 경우에는 body의 속성이 주어집니다.',
+    },
+    marginBottom: {
+      options: {
+        none: false,
+        1: 1,
+        2: 2,
+        3: 3,
+        4: 4,
+        5: 5,
+      },
+      control: {
+        type: 'select',
+      },
+      description:
+        '글자의 하단 간격을 조절합니다. 프롭이 없는 경우에는 기본적으로 약간의 간격이 주어집니다.',
     },
   },
 } satisfies Meta<typeof Text>;
