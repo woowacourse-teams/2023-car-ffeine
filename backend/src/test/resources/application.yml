@@ -10,9 +10,7 @@ spring:
     properties:
       hibernate:
         show_sql: true
-        format_sql: true
-  flyway:
-    enabled: false
+        format_sql: true\
 
 jasypt:
   encryptor:
