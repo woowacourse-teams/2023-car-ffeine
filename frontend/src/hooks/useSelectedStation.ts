@@ -19,7 +19,9 @@ export const fetchStationDetails = async (selectedStationId: number) => {
     const data: StationDetails = await response.json();
 
     const changedDataList = Object.entries(data).map(([key, value]) => {
-      if (INVALID_VALUE_LIST.includes(value)) value = null;
+      if (INVALID_VALUE_LIST.includes(value)) {
+        return [key, null];
+      }
 
       return [key, value];
     });
