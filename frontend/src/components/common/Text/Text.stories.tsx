@@ -36,7 +36,7 @@ const meta = {
       },
       description: '글자의 기본 효과를 설정합니다. 프롭이 없는 경우에는 body의 속성이 주어집니다.',
     },
-    marginBottom: {
+    mb: {
       options: {
         none: false,
         1: 1,
@@ -99,34 +99,34 @@ export const Sizes = () => {
 export const MarginBottoms = () => {
   return (
     <>
-      <Text variant="h1" marginBottom={5}>
+      <Text variant="h1" mb={5}>
         Heading 1
       </Text>
-      <Text variant="h2" marginBottom={4}>
+      <Text variant="h2" mb={4}>
         Heading 2
       </Text>
-      <Text variant="h3" marginBottom={3}>
+      <Text variant="h3" mb={3}>
         Heading 3
       </Text>
-      <Text variant="h4" marginBottom={2}>
+      <Text variant="h4" mb={2}>
         Heading 4
       </Text>
-      <Text variant="h5" marginBottom={1}>
+      <Text variant="h5" mb={1}>
         Heading 5
       </Text>
-      <Text variant="h6" marginBottom={5}>
+      <Text variant="h6" mb={5}>
         Heading 6
       </Text>
-      <Text variant="title" marginBottom={4}>
+      <Text variant="title" mb={4}>
         Title
       </Text>
-      <Text variant="subtitle" marginBottom={3}>
+      <Text variant="subtitle" mb={3}>
         Subtitle
       </Text>
-      <Text variant="label" marginBottom={2}>
+      <Text variant="label" mb={2}>
         Label
       </Text>
-      <Text variant="body" marginBottom={1}>
+      <Text variant="body" mb={1}>
         Body Text
       </Text>
       <Text variant="caption">Caption Text</Text>

@@ -2,10 +2,10 @@ import styled, { css } from 'styled-components';
 
 const Text = styled.p<{
   variant?: string;
-  marginBottom?: number;
+  mb?: number;
   align?: 'center' | 'left' | 'right';
 }>`
-  margin-bottom: ${({ marginBottom }) => (marginBottom ? `${marginBottom * 0.5}rem` : `0.5rem`)};
+  margin-bottom: ${({ mb }) => (mb ? `${mb * 0.4}rem` : `0.4rem`)};
 
   ${({ variant }) => {
     switch (variant) {
