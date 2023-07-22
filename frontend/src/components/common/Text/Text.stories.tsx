@@ -34,7 +34,7 @@ const meta = {
       control: {
         type: 'select',
       },
-      description: '글자의 기본 효과를 설정합니다. 프롭이 없는 경우에는 body의 속성이 주어집니다.',
+      description: '글자 크기 및 두께를 바꿀 수 있습니다. 기본값은 body입니다.',
     },
     mb: {
       options: {
@@ -49,7 +49,7 @@ const meta = {
         type: 'select',
       },
       description:
-        '글자의 하단 간격을 조절합니다. 프롭이 없는 경우에는 기본적으로 약간의 간격이 주어집니다.',
+        '숫자를 입력해 글자의 하단 간격을 조절할 수 있습니다. 입력한 숫자 x 4px 만큼 간격이 늘어납니다.<br> 기본값은 4px 입니다.',
     },
     align: {
       options: {
@@ -61,7 +61,7 @@ const meta = {
       control: {
         type: 'select',
       },
-      description: '글자를 정렬합니다.',
+      description: '선택한 위치에 따라 글자가 정렬됩니다.',
     },
   },
 } satisfies Meta<typeof Text>;
