@@ -14,7 +14,7 @@ const meta = {
       control: {
         type: 'text',
       },
-      description: '글자를 입력할 수 있어요',
+      description: '원하는 글자를 입력해 테스트를 할 수 있습니다.',
     },
     variant: {
       options: {
