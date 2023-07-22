@@ -7,8 +7,8 @@ const Text = styled.p<{
 }>`
   margin-bottom: ${({ mb }) => (mb ? `${mb * 0.4}rem` : `0.4rem`)};
 
-  ${({ variant }) => {
-    switch (variant) {
+  ${({ align }) => {
+    switch (align) {
       case 'center':
         return css`
           text-align: center;
