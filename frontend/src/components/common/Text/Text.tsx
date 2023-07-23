@@ -60,7 +60,7 @@ const Text = styled.p<{
         `;
       case 'title':
         return css`
-          font-size: 2.4rem;
+          font-size: 2.2rem;
           font-weight: bold;
         `;
       case 'subtitle':
