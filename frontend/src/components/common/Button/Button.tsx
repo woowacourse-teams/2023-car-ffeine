@@ -3,10 +3,11 @@ import styled, { css } from 'styled-components';
 
 import type { ButtonHTMLAttributes, MouseEventHandler } from 'react';
 
-type DirectionType = 'all' | 'top' | 'bottom';
+import type { DirectionType } from 'types/style';
+
 type VariantType = 'pill';
 
-interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: VariantType;
   noRadius?: DirectionType;
   shadow?: boolean;
@@ -23,7 +24,7 @@ export const BUTTON_PADDING_SIZE = {
   md: '11px 32px 12px',
   lg: '17px 40px 18px',
   xl: '21px 48px 22px',
-};
+} as const;
 
 export const BUTTON_FONT_SIZE = {
   xs: '12px',
@@ -31,9 +32,9 @@ export const BUTTON_FONT_SIZE = {
   md: '16px',
   lg: '20px',
   xl: '22px',
-};
+} as const;
 
-const Button = ({ children, ...props }: Props) => {
+const Button = ({ children, ...props }: ButtonProps) => {
   return (
     <S.Button type="button" {...props}>
       {children}
@@ -42,7 +43,7 @@ const Button = ({ children, ...props }: Props) => {
 };
 
 const S = {
-  Button: styled.button<Props>`
+  Button: styled.button<ButtonProps>`
     padding: ${({ size }) => BUTTON_PADDING_SIZE[size] || 0};
     background: ${({ background }) => background || '#fff'};
     border: ${({ outlined }) => (outlined ? '1.5px solid #000' : 'none')};
@@ -52,6 +53,7 @@ const S = {
     cursor: pointer;
     border-radius: 8px;
     text-align: center;
+    font-size: 1.5rem;
 
     ${({ noRadius }) => noRadius && borderRadius(noRadius)};
     ${({ variant }) => variant && pillStyle};
