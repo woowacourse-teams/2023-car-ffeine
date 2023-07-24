@@ -3,16 +3,17 @@ package com.carffeine.carffeine.domain.chargestation;
 import com.carffeine.carffeine.domain.chargestation.exception.ChargeStationException;
 import com.carffeine.carffeine.domain.chargestation.exception.ChargeStationExceptionType;
 import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.math.BigDecimal;
-import java.util.Objects;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode(of = "value")
 @Embeddable
 public class Latitude {
 
@@ -47,22 +48,5 @@ public class Latitude {
 
     public Latitude calculateMaxLatitudeByDelta(BigDecimal delta) {
         return new Latitude(value.add(delta));
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Latitude latitude = (Latitude) o;
-        return Objects.equals(value, latitude.value);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(value);
     }
 }

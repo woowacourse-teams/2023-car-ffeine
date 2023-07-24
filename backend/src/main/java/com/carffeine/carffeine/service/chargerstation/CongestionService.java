@@ -23,7 +23,11 @@ import java.util.Map;
 @Service
 @Transactional(readOnly = true)
 public class CongestionService {
+
     private static final int PERIOD_SIZE = 24;
+    private static final int DEFAULT_VALUE = -1;
+    private static final int PERCENTAGE = 100;
+
     private final PeriodicCongestionRepository periodicCongestionRepository;
     private final ChargerRepository chargerRepository;
 
@@ -41,7 +45,7 @@ public class CongestionService {
 
     private Map<String, List<CongestionInfoResponse>> calculateQuick(List<PeriodicCongestion> congestions, List<Charger> chargers) {
         List<String> quickChargerIds = chargers.stream()
-                .filter(it -> it.getCapacity().intValue() >= 50)
+                .filter(Charger::isQuick)
                 .map(Charger::getChargerId)
                 .toList();
 
@@ -50,7 +54,7 @@ public class CongestionService {
 
     private Map<String, List<CongestionInfoResponse>> calculateStandard(List<PeriodicCongestion> congestions, List<Charger> chargers) {
         List<String> standardChargerIds = chargers.stream()
-                .filter(it -> it.getCapacity().intValue() < 50)
+                .filter(it -> !it.isQuick())
                 .map(Charger::getChargerId)
                 .toList();
 
@@ -92,13 +96,13 @@ public class CongestionService {
                 .toList();
 
         if (congestions.isEmpty()) {
-            return -1;
+            return DEFAULT_VALUE;
         }
 
         double totalCongestion = congestions.stream()
                 .mapToDouble(Double::doubleValue)
                 .sum();
 
-        return totalCongestion / congestions.size() * 100;
+        return totalCongestion / congestions.size() * PERCENTAGE;
     }
 }

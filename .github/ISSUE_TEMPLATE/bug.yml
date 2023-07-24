@@ -26,5 +26,9 @@ body:
       required: true
   - type: textarea
     attributes:
+      label: 🕰️ Estimated Time of Completion
+      description: 예상 소요 시간을 작성해 주세요.
+  - type: textarea
+    attributes:
       label: 🙋🏻 More
       description: 더 하고 싶은 말이 있다면 작성해 주세요.

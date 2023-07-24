@@ -7,8 +7,11 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
-  flyway:
-    enabled: false
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
 jasypt:
   encryptor:
     password: password

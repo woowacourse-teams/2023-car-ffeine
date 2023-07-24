@@ -24,7 +24,18 @@ public enum ChargerState {
                 .orElse(STATUS_UNKNOWN);
     }
 
+    public static ChargerState from(String input) {
+        return Arrays.stream(ChargerState.values())
+                .filter(it -> it.value == input.charAt(0) - '0')
+                .findAny()
+                .orElse(STATUS_UNKNOWN);
+    }
+
     public boolean isStandBy() {
         return this == STANDBY;
+    }
+
+    public int getValue() {
+        return value;
     }
 }

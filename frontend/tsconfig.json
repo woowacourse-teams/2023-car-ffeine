@@ -20,7 +20,8 @@
       "@components/*": ["components/*"],
       "@hooks/*": ["hooks/*"],
       "@stores/*": ["stores/*"],
-      "@constants": ["constants/index"]
+      "@constants": ["constants/index"],
+      "@assets/*": ["assets/*"]
     }
   }
 }

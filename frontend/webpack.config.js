@@ -26,6 +26,18 @@ module.exports = {
           extensions: ['.ts', '.tsx', '.js', '.json'],
         },
       },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'assets/',
+            },
+          },
+        ],
+      },
     ],
   },
   resolve: {
@@ -41,6 +53,7 @@ module.exports = {
       '@hooks': path.resolve(__dirname, './src/hooks'),
       '@stores': path.resolve(__dirname, './src/stores'),
       '@constants': path.resolve(__dirname, './src/constants/index'),
+      '@assets': path.resolve(__dirname, './src/assets'),
     },
   },
   plugins: [

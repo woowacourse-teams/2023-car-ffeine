@@ -1,7 +1,7 @@
-type SetStateCallback<T> = (prevState: T) => T;
+export type SetStateCallbackType<T> = (prevState: T) => T;
 
 export interface DataObserver<T> {
-  setState: (param: SetStateCallback<T> | T) => void;
+  setState: (param: SetStateCallbackType<T> | T) => void;
   getState: () => T;
   subscribe: (listener: () => void) => () => void;
   emitChange: () => void;
@@ -15,7 +15,7 @@ class StateManager<T> implements DataObserver<T> {
     this.state = initialState;
   }
 
-  setState = (param: SetStateCallback<T> | T) => {
+  setState = (param: SetStateCallbackType<T> | T) => {
     if (param instanceof Function) {
       const newState = param(this.state);
       this.state = newState;

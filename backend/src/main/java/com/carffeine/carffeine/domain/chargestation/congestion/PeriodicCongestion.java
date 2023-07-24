@@ -7,7 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
@@ -21,6 +23,7 @@ import java.time.DayOfWeek;
 @Entity
 @Table(name = "periodic_congestion")
 public class PeriodicCongestion {
+
     @Id
     private String id;
     private DayOfWeek dayOfWeek;
@@ -30,10 +33,10 @@ public class PeriodicCongestion {
     private double congestion;
 
     @ManyToOne
-    @JoinColumns({
+    @JoinColumns(value = {
             @JoinColumn(name = "station_id", referencedColumnName = "station_id", insertable = false, updatable = false),
             @JoinColumn(name = "charger_id", referencedColumnName = "charger_id", insertable = false, updatable = false)
-    })
+    }, foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     private Charger charger;
 
     @Column(name = "station_id")
@@ -51,15 +54,6 @@ public class PeriodicCongestion {
         this.congestion = congestion;
         this.stationId = stationId;
         this.chargerId = chargerId;
-    }
-
-    public PeriodicCongestion(Charger charger, DayOfWeek dayOfWeek, RequestPeriod startTime, int useCount, int totalCount, double congestion) {
-        id = IdGenerator.generateIdWithCharger(dayOfWeek, startTime, charger);
-        this.dayOfWeek = dayOfWeek;
-        this.startTime = startTime;
-        this.useCount = useCount;
-        this.totalCount = totalCount;
-        this.congestion = congestion;
     }
 
     public static PeriodicCongestion of(DayOfWeek dayOfWeek, RequestPeriod startTime, int useCount, int totalCount, String stationId, String chargerId) {

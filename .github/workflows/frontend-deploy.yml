@@ -1,0 +1,54 @@
+name: deploy
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - release/frontend
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Log in to Docker Hub
+        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - uses: actions/checkout@v3
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+        with:
+          images: woowacarffeine/frontend
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        with:
+          context: ./frontend
+          file: ./frontend/Dockerfile
+          push: true
+          tags: woowacarffeine/frontend:latest
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Join EC2 dev server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_KEY }}
+          port: ${{ secrets.SERVER_PORT }}
+
+          script: |
+            sudo docker stop frontend || true
+            sudo docker pull woowacarffeine/frontend:latest
+            
+            sudo docker run --rm -d -p 3000:3000 \
+            --name frontend \
+            woowacarffeine/frontend:latest
+  
+            sudo docker image prune -f
+      - name: clean images
+        run: |
+          docker image prune -f

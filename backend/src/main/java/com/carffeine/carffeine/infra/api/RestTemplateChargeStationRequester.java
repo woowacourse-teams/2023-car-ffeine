@@ -1,7 +1,9 @@
 package com.carffeine.carffeine.infra.api;
 
 import com.carffeine.carffeine.service.chargerstation.ChargeStationRequester;
+import com.carffeine.carffeine.service.chargerstation.ChargerStateRequester;
 import com.carffeine.carffeine.service.chargerstation.dto.ChargeStationRequest;
+import com.carffeine.carffeine.service.chargerstation.dto.ChargerStateUpdateRequest;
 import com.carffeine.carffeine.service.chargerstation.dto.RandomKeySelector;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,12 +19,14 @@ import java.net.URI;
 @RequiredArgsConstructor
 @Slf4j
 @Component
-public class RestTemplateChargeStationRequester implements ChargeStationRequester {
+public class RestTemplateChargeStationRequester implements ChargeStationRequester, ChargerStateRequester {
 
     private static final String REQUEST_URL = "/getChargerInfo";
+    private static final String REQUEST_STATE_URL = "/getChargerStatus";
     private static final int ROW_SIZE = 9999;
     private static final String DATA_TYPE = "JSON";
     private static final int ONE_SECOND = 1000;
+    private static final int PERIOD = 10;
 
     private final RestTemplate restTemplate;
     private final RandomKeySelector randomKeySelector;
@@ -30,13 +34,30 @@ public class RestTemplateChargeStationRequester implements ChargeStationRequeste
     @Override
     public ChargeStationRequest requestChargeStationRequest(int pageNo) {
         while (true) {
-            ChargeStationRequest result = requestChargeStationRequestWithRetry(pageNo);
-            if (result != null) {
-                return result;
+            try {
+                ChargeStationRequest result = requestChargeStationRequestWithRetry(pageNo);
+                if (result != null) {
+                    return result;
+                }
+            } catch (Exception e) {
+                log.warn("페이지 요청 실패, 재시도합니다. pageNo: {}", pageNo);
+                waitForRetry();
             }
+        }
+    }
 
-            log.warn("페이지 요청 실패, 재시도합니다. pageNo: {}", pageNo);
-            waitForRetry();
+    @Override
+    public ChargerStateUpdateRequest requestChargerStatusUpdate(int pageNo) {
+        while (true) {
+            try {
+                ChargerStateUpdateRequest result = requestChargeStateUpdateRequestWithRetry(pageNo);
+                if (result != null) {
+                    return result;
+                }
+            } catch (Exception e) {
+                log.warn("페이지 요청 실패, 재시도합니다. pageNo: {}", pageNo);
+                waitForRetry();
+            }
         }
     }
 
@@ -49,14 +70,38 @@ public class RestTemplateChargeStationRequester implements ChargeStationRequeste
         return exchange.getBody();
     }
 
+    private ChargerStateUpdateRequest requestChargeStateUpdateRequestWithRetry(int pageNo) {
+        URI uri = requestStateWithDecodedKey(pageNo);
+        ResponseEntity<ChargerStateUpdateRequest> exchange = restTemplate.exchange(new RequestEntity<>(null, HttpMethod.GET, uri), ChargerStateUpdateRequest.class);
+        if (exchange.getHeaders().getContentType().getSubtype().equals("xml")) {
+            return null;
+        }
+        return exchange.getBody();
+    }
+
     private URI requestWithDecodedKey(int pageNo) {
         String serviceKey = randomKeySelector.generateRandomKey();
-        return UriComponentsBuilder.fromUriString("https://apis.d584/EvCharger")
+        return UriComponentsBuilder.fromUriString("https://apis.data.go.kr/B552584/EvCharger")
                 .path(REQUEST_URL)
                 .queryParam("serviceKey", serviceKey)
                 .queryParam("pageNo", pageNo)
                 .queryParam("numOfRows", ROW_SIZE)
                 .queryParam("dataType", DATA_TYPE)
+                .encode()
+                .build()
+                .toUri();
+    }
+
+    private URI requestStateWithDecodedKey(int pageNo) {
+        String serviceKey = randomKeySelector.generateRandomKey();
+        return UriComponentsBuilder.fromUriString("https://apis.data.go.kr/B552584/EvCharger")
+                .path(REQUEST_STATE_URL)
+                .queryParam("serviceKey", serviceKey)
+                .queryParam("pageNo", pageNo)
+                .queryParam("numOfRows", ROW_SIZE)
+                .queryParam("dataType", DATA_TYPE)
+                .queryParam("period", PERIOD)
+                .encode()
                 .build()
                 .toUri();
     }

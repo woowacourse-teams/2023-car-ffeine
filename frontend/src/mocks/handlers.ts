@@ -1,13 +1,19 @@
 import { rest } from 'msw';
 
+import { DEVELOP_URL, ERROR_MESSAGES } from '@constants';
+
 import { stations } from './data';
 
-import type { DisplayPosition, Station } from 'types';
+import type { StationSummary } from 'types';
 
 export const handlers = [
-  rest.post('/stations', async (req, res, ctx) => {
-    const body = await req.json();
-    const { latitude, longitude, latitudeDelta, longitudeDelta }: DisplayPosition = body;
+  rest.get(`${DEVELOP_URL}/stations`, async (req, res, ctx) => {
+    const { searchParams } = req.url;
+
+    const latitude = Number(searchParams.get('latitude'));
+    const longitude = Number(searchParams.get('longitude'));
+    const latitudeDelta = Number(searchParams.get('latitudeDelta'));
+    const longitudeDelta = Number(searchParams.get('longitudeDelta'));
 
     const northEastBoundary = {
       latitude: latitude + latitudeDelta,
@@ -19,26 +25,43 @@ export const handlers = [
       longitude: longitude - longitudeDelta,
     };
 
-    const isStationLatitudeWithinBounds = (station: Station) => {
+    const isStationLatitudeWithinBounds = (station: StationSummary) => {
       return (
         station.latitude > southWestBoundary.latitude &&
         station.latitude < northEastBoundary.latitude
       );
     };
 
-    const isStationLongitudeWithinBounds = (station: Station) => {
+    const isStationLongitudeWithinBounds = (station: StationSummary) => {
       return (
         station.longitude > southWestBoundary.longitude &&
         station.longitude < northEastBoundary.longitude
       );
     };
 
-    const foundStations: Station[] = stations.filter(
+    const foundStations: StationSummary[] = stations.filter(
       (station) => isStationLatitudeWithinBounds(station) && isStationLongitudeWithinBounds(station)
     );
 
     console.log('찾은 충전소 갯수: ' + foundStations.length);
 
-    return res(ctx.delay(200), ctx.status(200), ctx.json(foundStations));
+    return res(
+      ctx.delay(200),
+      ctx.status(200),
+      ctx.json({
+        stations: foundStations
+      })
+    );
+  }),
+
+  rest.get(`${DEVELOP_URL}/stations/:id`, async (req, res, ctx) => {
+    const stationId = Number(req.params.id);
+    const selectedStation = stations.find((station) => station.stationId === stationId);
+
+    if (!selectedStation) {
+      return res(ctx.status(404), ctx.json({ message: ERROR_MESSAGES.NO_STATION_FOUND }));
+    }
+
+    return res(ctx.delay(200), ctx.status(200), ctx.json(selectedStation));
   }),
 ];

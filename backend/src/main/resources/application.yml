@@ -2,26 +2,9 @@ server:
   port: 8080
 
 spring:
-  flyway:
-    enabled: false
-  datasource:
-    url: jdbc:mysql://localhost:3306/charge?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true
-    username: root
-    password: root
-  driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    hibernate:
-      ddl-auto: create
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    properties:
-      hibernate:
-        show_sql: true
-        format_sql: true
-        use_sql_comments: true
-  flyway:
-    enabled: false
   profiles:
     active: local
+
 jasypt:
   encryptor:
     bean: jasyptEncryptor
@@ -29,12 +12,7 @@ jasypt:
 
 api:
   service_key:
-    ENC(9Gw2IrF1u/7Pt/rcC1Rwp7vbO7k34/al/B9/KRJ+cghR7xAivEN3fgfx+6nXtdFDCqPDi+Zj6tKc52diibRDXlb3XcaC9L7S3Ruafwnp6Em23om/VxqwbEMPRAt/VU++H/myjcB61RA=),
-    ENC(Koj9uZI7YtwNsnJecp/SDimwWJeK9n3zzbWPxlmwtprE2h05hStPQ+W4T344V4Y7SJbo5zpx7b0nHCH+7JOUgMJAk/ctr9F4ZUMD8894s9d1sI4cwIGht4XZDOIlWd8ZjUCk63l0C/4=),
-    ENC(3SYxfkd6fWdjkFuGbK/3+5ot1td2eqTngVAynzJj4o3/6CuRiW4mkLltHRynNLL3Tawlqqd39iQCuQEANWhpFpbvnpVfZeEzgOtY96xlJ9lzNu0Z8ONAUQIIKH+LN7tbUfGtSjfFUmE=),
-    ENC(lU0FBnShiEmEVKr3rQTW7a6BjLslR9/0Gv8Y596dNqGXVh7KJEQRlZViIzKo0fxX6KiMWyFuTdWrrH2D7ylp73JlDdVaCpUte9G1dUghSHFsb28z2B6bIAPM5uZj7MB4EdkblDbG+Mw=),
-    ENC(Sdiq67tsnKr3xlFROykuG6efvhNA4tqATObZZEeirXxF4VnwHbwfd1BNMRA1EXQnm2asRfz0qOmMV1xKczfIwqveIRlOZtBPx74cE0tqI23tir6PX2913V22W21C0CuWapkqUAWv/uM=),
-    ENC(/2YcNiK1XrrIM9ncuZBnIfUexobz4f+eRDUauI/VcoBzTbiY2VgVshA41nAQzzwrs7CWyKwJzkmf2DN6LCC82OJAg7TWOm4uCxtGcJ3mOsjlNiUYu8Mew2+2RhWjTBOceJLIUOBiXPo=),
-    ENC(qCPTBO4uzXuWoTJ4vxJ6vNkueRbpj/bee/CMo1mNt9RsjK8hobh6hZLTCWC2qa6dR0S/bDpTgTBV9+HXZ2lYPrOQmyFUrYAznn3iGn+n7fxX2O5rqAgirimQgyFxxem61hJmSa2zyxE=)
+    ENC(EnFwYm2ZuLwCTIgLIiqtqqw+IdtZ4UNb2GiNWl9s46gDk2SaEu7U5XfJuijkLufufXbUwIaSsCAiG3UpbtamTRwXvebdQDHLo6Y7lPRQ4L3d+Q2m24E/Btg83V68kCu9RFpzf/6/3u+6Wl961HeZiIDdL255xcbkZlKxWy4jVELkONxUWz9awzQuJw2CwsNv4WkK5TMk4gxQTh8ZJUDyQEqmUgGtLcH+edtOnFu9IIjgLX3CvCe+7Kxv4WtP3nRlGsg+/Xbxck6mmoqdqXWppeXF0zVBOwsnr4vtWRGM/1PD6rJvQN9hnWQmW0IE3x5NDM/usDkdBMhBDmtbtpmxibbXTSc58A/idDOcUwlZrbLx89OppXNcIDYIn6iMyf3Fo6/sYMSt1YJqC1WxlkKjLqs69bZtjF5TkBHFOneAV4vHo8/2g0V/FauNYPry2FULsbgeAO2w1K1OTey+pa4DjXoLmhmfK6VEFlf2NJhAlqTPDJakfwtb8yheLVuRIqtyBaMwWtrzYdON4G/d03vvjGskqP/h5UXGwkJGpS6u+Gdcxjvs2/IfB1FO1dNA2QTr7m2wWcyAaIG6MrUtZM9Hp5qu7VvqCnK8TNrhBUoqLA1fNs6Xy6kVYhOMXqer1sGs6svoFOuu2zIPUmb+OcKWTQv9d/HgcrFtJrP/gmkYsdOUDpKCWqzIjz6KvSui3cbIAlPTgpJsbN/yTe9RU10D8kGSDcXcR75W+LtRj4Xl1Vd33ElMZ5brCdAy7dPyFo0jcUH7AWa713HTmUk6ZH0BLoeyW8tAbKpI/vUR0mbIxx7JWAFQ4hok5f4xkoXbCGoQtSvZUI8ZB9A=)
+
 initialize-charge:
   enabled: true
