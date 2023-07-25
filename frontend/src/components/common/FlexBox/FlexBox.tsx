@@ -16,6 +16,8 @@ export const FLEX_BOX_ITEM_POSITION = {
 
 export interface FlexBoxProps extends HTMLAttributes<HTMLDivElement> {
   tag?: string;
+  width?: string | number;
+  height?: string | number;
   justifyContent?: keyof typeof FLEX_BOX_ITEM_POSITION;
   alignItems?: keyof typeof FLEX_BOX_ITEM_POSITION;
   noRadius?: BorderRadiusDirectionType;
@@ -53,6 +55,8 @@ const getGap = ({ gap, rowGap, columnGap }: Pick<FlexBoxProps, 'gap' | 'rowGap' 
 
 const S = {
   FlexBox: styled.div<FlexBoxProps>`
+    width: ${({ width }) => (typeof width === 'number' ? `${width}rem` : width)};
+    height: ${({ height }) => (typeof height === 'number' ? `${height}rem` : height)};
     flex-wrap: ${({ nowrap }) => (nowrap ? 'nowrap' : 'wrap')};
     flex-direction: ${({ direction }) => (direction ? direction : 'row')};
     justify-content: ${({ justifyContent }) => FLEX_BOX_ITEM_POSITION[justifyContent] || 'start'};
