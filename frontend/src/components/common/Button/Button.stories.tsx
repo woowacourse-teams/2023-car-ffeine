@@ -149,13 +149,13 @@ export const Styles = () => {
 };
 
 const Container = styled.div`
-  margin-top: 20px;
+  margin-top: 2rem;
 
   &:first-child {
     margin-top: 0;
   }
 
   & > button {
-    margin-right: 20px;
+    margin-right: 2rem;
   }
 `;

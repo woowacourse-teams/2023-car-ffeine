@@ -21,19 +21,19 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export const BUTTON_PADDING_SIZE = {
-  xs: '3px 8px 4px',
-  sm: '7px 12px 8px',
-  md: '11px 32px 12px',
-  lg: '17px 40px 18px',
-  xl: '21px 48px 22px',
+  xs: '0.3rem 0.8rem 0.4rem',
+  sm: '0.7rem 1.2rem 0.8rem',
+  md: '1.1rem 3.2rem 1.2rem',
+  lg: '1.7rem 4rem 1.8rem',
+  xl: '2.1rem 4.8rem 2.2rem',
 } as const;
 
 export const BUTTON_FONT_SIZE = {
-  xs: '12px',
-  sm: '14px',
-  md: '16px',
-  lg: '20px',
-  xl: '22px',
+  xs: '1.2rem',
+  sm: '1.4rem',
+  md: '1.6rem',
+  lg: '2rem',
+  xl: '2.2rem',
 } as const;
 
 const Button = ({ children, ...props }: ButtonProps) => {
@@ -48,14 +48,13 @@ const S = {
   Button: styled.button<ButtonProps>`
     padding: ${({ size }) => BUTTON_PADDING_SIZE[size] || 0};
     background: ${({ background }) => background || '#fff'};
-    border: ${({ outlined }) => (outlined ? '1.5px solid #000' : 'none')};
-    font-size: ${({ size }) => BUTTON_FONT_SIZE[size] || '16px'};
-    box-shadow: ${({ shadow }) => `${shadow ? '0 3px 8px 0 gray' : 'none'}`};
+    border: ${({ outlined }) => (outlined ? '0.15rem solid #000' : 'none')};
+    font-size: ${({ size }) => BUTTON_FONT_SIZE[size] || '1.5rem'};
+    box-shadow: ${({ shadow }) => `${shadow ? '0 0.3rem 0.8rem 0 gray' : 'none'}`};
 
     cursor: pointer;
     border-radius: 8px;
     text-align: center;
-    font-size: 1.5rem;
 
     ${({ noRadius }) => noRadius && borderRadius(noRadius)};
     ${({ variant }) => variant && pillStyle};
