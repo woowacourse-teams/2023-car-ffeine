@@ -5,13 +5,13 @@ import type { ButtonHTMLAttributes, MouseEventHandler } from 'react';
 
 import { borderRadius, pillStyle } from '@style';
 
-import type { DirectionType } from 'types/style';
+import type { BorderRadiusDirectionType } from 'types/style';
 
 type VariantType = 'pill';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: VariantType;
-  noRadius?: DirectionType;
+  noRadius?: BorderRadiusDirectionType;
   shadow?: boolean;
   size?: keyof typeof BUTTON_PADDING_SIZE;
   outlined?: boolean;

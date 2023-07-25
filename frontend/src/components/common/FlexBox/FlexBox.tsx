@@ -5,7 +5,7 @@ import type { HTMLAttributes, ReactNode } from 'react';
 
 import { borderRadius } from '@style';
 
-import type { AxisType, DirectionType } from 'types/style';
+import type { AxisType, BorderRadiusDirectionType } from 'types/style';
 
 export const FLEX_BOX_ITEM_POSITION = {
   start: 'start',
@@ -17,7 +17,7 @@ export const FLEX_BOX_ITEM_POSITION = {
 export interface FlexBoxProps extends HTMLAttributes<HTMLDivElement> {
   tag?: string;
   position?: keyof typeof FLEX_BOX_ITEM_POSITION;
-  noRadius?: DirectionType;
+  noRadius?: BorderRadiusDirectionType;
   outlined?: boolean;
   background?: string;
   direction?: AxisType;

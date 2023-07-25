@@ -1,8 +1,8 @@
 import { css } from 'styled-components';
 
-import type { DirectionType } from 'types/style';
+import type { BorderRadiusDirectionType } from 'types/style';
 
-export const borderRadius = (direction: DirectionType) => css`
+export const borderRadius = (direction: BorderRadiusDirectionType) => css`
   ${direction === 'all' && 'border-radius: 0;'}
   ${direction === 'top' && 'border-top-left-radius: 0;'}
   ${direction === 'top' && 'border-top-right-radius: 0;'}
