@@ -53,7 +53,7 @@ const S = {
     box-shadow: ${({ shadow }) => `${shadow ? '0 0.3rem 0.8rem 0 gray' : 'none'}`};
 
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 0.8rem;
     text-align: center;
 
     ${({ noRadius }) => noRadius && borderRadius(noRadius)};
