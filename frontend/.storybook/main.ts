@@ -8,6 +8,7 @@ const config: StorybookConfig = {
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
+    '@storybook/addon-a11y',
   ],
   framework: {
     name: '@storybook/react-webpack5',
@@ -28,6 +29,7 @@ const config: StorybookConfig = {
         '@utils': path.resolve(__dirname, '../src/utils'),
         '@hooks': path.resolve(__dirname, '../src/hooks'),
         '@stores': path.resolve(__dirname, '../src/stores'),
+        '@style': path.resolve(__dirname, '../src/style/index'),
         '@constants': path.resolve(__dirname, '../src/constants/index'),
       };
     }
