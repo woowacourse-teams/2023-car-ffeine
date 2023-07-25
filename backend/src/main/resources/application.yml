@@ -16,3 +16,6 @@ api:
 
 initialize-charge:
   enabled: true
+
+jwt:
+  secret: ${JWT_KEY}
