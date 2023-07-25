@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const prod = process.env.NODE_ENV === 'production';
 
@@ -54,6 +56,7 @@ module.exports = {
       '@stores': path.resolve(__dirname, './src/stores'),
       '@constants': path.resolve(__dirname, './src/constants/index'),
       '@assets': path.resolve(__dirname, './src/assets'),
+      '@style': path.resolve(__dirname, './src/style/index'),
     },
   },
   plugins: [
