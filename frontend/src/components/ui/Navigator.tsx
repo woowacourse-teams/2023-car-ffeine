@@ -32,10 +32,28 @@ const Navigator = () => {
       `}
       noRadius="all"
     >
-      <img alt="로고 아이콘" src={LogoIcon} width={25} height={25} />
-      <img alt="검색 아이콘" src={SearchIcon} width={25} height={25} />
-      <img alt="필터링 메뉴 열기 아이콘" src={FilterIcon} width={25} height={25} />
-      <img alt="리스트 보기 아이콘" src={ListMenuIcon} width={25} height={25} />
+      <img alt="로고 아이콘" src={LogoIcon} width={25} height={25} style={{ cursor: 'pointer' }} />
+      <img
+        alt="검색 아이콘"
+        src={SearchIcon}
+        width={25}
+        height={25}
+        style={{ cursor: 'pointer' }}
+      />
+      <img
+        alt="필터링 메뉴 열기 아이콘"
+        src={FilterIcon}
+        width={25}
+        height={25}
+        style={{ cursor: 'pointer' }}
+      />
+      <img
+        alt="리스트 보기 아이콘"
+        src={ListMenuIcon}
+        width={25}
+        height={25}
+        style={{ cursor: 'pointer' }}
+      />
     </FlexBox>
   );
 };
