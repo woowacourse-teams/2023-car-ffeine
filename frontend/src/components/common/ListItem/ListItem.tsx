@@ -6,9 +6,9 @@ interface ListItemProps {
   children: ReactNode;
 }
 
-const ListItemWrapper = styled.ul`
-  list-style-type: none;
-  padding: 0;
+const ListItemWrapper = styled.li`
+  padding: 8px 16px;
+  border-bottom: 1px solid #ccc;
 `;
 
 const ListItem = ({ children }: ListItemProps) => {
