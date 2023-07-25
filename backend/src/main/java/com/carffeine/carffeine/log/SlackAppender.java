@@ -10,13 +10,13 @@ import java.util.Map;
 
 public class SlackAppender extends AppenderBase<ILoggingEvent> {
 
-    private static final String WBHOOK_URL = System.getenv("SLACK_WEBHOOK_URL");
+    private static final String WEBHOOK_URL = System.getenv("SLACK_WEBHOOK_URL");
 
     @Override
     protected void append(ILoggingEvent eventObject) {
         RestTemplate restTemplate = new RestTemplate();
         Map<String, Object> body = createSlackErrorBody(eventObject);
-        restTemplate.postForEntity(WBHOOK_URL, body, String.class);
+        restTemplate.postForEntity(WEBHOOK_URL, body, String.class);
     }
 
     private Map<String, Object> createSlackErrorBody(ILoggingEvent eventObject) {
