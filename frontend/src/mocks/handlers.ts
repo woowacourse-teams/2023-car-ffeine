@@ -15,6 +15,16 @@ export const handlers = [
     const latitudeDelta = Number(searchParams.get('latitudeDelta'));
     const longitudeDelta = Number(searchParams.get('longitudeDelta'));
 
+    const isAvailableFilterSelected = searchParams.get('isPrivate') !== undefined;
+    const isChargerTypeFilterSelected = searchParams.get('chargerType') !== undefined;
+    const isCapacityFilterSelected = searchParams.get('capacity') !== undefined;
+    const isCompanyNameFilterSelected = searchParams.get('companyName') !== undefined;
+
+    const isAvailable = Boolean(searchParams.get('isPrivate'));
+    const chargerType = searchParams.get('chargerType');
+    const capacity = Number(searchParams.get('capacity'));
+    const companyName = searchParams.get('companyName');
+
     const northEastBoundary = {
       latitude: latitude + latitudeDelta,
       longitude: longitude + longitudeDelta,
@@ -39,9 +49,32 @@ export const handlers = [
       );
     };
 
-    const foundStations: StationSummary[] = stations.filter(
-      (station) => isStationLatitudeWithinBounds(station) && isStationLongitudeWithinBounds(station)
-    );
+    const foundStations: StationSummary[] = stations
+      .filter(
+        (station) =>
+          isStationLatitudeWithinBounds(station) && isStationLongitudeWithinBounds(station)
+      )
+      .filter((station) => {
+        const isAvailableFilterInvalid =
+          isAvailableFilterSelected && isAvailable && station.isPrivate === true;
+        const isChargerTypeFilterInvalid =
+          isChargerTypeFilterSelected &&
+          !station.chargers.some((charger) => charger.type === chargerType);
+        const isCapacityFilterInvalid =
+          isCapacityFilterSelected &&
+          !station.chargers.some((charger) => charger.capacity === capacity);
+        const isCompanyNameFilterInvalid =
+          isCompanyNameFilterSelected && station.companyName !== companyName;
+
+        if (
+          isAvailableFilterInvalid ||
+          isChargerTypeFilterInvalid ||
+          isCapacityFilterInvalid ||
+          isCompanyNameFilterInvalid
+        )
+          return false;
+        return true;
+      });
 
     console.log('찾은 충전소 갯수: ' + foundStations.length);
 
@@ -49,7 +82,7 @@ export const handlers = [
       ctx.delay(200),
       ctx.status(200),
       ctx.json({
-        stations: foundStations
+        stations: foundStations,
       })
     );
   }),
