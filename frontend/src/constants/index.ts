@@ -29,11 +29,11 @@ export const ERROR_MESSAGES = {
 export const CHARGER_TYPE = {
   DC_FAST: 'DC 차데모',
   AC_SLOW: 'AC 완속',
-  DC_AC_3PHASE: 'DC 차데모+AC3 상',
+  DC_AC_3PHASE: 'DC 차데모+AC 3상',
   DC_COMBO: 'DC 콤보',
   DC_DC_COMBO: 'DC 차데모+DC 콤보',
-  DC_AC_DC_COMBO: 'DC 차데모+AC 상+DC 콤보',
-  AC_3PHASE: 'AC3 상',
+  DC_AC_DC_COMBO: 'DC 차데모+AC 3상+DC 콤보',
+  AC_3PHASE: 'AC 3상',
 } as const;
 
 export const COMPANY_NAME = {
