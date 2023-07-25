@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import type { ReactNode } from 'react';
 
-interface ListProps {
+export interface ListProps {
   children: ReactNode;
 }
 
