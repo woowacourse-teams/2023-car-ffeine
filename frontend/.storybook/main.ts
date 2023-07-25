@@ -1,6 +1,12 @@
 import type { StorybookConfig } from '@storybook/react-webpack5';
 import path from 'path';
-import { Configuration } from 'webpack';
+import { Configuration, RuleSetUseItem } from 'webpack';
+
+interface RuleSetRules {
+  test: RegExp;
+  use?: RuleSetUseItem[];
+  exclude?: RegExp;
+}
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
@@ -18,9 +24,23 @@ const config: StorybookConfig = {
     autodocs: 'tag',
   },
   webpackFinal: async (config: Configuration) => {
-    if (config.resolve) {
-      config.resolve.alias = {
-        ...config.resolve.alias,
+    const { module, resolve } = config;
+    const imageRule = module?.rules?.find((rule) => {
+      const test = (rule as RuleSetRules).test;
+
+      return test.test('.svg');
+    }) as RuleSetRules;
+
+    imageRule.exclude = /\.svg$/;
+
+    module?.rules?.push({
+      test: /\.svg$/,
+      use: ['@svgr/webpack'],
+    });
+
+    if (resolve) {
+      resolve.alias = {
+        ...resolve.alias,
         '@map': path.resolve(__dirname, '../src/components/google-maps/map'),
         '@marker': path.resolve(__dirname, '../src/components/google-maps/marker'),
         '@ui': path.resolve(__dirname, '../src/components/ui'),
@@ -31,6 +51,7 @@ const config: StorybookConfig = {
         '@stores': path.resolve(__dirname, '../src/stores'),
         '@style': path.resolve(__dirname, '../src/style/index'),
         '@constants': path.resolve(__dirname, '../src/constants/index'),
+        '@assets': path.resolve(__dirname, '../src/assets'),
       };
     }
 
