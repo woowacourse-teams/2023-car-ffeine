@@ -1,8 +1,9 @@
-import { borderRadius, pillStyle } from 'style';
 import styled from 'styled-components';
 import type { CSSProp } from 'styled-components';
 
 import type { ButtonHTMLAttributes, MouseEventHandler } from 'react';
+
+import { borderRadius, pillStyle } from '@style';
 
 import type { DirectionType } from 'types/style';
 
