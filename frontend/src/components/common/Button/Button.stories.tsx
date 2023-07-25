@@ -2,6 +2,7 @@ import type { Meta } from '@storybook/react';
 import styled from 'styled-components';
 
 import Button, { BUTTON_PADDING_SIZE } from './Button';
+import type { ButtonProps } from './Button';
 
 const meta = {
   title: 'Components/Button',
@@ -66,20 +67,15 @@ const meta = {
     css: {
       description: '원하는 css를 적용할 수 있습니다.',
     },
+    onClick: {
+      control: false,
+    },
   },
 } satisfies Meta<typeof Button>;
 
 export default meta;
 
-interface Props {
-  children: string;
-  outlined: boolean;
-  shadow: boolean;
-  size: keyof typeof BUTTON_PADDING_SIZE;
-  onClick: () => void;
-}
-
-export const Default = (args: Props) => {
+export const Default = (args: ButtonProps) => {
   return <Button {...args} />;
 };
 
@@ -153,13 +149,13 @@ export const Styles = () => {
 };
 
 const Container = styled.div`
-  margin-top: 20px;
+  margin-top: 2rem;
 
   &:first-child {
     margin-top: 0;
   }
 
   & > button {
-    margin-right: 20px;
+    margin-right: 2rem;
   }
 `;

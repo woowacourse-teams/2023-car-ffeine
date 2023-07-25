@@ -21,6 +21,7 @@
       "@hooks/*": ["hooks/*"],
       "@stores/*": ["stores/*"],
       "@constants": ["constants/index"],
+      "@style": ["style/index"],
       "@assets/*": ["assets/*"]
     }
   }

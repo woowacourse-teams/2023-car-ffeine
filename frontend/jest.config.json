@@ -9,6 +9,7 @@
     "^@marker/(.*)$": "<rootDir>/src/components/google-maps/marker/$1",
     "^@hooks/(.*)$": "<rootDir>/src/hooks/$1",
     "^@stores/(.*)$": "<rootDir>/src/stores/$1",
+    "^@style": "<rootDir>/src/style/index",
     "^@constants": "<rootDir>/src/constants/index",
     "^@assets/(.*)$": "<rootDir>/src/assets/$1"
   }

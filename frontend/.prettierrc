@@ -18,6 +18,7 @@
     "^@ui/(.*)$",
     "^App",
     "^mocks",
+    "^@style",
     "^style/(.*)$",
     "^@constants",
     "^@assets/(.*)$",
