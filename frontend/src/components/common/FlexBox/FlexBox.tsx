@@ -1,9 +1,8 @@
+import { borderRadius } from 'style';
 import type { CSSProp } from 'styled-components';
 import styled from 'styled-components';
 
 import type { HTMLAttributes, ReactNode } from 'react';
-
-import { borderRadius } from '@common/Button/Button';
 
 import type { AxisType, DirectionType } from 'types/style';
 
