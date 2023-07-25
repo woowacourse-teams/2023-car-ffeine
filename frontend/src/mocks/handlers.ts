@@ -15,15 +15,13 @@ export const handlers = [
     const latitudeDelta = Number(searchParams.get('latitudeDelta'));
     const longitudeDelta = Number(searchParams.get('longitudeDelta'));
 
-    const isAvailableFilterSelected = searchParams.get('isPrivate') !== undefined;
-    const isChargerTypeFilterSelected = searchParams.get('chargerType') !== undefined;
-    const isCapacityFilterSelected = searchParams.get('capacity') !== undefined;
-    const isCompanyNameFilterSelected = searchParams.get('companyName') !== undefined;
+    const isChargerTypeFilterSelected = searchParams.get('chargerType') !== null;
+    const isCapacityFilterSelected = searchParams.get('capacity') !== null;
+    const isCompanyNameFilterSelected = searchParams.get('companyName') !== null;
 
-    const isAvailable = Boolean(searchParams.get('isPrivate'));
-    const chargerType = searchParams.get('chargerType');
-    const capacity = Number(searchParams.get('capacity'));
-    const companyName = searchParams.get('companyName');
+    const selectedChargerTypes = searchParams.get('chargerType')?.split(',');
+    const selectedCapacities = searchParams.get('capacity')?.split(',')?.map(Number);
+    const selectedCompanyNames = searchParams.get('companyName').split(',');
 
     const northEastBoundary = {
       latitude: latitude + latitudeDelta,
@@ -55,23 +53,16 @@ export const handlers = [
           isStationLatitudeWithinBounds(station) && isStationLongitudeWithinBounds(station)
       )
       .filter((station) => {
-        const isAvailableFilterInvalid =
-          isAvailableFilterSelected && isAvailable && station.isPrivate === true;
         const isChargerTypeFilterInvalid =
           isChargerTypeFilterSelected &&
-          !station.chargers.some((charger) => charger.type === chargerType);
+          !station.chargers.some((charger) => selectedChargerTypes.includes(charger.type));
         const isCapacityFilterInvalid =
           isCapacityFilterSelected &&
-          !station.chargers.some((charger) => charger.capacity === capacity);
+          !station.chargers.some((charger) => selectedCapacities.includes(charger.capacity));
         const isCompanyNameFilterInvalid =
-          isCompanyNameFilterSelected && station.companyName !== companyName;
+          isCompanyNameFilterSelected && !selectedCompanyNames.includes(station.companyName);
 
-        if (
-          isAvailableFilterInvalid ||
-          isChargerTypeFilterInvalid ||
-          isCapacityFilterInvalid ||
-          isCompanyNameFilterInvalid
-        )
+        if (isChargerTypeFilterInvalid || isCapacityFilterInvalid || isCompanyNameFilterInvalid)
           return false;
         return true;
       });
