@@ -16,7 +16,8 @@ export const FLEX_BOX_ITEM_POSITION = {
 
 export interface FlexBoxProps extends HTMLAttributes<HTMLDivElement> {
   tag?: string;
-  position?: keyof typeof FLEX_BOX_ITEM_POSITION;
+  justifyContent?: keyof typeof FLEX_BOX_ITEM_POSITION;
+  alignItems?: keyof typeof FLEX_BOX_ITEM_POSITION;
   noRadius?: BorderRadiusDirectionType;
   outlined?: boolean;
   background?: string;
@@ -54,8 +55,8 @@ const S = {
   FlexBox: styled.div<FlexBoxProps>`
     flex-wrap: ${({ nowrap }) => (nowrap ? 'nowrap' : 'wrap')};
     flex-direction: ${({ direction }) => (direction ? direction : 'row')};
-    justify-content: ${({ position }) => FLEX_BOX_ITEM_POSITION[position] || 'start'};
-    align-content: ${({ position }) => FLEX_BOX_ITEM_POSITION[position] || 'start'};
+    justify-content: ${({ justifyContent }) => FLEX_BOX_ITEM_POSITION[justifyContent] || 'start'};
+    align-content: ${({ alignItems }) => FLEX_BOX_ITEM_POSITION[alignItems] || 'start'};
     gap: ${({ gap, rowGap, columnGap }) => getGap({ gap, rowGap, columnGap })};
     background: ${({ background }) => background || '#fff'};
     border: ${({ outlined }) => (outlined ? '0.15rem solid #000' : 'none')};

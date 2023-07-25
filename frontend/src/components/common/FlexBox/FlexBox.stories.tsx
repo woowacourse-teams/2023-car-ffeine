@@ -31,7 +31,8 @@ const meta = {
   tags: ['autodocs'],
   args: {
     tag: 'ul',
-    position: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
     outlined: true,
     direction: 'row',
     nowrap: false,
@@ -44,12 +45,21 @@ const meta = {
     tag: {
       description: '태그명(ex. ul, section)을 입력해 플렉스 컨테이너의 태그를 바꿀 수 있습니다.',
     },
-    position: {
+    justifyContent: {
       options: Object.keys({ ...FLEX_BOX_ITEM_POSITION, none: undefined }),
       control: {
         type: 'select',
       },
-      description: '플렉스 컨테이너 안에 있는 아이템의 위치를 조절할 수 있습니다.',
+      description:
+        '플렉스 컨테이너 안에 있는 아이템의 위치를 조절할 수 있습니다.<br>- direction이 row일 경우: 수평을 기준으로 아이템이 이동합니다.<br>- direction이 column일 경우: 수직을 기준으로 아이템이 이동합니다.',
+    },
+    alignItems: {
+      options: Object.keys({ ...FLEX_BOX_ITEM_POSITION, none: undefined }),
+      control: {
+        type: 'select',
+      },
+      description:
+        '플렉스 컨테이너 안에 있는 아이템의 위치를 조절할 수 있습니다.<br>- direction이 row일 경우: 수직을 기준으로 아이템이 이동합니다.<br>- direction이 column일 경우: 수평을 기준으로 아이템이 이동합니다.',
     },
     noRadius: {
       options: { none: false, all: 'all', top: 'top', bottom: 'bottom' },
@@ -116,33 +126,76 @@ const size = ({ width, height }: SizeProps): CSSProp => css`
   height: ${height}rem;
 `;
 
-export const Positions = () => {
+export const JustifyContent = () => {
   return (
-    <FlexBox nowrap columnGap={4} position="between">
+    <FlexBox nowrap columnGap={4} justifyContent="between">
       <FlexBox direction="column" rowGap={5}>
-        <FlexBox outlined position="start" css={size({ height: 10 })}>
+        <FlexBox outlined justifyContent="start" css={size({ height: 10 })}>
           {Boxes()}
         </FlexBox>
-        <FlexBox outlined position="center" css={size({ height: 10 })}>
+        <FlexBox outlined justifyContent="center" css={size({ height: 10 })}>
           {Boxes()}
         </FlexBox>
-        <FlexBox outlined position="end" css={size({ height: 10 })}>
+        <FlexBox outlined justifyContent="end" css={size({ height: 10 })}>
           {Boxes()}
         </FlexBox>
-        <FlexBox outlined position="between" css={size({ height: 10 })}>
+        <FlexBox outlined justifyContent="between" css={size({ height: 10 })}>
           {Boxes()}
         </FlexBox>
       </FlexBox>
-      <FlexBox outlined direction="column" position="start" css={size({ width: 12 })}>
+      <FlexBox outlined direction="column" justifyContent="start" css={size({ width: 12 })}>
         {Boxes()}
       </FlexBox>
-      <FlexBox outlined direction="column" position="center" css={size({ width: 12 })}>
+      <FlexBox outlined direction="column" justifyContent="center" css={size({ width: 12 })}>
         {Boxes()}
       </FlexBox>
-      <FlexBox outlined direction="column" position="end" css={size({ width: 12 })}>
+      <FlexBox outlined direction="column" justifyContent="end" css={size({ width: 12 })}>
         {Boxes()}
       </FlexBox>
-      <FlexBox outlined direction="column" position="between" css={size({ width: 12 })}>
+      <FlexBox outlined direction="column" justifyContent="between" css={size({ width: 12 })}>
+        {Boxes()}
+      </FlexBox>
+    </FlexBox>
+  );
+};
+
+export const AlignItems = () => {
+  return (
+    <FlexBox nowrap columnGap={4} justifyContent="between">
+      <FlexBox direction="column" rowGap={5}>
+        <FlexBox outlined alignItems="start" css={size({ height: 10 })}>
+          {Boxes()}
+        </FlexBox>
+        <FlexBox outlined alignItems="center" css={size({ height: 10 })}>
+          {Boxes()}
+        </FlexBox>
+        <FlexBox outlined alignItems="end" css={size({ height: 10 })}>
+          {Boxes()}
+        </FlexBox>
+        <FlexBox outlined alignItems="between" css={size({ height: 10 })}>
+          {Boxes()}
+        </FlexBox>
+      </FlexBox>
+      <FlexBox outlined direction="column" alignItems="start" css={size({ width: 12, height: 26 })}>
+        {Boxes()}
+      </FlexBox>
+      <FlexBox
+        outlined
+        direction="column"
+        alignItems="center"
+        css={size({ width: 12, height: 26 })}
+      >
+        {Boxes()}
+      </FlexBox>
+      <FlexBox outlined direction="column" alignItems="end" css={size({ width: 12, height: 26 })}>
+        {Boxes()}
+      </FlexBox>
+      <FlexBox
+        outlined
+        direction="column"
+        alignItems="between"
+        css={size({ width: 12, height: 26 })}
+      >
         {Boxes()}
       </FlexBox>
     </FlexBox>
@@ -152,7 +205,7 @@ export const Positions = () => {
 export const Gap = () => {
   return (
     <Container>
-      <FlexBox position="center" rowGap={4} columnGap={8}>
+      <FlexBox justifyContent="center" rowGap={4} columnGap={8}>
         {Boxes()}
       </FlexBox>
     </Container>
