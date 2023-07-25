@@ -11,10 +11,10 @@ export const borderRadius = (direction: BorderRadiusDirectionType) => css`
 `;
 
 export const pillStyle = css`
-  height: 36px;
+  height: 3.6rem;
   padding-top: 0;
   padding-bottom: 0;
-  line-height: 18px;
-  font-size: 16px;
-  border-radius: 21px;
+  line-height: 1.8rem;
+  font-size: 1.5rem;
+  border-radius: 2.1rem;
 `;
