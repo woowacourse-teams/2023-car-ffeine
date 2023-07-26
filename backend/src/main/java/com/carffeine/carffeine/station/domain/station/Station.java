@@ -16,7 +16,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Builder
@@ -60,7 +62,7 @@ public class Station {
 
     @Builder.Default
     @OneToMany(mappedBy = "station", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<FaultReport> faultReports = new ArrayList<>();
+    private Set<FaultReport> faultReports = new HashSet<>();
 
     public int getTotalCount() {
         return chargers.size();
@@ -126,5 +128,9 @@ public class Station {
         }
 
         return false;
+    }
+
+    public Integer getReportCount() {
+        return faultReports.size();
     }
 }

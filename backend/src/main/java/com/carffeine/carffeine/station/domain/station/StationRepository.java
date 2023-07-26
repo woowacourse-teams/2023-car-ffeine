@@ -14,6 +14,7 @@ public interface StationRepository extends Repository<Station, Long> {
     @EntityGraph(attributePaths = {"chargers", "chargers.chargerStatus"})
     List<Station> findAllByLatitudeBetweenAndLongitudeBetween(Latitude minLatitude, Latitude maxLatitude, Longitude minLongitude, Longitude maxLongitude);
 
+    @EntityGraph(attributePaths = {"chargers", "chargers.chargerStatus", "faultReports"})
     Optional<Station> findChargeStationByStationId(String stationId);
 
     @Query("SELECT DISTINCT s FROM Station s JOIN FETCH s.chargers")
