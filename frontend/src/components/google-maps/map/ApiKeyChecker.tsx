@@ -2,7 +2,8 @@ import type { ReactNode } from 'react';
 import { useEffect, useRef, useState } from 'react';
 
 import { getLocalStorage, setLocalStorage } from '@utils/storage';
-import { LOCAL_KEY_GOOGLE_MAPS_API, LOCAL_KEY_GOOGLE_MAPS_API_SAVE } from '@utils/storage/keys';
+
+import { LOCAL_KEY_GOOGLE_MAPS_API, LOCAL_KEY_GOOGLE_MAPS_API_SAVE } from '@constants';
 
 interface ApiKeyCheckerProps {
   render: (apiKey: string) => ReactNode;
