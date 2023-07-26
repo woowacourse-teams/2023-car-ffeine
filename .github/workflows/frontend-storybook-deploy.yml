@@ -43,3 +43,16 @@ jobs:
         with:
           name: Storybook
           path: frontend/dist
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Remove previous version app
+        working-directory: frontend/dev/
+        run: rm -rf dist
+
+      - name: Download the built file to AWS
+        uses: actions/download-artifact@v3
+        with:
+          name: Storybook
+          path: frontend/dev/dist
