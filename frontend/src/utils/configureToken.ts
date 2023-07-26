@@ -1,5 +1,6 @@
 import { getLocalStorage, setLocalStorage } from '@utils/storage';
-import { LOCAL_KEY_TOKEN } from '@utils/storage/keys';
+
+import { LOCAL_KEY_TOKEN } from '@constants';
 
 const generateRandomToken = () => {
   const min = 10_000_000;
