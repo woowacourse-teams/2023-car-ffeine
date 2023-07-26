@@ -15,6 +15,14 @@ export const handlers = [
     const latitudeDelta = Number(searchParams.get('latitudeDelta'));
     const longitudeDelta = Number(searchParams.get('longitudeDelta'));
 
+    const isChargerTypeFilterSelected = searchParams.get('chargerType') !== null;
+    const isCapacityFilterSelected = searchParams.get('capacity') !== null;
+    const isCompanyNameFilterSelected = searchParams.get('companyName') !== null;
+
+    const selectedChargerTypes = searchParams.get('chargerType')?.split(',');
+    const selectedCapacities = searchParams.get('capacity')?.split(',')?.map(Number);
+    const selectedCompanyNames = searchParams.get('companyName').split(',');
+
     const northEastBoundary = {
       latitude: latitude + latitudeDelta,
       longitude: longitude + longitudeDelta,
@@ -39,9 +47,25 @@ export const handlers = [
       );
     };
 
-    const foundStations: StationSummary[] = stations.filter(
-      (station) => isStationLatitudeWithinBounds(station) && isStationLongitudeWithinBounds(station)
-    );
+    const foundStations: StationSummary[] = stations
+      .filter(
+        (station) =>
+          isStationLatitudeWithinBounds(station) && isStationLongitudeWithinBounds(station)
+      )
+      .filter((station) => {
+        const isChargerTypeFilterInvalid =
+          isChargerTypeFilterSelected &&
+          !station.chargers.some((charger) => selectedChargerTypes.includes(charger.type));
+        const isCapacityFilterInvalid =
+          isCapacityFilterSelected &&
+          !station.chargers.some((charger) => selectedCapacities.includes(charger.capacity));
+        const isCompanyNameFilterInvalid =
+          isCompanyNameFilterSelected && !selectedCompanyNames.includes(station.companyName);
+
+        if (isChargerTypeFilterInvalid || isCapacityFilterInvalid || isCompanyNameFilterInvalid)
+          return false;
+        return true;
+      });
 
     console.log('찾은 충전소 갯수: ' + foundStations.length);
 
@@ -49,7 +73,7 @@ export const handlers = [
       ctx.delay(200),
       ctx.status(200),
       ctx.json({
-        stations: foundStations
+        stations: foundStations,
       })
     );
   }),
