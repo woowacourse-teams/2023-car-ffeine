@@ -15,4 +15,4 @@ RUN yarn build-storybook
 
 RUN npm install -g serve
 
-ENTRYPOINT ["serve","-l", "3000", "-s", "storybook-static"]
+ENTRYPOINT ["serve", "-s", "storybook-static"]
