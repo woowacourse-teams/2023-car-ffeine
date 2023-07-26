@@ -12,9 +12,6 @@ export const configureToken = () => {
   const token = getLocalStorage<number>(LOCAL_KEY_TOKEN, -1);
   if (token < 0) {
     const newToken = generateRandomToken();
-    console.log(`new token is generated: ${newToken}`);
     setLocalStorage<number>(LOCAL_KEY_TOKEN, newToken);
-  } else {
-    console.log(`token is already generated: ${token}`);
   }
 };
