@@ -30,6 +30,45 @@ export const Default = (args: ListProps) => {
   return <List {...args} />;
 };
 
+export const ListWithoutPadding = () => {
+  return (
+    <List css={{ backgroundColor: 'yellow' }}>
+      <ListItem css={{ backgroundColor: 'red' }}>
+        <Text>패딩이 없는</Text>
+      </ListItem>
+      <ListItem css={{ backgroundColor: 'orange' }}>
+        <Text>리스트라니</Text>
+      </ListItem>
+    </List>
+  );
+};
+
+export const ListWithPadding = () => {
+  return (
+    <List p={4} css={{ backgroundColor: 'yellow' }}>
+      <ListItem css={{ backgroundColor: 'red' }}>
+        <Text>패딩이 있는</Text>
+      </ListItem>
+      <ListItem css={{ backgroundColor: 'orange' }}>
+        <Text>리스트라니</Text>
+      </ListItem>
+    </List>
+  );
+};
+
+export const ListWithBorder = () => {
+  return (
+    <List p={4} border>
+      <ListItem css={{ backgroundColor: 'red' }}>
+        <Text>패딩이 있는</Text>
+      </ListItem>
+      <ListItem css={{ backgroundColor: 'orange' }}>
+        <Text>리스트라니</Text>
+      </ListItem>
+    </List>
+  );
+};
+
 export const Menu = () => {
   return (
     <div style={{ width: '150px' }}>
