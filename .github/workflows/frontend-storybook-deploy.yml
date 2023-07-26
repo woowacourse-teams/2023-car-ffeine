@@ -9,6 +9,9 @@ on:
 jobs:
   deploy:
     runs-on: self-hosted
+    defaults:
+      run:
+        working-directory: ./frontend
     steps:
       - name: Set up Repository
         uses: actions/checkout@v3
@@ -40,7 +43,7 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           host: ${{ secrets.DEV_HOST }}
           key: ${{ secrets.PRIVATE_KEY }}
-          source: ./frontend/storybook/
+          source: ./storybook/
           target: /home/ubuntu/storybook
 #      - name: Log in to Docker Hub
 #        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
