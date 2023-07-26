@@ -3,12 +3,12 @@ package com.carffeine.carffeine.station.service.station;
 import com.carffeine.carffeine.station.domain.charger.ChargerCondition;
 import com.carffeine.carffeine.station.domain.charger.ChargerStatus;
 import com.carffeine.carffeine.station.domain.charger.ChargerStatusRepository;
+import com.carffeine.carffeine.station.domain.charger.ChargerType;
 import com.carffeine.carffeine.station.domain.congestion.IdGenerator;
 import com.carffeine.carffeine.station.domain.congestion.PeriodicCongestion;
 import com.carffeine.carffeine.station.domain.congestion.PeriodicCongestionRepository;
 import com.carffeine.carffeine.station.domain.congestion.RequestPeriod;
-import com.carffeine.carffeine.station.domain.station.Latitude;
-import com.carffeine.carffeine.station.domain.station.Longitude;
+import com.carffeine.carffeine.station.domain.station.Coordinate;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.domain.station.StationRepository;
 import com.carffeine.carffeine.station.exception.StationException;
@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,19 +36,50 @@ public class StationService {
     private final ChargerStatusRepository chargerStatusRepository;
 
     @Transactional(readOnly = true)
-    public List<Station> findByCoordinate(CoordinateRequest request) {
-        Latitude originLatitude = Latitude.from(request.latitude());
-        BigDecimal deltaLatitude = request.latitudeDelta();
-        Latitude minLatitude = originLatitude.calculateMinLatitudeByDelta(deltaLatitude);
-        Latitude maxLatitude = originLatitude.calculateMaxLatitudeByDelta(deltaLatitude);
+    public List<Station> findByCoordinate(CoordinateRequest request, List<String> companyNames, List<ChargerType> chargerTypes, List<BigDecimal> capacities) {
+        Coordinate coordinate = Coordinate.from(request.latitude(), request.latitudeDelta(), request.longitude(), request.longitudeDelta());
 
-        Longitude originLongitude = Longitude.from(request.longitude());
-        BigDecimal deltaLongitude = request.longitudeDelta();
-        Longitude minLongitude = originLongitude.calculateMinLongitudeByDelta(deltaLongitude);
-        Longitude maxLongitude = originLongitude.calculateMaxLongitudeByDelta(deltaLongitude);
+        List<Station> stations = stationRepository.findAllByLatitudeBetweenAndLongitudeBetween(coordinate.getMinLatitude(), coordinate.getMaxLatitude(), coordinate.getMinLongitude(), coordinate.getMaxLongitude());
+        List<Station> filteredStations = new ArrayList<>(stations);
 
-        return stationRepository.findAllByLatitudeBetweenAndLongitudeBetween(minLatitude, maxLatitude, minLongitude, maxLongitude);
+        filterByCompanyNames(filteredStations, companyNames);
+        filterByChargerTypes(filteredStations, chargerTypes);
+        filterByCapacities(filteredStations, capacities);
+        removeStationsWithEmptyChargers(filteredStations);
+
+        return filteredStations;
     }
+
+    private void filterByCompanyNames(List<Station> stations, List<String> companyNames) {
+        if (!companyNames.isEmpty()) {
+            stations.removeIf(station -> !companyNames.contains(station.getCompanyName()));
+        }
+    }
+
+    private void filterByChargerTypes(List<Station> stations, List<ChargerType> chargerTypes) {
+        if (!chargerTypes.isEmpty()) {
+            stations.removeIf(station -> station
+                    .getChargers()
+                    .stream()
+                    .noneMatch(charger -> chargerTypes.contains(charger.getType()))
+            );
+        }
+    }
+
+    private void filterByCapacities(List<Station> stations, List<BigDecimal> capacities) {
+        if (!capacities.isEmpty()) {
+            stations.removeIf(station -> station
+                    .getChargers()
+                    .stream()
+                    .noneMatch(charger -> capacities.contains(charger.getCapacity()))
+            );
+        }
+    }
+
+    private void removeStationsWithEmptyChargers(List<Station> stations) {
+        stations.removeIf(station -> station.getChargers().isEmpty());
+    }
+
 
     @Transactional(readOnly = true)
     public Station findStationById(String stationId) {
