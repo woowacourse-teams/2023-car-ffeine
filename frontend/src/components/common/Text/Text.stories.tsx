@@ -65,7 +65,18 @@ export default meta;
 
 interface Props {
   children: string;
-  variant: string;
+  variant:
+    | 'h1'
+    | 'h2'
+    | 'h3'
+    | 'h4'
+    | 'h5'
+    | 'h6'
+    | 'title'
+    | 'subtitle'
+    | 'label'
+    | 'body'
+    | 'caption';
 }
 
 export const Default = (args: Props) => {
