@@ -16,7 +16,7 @@ const Text = styled.p<{
   mb?: number;
   align?: 'center' | 'left' | 'right';
 }>`
-  margin-bottom: ${({ mb }) => (mb ? `${mb * 0.4}rem` : `0.4rem`)};
+  margin-bottom: ${({ mb }) => (mb ? `${mb * 0.4}rem` : 0)};
 
   ${({ align }) => {
     switch (align) {
