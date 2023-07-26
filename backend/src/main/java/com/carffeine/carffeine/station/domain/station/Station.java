@@ -1,6 +1,7 @@
 package com.carffeine.carffeine.station.domain.station;
 
 import com.carffeine.carffeine.station.domain.charger.Charger;
+import com.carffeine.carffeine.station.domain.report.FaultReport;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -56,6 +57,10 @@ public class Station {
     @Builder.Default
     @OneToMany(mappedBy = "station", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Charger> chargers = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "station", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FaultReport> faultReports = new ArrayList<>();
 
     public int getTotalCount() {
         return chargers.size();

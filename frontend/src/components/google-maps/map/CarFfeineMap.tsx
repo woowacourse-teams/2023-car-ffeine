@@ -4,7 +4,6 @@ import StationMarkersContainer from '@marker/StationMarkersContainer';
 
 import { useExternalValue } from '@utils/external-state';
 import { setLocalStorage } from '@utils/storage';
-import { LOCAL_STORAGE_KEY_LAST_POSITION } from '@utils/storage/keys';
 
 import { getGoogleMapStore } from '@stores/googleMapStore';
 
@@ -13,7 +12,10 @@ import { useUpdateStations } from '@hooks/useUpdateStations';
 import DetailedStationInfo from '@ui/DetailedStationInfo';
 import FilterButtonList from '@ui/FilterButtonList';
 import MapController from '@ui/MapController';
+import Navigator from '@ui/Navigator';
 import StationList from '@ui/StationList';
+
+import { LOCAL_STORAGE_KEY_LAST_POSITION } from '@constants';
 
 const CarFfeineMap = () => {
   return (
@@ -24,6 +26,7 @@ const CarFfeineMap = () => {
       <DetailedStationInfo />
       <MapController />
       <FilterButtonList />
+      <Navigator />
     </>
   );
 };

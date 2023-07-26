@@ -5,6 +5,8 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import ApiKeyChecker from '@map/ApiKeyChecker';
 
+import { configureToken } from '@utils/configureToken';
+
 import App from 'App';
 
 import { worker } from 'mocks/browser';
@@ -35,4 +37,5 @@ const main = async () => {
   );
 };
 
+configureToken();
 main();
