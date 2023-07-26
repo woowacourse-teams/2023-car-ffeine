@@ -35,6 +35,11 @@ jobs:
 
       - name: npm build
         run: npm run build-storybook
+      - name: Upload frontend build file to artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: FrontendApplication
+          path: frontend/dist
 
   deploy:
     needs: build
