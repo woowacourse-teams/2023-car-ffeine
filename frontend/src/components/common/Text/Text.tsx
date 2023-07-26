@@ -1,7 +1,18 @@
 import styled, { css } from 'styled-components';
 
 const Text = styled.p<{
-  variant?: string;
+  variant?:
+    | 'h1'
+    | 'h2'
+    | 'h3'
+    | 'h4'
+    | 'h5'
+    | 'h6'
+    | 'title'
+    | 'subtitle'
+    | 'label'
+    | 'body'
+    | 'caption';
   mb?: number;
   align?: 'center' | 'left' | 'right';
 }>`
