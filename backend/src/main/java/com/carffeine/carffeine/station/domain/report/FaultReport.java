@@ -27,7 +27,7 @@ public class FaultReport {
     private Long id;
 
     private Long memberId;
-    
+
     @ManyToOne
     private Station station;
 }
