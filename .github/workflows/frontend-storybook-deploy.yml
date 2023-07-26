@@ -44,7 +44,7 @@ jobs:
           host: ${{ secrets.DEV_HOST }}
           key: ${{ secrets.SERVER_KEY }}
           port: ${{ secrets.SERVER_PORT }}
-          source: "./storybook-static"
+          source: frontend/storybook-static
           strip_components: 1
           target: "/home/ubuntu/storybook"
 #      - name: Log in to Docker Hub
