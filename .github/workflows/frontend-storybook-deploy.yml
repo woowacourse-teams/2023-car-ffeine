@@ -56,3 +56,9 @@ jobs:
         with:
           name: Storybook
           path: frontend/dev/dist
+
+      - name: Move folder
+        working-directory: frontend/dev/
+        run: |
+          rm -rf /home/ubuntu/dist/*
+          cp -r ./dist /home/ubuntu
