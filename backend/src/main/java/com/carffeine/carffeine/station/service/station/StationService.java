@@ -11,6 +11,7 @@ import com.carffeine.carffeine.station.domain.congestion.RequestPeriod;
 import com.carffeine.carffeine.station.domain.station.Coordinate;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.domain.station.StationRepository;
+import com.carffeine.carffeine.station.domain.station.Stations;
 import com.carffeine.carffeine.station.exception.StationException;
 import com.carffeine.carffeine.station.exception.StationExceptionType;
 import com.carffeine.carffeine.station.service.station.dto.CoordinateRequest;
@@ -22,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,48 +38,15 @@ public class StationService {
     @Transactional(readOnly = true)
     public List<Station> findByCoordinate(CoordinateRequest request, List<String> companyNames, List<ChargerType> chargerTypes, List<BigDecimal> capacities) {
         Coordinate coordinate = Coordinate.from(request.latitude(), request.latitudeDelta(), request.longitude(), request.longitudeDelta());
+        List<Station> stationsByCoordinate = stationRepository.findAllByLatitudeBetweenAndLongitudeBetween(coordinate.getMinLatitude(), coordinate.getMaxLatitude(), coordinate.getMinLongitude(), coordinate.getMaxLongitude());
 
-        List<Station> stations = stationRepository.findAllByLatitudeBetweenAndLongitudeBetween(coordinate.getMinLatitude(), coordinate.getMaxLatitude(), coordinate.getMinLongitude(), coordinate.getMaxLongitude());
-        List<Station> filteredStations = new ArrayList<>(stations);
+        Stations stations = Stations.of(stationsByCoordinate);
+        stations.filterByCompanyNames(companyNames);
+        stations.filterByChargerTypes(chargerTypes);
+        stations.filterByCapacities(capacities);
 
-        filterByCompanyNames(filteredStations, companyNames);
-        filterByChargerTypes(filteredStations, chargerTypes);
-        filterByCapacities(filteredStations, capacities);
-        removeStationsWithEmptyChargers(filteredStations);
-
-        return filteredStations;
+        return stations.getStationsExclusiveEmptyChargers();
     }
-
-    private void filterByCompanyNames(List<Station> stations, List<String> companyNames) {
-        if (!companyNames.isEmpty()) {
-            stations.removeIf(station -> !companyNames.contains(station.getCompanyName()));
-        }
-    }
-
-    private void filterByChargerTypes(List<Station> stations, List<ChargerType> chargerTypes) {
-        if (!chargerTypes.isEmpty()) {
-            stations.removeIf(station -> station
-                    .getChargers()
-                    .stream()
-                    .noneMatch(charger -> chargerTypes.contains(charger.getType()))
-            );
-        }
-    }
-
-    private void filterByCapacities(List<Station> stations, List<BigDecimal> capacities) {
-        if (!capacities.isEmpty()) {
-            stations.removeIf(station -> station
-                    .getChargers()
-                    .stream()
-                    .noneMatch(charger -> capacities.contains(charger.getCapacity()))
-            );
-        }
-    }
-
-    private void removeStationsWithEmptyChargers(List<Station> stations) {
-        stations.removeIf(station -> station.getChargers().isEmpty());
-    }
-
 
     @Transactional(readOnly = true)
     public Station findStationById(String stationId) {
