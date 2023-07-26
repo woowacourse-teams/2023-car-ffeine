@@ -13,6 +13,7 @@ import { useUpdateStations } from '@hooks/useUpdateStations';
 import DetailedStationInfo from '@ui/DetailedStationInfo';
 import FilterButtonList from '@ui/FilterButtonList';
 import MapController from '@ui/MapController';
+import Navigator from '@ui/Navigator';
 import StationList from '@ui/StationList';
 
 const CarFfeineMap = () => {
@@ -24,6 +25,7 @@ const CarFfeineMap = () => {
       <DetailedStationInfo />
       <MapController />
       <FilterButtonList />
+      <Navigator />
     </>
   );
 };
