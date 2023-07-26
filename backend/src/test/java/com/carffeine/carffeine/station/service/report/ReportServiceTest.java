@@ -68,7 +68,7 @@ class ReportServiceTest {
         reportService.saveFaultReport(station.getStationId(), memberId);
 
         // when
-        boolean result = reportService.isAlreadyReportStation(memberId, station.getStationId());
+        boolean result = reportService.isDuplicateReportStation(memberId, station.getStationId());
 
         // then
         assertThat(result).isTrue();
@@ -82,7 +82,7 @@ class ReportServiceTest {
         Long newMemberId = 1L;
 
         // when
-        boolean result = reportService.isAlreadyReportStation(newMemberId, station.getStationId());
+        boolean result = reportService.isDuplicateReportStation(newMemberId, station.getStationId());
 
         // then
         assertThat(result).isFalse();
