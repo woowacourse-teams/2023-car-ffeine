@@ -1,0 +1,17 @@
+= Home API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+
+== 충전소의 고장을 신고한다 (/stations/{stationId}/reports)
+
+=== Request
+
+include::{snippets}/report-controller-test/save-report/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/report-controller-test/save-report/http-response.adoc[]
+

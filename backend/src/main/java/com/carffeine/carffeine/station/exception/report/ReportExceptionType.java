@@ -1,0 +1,35 @@
+package com.carffeine.carffeine.station.exception.report;
+
+import com.carffeine.carffeine.common.exception.ExceptionType;
+import com.carffeine.carffeine.common.exception.Status;
+
+public enum ReportExceptionType implements ExceptionType {
+
+    DUPLICATE_REPORT(Status.INVALID, 2001, "이미 신고한 충전소는 신고가 불가합니다"),
+    ;
+
+    private final Status status;
+    private final int exceptionCode;
+    private final String message;
+
+    ReportExceptionType(Status status, int exceptionCode, String message) {
+        this.status = status;
+        this.exceptionCode = exceptionCode;
+        this.message = message;
+    }
+
+    @Override
+    public Status status() {
+        return status;
+    }
+
+    @Override
+    public int exceptionCode() {
+        return exceptionCode;
+    }
+
+    @Override
+    public String message() {
+        return message;
+    }
+}
