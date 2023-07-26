@@ -1,3 +1,5 @@
+import { CHARGER_TYPE, COMPANY_NAME } from '@constants';
+
 import type { CapacityType, ChargerDetails, MockStation } from '../types';
 
 const generateRandomData = <T>(array: T[]): T => {
@@ -9,7 +11,7 @@ const generateRandomData = <T>(array: T[]): T => {
 const generateRandomChargers = () => {
   const length = Math.floor(Math.random() * 4) + 1;
   const chargers: ChargerDetails[] = Array.from({ length }, () => ({
-    type: generateRandomData<string>(['DC콤보', 'DC차데모']),
+    type: generateRandomData<string>([...Object.keys(CHARGER_TYPE)]),
     price: generateRandomData([200, 250, 300, 350, 400]),
     capacity: generateRandomData<CapacityType>([3, 7, 50, 100, 200]),
     latestUpdateTime: generateRandomData([
@@ -37,14 +39,7 @@ export const stations: MockStation[] = Array.from({ length: 3000 }).map((_, inde
   return {
     stationId: index,
     stationName: `충전소 ${index}`,
-    companyName: generateRandomData<string>([
-      '파워큐브',
-      '에버온',
-      '환경부',
-      '한국전력',
-      '티비유',
-      '플러그링크',
-    ]),
+    companyName: generateRandomData<string>([...Object.values(COMPANY_NAME)]),
     contact: generateRandomData(['', '010-1234-5678', '02-000-0000']),
     chargers: generateRandomChargers(),
     isParkingFree: generateRandomData<boolean>([true, false]),

@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { useExternalValue } from '@utils/external-state';
 import { getDisplayPosition } from '@utils/google-maps';
+import { getQueryFormattedUrl } from '@utils/request-query-params';
 
 import { stationFilterStore } from '@stores/stationFilterStore';
 
@@ -10,18 +11,24 @@ import { BASE_URL } from '@constants';
 import type { StationSummary } from 'types';
 
 export const fetchStation = async (map: google.maps.Map) => {
-  const displayPosition = getDisplayPosition(map);
-  const displayPositionString = Object.fromEntries(
-    Object.entries(displayPosition).map(([key, value]) => [key, String(value)])
+  const displayPosition = Object.fromEntries(
+    Object.entries(getDisplayPosition(map)).map(([key, value]) => [key, String(value)])
   );
 
-  const displayPositionParams = String(new URLSearchParams(displayPositionString));
+  const companyNameExample = ['파워큐브', '에버온', '환경부', '한국전력'];
+  const capacityExample = [3, 7, 50, 100, 200];
 
-  const stations = await fetch(`${BASE_URL}/stations?${displayPositionParams}`, {
+  const requestQueryParams = getQueryFormattedUrl({
+    ...displayPosition,
+    companyName: companyNameExample.join(','),
+    capacity: capacityExample.join(','),
+  });
+
+  const stations = await fetch(`${BASE_URL}/stations?${requestQueryParams}`, {
     method: 'GET',
   }).then<StationSummary[]>(async (response) => {
     const data = await response.json();
-    
+
     return data.stations;
   });
 
@@ -33,6 +40,7 @@ export const useStations = (map: google.maps.Map) => {
     isAvailableStationFilterSelected,
     isFastChargeStationFilterSelected,
     isParkingFreeStationFilterSelected,
+    isPrivateStationFilterSelected,
   } = useExternalValue(stationFilterStore);
 
   return useQuery({
@@ -40,14 +48,15 @@ export const useStations = (map: google.maps.Map) => {
     queryFn: () => fetchStation(map),
     select: (data) => {
       return data.filter((station) => {
-        const { availableCount, isParkingFree, chargers } = station;
+        const { availableCount, isParkingFree, chargers, isPrivate } = station;
 
         const isNoAvailable = isAvailableStationFilterSelected && availableCount === 0;
         const isNoFastCharge =
           isFastChargeStationFilterSelected && !chargers.some((charger) => charger.capacity >= 50);
         const isNoFreeParking = isParkingFreeStationFilterSelected && !isParkingFree;
+        const isNoPrivate = isPrivateStationFilterSelected && !isPrivate;
 
-        if (isNoAvailable || isNoFastCharge || isNoFreeParking) return false;
+        if (isNoAvailable || isNoFastCharge || isNoFreeParking || isNoPrivate) return false;
         return true;
       });
     },

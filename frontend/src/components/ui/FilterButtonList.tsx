@@ -10,6 +10,7 @@ const FilterButtonList = () => {
       isAvailableStationFilterSelected,
       isFastChargeStationFilterSelected,
       isParkingFreeStationFilterSelected,
+      isPrivateStationFilterSelected,
     },
     setFilterOption,
   ] = useExternalState(stationFilterStore);
@@ -35,6 +36,13 @@ const FilterButtonList = () => {
     }));
   };
 
+  const togglePrivateStation = () => {
+    setFilterOption((prev) => ({
+      ...prev,
+      isPrivateStationFilterSelected: !prev.isPrivateStationFilterSelected,
+    }));
+  };
+
   return (
     <Container>
       <Button onClick={toggleAvailableStation} isActive={isAvailableStationFilterSelected}>
@@ -45,6 +53,9 @@ const FilterButtonList = () => {
       </Button>
       <Button onClick={toggleFastChargeStation} isActive={isFastChargeStationFilterSelected}>
         급속
+      </Button>
+      <Button onClick={togglePrivateStation} isActive={isPrivateStationFilterSelected}>
+        외부인 출입 제한
       </Button>
     </Container>
   );
