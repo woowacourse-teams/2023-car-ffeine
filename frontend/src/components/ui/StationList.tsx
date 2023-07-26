@@ -92,7 +92,7 @@ const StationList = () => {
 const Container = styled.div`
   position: fixed;
   top: 0;
-  left: 70px;
+  left: 7rem;
   z-index: 999;
   padding: 10px;
   background-color: white;

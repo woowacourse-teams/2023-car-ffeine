@@ -15,7 +15,7 @@ const fixedPositionCss = css`
 `;
 
 const paddingCss = css`
-  padding-top: 20px;
+  padding-top: 2rem;
 `;
 
 const Navigator = () => {
