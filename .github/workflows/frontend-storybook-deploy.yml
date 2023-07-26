@@ -10,13 +10,28 @@ jobs:
   deploy:
     runs-on: self-hosted
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Set up Repository
+        uses: actions/checkout@v3
 
-      - name: Install dependencies
-        run: npm install
+      - name: Set up Node 18.16.0
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.16.0
 
-      - name: Build Storybook
+      - name: Cache node_modules
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: npm clean install
+        run: npm ci
+        if: steps.cache.outputs.cache-hit != 'true'
+
+      - name: npm build
         run: npm run build-storybook
 
       - name: Deploy Prod use SCP
