@@ -54,9 +54,9 @@ module.exports = {
       '@utils': path.resolve(__dirname, './src/utils'),
       '@hooks': path.resolve(__dirname, './src/hooks'),
       '@stores': path.resolve(__dirname, './src/stores'),
-      '@constants': path.resolve(__dirname, './src/constants/index'),
+      '@constants': path.resolve(__dirname, './src/constants'),
       '@assets': path.resolve(__dirname, './src/assets'),
-      '@style': path.resolve(__dirname, './src/style/index'),
+      '@style': path.resolve(__dirname, './src/style'),
     },
   },
   plugins: [
