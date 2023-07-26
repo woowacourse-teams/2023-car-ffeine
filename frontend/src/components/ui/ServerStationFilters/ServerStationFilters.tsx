@@ -30,6 +30,10 @@ const overFlowCss = css`
   }
 `;
 
+const borderCss = css`
+  border-right: 0.1rem solid \#dddddd;
+`;
+
 const ServerStationFilters = () => {
   const isOpen = useExternalValue(serverStationFiltersOpenStore);
 
@@ -43,9 +47,10 @@ const ServerStationFilters = () => {
       alignItems={'center'}
       background={'white'}
       css={`
-        ${fixedPositionCss}${paddingCss}${overFlowCss}
+        ${fixedPositionCss}${paddingCss}${overFlowCss}${borderCss}
       `}
       nowrap={true}
+      noRadius={'all'}
       gap={6}
     >
       <FilterSection title={'커넥터 타입'} filterOptions={Object.values(CHARGER_TYPE)} />
