@@ -43,4 +43,36 @@ class FaultReportRepositoryTest {
         // then
         assertThat(saved.getId()).isNotNull();
     }
+
+    @Test
+    void 충전소와_회원_id_고장신고가_있으면_true를_반환한다() {
+        // given
+        FaultReport faultReport = FaultReport.builder()
+                .station(station)
+                .memberId(123L)
+                .build();
+        faultReportRepository.save(faultReport);
+
+        // when
+        boolean result = faultReportRepository.existsByStationAndMemberId(station, 123L);
+
+        // then
+        assertThat(result).isTrue();
+    }
+
+    @Test
+    void 충전소와_회원_id_고장신고가_없으면_false를_반환한다() {
+        // given
+        FaultReport faultReport = FaultReport.builder()
+                .station(station)
+                .memberId(123L)
+                .build();
+        faultReportRepository.save(faultReport);
+
+        // when
+        boolean result = faultReportRepository.existsByStationAndMemberId(station, 1L);
+
+        // then
+        assertThat(result).isFalse();
+    }
 }

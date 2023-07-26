@@ -28,8 +28,13 @@ public class ReportService {
         return faultReportRepository.save(faultReport);
     }
 
+    public boolean isAlreadyReportStation(Long memberId, String stationId) {
+        Station station = findStationById(stationId);
+        return faultReportRepository.existsByStationAndMemberId(station, memberId);
+    }
+
     private void validateDuplicateReport(Long memberId, Station station) {
-        if (faultReportRepository.existsByStationAndMemberId(station, memberId)) {
+        if (isAlreadyReportStation(memberId, station.getStationId())) {
             throw new ReportException(ReportExceptionType.DUPLICATE_REPORT);
         }
     }
