@@ -43,7 +43,7 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           host: ${{ secrets.DEV_HOST }}
           key: ${{ secrets.SERVER_KEY }}
-          source: "storybook-static/*"
+          source: "**/storybook-static/*"
           strip_components: 1
           target: "/home/ubuntu/storybook"
 #      - name: Log in to Docker Hub
