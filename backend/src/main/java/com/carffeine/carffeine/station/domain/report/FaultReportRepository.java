@@ -10,4 +10,6 @@ public interface FaultReportRepository extends Repository<FaultReport, Long> {
     FaultReport save(FaultReport faultReport);
 
     List<FaultReport> findByStation(Station station);
+
+    boolean existsByStationAndMemberId(Station station, Long memberId);
 }

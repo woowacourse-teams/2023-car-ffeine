@@ -6,6 +6,8 @@ import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.domain.station.StationRepository;
 import com.carffeine.carffeine.station.exception.StationException;
 import com.carffeine.carffeine.station.exception.StationExceptionType;
+import com.carffeine.carffeine.station.exception.report.ReportException;
+import com.carffeine.carffeine.station.exception.report.ReportExceptionType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +20,18 @@ public class ReportService {
 
     public FaultReport saveFaultReport(String stationId, Long memberId) {
         Station station = findStationById(stationId);
+        validateDuplicateReport(memberId, station);
         FaultReport faultReport = FaultReport.builder()
                 .memberId(memberId)
                 .station(station)
                 .build();
         return faultReportRepository.save(faultReport);
+    }
+
+    private void validateDuplicateReport(Long memberId, Station station) {
+        if (faultReportRepository.existsByStationAndMemberId(station, memberId)) {
+            throw new ReportException(ReportExceptionType.DUPLICATE_REPORT);
+        }
     }
 
     private Station findStationById(String stationId) {

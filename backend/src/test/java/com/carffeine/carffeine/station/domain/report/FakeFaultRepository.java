@@ -30,4 +30,10 @@ public class FakeFaultRepository implements FaultReportRepository {
                 .filter(it -> it.getStation().equals(station))
                 .toList();
     }
+
+    @Override
+    public boolean existsByStationAndMemberId(Station station, Long memberId) {
+        return map.values().stream()
+                .anyMatch(it -> it.getStation().equals(station) && it.getMemberId().equals(memberId));
+    }
 }
