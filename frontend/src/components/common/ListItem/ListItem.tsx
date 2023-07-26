@@ -1,3 +1,4 @@
+import type { CSSProp } from 'styled-components';
 import styled from 'styled-components';
 
 import type { ReactNode } from 'react';
@@ -6,6 +7,7 @@ interface ListItemProps {
   children: ReactNode;
   divider?: boolean;
   clickable?: boolean;
+  css?: CSSProp;
 }
 
 const ListItemWrapper = styled.li<ListItemProps>`
@@ -20,6 +22,8 @@ const ListItemWrapper = styled.li<ListItemProps>`
       background-color: #f0f0f0;
     }
   `}
+
+  ${({ css }) => css};
 `;
 
 const ListItem = ({ children, ...props }: ListItemProps) => {
