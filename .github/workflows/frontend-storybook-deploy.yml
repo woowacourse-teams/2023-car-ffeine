@@ -36,14 +36,15 @@ jobs:
 
       - name: npm build
         run: npm run build-storybook
-
+      - name: echo
+        run: pwd
       - name: Deploy Prod use SCP
         uses: appleboy/scp-action@master
         with:
           username: ${{ secrets.SERVER_USERNAME }}
           host: ${{ secrets.DEV_HOST }}
           key: ${{ secrets.SERVER_KEY }}
-          source: ./storybook-static/
+          source: ./frontend/storybook-static
           target: /home/ubuntu/storybook
 #      - name: Log in to Docker Hub
 #        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
