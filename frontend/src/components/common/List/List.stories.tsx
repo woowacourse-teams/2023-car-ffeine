@@ -13,13 +13,27 @@ const meta = {
   tags: ['autodocs'],
   args: {
     children: 'List',
+    p: 0,
+    border: false,
   },
   argTypes: {
     children: {
       control: {
         type: 'text',
       },
-      description: '리스트의 하위 요소는 <ListItem/> 컴포넌트가 와야합니다.',
+      description: '리스트의 하위 요소는 `<ListItem/>` 컴포넌트가 와야합니다.',
+    },
+    p: {
+      control: {
+        type: 'number',
+      },
+      description: 'padding을 줄 수 있습니다. 숫자 * 0.4rem 만큼 적용됩니다.',
+    },
+    border: {
+      control: {
+        type: 'boolean',
+      },
+      description: 'border를 기본적으로 줄 수 있습니다.',
     },
   },
 } satisfies Meta<typeof List>;
@@ -66,26 +80,5 @@ export const ListWithBorder = () => {
         <Text>리스트라니</Text>
       </ListItem>
     </List>
-  );
-};
-
-export const Menu = () => {
-  return (
-    <div style={{ width: '150px' }}>
-      <List border>
-        <ListItem clickable>
-          <Text variant="body">메뉴1</Text>
-        </ListItem>
-        <ListItem clickable>
-          <Text variant="body">메뉴2</Text>
-        </ListItem>
-        <ListItem clickable divider>
-          <Text variant="body">메뉴3</Text>
-        </ListItem>
-        <ListItem clickable>
-          <Text variant="body">로그아웃</Text>
-        </ListItem>
-      </List>
-    </div>
   );
 };

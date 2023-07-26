@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import type { ReactNode } from 'react';
 
-interface ListItemProps {
+export interface ListItemProps {
   children: ReactNode;
   divider?: boolean;
   clickable?: boolean;
