@@ -15,13 +15,15 @@ export const handlers = [
     const latitudeDelta = Number(searchParams.get('latitudeDelta'));
     const longitudeDelta = Number(searchParams.get('longitudeDelta'));
 
-    const isChargerTypeFilterSelected = searchParams.get('chargerType') !== null;
-    const isCapacityFilterSelected = searchParams.get('capacity') !== null;
-    const isCompanyNameFilterSelected = searchParams.get('companyName') !== null;
+    const isChargerTypeFilterSelected = searchParams.get('chargerTypes') !== null;
+    const isCapacityFilterSelected = searchParams.get('capacities') !== null;
+    const isCompanyNameFilterSelected = searchParams.get('companyNames') !== null;
 
-    const selectedChargerTypes = searchParams.get('chargerType')?.split(',');
-    const selectedCapacities = searchParams.get('capacity')?.split(',')?.map(Number);
-    const selectedCompanyNames = searchParams.get('companyName').split(',');
+    const selectedChargerTypes = searchParams.get('chargerTypes')?.split(',');
+    const selectedCapacities = searchParams.get('capacities')?.split(',')?.map(Number);
+    const selectedCompanyNames = searchParams.get('companyNames')?.split(',');
+
+    console.log(selectedCapacities);
 
     const northEastBoundary = {
       latitude: latitude + latitudeDelta,

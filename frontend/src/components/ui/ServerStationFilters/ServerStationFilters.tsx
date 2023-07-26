@@ -1,10 +1,12 @@
 import { css } from 'styled-components';
 
-import { useExternalValue } from '@utils/external-state';
+import { useExternalState, useExternalValue } from '@utils/external-state';
 
+import { getGoogleMapStore } from '@stores/googleMapStore';
 import { serverStationFiltersOpenStore } from '@stores/serverStationFiltersOpenStore';
 
 import { useServerStationFilters } from '@hooks/useServerStationFilters';
+import { useUpdateStations } from '@hooks/useUpdateStations';
 
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
@@ -50,7 +52,10 @@ const buttonCss = css`
 `;
 
 const ServerStationFilters = () => {
-  const isOpen = useExternalValue(serverStationFiltersOpenStore);
+  const googleMap = useExternalValue(getGoogleMapStore());
+  const [isOpen, setIsOpen] = useExternalState(serverStationFiltersOpenStore);
+
+  const { updateStations } = useUpdateStations();
 
   const {
     toggleSelectCapacityFilter,
@@ -60,6 +65,11 @@ const ServerStationFilters = () => {
     getIsChargerTypeSelected,
     getIsCompanyNameSelected,
   } = useServerStationFilters();
+
+  const handleApplySelectedFilters = () => {
+    updateStations(googleMap);
+    setIsOpen(false);
+  };
 
   if (!isOpen) return <></>;
 
@@ -99,7 +109,12 @@ const ServerStationFilters = () => {
         toggleSelectFilter={toggleSelectCompanyNamesFilter}
         getIsFilterSelected={getIsCompanyNameSelected}
       />
-      <Button background={'#0064FF'} css={buttonCss} noRadius={'all'}>
+      <Button
+        background={'#0064FF'}
+        css={buttonCss}
+        noRadius={'all'}
+        onClick={handleApplySelectedFilters}
+      >
         <Text variant={'h6'}>적용하기</Text>
       </Button>
     </FlexBox>

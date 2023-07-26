@@ -1,9 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { useExternalValue } from '@utils/external-state';
+import { getStoreSnapshot } from '@utils/external-state/tools';
 import { getDisplayPosition } from '@utils/google-maps';
 import { getQueryFormattedUrl } from '@utils/request-query-params';
 
+import {
+  selectedCapacitiesFilterStore,
+  selectedChargerTypesFilterStore,
+  selectedCompanyNamesFilterStore,
+} from '@stores/selectedServerStationFiltersStore';
 import { stationFilterStore } from '@stores/stationFilterStore';
 
 import { BASE_URL } from '@constants';
@@ -15,13 +21,13 @@ export const fetchStation = async (map: google.maps.Map) => {
     Object.entries(getDisplayPosition(map)).map(([key, value]) => [key, String(value)])
   );
 
-  const companyNameExample = ['파워큐브', '에버온', '환경부', '한국전력'];
-  const capacityExample = [3, 7, 50, 100, 200];
-
   const requestQueryParams = getQueryFormattedUrl({
     ...displayPosition,
-    companyName: companyNameExample.join(','),
-    capacity: capacityExample.join(','),
+    companyNames: getStoreSnapshot(selectedCompanyNamesFilterStore).join(','),
+    capacities: getStoreSnapshot(selectedCapacitiesFilterStore)
+      .map((capacity) => `${capacity}.00`)
+      .join(','),
+    chargerTypes: getStoreSnapshot(selectedChargerTypesFilterStore).join(','),
   });
 
   const stations = await fetch(`${BASE_URL}/stations?${requestQueryParams}`, {
