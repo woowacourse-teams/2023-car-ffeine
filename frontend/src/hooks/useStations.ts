@@ -40,6 +40,7 @@ export const useStations = (map: google.maps.Map) => {
     isAvailableStationFilterSelected,
     isFastChargeStationFilterSelected,
     isParkingFreeStationFilterSelected,
+    isPrivateStationFilterSelected,
   } = useExternalValue(stationFilterStore);
 
   return useQuery({
@@ -47,14 +48,15 @@ export const useStations = (map: google.maps.Map) => {
     queryFn: () => fetchStation(map),
     select: (data) => {
       return data.filter((station) => {
-        const { availableCount, isParkingFree, chargers } = station;
+        const { availableCount, isParkingFree, chargers, isPrivate } = station;
 
         const isNoAvailable = isAvailableStationFilterSelected && availableCount === 0;
         const isNoFastCharge =
           isFastChargeStationFilterSelected && !chargers.some((charger) => charger.capacity >= 50);
         const isNoFreeParking = isParkingFreeStationFilterSelected && !isParkingFree;
+        const isNoPrivate = isPrivateStationFilterSelected && !isPrivate;
 
-        if (isNoAvailable || isNoFastCharge || isNoFreeParking) return false;
+        if (isNoAvailable || isNoFastCharge || isNoFreeParking || isNoPrivate) return false;
         return true;
       });
     },
