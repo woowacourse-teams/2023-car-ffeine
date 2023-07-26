@@ -38,14 +38,15 @@ const Navigator = () => {
     <FlexBox
       width={7}
       height={'100vh'}
-      direction="column"
-      alignItems="center"
+      direction={'column'}
+      alignItems={'center'}
       background={'white'}
       gap={7.5}
       css={`
         ${fixedPositionCss}${paddingCss}${borderCss}
       `}
-      noRadius="all"
+      noRadius={'all'}
+      nowrap={true}
     >
       <img alt="로고 아이콘" src={LogoIcon} width={30} height={30} style={{ cursor: 'pointer' }} />
       <img
