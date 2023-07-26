@@ -39,7 +39,7 @@ const Navigator = () => {
       width={7}
       height={'100vh'}
       direction="column"
-      alignContent="center"
+      alignItems="center"
       background={'white'}
       gap={7.5}
       css={`
