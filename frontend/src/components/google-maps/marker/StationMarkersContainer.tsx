@@ -1,14 +1,9 @@
-import { useExternalValue } from '@utils/external-state';
-
-import { getGoogleMapStore } from '@stores/googleMapStore';
-
 import { useStations } from '@hooks/useStations';
 
 import StationMarker from './StationMarker';
 
 const StationMarkersContainer = () => {
-  const googleMap = useExternalValue(getGoogleMapStore());
-  const { data: stations, isSuccess } = useStations(googleMap);
+  const { data: stations, isSuccess } = useStations();
 
   if (!stations || !isSuccess) {
     return <></>;

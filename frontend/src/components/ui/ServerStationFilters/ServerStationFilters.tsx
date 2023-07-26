@@ -67,7 +67,7 @@ const ServerStationFilters = () => {
   } = useServerStationFilters();
 
   const handleApplySelectedFilters = () => {
-    updateStations(googleMap);
+    updateStations();
     setIsOpen(false);
   };
 

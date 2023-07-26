@@ -19,8 +19,6 @@ export const useServerStationFilters = () => {
     selectedCapacitiesFilterStore
   );
 
-  console.log(selectedCompanyNamesFilters, selectChargerTypesFilters, selectedCapacityFilters);
-
   const toggleSelectCompanyNamesFilter = (
     filter: (typeof COMPANY_NAME)[keyof typeof COMPANY_NAME]
   ) => {

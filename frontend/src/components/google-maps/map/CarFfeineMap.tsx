@@ -47,16 +47,16 @@ const CarFfeineMapListener = () => {
 
     googleMap.addListener('dragend', () => {
       console.log('dragend');
-      updateStations(googleMap);
+      updateStations();
     });
 
     googleMap.addListener('zoom_changed', () => {
       console.log('zoom_changed');
-      updateStations(googleMap);
+      updateStations();
     });
 
     const initMarkersEvent = googleMap.addListener('bounds_changed', () => {
-      updateStations(googleMap);
+      updateStations();
       google.maps.event.removeListener(initMarkersEvent);
     });
   }, []);

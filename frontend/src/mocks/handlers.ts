@@ -23,8 +23,6 @@ export const handlers = [
     const selectedCapacities = searchParams.get('capacities')?.split(',')?.map(Number);
     const selectedCompanyNames = searchParams.get('companyNames')?.split(',');
 
-    console.log(selectedCapacities);
-
     const northEastBoundary = {
       latitude: latitude + latitudeDelta,
       longitude: longitude + longitudeDelta,
