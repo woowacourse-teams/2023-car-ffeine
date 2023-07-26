@@ -32,7 +32,7 @@ const Navigator = () => {
       `}
       noRadius="all"
     >
-      <img alt="로고 아이콘" src={LogoIcon} width={25} height={25} style={{ cursor: 'pointer' }} />
+      <img alt="로고 아이콘" src={LogoIcon} width={30} height={30} style={{ cursor: 'pointer' }} />
       <img
         alt="검색 아이콘"
         src={SearchIcon}
