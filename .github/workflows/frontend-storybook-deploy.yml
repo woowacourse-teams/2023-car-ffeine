@@ -42,7 +42,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Storybook
-          path: frontend/dist
+          path: ./dist
   deploy:
     needs: build
     runs-on: self-hosted
