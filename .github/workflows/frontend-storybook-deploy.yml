@@ -46,9 +46,9 @@ jobs:
     needs: build
     runs-on: self-hosted
     steps:
-#      - name: Remove previous version app
-#        working-directory: frontend/dev/
-#        run: rm -rf dist
+      - name: Remove previous version app
+        working-directory: frontend/dev/
+        run: rm -rf dist
 
       - name: Download build file from artifact
         uses: actions/download-artifact@v3
@@ -59,4 +59,5 @@ jobs:
       - name: Deploy to WAS
         working-directory: frontend/dev/
         run: |
+          rm -rf /home/ubuntu/dist/*
           cp -r ./dist /home/ubuntu
