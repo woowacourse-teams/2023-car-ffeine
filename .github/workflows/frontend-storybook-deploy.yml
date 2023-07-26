@@ -57,6 +57,6 @@ jobs:
           path: frontend/dev/dist
 
       - name: Deploy to WAS
-        working-directory: ./frontend/dev/
+        working-directory: frontend/dev/
         run: |
           cp -r ./dist /home/ubuntu
