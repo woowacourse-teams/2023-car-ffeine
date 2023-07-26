@@ -138,4 +138,21 @@ public class StationFixture {
                     )
             )
             .build();
+
+    public static final Station 빈_충전소_충전기_0개_사용가능_0개 = Station.builder()
+            .stationId("MZ101013")
+            .stationName("빈 충전소")
+            .companyName("이브이시스")
+            .address("삼성동 143-19")
+            .isParkingFree(true)
+            .operatingTime("24시간 이용가능")
+            .detailLocation("1층")
+            .latitude(Latitude.from("34.3994933"))
+            .longitude(Longitude.from("123.3994933"))
+            .isPrivate(false)
+            .contact("010-2xxx-xxxx")
+            .stationState("yyyy-mm-dd일부터 충전소 오픈합니다.")
+            .privateReason("이용 제한 사유 없습니다.")
+            .chargers(List.of())
+            .build();
 }
