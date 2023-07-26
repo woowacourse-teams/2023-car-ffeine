@@ -1,5 +1,10 @@
 import { css } from 'styled-components';
 
+import { useSetExternalState } from '@utils/external-state';
+
+import { serverStationFiltersOpenStore } from '@stores/serverStationFiltersOpenStore';
+
+import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 
 import FilterIcon from '@assets/filter-icon.svg';
@@ -18,7 +23,17 @@ const paddingCss = css`
   padding-top: 2rem;
 `;
 
+const borderCss = css`
+  border-right: 0.1rem solid \#dddddd;
+`;
+
 const Navigator = () => {
+  const setServerStationFiltersOpenStore = useSetExternalState(serverStationFiltersOpenStore);
+
+  const toggleOpenServerStationFilters = () => {
+    setServerStationFiltersOpenStore((prev) => !prev);
+  };
+
   return (
     <FlexBox
       width={7}
@@ -28,7 +43,7 @@ const Navigator = () => {
       background={'white'}
       gap={7.5}
       css={`
-        ${fixedPositionCss}${paddingCss}
+        ${fixedPositionCss}${paddingCss}${borderCss}
       `}
       noRadius="all"
     >
@@ -40,13 +55,15 @@ const Navigator = () => {
         height={25}
         style={{ cursor: 'pointer' }}
       />
-      <img
-        alt="필터링 메뉴 열기 아이콘"
-        src={FilterIcon}
-        width={25}
-        height={25}
-        style={{ cursor: 'pointer' }}
-      />
+      <Button onClick={toggleOpenServerStationFilters}>
+        <img
+          alt="필터링 메뉴 열기 아이콘"
+          src={FilterIcon}
+          width={25}
+          height={25}
+          style={{ cursor: 'pointer' }}
+        />
+      </Button>
       <img
         alt="리스트 보기 아이콘"
         src={ListMenuIcon}
