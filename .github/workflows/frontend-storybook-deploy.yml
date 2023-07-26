@@ -30,6 +30,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
+      - name: npm  install
+        run: npm install
+        if: steps.cache.outputs.cache-hit != 'true'
+
       - name: npm build
         run: npm run build-storybook
 
