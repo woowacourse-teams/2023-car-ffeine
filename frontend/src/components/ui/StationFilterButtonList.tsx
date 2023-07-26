@@ -4,7 +4,7 @@ import { useExternalState } from '@utils/external-state';
 
 import { stationFilterStore } from '@stores/stationFilterStore';
 
-const FilterButtonList = () => {
+const StationFilterButtonList = () => {
   const [
     {
       isAvailableStationFilterSelected,
@@ -87,4 +87,4 @@ const Button = styled.button<ButtonProps>`
   background-color: ${(props) => (props.isActive ? 'black' : 'white')};
 `;
 
-export default FilterButtonList;
+export default StationFilterButtonList;
