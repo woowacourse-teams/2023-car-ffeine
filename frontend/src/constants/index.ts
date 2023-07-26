@@ -26,7 +26,7 @@ export const ERROR_MESSAGES = {
   STATION_DETAILS_FETCH_ERROR: `${ERROR_PREFIX} 충전소 세부 정보를 불러올 수 없습니다.`,
 } as const;
 
-export const CHARGER_TYPE = {
+export const CHARGER_TYPES = {
   DC_FAST: 'DC 차데모',
   AC_SLOW: 'AC 완속',
   DC_AC_3PHASE: 'DC 차데모+AC 3상',
@@ -34,7 +34,7 @@ export const CHARGER_TYPE = {
   DC_DC_COMBO: 'DC 차데모+DC 콤보',
   DC_AC_DC_COMBO: 'DC 차데모+AC 3상+DC 콤보',
   AC_3PHASE: 'AC 3상',
-};
+} as const;
 
 export const COMPANY_NAME = {
   AM: '아마노코리아',
@@ -137,6 +137,6 @@ export const COMPANY_NAME = {
   UN: '유니이브이',
   US: '울산시',
   YY: '양양군',
-};
+} as const;
 
-export const CHARGE_SPEEDS = [3, 7, 50, 100, 200];
+export const CAPACITIES = [3, 7, 50, 100, 200] as const;

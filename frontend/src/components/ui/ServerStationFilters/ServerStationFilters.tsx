@@ -4,11 +4,17 @@ import { useExternalValue } from '@utils/external-state';
 
 import { serverStationFiltersOpenStore } from '@stores/serverStationFiltersOpenStore';
 
-import FlexBox from '@common/FlexBox';
+import { useServerStationFilters } from '@hooks/useServerStationFilters';
 
-import { CHARGER_TYPE, CHARGE_SPEEDS, COMPANY_NAME } from '@constants';
+import Button from '@common/Button';
+import FlexBox from '@common/FlexBox';
+import Text from '@common/Text';
+
+import { CHARGER_TYPES, CAPACITIES, COMPANY_NAME } from '@constants';
 
 import FilterSection from './FilterOption';
+
+import type { ChargerType } from 'types';
 
 const fixedPositionCss = css`
   position: fixed;
@@ -18,7 +24,7 @@ const fixedPositionCss = css`
 `;
 
 const paddingCss = css`
-  padding: 1.5rem 1rem;
+  padding-top: 1.5rem;
 `;
 
 const overFlowCss = css`
@@ -34,8 +40,26 @@ const borderCss = css`
   border-right: 0.1rem solid \#dddddd;
 `;
 
+const buttonCss = css`
+  width: 100%;
+  height: 6rem;
+
+  flex-shrink: 0;
+
+  color: \#fff;
+`;
+
 const ServerStationFilters = () => {
   const isOpen = useExternalValue(serverStationFiltersOpenStore);
+
+  const {
+    toggleSelectCapacityFilter,
+    toggleSelectChargerTypesFilter,
+    toggleSelectCompanyNamesFilter,
+    getIsCapacitySelected,
+    getIsChargerTypeSelected,
+    getIsCompanyNameSelected,
+  } = useServerStationFilters();
 
   if (!isOpen) return <></>;
 
@@ -43,23 +67,41 @@ const ServerStationFilters = () => {
     <FlexBox
       width={28}
       height={'100vh'}
-      direction={'column'}
       alignItems={'center'}
+      direction={'column'}
       background={'white'}
       css={`
-        ${fixedPositionCss}${paddingCss}${overFlowCss}${borderCss}
+        ${fixedPositionCss}${overFlowCss}${borderCss}${paddingCss}
       `}
       nowrap={true}
       noRadius={'all'}
       gap={6}
     >
-      <FilterSection title={'커넥터 타입'} filterOptions={Object.values(CHARGER_TYPE)} />
+      <FilterSection
+        title={'커넥터 타입'}
+        filterOptionNames={Object.values(CHARGER_TYPES)}
+        filterOptionValues={Object.keys(CHARGER_TYPES) as ChargerType[]}
+        toggleSelectFilter={toggleSelectChargerTypesFilter}
+        getIsFilterSelected={getIsChargerTypeSelected}
+      />
       <FilterSection
         title={'충전 속도'}
-        filterOptions={CHARGE_SPEEDS.map(String)}
+        filterOptionNames={[...CAPACITIES]}
+        filterOptionValues={[...CAPACITIES]}
         filterButtonVariant={'sm'}
+        toggleSelectFilter={toggleSelectCapacityFilter}
+        getIsFilterSelected={getIsCapacitySelected}
       />
-      <FilterSection title={'충전 사업자'} filterOptions={Object.values(COMPANY_NAME)} />
+      <FilterSection
+        title={'충전 사업자'}
+        filterOptionNames={Object.values(COMPANY_NAME)}
+        filterOptionValues={Object.values(COMPANY_NAME)}
+        toggleSelectFilter={toggleSelectCompanyNamesFilter}
+        getIsFilterSelected={getIsCompanyNameSelected}
+      />
+      <Button background={'#0064FF'} css={buttonCss} noRadius={'all'}>
+        <Text variant={'h6'}>적용하기</Text>
+      </Button>
     </FlexBox>
   );
 };

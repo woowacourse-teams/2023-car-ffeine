@@ -1,4 +1,4 @@
-import { CHARGER_TYPE, COMPANY_NAME } from '@constants';
+import { CHARGER_TYPES, COMPANY_NAME } from '@constants';
 
 import type { CapacityType, ChargerDetails, MockStation } from '../types';
 
@@ -11,7 +11,7 @@ const generateRandomData = <T>(array: T[]): T => {
 const generateRandomChargers = () => {
   const length = Math.floor(Math.random() * 4) + 1;
   const chargers: ChargerDetails[] = Array.from({ length }, () => ({
-    type: generateRandomData<string>([...Object.keys(CHARGER_TYPE)]),
+    type: generateRandomData<string>([...Object.keys(CHARGER_TYPES)]),
     price: generateRandomData([200, 250, 300, 350, 400]),
     capacity: generateRandomData<CapacityType>([3, 7, 50, 100, 200]),
     latestUpdateTime: generateRandomData([
