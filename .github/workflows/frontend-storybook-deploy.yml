@@ -39,7 +39,7 @@ jobs:
         run: npm run build-storybook
 
   deploy:
-    needs: build-and-upload
+    needs: build
     runs-on: self-hosted
     steps:
 #      - name: Remove previous version app
