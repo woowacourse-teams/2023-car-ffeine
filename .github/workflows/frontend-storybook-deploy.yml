@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-22.04
     defaults:
       run:
         working-directory: ./frontend
@@ -46,9 +46,9 @@ jobs:
     needs: build
     runs-on: self-hosted
     steps:
-#      - name: Remove previous version app
-#        working-directory: ./frontend/dev/
-#        run: rm -rf dist
+      - name: Remove previous version app
+        working-directory: ./frontend/dev/
+        run: rm -rf dist
 
       - name: Download build file from artifact
         uses: actions/download-artifact@v3
@@ -56,6 +56,7 @@ jobs:
           name: FrontendApplication
           path: frontend/dev/dist
 
-#      - name: Deploy to WAS
-#        working-directory: ./frontend/dev/
-#        run: |
+      - name: Deploy to WAS
+        working-directory: ./frontend/dev/
+        run: |
+          cp -r ./dist /home/ubuntu
