@@ -37,3 +37,9 @@ jobs:
 
       - name: storybook build
         run: npm run build-storybook
+
+      - name: Upload storybook build files to temp artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Storybook
+          path: frontend/dist
