@@ -2,6 +2,8 @@ import { styled } from 'styled-components';
 
 import { useSelectedStation } from '@hooks/useSelectedStation';
 
+import { CHARGER_TYPE } from '@constants';
+
 const DetailedStationInfo = () => {
   const { data: station, isLoading, isError } = useSelectedStation();
 
@@ -40,7 +42,7 @@ const DetailedStationInfo = () => {
 
         return (
           <ChargerContainer key={index}>
-            <li>{type}</li>
+            <li>{CHARGER_TYPE[type as keyof typeof CHARGER_TYPE]}</li>
             <li>가격: {price}</li>
             <li>{capacity >= 50 ? '급속' : '완속'}</li>
             {latestUpdateTime && <li>{String(latestUpdateTime)}</li>}
