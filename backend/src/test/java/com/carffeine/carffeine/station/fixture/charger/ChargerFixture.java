@@ -70,4 +70,34 @@ public class ChargerFixture {
                     .latestUpdateTime(LocalDateTime.now())
                     .build())
             .build();
+
+    public static final Charger 천호역_고속충전기_1번_사용_중 = Charger.builder()
+            .stationId("MZ101011")
+            .chargerId("01")
+            .price(BigDecimal.valueOf(324.4))
+            .method("단독")
+            .capacity(BigDecimal.valueOf(100.00))
+            .type(ChargerType.DC_COMBO)
+            .chargerStatus(ChargerStatus.builder()
+                    .stationId("MZ101011")
+                    .chargerId("01")
+                    .chargerCondition(ChargerCondition.CHARGING_IN_PROGRESS)
+                    .latestUpdateTime(LocalDateTime.now())
+                    .build())
+            .build();
+
+    public static final Charger 천호역_충전기_2번_사용_중 = Charger.builder()
+            .stationId("MZ101011")
+            .chargerId("02")
+            .price(BigDecimal.valueOf(324.4))
+            .method("단독")
+            .capacity(BigDecimal.valueOf(7.00))
+            .type(ChargerType.AC_SLOW)
+            .chargerStatus(ChargerStatus.builder()
+                    .stationId("MZ101011")
+                    .chargerId("02")
+                    .chargerCondition(ChargerCondition.CHARGING_IN_PROGRESS)
+                    .latestUpdateTime(LocalDateTime.now())
+                    .build())
+            .build();
 }

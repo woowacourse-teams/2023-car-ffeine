@@ -13,6 +13,7 @@ import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -43,7 +44,7 @@ class StationServiceTest {
         CoordinateRequest coordinateRequest = new CoordinateRequest(centerX, centerY, deltaX, deltaY);
 
         // when
-        List<Station> stations = stationService.findByCoordinate(coordinateRequest);
+        List<Station> stations = stationService.findByCoordinate(coordinateRequest, new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
 
         // then
         assertThat(stations).hasSize(1);
@@ -61,7 +62,7 @@ class StationServiceTest {
         CoordinateRequest coordinateRequest = new CoordinateRequest(centerX, centerY, deltaX, deltaY);
 
         // when
-        List<Station> stations = stationService.findByCoordinate(coordinateRequest);
+        List<Station> stations = stationService.findByCoordinate(coordinateRequest, new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
 
         // then
         assertThat(stations).isEmpty();
