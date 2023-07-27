@@ -120,6 +120,18 @@ const meta = {
       },
       description: 'position을 설정합니다.',
     },
+    top: {
+      description: 'position과 함께 쓸 수 있습니다.',
+    },
+    left: {
+      description: 'position과 함께 쓸 수 있습니다.',
+    },
+    bottom: {
+      description: 'position과 함께 쓸 수 있습니다.',
+    },
+    right: {
+      description: 'position과 함께 쓸 수 있습니다.',
+    },
   },
 } satisfies Meta<typeof Box>;
 
