@@ -12,13 +12,17 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
+import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static com.carffeine.carffeine.helper.RestDocsHelper.customDocument;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -36,7 +40,7 @@ class ReportControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    void 충전소_id가_존재하지_않다면_NOT_FOUND_예외가_발생한다() throws Exception {
+    void 충전소를_신고한다() throws Exception {
         // given
         Station station = StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
         long memberId = 12L;
@@ -59,5 +63,28 @@ class ReportControllerTest {
                         requestHeaders(headerWithName("Authorization").description("회원 id.")),
                         pathParameters(parameterWithName("stationId").description("충전소 id")))
                 );
+    }
+
+    @Test
+    void 충전소를_이미_신고했는지_확인한다() throws Exception {
+        // given
+        Station station = StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
+        long memberId = 12L;
+
+        // when
+        when(reportService.isDuplicateReportStation(memberId, station.getStationId())).thenReturn(false);
+
+        // then
+        mockMvc.perform(get("/api/stations/{stationId}/reports/me", station.getStationId())
+                        .header(HttpHeaders.AUTHORIZATION, memberId))
+
+                .andExpect(status().isOk())
+                .andDo(customDocument("duplicate-report",
+                                requestHeaders(headerWithName("Authorization").description("회원 id.")),
+                                pathParameters(parameterWithName("stationId").description("충전소 id")),
+                                responseFields(fieldWithPath("isReported").type(JsonFieldType.BOOLEAN).description("신고 여부"))
+                        )
+                );
+
     }
 }

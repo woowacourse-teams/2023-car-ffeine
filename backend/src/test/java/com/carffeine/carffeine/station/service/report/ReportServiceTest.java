@@ -59,4 +59,32 @@ class ReportServiceTest {
                 .isInstanceOf(ReportException.class)
                 .hasMessage("이미 신고한 충전소는 신고가 불가합니다");
     }
+
+    @Test
+    void 같은_회원이_신고를_했으면_true를_반환한다() {
+        // given
+        Station station = stationRepository.save(StationFixture.선릉역_충전소_충전기_2개_사용가능_1개);
+        Long memberId = 123L;
+        reportService.saveFaultReport(station.getStationId(), memberId);
+
+        // when
+        boolean result = reportService.isDuplicateReportStation(memberId, station.getStationId());
+
+        // then
+        assertThat(result).isTrue();
+    }
+
+    @Test
+    void 같은_회원이_신고를_하지_않았다면_false를_반환한다() {
+        // given
+        Station station = stationRepository.save(StationFixture.선릉역_충전소_충전기_2개_사용가능_1개);
+        reportService.saveFaultReport(station.getStationId(), 123L);
+        Long newMemberId = 1L;
+
+        // when
+        boolean result = reportService.isDuplicateReportStation(newMemberId, station.getStationId());
+
+        // then
+        assertThat(result).isFalse();
+    }
 }
