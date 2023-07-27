@@ -7,6 +7,8 @@ import { serverStationFiltersOpenStore } from '@stores/serverStationFiltersOpenS
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 
+import MswControlButton from '@ui/MswControlButton';
+
 import FilterIcon from '@assets/filter-icon.svg';
 import ListMenuIcon from '@assets/list-menu-icon.svg';
 import LogoIcon from '@assets/logo-icon.svg';
@@ -60,6 +62,7 @@ const Navigator = () => {
       <Button>
         <img alt="리스트 보기 아이콘" src={ListMenuIcon} width={26} height={26} />
       </Button>
+      {process.env.NODE_ENV === 'development' && <MswControlButton />}
     </FlexBox>
   );
 };
