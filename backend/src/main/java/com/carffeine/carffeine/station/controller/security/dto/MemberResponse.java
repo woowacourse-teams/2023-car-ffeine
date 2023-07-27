@@ -1,4 +1,4 @@
 package com.carffeine.carffeine.station.controller.security.dto;
 
-public record LoginRequest(String userName) {
+public record MemberResponse(Long id, String email) {
 }
