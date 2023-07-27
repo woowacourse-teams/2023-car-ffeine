@@ -11,6 +11,7 @@ const meta = {
   tags: ['autodocs'],
   args: {
     border: false,
+    p: 0,
   },
   argTypes: {
     children: {
