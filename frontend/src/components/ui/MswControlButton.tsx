@@ -6,10 +6,10 @@ import Text from '@common/Text';
 import { startMsw, stopMsw } from '../../mocks/configureMsw';
 
 const MswControlButton = () => {
-  const [mswMode, setMswMode] = useState(true);
+  const [isMswMode, setMswMode] = useState(true);
   const switchMswMode = async () => {
-    setMswMode(!mswMode);
-    if (mswMode) {
+    setMswMode(!isMswMode);
+    if (isMswMode) {
       await stopMsw();
     } else {
       await startMsw();
@@ -20,7 +20,7 @@ const MswControlButton = () => {
     <Button onClick={() => switchMswMode()}>
       <>
         <Text>MSW</Text>
-        <Text>{mswMode ? 'ON' : 'OFF'}</Text>
+        <Text>{isMswMode ? 'ON' : 'OFF'}</Text>
       </>
     </Button>
   );
