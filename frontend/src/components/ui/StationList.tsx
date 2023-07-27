@@ -17,7 +17,7 @@ import type { StationSummary } from 'types';
 const StationList = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
 
-  const { data: stations, isSuccess, isFetching } = useStations(googleMap);
+  const { data: stations, isSuccess, isFetching } = useStations();
   const stationMarkers = useExternalValue(markerInstanceStore);
 
   const { infoWindowInstance, briefStationInfoRoot } = useExternalValue(
@@ -33,7 +33,7 @@ const StationList = () => {
     const selectedStation = stationMarkers.find((marker) => marker.stationId === stationId);
 
     googleMap.panTo({ lat, lng });
-    updateStations(googleMap);
+    updateStations();
 
     infoWindowInstance.open({
       anchor: selectedStation.markerInstance,

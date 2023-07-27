@@ -26,7 +26,7 @@ export const ERROR_MESSAGES = {
   STATION_DETAILS_FETCH_ERROR: `${ERROR_PREFIX} 충전소 세부 정보를 불러올 수 없습니다.`,
 } as const;
 
-export const CHARGER_TYPE = {
+export const CHARGER_TYPES = {
   DC_FAST: 'DC 차데모',
   AC_SLOW: 'AC 완속',
   DC_AC_3PHASE: 'DC 차데모+AC 3상',
@@ -138,6 +138,8 @@ export const COMPANY_NAME = {
   US: '울산시',
   YY: '양양군',
 } as const;
+
+export const CAPACITIES = [3, 7, 50, 100, 200] as const;
 
 export const LOCAL_STORAGE_KEY_LAST_POSITION = 'CARFFEINE_LAST_POSITION';
 export const LOCAL_KEY_GOOGLE_MAPS_API = 'CARFFEINE_GOOGLE_MAPS_API';

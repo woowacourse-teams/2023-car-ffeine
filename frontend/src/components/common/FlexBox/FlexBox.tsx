@@ -20,6 +20,7 @@ export interface FlexBoxProps extends HTMLAttributes<HTMLDivElement> {
   height?: string | number;
   justifyContent?: keyof typeof FLEX_BOX_ITEM_POSITION;
   alignItems?: keyof typeof FLEX_BOX_ITEM_POSITION;
+  alignContent?: keyof typeof FLEX_BOX_ITEM_POSITION;
   noRadius?: BorderRadiusDirectionType;
   outlined?: boolean;
   background?: string;
@@ -67,7 +68,8 @@ const S = {
     flex-wrap: ${({ nowrap }) => (nowrap ? 'nowrap' : 'wrap')};
     flex-direction: ${({ direction }) => (direction ? direction : 'row')};
     justify-content: ${({ justifyContent }) => FLEX_BOX_ITEM_POSITION[justifyContent] || 'start'};
-    align-content: ${({ alignItems }) => FLEX_BOX_ITEM_POSITION[alignItems] || 'start'};
+    align-items: ${({ alignItems }) => FLEX_BOX_ITEM_POSITION[alignItems] || 'start'};
+    align-content: ${({ alignContent }) => FLEX_BOX_ITEM_POSITION[alignContent] || 'start'};
     gap: ${({ gap, rowGap, columnGap }) => getGap({ gap, rowGap, columnGap })};
     background: ${({ background }) => background || '#fff'};
     border: ${({ outlined }) => (outlined ? '0.15rem solid #000' : 'none')};

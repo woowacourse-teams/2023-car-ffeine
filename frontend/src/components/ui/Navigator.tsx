@@ -1,5 +1,10 @@
 import { css } from 'styled-components';
 
+import { useSetExternalState } from '@utils/external-state';
+
+import { serverStationFiltersOpenStore } from '@stores/serverStationFiltersOpenStore';
+
+import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 
 import MswControlButton from '@ui/MswControlButton';
@@ -20,42 +25,43 @@ const paddingCss = css`
   padding-top: 2rem;
 `;
 
+const borderCss = css`
+  border-right: 0.1rem solid \#dddddd;
+`;
+
 const Navigator = () => {
+  const setServerStationFiltersOpenStore = useSetExternalState(serverStationFiltersOpenStore);
+
+  const toggleOpenServerStationFilters = () => {
+    setServerStationFiltersOpenStore((prev) => !prev);
+  };
+
   return (
     <FlexBox
       width={7}
       height={'100vh'}
-      direction="column"
-      alignItems="center"
-      background={'white'}
+      direction={'column'}
+      alignItems={'center'}
+      background={'#fff'}
       gap={7.5}
       css={`
-        ${fixedPositionCss}${paddingCss}
+        ${fixedPositionCss}${paddingCss}${borderCss}
       `}
-      noRadius="all"
+      noRadius={'all'}
+      nowrap={true}
     >
-      <img alt="로고 아이콘" src={LogoIcon} width={30} height={30} style={{ cursor: 'pointer' }} />
-      <img
-        alt="검색 아이콘"
-        src={SearchIcon}
-        width={25}
-        height={25}
-        style={{ cursor: 'pointer' }}
-      />
-      <img
-        alt="필터링 메뉴 열기 아이콘"
-        src={FilterIcon}
-        width={25}
-        height={25}
-        style={{ cursor: 'pointer' }}
-      />
-      <img
-        alt="리스트 보기 아이콘"
-        src={ListMenuIcon}
-        width={25}
-        height={25}
-        style={{ cursor: 'pointer' }}
-      />
+      <Button>
+        <img alt="로고 아이콘" src={LogoIcon} width={36} height={36} />
+      </Button>
+      <Button>
+        <img alt="검색 아이콘" src={SearchIcon} width={26} height={26} />
+      </Button>
+      <Button onClick={toggleOpenServerStationFilters}>
+        <img alt="필터링 메뉴 열기 아이콘" src={FilterIcon} width={26} height={26} />
+      </Button>
+      <Button>
+        <img alt="리스트 보기 아이콘" src={ListMenuIcon} width={26} height={26} />
+      </Button>
       {process.env.NODE_ENV === 'development' && <MswControlButton />}
     </FlexBox>
   );
