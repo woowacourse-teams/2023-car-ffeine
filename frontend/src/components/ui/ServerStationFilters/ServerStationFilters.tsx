@@ -1,4 +1,4 @@
-import { css, styled } from 'styled-components';
+import { css } from 'styled-components';
 
 import { useExternalState } from '@utils/external-state';
 
@@ -8,6 +8,7 @@ import { useServerStationFilters } from '@hooks/useServerStationFilters';
 import { useUpdateStations } from '@hooks/useUpdateStations';
 
 import Button from '@common/Button';
+import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
 import { CHARGER_TYPES, CAPACITIES, COMPANY_NAME } from '@constants';
@@ -30,17 +31,26 @@ const paddingCss = css`
 const overFlowCss = css`
   overflow-y: scroll;
   overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const borderCss = css`
-  border-right: 0.1rem solid #ddd;
+  border-right: 0.1rem solid \#dddddd;
 `;
 
 const buttonCss = css`
   width: 100%;
   height: 6rem;
 
-  color: #fff;
+  position: sticky;
+  bottom: 0;
+
+  flex-shrink: 0;
+
+  color: \#fff;
 `;
 
 const ServerStationFilters = () => {
@@ -65,7 +75,19 @@ const ServerStationFilters = () => {
   if (!isOpen) return <></>;
 
   return (
-    <Container>
+    <FlexBox
+      width={28}
+      height={'100vh'}
+      alignItems={'center'}
+      direction={'column'}
+      background={'white'}
+      css={`
+        ${fixedPositionCss}${overFlowCss}${borderCss}${paddingCss}
+      `}
+      nowrap={true}
+      noRadius={'all'}
+      gap={6}
+    >
       <FilterSection
         title={'커넥터 타입'}
         filterOptionNames={Object.values(CHARGER_TYPES)}
@@ -74,7 +96,7 @@ const ServerStationFilters = () => {
         getIsFilterSelected={getIsChargerTypeSelected}
       />
       <FilterSection
-        title={'충전 속도'}
+        title={'충전 속도(kW)'}
         filterOptionNames={[...CAPACITIES]}
         filterOptionValues={[...CAPACITIES]}
         filterButtonVariant={'sm'}
@@ -96,23 +118,8 @@ const ServerStationFilters = () => {
       >
         <Text variant={'h6'}>적용하기</Text>
       </Button>
-    </Container>
+    </FlexBox>
   );
 };
-
-const Container = styled.div`
-  padding: 0 2.2rem;
-  height: 100vh;
-  background: #fff;
-
-  & > div {
-    margin-bottom: 2.4rem;
-  }
-
-  ${fixedPositionCss}
-  ${overFlowCss}
-  ${borderCss}
-  ${paddingCss}
-`;
 
 export default ServerStationFilters;
