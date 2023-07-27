@@ -25,6 +25,12 @@ const meta = {
     mx: 0,
     my: 0,
     m: 0,
+    height: 0,
+    minHeight: 0,
+    maxHeight: 0,
+    width: 0,
+    minWidth: 0,
+    maxWidth: 0,
   },
   argTypes: {
     children: {
@@ -74,6 +80,24 @@ const meta = {
     },
     m: {
       description: '4방향으로 마진을 줍니다. 우선순위가 제일 낮습니다.',
+    },
+    height: {
+      description: '높이 길이를 설정할 수 있습니다. 정수 * 0.4 rem 만큼의 길이가 설정됩니다.',
+    },
+    minHeight: {
+      description: '최소 높이 길이를 설정할 수 있습니다. 정수 * 0.4 rem 만큼의 길이가 설정됩니다.',
+    },
+    maxHeight: {
+      description: '최대 높이 길이를 설정할 수 있습니다. 정수 * 0.4 rem 만큼의 길이가 설정됩니다.',
+    },
+    width: {
+      description: '너비 길이를 설정할 수 있습니다. 정수 * 0.4 rem 만큼의 길이가 설정됩니다.',
+    },
+    minWidth: {
+      description: '최소 너비 길이를 설정할 수 있습니다. 정수 * 0.4 rem 만큼의 길이가 설정됩니다.',
+    },
+    maxWidth: {
+      description: '최대 너비 길이를 설정할 수 있습니다. 정수 * 0.4 rem 만큼의 길이가 설정됩니다.',
     },
   },
 } satisfies Meta<typeof Box>;
