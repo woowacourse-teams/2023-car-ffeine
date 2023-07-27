@@ -1,4 +1,4 @@
-import type { DAY } from '@constants';
+import type { DAY, DAY_KOR } from '@constants';
 import { type CAPACITIES, type CHARGER_TYPES, type COMPANY_NAME } from '@constants';
 
 export type CapacityType = 3 | 7 | 50 | 100 | 200;
@@ -68,6 +68,7 @@ export type CompanyName = (typeof COMPANY_NAME)[keyof typeof COMPANY_NAME];
 export type Capacity = (typeof CAPACITIES)[number];
 
 export type Day = (typeof DAY)[number];
+export type DayKorean = (typeof DAY_KOR)[number];
 
 export interface Congestion {
   hour: number;

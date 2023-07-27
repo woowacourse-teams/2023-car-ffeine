@@ -1,15 +1,26 @@
 import { styled } from 'styled-components';
 
+import FlexBox from '@common/FlexBox';
+import Text from '@common/Text';
+
 interface GraphBarProps {
-  congestionPercentage: number;
+  congestionRatio: number;
+  hour: number;
 }
 
-const GraphBar = ({ congestionPercentage }: GraphBarProps) => {
-  return <Bar congestionPercentage={congestionPercentage} />;
+const GraphBar = ({ congestionRatio, hour }: GraphBarProps) => {
+  return (
+    <FlexBox>
+      <div style={{ width: '2rem' }}>
+        <Text variant="caption">{hour}</Text>
+      </div>
+      <Bar congestionRatio={congestionRatio} />
+    </FlexBox>
+  );
 };
 
-const Bar = styled.li<GraphBarProps>`
-  width: ${(props) => `calc(26rem * ${props.congestionPercentage} / 100)`};
+const Bar = styled.li<Omit<GraphBarProps, 'hour'>>`
+  width: ${(props) => `calc(26rem * ${props.congestionRatio} / 100)`};
   height: 1rem;
 
   border-radius: 1rem;
