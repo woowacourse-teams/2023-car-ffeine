@@ -99,6 +99,12 @@ const meta = {
     maxWidth: {
       description: '최대 너비 길이를 설정할 수 있습니다. 정수 * 0.4 rem 만큼의 길이가 설정됩니다.',
     },
+    bgColor: {
+      description: '배경 색을 정할 수 있습니다.',
+    },
+    color: {
+      description: '대표 글자 색을 정할 수 있습니다.',
+    },
   },
 } satisfies Meta<typeof Box>;
 
@@ -108,14 +114,6 @@ export const Default = (args: BoxProps) => {
   return (
     <Box {...args}>
       <Text variant="body">이것은 아무것도 없는 박스입니다.</Text>
-    </Box>
-  );
-};
-
-export const Bordered = () => {
-  return (
-    <Box border>
-      <Text variant="body">테두리가 있는 박스입니다.</Text>
     </Box>
   );
 };
