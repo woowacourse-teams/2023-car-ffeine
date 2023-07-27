@@ -89,7 +89,7 @@ const BoxWrapper = styled.div<BoxProps>`
   ${({ minWidth }) => minWidth && `min-height: ${minWidth * 0.4}rem`};
   ${({ maxWidth }) => maxWidth && `max-height: ${maxWidth * 0.4}rem`};
 
-  ${({ bgColor }) => bgColor && `background-color: ${bgColor}`};
+  ${({ bgColor }) => bgColor && `background: ${bgColor}`};
   ${({ color }) => color && `color: ${color}`};
 
   ${({ position }) => position && `position: ${position}`};
