@@ -31,3 +31,11 @@ export const Default = (args: BoxProps) => {
     </Box>
   );
 };
+
+export const Bordered = () => {
+  return (
+    <Box border>
+      <Text variant="body">테두리가 있는 박스입니다.</Text>
+    </Box>
+  );
+};
