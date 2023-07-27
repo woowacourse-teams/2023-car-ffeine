@@ -26,6 +26,8 @@ export interface BoxProps {
   width?: number;
   minWidth?: number;
   maxWidth?: number;
+  bgColor?: string;
+  color?: string;
   css?: CSSProp;
 }
 
@@ -80,7 +82,10 @@ const BoxWrapper = styled.div<BoxProps>`
 
   ${({ width }) => width && `width: ${width * 0.4}rem`};
   ${({ minWidth }) => minWidth && `min-height: ${minWidth * 0.4}rem`};
-  ${({ maxWidth }) => maxWidth && `nax-height: ${maxWidth * 0.4}rem`};
+  ${({ maxWidth }) => maxWidth && `max-height: ${maxWidth * 0.4}rem`};
+
+  ${({ bgColor }) => bgColor && `background-color: ${bgColor}`};
+  ${({ color }) => color && `color: ${color}`};
 
   ${({ css }) => css};
 `;
