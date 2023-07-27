@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import type { HTMLAttributes, ReactNode } from 'react';
 
-import { borderRadius } from '@style';
+import { borderRadius, getSize } from '@style';
 
 import type { AxisType, BorderRadiusDirectionType } from 'types/style';
 
@@ -40,13 +40,6 @@ const FlexBox = ({ children, tag, ...props }: FlexBoxProps) => {
       {children}
     </S.FlexBox>
   );
-};
-
-const getSize = (size: string | number) => {
-  if (size !== undefined) {
-    return typeof size === 'number' ? `${size}rem` : size;
-  }
-  return 'auto';
 };
 
 const getGap = ({ gap, rowGap, columnGap }: Pick<FlexBoxProps, 'gap' | 'rowGap' | 'columnGap'>) => {
