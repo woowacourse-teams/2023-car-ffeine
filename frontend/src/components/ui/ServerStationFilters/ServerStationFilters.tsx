@@ -52,7 +52,6 @@ const buttonCss = css`
 `;
 
 const ServerStationFilters = () => {
-  const googleMap = useExternalValue(getGoogleMapStore());
   const [isOpen, setIsOpen] = useExternalState(serverStationFiltersOpenStore);
 
   const { updateStations } = useUpdateStations();

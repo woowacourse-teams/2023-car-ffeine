@@ -27,11 +27,11 @@ const FilterSection = ({
   getIsFilterSelected,
 }: FilterSectionProps) => {
   return (
-    <FlexBox width={26} direction={'column'}>
+    <FlexBox width={24} direction={'column'}>
       <Text variant={'h6'} mb={1}>
         {title}
       </Text>
-      <FlexBox>
+      <FlexBox gap={2}>
         {filterOptionNames.map((filterOption, index) => (
           <Button
             key={index}
