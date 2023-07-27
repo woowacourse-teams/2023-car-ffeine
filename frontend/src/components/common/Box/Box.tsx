@@ -28,6 +28,11 @@ export interface BoxProps {
   maxWidth?: number;
   bgColor?: string;
   color?: string;
+  position?: 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky';
+  top?: number;
+  right?: number;
+  bottom?: number;
+  left?: number;
   css?: CSSProp;
 }
 
@@ -86,6 +91,12 @@ const BoxWrapper = styled.div<BoxProps>`
 
   ${({ bgColor }) => bgColor && `background-color: ${bgColor}`};
   ${({ color }) => color && `color: ${color}`};
+
+  ${({ position }) => position && `position: ${position}`};
+  ${({ top }) => top && `top: ${top * 0.4}rem`};
+  ${({ right }) => right && `right: ${right * 0.4}rem`};
+  ${({ bottom }) => bottom && `bottom: ${bottom * 0.4}rem`};
+  ${({ left }) => left && `left: ${left * 0.4}rem`};
 
   ${({ css }) => css};
 `;
