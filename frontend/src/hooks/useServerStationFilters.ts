@@ -1,12 +1,12 @@
 import { useExternalState } from '@utils/external-state';
 
-import type { CHARGER_TYPES, CAPACITIES, COMPANY_NAME } from '@constants';
-
 import {
   selectedCapacitiesFilterStore,
   selectedChargerTypesFilterStore,
   selectedCompanyNamesFilterStore,
-} from './../stores/selectedServerStationFiltersStore';
+} from '@stores/selectedServerStationFiltersStore';
+
+import type { CHARGER_TYPES, CAPACITIES, COMPANY_NAME } from '@constants';
 
 export const useServerStationFilters = () => {
   const [selectedCompanyNamesFilters, setSelectedCompanyNamesFilter] = useExternalState(
