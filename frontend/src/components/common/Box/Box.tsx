@@ -20,6 +20,12 @@ export interface BoxProps {
   mr?: number;
   mt?: number;
   mb?: number;
+  height?: number;
+  minHeight?: number;
+  maxHeight?: number;
+  width?: number;
+  minWidth?: number;
+  maxWidth?: number;
   css?: CSSProp;
 }
 
@@ -67,6 +73,14 @@ const BoxWrapper = styled.div<BoxProps>`
   ${({ mr }) => mr && `margin-right: ${mr * 0.4}rem`};
   ${({ mt }) => mt && `margin-top: ${mt * 0.4}rem`};
   ${({ mb }) => mb && `margin-bottom: ${mb * 0.4}rem`};
+
+  ${({ height }) => height && `height: ${height * 0.4}rem`};
+  ${({ minHeight }) => minHeight && `min-height: ${minHeight * 0.4}rem`};
+  ${({ maxHeight }) => maxHeight && `max-height: ${maxHeight * 0.4}rem`};
+
+  ${({ width }) => width && `width: ${width * 0.4}rem`};
+  ${({ minWidth }) => minWidth && `min-height: ${minWidth * 0.4}rem`};
+  ${({ maxWidth }) => maxWidth && `nax-height: ${maxWidth * 0.4}rem`};
 
   ${({ css }) => css};
 `;
