@@ -18,6 +18,13 @@ const meta = {
     px: 0,
     py: 0,
     p: 0,
+    ml: 0,
+    mr: 0,
+    mt: 0,
+    mb: 0,
+    mx: 0,
+    my: 0,
+    m: 0,
   },
   argTypes: {
     children: {
@@ -46,6 +53,27 @@ const meta = {
     },
     p: {
       description: '4방향으로 패딩을 줍니다. 우선순위가 제일 낮습니다.',
+    },
+    ml: {
+      description: '왼쪽의 방향으로 마진을 줍니다. 우선순위가 제일 높습니다.',
+    },
+    mr: {
+      description: '오른쪽의 방향으로 마진을 줍니다. 우선순위가 제일 높습니다.',
+    },
+    mt: {
+      description: '천장의 방향으로 마진을 줍니다. 우선순위가 제일 높습니다.',
+    },
+    mb: {
+      description: '바닥의 방향으로 마진을 줍니다. 우선순위가 제일 높습니다.',
+    },
+    mx: {
+      description: 'x축의 방향으로 마진을 줍니다. 우선순위가 중간입니다.',
+    },
+    my: {
+      description: 'y축의 방향으로 마진을 줍니다. 우선순위가 중간입니다.',
+    },
+    m: {
+      description: '4방향으로 마진을 줍니다. 우선순위가 제일 낮습니다.',
     },
   },
 } satisfies Meta<typeof Box>;
