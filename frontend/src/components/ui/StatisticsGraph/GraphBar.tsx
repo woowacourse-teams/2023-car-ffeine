@@ -22,8 +22,8 @@ const GraphBar = ({ congestionRatio, hour }: GraphBarProps) => {
 };
 
 const Bar = styled.div<Omit<GraphBarProps, 'hour'>>`
-  width: ${(props) =>
-    props.congestionRatio === -1 ? '100%' : `calc(100% * ${props.congestionRatio} / 100)`};
+  width: ${({ congestionRatio }) =>
+    congestionRatio === -1 ? '100%' : `calc(100% * ${congestionRatio} / 100)`};
   height: 1.2rem;
 
   text-align: center;
