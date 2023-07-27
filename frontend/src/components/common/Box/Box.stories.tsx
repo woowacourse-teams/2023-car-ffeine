@@ -10,14 +10,14 @@ const meta = {
   component: Box,
   tags: ['autodocs'],
   args: {
-    children: 'Box',
+    border: false,
   },
   argTypes: {
     children: {
-      control: {
-        type: 'text',
-      },
       description: 'div처럼 사용할 수 있습니다.',
+    },
+    border: {
+      description: '테두리를 그릴 수 있습니다.',
     },
   },
 } satisfies Meta<typeof Box>;
