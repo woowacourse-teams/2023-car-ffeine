@@ -41,28 +41,10 @@ const Label = styled.label`
   transition: 300ms ease all;
 `;
 
-const Bar = styled.span`
-  position: relative;
-  display: block;
-  width: 320px;
-
-  &:before {
-    content: '';
-    height: 2px;
-    width: 0;
-    bottom: 0px;
-    position: absolute;
-    background: #2196f3;
-    transition: 300ms ease all;
-    left: 0%;
-  }
-`;
-
 const TextField = () => {
   return (
     <Group>
       <Input type="text" required />
-      <Bar />
       <Label>Name</Label>
     </Group>
   );
