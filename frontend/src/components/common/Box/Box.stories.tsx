@@ -31,6 +31,7 @@ const meta = {
     width: 0,
     minWidth: 0,
     maxWidth: 0,
+    position: 'absolute',
   },
   argTypes: {
     children: {
@@ -104,6 +105,20 @@ const meta = {
     },
     color: {
       description: '대표 글자 색을 정할 수 있습니다.',
+    },
+    position: {
+      options: {
+        none: false,
+        static: 'static',
+        relative: 'relative',
+        absolute: 'absolute',
+        fixed: 'fixed',
+        sticky: 'sticky',
+      },
+      control: {
+        type: 'select',
+      },
+      description: 'position을 설정합니다.',
     },
   },
 } satisfies Meta<typeof Box>;
