@@ -15,3 +15,6 @@ spring:
         show_sql: true
         format_sql: true
         use_sql_comments: true
+
+jwt:
+  secret: ENC(t6iKCv1Nj+ygRxG2oZCw3l4v9y0ALS2GfQwYIKvO0tRuPzFp4UYRZYfBFdBW+xQl77rOLbfIPJ13tys/tXj3Qw==)

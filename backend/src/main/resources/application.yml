@@ -18,4 +18,4 @@ initialize-charge:
   enabled: true
 
 jwt:
-  secret: ${JWT_KEY}
+  secret: ENC(t6iKCv1Nj+ygRxG2oZCw3l4v9y0ALS2GfQwYIKvO0tRuPzFp4UYRZYfBFdBW+xQl77rOLbfIPJ13tys/tXj3Qw==)

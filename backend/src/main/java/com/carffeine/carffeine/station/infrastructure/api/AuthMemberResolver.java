@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.station.infrastructure.api;
 
-import com.carffeine.carffeine.station.domain.security.MemberRepository;
+import com.carffeine.carffeine.station.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +21,7 @@ public class AuthMemberResolver implements HandlerMethodArgumentResolver {
 
     private static final int TOKEN_START_INDEX = 7;
 
-    private final MemberRepository memberRepository;
+    private final UserRepository userRepository;
 
     @Value("${jwt.secret}")
     private String secretKey;
@@ -41,11 +41,12 @@ public class AuthMemberResolver implements HandlerMethodArgumentResolver {
         log.info("resolverArgument 실행");
 
         HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
+        Long id = (Long) request.getAttribute("id");
         String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
 
         String token = authorization.substring(TOKEN_START_INDEX);
         Long memberId = JwtUtil.extractId(token, secretKey);
 
-        return memberRepository.findById(memberId);
+        return userRepository.findById(memberId);
     }
 }
