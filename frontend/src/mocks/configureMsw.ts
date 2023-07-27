@@ -8,3 +8,6 @@ export const startMsw = async () => {
     onUnhandledRequest: 'bypass',
   });
 };
+export const stopMsw = async () => {
+  await worker.stop();
+};
