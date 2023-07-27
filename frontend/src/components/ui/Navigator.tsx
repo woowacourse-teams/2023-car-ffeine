@@ -2,6 +2,8 @@ import { css } from 'styled-components';
 
 import FlexBox from '@common/FlexBox';
 
+import MswControlButton from '@ui/MswControlButton';
+
 import FilterIcon from '@assets/filter-icon.svg';
 import ListMenuIcon from '@assets/list-menu-icon.svg';
 import LogoIcon from '@assets/logo-icon.svg';
@@ -54,6 +56,7 @@ const Navigator = () => {
         height={25}
         style={{ cursor: 'pointer' }}
       />
+      {process.env.NODE_ENV === 'development' && <MswControlButton />}
     </FlexBox>
   );
 };
