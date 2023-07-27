@@ -38,12 +38,9 @@ public class StationService {
     @Transactional(readOnly = true)
     public List<Station> findByCoordinate(CoordinateRequest request, List<String> companyNames, List<ChargerType> chargerTypes, List<BigDecimal> capacities) {
         Coordinate coordinate = Coordinate.from(request.latitude(), request.latitudeDelta(), request.longitude(), request.longitudeDelta());
-        List<Station> stationsByCoordinate = stationRepository.findAllByLatitudeBetweenAndLongitudeBetweenWithFetch(coordinate.getMinLatitudeValue(), coordinate.getMaxLatitudeValue(), coordinate.getMinLongitudeValue(), coordinate.getMaxLongitudeValue());
+        List<Station> stationsByCoordinate = stationRepository.findAllFetchByLatitudeBetweenAndLongitudeBetween(coordinate.minLatitudeValue(), coordinate.maxLatitudeValue(), coordinate.minLongitudeValue(), coordinate.maxLongitudeValue());
 
-        Stations stations = Stations.of(stationsByCoordinate);
-        stations.filterByCompanyNames(companyNames);
-        stations.filterByChargerTypes(chargerTypes);
-        stations.filterByCapacities(capacities);
+        Stations stations = Stations.createFilteredOf(stationsByCoordinate, companyNames, chargerTypes, capacities);
 
         return stations.getStationsExclusiveEmptyChargers();
     }

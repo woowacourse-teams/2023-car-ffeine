@@ -30,19 +30,19 @@ public class Coordinate {
         return new Coordinate(minLatitude, maxLatitude, minLongitude, maxLongitude);
     }
 
-    public BigDecimal getMinLatitudeValue() {
+    public BigDecimal minLatitudeValue() {
         return minLatitude.getValue();
     }
 
-    public BigDecimal getMaxLatitudeValue() {
+    public BigDecimal maxLatitudeValue() {
         return maxLatitude.getValue();
     }
 
-    public BigDecimal getMinLongitudeValue() {
+    public BigDecimal minLongitudeValue() {
         return minLongitude.getValue();
     }
 
-    public BigDecimal getMaxLongitudeValue() {
+    public BigDecimal maxLongitudeValue() {
         return maxLongitude.getValue();
     }
 }

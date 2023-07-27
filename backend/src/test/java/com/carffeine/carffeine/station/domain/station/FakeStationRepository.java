@@ -26,7 +26,7 @@ public class FakeStationRepository implements StationRepository {
     }
 
     @Override
-    public List<Station> findAllByLatitudeBetweenAndLongitudeBetweenWithFetch(final BigDecimal minLatitude, final BigDecimal maxLatitude, final BigDecimal minLongitude, final BigDecimal maxLongitude) {
+    public List<Station> findAllFetchByLatitudeBetweenAndLongitudeBetween(final BigDecimal minLatitude, final BigDecimal maxLatitude, final BigDecimal minLongitude, final BigDecimal maxLongitude) {
         return map.values().stream()
                 .filter(it -> it.getLatitude().getValue().compareTo(minLatitude) >= 0 && it.getLatitude().getValue().compareTo(maxLatitude) <= 0)
                 .filter(it -> it.getLongitude().getValue().compareTo(minLongitude) >= 0 && it.getLongitude().getValue().compareTo(maxLongitude) <= 0)

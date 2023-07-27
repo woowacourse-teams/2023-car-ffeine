@@ -21,10 +21,10 @@ public interface StationRepository extends Repository<Station, Long> {
             "LEFT JOIN FETCH c.chargerStatus " +
             "WHERE s.latitude.value >= :minLatitude AND s.latitude.value <= :maxLatitude " +
             "AND s.longitude.value >= :minLongitude AND s.longitude.value <= :maxLongitude")
-    List<Station> findAllByLatitudeBetweenAndLongitudeBetweenWithFetch(@Param("minLatitude") BigDecimal minLatitude,
-                                                                       @Param("maxLatitude") BigDecimal maxLatitude,
-                                                                       @Param("minLongitude") BigDecimal minLongitude,
-                                                                       @Param("maxLongitude") BigDecimal maxLongitude);
+    List<Station> findAllFetchByLatitudeBetweenAndLongitudeBetween(@Param("minLatitude") BigDecimal minLatitude,
+                                                                   @Param("maxLatitude") BigDecimal maxLatitude,
+                                                                   @Param("minLongitude") BigDecimal minLongitude,
+                                                                   @Param("maxLongitude") BigDecimal maxLongitude);
 
     Optional<Station> findChargeStationByStationId(String stationId);
 

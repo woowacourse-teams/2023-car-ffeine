@@ -10,7 +10,7 @@ public class Stations {
 
     private final List<Station> stations;
 
-    private Stations(final List<Station> stations) {
+    private Stations(List<Station> stations) {
         this.stations = new ArrayList<>(stations);
     }
 
@@ -18,13 +18,26 @@ public class Stations {
         return new Stations(stations);
     }
 
-    public void filterByCompanyNames(List<String> companyNames) {
+    public static Stations createFilteredOf(List<Station> stations,
+                                            List<String> companyNames,
+                                            List<ChargerType> chargerTypes,
+                                            List<BigDecimal> capacities) {
+        List<Station> stationsCopy = new ArrayList<>(stations);
+
+        filterByCompanyNames(stationsCopy, companyNames);
+        filterByChargerTypes(stationsCopy, chargerTypes);
+        filterByCapacities(stationsCopy, capacities);
+
+        return new Stations(stationsCopy);
+    }
+
+    private static void filterByCompanyNames(List<Station> stations, List<String> companyNames) {
         if (!companyNames.isEmpty()) {
             stations.removeIf(station -> !companyNames.contains(station.getCompanyName()));
         }
     }
 
-    public void filterByChargerTypes(List<ChargerType> chargerTypes) {
+    private static void filterByChargerTypes(List<Station> stations, List<ChargerType> chargerTypes) {
         if (!chargerTypes.isEmpty()) {
             stations.removeIf(station -> station
                     .getChargers()
@@ -34,7 +47,7 @@ public class Stations {
         }
     }
 
-    public void filterByCapacities(List<BigDecimal> capacities) {
+    private static void filterByCapacities(List<Station> stations, List<BigDecimal> capacities) {
         if (!capacities.isEmpty()) {
             stations.removeIf(station -> station
                     .getChargers()
