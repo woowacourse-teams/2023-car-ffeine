@@ -1,6 +1,13 @@
-import { CHARGER_TYPES, COMPANY_NAME } from '@constants';
+import { CHARGER_TYPES, COMPANY_NAME, DAY } from '@constants';
 
-import type { CapacityType, ChargerDetails, MockStation } from '../types';
+import type {
+  CapacityType,
+  ChargerDetails,
+  Congestion,
+  CongestionStatistics,
+  Day,
+  MockStation,
+} from '../types';
 
 const generateRandomData = <T>(array: T[]): T => {
   const randomIndex = Math.floor(Math.random() * array.length);
@@ -59,3 +66,35 @@ export const stations: MockStation[] = Array.from({ length: 3000 }).map((_, inde
     privateReason: generateRandomData(['아파트', null]),
   };
 });
+
+export const congestions: CongestionStatistics = {
+  stationId: 0,
+  congestion: {
+    QUICK: Object.fromEntries(
+      DAY.map((day) => {
+        return [
+          day,
+          Array.from({ length: 24 }).map((_, i) => {
+            return {
+              hour: i,
+              ratio: Math.floor(Math.random() * 102 - 1),
+            };
+          }),
+        ];
+      })
+    ) as Record<Day, Congestion[]>,
+    STANDARD: Object.fromEntries(
+      DAY.map((day) => {
+        return [
+          day,
+          Array.from({ length: 24 }).map((_, i) => {
+            return {
+              hour: i,
+              ratio: Math.floor(Math.random() * 102 - 1),
+            };
+          }),
+        ];
+      })
+    ) as Record<Day, Congestion[]>,
+  },
+};
