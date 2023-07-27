@@ -1,20 +1,27 @@
 import styled, { css } from 'styled-components';
+import type { CSSProp } from 'styled-components';
+
+const variantList = [
+  'h1',
+  'h2',
+  'h3',
+  'h4',
+  'h5',
+  'h6',
+  'title',
+  'subtitle',
+  'label',
+  'body',
+  'caption',
+] as const;
+
+type VariantType = (typeof variantList)[number];
 
 const Text = styled.p<{
-  variant?:
-    | 'h1'
-    | 'h2'
-    | 'h3'
-    | 'h4'
-    | 'h5'
-    | 'h6'
-    | 'title'
-    | 'subtitle'
-    | 'label'
-    | 'body'
-    | 'caption';
+  variant?: VariantType;
   mb?: number;
   align?: 'center' | 'left' | 'right';
+  css?: CSSProp;
 }>`
   margin-bottom: ${({ mb }) => (mb ? `${mb * 0.4}rem` : 0)};
 
@@ -33,7 +40,9 @@ const Text = styled.p<{
           text-align: right;
         `;
       default:
-        return ``;
+        return css`
+          text-align: left;
+        `;
     }
   }}
 
@@ -97,5 +106,7 @@ const Text = styled.p<{
         `;
     }
   }}
+
+  ${({ css }) => css};
 `;
 export default Text;
