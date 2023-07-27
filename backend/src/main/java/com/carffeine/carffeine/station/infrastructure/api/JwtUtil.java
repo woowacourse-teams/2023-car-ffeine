@@ -8,12 +8,16 @@ import java.util.Date;
 
 public class JwtUtil {
 
-    public static String extractUserName(String token, String secretKey) {
-        return Jwts.parser()
-                .setSigningKey(secretKey)
-                .parseClaimsJws(token)
-                .getBody()
-                .get("userName", String.class);
+    public static String createJwtById(Long id, String secretKey, Long expiredMs) {
+        Claims claims = Jwts.claims();
+        claims.put("id", id);
+
+        return Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + expiredMs))
+                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .compact();
     }
 
     public static boolean isExpired(String token, String secretKey) {
@@ -25,15 +29,11 @@ public class JwtUtil {
                 .before(new Date());
     }
 
-    public static String createJwt(String userName, String secretKey, Long expiredMs) {
-        Claims claims = Jwts.claims();
-        claims.put("userName", userName);
-
-        return Jwts.builder()
-                .setClaims(claims)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + expiredMs))
-                .signWith(SignatureAlgorithm.HS256, secretKey)
-                .compact();
+    public static Long extractId(String token, String secretKey) {
+        return Jwts.parser()
+                .setSigningKey(secretKey)
+                .parseClaimsJws(token)
+                .getBody()
+                .get("id", Long.class);
     }
 }
