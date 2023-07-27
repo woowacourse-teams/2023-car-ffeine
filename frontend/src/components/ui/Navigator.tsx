@@ -40,7 +40,7 @@ const Navigator = () => {
       height={'100vh'}
       direction={'column'}
       alignItems={'center'}
-      background={'white'}
+      background={'#000'}
       gap={7.5}
       css={`
         ${fixedPositionCss}${paddingCss}${borderCss}
