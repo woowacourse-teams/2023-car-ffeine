@@ -121,16 +121,16 @@ const meta = {
       description: 'position을 설정합니다.',
     },
     top: {
-      description: 'position과 함께 쓸 수 있습니다.',
+      description: 'position과 함께 쓸 수 있습니다. 정수 * 0.4 rem 만큼의 길이가 설정됩니다.',
     },
     left: {
-      description: 'position과 함께 쓸 수 있습니다.',
+      description: 'position과 함께 쓸 수 있습니다. 정수 * 0.4 rem 만큼의 길이가 설정됩니다.',
     },
     bottom: {
-      description: 'position과 함께 쓸 수 있습니다.',
+      description: 'position과 함께 쓸 수 있습니다. 정수 * 0.4 rem 만큼의 길이가 설정됩니다.',
     },
     right: {
-      description: 'position과 함께 쓸 수 있습니다.',
+      description: 'position과 함께 쓸 수 있습니다. 정수 * 0.4 rem 만큼의 길이가 설정됩니다.',
     },
   },
 } satisfies Meta<typeof Box>;
