@@ -33,7 +33,7 @@ const meta = {
     width: '100%',
     height: 24,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignContent: 'center',
     outlined: true,
     direction: 'row',
     nowrap: false,
@@ -59,7 +59,7 @@ const meta = {
       description:
         '플렉스 컨테이너 안에 있는 아이템의 위치를 조절할 수 있습니다.<br>- direction이 row일 경우: 수평을 기준으로 아이템이 이동합니다.<br>- direction이 column일 경우: 수직을 기준으로 아이템이 이동합니다.',
     },
-    alignItems: {
+    alignContent: {
       options: Object.keys({ ...FLEX_BOX_ITEM_POSITION, none: undefined }),
       control: {
         type: 'select',
@@ -159,29 +159,29 @@ export const AlignItems = () => {
   return (
     <FlexBox nowrap columnGap={4} justifyContent="between">
       <FlexBox direction="column" rowGap={5}>
-        <FlexBox outlined alignItems="start" height={10}>
+        <FlexBox outlined alignContent="start" height={10}>
           {Boxes()}
         </FlexBox>
-        <FlexBox outlined alignItems="center" height={10}>
+        <FlexBox outlined alignContent="center" height={10}>
           {Boxes()}
         </FlexBox>
-        <FlexBox outlined alignItems="end" height={10}>
+        <FlexBox outlined alignContent="end" height={10}>
           {Boxes()}
         </FlexBox>
-        <FlexBox outlined alignItems="between" height={10}>
+        <FlexBox outlined alignContent="between" height={10}>
           {Boxes()}
         </FlexBox>
       </FlexBox>
-      <FlexBox outlined direction="column" alignItems="start" width={12} height={26}>
+      <FlexBox outlined direction="column" alignContent="start" width={12} height={26}>
         {Boxes()}
       </FlexBox>
-      <FlexBox outlined direction="column" alignItems="center" width={12} height={26}>
+      <FlexBox outlined direction="column" alignContent="center" width={12} height={26}>
         {Boxes()}
       </FlexBox>
-      <FlexBox outlined direction="column" alignItems="end" width={12} height={26}>
+      <FlexBox outlined direction="column" alignContent="end" width={12} height={26}>
         {Boxes()}
       </FlexBox>
-      <FlexBox outlined direction="column" alignItems="between" width={12} height={26}>
+      <FlexBox outlined direction="column" alignContent="between" width={12} height={26}>
         {Boxes()}
       </FlexBox>
     </FlexBox>

@@ -1,27 +1,36 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { useExternalValue } from '@utils/external-state';
+import { getStoreSnapshot } from '@utils/external-state/tools';
 import { getDisplayPosition } from '@utils/google-maps';
 import { getQueryFormattedUrl } from '@utils/request-query-params';
 
+import { getGoogleMapStore } from '@stores/googleMapStore';
+import {
+  selectedCapacitiesFilterStore,
+  selectedChargerTypesFilterStore,
+  selectedCompanyNamesFilterStore,
+} from '@stores/selectedServerStationFiltersStore';
 import { stationFilterStore } from '@stores/stationFilterStore';
 
 import { BASE_URL } from '@constants';
 
 import type { StationSummary } from 'types';
 
-export const fetchStation = async (map: google.maps.Map) => {
+export const fetchStation = async () => {
   const displayPosition = Object.fromEntries(
-    Object.entries(getDisplayPosition(map)).map(([key, value]) => [key, String(value)])
+    Object.entries(getDisplayPosition(getStoreSnapshot(getGoogleMapStore()))).map(
+      ([key, value]) => [key, String(value)]
+    )
   );
-
-  const companyNameExample = ['파워큐브', '에버온', '환경부', '한국전력'];
-  const capacityExample = [3, 7, 50, 100, 200];
 
   const requestQueryParams = getQueryFormattedUrl({
     ...displayPosition,
-    companyName: companyNameExample.join(','),
-    capacity: capacityExample.join(','),
+    companyNames: getStoreSnapshot(selectedCompanyNamesFilterStore).join(','),
+    capacities: getStoreSnapshot(selectedCapacitiesFilterStore)
+      .map((capacity) => `${capacity}.00`)
+      .join(','),
+    chargerTypes: getStoreSnapshot(selectedChargerTypesFilterStore).join(','),
   });
 
   const stations = await fetch(`${BASE_URL}/stations?${requestQueryParams}`, {
@@ -35,7 +44,7 @@ export const fetchStation = async (map: google.maps.Map) => {
   return stations;
 };
 
-export const useStations = (map: google.maps.Map) => {
+export const useStations = () => {
   const {
     isAvailableStationFilterSelected,
     isFastChargeStationFilterSelected,
@@ -45,7 +54,7 @@ export const useStations = (map: google.maps.Map) => {
 
   return useQuery({
     queryKey: ['stations'],
-    queryFn: () => fetchStation(map),
+    queryFn: fetchStation,
     select: (data) => {
       return data.filter((station) => {
         const { availableCount, isParkingFree, chargers, isPrivate } = station;

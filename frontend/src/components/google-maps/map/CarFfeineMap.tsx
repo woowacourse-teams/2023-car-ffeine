@@ -9,10 +9,11 @@ import { getGoogleMapStore } from '@stores/googleMapStore';
 
 import { useUpdateStations } from '@hooks/useUpdateStations';
 
+import ClientStationFilters from '@ui/ClientStationFilters';
 import DetailedStationInfo from '@ui/DetailedStationInfo';
-import FilterButtonList from '@ui/FilterButtonList';
 import MapController from '@ui/MapController';
 import Navigator from '@ui/Navigator';
+import ServerStationFilters from '@ui/ServerStationFilters';
 import StationList from '@ui/StationList';
 
 import { LOCAL_STORAGE_KEY_LAST_POSITION } from '@constants';
@@ -25,8 +26,9 @@ const CarFfeineMap = () => {
       <StationList />
       <DetailedStationInfo />
       <MapController />
-      <FilterButtonList />
+      <ClientStationFilters />
       <Navigator />
+      <ServerStationFilters />
     </>
   );
 };
@@ -45,16 +47,16 @@ const CarFfeineMapListener = () => {
 
     googleMap.addListener('dragend', () => {
       console.log('dragend');
-      updateStations(googleMap);
+      updateStations();
     });
 
     googleMap.addListener('zoom_changed', () => {
       console.log('zoom_changed');
-      updateStations(googleMap);
+      updateStations();
     });
 
     const initMarkersEvent = googleMap.addListener('bounds_changed', () => {
-      updateStations(googleMap);
+      updateStations();
       google.maps.event.removeListener(initMarkersEvent);
     });
   }, []);

@@ -1,3 +1,5 @@
+import type { CAPACITIES, CHARGER_TYPES, COMPANY_NAME } from '@constants';
+
 export type CapacityType = 3 | 7 | 50 | 100 | 200;
 export type ChargerStateType =
   | 'AVAILABLE'
@@ -59,3 +61,7 @@ export interface DisplayPosition extends Coordinates {
   longitudeDelta: number;
   latitudeDelta: number;
 }
+
+export type ChargerType = keyof typeof CHARGER_TYPES;
+export type CompanyName = (typeof COMPANY_NAME)[keyof typeof COMPANY_NAME];
+export type Capacity = (typeof CAPACITIES)[number];

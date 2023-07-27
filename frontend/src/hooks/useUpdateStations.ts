@@ -12,8 +12,8 @@ export const useUpdateStations = () => {
     },
   });
 
-  const updateStations = (googleMap: google.maps.Map) => {
-    mutate(googleMap);
+  const updateStations = () => {
+    mutate();
   };
 
   return { updateStations };

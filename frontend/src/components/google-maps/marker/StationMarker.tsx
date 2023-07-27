@@ -57,7 +57,7 @@ const StationMarker = ({ station }: Props) => {
       setSelectedStationId(stationId);
       briefStationInfoRoot.render(<BriefStationInfo station={station} />);
       googleMap.panTo(markerInstance.getPosition());
-      updateStations(googleMap);
+      updateStations();
     });
 
     return () => {
