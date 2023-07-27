@@ -1,8 +1,7 @@
 import { css } from 'styled-components';
 
-import { useExternalState, useExternalValue } from '@utils/external-state';
+import { useExternalState } from '@utils/external-state';
 
-import { getGoogleMapStore } from '@stores/googleMapStore';
 import { serverStationFiltersOpenStore } from '@stores/serverStationFiltersOpenStore';
 
 import { useServerStationFilters } from '@hooks/useServerStationFilters';
