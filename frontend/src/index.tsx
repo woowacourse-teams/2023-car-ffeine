@@ -9,20 +9,15 @@ import { configureToken } from '@utils/configureToken';
 
 import App from 'App';
 
-import { worker } from 'mocks/browser';
-
 import { GlobalStyle } from 'style/GlobalStyle';
+
+import { startMsw } from './mocks/configureMsw';
 
 const queryClient = new QueryClient();
 
 const main = async () => {
   if (process.env.NODE_ENV === 'development') {
-    await worker.start({
-      serviceWorker: {
-        url: '/mockServiceWorker.js',
-      },
-      onUnhandledRequest: 'bypass',
-    });
+    await startMsw();
   }
 
   const domNode = document.getElementById('root');
