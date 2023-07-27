@@ -38,7 +38,7 @@ public class StationService {
     @Transactional(readOnly = true)
     public List<Station> findByCoordinate(CoordinateRequest request, List<String> companyNames, List<ChargerType> chargerTypes, List<BigDecimal> capacities) {
         Coordinate coordinate = Coordinate.from(request.latitude(), request.latitudeDelta(), request.longitude(), request.longitudeDelta());
-        List<Station> stationsByCoordinate = stationRepository.findAllByLatitudeBetweenAndLongitudeBetween(coordinate.getMinLatitude(), coordinate.getMaxLatitude(), coordinate.getMinLongitude(), coordinate.getMaxLongitude());
+        List<Station> stationsByCoordinate = stationRepository.findAllByLatitudeBetweenAndLongitudeBetweenWithFetch(coordinate.getMinLatitudeValue(), coordinate.getMaxLatitudeValue(), coordinate.getMinLongitudeValue(), coordinate.getMaxLongitudeValue());
 
         Stations stations = Stations.of(stationsByCoordinate);
         stations.filterByCompanyNames(companyNames);
