@@ -51,6 +51,7 @@ const ClientStationFilters = () => {
         onClick={toggleAvailableStation}
         background={isAvailableStationFilterSelected ? 'black' : 'white'}
         color={isAvailableStationFilterSelected ? 'white' : 'black'}
+        size={'sm'}
       >
         현재 사용 가능
       </Button>
@@ -58,6 +59,7 @@ const ClientStationFilters = () => {
         onClick={toggleParkingFreeStation}
         background={isParkingFreeStationFilterSelected ? 'black' : 'white'}
         color={isAvailableStationFilterSelected ? 'white' : 'black'}
+        size={'sm'}
       >
         주차 무료
       </Button>
@@ -65,6 +67,7 @@ const ClientStationFilters = () => {
         onClick={toggleFastChargeStation}
         background={isFastChargeStationFilterSelected ? 'black' : 'white'}
         color={isAvailableStationFilterSelected ? 'white' : 'black'}
+        size={'sm'}
       >
         급속
       </Button>
@@ -72,6 +75,7 @@ const ClientStationFilters = () => {
         onClick={togglePrivateStation}
         background={isPrivateStationFilterSelected ? 'black' : 'white'}
         color={isAvailableStationFilterSelected ? 'white' : 'black'}
+        size={'sm'}
       >
         외부인 출입 제한
       </Button>

@@ -48,30 +48,18 @@ const Navigator = () => {
       noRadius={'all'}
       nowrap={true}
     >
-      <img alt="로고 아이콘" src={LogoIcon} width={30} height={30} style={{ cursor: 'pointer' }} />
-      <img
-        alt="검색 아이콘"
-        src={SearchIcon}
-        width={25}
-        height={25}
-        style={{ cursor: 'pointer' }}
-      />
-      <Button onClick={toggleOpenServerStationFilters}>
-        <img
-          alt="필터링 메뉴 열기 아이콘"
-          src={FilterIcon}
-          width={25}
-          height={25}
-          style={{ cursor: 'pointer' }}
-        />
+      <Button>
+        <img alt="로고 아이콘" src={LogoIcon} width={36} height={36} />
       </Button>
-      <img
-        alt="리스트 보기 아이콘"
-        src={ListMenuIcon}
-        width={25}
-        height={25}
-        style={{ cursor: 'pointer' }}
-      />
+      <Button>
+        <img alt="검색 아이콘" src={SearchIcon} width={26} height={26} />
+      </Button>
+      <Button onClick={toggleOpenServerStationFilters}>
+        <img alt="필터링 메뉴 열기 아이콘" src={FilterIcon} width={26} height={26} />
+      </Button>
+      <Button>
+        <img alt="리스트 보기 아이콘" src={ListMenuIcon} width={26} height={26} />
+      </Button>
     </FlexBox>
   );
 };
