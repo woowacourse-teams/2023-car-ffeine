@@ -56,7 +56,7 @@ const Navigator = () => {
         height={25}
         style={{ cursor: 'pointer' }}
       />
-      <MswControlButton />
+      {process.env.NODE_ENV === 'development' && <MswControlButton />}
     </FlexBox>
   );
 };
