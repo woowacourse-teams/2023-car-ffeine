@@ -17,12 +17,10 @@ import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 import java.math.BigDecimal;
 
 @Getter
@@ -31,8 +29,6 @@ import java.math.BigDecimal;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @IdClass(ChargerId.class)
 @Entity
-@Table(name = "charger", indexes = @Index(name = "idx_charger_default", columnList = "station_id, charger_id"))
-
 public class Charger {
 
     private static final BigDecimal OUTPUT_THRESHOLD = BigDecimal.valueOf(50);

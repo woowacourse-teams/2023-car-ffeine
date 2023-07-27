@@ -13,8 +13,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import javax.persistence.Index;
-import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @ToString
@@ -24,7 +22,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @IdClass(ChargerId.class)
 @Entity
-@Table(name = "charger_status", indexes = @Index(name = "idx_status_default", columnList = "charger_id"))
 public class ChargerStatus {
 
     @Id
