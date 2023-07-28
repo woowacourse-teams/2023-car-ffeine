@@ -17,7 +17,7 @@ export interface GraphProps {
   statistics: Record<EnglishDaysType, Congestion[]>;
 }
 
-const Graph = ({ align, statistics, children }: PropsWithChildren<GraphProps>) => {
+const Graph = ({ statistics, children }: PropsWithChildren<GraphProps>) => {
   const setStatistics = useSetExternalState(congestionStatisticsStore);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const Graph = ({ align, statistics, children }: PropsWithChildren<GraphProps>) =
   }, []);
 
   return (
-    <FlexBox direction={align} gap={5}>
+    <FlexBox direction="column" gap={5}>
       {children}
     </FlexBox>
   );

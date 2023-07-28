@@ -46,11 +46,21 @@ const congestions: CongestionStatistics = {
   },
 };
 
-export const Default = () => {
+export const Column = () => {
   return (
     <StatisticsGraph
       statistics={congestions.congestion.QUICK}
       align="column"
+      menus={[...ENGLISH_DAYS]}
+    />
+  );
+};
+
+export const Row = () => {
+  return (
+    <StatisticsGraph
+      statistics={congestions.congestion.QUICK}
+      align="row"
       menus={[...ENGLISH_DAYS]}
     />
   );

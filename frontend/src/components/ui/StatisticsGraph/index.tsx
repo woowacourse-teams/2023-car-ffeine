@@ -17,7 +17,7 @@ const StatisticsGraph = ({ statistics, align, menus }: StatisticsGraphProps) => 
       <Graph.BarContainer
         align={align}
         statistics={statistics}
-        renderBar={(hour, ratio) => <Graph.Bar hour={hour} ratio={ratio} />}
+        renderBar={(hour, ratio) => <Graph.Bar hour={hour} ratio={ratio} align={align} />}
       />
     </Graph>
   );
