@@ -15,10 +15,10 @@ public class Coordinate {
     private final Longitude minLongitude;
     private final Longitude maxLongitude;
 
-    public static Coordinate from(BigDecimal latitude,
-                                  BigDecimal latitudeDelta,
-                                  BigDecimal longitude,
-                                  BigDecimal longitudeDelta) {
+    public static Coordinate of(BigDecimal latitude,
+                                BigDecimal latitudeDelta,
+                                BigDecimal longitude,
+                                BigDecimal longitudeDelta) {
         Latitude originLatitude = Latitude.from(latitude);
         Latitude minLatitude = originLatitude.calculateMinLatitudeByDelta(latitudeDelta);
         Latitude maxLatitude = originLatitude.calculateMaxLatitudeByDelta(latitudeDelta);

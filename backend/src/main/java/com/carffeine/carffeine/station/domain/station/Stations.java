@@ -8,27 +8,16 @@ import java.util.List;
 
 public class Stations {
 
+    private static final int NONE_CAPACITY = 0;
+
     private final List<Station> stations;
 
     private Stations(List<Station> stations) {
         this.stations = new ArrayList<>(stations);
     }
 
-    public static Stations of(List<Station> stations) {
+    public static Stations from(List<Station> stations) {
         return new Stations(stations);
-    }
-
-    public static Stations createFilteredOf(List<Station> stations,
-                                            List<String> companyNames,
-                                            List<ChargerType> chargerTypes,
-                                            List<BigDecimal> capacities) {
-        List<Station> stationsCopy = new ArrayList<>(stations);
-
-        filterByCompanyNames(stationsCopy, companyNames);
-        filterByChargerTypes(stationsCopy, chargerTypes);
-        filterByCapacities(stationsCopy, capacities);
-
-        return new Stations(stationsCopy);
     }
 
     private static void filterByCompanyNames(List<Station> stations, List<String> companyNames) {
@@ -52,15 +41,19 @@ public class Stations {
             stations.removeIf(station -> station
                     .getChargers()
                     .stream()
-                    .noneMatch(charger -> capacities.contains(charger.getCapacity()))
+                    .noneMatch(charger -> capacities.stream()
+                            .anyMatch(capacity -> capacity.compareTo(charger.getCapacity()) == NONE_CAPACITY))
             );
         }
     }
 
-    public List<Station> getStationsExclusiveEmptyChargers() {
-        List<Station> stationsExclusiveEmptyChargers = new ArrayList<>(stations);
-        stationsExclusiveEmptyChargers.removeIf(station -> station.getChargers().isEmpty());
-
-        return stationsExclusiveEmptyChargers;
+    public List<Station> getFilteredStations(List<String> companyNames,
+                                             List<ChargerType> chargerTypes,
+                                             List<BigDecimal> capacities) {
+        filterByCompanyNames(stations, companyNames);
+        filterByChargerTypes(stations, chargerTypes);
+        filterByCapacities(stations, capacities);
+        stations.removeIf(station -> station.getChargers().isEmpty());
+        return stations;
     }
 }
