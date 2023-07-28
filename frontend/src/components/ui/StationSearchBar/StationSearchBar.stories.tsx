@@ -69,5 +69,10 @@ export const Styles = (args: StationSearchBarProps) => {
 const S = {
   Container: styled.div`
     width: 34rem;
+    margin-bottom: 2rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   `,
 };

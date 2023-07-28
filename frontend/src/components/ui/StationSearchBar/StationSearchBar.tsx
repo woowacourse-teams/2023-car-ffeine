@@ -42,7 +42,6 @@ const S = {
 
     width: 100%;
     padding: 1.9rem 4.6rem 2rem 1.8rem;
-    margin-bottom: 2rem;
     font-size: 1.5rem;
 
     & + button {
