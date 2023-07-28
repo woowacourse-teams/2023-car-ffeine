@@ -26,7 +26,7 @@ class StationsTest {
         ));
 
         // when
-        List<Station> result = stations.getFilteredStations(List.of("볼튼"), new ArrayList<>(), new ArrayList<>());
+        List<Station> result = stations.findFilteredStations(List.of("볼튼"), new ArrayList<>(), new ArrayList<>());
 
         // then
         assertSoftly(softly -> {
@@ -44,7 +44,7 @@ class StationsTest {
         ));
 
         // when
-        List<Station> result = stations.getFilteredStations(new ArrayList<>(), List.of(ChargerType.AC_SLOW), new ArrayList<>());
+        List<Station> result = stations.findFilteredStations(new ArrayList<>(), List.of(ChargerType.AC_SLOW), new ArrayList<>());
 
         // then
         assertSoftly(softly -> {
@@ -62,7 +62,7 @@ class StationsTest {
         ));
 
         // when
-        List<Station> result = stations.getFilteredStations(new ArrayList<>(), new ArrayList<>(), List.of(BigDecimal.valueOf(100.00)));
+        List<Station> result = stations.findFilteredStations(new ArrayList<>(), new ArrayList<>(), List.of(BigDecimal.valueOf(100.00)));
 
         // then
         assertSoftly(softly -> {

@@ -42,7 +42,7 @@ public class StationService {
         List<Station> stationsByCoordinate = stationRepository.findAllFetchByLatitudeBetweenAndLongitudeBetween(coordinate.minLatitudeValue(), coordinate.maxLatitudeValue(), coordinate.minLongitudeValue(), coordinate.maxLongitudeValue());
         Stations stations = Stations.from(stationsByCoordinate);
 
-        return stations.getFilteredStations(companyNames, chargerTypes, capacities);
+        return stations.findFilteredStations(companyNames, chargerTypes, capacities);
     }
 
     @Transactional(readOnly = true)

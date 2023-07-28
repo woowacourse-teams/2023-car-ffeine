@@ -25,7 +25,17 @@ public class Stations {
         }
     }
 
-    private static void filterByChargerTypes(List<Station> stations, List<ChargerType> chargerTypes) {
+    public List<Station> findFilteredStations(List<String> companyNames,
+                                              List<ChargerType> chargerTypes,
+                                              List<BigDecimal> capacities) {
+        List<Station> stations = new ArrayList<>(this.stations);
+        filterByCompanyNames(stations, companyNames);
+        filterByChargerTypes(stations, chargerTypes);
+        filterByCapacities(stations, capacities);
+        return Collections.unmodifiableList(stations);
+    }
+
+    private void filterByChargerTypes(List<Station> stations, List<ChargerType> chargerTypes) {
         if (!chargerTypes.isEmpty()) {
             stations.removeIf(station -> station
                     .getChargers()
@@ -35,7 +45,7 @@ public class Stations {
         }
     }
 
-    private static void filterByCapacities(List<Station> stations, List<BigDecimal> capacities) {
+    private void filterByCapacities(List<Station> stations, List<BigDecimal> capacities) {
         if (!capacities.isEmpty()) {
             stations.removeIf(station -> station
                     .getChargers()
@@ -46,16 +56,7 @@ public class Stations {
         }
     }
 
-    private static boolean isSameCapacity(BigDecimal capacity, BigDecimal filterCapacity) {
+    private boolean isSameCapacity(BigDecimal capacity, BigDecimal filterCapacity) {
         return capacity.compareTo(filterCapacity) == 0;
-    }
-
-    public List<Station> getFilteredStations(List<String> companyNames,
-                                             List<ChargerType> chargerTypes,
-                                             List<BigDecimal> capacities) {
-        filterByCompanyNames(stations, companyNames);
-        filterByChargerTypes(stations, chargerTypes);
-        filterByCapacities(stations, capacities);
-        return Collections.unmodifiableList(stations);
     }
 }
