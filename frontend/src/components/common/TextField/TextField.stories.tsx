@@ -13,6 +13,7 @@ const meta = {
   tags: ['autodocs'],
   args: {
     value: '아래 Control/Input 필드에서 저를 지워보세요',
+    width: 150,
     placeholder: 'Placeholder',
     helperText: '도움말은 여기에 입력됩니다.',
   },
@@ -34,6 +35,9 @@ const meta = {
     },
     helperText: {
       description: '도움 메세지를 입력할 수 있습니다.',
+    },
+    width: {
+      description: '너비 길이를 설정할 수 있습니다. 정수 * 0.4 rem 만큼의 길이가 설정됩니다.',
     },
     cssForLabel: {
       description: 'label의 CSS를 수동으로 지정할 수 있습니다.',
@@ -85,4 +89,8 @@ export const HelperText = () => {
       />
     </>
   );
+};
+
+export const Width = () => {
+  return <TextField placeholder="가로가 긴 TextField" width={100} />;
 };

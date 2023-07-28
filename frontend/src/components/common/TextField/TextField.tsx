@@ -5,6 +5,7 @@ import type { ChangeEvent } from 'react';
 
 export interface TextFieldProps {
   placeholder?: string;
+  width?: number;
   value?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   helperText?: string;
@@ -22,7 +23,9 @@ const Input = styled.input<TextFieldProps>`
   font-size: 18px;
   padding: 10px 10px 10px 5px;
   display: block;
-  width: 320px;
+
+  ${({ width }) => width && `width: ${width * 0.4}rem`};
+
   border: none;
   border-radius: 0;
   border-bottom: 1px solid #c6c6c6;
