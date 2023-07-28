@@ -14,11 +14,11 @@ const meta = {
   args: {
     value: '아래 Control/Input 필드에서 저를 지워보세요',
     width: 150,
-    placeholder: 'Placeholder',
-    helperText: '도움말은 여기에 입력됩니다.',
+    label: 'Label',
+    supportingText: '도움말은 여기에 입력됩니다.',
   },
   argTypes: {
-    placeholder: {
+    label: {
       control: {
         type: 'text',
       },
@@ -33,7 +33,7 @@ const meta = {
     onChange: {
       description: '기존 input의 onChange 입니다.',
     },
-    helperText: {
+    supportingText: {
       description: '도움 메세지를 입력할 수 있습니다.',
     },
     width: {
@@ -54,8 +54,8 @@ export const Default = (args: TextFieldProps) => {
   return <TextField {...args} />;
 };
 
-export const Placeholder = () => {
-  return <TextField placeholder="이름" />;
+export const Label = () => {
+  return <TextField label="이름" />;
 };
 
 export const Value = () => {
@@ -64,7 +64,7 @@ export const Value = () => {
     <>
       <Text>value: {value}</Text>
       <TextField
-        placeholder="주소"
+        label="주소"
         value={value}
         onChange={(e) => {
           setValue(e.target.value);
@@ -80,17 +80,17 @@ export const HelperText = () => {
     <>
       <Text>value: {value}</Text>
       <TextField
-        placeholder="닉네임"
+        label="닉네임"
         value={value}
         onChange={(e) => {
           setValue(e.target.value);
         }}
-        helperText={value.length < 2 && '닉네임은 2글자 이상 입력하셔야 합니다.'}
+        supportingText={value.length < 2 && '닉네임은 2글자 이상 입력하셔야 합니다.'}
       />
     </>
   );
 };
 
 export const Width = () => {
-  return <TextField placeholder="가로가 긴 TextField" width={100} />;
+  return <TextField label="가로가 긴 TextField" width={100} />;
 };

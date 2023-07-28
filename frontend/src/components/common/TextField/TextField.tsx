@@ -5,21 +5,21 @@ import type { ChangeEvent, HTMLAttributes } from 'react';
 
 export interface TextFieldProps extends HTMLAttributes<HTMLElement> {
   // textFieldId: string;
-  placeholder?: string;
+  label?: string;
   width?: number;
   value?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-  helperText?: string;
+  supportingText?: string;
   cssForLabel?: CSSProp;
   cssForInput?: CSSProp;
 }
 
 const TextField = ({
   // textFieldId,
-  placeholder,
+  label,
   value,
   onChange,
-  helperText,
+  supportingText,
   ...props
 }: TextFieldProps) => {
   return (
@@ -28,17 +28,17 @@ const TextField = ({
         type="text"
         // id={textFieldId}
         required
-        {...props}
         value={value}
         onChange={onChange}
+        {...props}
       />
       <Label
         // htmlFor={textFieldId}
         {...props}
       >
-        {placeholder}
+        {label}
       </Label>
-      {helperText && <HelperText>{helperText}</HelperText>}
+      {supportingText && <HelperText>{supportingText}</HelperText>}
     </Group>
   );
 };
