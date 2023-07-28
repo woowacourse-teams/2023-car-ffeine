@@ -17,8 +17,8 @@ public interface StationRepository extends Repository<Station, Long> {
     List<Station> findAllByLatitudeBetweenAndLongitudeBetween(Latitude minLatitude, Latitude maxLatitude, Longitude minLongitude, Longitude maxLongitude);
 
     @Query("SELECT DISTINCT s FROM Station s " +
-            "LEFT JOIN FETCH s.chargers c " +
-            "LEFT JOIN FETCH c.chargerStatus " +
+            "INNER JOIN FETCH s.chargers c " +
+            "INNER JOIN FETCH c.chargerStatus " +
             "WHERE s.latitude.value >= :minLatitude AND s.latitude.value <= :maxLatitude " +
             "AND s.longitude.value >= :minLongitude AND s.longitude.value <= :maxLongitude")
     List<Station> findAllFetchByLatitudeBetweenAndLongitudeBetween(@Param("minLatitude") BigDecimal minLatitude,

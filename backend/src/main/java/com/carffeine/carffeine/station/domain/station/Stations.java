@@ -4,6 +4,7 @@ import com.carffeine.carffeine.station.domain.charger.ChargerType;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Stations {
@@ -53,7 +54,6 @@ public class Stations {
         filterByCompanyNames(stations, companyNames);
         filterByChargerTypes(stations, chargerTypes);
         filterByCapacities(stations, capacities);
-        stations.removeIf(station -> station.getChargers().isEmpty());
-        return stations;
+        return Collections.unmodifiableList(stations);
     }
 }

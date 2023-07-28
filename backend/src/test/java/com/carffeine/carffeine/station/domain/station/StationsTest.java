@@ -9,10 +9,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.carffeine.carffeine.station.fixture.station.StationFixture.빈_충전소_충전기_0개_사용가능_0개;
 import static com.carffeine.carffeine.station.fixture.station.StationFixture.선릉역_충전소_충전기_2개_사용가능_1개_이름_변경됨;
 import static com.carffeine.carffeine.station.fixture.station.StationFixture.천호역_충전소_충전기_2개_사용가능_1개;
-import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -71,21 +69,5 @@ class StationsTest {
             softly.assertThat(result.size()).isEqualTo(1);
             softly.assertThat(result.get(0).getStationId()).isEqualTo(천호역_충전소_충전기_2개_사용가능_1개.getStationId());
         });
-    }
-
-    @Test
-    void 빈_충전기만_있는_충전소를_제외한_모든_충전소를_반환한다() {
-        // given
-        Stations stations = Stations.from(List.of(
-                천호역_충전소_충전기_2개_사용가능_1개,
-                선릉역_충전소_충전기_2개_사용가능_1개_이름_변경됨,
-                빈_충전소_충전기_0개_사용가능_0개
-        ));
-
-        // when
-        List<Station> result = stations.getFilteredStations(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-
-        // then
-        assertThat(result.size()).isEqualTo(2);
     }
 }
