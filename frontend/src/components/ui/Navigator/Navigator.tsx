@@ -65,8 +65,8 @@ const Navigator = () => {
       <Button onClick={toggleOpenServerStationFilters} aria-label="필터링 메뉴 열기">
         <AdjustmentsHorizontalIcon width="2.8rem" stroke="#333" />
       </Button>
-      <Button>
-        <Bars3Icon width="2.8rem" stroke="#333" aria-label="충전소 목록 보기" />
+      <Button aria-label="충전소 목록 보기">
+        <Bars3Icon width="2.8rem" stroke="#333" />
       </Button>
       {process.env.NODE_ENV === 'development' && <MswControlButton />}
     </FlexBox>

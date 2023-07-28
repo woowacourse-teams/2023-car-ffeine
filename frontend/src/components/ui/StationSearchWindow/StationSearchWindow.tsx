@@ -21,7 +21,7 @@ const StationSearch = () => {
   return (
     <S.Container>
       <S.Wrapper>
-        <Button css={closeButton} onClick={() => setIsOpen(false)}>
+        <Button css={closeButton} onClick={() => setIsOpen(false)} aria-label="검색창 닫기">
           <XMarkIcon width="3.2rem" stroke="#58595c" strokeWidth={1.5} />
         </Button>
         <StationSearchBar shadow borderColor="#767676" />

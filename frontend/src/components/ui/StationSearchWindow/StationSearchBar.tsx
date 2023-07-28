@@ -35,12 +35,8 @@ const StationSearchBar = ({ ...props }: StationSearchBarProps) => {
   return (
     <S.Form role="search" onSubmit={handleSubmitSearchWord}>
       <S.Search type="search" role="searchbox" onChange={handleRequestSearchResult} {...props} />
-      <Button type="submit">
-        <MagnifyingGlassIcon
-          width="2.4rem"
-          stroke={props.borderColor || '#333'}
-          aria-label="검색 버튼"
-        />
+      <Button type="submit" aria-label="검색하기">
+        <MagnifyingGlassIcon width="2.4rem" stroke={props.borderColor || '#333'} />
       </Button>
     </S.Form>
   );
