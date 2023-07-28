@@ -3,6 +3,7 @@ import { css } from 'styled-components';
 import { useSetExternalState } from '@utils/external-state';
 
 import { serverStationFiltersOpenStore } from '@stores/serverStationFiltersOpenStore';
+import { stationSearchWindowOpenStore } from '@stores/stationSearchWindowOpenStore';
 
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
@@ -31,9 +32,14 @@ const borderCss = css`
 
 const Navigator = () => {
   const setServerStationFiltersOpenStore = useSetExternalState(serverStationFiltersOpenStore);
+  const setStationSearchWindowOpenState = useSetExternalState(stationSearchWindowOpenStore);
 
   const toggleOpenServerStationFilters = () => {
     setServerStationFiltersOpenStore((prev) => !prev);
+  };
+
+  const toggleStationSearchWindow = () => {
+    setStationSearchWindowOpenState((prev) => !prev);
   };
 
   return (
@@ -53,7 +59,7 @@ const Navigator = () => {
       <Button>
         <img alt="로고 아이콘" src={LogoIcon} width={36} height={36} />
       </Button>
-      <Button>
+      <Button onClick={toggleStationSearchWindow}>
         <img alt="검색 아이콘" src={SearchIcon} width={26} height={26} />
       </Button>
       <Button onClick={toggleOpenServerStationFilters}>

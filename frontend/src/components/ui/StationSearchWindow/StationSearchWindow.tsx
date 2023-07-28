@@ -1,6 +1,10 @@
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { css, styled } from 'styled-components';
 
+import { useExternalState } from '@utils/external-state';
+
+import { stationSearchWindowOpenStore } from '@stores/stationSearchWindowOpenStore';
+
 import Button from '@common/Button';
 import Text from '@common/Text';
 
@@ -8,10 +12,14 @@ import SearchResult from './SearchResult';
 import StationSearchBar from './StationSearchBar';
 
 const StationSearch = () => {
+  const [isOpen, setIsOpen] = useExternalState(stationSearchWindowOpenStore);
+
+  if (!isOpen) return <></>;
+
   return (
     <S.Container>
       <S.Wrapper>
-        <Button css={closeButton}>
+        <Button css={closeButton} onClick={() => setIsOpen(false)}>
           <XMarkIcon width="3.2rem" stroke="#58595c" strokeWidth={1.5} />
         </Button>
         <StationSearchBar shadow borderColor="#767676" />
@@ -52,6 +60,10 @@ const closeButton = css`
   display: block;
   margin: -0.4rem -0.8rem 2.8rem auto;
   background: #fcfcfc;
+`;
+
+const labelText = css`
+  padding: 4.9rem 0 2.4rem;
 `;
 
 export default StationSearch;
