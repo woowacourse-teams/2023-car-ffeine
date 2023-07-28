@@ -16,7 +16,7 @@ const DaySelectButton = ({ day, isSelected, handleSetDay }: Props) => {
     <Button
       size="sm"
       outlined={true}
-      css={isSelected ? [buttonCss, colorCss] : [buttonCss]}
+      css={[buttonCss, isSelected && colorCss]}
       onClick={() => handleSetDay(day)}
       background={isSelected && '#0064ff'}
     >
