@@ -1,9 +1,10 @@
 import type { CSSProp } from 'styled-components';
 import styled from 'styled-components';
 
-import type { ChangeEvent } from 'react';
+import type { ChangeEvent, HTMLAttributes } from 'react';
 
-export interface TextFieldProps {
+export interface TextFieldProps extends HTMLAttributes<HTMLElement> {
+  // textFieldId: string;
   placeholder?: string;
   width?: number;
   value?: string;
@@ -15,13 +16,13 @@ export interface TextFieldProps {
 
 const Group = styled.div`
   position: relative;
-  margin: 45px 0;
+  margin: 4.5rem 0;
 `;
 
 const Input = styled.input<TextFieldProps>`
   background: none;
-  font-size: 18px;
-  padding: 10px 10px 10px 5px;
+  font-size: 1.8rem;
+  padding: 1rem 1rem 1rem 0.5rem;
   display: block;
 
   ${({ width }) => width && `width: ${width * 0.4}rem`};
@@ -36,8 +37,8 @@ const Input = styled.input<TextFieldProps>`
 
   &:focus ~ label,
   &:valid ~ label {
-    top: -14px;
-    font-size: 12px;
+    top: -1.4rem;
+    font-size: 1.2rem;
     color: #2196f3;
   }
 
@@ -46,28 +47,47 @@ const Input = styled.input<TextFieldProps>`
 
 const HelperText = styled.div`
   color: red;
-  font-size: 12px;
-  margin-top: 5px;
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
 `;
 
 const Label = styled.label<TextFieldProps>`
   color: #c6c6c6;
-  font-size: 16px;
+  font-size: 1.6rem;
   font-weight: normal;
   position: absolute;
   pointer-events: none;
-  left: 5px;
-  top: 10px;
+  left: 0.5rem;
+  top: 1rem;
   transition: 300ms ease all;
 
   ${({ cssForLabel }) => cssForLabel};
 `;
 
-const TextField = ({ placeholder, value, onChange, helperText, ...props }: TextFieldProps) => {
+const TextField = ({
+  // textFieldId,
+  placeholder,
+  value,
+  onChange,
+  helperText,
+  ...props
+}: TextFieldProps) => {
   return (
     <Group>
-      <Input type="text" required {...props} value={value} onChange={onChange} />
-      <Label {...props}>{placeholder}</Label>
+      <Input
+        type="text"
+        // id={textFieldId}
+        required
+        {...props}
+        value={value}
+        onChange={onChange}
+      />
+      <Label
+        // htmlFor={textFieldId}
+        {...props}
+      >
+        {placeholder}
+      </Label>
       {helperText && <HelperText>{helperText}</HelperText>}
     </Group>
   );
