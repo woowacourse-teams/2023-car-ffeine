@@ -14,9 +14,7 @@ const GraphBar = ({ congestionRatio, hour }: GraphBarProps) => {
       <div style={{ width: '2rem' }}>
         <Text variant="caption">{hour}</Text>
       </div>
-      <Bar congestionRatio={congestionRatio}>
-        {congestionRatio === -1 && <Text variant="caption">X</Text>}
-      </Bar>
+      <Bar congestionRatio={congestionRatio} />
     </FlexBox>
   );
 };
@@ -29,7 +27,7 @@ const Bar = styled.div<Omit<GraphBarProps, 'hour'>>`
   text-align: center;
 
   border-radius: 1rem;
-  background-color: ${({ congestionRatio }) => (congestionRatio === -1 ? '#b4b4b4' : '#0064ff')};
+  background-color: ${({ congestionRatio }) => (congestionRatio === -1 ? '#afafaf' : '#0064ff')};
 `;
 
 export default GraphBar;

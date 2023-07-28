@@ -1,10 +1,10 @@
 import type { Meta } from '@storybook/react';
 
-import { DAY } from '@constants';
+import { ENGLISH_DAYS } from '@constants';
 
 import StatisticsGraph from './StatisticsGraph';
 
-import type { Congestion, CongestionStatistics, Day } from 'types';
+import type { Congestion, CongestionStatistics, EnglishDaysType } from 'types';
 
 const meta = {
   title: 'UI/StatisticsGraph',
@@ -18,7 +18,7 @@ const congestions: CongestionStatistics = {
   stationId: 0,
   congestion: {
     QUICK: Object.fromEntries(
-      DAY.map((day) => {
+      ENGLISH_DAYS.map((day) => {
         return [
           day,
           Array.from({ length: 24 }).map((_, i) => {
@@ -29,9 +29,9 @@ const congestions: CongestionStatistics = {
           }),
         ];
       })
-    ) as Record<Day, Congestion[]>,
+    ) as Record<EnglishDaysType, Congestion[]>,
     STANDARD: Object.fromEntries(
-      DAY.map((day) => {
+      ENGLISH_DAYS.map((day) => {
         return [
           day,
           Array.from({ length: 24 }).map((_, i) => {
@@ -42,7 +42,7 @@ const congestions: CongestionStatistics = {
           }),
         ];
       })
-    ) as Record<Day, Congestion[]>,
+    ) as Record<EnglishDaysType, Congestion[]>,
   },
 };
 

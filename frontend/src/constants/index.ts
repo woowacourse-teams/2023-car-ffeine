@@ -146,5 +146,9 @@ export const LOCAL_KEY_GOOGLE_MAPS_API = 'CARFFEINE_GOOGLE_MAPS_API';
 export const LOCAL_KEY_GOOGLE_MAPS_API_SAVE = 'CARFFEINE_GOOGLE_MAPS_API_SAVE';
 export const LOCAL_KEY_TOKEN = 'CARFFEINE_TOKEN';
 
-export const DAY = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'] as const;
-export const DAY_KOR = ['월', '화', '수', '목', '금', '토', '일'] as const;
+export const ENGLISH_DAYS = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'] as const;
+export const KOREAN_DAYS = ['월', '화', '수', '목', '금', '토', '일'] as const;
+
+export const KOREAN_DAYS_TO_ENGLISH_DAYS = Object.fromEntries(
+  KOREAN_DAYS.map((day, index) => [day, ENGLISH_DAYS[index]])
+);

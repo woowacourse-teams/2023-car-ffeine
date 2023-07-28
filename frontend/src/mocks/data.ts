@@ -1,11 +1,11 @@
-import { CHARGER_TYPES, COMPANY_NAME, DAY } from '@constants';
+import { CHARGER_TYPES, COMPANY_NAME, ENGLISH_DAYS } from '@constants';
 
 import type {
   CapacityType,
   ChargerDetails,
   Congestion,
   CongestionStatistics,
-  Day,
+  EnglishDaysType,
   MockStation,
 } from '../types';
 
@@ -71,7 +71,7 @@ export const congestions: CongestionStatistics = {
   stationId: 0,
   congestion: {
     QUICK: Object.fromEntries(
-      DAY.map((day) => {
+      ENGLISH_DAYS.map((day) => {
         return [
           day,
           Array.from({ length: 24 }).map((_, i) => {
@@ -82,9 +82,9 @@ export const congestions: CongestionStatistics = {
           }),
         ];
       })
-    ) as Record<Day, Congestion[]>,
+    ) as Record<EnglishDaysType, Congestion[]>,
     STANDARD: Object.fromEntries(
-      DAY.map((day) => {
+      ENGLISH_DAYS.map((day) => {
         return [
           day,
           Array.from({ length: 24 }).map((_, i) => {
@@ -95,6 +95,6 @@ export const congestions: CongestionStatistics = {
           }),
         ];
       })
-    ) as Record<Day, Congestion[]>,
+    ) as Record<EnglishDaysType, Congestion[]>,
   },
 };
