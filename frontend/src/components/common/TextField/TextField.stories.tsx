@@ -4,14 +4,37 @@ import { useState } from 'react';
 
 import Text from '@common/Text';
 
+import type { TextFieldProps } from './TextField';
 import TextField from './TextField';
 
 const meta = {
   title: 'Components/TextField',
   component: TextField,
   tags: ['autodocs'],
-  args: {},
+  args: {
+    value: '아래 Control/Input 필드에서 저를 지워보세요',
+    placeholder: 'Placeholder',
+    helperText: '도움말은 여기에 입력됩니다.',
+  },
   argTypes: {
+    placeholder: {
+      control: {
+        type: 'text',
+      },
+      description: 'input 내부에 표기할 기본 라벨 입니다.',
+    },
+    value: {
+      control: {
+        type: 'text',
+      },
+      description: '기존 input의 value 입니다. 반드시 문자열로 처리됩니다.',
+    },
+    onChange: {
+      description: '기존 input의 onChange 입니다.',
+    },
+    helperText: {
+      description: '도움 메세지를 입력할 수 있습니다.',
+    },
     cssForLabel: {
       description: 'label의 CSS를 수동으로 지정할 수 있습니다.',
     },
@@ -23,8 +46,8 @@ const meta = {
 
 export default meta;
 
-export const Default = () => {
-  return <TextField />;
+export const Default = (args: TextFieldProps) => {
+  return <TextField {...args} />;
 };
 
 export const Placeholder = () => {
