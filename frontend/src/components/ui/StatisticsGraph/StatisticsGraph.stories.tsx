@@ -2,7 +2,7 @@ import type { Meta } from '@storybook/react';
 
 import { ENGLISH_DAYS } from '@constants';
 
-import StatisticsGraph from './StatisticsGraph';
+import StatisticsGraph from '.';
 
 import type { Congestion, CongestionStatistics, EnglishDaysType } from 'types';
 
@@ -47,5 +47,11 @@ const congestions: CongestionStatistics = {
 };
 
 export const Default = () => {
-  return <StatisticsGraph statistics={congestions} />;
+  return (
+    <StatisticsGraph
+      statistics={congestions.congestion.QUICK}
+      align="column"
+      menus={[...ENGLISH_DAYS]}
+    />
+  );
 };
