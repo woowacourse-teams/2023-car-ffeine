@@ -23,10 +23,7 @@ const StatisticsGraph = ({ statistics }: Props) => {
   const [selectedDay, setSelectedDay] = useState<EnglishDaysType>('MON');
 
   const handleToggleChargeSpeedType = () => {
-    setChargeSpeedType((prev) => {
-      if (prev === 'QUICK') return 'STANDARD';
-      return 'QUICK';
-    });
+    setChargeSpeedType((prev) => (prev === 'QUICK' ? 'STANDARD' : 'QUICK'));
   };
 
   const handleSetDay = (day: KoreanDaysType) => {
