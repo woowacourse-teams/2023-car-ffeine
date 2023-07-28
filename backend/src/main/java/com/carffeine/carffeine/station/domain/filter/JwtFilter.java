@@ -20,6 +20,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
     private static final int TOKEN_START_INDEX = 7;
     private static final String BEARER_PREFIX = "Bearer ";
+
     private final MemberRepository memberRepository;
     private final String secretKey;
 

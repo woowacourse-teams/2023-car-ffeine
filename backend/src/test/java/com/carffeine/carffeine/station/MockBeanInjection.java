@@ -9,6 +9,7 @@ import com.carffeine.carffeine.station.service.station.StationService;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 public class MockBeanInjection {
+
     @MockBean
     protected AuthMemberResolver authMemberResolver;
     @MockBean
