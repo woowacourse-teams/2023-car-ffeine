@@ -1,16 +1,15 @@
 package com.carffeine.carffeine.station.controller.congestion;
 
+import com.carffeine.carffeine.station.MockBeanInjection;
 import com.carffeine.carffeine.station.controller.congestion.dto.CongestionInfoResponse;
 import com.carffeine.carffeine.station.controller.congestion.dto.CongestionResponse;
 import com.carffeine.carffeine.station.controller.congestion.dto.StatisticsResponse;
-import com.carffeine.carffeine.station.service.congestion.CongestionService;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator.ReplaceUnderscores;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -33,10 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SuppressWarnings("NonAsciiCharacters")
 @WebMvcTest(CongestionController.class)
 @AutoConfigureRestDocs
-class CongestionControllerTest {
-
-    @MockBean
-    private CongestionService congestionService;
+class CongestionControllerTest extends MockBeanInjection {
 
     @Autowired
     private MockMvc mockMvc;

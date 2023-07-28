@@ -21,3 +21,6 @@ initialize-charge:
 
 api:
   service_key: service_key
+
+jwt:
+  secret: qwertyuiioplkjhgfdsazxcvbnmkjhgfd
