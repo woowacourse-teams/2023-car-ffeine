@@ -1,7 +1,7 @@
 package com.carffeine.carffeine.config;
 
 import com.carffeine.carffeine.station.domain.filter.JwtFilter;
-import com.carffeine.carffeine.station.domain.user.UserRepository;
+import com.carffeine.carffeine.station.domain.member.MemberRepository;
 import com.carffeine.carffeine.station.infrastructure.api.AuthMemberResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AuthenticationConfig implements WebMvcConfigurer {
 
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
     private final AuthMemberResolver authMemberResolver;
 
     @Value("${jwt.secret}")
@@ -27,7 +27,7 @@ public class AuthenticationConfig implements WebMvcConfigurer {
     @Bean
     public FilterRegistrationBean<Filter> jwtFilter() {
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
-        filterRegistrationBean.setFilter(new JwtFilter(userRepository, secretKey));
+        filterRegistrationBean.setFilter(new JwtFilter(memberRepository, secretKey));
         filterRegistrationBean.setOrder(1);
         filterRegistrationBean.addUrlPatterns("/api/search");
         return filterRegistrationBean;

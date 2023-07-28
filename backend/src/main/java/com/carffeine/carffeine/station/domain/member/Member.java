@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.station.domain.user;
+package com.carffeine.carffeine.station.domain.member;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -16,17 +16,17 @@ import javax.persistence.Id;
 @Getter
 @Builder
 @Entity
-public class User {
+public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String email;
 
-    public User(String email) {
+    public Member(String email) {
         this.email = email;
     }
 
-    public User update(String email) {
+    public Member update(String email) {
         this.email = email;
         return this;
     }

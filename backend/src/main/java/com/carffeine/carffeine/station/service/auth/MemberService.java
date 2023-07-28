@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class UserService {
+public class MemberService {
     private final JwtProvider jwtProvider;
 
-    public String createJwt(Long userId) {
-        Jwt jwt = jwtProvider.createJwt(userId);
+    public String createJwt(Long memberId) {
+        Jwt jwt = jwtProvider.createJwt(memberId);
         return jwt.accessToken();
     }
 }

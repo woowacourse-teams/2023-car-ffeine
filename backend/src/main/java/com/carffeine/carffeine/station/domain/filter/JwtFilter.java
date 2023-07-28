@@ -1,8 +1,8 @@
 package com.carffeine.carffeine.station.domain.filter;
 
 import com.carffeine.carffeine.station.domain.jwt.Jwt;
-import com.carffeine.carffeine.station.domain.user.User;
-import com.carffeine.carffeine.station.domain.user.UserRepository;
+import com.carffeine.carffeine.station.domain.member.Member;
+import com.carffeine.carffeine.station.domain.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -20,7 +20,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
     private static final int TOKEN_START_INDEX = 7;
     private static final String BEARER_PREFIX = "Bearer ";
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
     private final String secretKey;
 
     @Override
@@ -47,8 +47,8 @@ public class JwtFilter extends OncePerRequestFilter {
 
         Long id = jwt.extractId(token, secretKey);
 
-        User user = userRepository.findById(id);
-        if (user == null) {
+        Member member = memberRepository.findById(id);
+        if (member == null) {
             filterChain.doFilter(request, response);
         }
     }
