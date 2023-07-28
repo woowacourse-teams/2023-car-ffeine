@@ -10,6 +10,10 @@ export interface ListItemProps {
   css?: CSSProp;
 }
 
+const ListItem = ({ children, ...props }: ListItemProps) => {
+  return <ListItemWrapper {...props}>{children}</ListItemWrapper>;
+};
+
 const ListItemWrapper = styled.li<ListItemProps>`
   padding: 1rem 2rem;
   ${({ divider }) => divider && `border-bottom: 0.0625rem solid #ccc;`}
@@ -20,9 +24,5 @@ const ListItemWrapper = styled.li<ListItemProps>`
 
   ${({ css }) => css};
 `;
-
-const ListItem = ({ children, ...props }: ListItemProps) => {
-  return <ListItemWrapper {...props}>{children}</ListItemWrapper>;
-};
 
 export default ListItem;
