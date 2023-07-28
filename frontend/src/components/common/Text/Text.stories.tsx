@@ -1,4 +1,5 @@
 import type { Meta } from '@storybook/react';
+import { styled } from 'styled-components';
 
 import Text from './Text';
 
@@ -10,6 +11,8 @@ const meta = {
     variant: 'body',
     align: 'left',
     mb: 0,
+    color: '#333',
+    lineClamp: 1,
     children: 'You forget a thousand things every day. Make sure this is one of them.',
   },
   argTypes: {
@@ -57,6 +60,12 @@ const meta = {
         type: 'select',
       },
       description: '선택한 위치에 따라 글자가 정렬됩니다.',
+    },
+    color: {
+      description: '선택한 색상에 따라 글씨색이 변합니다.',
+    },
+    lineClamp: {
+      description: '블록 컨테이너 콘텐츠의 줄 수를 선택한 수만큼으로 제한할 수 있습니다.',
     },
   },
 } satisfies Meta<typeof Text>;
@@ -119,4 +128,21 @@ export const MarginBottom = () => {
       <Text variant="h1">Heading 1</Text>
     </>
   );
+};
+
+export const LineClamp = () => {
+  return (
+    <S.Container>
+      <Text lineClamp={1}>
+        You forget a thousand things every day. Make sure this is one of them.
+      </Text>
+    </S.Container>
+  );
+};
+
+const S = {
+  Container: styled.div`
+    width: 30rem;
+    line-height: 1.5;
+  `,
 };

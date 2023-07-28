@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components';
 import type { CSSProp } from 'styled-components';
 
+import type { HTMLAttributes } from 'react';
+
 const variantList = [
   'h1',
   'h2',
@@ -17,96 +19,118 @@ const variantList = [
 
 type VariantType = (typeof variantList)[number];
 
-const Text = styled.p<{
+interface TextProps extends HTMLAttributes<HTMLElement> {
   variant?: VariantType;
   mb?: number;
   align?: 'center' | 'left' | 'right';
+  color?: string;
+  lineClamp?: number;
   css?: CSSProp;
-}>`
-  margin-bottom: ${({ mb }) => (mb ? `${mb * 0.4}rem` : 0)};
+}
 
-  ${({ align }) => {
-    switch (align) {
-      case 'center':
-        return css`
-          text-align: center;
-        `;
-      case 'left':
-        return css`
-          text-align: left;
-        `;
-      case 'right':
-        return css`
-          text-align: right;
-        `;
-      default:
-        return css`
-          text-align: left;
-        `;
-    }
-  }}
+const Text = ({ children, ...props }: TextProps) => {
+  return <S.Text {...props}>{children}</S.Text>;
+};
 
-  ${({ variant }) => {
-    switch (variant) {
-      case 'h1':
-        return css`
-          font-size: 4.8rem;
-          font-weight: bold;
-        `;
-      case 'h2':
-        return css`
-          font-size: 4rem;
-          font-weight: bold;
-        `;
-      case 'h3':
-        return css`
-          font-size: 3.2rem;
-          font-weight: bold;
-        `;
-      case 'h4':
-        return css`
-          font-size: 2.4rem;
-          font-weight: bold;
-        `;
-      case 'h5':
-        return css`
-          font-size: 2rem;
-          font-weight: bold;
-        `;
-      case 'h6':
-        return css`
-          font-size: 1.6rem;
-          font-weight: bold;
-        `;
-      case 'title':
-        return css`
-          font-size: 2.2rem;
-          font-weight: bold;
-        `;
-      case 'subtitle':
-        return css`
-          font-size: 1.6rem;
-        `;
-      case 'label':
-        return css`
-          font-size: 1.4rem;
-        `;
-      case 'body':
-        return css`
-          font-size: 1.5rem;
-        `;
-      case 'caption':
-        return css`
-          font-size: 1.2rem;
-          color: #666;
-        `;
-      default:
-        return css`
-          font-size: 1.5rem;
-        `;
-    }
-  }}
+const S = {
+  Text: styled.p<TextProps>`
+    margin-bottom: ${({ mb }) => (mb ? `${mb * 0.4}rem` : 0)};
 
-  ${({ css }) => css};
-`;
+    ${({ align }) => {
+      switch (align) {
+        case 'center':
+          return css`
+            text-align: center;
+          `;
+        case 'left':
+          return css`
+            text-align: left;
+          `;
+        case 'right':
+          return css`
+            text-align: right;
+          `;
+        default:
+          return css`
+            text-align: left;
+          `;
+      }
+    }}
+
+    ${({ variant }) => {
+      switch (variant) {
+        case 'h1':
+          return css`
+            font-size: 4.8rem;
+            font-weight: bold;
+          `;
+        case 'h2':
+          return css`
+            font-size: 4rem;
+            font-weight: bold;
+          `;
+        case 'h3':
+          return css`
+            font-size: 3.2rem;
+            font-weight: bold;
+          `;
+        case 'h4':
+          return css`
+            font-size: 2.4rem;
+            font-weight: bold;
+          `;
+        case 'h5':
+          return css`
+            font-size: 2rem;
+            font-weight: bold;
+          `;
+        case 'h6':
+          return css`
+            font-size: 1.6rem;
+            font-weight: bold;
+          `;
+        case 'title':
+          return css`
+            font-size: 2.2rem;
+            font-weight: bold;
+          `;
+        case 'subtitle':
+          return css`
+            font-size: 1.6rem;
+          `;
+        case 'label':
+          return css`
+            font-size: 1.4rem;
+          `;
+        case 'body':
+          return css`
+            font-size: 1.5rem;
+          `;
+        case 'caption':
+          return css`
+            font-size: 1.2rem;
+            color: #666;
+          `;
+        default:
+          return css`
+            font-size: 1.5rem;
+          `;
+      }
+    }}
+
+    color: ${({ color }) => color};
+
+    ${({ lineClamp }) =>
+      lineClamp &&
+      `
+        display: -webkit-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: ${lineClamp};
+      `}
+
+    ${({ css }) => css}
+  `,
+};
 export default Text;
