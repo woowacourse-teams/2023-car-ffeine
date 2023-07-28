@@ -1,53 +1,55 @@
 package com.carffeine.carffeine.station.domain.filter;
 
 import com.carffeine.carffeine.station.domain.jwt.Jwt;
-import com.carffeine.carffeine.station.domain.jwt.JwtProvider;
-import com.carffeine.carffeine.station.service.security.UserService;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.carffeine.carffeine.station.domain.user.User;
+import com.carffeine.carffeine.station.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpHeaders;
+import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @Slf4j
-public class JwtFilter implements Filter {
+public class JwtFilter extends OncePerRequestFilter {
 
     private static final int TOKEN_START_INDEX = 7;
     private static final String BEARER_PREFIX = "Bearer ";
-    private static final String ROLE_USER = "ROLE_USER";
-    private final UserService userService;
-    private final JwtProvider jwtProvider;
-    private final ObjectMapper objectMapper;
-    @Value("${jwt.secret}")
+    private final UserRepository userRepository;
     private final String secretKey;
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException {
-        Object attribute = request.getAttribute(VerifyUserFilter.AUTHENTICATE_USER);
-        if (attribute instanceof AuthenticateUser authenticateUser) {
-            Map<String, Object> claims = new HashMap<>();
-            String authenticateUserJson = objectMapper.writeValueAsString(authenticateUser);
-            claims.put(VerifyUserFilter.AUTHENTICATE_USER, authenticateUserJson);
-            Jwt jwt = jwtProvider.createJwt(claims);
-            userService.updateRefreshToken(authenticateUser.getId(), jwt.refreshToken());
-            String json = objectMapper.writeValueAsString(jwt);
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(json);
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
+        String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
+        if (authorization == null) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "토큰이 존재하지 않습니다");
+            filterChain.doFilter(request, response);
             return;
         }
 
-        HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-        httpServletResponse.sendError(HttpStatus.BAD_REQUEST.value());
+        if (!authorization.startsWith(BEARER_PREFIX)) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "토큰이 올바르지 않습니다");
+            return;
+        }
+
+        String token = authorization.substring(TOKEN_START_INDEX);
+        Jwt jwt = new Jwt(token);
+
+        if (jwt.isExpired(token, secretKey)) {
+            filterChain.doFilter(request, response);
+        }
+
+        Long id = jwt.extractId(token, secretKey);
+
+        User user = userRepository.findById(id);
+        if (user == null) {
+            filterChain.doFilter(request, response);
+        }
     }
 }
