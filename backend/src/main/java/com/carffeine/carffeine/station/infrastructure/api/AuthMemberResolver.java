@@ -1,5 +1,6 @@
 package com.carffeine.carffeine.station.infrastructure.api;
 
+import com.carffeine.carffeine.station.domain.jwt.Jwt;
 import com.carffeine.carffeine.station.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,16 +37,15 @@ public class AuthMemberResolver implements HandlerMethodArgumentResolver {
             MethodParameter parameter,
             ModelAndViewContainer mavContainer,
             NativeWebRequest webRequest,
-            WebDataBinderFactory binderFactory) throws Exception {
-
-        log.info("resolverArgument 실행");
+            WebDataBinderFactory binderFactory) {
 
         HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
-        Long id = (Long) request.getAttribute("id");
-        String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
 
+        String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
         String token = authorization.substring(TOKEN_START_INDEX);
-        Long memberId = JwtUtil.extractId(token, secretKey);
+        Jwt jwt = new Jwt(token);
+
+        Long memberId = jwt.extractId(token, secretKey);
 
         return userRepository.findById(memberId);
     }
