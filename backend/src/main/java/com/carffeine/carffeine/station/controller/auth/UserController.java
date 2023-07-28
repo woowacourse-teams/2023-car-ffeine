@@ -1,6 +1,6 @@
-package com.carffeine.carffeine.station.controller.security;
+package com.carffeine.carffeine.station.controller.auth;
 
-import com.carffeine.carffeine.station.service.security.UserService;
+import com.carffeine.carffeine.station.service.auth.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

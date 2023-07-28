@@ -1,6 +1,6 @@
-package com.carffeine.carffeine.station.controller.security;
+package com.carffeine.carffeine.station.controller.auth;
 
-import com.carffeine.carffeine.station.controller.security.dto.MemberResponse;
+import com.carffeine.carffeine.station.controller.auth.dto.MemberResponse;
 import com.carffeine.carffeine.station.domain.user.User;
 import com.carffeine.carffeine.station.infrastructure.api.AuthMember;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.station.service.security;
+package com.carffeine.carffeine.station.service.auth;
 
 import com.carffeine.carffeine.station.domain.jwt.Jwt;
 import com.carffeine.carffeine.station.domain.jwt.JwtProvider;
