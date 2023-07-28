@@ -1,4 +1,5 @@
-import type { CAPACITIES, CHARGER_TYPES, COMPANY_NAME } from '@constants';
+import type { ENGLISH_DAYS, KOREAN_DAYS } from '@constants';
+import { type CAPACITIES, type CHARGER_TYPES, type COMPANY_NAME } from '@constants';
 
 export type CapacityType = 3 | 7 | 50 | 100 | 200;
 export type ChargerStateType =
@@ -65,3 +66,19 @@ export interface DisplayPosition extends Coordinates {
 export type ChargerType = keyof typeof CHARGER_TYPES;
 export type CompanyName = (typeof COMPANY_NAME)[keyof typeof COMPANY_NAME];
 export type Capacity = (typeof CAPACITIES)[number];
+
+export type EnglishDaysType = (typeof ENGLISH_DAYS)[number];
+export type KoreanDaysType = (typeof KOREAN_DAYS)[number];
+
+export interface Congestion {
+  hour: number;
+  ratio: number;
+}
+
+export interface CongestionStatistics {
+  stationId: number;
+  congestion: {
+    STANDARD?: Record<EnglishDaysType, Congestion[]>;
+    QUICK?: Record<EnglishDaysType, Congestion[]>;
+  };
+}

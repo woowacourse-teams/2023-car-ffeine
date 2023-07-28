@@ -1,8 +1,7 @@
 import { css } from 'styled-components';
 
-import { useExternalState, useExternalValue } from '@utils/external-state';
+import { useExternalState } from '@utils/external-state';
 
-import { getGoogleMapStore } from '@stores/googleMapStore';
 import { serverStationFiltersOpenStore } from '@stores/serverStationFiltersOpenStore';
 
 import { useServerStationFilters } from '@hooks/useServerStationFilters';
@@ -45,6 +44,9 @@ const borderCss = css`
 const buttonCss = css`
   width: 100%;
   height: 6rem;
+
+  position: sticky;
+  bottom: 0;
 
   flex-shrink: 0;
 
@@ -94,7 +96,7 @@ const ServerStationFilters = () => {
         getIsFilterSelected={getIsChargerTypeSelected}
       />
       <FilterSection
-        title={'충전 속도'}
+        title={'충전 속도(kW)'}
         filterOptionNames={[...CAPACITIES]}
         filterOptionValues={[...CAPACITIES]}
         filterButtonVariant={'sm'}

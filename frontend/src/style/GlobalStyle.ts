@@ -16,7 +16,7 @@ export const GlobalStyle = createGlobalStyle`
     scrollbar-width: none;
   }
 
-  body::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     display: none;
   }
 
