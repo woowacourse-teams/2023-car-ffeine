@@ -7,7 +7,7 @@ import { stationSearchWindowOpenStore } from '@stores/stationSearchWindowOpenSto
 import StationSearchWindow from './StationSearchWindow';
 
 const meta = {
-  title: 'Components/StationSearchWindow',
+  title: 'UI/StationSearchWindow',
   component: StationSearchWindow,
 } satisfies Meta<typeof StationSearchWindow>;
 
