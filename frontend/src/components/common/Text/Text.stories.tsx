@@ -8,6 +8,7 @@ const meta = {
   component: Text,
   tags: ['autodocs'],
   args: {
+    tag: 'p',
     variant: 'body',
     align: 'left',
     mb: 0,
@@ -16,6 +17,10 @@ const meta = {
     children: 'You forget a thousand things every day. Make sure this is one of them.',
   },
   argTypes: {
+    tag: {
+      description:
+        '태그명(ex. header, h2, span)을 입력해 텍스트 컴포넌트의 태그를 바꿀 수 있습니다.',
+    },
     children: {
       control: {
         type: 'text',
