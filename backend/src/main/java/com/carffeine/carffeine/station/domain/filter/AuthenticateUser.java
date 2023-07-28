@@ -1,6 +1,5 @@
 package com.carffeine.carffeine.station.domain.filter;
 
-import com.carffeine.carffeine.station.domain.user.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -9,5 +8,4 @@ import lombok.Getter;
 public class AuthenticateUser {
     private Long id;
     private String email;
-    private Role role;
 }

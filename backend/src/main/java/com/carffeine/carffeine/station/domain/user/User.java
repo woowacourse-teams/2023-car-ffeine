@@ -21,8 +21,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String email;
-    private String refreshToken;
-    private Role role;
 
     public User(String email) {
         this.email = email;
@@ -31,17 +29,5 @@ public class User {
     public User update(String email) {
         this.email = email;
         return this;
-    }
-
-    public void updateRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
-    }
-
-    public boolean addRole(Role role) {
-        if (this.role == role) {
-            return false;
-        }
-        this.role = role;
-        return true;
     }
 }
