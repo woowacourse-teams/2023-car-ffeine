@@ -1,10 +1,10 @@
 package com.carffeine.carffeine.station.domain.user;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.Repository;
 
-public interface UserRepository extends JpaRepository<Users, Long> {
+public interface UserRepository extends Repository<User, Long> {
 
-    Users findByUserEmail(String userEmail);
+    User findById(Long id);
 
-    Users findByRefreshToken(String refreshToken);
+    User findByRefreshToken(String refreshToken);
 }

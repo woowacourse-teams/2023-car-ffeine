@@ -4,11 +4,10 @@ import com.carffeine.carffeine.station.domain.user.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.Set;
-
 @Getter
 @AllArgsConstructor
 public class AuthenticateUser {
+    private Long id;
     private String email;
-    private Set<Role> roles;
+    private Role role;
 }

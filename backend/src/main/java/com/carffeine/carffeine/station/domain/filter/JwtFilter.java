@@ -39,7 +39,7 @@ public class JwtFilter implements Filter {
             String authenticateUserJson = objectMapper.writeValueAsString(authenticateUser);
             claims.put(VerifyUserFilter.AUTHENTICATE_USER, authenticateUserJson);
             Jwt jwt = jwtProvider.createJwt(claims);
-            userService.updateRefreshToken(authenticateUser.getEmail(), jwt.refreshToken());
+            userService.updateRefreshToken(authenticateUser.getId(), jwt.refreshToken());
             String json = objectMapper.writeValueAsString(jwt);
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
