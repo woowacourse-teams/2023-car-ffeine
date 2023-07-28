@@ -25,7 +25,7 @@ const StationSearch = () => {
           <XMarkIcon width="3.2rem" stroke="#58595c" strokeWidth={1.5} />
         </Button>
         <StationSearchBar shadow borderColor="#767676" />
-        <Text variant="h6" css={labelText}>
+        <Text fontSize={1.7} weight="bold" css={labelText}>
           충전소 검색 결과
         </Text>
       </S.Wrapper>
@@ -62,7 +62,7 @@ const closeButton = css`
 `;
 
 const labelText = css`
-  padding: 4.9rem 0 2.4rem;
+  padding: 4.8rem 0 2.2rem;
 `;
 
 export default StationSearch;

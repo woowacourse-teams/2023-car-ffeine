@@ -4,6 +4,8 @@ import { useSetExternalState } from '@utils/external-state';
 
 import { stationSearchWindowOpenStore } from '@stores/stationSearchWindowOpenStore';
 
+import Navigator from '@ui/Navigator';
+
 import StationSearchWindow from './StationSearchWindow';
 
 const meta = {
@@ -18,5 +20,10 @@ export const Default = () => {
 
   setIsOpen(true);
 
-  return <StationSearchWindow />;
+  return (
+    <>
+      <Navigator />
+      <StationSearchWindow />
+    </>
+  );
 };
