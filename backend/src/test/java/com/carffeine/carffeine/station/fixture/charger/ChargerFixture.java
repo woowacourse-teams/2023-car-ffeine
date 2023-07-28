@@ -52,7 +52,7 @@ public class ChargerFixture {
                     .stationId("ME101011")
                     .chargerId("01")
                     .chargerCondition(ChargerCondition.CHARGING_IN_PROGRESS)
-                    .latestUpdateTime(LocalDateTime.now())
+                    .latestUpdateTime(LocalDateTime.of(2021, 1, 1, 0, 0, 0))
                     .build())
             .build();
 
@@ -67,7 +67,7 @@ public class ChargerFixture {
                     .stationId("ME101010")
                     .chargerId("02")
                     .chargerCondition(ChargerCondition.CHARGING_IN_PROGRESS)
-                    .latestUpdateTime(LocalDateTime.now())
+                    .latestUpdateTime(LocalDateTime.of(2021, 1, 1, 0, 0, 0))
                     .build())
             .build();
 
@@ -82,7 +82,7 @@ public class ChargerFixture {
                     .stationId("MZ101011")
                     .chargerId("01")
                     .chargerCondition(ChargerCondition.CHARGING_IN_PROGRESS)
-                    .latestUpdateTime(LocalDateTime.now())
+                    .latestUpdateTime(LocalDateTime.of(2021, 1, 1, 0, 0, 0))
                     .build())
             .build();
 
@@ -97,7 +97,7 @@ public class ChargerFixture {
                     .stationId("MZ101011")
                     .chargerId("02")
                     .chargerCondition(ChargerCondition.CHARGING_IN_PROGRESS)
-                    .latestUpdateTime(LocalDateTime.now())
+                    .latestUpdateTime(LocalDateTime.of(2021, 1, 1, 0, 0, 0))
                     .build())
             .build();
 }
