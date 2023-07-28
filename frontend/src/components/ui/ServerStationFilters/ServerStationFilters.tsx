@@ -11,18 +11,13 @@ import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
+import { windowTriggeredLnb } from '@style';
+
 import { CHARGER_TYPES, CAPACITIES, COMPANY_NAME } from '@constants';
 
 import FilterSection from './FilterOption';
 
 import type { ChargerType } from 'types';
-
-const fixedPositionCss = css`
-  position: fixed;
-  left: 7rem;
-  top: 0;
-  z-index: 999;
-`;
 
 const paddingCss = css`
   padding-top: 1.5rem;
@@ -82,7 +77,7 @@ const ServerStationFilters = () => {
       direction={'column'}
       background={'white'}
       css={`
-        ${fixedPositionCss}${overFlowCss}${borderCss}${paddingCss}
+        ${windowTriggeredLnb}${overFlowCss}${borderCss}${paddingCss}
       `}
       nowrap={true}
       noRadius={'all'}
