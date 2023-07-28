@@ -1,8 +1,12 @@
 import type { CSSProp } from 'styled-components';
 import styled from 'styled-components';
 
+import type { ChangeEvent } from 'react';
+
 export interface TextFieldProps {
-  placeHolder?: string;
+  placeholder?: string;
+  value?: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   cssForLabel?: CSSProp;
   cssForInput?: CSSProp;
 }
@@ -49,11 +53,11 @@ const Label = styled.label<TextFieldProps>`
   ${({ cssForLabel }) => cssForLabel};
 `;
 
-const TextField = ({ placeHolder, ...props }: TextFieldProps) => {
+const TextField = ({ placeholder, value, onChange, ...props }: TextFieldProps) => {
   return (
     <Group>
-      <Input type="text" required {...props} />
-      <Label {...props}>{placeHolder}</Label>
+      <Input type="text" required {...props} value={value} onChange={onChange} />
+      <Label {...props}>{placeholder}</Label>
     </Group>
   );
 };

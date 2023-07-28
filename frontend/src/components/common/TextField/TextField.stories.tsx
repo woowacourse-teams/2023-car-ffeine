@@ -1,5 +1,9 @@
 import type { Meta } from '@storybook/react';
 
+import { useState } from 'react';
+
+import Text from '@common/Text';
+
 import TextField from './TextField';
 
 const meta = {
@@ -22,6 +26,23 @@ export default meta;
 export const Default = () => {
   return <TextField />;
 };
+
 export const Placeholder = () => {
-  return <TextField placeHolder="이름" />;
+  return <TextField placeholder="이름" />;
+};
+
+export const Value = () => {
+  const [value, setValue] = useState('');
+  return (
+    <>
+      <Text>value: {value}</Text>
+      <TextField
+        placeholder="이름"
+        value={value}
+        onChange={(e) => {
+          setValue(e.target.value);
+        }}
+      />
+    </>
+  );
 };
