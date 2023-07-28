@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
-import type { ReactNode, MouseEvent } from 'react';
+import type { MouseEvent, ReactNode } from 'react';
 
 export interface ModalProps {
   isOpen: boolean;
@@ -24,6 +24,17 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
   );
 };
 
+export default Modal;
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
+
 const ModalWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -37,17 +48,17 @@ const ModalWrapper = styled.div`
 
   background-color: rgba(0, 0, 0, 0.5);
   overflow: auto;
+
+  animation: ${fadeIn} 0.2s ease-in-out;
 `;
 
 const ModalContent = styled.div`
   background-color: #fff;
-  margin: 10px;
-  padding: 20px;
-  border-radius: 10px;
+  margin: 1rem;
+  padding: 2rem;
+  border-radius: 1rem;
   width: 100%;
-  max-width: 500px;
-  max-height: calc(100% - 40px);
+  max-width: 50rem;
+  max-height: calc(100% - 4rem);
   overflow-y: auto;
 `;
-
-export default Modal;
