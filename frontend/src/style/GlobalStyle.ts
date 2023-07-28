@@ -4,7 +4,6 @@ import { reset } from './reset';
 
 export const GlobalStyle = createGlobalStyle`
   ${reset}
-
   * {
     font-family: 'Noto Sans KR', sans-serif !important;
   }
@@ -22,5 +21,9 @@ export const GlobalStyle = createGlobalStyle`
 
   :root {
 
+  }
+
+  body:has(.modal-open) {
+    overflow: hidden;
   }
 `;
