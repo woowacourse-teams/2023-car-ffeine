@@ -37,11 +37,28 @@ export const Value = () => {
     <>
       <Text>value: {value}</Text>
       <TextField
-        placeholder="이름"
+        placeholder="주소"
         value={value}
         onChange={(e) => {
           setValue(e.target.value);
         }}
+      />
+    </>
+  );
+};
+
+export const HelperText = () => {
+  const [value, setValue] = useState('');
+  return (
+    <>
+      <Text>value: {value}</Text>
+      <TextField
+        placeholder="닉네임"
+        value={value}
+        onChange={(e) => {
+          setValue(e.target.value);
+        }}
+        helperText={value.length < 2 && '닉네임은 2글자 이상 입력하셔야 합니다.'}
       />
     </>
   );

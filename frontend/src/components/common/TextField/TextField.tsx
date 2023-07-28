@@ -7,6 +7,7 @@ export interface TextFieldProps {
   placeholder?: string;
   value?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  helperText?: string;
   cssForLabel?: CSSProp;
   cssForInput?: CSSProp;
 }
@@ -40,6 +41,12 @@ const Input = styled.input<TextFieldProps>`
   ${({ cssForInput }) => cssForInput};
 `;
 
+const HelperText = styled.div`
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+`;
+
 const Label = styled.label<TextFieldProps>`
   color: #c6c6c6;
   font-size: 16px;
@@ -53,11 +60,12 @@ const Label = styled.label<TextFieldProps>`
   ${({ cssForLabel }) => cssForLabel};
 `;
 
-const TextField = ({ placeholder, value, onChange, ...props }: TextFieldProps) => {
+const TextField = ({ placeholder, value, onChange, helperText, ...props }: TextFieldProps) => {
   return (
     <Group>
       <Input type="text" required {...props} value={value} onChange={onChange} />
       <Label {...props}>{placeholder}</Label>
+      {helperText && <HelperText>{helperText}</HelperText>}
     </Group>
   );
 };
