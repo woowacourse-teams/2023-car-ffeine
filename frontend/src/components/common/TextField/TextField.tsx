@@ -14,6 +14,37 @@ export interface TextFieldProps extends HTMLAttributes<HTMLElement> {
   cssForInput?: CSSProp;
 }
 
+const TextField = ({
+  // textFieldId,
+  placeholder,
+  value,
+  onChange,
+  helperText,
+  ...props
+}: TextFieldProps) => {
+  return (
+    <Group>
+      <Input
+        type="text"
+        // id={textFieldId}
+        required
+        {...props}
+        value={value}
+        onChange={onChange}
+      />
+      <Label
+        // htmlFor={textFieldId}
+        {...props}
+      >
+        {placeholder}
+      </Label>
+      {helperText && <HelperText>{helperText}</HelperText>}
+    </Group>
+  );
+};
+
+export default TextField;
+
 const Group = styled.div`
   position: relative;
   margin: 4.5rem 0;
@@ -63,34 +94,3 @@ const Label = styled.label<TextFieldProps>`
 
   ${({ cssForLabel }) => cssForLabel};
 `;
-
-const TextField = ({
-  // textFieldId,
-  placeholder,
-  value,
-  onChange,
-  helperText,
-  ...props
-}: TextFieldProps) => {
-  return (
-    <Group>
-      <Input
-        type="text"
-        // id={textFieldId}
-        required
-        {...props}
-        value={value}
-        onChange={onChange}
-      />
-      <Label
-        // htmlFor={textFieldId}
-        {...props}
-      >
-        {placeholder}
-      </Label>
-      {helperText && <HelperText>{helperText}</HelperText>}
-    </Group>
-  );
-};
-
-export default TextField;
