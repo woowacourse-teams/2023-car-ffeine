@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 public class MemberService {
+
     private final JwtProvider jwtProvider;
 
     public String createJwt(Long memberId) {

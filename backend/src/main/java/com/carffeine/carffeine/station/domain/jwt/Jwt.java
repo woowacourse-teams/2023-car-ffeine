@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import java.util.Date;
 
 public record Jwt(String accessToken) {
+
     public boolean isExpired(String token, String secret) {
         return Jwts.parser()
                 .setSigningKey(secret)

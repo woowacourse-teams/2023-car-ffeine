@@ -17,6 +17,7 @@ import javax.persistence.Id;
 @Builder
 @Entity
 public class Member {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,10 +25,5 @@ public class Member {
 
     public Member(String email) {
         this.email = email;
-    }
-
-    public Member update(String email) {
-        this.email = email;
-        return this;
     }
 }
