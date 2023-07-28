@@ -14,8 +14,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import javax.servlet.Filter;
 import java.util.List;
 
-@Configuration
 @RequiredArgsConstructor
+@Configuration
 public class AuthenticationConfig implements WebMvcConfigurer {
 
     private final MemberRepository memberRepository;
