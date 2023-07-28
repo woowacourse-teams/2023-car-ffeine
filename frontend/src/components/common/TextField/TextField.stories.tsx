@@ -8,8 +8,11 @@ const meta = {
   tags: ['autodocs'],
   args: {},
   argTypes: {
-    css: {
-      description: 'CSS를 수동으로 지정할 수 있습니다.',
+    cssForLabel: {
+      description: 'label의 CSS를 수동으로 지정할 수 있습니다.',
+    },
+    cssForInput: {
+      description: 'input의 CSS를 수동으로 지정할 수 있습니다.',
     },
   },
 } satisfies Meta<typeof TextField>;
@@ -18,4 +21,7 @@ export default meta;
 
 export const Default = () => {
   return <TextField />;
+};
+export const Placeholder = () => {
+  return <TextField placeHolder="이름" />;
 };
