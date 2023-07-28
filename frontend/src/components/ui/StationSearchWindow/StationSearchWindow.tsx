@@ -4,8 +4,8 @@ import { css, styled } from 'styled-components';
 import Button from '@common/Button';
 import Text from '@common/Text';
 
-import SearchResult from '@ui/SearchResult';
-import StationSearchBar from '@ui/StationSearchBar';
+import SearchResult from './SearchResult';
+import StationSearchBar from './StationSearchBar';
 
 const StationSearch = () => {
   return (
