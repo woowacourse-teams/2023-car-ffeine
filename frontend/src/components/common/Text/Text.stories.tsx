@@ -67,6 +67,14 @@ const meta = {
     lineClamp: {
       description: '블록 컨테이너 콘텐츠의 줄 수를 선택한 수만큼으로 제한할 수 있습니다.',
     },
+    fontSize: {
+      description:
+        '글자 크기를 직접 조절할 수 있습니다.<br>❗글자 크기를 직접 설정할 경우, variant 적용시에도 글자 크기는 변하지 않습니다.',
+    },
+    weight: {
+      description:
+        '글자 두께를 직접 조절할 수 있습니다.<br>❗글자 두께를 직접 설정할 경우, variant 적용시에도 글자 두께는 변하지 않습니다.',
+    },
   },
 } satisfies Meta<typeof Text>;
 

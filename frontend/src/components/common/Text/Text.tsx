@@ -25,6 +25,8 @@ interface TextProps extends HTMLAttributes<HTMLElement> {
   align?: 'center' | 'left' | 'right';
   color?: string;
   lineClamp?: number;
+  fontSize?: number;
+  weight?: 'bolder' | 'bold' | 'normal' | 'lighter';
   css?: CSSProp;
 }
 
@@ -118,6 +120,8 @@ const S = {
       }
     }}
 
+    font-size: ${({ fontSize }) => fontSize && `${fontSize}rem`};
+    font-weight: ${({ weight }) => weight};
     color: ${({ color }) => color};
 
     ${({ lineClamp }) =>
