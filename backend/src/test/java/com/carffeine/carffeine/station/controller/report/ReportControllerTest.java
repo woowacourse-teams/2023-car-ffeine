@@ -4,12 +4,14 @@ import com.carffeine.carffeine.station.MockBeanInjection;
 import com.carffeine.carffeine.station.domain.report.FaultReport;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.fixture.station.StationFixture;
+
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
