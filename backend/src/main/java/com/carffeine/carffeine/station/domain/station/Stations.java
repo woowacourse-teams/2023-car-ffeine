@@ -9,8 +9,6 @@ import java.util.List;
 
 public class Stations {
 
-    private static final int NONE_CAPACITY = 0;
-
     private final List<Station> stations;
 
     private Stations(List<Station> stations) {
@@ -43,9 +41,13 @@ public class Stations {
                     .getChargers()
                     .stream()
                     .noneMatch(charger -> capacities.stream()
-                            .anyMatch(capacity -> capacity.compareTo(charger.getCapacity()) == NONE_CAPACITY))
-            );
+                            .anyMatch(capacity -> isSameCapacity(charger.getCapacity(), capacity))
+                    ));
         }
+    }
+
+    private static boolean isSameCapacity(BigDecimal capacity, BigDecimal filterCapacity) {
+        return capacity.compareTo(filterCapacity) == 0;
     }
 
     public List<Station> getFilteredStations(List<String> companyNames,
