@@ -28,13 +28,12 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
         if (authorization == null) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "토큰이 존재하지 않습니다");
-            filterChain.doFilter(request, response);
+            sendUnauthorizedError(response, "토큰이 존재하지 않습니다");
             return;
         }
 
         if (!authorization.startsWith(BEARER_PREFIX)) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "토큰이 올바르지 않습니다");
+            sendUnauthorizedError(response, "토큰이 올바르지 않습니다");
             return;
         }
 
@@ -51,5 +50,9 @@ public class JwtFilter extends OncePerRequestFilter {
         if (member == null) {
             filterChain.doFilter(request, response);
         }
+    }
+
+    private void sendUnauthorizedError(HttpServletResponse response, String errorMessage) throws IOException {
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, errorMessage);
     }
 }
