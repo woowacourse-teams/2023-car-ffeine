@@ -1,72 +1,20 @@
-import { styled } from 'styled-components';
-
 import { useSelectedStation } from '@hooks/useSelectedStation';
 
-import { CHARGER_TYPES } from '@constants';
+import DetailedStation from '@ui/DetailedStationInfo/DetailedStation';
+
+/**
+ * 이 컴포넌트는 컨테이너의 역할을 하게 될 것입니다.
+ */
 
 const DetailedStationInfo = () => {
   const { data: station, isLoading, isError } = useSelectedStation();
 
   if (isLoading || isError) return <></>;
 
-  const {
-    stationName,
-    companyName,
-    contact,
-    chargers,
-    isParkingFree,
-    operatingTime,
-    address,
-    detailLocation,
-    isPrivate,
-    stationState,
-    privateReason,
-    reportCount,
-  } = station;
+  /**
+   * TODO: 혼잡도도 외부(지금 이 컴포넌트)에서 자식에게 데이터를 주입 해서 렌더링 하는 방식으로 구현이 필요할듯 함. / 1. 데이터 페칭 관련 관심사 분리 가능, 2. 스토리북 테스트 쉬워짐
+   */
 
-  return (
-    <Container>
-      <h2>{stationName}</h2>
-      <p>{companyName}</p>
-      <p>{address}</p>
-      {detailLocation && <p>{detailLocation}</p>}
-      {operatingTime && <p>{operatingTime}</p>}
-      {stationState && <p>{stationState}</p>}
-      {contact && <p>{contact}</p>}
-      {privateReason && <p>{privateReason}</p>}
-      <div>
-        {isPrivate && <p>이용 제한</p>}
-        {isParkingFree && <p>주차무료</p>}
-      </div>
-      {chargers.map((data, index) => {
-        const { type, price, capacity, latestUpdateTime, state, method } = data;
-
-        return (
-          <ChargerContainer key={index}>
-            <li>{CHARGER_TYPES[type as keyof typeof CHARGER_TYPES]}</li>
-            <li>가격: {price}</li>
-            <li>{capacity >= 50 ? '급속' : '완속'}</li>
-            {latestUpdateTime && <li>{String(latestUpdateTime)}</li>}
-            <li>충전기 상태: {state}</li>
-            {method && <li>{method}</li>}
-          </ChargerContainer>
-        );
-      })}
-
-      <div>누적 고장 신고 횟수: {reportCount}회</div>
-    </Container>
-  );
+  return <DetailedStation station={station} />;
 };
-const Container = styled.div`
-  position: fixed;
-  left: 41rem;
-  width: 34rem;
-  z-index: 999;
-  padding: 10px;
-  background-color: white;
-  box-shadow: 1px 1px 2px gray;
-`;
-const ChargerContainer = styled.ul`
-  border: 1px solid #000;
-`;
 export default DetailedStationInfo;
