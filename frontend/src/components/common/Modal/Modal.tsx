@@ -9,7 +9,7 @@ export interface ModalProps {
 }
 
 const Modal = ({ isOpen, onClose, children }: ModalProps) => {
-  const handleModalContentClick = (event: MouseEvent<HTMLDivElement>) => {
+  const handleClickModalContent = (event: MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
   };
 
@@ -19,7 +19,7 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
 
   return (
     <ModalWrapper className="modal-open" onClick={onClose}>
-      <ModalContent onClick={handleModalContentClick}>{children}</ModalContent>
+      <ModalContent onClick={handleClickModalContent}>{children}</ModalContent>
     </ModalWrapper>
   );
 };
@@ -50,6 +50,8 @@ const ModalWrapper = styled.div`
   overflow: auto;
 
   animation: ${fadeIn} 0.2s ease-in-out;
+
+  z-index: 99999;
 `;
 
 const ModalContent = styled.div`

@@ -12,19 +12,9 @@ const meta = {
   title: 'Components/Modal',
   component: Modal,
   tags: ['autodocs'],
-  args: {},
-  argTypes: {},
 } satisfies Meta<typeof Modal>;
 
 export default meta;
-
-export const Default = (args: ModalProps) => {
-  return (
-    <Modal {...args}>
-      <Text variant="body">모달이에요</Text>
-    </Modal>
-  );
-};
 
 export const TriggeredByButton = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
