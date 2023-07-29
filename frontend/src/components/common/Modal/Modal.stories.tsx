@@ -5,7 +5,6 @@ import { useState } from 'react';
 import Button from '@common/Button';
 import Text from '@common/Text';
 
-import type { ModalProps } from './Modal';
 import Modal from './Modal';
 
 const meta = {
