@@ -7,8 +7,18 @@ const meta = {
   title: 'Components/Alert',
   component: Alert,
   tags: ['autodocs'],
-  args: {},
-  argTypes: {},
+  args: {
+    color: 'primary',
+    text: 'You forget a thousand things every day. Make sure this is one of them.',
+  },
+  argTypes: {
+    color: {
+      description: '색상을 선택합니다.',
+    },
+    text: {
+      description: '텍스트를 입력합니다.',
+    },
+  },
 } satisfies Meta<typeof Alert>;
 
 export default meta;
@@ -19,14 +29,14 @@ export const Default = (args: AlertProps) => {
 export const Colors = () => {
   return (
     <>
-      <Alert type="primary" message="primary" />
-      <Alert type="secondary" message="secondary" />
-      <Alert type="success" message="success" />
-      <Alert type="error" message="error" />
-      <Alert type="warning" message="warning" />
-      <Alert type="info" message="info" />
-      <Alert type="light" message="light" />
-      <Alert type="dark" message="dark" />
+      <Alert color="primary" text="primary alert" />
+      <Alert color="secondary" text="secondary alert" />
+      <Alert color="success" text="success alert" />
+      <Alert color="error" text="error alert" />
+      <Alert color="warning" text="warning alert" />
+      <Alert color="info" text="info alert" />
+      <Alert color="light" text="light alert" />
+      <Alert color="dark" text="dark alert" />
     </>
   );
 };
