@@ -60,8 +60,8 @@ const DetailedStationInfo = () => {
 
 const Container = styled.div`
   position: fixed;
-  top: 80px;
-  left: 180px;
+  left: 41rem;
+  width: 34rem;
   z-index: 999;
   padding: 10px;
   background-color: white;
