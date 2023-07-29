@@ -65,6 +65,14 @@ const meta = {
         type: 'select',
       },
       description:
+        '플렉스 컨테이너 안에 있는 아이템의 위치를 조절할 수 있습니다.<br>- direction이 row일 경우: 수직을 기준으로 아이템이 이동합니다.<br>- direction이 column일 경우: 수평을 기준으로 아이템이 이동합니다.<br> ❗`wrap`(noWrap이 false)일 때만 사용 가능합니다.',
+    },
+    alignItems: {
+      options: Object.keys({ ...FLEX_BOX_ITEM_POSITION, none: undefined }),
+      control: {
+        type: 'select',
+      },
+      description:
         '플렉스 컨테이너 안에 있는 아이템의 위치를 조절할 수 있습니다.<br>- direction이 row일 경우: 수직을 기준으로 아이템이 이동합니다.<br>- direction이 column일 경우: 수평을 기준으로 아이템이 이동합니다.',
     },
     noRadius: {
