@@ -16,7 +16,7 @@ const meta = {
 
 export default meta;
 
-export const TriggeredByButton = () => {
+export const Default = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <>
