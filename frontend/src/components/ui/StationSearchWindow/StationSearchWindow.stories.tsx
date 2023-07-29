@@ -2,7 +2,7 @@ import type { Meta } from '@storybook/react';
 
 import { useSetExternalState } from '@utils/external-state';
 
-import { stationSearchWindowOpenStore } from '@stores/stationSearchWindowOpenStore';
+import { stationSearchWindowOpenStore } from '@stores/navItemsOpenStore';
 
 import Navigator from '@ui/Navigator';
 

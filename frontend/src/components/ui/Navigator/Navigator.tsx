@@ -7,8 +7,10 @@ import { css } from 'styled-components';
 
 import { useSetExternalState } from '@utils/external-state';
 
-import { serverStationFiltersOpenStore } from '@stores/serverStationFiltersOpenStore';
-import { stationSearchWindowOpenStore } from '@stores/stationSearchWindowOpenStore';
+import {
+  serverStationFiltersOpenStore,
+  stationSearchWindowOpenStore,
+} from '@stores/navItemsOpenStore';
 
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
@@ -33,15 +35,25 @@ const borderCss = css`
 `;
 
 const Navigator = () => {
-  const setServerStationFiltersOpenStore = useSetExternalState(serverStationFiltersOpenStore);
   const setStationSearchWindowOpenState = useSetExternalState(stationSearchWindowOpenStore);
-
-  const toggleOpenServerStationFilters = () => {
-    setServerStationFiltersOpenStore((prev) => !prev);
-  };
+  const setServerStationFiltersOpenState = useSetExternalState(serverStationFiltersOpenStore);
 
   const toggleStationSearchWindow = () => {
-    setStationSearchWindowOpenState((prev) => !prev);
+    setStationSearchWindowOpenState((prev) => {
+      if (!prev) {
+        setServerStationFiltersOpenState(false);
+      }
+      return !prev;
+    });
+  };
+
+  const toggleServerStationFilters = () => {
+    setServerStationFiltersOpenState((prev) => {
+      if (!prev) {
+        setStationSearchWindowOpenState(false);
+      }
+      return !prev;
+    });
   };
 
   return (
@@ -62,7 +74,7 @@ const Navigator = () => {
       <Button onClick={toggleStationSearchWindow} aria-label="검색창 열기">
         <MagnifyingGlassIcon width="2.8rem" stroke="#333" />
       </Button>
-      <Button onClick={toggleOpenServerStationFilters} aria-label="필터링 메뉴 열기">
+      <Button onClick={toggleServerStationFilters} aria-label="필터링 메뉴 열기">
         <AdjustmentsHorizontalIcon width="2.8rem" stroke="#333" />
       </Button>
       <Button aria-label="충전소 목록 보기">

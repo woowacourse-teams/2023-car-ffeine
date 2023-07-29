@@ -2,7 +2,7 @@ import { css } from 'styled-components';
 
 import { useExternalState } from '@utils/external-state';
 
-import { serverStationFiltersOpenStore } from '@stores/serverStationFiltersOpenStore';
+import { serverStationFiltersOpenStore } from '@stores/navItemsOpenStore';
 
 import { useServerStationFilters } from '@hooks/useServerStationFilters';
 import { useUpdateStations } from '@hooks/useUpdateStations';

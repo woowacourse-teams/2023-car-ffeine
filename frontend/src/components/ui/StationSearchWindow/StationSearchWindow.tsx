@@ -3,7 +3,7 @@ import { css, styled } from 'styled-components';
 
 import { useExternalState } from '@utils/external-state';
 
-import { stationSearchWindowOpenStore } from '@stores/stationSearchWindowOpenStore';
+import { stationSearchWindowOpenStore } from '@stores/navItemsOpenStore';
 
 import Button from '@common/Button';
 import Text from '@common/Text';
