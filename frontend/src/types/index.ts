@@ -54,6 +54,7 @@ export interface StationDetails extends Station {
   chargers: ChargerDetails[];
   stationState: string | null;
   privateReason: string | null;
+  reportCount: number;
 }
 
 export interface MockStation extends StationDetails, ChargerCount {}

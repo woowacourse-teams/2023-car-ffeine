@@ -21,6 +21,7 @@ const DetailedStationInfo = () => {
     isPrivate,
     stationState,
     privateReason,
+    reportCount,
   } = station;
 
   return (
@@ -51,6 +52,8 @@ const DetailedStationInfo = () => {
           </ChargerContainer>
         );
       })}
+
+      <div>누적 고장 신고 횟수: {reportCount}회</div>
     </Container>
   );
 };

@@ -64,6 +64,7 @@ export const stations: MockStation[] = Array.from({ length: 3000 }).map((_, inde
     availableCount: generateRandomData<number>([0, 1, 2, 3]),
     stationState: generateRandomData(['yyyy-mm-dd일부터 충전소 공사합니다.', null]),
     privateReason: generateRandomData(['아파트', null]),
+    reportCount: generateRandomData([0, 0, 0, 0, Math.floor(Math.random() * 99)]),
   };
 });
 
