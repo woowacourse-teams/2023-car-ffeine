@@ -9,15 +9,7 @@ import Text from '@common/Text';
 
 const SearchResult = () => {
   return (
-    <List
-      css={css`
-        max-height: 76%;
-        border: 2rem solid #e9ecf5;
-        border-radius: 1.2rem;
-        background: #e9ecf5;
-        overflow: auto;
-      `}
-    >
+    <List css={searchResultList}>
       {Array.from({ length: 8 }).map((_, index) => (
         <ListItem key={index} css={foundStationList}>
           <Button width="100%" shadow css={foundStationButton}>
@@ -32,8 +24,9 @@ const SearchResult = () => {
               >
                 <BoltIcon width={24} fill="#5c68d6" />
               </FlexBox>
-              <div>
+              <article>
                 <Text
+                  tag="h3"
                   variant="h6"
                   title={'카페인팀 충전소'}
                   lineClamp={1}
@@ -41,7 +34,7 @@ const SearchResult = () => {
                 <Text variant="label" align="left" lineClamp={1} color="#585858">
                   {`서울특별시 강남구 번릉로 113`}
                 </Text>
-              </div>
+              </article>
             </FlexBox>
           </Button>
         </ListItem>
@@ -50,13 +43,21 @@ const SearchResult = () => {
   );
 };
 
+const searchResultList = css`
+  max-height: 76%;
+  border: 2rem solid #e9ecf5;
+  border-radius: 1.2rem;
+  background: #e9ecf5;
+  overflow: auto;
+`;
+
 const square = css`
   padding: 0.4rem;
   border-radius: 1rem;
 `;
 
 const foundStationButton = css`
-  padding: 1.2rem 1.2rem 1.4rem;
+  padding: 1.2rem 1rem 1.4rem;
   box-shadow: 0 0.3rem 0.8rem 0 #ebebeb;
   border-radius: 1.2rem;
 `;

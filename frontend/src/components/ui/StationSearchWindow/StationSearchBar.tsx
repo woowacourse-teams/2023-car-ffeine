@@ -2,7 +2,8 @@ import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import type { CSSProp } from 'styled-components';
 import { styled } from 'styled-components';
 
-import type { InputHTMLAttributes } from 'react';
+import type { ChangeEvent, FormEvent, InputHTMLAttributes } from 'react';
+import { useState } from 'react';
 
 import Button from '@common/Button';
 
@@ -17,18 +18,32 @@ export interface StationSearchBarProps extends InputHTMLAttributes<HTMLInputElem
 }
 
 const StationSearchBar = ({ ...props }: StationSearchBarProps) => {
+  const [inputValue, setInputValue] = useState('');
+
+  const handleSubmitSearchWord = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    alert(inputValue);
+  };
+
+  const handleRequestSearchResult = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(value);
+
+    console.log(value);
+  };
+
   return (
-    <S.Label htmlFor="station-search">
-      <S.Search aria-label="검색창" type="text" id="station-search" {...props} />
-      <Button>
+    <S.Form role="search" onSubmit={handleSubmitSearchWord}>
+      <S.Search type="search" role="searchbox" onChange={handleRequestSearchResult} {...props} />
+      <Button type="submit" aria-label="검색하기">
         <MagnifyingGlassIcon width="2.4rem" stroke={props.borderColor || '#333'} />
       </Button>
-    </S.Label>
+    </S.Form>
   );
 };
 
 const S = {
-  Label: styled.label`
+  Form: styled.form`
     position: relative;
   `,
 
@@ -47,7 +62,8 @@ const S = {
     & + button {
       position: absolute;
       right: 2rem;
-      top: -50%;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
     &:focus {

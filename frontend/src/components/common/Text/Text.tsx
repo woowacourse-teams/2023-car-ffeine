@@ -20,16 +20,25 @@ const variantList = [
 type VariantType = (typeof variantList)[number];
 
 interface TextProps extends HTMLAttributes<HTMLElement> {
+  tag?: string;
   variant?: VariantType;
   mb?: number;
   align?: 'center' | 'left' | 'right';
   color?: string;
   lineClamp?: number;
+  fontSize?: number;
+  weight?: 'bolder' | 'bold' | 'normal' | 'lighter';
   css?: CSSProp;
 }
 
-const Text = ({ children, ...props }: TextProps) => {
-  return <S.Text {...props}>{children}</S.Text>;
+const Text = ({ children, tag, ...props }: TextProps) => {
+  const changeableTag = tag || 'p';
+
+  return (
+    <S.Text as={changeableTag} {...props}>
+      {children}
+    </S.Text>
+  );
 };
 
 const S = {
@@ -118,6 +127,8 @@ const S = {
       }
     }}
 
+    font-size: ${({ fontSize }) => fontSize && `${fontSize}rem`};
+    font-weight: ${({ weight }) => weight};
     color: ${({ color }) => color};
 
     ${({ lineClamp }) =>
