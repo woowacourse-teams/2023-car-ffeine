@@ -10,7 +10,7 @@ import { getGoogleMapStore } from '@stores/googleMapStore';
 import { useUpdateStations } from '@hooks/useUpdateStations';
 
 import ClientStationFilters from '@ui/ClientStationFilters';
-import DetailedStationInfo from '@ui/DetailedStationInfo';
+import Index from '@ui/DetailedStationInfo/DetailedStationInfo';
 import MapController from '@ui/MapController';
 import Navigator from '@ui/Navigator';
 import ServerStationFilters from '@ui/ServerStationFilters';
@@ -25,7 +25,7 @@ const CarFfeineMap = () => {
       <CarFfeineMapListener />
       <StationMarkersContainer />
       <StationList />
-      <DetailedStationInfo />
+      <Index />
       <MapController />
       <ClientStationFilters />
       <Navigator />

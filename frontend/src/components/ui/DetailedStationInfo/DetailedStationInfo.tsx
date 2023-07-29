@@ -57,7 +57,6 @@ const DetailedStationInfo = () => {
     </Container>
   );
 };
-
 const Container = styled.div`
   position: fixed;
   left: 41rem;
@@ -67,9 +66,7 @@ const Container = styled.div`
   background-color: white;
   box-shadow: 1px 1px 2px gray;
 `;
-
 const ChargerContainer = styled.ul`
   border: 1px solid #000;
 `;
-
 export default DetailedStationInfo;
