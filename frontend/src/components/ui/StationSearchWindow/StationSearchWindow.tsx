@@ -8,7 +8,7 @@ import { stationSearchWindowOpenStore } from '@stores/navItemsOpenStore';
 import Button from '@common/Button';
 import Text from '@common/Text';
 
-import { windowTriggeredLnb } from '@style';
+import { windowPositionTriggeredByLnb } from '@style';
 
 import SearchResult from './SearchResult';
 import StationSearchBar from './StationSearchBar';
@@ -44,7 +44,7 @@ const S = {
     outline: 0.15rem solid #e1e4eb;
     padding: 2rem 2.4rem 5.2rem;
 
-    ${windowTriggeredLnb}
+    ${windowPositionTriggeredByLnb}
   `,
 
   Section: styled.section`
