@@ -34,7 +34,7 @@ const CircleDaySelectButton = ({ children }: PropsWithChildren) => {
         }
       }}
     >
-      <Text>
+      <Text variant="h6">
         {typeof children === 'string' &&
           isEnglishDays(children) &&
           `${ENGLISH_DAYS_TO_KOREAN_DAYS[children]}`}
