@@ -6,6 +6,7 @@ import { useExternalValue } from '@utils/external-state';
 import { setLocalStorage } from '@utils/storage';
 
 import { getGoogleMapStore } from '@stores/googleMapStore';
+import { getMarkerClustererStore } from '@stores/markerClustererStore';
 
 import { useUpdateStations } from '@hooks/useUpdateStations';
 

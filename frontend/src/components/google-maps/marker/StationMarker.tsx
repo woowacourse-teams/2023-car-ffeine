@@ -5,6 +5,7 @@ import { getStoreSnapshot } from '@utils/external-state/tools';
 
 import { getBriefStationInfoWindowStore } from '@stores/briefStationInfoWindowStore';
 import { getGoogleMapStore } from '@stores/googleMapStore';
+import { getMarkerClustererStore } from '@stores/markerClustererStore';
 import { markerInstanceStore } from '@stores/markerInstanceStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
@@ -23,6 +24,7 @@ interface Props {
 const StationMarker = ({ station }: Props) => {
   const { latitude, longitude, stationName, stationId } = station;
   const googleMap = useExternalValue(getGoogleMapStore());
+  const markerClusterer = useExternalValue(getMarkerClustererStore());
 
   const { updateStations } = useUpdateStations();
   const { briefStationInfoRoot, infoWindowInstance } = useExternalValue(
@@ -35,10 +37,12 @@ const StationMarker = ({ station }: Props) => {
   useEffect(() => {
     const markerInstance = new google.maps.Marker({
       position: { lat: latitude, lng: longitude },
-      map: googleMap,
+      // map: googleMap,
       title: stationName,
       icon: BlueMarker,
     });
+
+    markerClusterer.addMarker(markerInstance);
 
     setMarkerInstanceState((previewsMarkerInstances) => [
       ...previewsMarkerInstances,
@@ -70,6 +74,7 @@ const StationMarker = ({ station }: Props) => {
       if (selectedStationId === stationId) setSelectedStationId(null);
 
       markerInstance.setMap(null);
+      markerClusterer.removeMarker(markerInstance);
     };
   }, []);
 
