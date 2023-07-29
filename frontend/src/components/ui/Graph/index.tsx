@@ -1,6 +1,4 @@
-import { useEffect, type PropsWithChildren } from 'react';
-
-import { useSetExternalState } from '@utils/external-state';
+import { type PropsWithChildren, useState, createContext } from 'react';
 
 import FlexBox from '@common/FlexBox';
 
@@ -8,7 +6,6 @@ import Bar from './Bar';
 import BarContainer from './BarContainer';
 import CircleDaySelectButton from './CircleDaySelectButton';
 import DayMenus from './DayMenus';
-import { congestionStatisticsStore } from './GraphStore';
 
 import type { Congestion, EnglishDaysType } from 'types';
 
@@ -17,17 +14,27 @@ export interface GraphProps {
   statistics: Record<EnglishDaysType, Congestion[]>;
 }
 
-const Graph = ({ statistics, children }: PropsWithChildren<GraphProps>) => {
-  const setStatistics = useSetExternalState(congestionStatisticsStore);
+interface GraphContextType {
+  congestionStatistics: Record<EnglishDaysType, Congestion[]>;
+  setCongestionStatistics: (congestionStatistics: Record<EnglishDaysType, Congestion[]>) => void;
+  selectedDay: EnglishDaysType;
+  setSelectedDay: (selectedDays: EnglishDaysType) => void;
+}
 
-  useEffect(() => {
-    setStatistics(statistics);
-  }, []);
+export const GraphContext = createContext<GraphContextType>(null);
+
+const Graph = ({ statistics, children }: PropsWithChildren<GraphProps>) => {
+  const [congestionStatistics, setCongestionStatistics] = useState(statistics);
+  const [selectedDay, setSelectedDay] = useState<EnglishDaysType>('MON');
 
   return (
-    <FlexBox direction="column" gap={5}>
-      {children}
-    </FlexBox>
+    <GraphContext.Provider
+      value={{ congestionStatistics, setCongestionStatistics, selectedDay, setSelectedDay }}
+    >
+      <FlexBox direction="column" gap={5}>
+        {children}
+      </FlexBox>
+    </GraphContext.Provider>
   );
 };
 

@@ -1,15 +1,13 @@
 import { css } from 'styled-components';
 
-import type { PropsWithChildren } from 'react';
-
-import { useExternalState } from '@utils/external-state';
+import { useContext, type PropsWithChildren } from 'react';
 
 import Button from '@common/Button';
 import Text from '@common/Text';
 
 import { ENGLISH_DAYS, ENGLISH_DAYS_TO_KOREAN_DAYS } from '@constants';
 
-import { selectedDayStore } from './GraphStore';
+import { GraphContext } from '.';
 
 import type { EnglishDaysType } from 'types';
 
@@ -18,7 +16,7 @@ const isEnglishDays = (day: string): day is EnglishDaysType => {
 };
 
 const CircleDaySelectButton = ({ children }: PropsWithChildren) => {
-  const [selectedDay, setSelectedDay] = useExternalState(selectedDayStore);
+  const { selectedDay, setSelectedDay } = useContext(GraphContext);
 
   const handleSelectDay = (day: string) => {
     if (isEnglishDays(day)) setSelectedDay(day);

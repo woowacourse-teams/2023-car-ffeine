@@ -1,18 +1,17 @@
 import { css } from 'styled-components';
 
-import { useExternalValue } from '@utils/external-state';
+import { useContext } from 'react';
 
 import FlexBox from '@common/FlexBox';
 
-import type { GraphProps } from '.';
-import { selectedDayStore } from './GraphStore';
+import { GraphContext, type GraphProps } from '.';
 
 interface BarContainerProps extends GraphProps {
   renderBar: (hour: number, ratio: number) => JSX.Element;
 }
 
 const BarContainer = ({ align, statistics, renderBar }: BarContainerProps) => {
-  const selectedDay = useExternalValue(selectedDayStore);
+  const { selectedDay } = useContext(GraphContext);
 
   return (
     <FlexBox direction={align} nowrap={true} css={align === 'row' && rowAlignGraphCss}>
