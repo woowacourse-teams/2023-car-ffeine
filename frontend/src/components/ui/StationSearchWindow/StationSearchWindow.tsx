@@ -20,15 +20,15 @@ const StationSearch = () => {
 
   return (
     <S.Container>
-      <S.Wrapper>
+      <S.Section>
         <Button css={closeButton} onClick={() => setIsOpen(false)} aria-label="검색창 닫기">
           <XMarkIcon width="3.2rem" stroke="#58595c" strokeWidth={1.5} />
         </Button>
         <StationSearchBar shadow borderColor="#767676" />
-        <Text fontSize={1.7} weight="bold" css={labelText}>
+        <Text tag="h2" fontSize={1.7} weight="bold" css={labelText}>
           충전소 검색 결과
         </Text>
-      </S.Wrapper>
+      </S.Section>
 
       <SearchResult />
     </S.Container>
@@ -47,7 +47,7 @@ const S = {
     ${windowTriggeredLnb}
   `,
 
-  Wrapper: styled.div`
+  Section: styled.section`
     width: 100%;
     position: sticky;
     top: 0;

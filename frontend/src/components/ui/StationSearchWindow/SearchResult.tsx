@@ -24,8 +24,9 @@ const SearchResult = () => {
               >
                 <BoltIcon width={24} fill="#5c68d6" />
               </FlexBox>
-              <div>
+              <article>
                 <Text
+                  tag="h3"
                   variant="h6"
                   title={'카페인팀 충전소'}
                   lineClamp={1}
@@ -33,7 +34,7 @@ const SearchResult = () => {
                 <Text variant="label" align="left" lineClamp={1} color="#585858">
                   {`서울특별시 강남구 번릉로 113`}
                 </Text>
-              </div>
+              </article>
             </FlexBox>
           </Button>
         </ListItem>
