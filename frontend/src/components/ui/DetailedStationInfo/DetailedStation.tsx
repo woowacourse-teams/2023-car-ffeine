@@ -1,5 +1,9 @@
 import { styled } from 'styled-components';
 
+import Box from '@common/Box';
+import Button from '@common/Button';
+import Text from '@common/Text';
+
 import { CHARGER_TYPES } from '@constants';
 
 import type { StationDetails } from '../../../types';
@@ -26,18 +30,44 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
 
   return (
     <Container>
-      <h2>{stationName}</h2>
-      <p>{companyName}</p>
-      <p>{address}</p>
-      {detailLocation && <p>{detailLocation}</p>}
-      {operatingTime && <p>{operatingTime}</p>}
-      {stationState && <p>{stationState}</p>}
-      {contact && <p>{contact}</p>}
-      {privateReason && <p>{privateReason}</p>}
-      <div>
-        {isPrivate && <p>이용 제한</p>}
-        {isParkingFree && <p>주차무료</p>}
-      </div>
+      <Box my={2}>
+        <Text variant="label">{companyName}</Text>
+        <Box my={1}>
+          <Text variant="title">{stationName}</Text>
+        </Box>
+        <Text variant="subtitle">{address}</Text>
+        {detailLocation && <Text variant="caption">{detailLocation}</Text>}
+      </Box>
+      <hr />
+
+      {stationState && (
+        <Box my={1}>
+          <Text variant="h6">충전소 공지</Text>
+          <Text variant="body">{stationState}</Text>
+        </Box>
+      )}
+
+      <Box my={1}>
+        <Text variant="h6">운영시간</Text>
+        <Text variant="body">{operatingTime ?? '운영시간 미확인'}</Text>
+      </Box>
+      <Box my={1}>
+        <Text variant="h6">연락처</Text>
+        <Text variant="body">{contact ?? '연락처 없음'}</Text>
+      </Box>
+      <Box my={1}>
+        <Text variant="h6">주차비</Text>
+        <Text variant="body">{isParkingFree ? '무료' : '유료'}</Text>
+      </Box>
+      <Box my={1}>
+        <Text variant="h6">사용 제한 여부</Text>
+        <Text variant="body">
+          {isPrivate || privateReason ? `사용 제한됨 (사유: ${privateReason})` : '누구나 사용가능'}
+        </Text>
+      </Box>
+
+      <hr />
+
       {chargers.map((data, index) => {
         const { type, price, capacity, latestUpdateTime, state, method } = data;
 
@@ -59,10 +89,7 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
 };
 
 const Container = styled.div`
-  position: fixed;
-  left: 41rem;
-  width: 34rem;
-  z-index: 999;
+  max-width: 41rem;
   padding: 10px;
   background-color: white;
   box-shadow: 1px 1px 2px gray;
