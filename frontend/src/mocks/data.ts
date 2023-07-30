@@ -1,3 +1,4 @@
+import { getTypedObjectFromEntries } from '@utils/getTypedObjectFromEntries';
 import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 
 import { CHARGER_TYPES, COMPANY_NAME, ENGLISH_DAYS } from '@constants';
@@ -6,9 +7,7 @@ import type {
   CapacityType,
   ChargerDetails,
   CompanyName,
-  Congestion,
   CongestionStatistics,
-  EnglishDaysType,
   MockStation,
 } from '../types';
 import type { ChargerType } from '../types';
@@ -73,34 +72,22 @@ export const stations: MockStation[] = Array.from({ length: 3000 }).map((_, inde
   };
 });
 
+const congestion = Array.from({ length: 24 }).map((_, i) => {
+  return {
+    hour: i,
+    ratio: Math.floor(Math.random() * 102 - 1),
+  };
+});
+
+const congestionObject = getTypedObjectFromEntries(
+  ENGLISH_DAYS,
+  ENGLISH_DAYS.map(() => congestion)
+);
+
 export const congestions: CongestionStatistics = {
   stationId: 0,
   congestion: {
-    QUICK: Object.fromEntries(
-      ENGLISH_DAYS.map((day) => {
-        return [
-          day,
-          Array.from({ length: 24 }).map((_, i) => {
-            return {
-              hour: i,
-              ratio: Math.floor(Math.random() * 102 - 1),
-            };
-          }),
-        ];
-      })
-    ) as Record<EnglishDaysType, Congestion[]>,
-    STANDARD: Object.fromEntries(
-      ENGLISH_DAYS.map((day) => {
-        return [
-          day,
-          Array.from({ length: 24 }).map((_, i) => {
-            return {
-              hour: i,
-              ratio: Math.floor(Math.random() * 102 - 1),
-            };
-          }),
-        ];
-      })
-    ) as Record<EnglishDaysType, Congestion[]>,
+    QUICK: congestionObject,
+    STANDARD: congestionObject,
   },
 };

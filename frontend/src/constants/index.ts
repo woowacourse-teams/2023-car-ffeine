@@ -1,3 +1,7 @@
+import { getTypedObjectFromEntries } from '@utils/getTypedObjectFromEntries';
+
+import type { EnglishDaysType, KoreanDaysType } from 'types';
+
 export const DEFAULT_CENTER = {
   lat: 37.5056102333107,
   lng: 127.05081496722168,
@@ -27,6 +31,7 @@ export const ERROR_MESSAGES = {
   NO_SEARCH_RESULT: `${ERROR_PREFIX} 검색 결과가 없습니다.`,
 } as const;
 
+// 충전기
 export const CHARGER_TYPES = {
   DC_FAST: 'DC 차데모',
   AC_SLOW: 'AC 완속',
@@ -152,23 +157,28 @@ export const COMPANY_NAME = {
   YY: '양양군',
 } as const;
 
+// 충전 속도
 export const CAPACITIES = [3, 7, 50, 100, 200] as const;
 export const CHARGING_SPEED = {
   QUICK: '급속',
   STANDARD: '완속',
 } as const;
 
+// 키
 export const LOCAL_STORAGE_KEY_LAST_POSITION = 'CARFFEINE_LAST_POSITION';
 export const LOCAL_KEY_GOOGLE_MAPS_API = 'CARFFEINE_GOOGLE_MAPS_API';
 export const LOCAL_KEY_GOOGLE_MAPS_API_SAVE = 'CARFFEINE_GOOGLE_MAPS_API_SAVE';
 export const LOCAL_KEY_TOKEN = 'CARFFEINE_TOKEN';
 
-export const ENGLISH_DAYS = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'] as const;
+// 날짜
 export const KOREAN_DAYS = ['월', '화', '수', '목', '금', '토', '일'] as const;
+export const ENGLISH_DAYS = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'] as const;
 
-export const KOREAN_DAYS_TO_ENGLISH_DAYS = Object.fromEntries(
-  KOREAN_DAYS.map((day, index) => [day, ENGLISH_DAYS[index]])
-);
+export const KOREAN_DAYS_TO_ENGLISH_DAYS = getTypedObjectFromEntries<
+  KoreanDaysType,
+  EnglishDaysType
+>(KOREAN_DAYS, ENGLISH_DAYS);
 
+// API 검색 SCOPE
 export const SEARCH_SCOPE =
   '&scope=stationName&scope=address&scope=speed&scope=latitude&scope=longitude';
