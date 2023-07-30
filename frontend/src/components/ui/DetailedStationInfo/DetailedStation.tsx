@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 
+import Alert from '@common/Alert';
 import Box from '@common/Box';
-import Button from '@common/Button';
 import Text from '@common/Text';
 
 import { CHARGER_TYPES } from '@constants';
@@ -40,12 +40,7 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
       </Box>
       <hr />
 
-      {stationState && (
-        <Box my={1}>
-          <Text variant="h6">충전소 공지</Text>
-          <Text variant="body">{stationState}</Text>
-        </Box>
-      )}
+      {stationState && <Alert color={'warning'} text={`[공지] ${stationState}`} />}
 
       <Box my={1}>
         <Text variant="h6">운영시간</Text>
@@ -83,7 +78,9 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
         );
       })}
 
-      <div>누적 고장 신고 횟수: {reportCount}회</div>
+      {reportCount > 0 && (
+        <Alert color={'secondary'} text={`최근 충전기 고장 신고가 ${reportCount}번 접수됐어요`} />
+      )}
     </Container>
   );
 };

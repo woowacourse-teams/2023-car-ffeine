@@ -44,7 +44,7 @@ export const Default = () => {
         isPrivate: true,
         stationState: '2023-08-04일부터 충전소 공사합니다.',
         privateReason: '박스터 차주만 충전 가능함',
-        reportCount: 0,
+        reportCount: 1,
       }}
     />
   );
