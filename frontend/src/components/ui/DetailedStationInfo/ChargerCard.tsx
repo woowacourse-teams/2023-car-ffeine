@@ -44,28 +44,23 @@ const ChargerCard = ({ charger }: ChargerProps) => {
   const { type, price, capacity, latestUpdateTime, state, method } = charger;
   return (
     <Box border px={2} py={3} width={48}>
-      <FlexBox alignItems="center" nowrap columnGap={2.8}>
-        <FlexBox
-          aria-disabled
-          background="#e9edf8"
-          justifyContent="center"
-          alignItems="center"
-          nowrap
-          css={square}
-        >
-          <BoltIcon width={24} fill="#5c68d6" />
-        </FlexBox>
-        <article>
-          <Text>{CHARGER_TYPES[type as keyof typeof CHARGER_TYPES]}</Text>
-          <Text>{price}원/kWh</Text>
-          <Text>
-            {capacity}kW({capacity >= 50 ? '급속' : '완속'})
-          </Text>
-          <Text>{CHARGER_STATES[state as keyof typeof CHARGER_STATES]}</Text>
-          {method && <Text>{method}</Text>}
-          {latestUpdateTime && <Text>{calculateLatestUpdateTime(latestUpdateTime)}</Text>}
-        </article>
+      <FlexBox justifyContent={'center'} alignItems={'center'} css={square}>
+        <BoltIcon width={24} fill="#5c68d6" />
+        <Text>{CHARGER_STATES[state as keyof typeof CHARGER_STATES]}</Text>
       </FlexBox>
+      <article>
+        <Text>{CHARGER_TYPES[type as keyof typeof CHARGER_TYPES]}</Text>
+        <Text>{price}원/kWh</Text>
+        <Text>
+          {capacity}kW({capacity >= 50 ? '급속' : '완속'})
+        </Text>
+        {method && <Text>{method}</Text>}
+      </article>
+      {latestUpdateTime && (
+        <Text variant="caption" align="right">
+          마지막 업데이트: {calculateLatestUpdateTime(latestUpdateTime)}
+        </Text>
+      )}
     </Box>
   );
 };
@@ -73,6 +68,7 @@ const ChargerCard = ({ charger }: ChargerProps) => {
 const square = css`
   padding: 0.4rem;
   border-radius: 1rem;
+  background: #e9edf8;
 `;
 
 export default ChargerCard;
