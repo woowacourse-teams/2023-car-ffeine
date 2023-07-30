@@ -13,7 +13,7 @@ const meta = {
   },
   argTypes: {
     color: {
-      description: '색상을 선택합니다.',
+      description: '선택한 색상에 따라 버튼의 배경색이 변합니다.',
     },
     text: {
       description: '텍스트를 입력합니다.',
