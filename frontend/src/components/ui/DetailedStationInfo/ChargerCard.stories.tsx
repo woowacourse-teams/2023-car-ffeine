@@ -19,7 +19,7 @@ const meta = {
   },
   argTypes: {
     charger: {
-      description: '충전소 데이터를 수정할 수 있습니다.',
+      description: '충전기 데이터를 수정할 수 있습니다.',
     },
   },
 } satisfies Meta<typeof ChargerCard>;
