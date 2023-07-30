@@ -22,15 +22,17 @@ public class PeriodicCongestionCustomRepositoryImpl implements PeriodicCongestio
 
     @Override
     public void updateTotalCountByPeriod(DayOfWeek dayOfWeek, RequestPeriod requestPeriod) {
-        String sql = "UPDATE periodic_congestion SET total_count = total_count + 1 WHERE day_of_week = :dayOfWeek AND start_time = :startTime ";
+        String sql = "UPDATE periodic_congestion " +
+                "SET total_count = total_count + 1, " +
+                "congestion = use_count / total_count " +
+                "WHERE day_of_week = :dayOfWeek AND start_time = :startTime ";
         namedParameterJdbcTemplate.update(sql, changeToSqlParameterSource(dayOfWeek, requestPeriod));
     }
 
     @Override
     public void updateUsingCount(DayOfWeek dayOfWeek, RequestPeriod period, List<ChargerStatus> usingChargers) {
         String sql = "UPDATE periodic_congestion " +
-                "SET use_count = use_count + 1, " +
-                "congestion = use_count / total_count " +
+                "SET use_count = use_count + 1 " +
                 "WHERE day_of_week = :dayOfWeek AND start_time = :startTime AND id = :id;";
         SqlParameterSource[] sqlParameterSources = usingChargers.stream()
                 .map(it -> changeToSqlParameterSource(dayOfWeek, period, it))

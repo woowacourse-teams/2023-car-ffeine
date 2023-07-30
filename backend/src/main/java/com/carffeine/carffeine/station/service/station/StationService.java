@@ -67,7 +67,7 @@ public class StationService {
                 .filter(ChargerStatus::isUsing)
                 .toList();
         periodicCongestionCustomRepository.saveAll(congestions);
-        periodicCongestionCustomRepository.updateTotalCountByPeriod(dayOfWeek, period);
         periodicCongestionCustomRepository.updateUsingCount(dayOfWeek, period, usingChargers);
+        periodicCongestionCustomRepository.updateTotalCountByPeriod(dayOfWeek, period);
     }
 }
