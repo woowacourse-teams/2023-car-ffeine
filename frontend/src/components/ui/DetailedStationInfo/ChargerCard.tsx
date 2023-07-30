@@ -9,7 +9,7 @@ import { CHARGER_STATES, CHARGER_TYPES } from '@constants';
 
 import type { ChargerDetails } from '../../../types';
 
-export interface ChargerProps {
+export interface ChargerCardProps {
   charger: ChargerDetails;
 }
 
@@ -38,7 +38,7 @@ const calculateLatestUpdateTime = (latestUpdateTimeString: string) => {
   return `${diffInDays}일 전`;
 };
 
-const ChargerCard = ({ charger }: ChargerProps) => {
+const ChargerCard = ({ charger }: ChargerCardProps) => {
   const { type, price, capacity, latestUpdateTime, state, method } = charger;
   return (
     <Box border px={2} py={5} width={39}>
