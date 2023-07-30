@@ -3,7 +3,6 @@ import { type CAPACITIES, type CHARGER_TYPES, type COMPANY_NAME } from '@constan
 
 export type CapacityType = 3 | 7 | 50 | 100 | 200;
 export type ChargerStateType =
-  | 'AVAILABLE'
   | 'COMMUNICATION_ERROR'
   | 'STANDBY'
   | 'CHARGING_IN_PROGRESS'

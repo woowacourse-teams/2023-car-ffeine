@@ -44,10 +44,10 @@ const ChargerCard = ({ charger }: ChargerCardProps) => {
     <Box border px={2} py={5} width={39}>
       <FlexBox justifyContent={'center'} alignItems={'center'} css={square}>
         <BoltIcon width={24} fill="#5c68d6" />
-        <Text>{CHARGER_STATES[state as keyof typeof CHARGER_STATES]}</Text>
+        <Text>{CHARGER_STATES[state]}</Text>
       </FlexBox>
       <article>
-        <Text>{CHARGER_TYPES[type as keyof typeof CHARGER_TYPES]}</Text>
+        <Text>{CHARGER_TYPES[type]}</Text>
         <Text>{price}원/kWh</Text>
         <Text>
           {capacity >= 50 ? '급속' : '완속'}({capacity}kW)
