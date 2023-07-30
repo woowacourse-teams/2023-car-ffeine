@@ -13,17 +13,15 @@ export default meta;
 
 export const Default = () => {
   return (
-    <List>
-      <ChargerCard
-        charger={{
-          type: 'DC_AC_3PHASE',
-          price: 200,
-          capacity: 3,
-          latestUpdateTime: '2023-07-18T15:11:40.000Z',
-          state: 'STANDBY',
-          method: '단독',
-        }}
-      />
-    </List>
+    <ChargerCard
+      charger={{
+        type: 'DC_AC_3PHASE',
+        price: 200,
+        capacity: 3,
+        latestUpdateTime: '2023-07-18T15:11:40.000Z',
+        state: 'STANDBY',
+        method: '단독',
+      }}
+    />
   );
 };
