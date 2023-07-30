@@ -42,6 +42,7 @@ const config: StorybookConfig = {
     if (resolve) {
       resolve.alias = {
         ...resolve.alias,
+        '@mocks': path.resolve(__dirname, '../src/mocks'),
         '@map': path.resolve(__dirname, '../src/components/google-maps/map'),
         '@marker': path.resolve(__dirname, '../src/components/google-maps/marker'),
         '@ui': path.resolve(__dirname, '../src/components/ui'),

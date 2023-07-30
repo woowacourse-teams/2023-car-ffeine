@@ -1,6 +1,5 @@
+import { congestions } from '@mocks/data';
 import type { Meta } from '@storybook/react';
-
-import { congestions } from 'mocks/data';
 
 import StatisticsGraph from './StatisticsGraph';
 
