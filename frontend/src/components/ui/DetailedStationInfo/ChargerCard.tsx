@@ -16,27 +16,25 @@ export interface ChargerProps {
 const calculateLatestUpdateTime = (latestUpdateTimeString: string) => {
   const currentDate = new Date();
   const latestUpdatedDate = new Date(latestUpdateTimeString);
-  const diffInSeconds: number = Math.floor(
-    (currentDate.getTime() - latestUpdatedDate.getTime()) / 1000
-  );
+  const diffInSeconds = Math.floor((currentDate.getTime() - latestUpdatedDate.getTime()) / 1000);
 
   if (diffInSeconds < 60) {
     return `${diffInSeconds}초 전`;
   }
 
-  const diffInMinutes: number = Math.floor(diffInSeconds / 60);
+  const diffInMinutes = Math.floor(diffInSeconds / 60);
 
   if (diffInMinutes < 60) {
     return `${diffInMinutes}분 전`;
   }
 
-  const diffInHours: number = Math.floor(diffInMinutes / 60);
+  const diffInHours = Math.floor(diffInMinutes / 60);
 
   if (diffInHours < 24) {
     return `${diffInHours}시간 전`;
   }
 
-  const diffInDays: number = Math.floor(diffInHours / 24);
+  const diffInDays = Math.floor(diffInHours / 24);
   return `${diffInDays}일 전`;
 };
 
@@ -52,7 +50,7 @@ const ChargerCard = ({ charger }: ChargerProps) => {
         <Text>{CHARGER_TYPES[type as keyof typeof CHARGER_TYPES]}</Text>
         <Text>{price}원/kWh</Text>
         <Text>
-          {capacity}kW({capacity >= 50 ? '급속' : '완속'})
+          {capacity >= 50 ? '급속' : '완속'}({capacity}kW)
         </Text>
         {method && <Text>{method}</Text>}
       </article>
