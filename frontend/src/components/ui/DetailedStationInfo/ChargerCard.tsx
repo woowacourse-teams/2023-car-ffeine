@@ -43,7 +43,7 @@ const calculateLatestUpdateTime = (latestUpdateTimeString: string) => {
 const ChargerCard = ({ charger }: ChargerProps) => {
   const { type, price, capacity, latestUpdateTime, state, method } = charger;
   return (
-    <Box border px={2} py={3} width={48}>
+    <Box border px={2} py={5} width={39}>
       <FlexBox justifyContent={'center'} alignItems={'center'} css={square}>
         <BoltIcon width={24} fill="#5c68d6" />
         <Text>{CHARGER_STATES[state as keyof typeof CHARGER_STATES]}</Text>
