@@ -71,7 +71,9 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
       </FlexBox>
 
       {reportCount > 0 && (
-        <Alert color={'secondary'} text={`최근 충전기 고장 신고가 ${reportCount}번 접수됐어요`} />
+        <Box my={1}>
+          <Alert color={'secondary'} text={`최근 충전기 고장 신고가 ${reportCount}번 접수됐어요`} />
+        </Box>
       )}
     </Container>
   );

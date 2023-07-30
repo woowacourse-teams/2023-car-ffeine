@@ -19,7 +19,7 @@ export const Default = () => {
           type: 'DC_AC_3PHASE',
           price: 200,
           capacity: 3,
-          latestUpdateTime: new Date('2023-07-18T15:11:40.000Z'),
+          latestUpdateTime: '2023-07-18T15:11:40.000Z',
           state: 'STANDBY',
           method: '단독',
         }}
