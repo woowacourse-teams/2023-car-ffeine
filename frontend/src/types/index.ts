@@ -13,7 +13,7 @@ export type ChargerStateType =
 export type ChargerMethodType = '단독' | '동시' | null;
 
 export interface ChargerSummary {
-  type: string;
+  type: ChargerType;
   price: number;
   capacity: CapacityType;
 }
