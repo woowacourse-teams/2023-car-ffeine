@@ -2,6 +2,7 @@ import { css, styled } from 'styled-components';
 
 import Alert from '@common/Alert';
 import Box from '@common/Box';
+import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
@@ -15,6 +16,7 @@ export interface DetailedStationProps {
 
 const DetailedStation = ({ station }: DetailedStationProps) => {
   const {
+    stationId,
     stationName,
     companyName,
     contact,
@@ -29,9 +31,17 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
     reportCount,
   } = station;
 
+  const reportStation = (stationId: number) => {
+    alert(`report this station's information: ${stationId}`);
+  };
+
+  const reportCharger = (stationId: number) => {
+    alert(`report this station's chargers: ${stationId}`);
+  };
+
   return (
     <Box px={2} pt={10} css={containerCss}>
-      <Box my={2} px={1}>
+      <Box mt={10} mb={5} px={1}>
         <Text variant="label">{companyName}</Text>
         <Box my={1}>
           <Text variant="title">{stationName}</Text>
@@ -66,6 +76,12 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
         </Box>
       </Box>
 
+      <FlexBox justifyContent="center">
+        <Button size="sm" onClick={() => reportStation(stationId)}>
+          📝 올바른 충전소 정보 제보하기
+        </Button>
+      </FlexBox>
+
       <hr />
 
       <FlexBox>
@@ -74,9 +90,14 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
         ))}
       </FlexBox>
 
+      <FlexBox justifyContent="center">
+        <Button size="sm" onClick={() => reportCharger(stationId)}>
+          📢 실제 충전기 상태와 일치하지 않는 충전소에요
+        </Button>
+      </FlexBox>
       {reportCount > 0 && (
         <Box my={1}>
-          <Alert color={'secondary'} text={`최근 충전기 고장 신고가 ${reportCount}번 접수됐어요`} />
+          <Alert color={'secondary'} text={`충전 상태 불일치 신고가 ${reportCount}번 접수됐어요`} />
         </Box>
       )}
     </Box>
