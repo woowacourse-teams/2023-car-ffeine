@@ -1,7 +1,7 @@
 import { getTypedObjectFromEntries } from '@utils/getTypedObjectFromEntries';
 import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 
-import { CHARGER_TYPES, COMPANY_NAME, ENGLISH_DAYS } from '@constants';
+import { CHARGER_TYPES, COMPANY_NAME, ENGLISH_DAYS, MAX_SEARCH_RESULTS } from '@constants';
 
 import type {
   CapacityType,
@@ -71,6 +71,21 @@ export const stations: MockStation[] = Array.from({ length: 3000 }).map((_, inde
     reportCount: generateRandomData([0, 0, Math.floor(Math.random() * 99)]),
   };
 });
+
+export const getSearchedStations = (searchWord: string) => {
+  const searchApiStations = stations.map((station) => {
+    const { stationId, stationName, chargers, address, latitude, longitude } = station;
+
+    const onlyCapacity = chargers.map(({ capacity }) => capacity);
+    const speed = onlyCapacity.map((num) => (num >= 50 ? 'QUICK' : 'STANDARD'));
+
+    return { stationId, stationName, speed, address, latitude, longitude };
+  });
+
+  return searchApiStations
+    .filter((station) => station.stationName.includes(searchWord))
+    .slice(0, MAX_SEARCH_RESULTS);
+};
 
 const congestion = Array.from({ length: 24 }).map((_, i) => {
   return {
