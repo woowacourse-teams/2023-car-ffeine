@@ -2,6 +2,7 @@ import { styled } from 'styled-components';
 
 import Alert from '@common/Alert';
 import Box from '@common/Box';
+import FlexBox from '@common/FlexBox';
 import List from '@common/List';
 import Text from '@common/Text';
 
@@ -66,11 +67,11 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
 
       <hr />
 
-      <List>
+      <FlexBox>
         {chargers.map((charger, index) => (
           <ChargerCard key={index} charger={charger} />
         ))}
-      </List>
+      </FlexBox>
 
       {reportCount > 0 && (
         <Alert color={'secondary'} text={`최근 충전기 고장 신고가 ${reportCount}번 접수됐어요`} />
