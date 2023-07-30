@@ -1,6 +1,6 @@
-import { css, styled } from 'styled-components';
+import { css } from 'styled-components';
 
-import { getLocalStorage } from '@utils/storage';
+import { modalActions } from '@stores/modalStore';
 
 import Alert from '@common/Alert';
 import Box from '@common/Box';
@@ -8,9 +8,8 @@ import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
+import ChargerReportConfirmation from '@ui/ChargerReportConfirmation';
 import ChargerCard from '@ui/DetailedStationInfo/ChargerCard';
-
-import { BASE_URL, LOCAL_KEY_TOKEN } from '@constants';
 
 import type { StationDetails } from '../../../types';
 
@@ -39,17 +38,8 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
     alert(`report this station's information: ${stationId}`);
   };
 
-  const reportCharger = async (stationId: number) => {
-    alert(`report this station's chargers: ${stationId}`);
-    const token = getLocalStorage<number>(LOCAL_KEY_TOKEN, -1);
-    await fetch(`${BASE_URL}/stations/${stationId}/reports`, {
-      method: 'POST',
-      body: JSON.stringify({ stationId }),
-      headers: {
-        Authorization: `Token ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
+  const reportCharger = (stationId: number) => {
+    modalActions.openModal(<ChargerReportConfirmation stationId={stationId} />);
   };
 
   return (
