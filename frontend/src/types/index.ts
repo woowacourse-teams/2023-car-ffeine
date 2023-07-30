@@ -19,7 +19,7 @@ export interface ChargerSummary {
 }
 
 export interface ChargerDetails extends ChargerSummary {
-  latestUpdateTime: Date | null;
+  latestUpdateTime: string | null;
   state: ChargerStateType;
   method: ChargerMethodType;
 }

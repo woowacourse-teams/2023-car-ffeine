@@ -13,9 +13,12 @@ export interface ChargerProps {
   charger: ChargerDetails;
 }
 
-const dateToString = (date: Date) => {
+const calculateLatestUpdateTime = (latestUpdateTimeString: string) => {
   const currentDate = new Date();
-  const diffInSeconds: number = Math.floor((currentDate.getTime() - date.getTime()) / 1000);
+  const latestUpdatedDate = new Date(latestUpdateTimeString);
+  const diffInSeconds: number = Math.floor(
+    (currentDate.getTime() - latestUpdatedDate.getTime()) / 1000
+  );
 
   if (diffInSeconds < 60) {
     return `${diffInSeconds}초 전`;
@@ -60,7 +63,7 @@ const ChargerCard = ({ charger }: ChargerProps) => {
           </Text>
           <Text>{CHARGER_STATES[state as keyof typeof CHARGER_STATES]}</Text>
           {method && <Text>{method}</Text>}
-          {latestUpdateTime && <Text>{dateToString(latestUpdateTime)}</Text>}
+          {latestUpdateTime && <Text>{calculateLatestUpdateTime(latestUpdateTime)}</Text>}
         </article>
       </FlexBox>
     </Box>

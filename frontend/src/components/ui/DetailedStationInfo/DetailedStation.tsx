@@ -3,12 +3,9 @@ import { styled } from 'styled-components';
 import Alert from '@common/Alert';
 import Box from '@common/Box';
 import FlexBox from '@common/FlexBox';
-import List from '@common/List';
 import Text from '@common/Text';
 
 import ChargerCard from '@ui/DetailedStationInfo/ChargerCard';
-
-import { CHARGER_TYPES } from '@constants';
 
 import type { StationDetails } from '../../../types';
 
