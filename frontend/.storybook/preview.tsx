@@ -1,12 +1,19 @@
 import type { Preview } from '@storybook/react';
+import { initialize, mswDecorator } from 'msw-storybook-addon';
 
 import React from 'react';
 
+import { handlers } from '../src/mocks/handlers';
 import { GlobalStyle } from '../src/style/GlobalStyle';
+
+initialize();
 
 const preview: Preview = {
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
+    msw: {
+      handlers: [...handlers],
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -60,6 +67,7 @@ const preview: Preview = {
         <Story />
       </>
     ),
+    mswDecorator,
   ],
 };
 
