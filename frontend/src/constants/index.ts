@@ -20,10 +20,11 @@ const URL: Readonly<Record<ModeType, string>> = {
 const MODE = process.env.NODE_ENV as ModeType;
 export const BASE_URL = URL[MODE];
 
-export const ERROR_PREFIX = '[error]';
+const ERROR_PREFIX = '[error]';
 export const ERROR_MESSAGES = {
   NO_STATION_FOUND: `${ERROR_PREFIX} 해당 충전소가 존재하지 않습니다.`,
   STATION_DETAILS_FETCH_ERROR: `${ERROR_PREFIX} 충전소 세부 정보를 불러올 수 없습니다.`,
+  NO_SEARCH_RESULT: `${ERROR_PREFIX} 검색 결과가 없습니다.`,
 } as const;
 
 export const CHARGER_TYPES = {
@@ -140,6 +141,10 @@ export const COMPANY_NAME = {
 } as const;
 
 export const CAPACITIES = [3, 7, 50, 100, 200] as const;
+export const CHARGING_SPEED = {
+  QUICK: '급속',
+  STANDARD: '완속',
+} as const;
 
 export const LOCAL_STORAGE_KEY_LAST_POSITION = 'CARFFEINE_LAST_POSITION';
 export const LOCAL_KEY_GOOGLE_MAPS_API = 'CARFFEINE_GOOGLE_MAPS_API';
@@ -152,3 +157,6 @@ export const KOREAN_DAYS = ['월', '화', '수', '목', '금', '토', '일'] as 
 export const KOREAN_DAYS_TO_ENGLISH_DAYS = Object.fromEntries(
   KOREAN_DAYS.map((day, index) => [day, ENGLISH_DAYS[index]])
 );
+
+export const SEARCH_SCOPE =
+  '&scope=stationName&scope=address&scope=speed&scope=latitude&scope=longitude';

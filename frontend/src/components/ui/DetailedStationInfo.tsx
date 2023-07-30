@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 
 import { useSelectedStation } from '@hooks/useSelectedStation';
 
-import { CHARGER_TYPES } from '@constants';
+import { CHARGER_TYPES, CHARGING_SPEED } from '@constants';
 
 const DetailedStationInfo = () => {
   const { data: station, isLoading, isError } = useSelectedStation();
@@ -44,7 +44,7 @@ const DetailedStationInfo = () => {
           <ChargerContainer key={index}>
             <li>{CHARGER_TYPES[type as keyof typeof CHARGER_TYPES]}</li>
             <li>가격: {price}</li>
-            <li>{capacity >= 50 ? '급속' : '완속'}</li>
+            <li>{capacity >= 50 ? CHARGING_SPEED.QUICK : CHARGING_SPEED.STANDARD}</li>
             {latestUpdateTime && <li>{String(latestUpdateTime)}</li>}
             <li>충전기 상태: {state}</li>
             {method && <li>{method}</li>}
