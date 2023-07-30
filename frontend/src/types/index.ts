@@ -3,7 +3,6 @@ import { type CAPACITIES, type CHARGER_TYPES, type COMPANY_NAME } from '@constan
 
 export type CapacityType = 3 | 7 | 50 | 100 | 200;
 export type ChargerStateType =
-  | 'AVAILABLE'
   | 'COMMUNICATION_ERROR'
   | 'STANDBY'
   | 'CHARGING_IN_PROGRESS'
@@ -13,13 +12,13 @@ export type ChargerStateType =
 export type ChargerMethodType = '단독' | '동시' | null;
 
 export interface ChargerSummary {
-  type: string;
+  type: ChargerType;
   price: number;
   capacity: CapacityType;
 }
 
 export interface ChargerDetails extends ChargerSummary {
-  latestUpdateTime: Date | null;
+  latestUpdateTime: string | null;
   state: ChargerStateType;
   method: ChargerMethodType;
 }
@@ -54,6 +53,7 @@ export interface StationDetails extends Station {
   chargers: ChargerDetails[];
   stationState: string | null;
   privateReason: string | null;
+  reportCount: number;
 }
 
 export interface MockStation extends StationDetails, ChargerCount {}

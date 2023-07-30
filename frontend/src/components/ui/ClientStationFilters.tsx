@@ -93,7 +93,7 @@ const Container = styled.div`
   position: fixed;
   top: 10px;
   left: 180px;
-  z-index: 999;
+  z-index: 998;
   padding: 10px;
   background-color: white;
   box-shadow: 1px 1px 2px gray;
