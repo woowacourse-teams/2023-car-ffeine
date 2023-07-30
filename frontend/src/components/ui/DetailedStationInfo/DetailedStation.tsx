@@ -38,10 +38,6 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
     alert(`report this station's information: ${stationId}`);
   };
 
-  const reportCharger = (stationId: number) => {
-    modalActions.openModal(<ChargerReportConfirmation stationId={stationId} />);
-  };
-
   return (
     <Box px={2} pt={10} css={containerCss}>
       <Box mt={10} mb={5} px={1}>
@@ -94,7 +90,12 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
       </FlexBox>
 
       <FlexBox justifyContent="center">
-        <Button size="sm" onClick={() => reportCharger(stationId)}>
+        <Button
+          size="sm"
+          onClick={() =>
+            modalActions.openModal(<ChargerReportConfirmation stationId={stationId} />)
+          }
+        >
           📢 실제 충전기 상태와 일치하지 않는 충전소에요
         </Button>
       </FlexBox>
