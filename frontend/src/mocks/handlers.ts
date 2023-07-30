@@ -102,4 +102,16 @@ export const handlers = [
 
     return res(ctx.delay(200), ctx.status(204));
   }),
+
+  rest.get(`${DEVELOP_URL}/stations/:stationId/reports/me`, (req, res, ctx) => {
+    console.log(req.headers.get('Authorization')); // TODO: 이후에 비로그인 기능도 구현할 때 활용해야함
+    const stationId = Number(req.params.stationId);
+    const reportedStations = getSessionStorage<number[]>(SESSION_KEY_REPORTED_STATIONS, []);
+
+    return res(
+      ctx.delay(200),
+      ctx.status(204),
+      ctx.json({ isReported: reportedStations.includes(stationId) })
+    );
+  }),
 ];
