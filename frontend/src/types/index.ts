@@ -1,5 +1,5 @@
 import type { ENGLISH_DAYS, KOREAN_DAYS } from '@constants';
-import { type CAPACITIES, type CHARGER_TYPES, type COMPANY_NAME } from '@constants';
+import type { CAPACITIES, CHARGER_TYPES, COMPANY_NAME } from '@constants';
 
 export type CapacityType = 3 | 7 | 50 | 100 | 200;
 export type ChargerStateType =
@@ -81,4 +81,18 @@ export interface CongestionStatistics {
     STANDARD?: Record<EnglishDaysType, Congestion[]>;
     QUICK?: Record<EnglishDaysType, Congestion[]>;
   };
+}
+
+export interface SearchedStations {
+  totalCount: number;
+  stations: [
+    {
+      stationId: number;
+      stationName: string;
+      speed: 'STANDARD' | 'QUICK';
+      address: string | null;
+      latitude: number;
+      longitude: number;
+    }
+  ];
 }

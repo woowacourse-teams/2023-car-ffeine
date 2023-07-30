@@ -179,6 +179,8 @@ export const KOREAN_DAYS_TO_ENGLISH_DAYS = getTypedObjectFromEntries<
   EnglishDaysType
 >(KOREAN_DAYS, ENGLISH_DAYS);
 
-// API 검색 SCOPE
+// API 검색
 export const SEARCH_SCOPE =
   '&scope=stationName&scope=address&scope=speed&scope=latitude&scope=longitude';
+
+export const MAX_SEARCH_RESULTS = 8;

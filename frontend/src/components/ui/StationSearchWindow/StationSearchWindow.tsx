@@ -13,7 +13,7 @@ import { windowPositionTriggeredByLnb } from '@style';
 import SearchResult from './SearchResult';
 import StationSearchBar from './StationSearchBar';
 
-const StationSearch = () => {
+const StationSearchWindow = () => {
   const [isOpen, setIsOpen] = useExternalState(stationSearchWindowOpenStore);
 
   if (!isOpen) return <></>;
@@ -41,7 +41,7 @@ const S = {
     height: 100%;
     min-height: 100vh;
     background: #fcfcfc;
-    outline: 0.15rem solid #e1e4eb;
+    outline: 1.5px solid #e1e4eb;
     padding: 2rem 2.4rem 5.2rem;
 
     ${windowPositionTriggeredByLnb}
@@ -65,4 +65,4 @@ const labelText = css`
   padding: 4.8rem 0 2.2rem;
 `;
 
-export default StationSearch;
+export default StationSearchWindow;

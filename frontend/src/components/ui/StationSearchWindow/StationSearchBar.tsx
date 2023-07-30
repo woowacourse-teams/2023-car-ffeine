@@ -3,7 +3,10 @@ import type { CSSProp } from 'styled-components';
 import { styled } from 'styled-components';
 
 import type { ChangeEvent, FormEvent, InputHTMLAttributes } from 'react';
-import { useState } from 'react';
+
+import { useSetExternalState } from '@utils/external-state';
+
+import { searchWordStore } from '@stores/searchWordStore';
 
 import Button from '@common/Button';
 
@@ -18,18 +21,15 @@ export interface StationSearchBarProps extends InputHTMLAttributes<HTMLInputElem
 }
 
 const StationSearchBar = ({ ...props }: StationSearchBarProps) => {
-  const [inputValue, setInputValue] = useState('');
+  const setSearchWord = useSetExternalState(searchWordStore);
 
   const handleSubmitSearchWord = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    alert(inputValue);
   };
 
   const handleRequestSearchResult = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(value);
-
-    console.log(value);
+    const searchWord = encodeURIComponent(value);
+    setSearchWord(searchWord);
   };
 
   return (
@@ -52,8 +52,8 @@ const S = {
 
     background: ${({ background }) => background || '#fff'};
     border: ${({ outlined, borderColor }) =>
-      outlined ? `0.15rem solid ${borderColor || '#333'}` : 'none'};
-    box-shadow: ${({ shadow }) => `${shadow ? '0 0.3rem 0.8rem 0 gray' : 'none'}`};
+      outlined ? `1.5px solid ${borderColor || '#333'}` : 'none'};
+    box-shadow: ${({ shadow }) => `${shadow ? '0 3px 8px 0 gray' : 'none'}`};
 
     width: 100%;
     padding: 1.9rem 4.6rem 2rem 1.8rem;
