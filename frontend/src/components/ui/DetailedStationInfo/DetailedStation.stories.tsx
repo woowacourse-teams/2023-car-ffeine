@@ -30,7 +30,7 @@ export const Default = () => {
             type: 'DC_COMBO',
             price: 300,
             capacity: 7,
-            latestUpdateTime: new Date('2023-07-18T15:11:40.000Z'),
+            latestUpdateTime: new Date('2023-07-30T07:11:40.000Z'),
             state: 'UNDER_INSPECTION',
             method: '단독',
           },

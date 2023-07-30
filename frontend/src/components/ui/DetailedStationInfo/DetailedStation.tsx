@@ -2,7 +2,10 @@ import { styled } from 'styled-components';
 
 import Alert from '@common/Alert';
 import Box from '@common/Box';
+import List from '@common/List';
 import Text from '@common/Text';
+
+import ChargerCard from '@ui/DetailedStationInfo/ChargerCard';
 
 import { CHARGER_TYPES } from '@constants';
 
@@ -63,20 +66,11 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
 
       <hr />
 
-      {chargers.map((data, index) => {
-        const { type, price, capacity, latestUpdateTime, state, method } = data;
-
-        return (
-          <ChargerContainer key={index}>
-            <li>{CHARGER_TYPES[type as keyof typeof CHARGER_TYPES]}</li>
-            <li>가격: {price}</li>
-            <li>{capacity >= 50 ? '급속' : '완속'}</li>
-            {latestUpdateTime && <li>{String(latestUpdateTime)}</li>}
-            <li>충전기 상태: {state}</li>
-            {method && <li>{method}</li>}
-          </ChargerContainer>
-        );
-      })}
+      <List>
+        {chargers.map((charger, index) => (
+          <ChargerCard key={index} charger={charger} />
+        ))}
+      </List>
 
       {reportCount > 0 && (
         <Alert color={'secondary'} text={`최근 충전기 고장 신고가 ${reportCount}번 접수됐어요`} />
