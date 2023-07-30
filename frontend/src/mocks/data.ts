@@ -8,24 +8,27 @@ import type {
   EnglishDaysType,
   MockStation,
 } from '../types';
+import type { ChargerType } from '../types';
 
 const generateRandomData = <T>(array: T[]): T => {
   const randomIndex = Math.floor(Math.random() * array.length);
 
-  return array[randomIndex];
+  return array[randomIndex] as T;
 };
 
 const generateRandomChargers = () => {
   const length = Math.floor(Math.random() * 4) + 1;
   const chargers: ChargerDetails[] = Array.from({ length }, () => ({
-    type: generateRandomData<string>([...Object.keys(CHARGER_TYPES)]),
+    type: generateRandomData<ChargerType>(Object.keys(CHARGER_TYPES) as ChargerType[]),
     price: generateRandomData([200, 250, 300, 350, 400]),
     capacity: generateRandomData<CapacityType>([3, 7, 50, 100, 200]),
     latestUpdateTime: generateRandomData([
-      new Date('2016-10-27T17:13:40+00:00'),
-      new Date('2023-06-27T17:18:40+00:00'),
-      new Date('2023-07-18T15:11:40+00:00'),
-      null,
+      '2016-10-27T17:13:40+00:00',
+      '2023-06-27T17:18:40+00:00',
+      '2023-07-18T15:11:40+00:00',
+      '2023-07-22T15:11:40+00:00',
+      '2023-07-28T15:11:40+00:00',
+      '2023-07-30T15:11:40+00:00',
     ]),
     state: generateRandomData([
       'AVAILABLE',
