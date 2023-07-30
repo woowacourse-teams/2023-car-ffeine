@@ -16,7 +16,7 @@ const meta = {
       description: '선택한 색상에 따라 배경색이 변합니다.',
     },
     text: {
-      description: '텍스트를 입력합니다.',
+      description: '원하는 글자를 입력해 테스트를 할 수 있습니다.',
     },
   },
 } satisfies Meta<typeof Alert>;
