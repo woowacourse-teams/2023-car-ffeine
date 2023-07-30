@@ -6,14 +6,9 @@ import { getLocalStorage, setLocalStorage } from '@utils/storage';
 import Box from '@common/Box';
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
-import Text from '@common/Text';
 import TextField from '@common/TextField';
 
-import {
-  LOCAL_KEY_GOOGLE_MAPS_API,
-  LOCAL_KEY_GOOGLE_MAPS_API_LAST_LOGIN,
-  LOCAL_KEY_GOOGLE_MAPS_API_SAVE,
-} from '@constants';
+import { LOCAL_KEY_GOOGLE_MAPS_API, LOCAL_KEY_GOOGLE_MAPS_API_LAST_LOGIN } from '@constants';
 
 interface ApiKeyCheckerProps {
   render: (apiKey: string) => ReactNode;
@@ -22,24 +17,21 @@ interface ApiKeyCheckerProps {
 function ApiKeyChecker({ render }: ApiKeyCheckerProps) {
   const [apiKey, setApiKey] = useState('');
   const [value, setValue] = useState('');
-  const [isSaveMode, setSaveMode] = useState(true);
 
   useEffect(() => {
-    const isSaving = getLocalStorage<boolean>(LOCAL_KEY_GOOGLE_MAPS_API_SAVE, true);
-    setSaveMode(isSaving);
-    if (isSaving) {
-      const backupKey = getLocalStorage<string>(LOCAL_KEY_GOOGLE_MAPS_API, '');
-      setValue(backupKey);
+    const backupKey = getLocalStorage<string>(LOCAL_KEY_GOOGLE_MAPS_API, '');
+    setValue(backupKey);
+
+    const lastLoginTime = getLocalStorage<number>(LOCAL_KEY_GOOGLE_MAPS_API_LAST_LOGIN, -1);
+    if ((new Date().getTime() - lastLoginTime) / (1000 * 60) <= 60) {
+      console.log('60분 이내에 재접속');
+      setApiKey(backupKey);
     }
   }, []);
 
-  const onClick = () => {
+  const handleClickLogin = () => {
     if (value.length > 0) {
-      if (isSaveMode) {
-        setLocalStorage(LOCAL_KEY_GOOGLE_MAPS_API, value);
-      } else {
-        setLocalStorage(LOCAL_KEY_GOOGLE_MAPS_API, '');
-      }
+      setLocalStorage(LOCAL_KEY_GOOGLE_MAPS_API, value);
       setLocalStorage(LOCAL_KEY_GOOGLE_MAPS_API_LAST_LOGIN, new Date().getTime());
       setApiKey(value);
     } else {
@@ -66,20 +58,17 @@ function ApiKeyChecker({ render }: ApiKeyCheckerProps) {
               onChange={(e) => {
                 setValue(e.target.value);
               }}
+              supportingText={value.length > 0 && '키는 항상 자동으로 브라우저에 저장됩니다.'}
             />
             <FlexBox justifyContent={'between'}>
-              <FlexBox alignItems={'center'}>
-                <input
-                  type="checkbox"
-                  checked={isSaveMode}
-                  onChange={(e) => {
-                    setLocalStorage(LOCAL_KEY_GOOGLE_MAPS_API_SAVE, e.target.checked);
-                    setSaveMode(e.target.checked);
-                  }}
-                />
-                <Text>키를 브라우저에 저장하기</Text>
-              </FlexBox>
-              <Button size={'md'} outlined onClick={onClick}>
+              <Button
+                size={'md'}
+                outlined
+                onClick={() => setLocalStorage(LOCAL_KEY_GOOGLE_MAPS_API, '')}
+              >
+                브라우저에 저장된 키 제거
+              </Button>
+              <Button size={'md'} outlined onClick={handleClickLogin}>
                 전송하기
               </Button>
             </FlexBox>
