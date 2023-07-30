@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ForeignKey;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -26,6 +28,8 @@ public class PeriodicCongestion {
 
     @Id
     private String id;
+
+    @Enumerated(EnumType.STRING)
     private DayOfWeek dayOfWeek;
     private RequestPeriod startTime;
     private int useCount;
