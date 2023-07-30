@@ -41,7 +41,7 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
       </Box>
       <hr />
 
-      {stationState && <Alert color={'warning'} text={`[공지] ${stationState}`} />}
+      {stationState && <Alert color="warning" text={`[공지] ${stationState}`} />}
 
       <Box px={1}>
         <Box my={1}>
