@@ -6,7 +6,7 @@ import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-import { KOREAN_DAYS, KOREAN_DAYS_TO_ENGLISH_DAYS } from '@constants';
+import { CHARGING_SPEED, KOREAN_DAYS, KOREAN_DAYS_TO_ENGLISH_DAYS } from '@constants';
 
 import DaySelectButton from './DaySelectButton';
 import GraphBar from './GraphBar';
@@ -34,7 +34,9 @@ const StatisticsGraph = ({ statistics }: Props) => {
     <FlexBox direction="column" gap={3}>
       <FlexBox>
         <Button css={buttonCss} onClick={handleToggleChargeSpeedType}>
-          <Text variant="h6">{chargeSpeedType === 'QUICK' ? '급속' : '완속'}</Text>
+          <Text variant="h6">
+            {chargeSpeedType === 'QUICK' ? CHARGING_SPEED.QUICK : CHARGING_SPEED.STANDARD}
+          </Text>
         </Button>
         {KOREAN_DAYS.map((day, index) => (
           <DaySelectButton

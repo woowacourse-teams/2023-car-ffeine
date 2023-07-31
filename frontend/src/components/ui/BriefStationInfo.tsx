@@ -2,6 +2,8 @@ import { useSetExternalState } from '@utils/external-state';
 
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
+import { CHARGING_SPEED } from '@constants';
+
 import type { StationSummary } from 'types';
 
 interface Props {
@@ -40,8 +42,16 @@ const BriefStationInfo = ({ station }: Props) => {
       </div>
 
       <div style={{ display: 'flex', gap: 10 }}>
-        {slowChargerCount > 0 && <div>완속: {slowChargerCount}개</div>}
-        {fastChargerCount > 0 && <div>급속: {fastChargerCount}개</div>}
+        {slowChargerCount > 0 && (
+          <div>
+            {CHARGING_SPEED.STANDARD}: {slowChargerCount}개
+          </div>
+        )}
+        {fastChargerCount > 0 && (
+          <div>
+            {CHARGING_SPEED.QUICK}: {fastChargerCount}개
+          </div>
+        )}
       </div>
 
       <button style={{ width: '100%' }} onClick={handleOpenStationDetail}>

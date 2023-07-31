@@ -1,6 +1,7 @@
 {
   "testEnvironment": "jsdom",
   "moduleNameMapper": {
+    "^@mocks/(.*)$": "<rootDir>/src/mocks/$1",
     "^@ui/(.*)$": "<rootDir>/src/components/ui/$1",
     "^@common/(.*)$": "<rootDir>/src/components/common/$1",
     "^@components/(.*)$": "<rootDir>/src/components/$1",

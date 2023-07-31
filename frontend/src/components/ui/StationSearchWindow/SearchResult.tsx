@@ -1,6 +1,8 @@
 import { BoltIcon } from '@heroicons/react/24/solid';
 import { css } from 'styled-components';
 
+import { useSearchedStations } from '@hooks/useSearchedStations';
+
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 import List from '@common/List';
@@ -8,10 +10,16 @@ import ListItem from '@common/ListItem';
 import Text from '@common/Text';
 
 const SearchResult = () => {
+  const { data, isLoading, isError } = useSearchedStations();
+
+  if (isLoading || isError) return <></>;
+
+  const { stations } = data;
+
   return (
     <List css={searchResultList}>
-      {Array.from({ length: 8 }).map((_, index) => (
-        <ListItem key={index} css={foundStationList}>
+      {stations.map(({ stationId, stationName, address }) => (
+        <ListItem key={stationId} css={foundStationList}>
           <Button width="100%" shadow css={foundStationButton}>
             <FlexBox alignItems="center" nowrap columnGap={2.8}>
               <FlexBox
@@ -25,14 +33,11 @@ const SearchResult = () => {
                 <BoltIcon width={24} fill="#5c68d6" />
               </FlexBox>
               <article>
-                <Text
-                  tag="h3"
-                  variant="h6"
-                  title={'카페인팀 충전소'}
-                  lineClamp={1}
-                >{`카페인팀 충전소`}</Text>
+                <Text tag="h3" variant="h6" title={stationName} lineClamp={1}>
+                  {stationName}
+                </Text>
                 <Text variant="label" align="left" lineClamp={1} color="#585858">
-                  {`서울특별시 강남구 번릉로 113`}
+                  {address}
                 </Text>
               </article>
             </FlexBox>
