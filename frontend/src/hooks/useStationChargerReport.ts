@@ -12,7 +12,6 @@ export const useStationChargerReport = (stationId: number) => {
     queryFn: () =>
       fetch(`${DEVELOP_URL}/stations/${stationId}/reports/me`, {
         method: 'GET',
-        body: JSON.stringify({ stationId }),
         headers: {
           Authorization: `Token ${token}`,
           'Content-Type': 'application/json',

@@ -125,7 +125,7 @@ export const handlers = [
 
     return res(
       ctx.delay(200),
-      ctx.status(204),
+      ctx.status(200),
       ctx.json({ isReported: reportedStations.includes(stationId) })
     );
   }),
