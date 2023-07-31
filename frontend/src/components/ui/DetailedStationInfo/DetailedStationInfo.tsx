@@ -5,9 +5,15 @@ import Box from '@common/Box';
 import DetailedStation from '@ui/DetailedStationInfo/DetailedStation';
 
 const DetailedStationInfo = () => {
-  const { data: station, isLoading, isError } = useSelectedStation();
+  const {
+    data: selectedStation,
+    isLoading: isSelectedStationLoading,
+    isError: isSelectedStationError,
+  } = useSelectedStation();
 
-  if (isLoading || isError) return <></>;
+  if (isSelectedStationLoading || isSelectedStationError) {
+    return <></>;
+  }
 
   return (
     <Box
@@ -18,7 +24,7 @@ const DetailedStationInfo = () => {
         zIndex: '999',
       }}
     >
-      <DetailedStation station={station} />
+      <DetailedStation station={selectedStation} />
     </Box>
   );
 };
