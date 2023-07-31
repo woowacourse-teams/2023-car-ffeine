@@ -1,5 +1,4 @@
-import { css } from 'styled-components';
-
+import type { ReactNode } from 'react';
 import { useContext } from 'react';
 
 import FlexBox from '@common/FlexBox';
@@ -7,7 +6,7 @@ import FlexBox from '@common/FlexBox';
 import { GraphContext, type GraphProps } from '.';
 
 interface BarContainerProps extends GraphProps {
-  renderBar: (hour: number, ratio: number) => JSX.Element;
+  renderBar: (hour: number, ratio: number) => ReactNode;
 }
 
 const BarContainer = ({ align, statistics, renderBar }: BarContainerProps) => {
