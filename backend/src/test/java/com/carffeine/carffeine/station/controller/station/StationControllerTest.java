@@ -1,5 +1,6 @@
 package com.carffeine.carffeine.station.controller.station;
 
+import com.carffeine.carffeine.station.domain.charger.ChargerType;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.exception.StationException;
 import com.carffeine.carffeine.station.exception.StationExceptionType;
@@ -59,7 +60,7 @@ class StationControllerTest {
 
         // when
         List<Station> fakeStations = List.of(선릉역_충전소_충전기_2개_사용가능_1개);
-        when(stationService.findByCoordinate(coordinateRequest)).thenReturn(fakeStations);
+        when(stationService.findByCoordinate(coordinateRequest, List.of("볼튼"), List.of(ChargerType.DC_COMBO), List.of(new BigDecimal("50.00")))).thenReturn(fakeStations);
 
         // then
         mockMvc.perform(get("/api/stations")
@@ -67,6 +68,9 @@ class StationControllerTest {
                         .param("longitude", longitude.toString())
                         .param("latitudeDelta", latitudeDelta.toString())
                         .param("longitudeDelta", longitudeDelta.toString())
+                        .param("companyNames", "볼튼")
+                        .param("chargerTypes", ChargerType.DC_COMBO.toString())
+                        .param("capacities", "50.00")
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isOk())
@@ -76,7 +80,10 @@ class StationControllerTest {
                                 parameterWithName("latitude").description("기준 위도"),
                                 parameterWithName("longitude").description("기준 경도"),
                                 parameterWithName("latitudeDelta").description("변화 위도"),
-                                parameterWithName("longitudeDelta").description("변화 경도")
+                                parameterWithName("longitudeDelta").description("변화 경도"),
+                                parameterWithName("companyNames").description("필터가 적용된 충전기 회사 이름"),
+                                parameterWithName("chargerTypes").description("필터가 적용된 충전기 타입"),
+                                parameterWithName("capacities").description("필터가 적용된 충전기 출력")
                         ),
                         responseFields(
                                 fieldWithPath("stations").type(JsonFieldType.ARRAY).description("충전소들"),
@@ -134,7 +141,8 @@ class StationControllerTest {
                                 fieldWithPath("longitude").type(JsonFieldType.NUMBER).description("경도"),
                                 fieldWithPath("isPrivate").type(JsonFieldType.BOOLEAN).description("이용 제한"),
                                 fieldWithPath("stationState").type(JsonFieldType.STRING).description("충전소 이용 안내사항"),
-                                fieldWithPath("privateReason").type(JsonFieldType.STRING).description("이용 제한 사유")
+                                fieldWithPath("privateReason").type(JsonFieldType.STRING).description("이용 제한 사유"),
+                                fieldWithPath("reportCount").type(JsonFieldType.NUMBER).description("신고 당한 횟수")
                         )
                 ));
     }

@@ -16,8 +16,7 @@ import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 
 import MswControlButton from '@ui/MswControlButton';
-
-import LogoIcon from '@assets/logo-icon.svg';
+import LogoIcon from '@ui/Svg/LogoIcon';
 
 const fixedPositionCss = css`
   position: fixed;
@@ -69,7 +68,7 @@ const Navigator = () => {
       nowrap={true}
     >
       <Button>
-        <img alt="커피컵과 자동차가 그려진 파란색 로고" src={LogoIcon} width={36} height={36} />
+        <LogoIcon width={3} />
       </Button>
       <Button onClick={toggleStationSearchWindow} aria-label="검색창 열기">
         <MagnifyingGlassIcon width="2.8rem" stroke="#333" />

@@ -2,6 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 
 import { useExternalValue } from '@utils/external-state';
 import { getStoreSnapshot } from '@utils/external-state/tools';
+import { getTypedObjectFromEntries } from '@utils/getTypedObjectFromEntries';
+import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 import { getDisplayPosition } from '@utils/google-maps';
 import { getQueryFormattedUrl } from '@utils/request-query-params';
 
@@ -15,17 +17,19 @@ import { stationFilterStore } from '@stores/stationFilterStore';
 
 import { BASE_URL } from '@constants';
 
-import type { StationSummary } from 'types';
+import type { DisplayPosition, StationSummary } from 'types';
 
 export const fetchStation = async () => {
-  const displayPosition = Object.fromEntries(
-    Object.entries(getDisplayPosition(getStoreSnapshot(getGoogleMapStore()))).map(
-      ([key, value]) => [key, String(value)]
-    )
-  );
+  const googleMap = getStoreSnapshot(getGoogleMapStore());
+  const displayPosition = getDisplayPosition(googleMap);
+
+  const displayPositionKey = getTypedObjectKeys<DisplayPosition>(displayPosition);
+  const displayPositionValue = Object.values(displayPosition).map(String);
+
+  const displayPositionString = getTypedObjectFromEntries(displayPositionKey, displayPositionValue);
 
   const requestQueryParams = getQueryFormattedUrl({
-    ...displayPosition,
+    ...displayPositionString,
     companyNames: getStoreSnapshot(selectedCompanyNamesFilterStore).join(','),
     capacities: getStoreSnapshot(selectedCapacitiesFilterStore)
       .map((capacity) => `${capacity}.00`)

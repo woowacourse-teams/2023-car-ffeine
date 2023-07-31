@@ -1,3 +1,7 @@
+import { getTypedObjectFromEntries } from '@utils/getTypedObjectFromEntries';
+
+import type { EnglishDaysType, KoreanDaysType } from 'types';
+
 export const DEFAULT_CENTER = {
   lat: 37.5056102333107,
   lng: 127.05081496722168,
@@ -20,12 +24,14 @@ const URL: Readonly<Record<ModeType, string>> = {
 const MODE = process.env.NODE_ENV as ModeType;
 export const BASE_URL = URL[MODE];
 
-export const ERROR_PREFIX = '[error]';
+const ERROR_PREFIX = '[error]';
 export const ERROR_MESSAGES = {
   NO_STATION_FOUND: `${ERROR_PREFIX} 해당 충전소가 존재하지 않습니다.`,
   STATION_DETAILS_FETCH_ERROR: `${ERROR_PREFIX} 충전소 세부 정보를 불러올 수 없습니다.`,
+  NO_SEARCH_RESULT: `${ERROR_PREFIX} 검색 결과가 없습니다.`,
 } as const;
 
+// 충전기
 export const CHARGER_TYPES = {
   DC_FAST: 'DC 차데모',
   AC_SLOW: 'AC 완속',
@@ -34,6 +40,18 @@ export const CHARGER_TYPES = {
   DC_DC_COMBO: 'DC 차데모+DC 콤보',
   DC_AC_DC_COMBO: 'DC 차데모+AC 3상+DC 콤보',
   AC_3PHASE: 'AC 3상',
+} as const;
+
+/**
+ *     충전기상태(1: 통신이상, 2: 충전대기,3: 충전중, 4: 운영중지,5: 점검중, 9: 상태미확인)
+ */
+export const CHARGER_STATES = {
+  COMMUNICATION_ERROR: '통신이상', // 1
+  STANDBY: '충전대기', // 2
+  CHARGING_IN_PROGRESS: '충전중', // 3
+  OPERATION_SUSPENDED: '운영중지', // 4
+  UNDER_INSPECTION: '점검중', // 5
+  STATUS_UNKNOWN: '상태미확인', // 9
 } as const;
 
 export const COMPANY_NAME = {
@@ -139,16 +157,29 @@ export const COMPANY_NAME = {
   YY: '양양군',
 } as const;
 
+// 충전 속도
 export const CAPACITIES = [3, 7, 50, 100, 200] as const;
+export const CHARGING_SPEED = {
+  QUICK: '급속',
+  STANDARD: '완속',
+} as const;
 
+// 키
 export const LOCAL_STORAGE_KEY_LAST_POSITION = 'CARFFEINE_LAST_POSITION';
 export const LOCAL_KEY_GOOGLE_MAPS_API = 'CARFFEINE_GOOGLE_MAPS_API';
-export const LOCAL_KEY_GOOGLE_MAPS_API_SAVE = 'CARFFEINE_GOOGLE_MAPS_API_SAVE';
+export const LOCAL_KEY_GOOGLE_MAPS_API_LAST_LOGIN = 'CARFFEINE_GOOGLE_MAPS_API_LAST_LOGIN';
 export const LOCAL_KEY_TOKEN = 'CARFFEINE_TOKEN';
 
-export const ENGLISH_DAYS = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'] as const;
+// 날짜
 export const KOREAN_DAYS = ['월', '화', '수', '목', '금', '토', '일'] as const;
+export const ENGLISH_DAYS = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'] as const;
 
-export const KOREAN_DAYS_TO_ENGLISH_DAYS = Object.fromEntries(
-  KOREAN_DAYS.map((day, index) => [day, ENGLISH_DAYS[index]])
+export const ENGLISH_DAYS_TO_KOREAN_DAYS = Object.fromEntries(
+  ENGLISH_DAYS.map((day, index) => [day, KOREAN_DAYS[index]])
 );
+
+// API 검색
+export const SEARCH_SCOPE =
+  '&scope=stationName&scope=address&scope=speed&scope=latitude&scope=longitude';
+
+export const MAX_SEARCH_RESULTS = 8;

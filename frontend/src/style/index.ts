@@ -26,7 +26,7 @@ export const getSize = (size: string | number) => {
   return 'auto';
 };
 
-export const windowTriggeredLnb = css`
+export const windowPositionTriggeredByLnb = css`
   position: fixed;
   left: 7rem;
   top: 0;

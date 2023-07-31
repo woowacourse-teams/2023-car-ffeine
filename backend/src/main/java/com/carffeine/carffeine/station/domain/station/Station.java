@@ -13,10 +13,13 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Builder
@@ -24,7 +27,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @EqualsAndHashCode(of = "stationId")
-@Table(name = "charge_station")
+@Table(name = "charge_station", indexes = @Index(name = "idx_station_coordination", columnList = "latitude, longitude, stationId"))
 public class Station {
 
     @Id
@@ -60,7 +63,7 @@ public class Station {
 
     @Builder.Default
     @OneToMany(mappedBy = "station", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<FaultReport> faultReports = new ArrayList<>();
+    private Set<FaultReport> faultReports = new HashSet<>();
 
     public int getTotalCount() {
         return chargers.size();
@@ -126,5 +129,9 @@ public class Station {
         }
 
         return false;
+    }
+
+    public Integer getReportCount() {
+        return faultReports.size();
     }
 }

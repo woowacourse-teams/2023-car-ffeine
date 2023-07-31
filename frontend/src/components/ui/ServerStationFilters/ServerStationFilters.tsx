@@ -11,7 +11,7 @@ import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-import { windowTriggeredLnb } from '@style';
+import { windowPositionTriggeredByLnb } from '@style';
 
 import { CHARGER_TYPES, CAPACITIES, COMPANY_NAME } from '@constants';
 
@@ -77,7 +77,7 @@ const ServerStationFilters = () => {
       direction={'column'}
       background={'white'}
       css={`
-        ${windowTriggeredLnb}${overFlowCss}${borderCss}${paddingCss}
+        ${windowPositionTriggeredByLnb}${overFlowCss}${borderCss}${paddingCss}
       `}
       nowrap={true}
       noRadius={'all'}

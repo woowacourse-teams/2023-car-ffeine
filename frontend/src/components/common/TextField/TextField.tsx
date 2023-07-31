@@ -47,7 +47,7 @@ export default TextField;
 
 const Group = styled.div`
   position: relative;
-  margin: 4.5rem 0;
+  margin: 2rem 0;
 `;
 
 const Input = styled.input<TextFieldProps>`
