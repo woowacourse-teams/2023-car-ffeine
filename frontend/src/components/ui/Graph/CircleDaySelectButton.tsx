@@ -25,7 +25,7 @@ const CircleDaySelectButton = ({ children }: PropsWithChildren) => {
   return (
     <Button
       size="sm"
-      outlined={true}
+      outlined
       css={[buttonCss, selectedDay === children && colorCss]}
       background={selectedDay === children && '#0064ff'}
       onClick={() => {

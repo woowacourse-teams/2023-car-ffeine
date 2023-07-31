@@ -16,7 +16,7 @@ const BarContainer = ({ align, statistics, renderBar }: BarContainerProps) => {
   return (
     <FlexBox
       direction={align}
-      nowrap={true}
+      nowrap
       alignItems={align === 'row' ? 'end' : 'start'}
       width={align === 'column' && '28.4rem'}
       height={align === 'row' && '28.4rem'}

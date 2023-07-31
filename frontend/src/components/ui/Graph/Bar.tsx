@@ -13,7 +13,7 @@ const Bar = ({ ratio, hour, align }: BarProps) => {
   return (
     <FlexBox
       tag="li"
-      nowrap={true}
+      nowrap
       direction={align === 'column' ? 'row' : 'column'}
       css={align === 'row' && rowAlignCss}
       alignItems={align === 'row' ? 'center' : 'start'}
