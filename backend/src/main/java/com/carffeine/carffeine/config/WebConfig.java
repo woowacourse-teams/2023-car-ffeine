@@ -16,7 +16,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Configuration
-public class AuthenticationConfig implements WebMvcConfigurer {
+public class WebConfig implements WebMvcConfigurer {
 
     private final MemberRepository memberRepository;
     private final AuthMemberResolver authMemberResolver;
