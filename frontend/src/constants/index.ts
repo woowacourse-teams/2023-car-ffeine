@@ -174,10 +174,9 @@ export const LOCAL_KEY_TOKEN = 'CARFFEINE_TOKEN';
 export const KOREAN_DAYS = ['월', '화', '수', '목', '금', '토', '일'] as const;
 export const ENGLISH_DAYS = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'] as const;
 
-export const KOREAN_DAYS_TO_ENGLISH_DAYS = getTypedObjectFromEntries<
-  KoreanDaysType,
-  EnglishDaysType
->(KOREAN_DAYS, ENGLISH_DAYS);
+export const ENGLISH_DAYS_TO_KOREAN_DAYS = Object.fromEntries(
+  ENGLISH_DAYS.map((day, index) => [day, KOREAN_DAYS[index]])
+);
 
 // API 검색
 export const SEARCH_SCOPE =

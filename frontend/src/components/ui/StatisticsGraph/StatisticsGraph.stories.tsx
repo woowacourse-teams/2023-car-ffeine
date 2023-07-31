@@ -1,7 +1,9 @@
 import { congestions } from '@mocks/data';
 import type { Meta } from '@storybook/react';
 
-import StatisticsGraph from './StatisticsGraph';
+import { ENGLISH_DAYS } from '@constants';
+
+import StatisticsGraph from '.';
 
 const meta = {
   title: 'UI/StatisticsGraph',
@@ -11,6 +13,22 @@ const meta = {
 
 export default meta;
 
-export const Default = () => {
-  return <StatisticsGraph statistics={congestions} />;
+export const Column = () => {
+  return (
+    <StatisticsGraph
+      statistics={congestions.congestion.QUICK}
+      align="column"
+      menus={[...ENGLISH_DAYS]}
+    />
+  );
+};
+
+export const Row = () => {
+  return (
+    <StatisticsGraph
+      statistics={congestions.congestion.QUICK}
+      align="row"
+      menus={[...ENGLISH_DAYS]}
+    />
+  );
 };
