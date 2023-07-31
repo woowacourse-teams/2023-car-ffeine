@@ -13,6 +13,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @EqualsAndHashCode(of = "stationId")
-@Table(name = "charge_station")
+@Table(name = "charge_station", indexes = @Index(name = "idx_station_coordination", columnList = "latitude, longitude, stationId"))
 public class Station {
 
     @Id
