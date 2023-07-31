@@ -2,7 +2,11 @@ import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import type { CSSProp } from 'styled-components';
 import { styled } from 'styled-components';
 
-import type { InputHTMLAttributes } from 'react';
+import type { ChangeEvent, FormEvent, InputHTMLAttributes } from 'react';
+
+import { useSetExternalState } from '@utils/external-state';
+
+import { searchWordStore } from '@stores/searchWordStore';
 
 import Button from '@common/Button';
 
@@ -17,18 +21,29 @@ export interface StationSearchBarProps extends InputHTMLAttributes<HTMLInputElem
 }
 
 const StationSearchBar = ({ ...props }: StationSearchBarProps) => {
+  const setSearchWord = useSetExternalState(searchWordStore);
+
+  const handleSubmitSearchWord = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  };
+
+  const handleRequestSearchResult = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+    const searchWord = encodeURIComponent(value);
+    setSearchWord(searchWord);
+  };
+
   return (
-    <S.Label htmlFor="station-search">
-      <S.Search aria-label="검색창" type="text" id="station-search" {...props} />
-      <Button>
+    <S.Form role="search" onSubmit={handleSubmitSearchWord}>
+      <S.Search type="search" role="searchbox" onChange={handleRequestSearchResult} {...props} />
+      <Button type="submit" aria-label="검색하기">
         <MagnifyingGlassIcon width="2.4rem" stroke={props.borderColor || '#333'} />
       </Button>
-    </S.Label>
+    </S.Form>
   );
 };
 
 const S = {
-  Label: styled.label`
+  Form: styled.form`
     position: relative;
   `,
 
@@ -37,8 +52,8 @@ const S = {
 
     background: ${({ background }) => background || '#fff'};
     border: ${({ outlined, borderColor }) =>
-      outlined ? `0.15rem solid ${borderColor || '#333'}` : 'none'};
-    box-shadow: ${({ shadow }) => `${shadow ? '0 0.3rem 0.8rem 0 gray' : 'none'}`};
+      outlined ? `1.5px solid ${borderColor || '#333'}` : 'none'};
+    box-shadow: ${({ shadow }) => `${shadow ? '0 3px 8px 0 gray' : 'none'}`};
 
     width: 100%;
     padding: 1.9rem 4.6rem 2rem 1.8rem;
@@ -47,7 +62,8 @@ const S = {
     & + button {
       position: absolute;
       right: 2rem;
-      top: -50%;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
     &:focus {

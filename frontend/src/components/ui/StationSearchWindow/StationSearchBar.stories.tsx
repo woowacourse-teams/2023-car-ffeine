@@ -5,7 +5,7 @@ import type { StationSearchBarProps } from './StationSearchBar';
 import StationSearchBar from './StationSearchBar';
 
 const meta = {
-  title: 'Components/StationSearchBar',
+  title: 'UI/StationSearchBar',
   component: StationSearchBar,
   tags: ['autodocs'],
   args: {

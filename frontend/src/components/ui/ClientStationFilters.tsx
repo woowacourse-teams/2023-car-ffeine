@@ -6,6 +6,8 @@ import { stationFilterStore } from '@stores/stationFilterStore';
 
 import Button from '@common/Button';
 
+import { CHARGING_SPEED } from '@constants';
+
 const ClientStationFilters = () => {
   const [
     {
@@ -69,7 +71,7 @@ const ClientStationFilters = () => {
         color={isAvailableStationFilterSelected ? 'white' : 'black'}
         size={'sm'}
       >
-        급속
+        {CHARGING_SPEED.QUICK}
       </Button>
       <Button
         onClick={togglePrivateStation}
@@ -91,7 +93,7 @@ const Container = styled.div`
   position: fixed;
   top: 10px;
   left: 180px;
-  z-index: 999;
+  z-index: 998;
   padding: 10px;
   background-color: white;
   box-shadow: 1px 1px 2px gray;
