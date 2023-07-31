@@ -26,6 +26,7 @@ public interface StationRepository extends Repository<Station, Long> {
                                                                    @Param("minLongitude") BigDecimal minLongitude,
                                                                    @Param("maxLongitude") BigDecimal maxLongitude);
 
+    @EntityGraph(attributePaths = {"chargers", "chargers.chargerStatus", "faultReports"})
     Optional<Station> findChargeStationByStationId(String stationId);
 
     @Query("SELECT DISTINCT s FROM Station s JOIN FETCH s.chargers")
