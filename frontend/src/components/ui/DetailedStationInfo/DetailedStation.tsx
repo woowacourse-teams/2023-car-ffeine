@@ -10,8 +10,8 @@ import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-import ChargerReportConfirmation from '@ui/ChargerReportConfirmation';
 import ChargerCard from '@ui/DetailedStationInfo/ChargerCard';
+import ChargerReportConfirmation from '@ui/DetailedStationInfo/ChargerReportConfirmation';
 
 import type { StationDetails } from '../../../types';
 
