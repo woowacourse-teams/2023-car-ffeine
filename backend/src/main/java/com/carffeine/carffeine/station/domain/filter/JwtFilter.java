@@ -19,7 +19,6 @@ import java.io.IOException;
 @Slf4j
 public class JwtFilter extends OncePerRequestFilter {
 
-    private static final int TOKEN_START_INDEX = 7;
     private static final String BEARER_PREFIX = "Bearer ";
 
     private final MemberRepository memberRepository;
@@ -40,7 +39,7 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
         }
 
-        String token = authorization.substring(TOKEN_START_INDEX);
+        String token = authorization.substring(BEARER_PREFIX.length());
 
         if (jwt.isExpired(token)) {
             filterChain.doFilter(request, response);
@@ -50,6 +49,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         Member member = memberRepository.findById(id);
         if (member == null) {
+            sendUnauthorizedError(response, "등록되지 않은 회원입니다");
             filterChain.doFilter(request, response);
         }
     }
