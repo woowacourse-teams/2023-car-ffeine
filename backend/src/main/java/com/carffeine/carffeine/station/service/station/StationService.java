@@ -2,6 +2,7 @@ package com.carffeine.carffeine.station.service.station;
 
 import com.carffeine.carffeine.station.domain.charger.ChargerStatus;
 import com.carffeine.carffeine.station.domain.charger.ChargerStatusRepository;
+import com.carffeine.carffeine.station.domain.charger.ChargerType;
 import com.carffeine.carffeine.station.domain.congestion.PeriodicCongestion;
 import com.carffeine.carffeine.station.domain.congestion.PeriodicCongestionCustomRepository;
 import com.carffeine.carffeine.station.domain.congestion.PeriodicCongestionRepository;
