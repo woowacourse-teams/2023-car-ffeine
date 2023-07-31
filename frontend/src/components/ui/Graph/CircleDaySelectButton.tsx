@@ -19,7 +19,9 @@ const CircleDaySelectButton = ({ children }: PropsWithChildren) => {
   const { selectedDay, setSelectedDay } = useContext(GraphContext);
 
   const handleSelectDay = (day: string) => {
-    if (isEnglishDays(day)) setSelectedDay(day);
+    if (isEnglishDays(day)) {
+      setSelectedDay(day);
+    }
   };
 
   return (
