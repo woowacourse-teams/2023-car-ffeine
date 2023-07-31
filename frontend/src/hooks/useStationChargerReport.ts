@@ -16,6 +16,9 @@ export const useStationChargerReport = (stationId: number) => {
           Authorization: `Token ${token}`,
           'Content-Type': 'application/json',
         },
+      }).then(async (response) => {
+        const data = await response.json();
+        return data.isReported;
       }),
   });
 };

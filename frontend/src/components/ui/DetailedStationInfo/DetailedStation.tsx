@@ -36,8 +36,10 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
     reportCount,
   } = station;
 
-  const { data } = useStationChargerReport(stationId);
-  console.log(data); // undefined?
+  const { data, isLoading, isFetching } = useStationChargerReport(stationId);
+  console.log(data, isLoading, isFetching); // undefined?
+
+  if (isLoading || isFetching) return <></>;
 
   const reportStation = (stationId: number) => {
     alert(`report this station's information: ${stationId}`);
@@ -101,7 +103,9 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
             modalActions.openModal(<ChargerReportConfirmation stationId={stationId} />)
           }
         >
-          📢 실제 충전기 상태와 일치하지 않는 충전소에요
+          {(data as boolean)
+            ? '이미 신고하셨습니다.'
+            : '📢 실제 충전기 상태와 일치하지 않는 충전소에요'}
         </Button>
       </FlexBox>
       {reportCount > 0 && (
