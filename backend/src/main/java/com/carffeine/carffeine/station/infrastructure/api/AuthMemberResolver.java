@@ -39,8 +39,8 @@ public class AuthMemberResolver implements HandlerMethodArgumentResolver {
 
         String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
         String token = authorization.substring(TOKEN_START_INDEX);
-        Jwt jwt = new Jwt(token);
+        Jwt jwt = new Jwt();
 
-        return jwt.extractId();
+        return jwt.extractId(token);
     }
 }

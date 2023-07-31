@@ -5,6 +5,7 @@ import com.carffeine.carffeine.station.domain.member.Member;
 import com.carffeine.carffeine.station.domain.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -22,6 +23,8 @@ public class JwtFilter extends OncePerRequestFilter {
     private static final String BEARER_PREFIX = "Bearer ";
 
     private final MemberRepository memberRepository;
+    @Autowired
+    private Jwt jwt;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -38,13 +41,12 @@ public class JwtFilter extends OncePerRequestFilter {
         }
 
         String token = authorization.substring(TOKEN_START_INDEX);
-        Jwt jwt = new Jwt(token);
 
-        if (jwt.isExpired()) {
+        if (jwt.isExpired(token)) {
             filterChain.doFilter(request, response);
         }
 
-        Long id = jwt.extractId();
+        Long id = jwt.extractId(token);
 
         Member member = memberRepository.findById(id);
         if (member == null) {

@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.station;
 
-import com.carffeine.carffeine.station.domain.jwt.JwtProvider;
+import com.carffeine.carffeine.station.domain.jwt.Jwt;
 import com.carffeine.carffeine.station.domain.member.MemberRepository;
 import com.carffeine.carffeine.station.infrastructure.api.AuthMemberResolver;
 import com.carffeine.carffeine.station.service.auth.MemberService;
@@ -16,7 +16,7 @@ public class MockBeanInjection {
     @MockBean
     protected AuthMemberResolver authMemberResolver;
     @MockBean
-    protected JwtProvider jwtProvider;
+    protected Jwt jwt;
     @MockBean
     protected StationService stationService;
     @MockBean
