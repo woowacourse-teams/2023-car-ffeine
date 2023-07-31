@@ -4,7 +4,6 @@ import com.carffeine.carffeine.station.domain.jwt.Jwt;
 import com.carffeine.carffeine.station.domain.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
@@ -24,9 +23,6 @@ public class AuthMemberResolver implements HandlerMethodArgumentResolver {
 
     private final MemberRepository memberRepository;
 
-    @Value("${jwt.secret}")
-    private String secretKey;
-
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         return parameter.hasParameterAnnotation(AuthMember.class);
@@ -45,6 +41,6 @@ public class AuthMemberResolver implements HandlerMethodArgumentResolver {
         String token = authorization.substring(TOKEN_START_INDEX);
         Jwt jwt = new Jwt(token);
 
-        return jwt.extractId(token, secretKey);
+        return jwt.extractId();
     }
 }

@@ -13,6 +13,6 @@ public class MemberService {
 
     public String createJwt(Long memberId) {
         Jwt jwt = jwtProvider.createJwt(memberId);
-        return jwt.accessToken();
+        return jwt.getToken();
     }
 }

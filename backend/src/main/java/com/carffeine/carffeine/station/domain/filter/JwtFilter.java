@@ -22,7 +22,6 @@ public class JwtFilter extends OncePerRequestFilter {
     private static final String BEARER_PREFIX = "Bearer ";
 
     private final MemberRepository memberRepository;
-    private final String secretKey;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -41,11 +40,11 @@ public class JwtFilter extends OncePerRequestFilter {
         String token = authorization.substring(TOKEN_START_INDEX);
         Jwt jwt = new Jwt(token);
 
-        if (jwt.isExpired(token, secretKey)) {
+        if (jwt.isExpired()) {
             filterChain.doFilter(request, response);
         }
 
-        Long id = jwt.extractId(token, secretKey);
+        Long id = jwt.extractId();
 
         Member member = memberRepository.findById(id);
         if (member == null) {
