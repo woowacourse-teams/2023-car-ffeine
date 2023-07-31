@@ -8,7 +8,7 @@ const fetchStationChargerReport = (token: number, stationId: number) =>
   fetch(`${DEVELOP_URL}/stations/${stationId}/reports/me`, {
     method: 'GET',
     headers: {
-      Authorization: `Token ${token}`,
+      Authorization: `${token}`,
       'Content-Type': 'application/json',
     },
   }).then(async (response) => {

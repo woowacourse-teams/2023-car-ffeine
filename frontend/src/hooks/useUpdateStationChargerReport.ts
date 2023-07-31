@@ -10,9 +10,8 @@ const fetchReportCharger = async (stationId: number) => {
   const token = getLocalStorage<number>(LOCAL_KEY_TOKEN, -1);
   return fetch(`${BASE_URL}/stations/${stationId}/reports`, {
     method: 'POST',
-    body: JSON.stringify({ stationId }),
     headers: {
-      Authorization: `Token ${token}`,
+      Authorization: `${token}`,
       'Content-Type': 'application/json',
     },
   });
