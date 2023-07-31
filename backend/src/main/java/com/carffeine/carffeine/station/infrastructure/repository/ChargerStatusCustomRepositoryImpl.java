@@ -20,9 +20,18 @@ public class ChargerStatusCustomRepositoryImpl implements ChargerStatusCustomRep
     @Override
     @Transactional
     public void saveAll(List<ChargerStatus> chargerStatuses) {
-        String sql = "INSERT INTO charger_status (station_id, charger_id, latest_update_time, charger_condition) " +
-                "VALUES (:stationId, :chargerId, :latestUpdateTime, :chargerCondition) " +
-                "ON DUPLICATE KEY UPDATE latest_update_time = :latestUpdateTime, charger_condition = :chargerCondition";
+        String sql = "INSERT IGNORE INTO charger_status (station_id, charger_id, latest_update_time, charger_condition) " +
+                "VALUES (:stationId, :chargerId, :latestUpdateTime, :chargerCondition) ";
+        SqlParameterSource[] sqlParameterSources = chargerStatuses.stream()
+                .map(this::changeToSqlParameterSource)
+                .toArray(SqlParameterSource[]::new);
+        namedParameterJdbcTemplate.batchUpdate(sql, sqlParameterSources);
+    }
+
+    @Override
+    public void updateAll(List<ChargerStatus> chargerStatuses) {
+        String sql = "UPDATE  charger_status SET latest_update_time = :latestUpdateTime, charger_condition = :chargerCondition " +
+                "WHERE station_id = :stationId AND charger_id = :chargerId";
         SqlParameterSource[] sqlParameterSources = chargerStatuses.stream()
                 .map(this::changeToSqlParameterSource)
                 .toArray(SqlParameterSource[]::new);

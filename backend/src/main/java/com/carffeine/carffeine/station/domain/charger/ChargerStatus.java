@@ -41,4 +41,7 @@ public class ChargerStatus {
         return chargerCondition.isStandBy();
     }
 
+    public boolean isUsing() {
+        return chargerCondition == ChargerCondition.CHARGING_IN_PROGRESS;
+    }
 }
