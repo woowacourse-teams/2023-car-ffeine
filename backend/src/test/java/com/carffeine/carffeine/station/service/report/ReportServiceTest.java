@@ -1,13 +1,17 @@
 package com.carffeine.carffeine.station.service.report;
 
 import com.carffeine.carffeine.station.domain.report.FakeFaultRepository;
+import com.carffeine.carffeine.station.domain.report.FakeMisinformationRepository;
 import com.carffeine.carffeine.station.domain.report.FaultReport;
 import com.carffeine.carffeine.station.domain.report.FaultReportRepository;
+import com.carffeine.carffeine.station.domain.report.MisinformationReport;
+import com.carffeine.carffeine.station.domain.report.MisinformationReportRepository;
 import com.carffeine.carffeine.station.domain.station.FakeStationRepository;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.domain.station.StationRepository;
 import com.carffeine.carffeine.station.exception.report.ReportException;
 import com.carffeine.carffeine.station.fixture.station.StationFixture;
+import com.carffeine.carffeine.station.service.report.dto.MisinformationReportRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -15,8 +19,10 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static com.carffeine.carffeine.station.service.report.dto.MisinformationReportRequest.StationDetailToUpdate;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
@@ -25,12 +31,14 @@ class ReportServiceTest {
     private ReportService reportService;
     private StationRepository stationRepository;
     private FaultReportRepository faultReportRepository;
+    private MisinformationReportRepository misinformationReportRepository;
 
     @BeforeEach
     void setUp() {
+        misinformationReportRepository = new FakeMisinformationRepository();
         stationRepository = new FakeStationRepository();
         faultReportRepository = new FakeFaultRepository();
-        reportService = new ReportService(faultReportRepository, stationRepository);
+        reportService = new ReportService(faultReportRepository, stationRepository, misinformationReportRepository);
     }
 
     @Test
@@ -58,6 +66,26 @@ class ReportServiceTest {
         assertThatThrownBy(() -> reportService.saveFaultReport(station.getStationId(), memberId))
                 .isInstanceOf(ReportException.class)
                 .hasMessage("이미 신고한 충전소는 신고가 불가합니다");
+    }
+
+    @Test
+    void 충전소의_잘못된_정보를_제보한다() {
+        // given
+        Station station = stationRepository.save(StationFixture.선릉역_충전소_충전기_2개_사용가능_1개);
+        Long memberId = 123L;
+        StationDetailToUpdate detail = new StationDetailToUpdate("address", "부산");
+        MisinformationReportRequest request = new MisinformationReportRequest(List.of(detail));
+
+        // when
+        MisinformationReport misinformationReport = reportService.saveMisinformationReport(station.getStationId(), memberId, request);
+
+        // then
+        assertSoftly(softly -> {
+            softly.assertThat(misinformationReport.getId()).isEqualTo(1L);
+            softly.assertThat(misinformationReport.getMemberId()).isEqualTo(123L);
+            softly.assertThat(misinformationReport.isChecked()).isEqualTo(false);
+            softly.assertThat(misinformationReport.getMisinformationDetailReports()).hasSize(1);
+        });
     }
 
     @Test

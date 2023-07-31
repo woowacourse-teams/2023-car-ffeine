@@ -12,6 +12,7 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./src",
     "paths": {
+      "@mocks/*": ["mocks/*"],
       "@utils/*": ["utils/*"],
       "@map/*": ["components/google-maps/map/*"],
       "@marker/*": ["components/google-maps/marker/*"],

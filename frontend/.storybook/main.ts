@@ -10,6 +10,7 @@ interface RuleSetRules {
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  staticDirs: ['../public'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
@@ -41,6 +42,7 @@ const config: StorybookConfig = {
     if (resolve) {
       resolve.alias = {
         ...resolve.alias,
+        '@mocks': path.resolve(__dirname, '../src/mocks'),
         '@map': path.resolve(__dirname, '../src/components/google-maps/map'),
         '@marker': path.resolve(__dirname, '../src/components/google-maps/marker'),
         '@ui': path.resolve(__dirname, '../src/components/ui'),

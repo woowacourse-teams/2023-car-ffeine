@@ -1,12 +1,23 @@
 import type { Preview } from '@storybook/react';
+import { initialize, mswDecorator } from 'msw-storybook-addon';
 
 import React from 'react';
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+import { handlers } from '../src/mocks/handlers';
 import { GlobalStyle } from '../src/style/GlobalStyle';
+
+initialize();
+
+const queryClient = new QueryClient();
 
 const preview: Preview = {
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
+    msw: {
+      handlers: [...handlers],
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -14,7 +25,7 @@ const preview: Preview = {
       },
     },
     viewport: {
-      defaultViewport: 'Desktop',
+      defaultViewport: 'desktop',
       viewports: {
         iphone6: {
           name: 'iPhone SE',
@@ -56,10 +67,13 @@ const preview: Preview = {
   decorators: [
     (Story) => (
       <>
-        <GlobalStyle />
-        <Story />
+        <QueryClientProvider client={queryClient}>
+          <GlobalStyle />
+          <Story />
+        </QueryClientProvider>
       </>
     ),
+    mswDecorator,
   ],
 };
 

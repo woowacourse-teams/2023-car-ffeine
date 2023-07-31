@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 import SearchResult from './SearchResult';
 
 const meta = {
-  title: 'Components/SearchResult',
+  title: 'UI/SearchResult',
   component: SearchResult,
 } satisfies Meta<typeof SearchResult>;
 

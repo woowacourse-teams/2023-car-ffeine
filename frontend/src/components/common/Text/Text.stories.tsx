@@ -8,6 +8,7 @@ const meta = {
   component: Text,
   tags: ['autodocs'],
   args: {
+    tag: 'p',
     variant: 'body',
     align: 'left',
     mb: 0,
@@ -16,6 +17,10 @@ const meta = {
     children: 'You forget a thousand things every day. Make sure this is one of them.',
   },
   argTypes: {
+    tag: {
+      description:
+        '태그명(ex. header, h2, span)을 입력해 텍스트 컴포넌트의 태그를 바꿀 수 있습니다.',
+    },
     children: {
       control: {
         type: 'text',
@@ -66,6 +71,14 @@ const meta = {
     },
     lineClamp: {
       description: '블록 컨테이너 콘텐츠의 줄 수를 선택한 수만큼으로 제한할 수 있습니다.',
+    },
+    fontSize: {
+      description:
+        '글자 크기를 직접 조절할 수 있습니다.<br>❗글자 크기를 직접 설정할 경우, variant 적용시에도 글자 크기는 변하지 않습니다.',
+    },
+    weight: {
+      description:
+        '글자 두께를 직접 조절할 수 있습니다.<br>❗글자 두께를 직접 설정할 경우, variant 적용시에도 글자 두께는 변하지 않습니다.',
     },
   },
 } satisfies Meta<typeof Text>;

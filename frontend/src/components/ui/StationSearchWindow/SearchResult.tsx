@@ -1,6 +1,8 @@
 import { BoltIcon } from '@heroicons/react/24/solid';
 import { css } from 'styled-components';
 
+import { useSearchedStations } from '@hooks/useSearchedStations';
+
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 import List from '@common/List';
@@ -8,18 +10,16 @@ import ListItem from '@common/ListItem';
 import Text from '@common/Text';
 
 const SearchResult = () => {
+  const { data, isLoading, isError } = useSearchedStations();
+
+  if (isLoading || isError) return <></>;
+
+  const { stations } = data;
+
   return (
-    <List
-      css={css`
-        max-height: 76%;
-        border: 2rem solid #e9ecf5;
-        border-radius: 1.2rem;
-        background: #e9ecf5;
-        overflow: auto;
-      `}
-    >
-      {Array.from({ length: 8 }).map((_, index) => (
-        <ListItem key={index} css={foundStationList}>
+    <List css={searchResultList}>
+      {stations.map(({ stationId, stationName, address }) => (
+        <ListItem key={stationId} css={foundStationList}>
           <Button width="100%" shadow css={foundStationButton}>
             <FlexBox alignItems="center" nowrap columnGap={2.8}>
               <FlexBox
@@ -32,16 +32,14 @@ const SearchResult = () => {
               >
                 <BoltIcon width={24} fill="#5c68d6" />
               </FlexBox>
-              <div>
-                <Text
-                  variant="h6"
-                  title={'카페인팀 충전소'}
-                  lineClamp={1}
-                >{`카페인팀 충전소`}</Text>
-                <Text variant="label" align="left" lineClamp={1} color="#585858">
-                  {`서울특별시 강남구 번릉로 113`}
+              <article>
+                <Text tag="h3" variant="h6" title={stationName} lineClamp={1}>
+                  {stationName}
                 </Text>
-              </div>
+                <Text variant="label" align="left" lineClamp={1} color="#585858">
+                  {address}
+                </Text>
+              </article>
             </FlexBox>
           </Button>
         </ListItem>
@@ -50,13 +48,21 @@ const SearchResult = () => {
   );
 };
 
+const searchResultList = css`
+  max-height: 76%;
+  border: 2rem solid #e9ecf5;
+  border-radius: 1.2rem;
+  background: #e9ecf5;
+  overflow: auto;
+`;
+
 const square = css`
   padding: 0.4rem;
   border-radius: 1rem;
 `;
 
 const foundStationButton = css`
-  padding: 1.2rem 1.2rem 1.4rem;
+  padding: 1.2rem 1rem 1.4rem;
   box-shadow: 0 0.3rem 0.8rem 0 #ebebeb;
   border-radius: 1.2rem;
 `;

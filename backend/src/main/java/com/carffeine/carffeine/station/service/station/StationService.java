@@ -3,14 +3,15 @@ package com.carffeine.carffeine.station.service.station;
 import com.carffeine.carffeine.station.domain.charger.ChargerCondition;
 import com.carffeine.carffeine.station.domain.charger.ChargerStatus;
 import com.carffeine.carffeine.station.domain.charger.ChargerStatusRepository;
+import com.carffeine.carffeine.station.domain.charger.ChargerType;
 import com.carffeine.carffeine.station.domain.congestion.IdGenerator;
 import com.carffeine.carffeine.station.domain.congestion.PeriodicCongestion;
 import com.carffeine.carffeine.station.domain.congestion.PeriodicCongestionRepository;
 import com.carffeine.carffeine.station.domain.congestion.RequestPeriod;
-import com.carffeine.carffeine.station.domain.station.Latitude;
-import com.carffeine.carffeine.station.domain.station.Longitude;
+import com.carffeine.carffeine.station.domain.station.Coordinate;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.domain.station.StationRepository;
+import com.carffeine.carffeine.station.domain.station.Stations;
 import com.carffeine.carffeine.station.exception.StationException;
 import com.carffeine.carffeine.station.exception.StationExceptionType;
 import com.carffeine.carffeine.station.service.station.dto.CoordinateRequest;
@@ -35,18 +36,13 @@ public class StationService {
     private final ChargerStatusRepository chargerStatusRepository;
 
     @Transactional(readOnly = true)
-    public List<Station> findByCoordinate(CoordinateRequest request) {
-        Latitude originLatitude = Latitude.from(request.latitude());
-        BigDecimal deltaLatitude = request.latitudeDelta();
-        Latitude minLatitude = originLatitude.calculateMinLatitudeByDelta(deltaLatitude);
-        Latitude maxLatitude = originLatitude.calculateMaxLatitudeByDelta(deltaLatitude);
+    public List<Station> findByCoordinate(CoordinateRequest request, List<String> companyNames, List<ChargerType> chargerTypes, List<BigDecimal> capacities) {
+        Coordinate coordinate = Coordinate.of(request.latitude(), request.latitudeDelta(), request.longitude(), request.longitudeDelta());
 
-        Longitude originLongitude = Longitude.from(request.longitude());
-        BigDecimal deltaLongitude = request.longitudeDelta();
-        Longitude minLongitude = originLongitude.calculateMinLongitudeByDelta(deltaLongitude);
-        Longitude maxLongitude = originLongitude.calculateMaxLongitudeByDelta(deltaLongitude);
+        List<Station> stationsByCoordinate = stationRepository.findAllFetchByLatitudeBetweenAndLongitudeBetween(coordinate.minLatitudeValue(), coordinate.maxLatitudeValue(), coordinate.minLongitudeValue(), coordinate.maxLongitudeValue());
+        Stations stations = Stations.from(stationsByCoordinate);
 
-        return stationRepository.findAllByLatitudeBetweenAndLongitudeBetween(minLatitude, maxLatitude, minLongitude, maxLongitude);
+        return stations.findFilteredStations(companyNames, chargerTypes, capacities);
     }
 
     @Transactional(readOnly = true)

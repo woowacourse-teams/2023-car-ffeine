@@ -1,5 +1,6 @@
 package com.carffeine.carffeine.station.domain.station;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +24,15 @@ public class FakeStationRepository implements StationRepository {
                 .filter(it -> it.getLongitude().getValue().compareTo(minLongitude.getValue()) >= 0 && it.getLongitude().getValue().compareTo(maxLongitude.getValue()) <= 0)
                 .toList();
     }
+
+    @Override
+    public List<Station> findAllFetchByLatitudeBetweenAndLongitudeBetween(final BigDecimal minLatitude, final BigDecimal maxLatitude, final BigDecimal minLongitude, final BigDecimal maxLongitude) {
+        return map.values().stream()
+                .filter(it -> it.getLatitude().getValue().compareTo(minLatitude) >= 0 && it.getLatitude().getValue().compareTo(maxLatitude) <= 0)
+                .filter(it -> it.getLongitude().getValue().compareTo(minLongitude) >= 0 && it.getLongitude().getValue().compareTo(maxLongitude) <= 0)
+                .toList();
+    }
+
 
     @Override
     public Optional<Station> findChargeStationByStationId(String stationId) {
