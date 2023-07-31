@@ -174,7 +174,7 @@ class StationControllerTest {
                         List.of(
                                 new StationSearchResponse(
                                         "stationId",
-                                        "stationName",
+                                        "잠실 충전소",
                                         List.of(
                                                 "QUICK",
                                                 "STANDARD"
@@ -185,7 +185,7 @@ class StationControllerTest {
                                 ),
                                 new StationSearchResponse(
                                         "stationId2",
-                                        "stationName2",
+                                        "선릉 충전소",
                                         List.of(
                                                 "QUICK"
                                         ),
@@ -196,7 +196,7 @@ class StationControllerTest {
                         )
                 ));
 
-        mockMvc.perform(RestDocumentationRequestBuilders.get("/api/stations/search?q=stationName&page=1&scope=stationName&scope=address&scope=speed&scope=latitude&scope=longitude"))
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/api/stations/search?q=선릉&page=1&scope=stationName&scope=address&scope=speed&scope=latitude&scope=longitude"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalCount").value(2))
                 .andExpect(jsonPath("$.stations", hasSize(2)))
