@@ -36,7 +36,7 @@ const ChargerReportConfirmation = ({ stationId }: ChargerReportConfirmationProps
       modalActions.closeModal();
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['isStationReported'] });
+      queryClient.invalidateQueries({ queryKey: ['isStationChargerReported'] });
     },
   });
 

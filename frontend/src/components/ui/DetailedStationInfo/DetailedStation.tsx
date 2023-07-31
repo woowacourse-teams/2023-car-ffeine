@@ -2,6 +2,8 @@ import { css } from 'styled-components';
 
 import { modalActions } from '@stores/modalStore';
 
+import { useStationChargerReport } from '@hooks/useStationChargerReport';
+
 import Alert from '@common/Alert';
 import Box from '@common/Box';
 import Button from '@common/Button';
@@ -33,6 +35,9 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
     privateReason,
     reportCount,
   } = station;
+
+  const { data } = useStationChargerReport(stationId);
+  console.log(data); // undefined?
 
   const reportStation = (stationId: number) => {
     alert(`report this station's information: ${stationId}`);
