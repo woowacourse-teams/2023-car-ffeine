@@ -22,6 +22,9 @@ public class Jwt {
     @Value("${jwt.secret}")
     private String secret;
 
+    @Value("${jwt.expirationPeriod}")
+    private int expirationPeriod;
+
     public String createJwt(Long id) {
         Claims claims = Jwts.claims();
         claims.put("id", id);
@@ -50,7 +53,7 @@ public class Jwt {
 
     private Date getExpiration() {
         LocalDateTime now = LocalDateTime.now();
-        return Date.from(now.plusHours(1).atZone(ZoneId.systemDefault()).toInstant());
+        return Date.from(now.plusHours(expirationPeriod).atZone(ZoneId.systemDefault()).toInstant());
     }
 
     public boolean isExpired(String token) {
