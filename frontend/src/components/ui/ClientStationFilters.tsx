@@ -4,7 +4,11 @@ import { useExternalState } from '@utils/external-state';
 
 import { stationFilterStore } from '@stores/stationFilterStore';
 
-const FilterButtonList = () => {
+import Button from '@common/Button';
+
+import { CHARGING_SPEED } from '@constants';
+
+const ClientStationFilters = () => {
   const [
     {
       isAvailableStationFilterSelected,
@@ -45,16 +49,36 @@ const FilterButtonList = () => {
 
   return (
     <Container>
-      <Button onClick={toggleAvailableStation} isActive={isAvailableStationFilterSelected}>
+      <Button
+        onClick={toggleAvailableStation}
+        background={isAvailableStationFilterSelected ? 'black' : 'white'}
+        color={isAvailableStationFilterSelected ? 'white' : 'black'}
+        size={'sm'}
+      >
         현재 사용 가능
       </Button>
-      <Button onClick={toggleParkingFreeStation} isActive={isParkingFreeStationFilterSelected}>
+      <Button
+        onClick={toggleParkingFreeStation}
+        background={isParkingFreeStationFilterSelected ? 'black' : 'white'}
+        color={isAvailableStationFilterSelected ? 'white' : 'black'}
+        size={'sm'}
+      >
         주차 무료
       </Button>
-      <Button onClick={toggleFastChargeStation} isActive={isFastChargeStationFilterSelected}>
-        급속
+      <Button
+        onClick={toggleFastChargeStation}
+        background={isFastChargeStationFilterSelected ? 'black' : 'white'}
+        color={isAvailableStationFilterSelected ? 'white' : 'black'}
+        size={'sm'}
+      >
+        {CHARGING_SPEED.QUICK}
       </Button>
-      <Button onClick={togglePrivateStation} isActive={isPrivateStationFilterSelected}>
+      <Button
+        onClick={togglePrivateStation}
+        background={isPrivateStationFilterSelected ? 'black' : 'white'}
+        color={isAvailableStationFilterSelected ? 'white' : 'black'}
+        size={'sm'}
+      >
         외부인 출입 제한
       </Button>
     </Container>
@@ -69,7 +93,7 @@ const Container = styled.div`
   position: fixed;
   top: 10px;
   left: 180px;
-  z-index: 999;
+  z-index: 998;
   padding: 10px;
   background-color: white;
   box-shadow: 1px 1px 2px gray;
@@ -78,13 +102,13 @@ const Container = styled.div`
   gap: 10px;
 `;
 
-const Button = styled.button<ButtonProps>`
-  border: 1px solid;
-  border-radius: 5px;
-  padding: 10px;
+// const Button = styled.button<ButtonProps>`
+//   border: 1px solid;
+//   border-radius: 5px;
+//   padding: 10px;
 
-  color: ${(props) => (props.isActive ? 'white' : 'black')};
-  background-color: ${(props) => (props.isActive ? 'black' : 'white')};
-`;
+//   color: ${(props) => (props.isActive ? 'white' : 'black')};
+//   background-color: ${(props) => (props.isActive ? 'black' : 'white')};
+// `;
 
-export default FilterButtonList;
+export default ClientStationFilters;

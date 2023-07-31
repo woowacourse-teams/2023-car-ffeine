@@ -1,6 +1,7 @@
 {
   "testEnvironment": "jsdom",
   "moduleNameMapper": {
+    "^@mocks/(.*)$": "<rootDir>/src/mocks/$1",
     "^@ui/(.*)$": "<rootDir>/src/components/ui/$1",
     "^@common/(.*)$": "<rootDir>/src/components/common/$1",
     "^@components/(.*)$": "<rootDir>/src/components/$1",
@@ -9,8 +10,8 @@
     "^@marker/(.*)$": "<rootDir>/src/components/google-maps/marker/$1",
     "^@hooks/(.*)$": "<rootDir>/src/hooks/$1",
     "^@stores/(.*)$": "<rootDir>/src/stores/$1",
-    "^@style": "<rootDir>/src/style/index",
-    "^@constants": "<rootDir>/src/constants/index",
+    "^@style/(.*)$": "<rootDir>/src/style/$1",
+    "^@constants/(.*)$": "<rootDir>/src/constants/$1",
     "^@assets/(.*)$": "<rootDir>/src/assets/$1"
   }
 }

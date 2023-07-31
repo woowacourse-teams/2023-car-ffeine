@@ -4,7 +4,6 @@ import { reset } from './reset';
 
 export const GlobalStyle = createGlobalStyle`
   ${reset}
-
   * {
     font-family: 'Noto Sans KR', sans-serif !important;
   }
@@ -16,11 +15,15 @@ export const GlobalStyle = createGlobalStyle`
     scrollbar-width: none;
   }
 
-  body::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     display: none;
   }
 
   :root {
 
+  }
+
+  body:has(.modal-open) {
+    overflow: hidden;
   }
 `;

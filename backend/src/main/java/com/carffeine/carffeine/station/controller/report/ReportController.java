@@ -1,8 +1,10 @@
 package com.carffeine.carffeine.station.controller.report;
 
+import com.carffeine.carffeine.station.controller.report.dto.DuplicateReportResponse;
 import com.carffeine.carffeine.station.service.report.ReportService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -21,5 +23,24 @@ public class ReportController {
     ) {
         reportService.saveFaultReport(stationId, memberId);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/api/stations/{stationId}/misinformation-reports")
+    public ResponseEntity<Void> saveMisinformationReport(
+            @PathVariable String stationId,
+            @RequestHeader("Authorization") Long memberId
+    ) {
+        reportService.saveFaultReport(stationId, memberId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/api/stations/{stationId}/reports/me")
+    public ResponseEntity<DuplicateReportResponse> isDuplicateReport(
+            @PathVariable String stationId,
+            @RequestHeader("Authorization") Long memberId
+    ) {
+        boolean isAlreadyReport = reportService.isDuplicateReportStation(memberId, stationId);
+        DuplicateReportResponse response = new DuplicateReportResponse(isAlreadyReport);
+        return ResponseEntity.ok(response);
     }
 }

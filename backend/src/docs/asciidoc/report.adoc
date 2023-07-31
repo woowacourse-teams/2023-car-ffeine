@@ -15,3 +15,13 @@ include::{snippets}/report-controller-test/save-report/http-request.adoc[]
 
 include::{snippets}/report-controller-test/save-report/http-response.adoc[]
 
+== 충전소의 잘못된 정보를 신고한다 (/stations/{stationId}/misinformation-reports)
+
+=== Request
+
+include::{snippets}/report-controller-test/save-misinformation-report/http-request.adoc[]
+include::{snippets}/report-controller-test/save-misinformation-report/request-fields.adoc[]
+=== Response
+
+include::{snippets}/report-controller-test/save-report/http-response.adoc[]
+

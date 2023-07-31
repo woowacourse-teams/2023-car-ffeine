@@ -18,3 +18,17 @@ export const pillStyle = css`
   font-size: 1.5rem;
   border-radius: 2.1rem;
 `;
+
+export const getSize = (size: string | number) => {
+  if (size !== undefined) {
+    return typeof size === 'number' ? `${size}rem` : size;
+  }
+  return 'auto';
+};
+
+export const windowPositionTriggeredByLnb = css`
+  position: fixed;
+  left: 7rem;
+  top: 0;
+  z-index: 999;
+`;

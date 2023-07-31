@@ -2,7 +2,7 @@ import { rest } from 'msw';
 
 import { DEVELOP_URL, ERROR_MESSAGES } from '@constants';
 
-import { stations } from './data';
+import { getSearchedStations, stations } from './data';
 
 import type { StationSummary } from 'types';
 
@@ -15,13 +15,13 @@ export const handlers = [
     const latitudeDelta = Number(searchParams.get('latitudeDelta'));
     const longitudeDelta = Number(searchParams.get('longitudeDelta'));
 
-    const isChargerTypeFilterSelected = searchParams.get('chargerType') !== null;
-    const isCapacityFilterSelected = searchParams.get('capacity') !== null;
-    const isCompanyNameFilterSelected = searchParams.get('companyName') !== null;
+    const isChargerTypeFilterSelected = searchParams.get('chargerTypes') !== null;
+    const isCapacityFilterSelected = searchParams.get('capacities') !== null;
+    const isCompanyNameFilterSelected = searchParams.get('companyNames') !== null;
 
-    const selectedChargerTypes = searchParams.get('chargerType')?.split(',');
-    const selectedCapacities = searchParams.get('capacity')?.split(',')?.map(Number);
-    const selectedCompanyNames = searchParams.get('companyName').split(',');
+    const selectedChargerTypes = searchParams.get('chargerTypes')?.split(',');
+    const selectedCapacities = searchParams.get('capacities')?.split(',')?.map(Number);
+    const selectedCompanyNames = searchParams.get('companyNames')?.split(',');
 
     const northEastBoundary = {
       latitude: latitude + latitudeDelta,
@@ -76,6 +76,21 @@ export const handlers = [
         stations: foundStations,
       })
     );
+  }),
+
+  rest.get(`${DEVELOP_URL}/stations/search`, async (req, res, ctx) => {
+    const searchWord = req.url.searchParams.get('q');
+
+    if (!stations.length) {
+      return res(ctx.status(404), ctx.json({ message: ERROR_MESSAGES.NO_SEARCH_RESULT }));
+    }
+
+    const searchResult = {
+      // totalCount: stations.length,
+      stations: getSearchedStations(searchWord),
+    };
+
+    return res(ctx.delay(200), ctx.status(200), ctx.json(searchResult));
   }),
 
   rest.get(`${DEVELOP_URL}/stations/:id`, async (req, res, ctx) => {

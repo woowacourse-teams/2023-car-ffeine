@@ -10,8 +10,11 @@ const meta = {
   tags: ['autodocs'],
   args: {
     children: 'Button',
+    width: 'auto',
+    height: 'auto',
     outlined: true,
     shadow: false,
+    hover: true,
     size: 'sm',
     onClick: () => {
       alert('click');
@@ -24,6 +27,14 @@ const meta = {
       },
       description:
         '버튼 내용을 입력할 수 있습니다.<br> 원하는 컴포넌트, 텍스트 등을 넣을 수 있습니다.',
+    },
+    width: {
+      description:
+        '숫자를 입력하면 `입력한 숫자 x 10px` 만큼 버튼 너비가 늘어납니다.<br> 단위를 포함해 문자(ex. "100%")로 입력하면 원하는 만큼 버튼 너비가 늘어납니다.',
+    },
+    height: {
+      description:
+        '숫자를 입력하면 `입력한 숫자 x 10px` 버튼 높이가 늘어납니다.<br> 단위를 포함해 문자(ex. "100%")로 입력하면 원하는 만큼 버튼 높이가 늘어납니다.',
     },
     variant: {
       options: { none: false, pill: 'pill' },
@@ -63,6 +74,9 @@ const meta = {
         type: 'color',
       },
       description: '선택한 색상에 따라 버튼의 배경색이 변합니다.',
+    },
+    hover: {
+      description: '호버했을 때 버튼 배경색이 변합니다.',
     },
     css: {
       description: '원하는 css를 적용할 수 있습니다.',

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import type { HTMLAttributes, ReactNode } from 'react';
 
-import { borderRadius } from '@style';
+import { borderRadius, getSize } from '@style';
 
 import type { AxisType, BorderRadiusDirectionType } from 'types/style';
 
@@ -20,6 +20,7 @@ export interface FlexBoxProps extends HTMLAttributes<HTMLDivElement> {
   height?: string | number;
   justifyContent?: keyof typeof FLEX_BOX_ITEM_POSITION;
   alignItems?: keyof typeof FLEX_BOX_ITEM_POSITION;
+  alignContent?: keyof typeof FLEX_BOX_ITEM_POSITION;
   noRadius?: BorderRadiusDirectionType;
   outlined?: boolean;
   background?: string;
@@ -42,13 +43,6 @@ const FlexBox = ({ children, tag, ...props }: FlexBoxProps) => {
   );
 };
 
-const getSize = (size: string | number) => {
-  if (size !== undefined) {
-    return typeof size === 'number' ? `${size}rem` : size;
-  }
-  return 'auto';
-};
-
 const getGap = ({ gap, rowGap, columnGap }: Pick<FlexBoxProps, 'gap' | 'rowGap' | 'columnGap'>) => {
   if (gap !== undefined) {
     return `${gap * 0.4}rem`;
@@ -66,8 +60,9 @@ const S = {
     height: ${({ height }) => getSize(height)};
     flex-wrap: ${({ nowrap }) => (nowrap ? 'nowrap' : 'wrap')};
     flex-direction: ${({ direction }) => (direction ? direction : 'row')};
-    justify-content: ${({ justifyContent }) => FLEX_BOX_ITEM_POSITION[justifyContent] || 'start'};
-    align-content: ${({ alignItems }) => FLEX_BOX_ITEM_POSITION[alignItems] || 'start'};
+    justify-content: ${({ justifyContent }) => FLEX_BOX_ITEM_POSITION[justifyContent]};
+    align-items: ${({ alignItems }) => FLEX_BOX_ITEM_POSITION[alignItems]};
+    align-content: ${({ alignContent }) => FLEX_BOX_ITEM_POSITION[alignContent]};
     gap: ${({ gap, rowGap, columnGap }) => getGap({ gap, rowGap, columnGap })};
     background: ${({ background }) => background || '#fff'};
     border: ${({ outlined }) => (outlined ? '0.15rem solid #000' : 'none')};

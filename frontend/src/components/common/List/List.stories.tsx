@@ -1,5 +1,4 @@
 import type { Meta } from '@storybook/react';
-import styled from 'styled-components';
 
 import ListItem from '@common/ListItem';
 import Text from '@common/Text';
