@@ -8,6 +8,8 @@ export const borderRadius = (direction: BorderRadiusDirectionType) => css`
   ${direction === 'top' && 'border-top-right-radius: 0;'}
   ${direction === 'bottom' && 'border-bottom-left-radius: 0;'}
   ${direction === 'bottom' && 'border-bottom-right-radius: 0;'}
+  ${direction === 'left' && 'border-top-left-radius: 0;'}
+  ${direction === 'left' && 'border-bottom-left-radius: 0;'}
 `;
 
 export const pillStyle = css`

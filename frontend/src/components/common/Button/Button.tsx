@@ -58,7 +58,7 @@ const S = {
     box-shadow: ${({ shadow }) => `${shadow ? '0 0.3rem 0.8rem 0 gray' : 'none'}`};
 
     cursor: pointer;
-    border-radius: 0.8rem;
+    border-radius: 1.2rem;
     text-align: center;
 
     &:hover {

@@ -49,7 +49,7 @@ const SearchResult = () => {
 };
 
 const searchResultList = css`
-  max-height: 76%;
+  max-height: calc(100vh - 18.6rem);
   border: 2rem solid #e9ecf5;
   border-radius: 1.2rem;
   background: #e9ecf5;

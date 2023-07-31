@@ -1,4 +1,4 @@
-import type { ENGLISH_DAYS, KOREAN_DAYS } from '@constants';
+import type { CHARGING_SPEED, ENGLISH_DAYS, KOREAN_DAYS } from '@constants';
 import type { CAPACITIES, CHARGER_TYPES, COMPANY_NAME } from '@constants';
 
 export type CapacityType = 3 | 7 | 50 | 100 | 200;
@@ -89,7 +89,7 @@ export interface SearchedStations {
     {
       stationId: number;
       stationName: string;
-      speed: 'STANDARD' | 'QUICK';
+      speed: keyof typeof CHARGING_SPEED;
       address: string | null;
       latitude: number;
       longitude: number;
