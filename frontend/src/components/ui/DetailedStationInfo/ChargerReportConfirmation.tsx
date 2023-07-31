@@ -1,8 +1,6 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-
-import { getLocalStorage } from '@utils/storage';
-
 import { modalActions } from '@stores/modalStore';
+
+import { useUpdateStationChargerReport } from '@hooks/useUpdateStationChargerReport';
 
 import Alert from '@common/Alert';
 import Box from '@common/Box';
@@ -10,40 +8,14 @@ import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-import { BASE_URL, LOCAL_KEY_TOKEN } from '@constants';
-
 interface ChargerReportConfirmationProps {
   stationId: number;
 }
 
-const fetchReportCharger = async (stationId: number) => {
-  const token = getLocalStorage<number>(LOCAL_KEY_TOKEN, -1);
-  return fetch(`${BASE_URL}/stations/${stationId}/reports`, {
-    method: 'POST',
-    body: JSON.stringify({ stationId }),
-    headers: {
-      Authorization: `Token ${token}`,
-      'Content-Type': 'application/json',
-    },
-  });
-};
-
 const ChargerReportConfirmation = ({ stationId }: ChargerReportConfirmationProps) => {
-  const queryClient = useQueryClient();
-
-  const chargerReportMutation = useMutation({
-    mutationFn: fetchReportCharger,
-    onSuccess: () => {
-      alert('신고 완료');
-      modalActions.closeModal();
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['isStationChargerReported'] });
-    },
-  });
-
+  const { updateStationChargerReport } = useUpdateStationChargerReport();
   const reportCharger = async () => {
-    chargerReportMutation.mutate(stationId);
+    updateStationChargerReport(stationId);
   };
 
   return (
@@ -54,7 +26,7 @@ const ChargerReportConfirmation = ({ stationId }: ChargerReportConfirmationProps
       <Alert color="primary" text="앱에 표시된 정보가 실제와 차이가 나는 경우가 있습니다." />
       <FlexBox justifyContent="between">
         <Button size="md" onClick={() => modalActions.closeModal()}>
-          생각해보니 문제 없는 것 같아요
+          생각해보니 문제가 없는 것 같아요
         </Button>
         <Button size="md" onClick={() => reportCharger()}>
           제보하기

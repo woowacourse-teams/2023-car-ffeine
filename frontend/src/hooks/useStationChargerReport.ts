@@ -4,7 +4,7 @@ import { getLocalStorage } from '@utils/storage';
 
 import { DEVELOP_URL, LOCAL_KEY_TOKEN } from '@constants';
 
-const fetchStationChagerReport = (token: number, stationId: number) =>
+const fetchStationChargerReport = (token: number, stationId: number) =>
   fetch(`${DEVELOP_URL}/stations/${stationId}/reports/me`, {
     method: 'GET',
     headers: {
@@ -21,6 +21,6 @@ export const useStationChargerReport = (stationId: number) => {
   console.log(stationId);
   return useQuery({
     queryKey: ['isStationChargerReported', stationId],
-    queryFn: () => fetchStationChagerReport(token, stationId),
+    queryFn: () => fetchStationChargerReport(token, stationId),
   });
 };
