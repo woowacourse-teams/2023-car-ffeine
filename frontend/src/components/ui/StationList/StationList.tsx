@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import { css, styled } from 'styled-components';
 
 import { useExternalValue, useSetExternalState } from '@utils/external-state';
 
@@ -10,7 +10,12 @@ import { selectedStationIdStore } from '@stores/selectedStationStore';
 import { useStations } from '@hooks/useStations';
 import { useUpdateStations } from '@hooks/useUpdateStations';
 
-import BriefStationInfo from './BriefStationInfo';
+import FlexBox from '@common/FlexBox';
+import List from '@common/List';
+import ListItem from '@common/ListItem';
+
+import BriefStationInfo from '../BriefStationInfo';
+import StationCard from './StationCard';
 
 import type { StationSummary } from 'types';
 
@@ -49,54 +54,53 @@ const StationList = () => {
 
   // TODO: 스켈레톤으로 바꾸기
   if (isFetching) {
-    return <Container>⌛️</Container>;
+    return (
+      <FlexBox width="34rem" height="100vh" css={containerCss}>
+        ⌛️
+      </FlexBox>
+    );
   }
 
   return (
-    <Container>
+    <FlexBox width="34rem" height="100vh" css={containerCss}>
       {isSuccess && (
-        <>
-          <div>
-            불일치 충전소 개수:
-            {
-              stationMarkers.filter(
-                (station) =>
-                  !stationMarkers.map((marker) => marker.stationId).includes(station.stationId)
-              ).length
-            }
-          </div>
-          <ul>
-            {stations.map((station) => {
-              const { stationId, stationName } = station;
+        <List>
+          {stations.map((station) => {
+            const { stationId } = station;
 
-              return (
-                <li key={stationId}>
-                  <button
-                    onClick={() => {
-                      handleBriefStationInfoOpen(station);
-                      handleStationDetailsOpen(stationId);
-                    }}
-                  >
-                    {stationName}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-        </>
+            return (
+              <ListItem key={stationId} css={noPadding}>
+                <StationCard
+                  station={station}
+                  onClick={() => {
+                    handleBriefStationInfoOpen(station);
+                    handleStationDetailsOpen(stationId);
+                  }}
+                />
+              </ListItem>
+            );
+          })}
+        </List>
       )}
-    </Container>
+    </FlexBox>
   );
 };
 
-const Container = styled.div`
+const containerCss = css`
   position: fixed;
   top: 0;
   left: 7rem;
   z-index: 999;
-  padding: 10px;
+
+  padding: 2rem;
   background-color: white;
-  box-shadow: 1px 1px 2px gray;
+  border-right: 1px solid #ddd;
+
+  overflow: scroll;
+`;
+
+const noPadding = css`
+  padding: 0;
 `;
 
 export default StationList;
