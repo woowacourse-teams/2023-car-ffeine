@@ -10,7 +10,7 @@
     "inlineSourceMap": true,
     "noImplicitAny": true,
     "module": "es6",
-    "target": "ESNext",
+    "target": "ES2021",
     "jsx": "react-jsx",
     "allowJs": true,
     "moduleResolution": "node",
