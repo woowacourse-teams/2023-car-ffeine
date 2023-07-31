@@ -1,3 +1,5 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
 import { getLocalStorage } from '@utils/storage';
 
 import { modalActions } from '@stores/modalStore';
@@ -12,17 +14,34 @@ interface ChargerReportConfirmationProps {
   stationId: number;
 }
 
+const fetchReportCharger = async (stationId: number) => {
+  const token = getLocalStorage<number>(LOCAL_KEY_TOKEN, -1);
+  return fetch(`${BASE_URL}/stations/${stationId}/reports`, {
+    method: 'POST',
+    body: JSON.stringify({ stationId }),
+    headers: {
+      Authorization: `Token ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+};
+
 const ChargerReportConfirmation = ({ stationId }: ChargerReportConfirmationProps) => {
+  const queryClient = useQueryClient();
+
+  const chargerReportMutation = useMutation({
+    mutationFn: fetchReportCharger,
+    onSuccess: () => {
+      alert('신고 완료');
+      modalActions.closeModal();
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['isStationReported'] });
+    },
+  });
+
   const reportCharger = async () => {
-    const token = getLocalStorage<number>(LOCAL_KEY_TOKEN, -1);
-    await fetch(`${BASE_URL}/stations/${stationId}/reports`, {
-      method: 'POST',
-      body: JSON.stringify({ stationId }),
-      headers: {
-        Authorization: `Token ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
+    chargerReportMutation.mutate(stationId);
   };
 
   return (
