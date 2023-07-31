@@ -1,6 +1,6 @@
 import { getLocalStorage, setLocalStorage } from '@utils/storage';
 
-import { LOCAL_KEY_TOKEN } from '@constants';
+import { DEFAULT_TOKEN, LOCAL_KEY_TOKEN } from '@constants';
 
 const generateRandomToken = () => {
   const min = 10_000_000;
@@ -10,7 +10,7 @@ const generateRandomToken = () => {
 };
 
 export const configureToken = () => {
-  const token = getLocalStorage<number>(LOCAL_KEY_TOKEN, -1);
+  const token = getLocalStorage<number>(LOCAL_KEY_TOKEN, DEFAULT_TOKEN);
   if (token < 0) {
     const newToken = generateRandomToken();
     setLocalStorage<number>(LOCAL_KEY_TOKEN, newToken);

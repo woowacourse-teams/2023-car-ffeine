@@ -4,10 +4,10 @@ import { getLocalStorage } from '@utils/storage';
 
 import { modalActions } from '@stores/modalStore';
 
-import { BASE_URL, LOCAL_KEY_TOKEN } from '@constants';
+import { BASE_URL, DEFAULT_TOKEN, LOCAL_KEY_TOKEN } from '@constants';
 
 const fetchReportCharger = async (stationId: number) => {
-  const token = getLocalStorage<number>(LOCAL_KEY_TOKEN, -1);
+  const token = getLocalStorage<number>(LOCAL_KEY_TOKEN, DEFAULT_TOKEN);
   return fetch(`${BASE_URL}/stations/${stationId}/reports`, {
     method: 'POST',
     headers: {

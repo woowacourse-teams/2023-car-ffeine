@@ -1,6 +1,4 @@
-import { getTypedObjectFromEntries } from '@utils/getTypedObjectFromEntries';
-
-import type { EnglishDaysType, KoreanDaysType } from 'types';
+export const DEFAULT_TOKEN = -1;
 
 export const DEFAULT_CENTER = {
   lat: 37.5056102333107,
