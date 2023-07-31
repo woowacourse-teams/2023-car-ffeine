@@ -32,4 +32,6 @@ public interface StationRepository extends Repository<Station, Long> {
     List<Station> findAllFetch();
 
     List<Station> findAll();
+
+    List<Station> findAllByStationNameContainingOrAddressContainingOrderByStationId(String stationName, String address);
 }
