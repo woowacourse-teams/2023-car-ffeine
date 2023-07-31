@@ -107,7 +107,6 @@ export const handlers = [
   }),
 
   rest.post(`${DEVELOP_URL}/stations/:stationId/reports`, (req, res, ctx) => {
-    // console.log(req.headers.get('Authorization'));
     const stationId = Number(req.params.stationId);
     const prevReportedStations = getSessionStorage<number[]>(SESSION_KEY_REPORTED_STATIONS, []);
 
@@ -122,9 +121,11 @@ export const handlers = [
     console.log(req.headers.get('Authorization')); // TODO: 이후에 비로그인 기능도 구현할 때 활용해야함
     const stationId = Number(req.params.stationId);
     const reportedStations = getSessionStorage<number[]>(SESSION_KEY_REPORTED_STATIONS, []);
-    const foo = reportedStations.includes(stationId);
-    console.log(`foo: ${foo}`);
 
-    return res(ctx.delay(200), ctx.status(200), ctx.json({ isReported: foo }));
+    return res(
+      ctx.delay(200),
+      ctx.status(200),
+      ctx.json({ isReported: reportedStations.includes(stationId) })
+    );
   }),
 ];
