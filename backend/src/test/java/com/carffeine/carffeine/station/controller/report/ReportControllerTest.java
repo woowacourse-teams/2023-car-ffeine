@@ -1,9 +1,12 @@
 package com.carffeine.carffeine.station.controller.report;
 
 import com.carffeine.carffeine.station.domain.report.FaultReport;
+import com.carffeine.carffeine.station.domain.report.MisinformationReport;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.fixture.station.StationFixture;
 import com.carffeine.carffeine.station.service.report.ReportService;
+import com.carffeine.carffeine.station.service.report.dto.MisinformationReportRequest;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
@@ -15,12 +18,16 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
+
 import static com.carffeine.carffeine.helper.RestDocsHelper.customDocument;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
@@ -38,6 +45,9 @@ class ReportControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Test
     void 충전소를_신고한다() throws Exception {
@@ -62,6 +72,39 @@ class ReportControllerTest {
                 .andDo(customDocument("save-report",
                         requestHeaders(headerWithName("Authorization").description("회원 id.")),
                         pathParameters(parameterWithName("stationId").description("충전소 id")))
+                );
+    }
+
+    @Test
+    void 충전소의_잘못된_정보를_신고한다() throws Exception {
+        // given
+        Station station = StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
+        long memberId = 12L;
+        MisinformationReportRequest.StationDetailToUpdate detail = new MisinformationReportRequest.StationDetailToUpdate("address", "부산");
+        MisinformationReportRequest request = new MisinformationReportRequest(List.of(detail));
+        // when
+        MisinformationReport misinformationReport = MisinformationReport.builder()
+                .memberId(memberId)
+                .station(station)
+                .misinformationDetailReports(request.toDetailReports())
+                .build();
+        when(reportService.saveMisinformationReport(station.getStationId(), memberId, request)).thenReturn(misinformationReport);
+
+        // then
+        mockMvc.perform(post("/api/stations/{stationId}/misinformation-reports", station.getStationId())
+                        .header(HttpHeaders.AUTHORIZATION, memberId)
+                        .content(objectMapper.writeValueAsString(request))
+                )
+                .andExpect(status().isNoContent())
+                .andDo(customDocument("save-misinformation-report",
+                                requestHeaders(headerWithName("Authorization").description("회원 id")),
+                                pathParameters(parameterWithName("stationId").description("충전소 id")),
+                                requestFields(
+                                        fieldWithPath("stationDetailsToUpdate").type(JsonFieldType.ARRAY).description("잘못된 정보들"),
+                                        fieldWithPath("stationDetailsToUpdate[].category").type(JsonFieldType.STRING).description("카테고리"),
+                                        fieldWithPath("stationDetailsToUpdate[].reportDetail").type(JsonFieldType.STRING).description("상세정보")
+                                )
+                        )
                 );
     }
 

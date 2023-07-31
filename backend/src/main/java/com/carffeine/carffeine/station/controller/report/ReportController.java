@@ -25,6 +25,15 @@ public class ReportController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/api/stations/{stationId}/misinformation-reports")
+    public ResponseEntity<Void> saveMisinformationReport(
+            @PathVariable String stationId,
+            @RequestHeader("Authorization") Long memberId
+    ) {
+        reportService.saveFaultReport(stationId, memberId);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/api/stations/{stationId}/reports/me")
     public ResponseEntity<DuplicateReportResponse> isDuplicateReport(
             @PathVariable String stationId,
