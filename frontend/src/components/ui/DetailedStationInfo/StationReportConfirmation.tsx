@@ -1,20 +1,21 @@
 import { modalActions } from '@stores/modalStore';
 
-import { useUpdateStationChargerReport } from '@hooks/useUpdateStationChargerReport';
-
-import Alert from '@common/Alert';
 import Box from '@common/Box';
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
+import StationInformation from '@ui/DetailedStationInfo/StationInformation';
+
+import type { StationDetails } from '../../../types';
+
 interface StationReportConfirmationProps {
-  stationId: number;
+  station: StationDetails;
 }
 
-const StationReportConfirmation = ({ stationId }: StationReportConfirmationProps) => {
+const StationReportConfirmation = ({ station }: StationReportConfirmationProps) => {
   const reportCharger = async () => {
-    alert(`report this station's information: ${stationId}`);
+    alert(`report this station's information: ${station.stationId}`);
   };
 
   return (
@@ -22,6 +23,10 @@ const StationReportConfirmation = ({ stationId }: StationReportConfirmationProps
       <Text variant="title" mb={3}>
         개선할 충전소 정보가 있나요?
       </Text>
+      <Box border>
+        <StationInformation station={station} />
+      </Box>
+
       <FlexBox justifyContent="between">
         <Button size="md" onClick={() => modalActions.closeModal()}>
           저장하지 않고 닫을래요

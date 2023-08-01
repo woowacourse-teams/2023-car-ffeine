@@ -10,11 +10,9 @@ export interface StationInformationProps {
 
 const StationInformation = ({ station }: StationInformationProps) => {
   const {
-    stationId,
     stationName,
     companyName,
     contact,
-    chargers,
     isParkingFree,
     operatingTime,
     address,
@@ -22,12 +20,11 @@ const StationInformation = ({ station }: StationInformationProps) => {
     isPrivate,
     stationState,
     privateReason,
-    reportCount,
   } = station;
 
   return (
     <>
-      <Box mt={10} mb={5} px={1}>
+      <Box px={1}>
         <Text variant="label">{companyName}</Text>
         <Box my={1}>
           <Text variant="title">{stationName}</Text>

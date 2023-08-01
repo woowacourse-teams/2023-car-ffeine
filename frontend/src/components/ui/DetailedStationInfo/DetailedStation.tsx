@@ -34,7 +34,7 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
         <Button
           size="sm"
           onClick={() => {
-            modalActions.openModal(<StationReportConfirmation stationId={stationId} />);
+            modalActions.openModal(<StationReportConfirmation station={station} />);
           }}
         >
           📝 충전소 정보 수정 제안하기
