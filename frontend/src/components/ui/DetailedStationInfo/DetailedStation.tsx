@@ -82,7 +82,7 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
 
       <FlexBox justifyContent="center">
         <Button size="sm" onClick={() => reportStation(stationId)}>
-          📝 올바른 충전소 정보 제보하기
+          📝 충전소 정보 수정 제안하기
         </Button>
       </FlexBox>
 
