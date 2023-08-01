@@ -28,6 +28,10 @@ export interface Coordinates {
   longitude: number;
 }
 
+interface StationId {
+  stationId: number;
+}
+
 export interface Station extends Coordinates, StationKeyInfo {
   companyName: string;
   isParkingFree: boolean;
@@ -36,8 +40,7 @@ export interface Station extends Coordinates, StationKeyInfo {
   isPrivate: boolean;
 }
 
-export interface StationKeyInfo {
-  stationId: number;
+export interface StationKeyInfo extends StationId {
   stationName: string;
   address: string;
 }
@@ -78,8 +81,7 @@ export interface Congestion {
   ratio: number;
 }
 
-export interface CongestionStatistics {
-  stationId: number;
+export interface CongestionStatistics extends StationId {
   congestion: {
     STANDARD?: Record<EnglishDaysType, Congestion[]>;
     QUICK?: Record<EnglishDaysType, Congestion[]>;
@@ -90,4 +92,4 @@ export interface SearchedStation extends StationKeyInfo, Coordinates {
   speed: keyof typeof CHARGING_SPEED;
 }
 
-export interface StationPosition extends Coordinates, Pick<Station, 'stationId'> {}
+export interface StationPosition extends Coordinates, StationId {}
