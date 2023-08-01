@@ -1,4 +1,4 @@
-import type { ChangeEvent, MouseEvent } from 'react';
+import type { ChangeEvent } from 'react';
 import { useState } from 'react';
 
 import { modalActions } from '@stores/modalStore';
@@ -19,7 +19,6 @@ interface StationReportConfirmationProps {
 
 const StationReportConfirmation = ({ station }: StationReportConfirmationProps) => {
   const [form, setForm] = useState({ ...station });
-  const [isChargersWrong, setIsChargersWrong] = useState(false);
 
   const reportCharger = async () => {
     alert(`report this station's information: ${JSON.stringify(form)}`);
@@ -93,14 +92,6 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
         value={form.privateReason}
         onChange={handleChangeTextField}
       />
-      <Box>
-        <Button onClick={() => setIsChargersWrong(!isChargersWrong)}>
-          <FlexBox alignItems="center">
-            <input type="checkbox" checked={isChargersWrong} />
-            <Text>충전기 정보도 일치하지 않아요</Text>
-          </FlexBox>
-        </Button>
-      </Box>
 
       <FlexBox justifyContent="between">
         <Button size="md" onClick={() => modalActions.closeModal()}>
