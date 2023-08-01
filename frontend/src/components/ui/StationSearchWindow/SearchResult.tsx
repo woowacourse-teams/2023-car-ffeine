@@ -31,22 +31,29 @@ const SearchResult = (props: SearchResultProps) => {
 
   return (
     <List css={searchResultList}>
-      {stations.map(({ stationId, stationName, address, latitude, longitude }) => (
-        <ListItem divider NoLastDivider key={stationId} css={foundStationList}>
-          <Button
-            width="100%"
-            noRadius="all"
-            onMouseDown={() => handleShowStationDetails({ stationId, latitude, longitude })}
-          >
-            <Text variant="h6" align="left" title={stationName} lineClamp={1}>
-              {stationName}
-            </Text>
-            <Text variant="label" align="left" lineClamp={1} color="#585858">
-              {address || '위도 경도로 주소를 알아내자'}
-            </Text>
-          </Button>
-        </ListItem>
-      ))}
+      {stations.length ? (
+        stations.map(({ stationId, stationName, address, latitude, longitude }) => (
+          <ListItem divider NoLastDivider key={stationId} css={foundStationList}>
+            <Button
+              width="100%"
+              noRadius="all"
+              onMouseDown={() => handleShowStationDetails({ stationId, latitude, longitude })}
+            >
+              <Text variant="h6" align="left" title={stationName} lineClamp={1}>
+                {stationName}
+              </Text>
+              <Text variant="label" align="left" lineClamp={1} color="#585858">
+                {address || '위도 경도로 주소를 알아내자'}
+              </Text>
+            </Button>
+          </ListItem>
+        ))
+      ) : (
+        <>
+          <ListItem css={noSearchResult}>검색 결과가 없습니다.</ListItem>
+          <ListItem>검색어를 다시 한 번 확인해 주세요.</ListItem>
+        </>
+      )}
     </List>
   );
 };
@@ -61,10 +68,21 @@ export const searchResultList = css`
   border-radius: 10px;
   background: #fcfcfc;
   box-shadow: 0 3px 10px 0 #d9d9da;
+  font-size: 1.5rem;
 `;
 
 export const foundStationList = css`
   padding: 0.8rem 1.2rem;
+`;
+
+export const noSearchResult = css`
+  margin-top: 1.2rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+
+  & + li {
+    margin: 0.4rem 0 1.6rem;
+  }
 `;
 
 export default SearchResult;

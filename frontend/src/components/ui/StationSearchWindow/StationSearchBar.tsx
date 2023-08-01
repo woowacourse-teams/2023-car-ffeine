@@ -61,6 +61,8 @@ const StationSearchBar = () => {
         <S.Search
           type="search"
           role="searchbox"
+          // eslint-disable-next-line jsx-a11y/no-autofocus
+          autoFocus
           onChange={handleRequestSearchResult}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
