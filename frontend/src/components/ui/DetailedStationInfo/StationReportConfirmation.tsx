@@ -1,3 +1,4 @@
+import type { ChangeEvent, MouseEvent } from 'react';
 import { useState } from 'react';
 
 import { modalActions } from '@stores/modalStore';
@@ -18,9 +19,18 @@ interface StationReportConfirmationProps {
 
 const StationReportConfirmation = ({ station }: StationReportConfirmationProps) => {
   const [form, setForm] = useState({ ...station });
+  const [isChargersWrong, setIsChargersWrong] = useState(false);
 
   const reportCharger = async () => {
     alert(`report this station's information: ${JSON.stringify(form)}`);
+  };
+
+  const handleChangeTextField = (e: ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.target.id]: e.target.value });
+  };
+
+  const handleClickButton = (key: 'isParkingFree' | 'isPrivate') => {
+    setForm({ ...form, [key]: !form[key] });
   };
 
   return (
@@ -29,14 +39,39 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
         개선할 충전소 정보가 있나요?
       </Text>
       <Box border>
-        <StationInformation station={station} />
+        <StationInformation station={form} />
       </Box>
 
-      <TextField label="상세주소" fullWidth value={form.detailLocation} />
-      <TextField label="운영시간" fullWidth value={form.operatingTime} />
-      <TextField label="연락처" fullWidth value={form.contact} />
+      <TextField
+        id="address"
+        label="도로명 주소"
+        fullWidth
+        value={form.address}
+        onChange={handleChangeTextField}
+      />
+      <TextField
+        id="detailLocation"
+        label="상세주소"
+        fullWidth
+        value={form.detailLocation}
+        onChange={handleChangeTextField}
+      />
+      <TextField
+        id="operatingTime"
+        label="운영시간"
+        fullWidth
+        value={form.operatingTime}
+        onChange={handleChangeTextField}
+      />
+      <TextField
+        id="contact"
+        label="연락처"
+        fullWidth
+        value={form.contact}
+        onChange={handleChangeTextField}
+      />
       <Box>
-        <Button>
+        <Button onClick={() => handleClickButton('isParkingFree')}>
           <FlexBox alignItems="center">
             <input type="checkbox" checked={form.isParkingFree} />
             <Text>주차비 무료</Text>
@@ -44,14 +79,28 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
         </Button>
       </Box>
       <Box>
-        <Button>
+        <Button onClick={() => handleClickButton('isPrivate')}>
           <FlexBox alignItems="center">
             <input type="checkbox" checked={form.isPrivate} />
             <Text>사용 제한</Text>
           </FlexBox>
         </Button>
       </Box>
-      <TextField label="사용 제한 사유" fullWidth value={form.privateReason} />
+      <TextField
+        id="privateReason"
+        label="사용 제한 사유"
+        fullWidth
+        value={form.privateReason}
+        onChange={handleChangeTextField}
+      />
+      <Box>
+        <Button onClick={() => setIsChargersWrong(!isChargersWrong)}>
+          <FlexBox alignItems="center">
+            <input type="checkbox" checked={isChargersWrong} />
+            <Text>충전기 정보도 일치하지 않아요</Text>
+          </FlexBox>
+        </Button>
+      </Box>
 
       <FlexBox justifyContent="between">
         <Button size="md" onClick={() => modalActions.closeModal()}>
