@@ -1,5 +1,6 @@
 package com.carffeine.carffeine.station.controller.station.dto;
 
+import com.carffeine.carffeine.station.domain.charger.ChargerCondition;
 import com.carffeine.carffeine.station.domain.station.Station;
 
 import java.math.BigDecimal;
@@ -11,7 +12,7 @@ public record ChargerSpecificResponse(
         BigDecimal price,
         BigDecimal capacity,
         LocalDateTime latestUpdateTime,
-        Boolean state,
+        ChargerCondition state,
         String method
 ) {
 
@@ -22,7 +23,7 @@ public record ChargerSpecificResponse(
                         it.getPrice(),
                         it.getCapacity(),
                         it.getChargerStatus().getLatestUpdateTime(),
-                        it.getChargerStatus().getChargerCondition().isStandBy(),
+                        it.getChargerStatus().getChargerCondition(),
                         it.getMethod())
                 ).toList();
     }
