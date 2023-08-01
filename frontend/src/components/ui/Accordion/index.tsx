@@ -1,11 +1,13 @@
+import { css } from 'styled-components';
+
 import type { Dispatch, PropsWithChildren, SetStateAction } from 'react';
 import { createContext, useState } from 'react';
 
 import FlexBox from '@common/FlexBox';
 
-import Base from './Base';
 import BasePanel from './BasePanel';
 import LastPanel from './LastPanel';
+import Navigator from './Navigator';
 
 interface AccordionContextType {
   isBasePanelOpen: boolean;
@@ -40,15 +42,22 @@ const Accordion = ({ isBasePanelOpenInDefault = false, children }: PropsWithChil
         setBasePanelType,
       }}
     >
-      <FlexBox gap={0} nowrap>
+      <FlexBox gap={0} nowrap css={accordionContainerCss}>
         {children}
       </FlexBox>
     </AccordionContext.Provider>
   );
 };
 
-Accordion.Base = Base;
+Accordion.Navigator = Navigator;
 Accordion.BasePanel = BasePanel;
 Accordion.LastPanel = LastPanel;
+
+const accordionContainerCss = css`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+`;
 
 export default Accordion;

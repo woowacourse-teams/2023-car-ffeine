@@ -1,7 +1,7 @@
 import type { Meta } from '@storybook/react';
-import { css, styled } from 'styled-components';
+import { styled } from 'styled-components';
 
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 
 import FlexBox from '@common/FlexBox';
 
@@ -31,7 +31,7 @@ export const Default = () => {
 
   return (
     <Accordion>
-      <Accordion.Base render={() => <Base />} />
+      <Accordion.Navigator />
       <Accordion.BasePanel render={renderBasePanel} />
       <Accordion.LastPanel render={() => <LastContainer />} />
       <OpenTriggerButton />
@@ -55,40 +55,6 @@ const OpenTriggerButton = () => {
     </>
   );
 };
-
-const Base = () => {
-  const { handleOpenBasePanel } = useAccordionAction();
-
-  return (
-    <FlexBox width={7} height="100vh" css={baseCss}>
-      <FlexBox direction="column" gap={2} width="100%" height="fit-content" alignItems="center">
-        <button
-          onClick={() => handleOpenBasePanel('searchWindow')}
-          style={{ border: '1px solid', padding: '1rem' }}
-        >
-          기본
-        </button>
-        <button
-          onClick={() => handleOpenBasePanel('serverStationFilters')}
-          style={{ border: '1px solid', padding: '1rem' }}
-        >
-          파랑
-        </button>
-        <button
-          onClick={() => handleOpenBasePanel('stationList')}
-          style={{ border: '1px solid', padding: '1rem' }}
-        >
-          빨강
-        </button>
-      </FlexBox>
-    </FlexBox>
-  );
-};
-
-const baseCss = css`
-  padding-top: 1rem;
-  border: 1px solid lightgrey;
-`;
 
 const BaseContainer = styled.div`
   width: 34rem;
