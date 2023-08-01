@@ -19,7 +19,8 @@ public record StationSpecificResponse(
         BigDecimal longitude,
         Boolean isPrivate,
         String stationState,
-        String privateReason
+        String privateReason,
+        Integer reportCount
 ) {
 
     public static StationSpecificResponse from(Station station) {
@@ -37,7 +38,8 @@ public record StationSpecificResponse(
                 station.getLongitude().getValue(),
                 station.getIsPrivate(),
                 station.getStationState(),
-                station.getPrivateReason()
+                station.getPrivateReason(),
+                station.getReportCount()
         );
     }
 }

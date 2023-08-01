@@ -33,5 +33,6 @@ public class ChargerStateUpdateService {
                 .map(ChargerStateRequest::toChargerStatus)
                 .toList();
         chargerStatusCustomRepository.saveAll(chargerStatuses);
+        chargerStatusCustomRepository.updateAll(chargerStatuses);
     }
 }

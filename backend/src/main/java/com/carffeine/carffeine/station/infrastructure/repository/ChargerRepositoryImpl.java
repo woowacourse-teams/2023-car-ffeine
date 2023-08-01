@@ -1,7 +1,6 @@
 package com.carffeine.carffeine.station.infrastructure.repository;
 
 import com.carffeine.carffeine.station.domain.charger.Charger;
-import com.carffeine.carffeine.station.domain.charger.ChargerStatus;
 import com.carffeine.carffeine.station.domain.charger.CustomChargerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -46,16 +45,6 @@ public class ChargerRepositoryImpl implements CustomChargerRepository {
         if (chargers.isEmpty()) {
             return;
         }
-
-        String chargerStatusSql = "INSERT INTO charger_status (charger_id, station_id, charger_condition, latest_update_time)" +
-                " VALUES (:chargerId, :stationId, :chargerCondition, :latestUpdateTime)";
-
-        List<ChargerStatus> collect = chargers.stream()
-                .map(Charger::getChargerStatus)
-                .toList();
-
-        namedParameterJdbcTemplate.batchUpdate(chargerStatusSql, chargerStatusSqlParameterSource(collect));
-
         String sql = "INSERT INTO charger (station_id, charger_id, type, price, capacity, method)" +
                 " VALUES (:stationId, :chargerId, :type, :price, :capacity, :method)";
 
@@ -72,19 +61,5 @@ public class ChargerRepositoryImpl implements CustomChargerRepository {
                 "WHERE station_id = :stationId AND charger_id = :chargerId";
 
         namedParameterJdbcTemplate.batchUpdate(sql, chargerSqlParameterSource(chargers));
-    }
-
-    private MapSqlParameterSource[] chargerStatusSqlParameterSource(List<ChargerStatus> chargerStatuses) {
-        return chargerStatuses.stream()
-                .map(this::changeToChargerStatusSqlParameterSource)
-                .toArray(MapSqlParameterSource[]::new);
-    }
-
-    private MapSqlParameterSource changeToChargerStatusSqlParameterSource(ChargerStatus chargerStatus) {
-        return new MapSqlParameterSource()
-                .addValue("chargerId", chargerStatus.getChargerId())
-                .addValue("stationId", chargerStatus.getStationId())
-                .addValue("chargerCondition", chargerStatus.getChargerCondition().name())
-                .addValue("latestUpdateTime", chargerStatus.getLatestUpdateTime());
     }
 }

@@ -145,7 +145,8 @@ class StationControllerTest {
                                 fieldWithPath("longitude").type(JsonFieldType.NUMBER).description("경도"),
                                 fieldWithPath("isPrivate").type(JsonFieldType.BOOLEAN).description("이용 제한"),
                                 fieldWithPath("stationState").type(JsonFieldType.STRING).description("충전소 이용 안내사항"),
-                                fieldWithPath("privateReason").type(JsonFieldType.STRING).description("이용 제한 사유")
+                                fieldWithPath("privateReason").type(JsonFieldType.STRING).description("이용 제한 사유"),
+                                fieldWithPath("reportCount").type(JsonFieldType.NUMBER).description("신고 당한 횟수")
                         )
                 ));
     }

@@ -1,6 +1,8 @@
 import { rest } from 'msw';
 
-import { DEVELOP_URL, ERROR_MESSAGES } from '@constants';
+import { getSessionStorage, setSessionStorage } from '@utils/storage';
+
+import { DEVELOP_URL, ERROR_MESSAGES, SESSION_KEY_REPORTED_STATIONS } from '@constants';
 
 import { getSearchedStations, stations } from './data';
 
@@ -102,5 +104,28 @@ export const handlers = [
     }
 
     return res(ctx.delay(200), ctx.status(200), ctx.json(selectedStation));
+  }),
+
+  rest.post(`${DEVELOP_URL}/stations/:stationId/reports`, (req, res, ctx) => {
+    const stationId = Number(req.params.stationId);
+    const prevReportedStations = getSessionStorage<number[]>(SESSION_KEY_REPORTED_STATIONS, []);
+
+    setSessionStorage<number[]>(SESSION_KEY_REPORTED_STATIONS, [
+      ...new Set([...prevReportedStations, stationId]),
+    ]);
+
+    return res(ctx.delay(200), ctx.status(204));
+  }),
+
+  rest.get(`${DEVELOP_URL}/stations/:stationId/reports/me`, (req, res, ctx) => {
+    console.log(req.headers.get('Authorization')); // TODO: 이후에 비로그인 기능도 구현할 때 활용해야함
+    const stationId = Number(req.params.stationId);
+    const reportedStations = getSessionStorage<number[]>(SESSION_KEY_REPORTED_STATIONS, []);
+
+    return res(
+      ctx.delay(200),
+      ctx.status(200),
+      ctx.json({ isReported: reportedStations.includes(stationId) })
+    );
   }),
 ];
