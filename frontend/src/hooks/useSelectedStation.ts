@@ -38,5 +38,6 @@ export const useSelectedStation = () => {
     queryKey: ['stationDetails', selectedStationId],
     queryFn: () => fetchStationDetails(selectedStationId),
     enabled: !!selectedStationId,
+    staleTime: 30 * 1000,
   });
 };

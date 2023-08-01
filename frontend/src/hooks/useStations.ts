@@ -73,5 +73,6 @@ export const useStations = () => {
         return true;
       });
     },
+    staleTime: 30 * 1000,
   });
 };

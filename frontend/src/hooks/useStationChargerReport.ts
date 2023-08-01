@@ -22,5 +22,6 @@ export const useStationChargerReport = (stationId: number) => {
   return useQuery({
     queryKey: ['isStationChargerReported', stationId],
     queryFn: () => fetchStationChargerReport(token, stationId),
+    staleTime: 30 * 1000,
   });
 };

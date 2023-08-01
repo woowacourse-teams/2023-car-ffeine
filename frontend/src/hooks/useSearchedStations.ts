@@ -34,5 +34,6 @@ export const useSearchedStations = () => {
     queryKey: ['searchedStations'],
     queryFn: () => fetchSearchedStations(searchWord),
     enabled: !!searchWord,
+    staleTime: 30 * 1000,
   });
 };
