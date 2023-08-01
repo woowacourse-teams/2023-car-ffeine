@@ -13,6 +13,7 @@ import { useUpdateStations } from '@hooks/useUpdateStations';
 import FlexBox from '@common/FlexBox';
 import List from '@common/List';
 import ListItem from '@common/ListItem';
+import Text from '@common/Text';
 
 import BriefStationInfo from '../BriefStationInfo';
 import StationCard from './StationCard';
@@ -52,15 +53,6 @@ const StationList = () => {
     setSelectedStationId(stationId);
   };
 
-  // TODO: 스켈레톤으로 바꾸기
-  if (isFetching) {
-    return (
-      <FlexBox width="34rem" height="100vh" css={containerCss}>
-        ⌛️
-      </FlexBox>
-    );
-  }
-
   return (
     <FlexBox width="34rem" height="100vh" css={containerCss}>
       {isSuccess && (
@@ -97,6 +89,12 @@ const containerCss = css`
   border-right: 1px solid #ddd;
 
   overflow: scroll;
+`;
+
+const alignCenter = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const noPadding = css`
