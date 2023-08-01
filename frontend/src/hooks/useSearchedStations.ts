@@ -31,7 +31,7 @@ export const useSearchedStations = () => {
   const searchWord = useExternalValue(searchWordStore);
 
   return useQuery({
-    queryKey: ['searchedStations'],
+    queryKey: ['searchedStations', searchWord],
     queryFn: () => fetchSearchedStations(searchWord),
     enabled: !!searchWord,
   });

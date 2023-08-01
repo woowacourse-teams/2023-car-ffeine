@@ -22,7 +22,7 @@ const StationSearchWindow = () => {
       <Button variant="label" onClick={() => setIsOpen(false)} aria-label="검색창 닫기">
         <ChevronLeftIcon width="2.4rem" stroke="#9c9fa7" />
       </Button>
-      <StationSearchBar shadow borderColor="#767676" />
+      <StationSearchBar borderColor="#767676" />
       <Text tag="h2" fontSize={1.7} weight="bold" css={labelText}>
         주변 충전소
       </Text>

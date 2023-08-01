@@ -9,6 +9,8 @@ import { useSetExternalState } from '@utils/external-state';
 
 import { searchWordStore } from '@stores/searchWordStore';
 
+import { useUpdateSearchResult } from '@hooks/useUpdateSearchResult';
+
 import Button from '@common/Button';
 
 import { pillStyle } from '@style';
@@ -16,7 +18,6 @@ import { pillStyle } from '@style';
 import SearchResult from './SearchResult';
 
 export interface StationSearchBarProps extends InputHTMLAttributes<HTMLInputElement> {
-  shadow?: boolean;
   outlined?: boolean;
   background?: string;
   borderColor?: string;
@@ -25,6 +26,7 @@ export interface StationSearchBarProps extends InputHTMLAttributes<HTMLInputElem
 
 const StationSearchBar = ({ ...props }: StationSearchBarProps) => {
   const [isFocused, setIsFocused] = useState(false);
+  const { updateSearchResult } = useUpdateSearchResult();
   const setSearchWord = useSetExternalState(searchWordStore);
 
   const handleSubmitSearchWord = (event: FormEvent<HTMLFormElement>) => {
@@ -34,6 +36,7 @@ const StationSearchBar = ({ ...props }: StationSearchBarProps) => {
   const handleRequestSearchResult = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
     const searchWord = encodeURIComponent(value);
     setSearchWord(searchWord);
+    updateSearchResult();
   };
 
   return (
@@ -65,9 +68,7 @@ const S = {
     ${pillStyle}
 
     background: ${({ background }) => background || '#fff'};
-    border: ${({ outlined, borderColor }) =>
-      outlined ? `1.5px solid ${borderColor || '#333'}` : 'none'};
-    box-shadow: ${({ shadow }) => `${shadow ? '0 3px 8px 0 gray' : 'none'}`};
+    border: 1px solid #d0d2d8;
 
     width: 100%;
     padding: 1.9rem 4.6rem 2rem 1.8rem;
@@ -81,6 +82,7 @@ const S = {
     }
 
     &:focus {
+      box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2);
       outline: 0;
     }
 
