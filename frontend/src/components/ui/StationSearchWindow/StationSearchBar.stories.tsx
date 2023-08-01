@@ -18,6 +18,8 @@ import { pillStyle } from '@style';
 
 import SearchResult from './SearchResult';
 
+import type { StationPosition } from 'types';
+
 const meta = {
   title: 'UI/StationSearchBar',
   decorators: [
@@ -40,6 +42,15 @@ export const Default = () => {
 
   const handleSubmitSearchWord = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (stations) {
+      const [{ stationId, latitude, longitude }] = stations;
+      showStationDetails({ stationId, latitude, longitude });
+    }
+  };
+
+  const showStationDetails = ({ stationId, latitude, longitude }: StationPosition) => {
+    setSelectedStationId(stationId);
   };
 
   const handleRequestSearchResult = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
@@ -67,6 +78,7 @@ export const Default = () => {
           isLoading={isLoading}
           isError={isError}
           setSelectedStationId={setSelectedStationId}
+          showStationDetails={showStationDetails}
         />
       )}
     </>
