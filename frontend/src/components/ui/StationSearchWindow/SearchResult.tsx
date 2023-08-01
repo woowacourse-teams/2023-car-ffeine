@@ -36,7 +36,7 @@ const SearchResult = (props: SearchResultProps) => {
           <Button
             width="100%"
             noRadius="all"
-            onClick={() => handleShowStationDetails({ stationId, latitude, longitude })}
+            onMouseDown={() => handleShowStationDetails({ stationId, latitude, longitude })}
           >
             <Text variant="h6" align="left" title={stationName} lineClamp={1}>
               {stationName}

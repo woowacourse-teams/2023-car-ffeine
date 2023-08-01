@@ -63,8 +63,7 @@ const StationSearchBar = () => {
           role="searchbox"
           onChange={handleRequestSearchResult}
           onFocus={() => setIsFocused(true)}
-          // TODO: 검색 결과 클릭시에는 Blur 이벤트가 안 먹히도록 함
-          // onBlur={() => setIsFocused(false)}
+          onBlur={() => setIsFocused(false)}
         />
         <Button type="submit" aria-label="검색하기">
           <MagnifyingGlassIcon width="2.4rem" stroke="#767676" />
