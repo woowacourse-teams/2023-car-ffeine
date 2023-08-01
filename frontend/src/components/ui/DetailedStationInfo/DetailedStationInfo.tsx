@@ -1,6 +1,7 @@
 import { useSelectedStation } from '@hooks/useSelectedStation';
 
 import Box from '@common/Box';
+import Text from '@common/Text';
 
 import DetailedStation from '@ui/DetailedStationInfo/DetailedStation';
 
@@ -11,17 +12,28 @@ const DetailedStationInfo = () => {
     isError: isSelectedStationError,
   } = useSelectedStation();
 
-  if (isSelectedStationLoading || isSelectedStationError) {
-    return <></>;
+  if (isSelectedStationError || isSelectedStationLoading) {
+    return (
+      <Box
+        css={{
+          width: '34rem',
+          zIndex: '999',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Text variant="h1">⌛</Text>
+      </Box>
+    );
   }
 
   return (
     <Box
       css={{
-        position: 'fixed',
-        left: '41rem',
         width: '34rem',
         zIndex: '999',
+        overflow: 'scroll',
       }}
     >
       <DetailedStation station={selectedStation} />

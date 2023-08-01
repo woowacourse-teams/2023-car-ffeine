@@ -1,4 +1,4 @@
-import { css, styled } from 'styled-components';
+import { css } from 'styled-components';
 
 import { useExternalValue, useSetExternalState } from '@utils/external-state';
 
@@ -14,7 +14,7 @@ import FlexBox from '@common/FlexBox';
 import List from '@common/List';
 import ListItem from '@common/ListItem';
 
-import { windowPositionTriggeredByLnb } from '@style';
+import { useAccordionAction } from '@ui/Accordion/hooks/useAccordionAction';
 
 import BriefStationInfo from '../BriefStationInfo';
 import StationCard from './StationCard';
@@ -23,6 +23,7 @@ import type { StationSummary } from 'types';
 
 const StationList = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
+  const { handleOpenLastPanel } = useAccordionAction();
 
   const { data: stations, isSuccess } = useStations();
   const stationMarkers = useExternalValue(markerInstanceStore);
@@ -52,6 +53,7 @@ const StationList = () => {
 
   const handleStationDetailsOpen = (stationId: number) => {
     setSelectedStationId(stationId);
+    handleOpenLastPanel();
   };
 
   return (

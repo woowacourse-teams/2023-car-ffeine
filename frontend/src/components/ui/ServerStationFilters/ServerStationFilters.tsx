@@ -1,17 +1,11 @@
 import { css } from 'styled-components';
 
-import { useExternalState } from '@utils/external-state';
-
-import { serverStationFiltersOpenStore } from '@stores/navItemsOpenStore';
-
 import { useServerStationFilters } from '@hooks/useServerStationFilters';
 import { useUpdateStations } from '@hooks/useUpdateStations';
 
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
-
-import { windowPositionTriggeredByLnb } from '@style';
 
 import { CHARGER_TYPES, CAPACITIES, COMPANY_NAME } from '@constants';
 
