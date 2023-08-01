@@ -125,6 +125,8 @@ const containerCss = css`
   height: 100vh;
   background-color: white;
   box-shadow: 1px 1px 2px gray;
+
+  overflow: scroll;
 `;
 
 export default DetailedStation;
