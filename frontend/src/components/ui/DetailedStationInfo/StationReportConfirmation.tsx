@@ -44,7 +44,12 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
 
   const reportCharger = async () => {
     const differences = findDifferences(form, station);
-    alert(`Differences: ${JSON.stringify(differences)}`);
+    const differencesArray = Object.keys(differences).map((key) => ({
+      category: key,
+      reportedDetail: differences[key],
+    }));
+
+    alert(`Differences: ${JSON.stringify(differencesArray)}`);
   };
 
   return (
