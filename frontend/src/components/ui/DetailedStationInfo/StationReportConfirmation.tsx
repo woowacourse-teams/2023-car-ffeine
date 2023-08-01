@@ -3,6 +3,8 @@ import { useState } from 'react';
 
 import { modalActions } from '@stores/modalStore';
 
+import { useUpdateStationChargerReport } from '@hooks/useUpdateStationReport';
+
 import Box from '@common/Box';
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
@@ -17,13 +19,13 @@ interface StationReportConfirmationProps {
   station: StationDetails;
 }
 
-interface Differences {
+export interface Differences {
   [key: string]: string | number | boolean | ChargerDetails[];
 }
 
 const StationReportConfirmation = ({ station }: StationReportConfirmationProps) => {
   const [form, setForm] = useState<StationDetails>({ ...station });
-
+  const { updateStationReport } = useUpdateStationChargerReport();
   const handleChangeTextField = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.id]: e.target.value });
   };
@@ -44,12 +46,11 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
 
   const reportCharger = async () => {
     const differences = findDifferences(form, station);
-    const differencesArray = Object.keys(differences).map((key) => ({
+    const differencesArray: Differences[] = Object.keys(differences).map((key) => ({
       category: key,
       reportedDetail: differences[key],
     }));
-
-    alert(`Differences: ${JSON.stringify(differencesArray)}`);
+    updateStationReport({ stationId: station.stationId, differences: differencesArray });
   };
 
   return (
