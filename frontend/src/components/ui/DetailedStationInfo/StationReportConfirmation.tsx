@@ -11,18 +11,18 @@ import TextField from '@common/TextField';
 
 import StationInformation from '@ui/DetailedStationInfo/StationInformation';
 
-import type { StationDetails } from '../../../types';
+import type { ChargerDetails, StationDetails } from '../../../types';
 
 interface StationReportConfirmationProps {
   station: StationDetails;
 }
 
-const StationReportConfirmation = ({ station }: StationReportConfirmationProps) => {
-  const [form, setForm] = useState({ ...station });
+interface Differences {
+  [key: string]: string | number | boolean | ChargerDetails[];
+}
 
-  const reportCharger = async () => {
-    alert(`report this station's information: ${JSON.stringify(form)}`);
-  };
+const StationReportConfirmation = ({ station }: StationReportConfirmationProps) => {
+  const [form, setForm] = useState<StationDetails>({ ...station });
 
   const handleChangeTextField = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.id]: e.target.value });
@@ -30,6 +30,21 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
 
   const handleClickButton = (key: 'isParkingFree' | 'isPrivate') => {
     setForm({ ...form, [key]: !form[key] });
+  };
+
+  const findDifferences = (obj1: StationDetails, obj2: StationDetails) => {
+    const differences: Differences = {};
+    for (const key of Object.keys(obj1) as Array<keyof StationDetails>) {
+      if (obj1[key] !== obj2[key]) {
+        differences[key] = obj1[key];
+      }
+    }
+    return differences;
+  };
+
+  const reportCharger = async () => {
+    const differences = findDifferences(form, station);
+    alert(`Differences: ${JSON.stringify(differences)}`);
   };
 
   return (
