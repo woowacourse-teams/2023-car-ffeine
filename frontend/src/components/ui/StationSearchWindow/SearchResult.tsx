@@ -12,7 +12,9 @@ import Text from '@common/Text';
 const SearchResult = () => {
   const { data, isLoading, isError } = useSearchedStations();
 
-  if (isLoading || isError) return <></>;
+  if (isLoading || isError) {
+    return <></>;
+  }
 
   const { stations } = data;
 

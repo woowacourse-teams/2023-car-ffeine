@@ -64,8 +64,10 @@ export const handlers = [
         const isCompanyNameFilterInvalid =
           isCompanyNameFilterSelected && !selectedCompanyNames.includes(station.companyName);
 
-        if (isChargerTypeFilterInvalid || isCapacityFilterInvalid || isCompanyNameFilterInvalid)
+        if (isChargerTypeFilterInvalid || isCapacityFilterInvalid || isCompanyNameFilterInvalid) {
           return false;
+        }
+
         return true;
       });
 

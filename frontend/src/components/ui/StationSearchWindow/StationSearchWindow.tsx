@@ -16,7 +16,9 @@ import StationSearchBar from './StationSearchBar';
 const StationSearchWindow = () => {
   const [isOpen, setIsOpen] = useExternalState(stationSearchWindowOpenStore);
 
-  if (!isOpen) return <></>;
+  if (!isOpen) {
+    return <></>;
+  }
 
   return (
     <S.Container>

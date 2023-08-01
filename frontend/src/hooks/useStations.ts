@@ -69,7 +69,10 @@ export const useStations = () => {
         const isNoFreeParking = isParkingFreeStationFilterSelected && !isParkingFree;
         const isNoPrivate = isPrivateStationFilterSelected && !isPrivate;
 
-        if (isNoAvailable || isNoFastCharge || isNoFreeParking || isNoPrivate) return false;
+        if (isNoAvailable || isNoFastCharge || isNoFreeParking || isNoPrivate) {
+          return false;
+        }
+
         return true;
       });
     },

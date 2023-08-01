@@ -67,7 +67,9 @@ const StationMarker = ({ station }: Props) => {
         prevMarkerInstances.filter((stationMarker) => stationMarker.stationId !== stationId)
       );
 
-      if (selectedStationId === stationId) setSelectedStationId(null);
+      if (selectedStationId === stationId) {
+        setSelectedStationId(null);
+      }
 
       markerInstance.setMap(null);
     };
