@@ -56,7 +56,7 @@ const StationList = () => {
   return (
     <FlexBox width="34rem" height="100vh" css={containerCss}>
       {isSuccess && (
-        <List>
+        <List css={listContainer}>
           {stations.map((station) => {
             const { stationId } = station;
 
@@ -87,18 +87,17 @@ const containerCss = css`
   padding: 2rem;
   background-color: white;
   border-right: 1px solid #ddd;
-
-  overflow: scroll;
-`;
-
-const alignCenter = css`
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 const noPadding = css`
   padding: 0;
+`;
+
+const listContainer = css`
+  width: 100%;
+  height: 100%;
+
+  overflow: scroll;
 `;
 
 export default StationList;

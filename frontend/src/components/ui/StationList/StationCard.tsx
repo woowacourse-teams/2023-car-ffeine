@@ -17,7 +17,7 @@ const StationCard = ({ station, onClick }: StationCardProps) => {
   return (
     <FlexBox
       tag="button"
-      width="30rem"
+      width="calc(30rem - 2px)"
       direction="column"
       justifyContent="center"
       gap={3}
