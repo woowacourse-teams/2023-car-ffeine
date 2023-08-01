@@ -49,7 +49,7 @@ const generateRandomChargers = () => {
 export const stations: MockStation[] = Array.from({ length: 3000 }).map((_, index) => {
   return {
     stationId: index,
-    stationName: `충전소 ${index}`,
+    stationName: `잠실의 충전소 ${index}`,
     companyName: generateRandomData<CompanyName>(Object.values(COMPANY_NAME)),
     contact: generateRandomData(['', '010-1234-5678', '02-000-0000']),
     chargers: generateRandomChargers(),
@@ -59,7 +59,12 @@ export const stations: MockStation[] = Array.from({ length: 3000 }).map((_, inde
       '09:00 ~ 19:00',
       '평일 09:00~19:00 / 주말 미운영',
     ]),
-    address: generateRandomData(['동대문', '수유역', '선릉점', null]),
+    address: generateRandomData([
+      '서울시 송파구 신천동 7-22',
+      '서울시 강남구 테헤란로 411',
+      '서울시 종로구 관철동 13-22',
+      null,
+    ]),
     detailLocation: generateRandomData<string>(['지상 1층', '지하 1층', '지하 2층', '']),
     latitude: 37 + 9999 * Math.random() * 0.0001,
     longitude: 127 + 9999 * Math.random() * 0.0001,

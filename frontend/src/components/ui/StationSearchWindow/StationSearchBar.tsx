@@ -2,6 +2,7 @@ import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import type { CSSProp } from 'styled-components';
 import { styled } from 'styled-components';
 
+import { useState } from 'react';
 import type { ChangeEvent, FormEvent, InputHTMLAttributes } from 'react';
 
 import { useSetExternalState } from '@utils/external-state';
@@ -12,6 +13,8 @@ import Button from '@common/Button';
 
 import { pillStyle } from '@style';
 
+import SearchResult from './SearchResult';
+
 export interface StationSearchBarProps extends InputHTMLAttributes<HTMLInputElement> {
   shadow?: boolean;
   outlined?: boolean;
@@ -21,6 +24,7 @@ export interface StationSearchBarProps extends InputHTMLAttributes<HTMLInputElem
 }
 
 const StationSearchBar = ({ ...props }: StationSearchBarProps) => {
+  const [isFocused, setIsFocused] = useState(false);
   const setSearchWord = useSetExternalState(searchWordStore);
 
   const handleSubmitSearchWord = (event: FormEvent<HTMLFormElement>) => {
@@ -33,12 +37,22 @@ const StationSearchBar = ({ ...props }: StationSearchBarProps) => {
   };
 
   return (
-    <S.Form role="search" onSubmit={handleSubmitSearchWord}>
-      <S.Search type="search" role="searchbox" onChange={handleRequestSearchResult} {...props} />
-      <Button type="submit" aria-label="검색하기">
-        <MagnifyingGlassIcon width="2.4rem" stroke={props.borderColor || '#333'} />
-      </Button>
-    </S.Form>
+    <>
+      <S.Form role="search" onSubmit={handleSubmitSearchWord}>
+        <S.Search
+          type="search"
+          role="searchbox"
+          {...props}
+          onChange={handleRequestSearchResult}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+        />
+        <Button type="submit" aria-label="검색하기">
+          <MagnifyingGlassIcon width="2.4rem" stroke={props.borderColor || '#333'} />
+        </Button>
+      </S.Form>
+      {isFocused && <SearchResult />}
+    </>
   );
 };
 

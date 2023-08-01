@@ -1,10 +1,8 @@
-import { BoltIcon } from '@heroicons/react/24/solid';
 import { css } from 'styled-components';
 
 import { useSearchedStations } from '@hooks/useSearchedStations';
 
 import Button from '@common/Button';
-import FlexBox from '@common/FlexBox';
 import List from '@common/List';
 import ListItem from '@common/ListItem';
 import Text from '@common/Text';
@@ -19,28 +17,14 @@ const SearchResult = () => {
   return (
     <List css={searchResultList}>
       {stations.map(({ stationId, stationName, address }) => (
-        <ListItem key={stationId} css={foundStationList}>
-          <Button width="100%" shadow css={foundStationButton}>
-            <FlexBox alignItems="center" nowrap columnGap={2.8}>
-              <FlexBox
-                aria-disabled
-                background="#e9edf8"
-                justifyContent="center"
-                alignItems="center"
-                nowrap
-                css={square}
-              >
-                <BoltIcon width={24} fill="#5c68d6" />
-              </FlexBox>
-              <article>
-                <Text tag="h3" variant="h6" title={stationName} lineClamp={1}>
-                  {stationName}
-                </Text>
-                <Text variant="label" align="left" lineClamp={1} color="#585858">
-                  {address}
-                </Text>
-              </article>
-            </FlexBox>
+        <ListItem divider NoLastDivider key={stationId} css={foundStationList}>
+          <Button width="100%" noRadius="all">
+            <Text variant="h6" title={stationName} lineClamp={1}>
+              {stationName}
+            </Text>
+            <Text variant="label" align="left" lineClamp={1} color="#585858">
+              {address || '위도 경도로 주소를 알아내자'}
+            </Text>
           </Button>
         </ListItem>
       ))}
@@ -49,32 +33,19 @@ const SearchResult = () => {
 };
 
 const searchResultList = css`
-  max-height: calc(100vh - 18.6rem);
-  border: 2rem solid #e9ecf5;
-  border-radius: 1.2rem;
-  background: #e9ecf5;
+  position: absolute;
+  width: 29.2rem;
+  max-height: 20rem;
+  margin-top: 2.2rem;
   overflow: auto;
-`;
-
-const square = css`
-  padding: 0.4rem;
-  border-radius: 1rem;
-`;
-
-const foundStationButton = css`
-  padding: 1.2rem 1rem 1.4rem;
-  box-shadow: 0 0.3rem 0.8rem 0 #ebebeb;
-  border-radius: 1.2rem;
+  border: 1.5px solid #d9d9da;
+  border-radius: 10px;
+  background: #fcfcfc;
+  box-shadow: 0 3px 10px 0 #d9d9da;
 `;
 
 const foundStationList = css`
-  margin-bottom: 1.6rem;
-  padding: 0;
-  border-radius: 1rem;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
+  padding: 0.8rem 1.2rem;
 `;
 
 export default SearchResult;
