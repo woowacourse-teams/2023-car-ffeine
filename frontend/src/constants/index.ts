@@ -46,7 +46,6 @@ export const CHARGER_TYPES = {
  *     충전기상태(1: 통신이상, 2: 충전대기,3: 충전중, 4: 운영중지,5: 점검중, 9: 상태미확인)
  */
 export const CHARGER_STATES = {
-  AVAILABLE: '사용가능',
   COMMUNICATION_ERROR: '통신이상', // 1
   STANDBY: '충전대기', // 2
   CHARGING_IN_PROGRESS: '충전중', // 3
