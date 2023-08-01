@@ -8,6 +8,7 @@ import { useExternalValue, useSetExternalState } from '@utils/external-state';
 
 import { getGoogleMapStore } from '@stores/googleMapStore';
 import { searchWordStore } from '@stores/searchWordStore';
+import { selectedStationIdStore } from '@stores/selectedStationStore';
 
 import { useSearchedStations } from '@hooks/useSearchedStations';
 import { useUpdateSearchResult } from '@hooks/useUpdateSearchResult';
@@ -19,12 +20,15 @@ import { pillStyle } from '@style';
 
 import SearchResult from './SearchResult';
 
+import type { SearchedStations, StationPosition } from 'types';
+
 const StationSearchBar = () => {
   const [isFocused, setIsFocused] = useState(false);
   const googleMap = useExternalValue(getGoogleMapStore());
   const setSearchWord = useSetExternalState(searchWordStore);
   const { updateSearchResult } = useUpdateSearchResult();
   const { updateStations } = useUpdateStations();
+  const setSelectedStationId = useSetExternalState(selectedStationIdStore);
 
   const { data: stations, isLoading, isError } = useSearchedStations();
 
@@ -32,13 +36,17 @@ const StationSearchBar = () => {
     event.preventDefault();
 
     if (stations) {
-      const [{ latitude: lat, longitude: lng }] = stations;
-
-      googleMap.panTo({ lat, lng });
-      updateStations();
+      const [{ stationId, latitude, longitude }] = stations;
+      showStationDetails({ stationId, latitude, longitude });
     }
 
     updateSearchResult();
+  };
+
+  const showStationDetails = ({ stationId, latitude, longitude }: StationPosition) => {
+    googleMap.panTo({ lat: latitude, lng: longitude });
+    updateStations();
+    setSelectedStationId(stationId);
   };
 
   const handleRequestSearchResult = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
@@ -55,14 +63,20 @@ const StationSearchBar = () => {
           role="searchbox"
           onChange={handleRequestSearchResult}
           onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
+          // onBlur={() => setIsFocused(false)}
         />
         <Button type="submit" aria-label="검색하기">
           <MagnifyingGlassIcon width="2.4rem" stroke="#767676" />
         </Button>
       </S.Form>
       {isFocused && stations && (
-        <SearchResult stations={stations} isLoading={isLoading} isError={isError} />
+        <SearchResult
+          stations={stations}
+          isLoading={isLoading}
+          isError={isError}
+          setSelectedStationId={setSelectedStationId}
+          showStationDetails={showStationDetails}
+        />
       )}
     </>
   );

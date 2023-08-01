@@ -96,3 +96,5 @@ export interface SearchedStations {
     }
   ];
 }
+
+export interface StationPosition extends Coordinates, Pick<Station, 'stationId'> {}

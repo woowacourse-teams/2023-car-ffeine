@@ -11,24 +11,27 @@ const meta = {
     stations: [
       {
         stationId: 0,
-        stationName: '충전소 이름이라네네',
+        stationName: '충전소 이름이라네',
         speed: 'STANDARD',
         address: '서울시 강남구 테헤란로 411',
         latitude: 1,
         longitude: 1,
       },
     ],
-    isLoading: true,
-    isError: true,
+    isLoading: false,
+    isError: false,
+    setSelectedStationId: () => {
+      ('');
+    },
   },
 } satisfies Meta<typeof SearchResult>;
 
 export default meta;
 
-export const Default = ({ stations, isLoading, isError }: SearchResultProps) => {
+export const Default = ({ ...args }: SearchResultProps) => {
   return (
     <S.Container>
-      <SearchResult stations={stations} isLoading={isLoading} isError={isError} />
+      <SearchResult {...args} />
     </S.Container>
   );
 };

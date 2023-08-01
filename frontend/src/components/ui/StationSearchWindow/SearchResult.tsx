@@ -1,27 +1,42 @@
 import { css } from 'styled-components';
 
+import type { SetStateCallbackType } from '@utils/external-state/StateManager';
+
 import Button from '@common/Button';
 import List from '@common/List';
 import ListItem from '@common/ListItem';
 import Text from '@common/Text';
 
-import type { SearchedStations } from 'types';
+import type { SearchedStations, StationPosition } from 'types';
 
 export interface SearchResultProps {
   stations: SearchedStations['stations'];
   isLoading: boolean;
   isError: boolean;
+  setSelectedStationId: (param: number | SetStateCallbackType<number>) => void;
+  showStationDetails?: (param: StationPosition) => void;
 }
 
-const SearchResult = ({ stations, isLoading, isError }: SearchResultProps) => {
+const SearchResult = ({ ...props }: SearchResultProps) => {
+  const { stations, isLoading, isError, setSelectedStationId, showStationDetails } = props;
+
+  const handleShowStationDetails = ({ stationId, latitude, longitude }: StationPosition) => {
+    setSelectedStationId(stationId);
+    showStationDetails({ stationId, latitude, longitude });
+  };
+
   if (isLoading || isError) return <></>;
 
   return (
     <List css={searchResultList}>
-      {stations.map(({ stationId, stationName, address }) => (
+      {stations.map(({ stationId, stationName, address, latitude, longitude }) => (
         <ListItem divider NoLastDivider key={stationId} css={foundStationList}>
-          <Button width="100%" noRadius="all">
-            <Text variant="h6" title={stationName} lineClamp={1}>
+          <Button
+            width="100%"
+            noRadius="all"
+            onClick={() => handleShowStationDetails({ stationId, latitude, longitude })}
+          >
+            <Text variant="h6" align="left" title={stationName} lineClamp={1}>
               {stationName}
             </Text>
             <Text variant="label" align="left" lineClamp={1} color="#585858">
@@ -34,7 +49,7 @@ const SearchResult = ({ stations, isLoading, isError }: SearchResultProps) => {
   );
 };
 
-const searchResultList = css`
+export const searchResultList = css`
   position: absolute;
   width: 29.2rem;
   max-height: 20rem;
@@ -46,7 +61,7 @@ const searchResultList = css`
   box-shadow: 0 3px 10px 0 #d9d9da;
 `;
 
-const foundStationList = css`
+export const foundStationList = css`
   padding: 0.8rem 1.2rem;
 `;
 
