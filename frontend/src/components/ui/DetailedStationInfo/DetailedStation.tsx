@@ -12,6 +12,7 @@ import Text from '@common/Text';
 
 import ChargerCard from '@ui/DetailedStationInfo/ChargerCard';
 import ChargerReportConfirmation from '@ui/DetailedStationInfo/ChargerReportConfirmation';
+import StationReportConfirmation from '@ui/DetailedStationInfo/StationReportConfirmation';
 
 import type { StationDetails } from '../../../types';
 
@@ -38,10 +39,6 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
 
   const { data: isStationChargerReported, isLoading: isStationChargerReportedLoading } =
     useStationChargerReport(stationId);
-
-  const reportStation = (stationId: number) => {
-    alert(`report this station's information: ${stationId}`);
-  };
 
   return (
     <Box px={2} pt={10} css={containerCss}>
@@ -81,7 +78,12 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
       </Box>
 
       <FlexBox justifyContent="center">
-        <Button size="sm" onClick={() => reportStation(stationId)}>
+        <Button
+          size="sm"
+          onClick={() => {
+            modalActions.openModal(<StationReportConfirmation stationId={stationId} />);
+          }}
+        >
           📝 충전소 정보 수정 제안하기
         </Button>
       </FlexBox>
@@ -100,9 +102,9 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
         ) : (
           <Button
             size="sm"
-            onClick={() =>
-              modalActions.openModal(<ChargerReportConfirmation stationId={stationId} />)
-            }
+            onClick={() => {
+              modalActions.openModal(<ChargerReportConfirmation stationId={stationId} />);
+            }}
             disabled={isStationChargerReported}
           >
             {isStationChargerReported ? '이미 신고한 충전소입니다.' : '🚨 충전기 고장 신고 '}
