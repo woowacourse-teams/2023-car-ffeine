@@ -22,7 +22,7 @@ const fetchReportStation = async (fetchReportStationRequestParams: fetchReportSt
       Authorization: `${token}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(differences),
+    body: JSON.stringify({ stationDetailsToUpdate: differences }),
   });
 };
 export const useUpdateStationChargerReport = () => {

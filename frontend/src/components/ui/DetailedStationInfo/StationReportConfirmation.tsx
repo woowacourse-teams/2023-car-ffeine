@@ -50,7 +50,11 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
       category: key,
       reportedDetail: differences[key],
     }));
-    updateStationReport({ stationId: station.stationId, differences: differencesArray });
+    if (differencesArray.length > 0) {
+      updateStationReport({ stationId: station.stationId, differences: differencesArray });
+    } else {
+      alert('수정된 항목이 없습니다.');
+    }
   };
 
   return (

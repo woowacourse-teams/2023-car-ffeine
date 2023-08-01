@@ -128,4 +128,11 @@ export const handlers = [
       ctx.json({ isReported: reportedStations.includes(stationId) })
     );
   }),
+
+  rest.post(`${DEVELOP_URL}/stations/:stationId/misinformation-reports`, async (req, res, ctx) => {
+    const body = await req.json();
+    console.log(JSON.stringify(body.stationDetailsToUpdate));
+
+    return res(ctx.delay(200), ctx.status(204));
+  }),
 ];
