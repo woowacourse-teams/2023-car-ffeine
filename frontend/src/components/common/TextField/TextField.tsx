@@ -10,6 +10,7 @@ export interface TextFieldProps extends HTMLAttributes<HTMLElement> {
   value?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   supportingText?: string;
+  fullWidth?: boolean;
   cssForLabel?: CSSProp;
   cssForInput?: CSSProp;
 }
@@ -20,6 +21,7 @@ const TextField = ({
   value,
   onChange,
   supportingText,
+  fullWidth,
   ...props
 }: TextFieldProps) => {
   return (
@@ -30,6 +32,7 @@ const TextField = ({
         required
         value={value}
         onChange={onChange}
+        fullWidth={fullWidth}
         {...props}
       />
       <Label
@@ -57,6 +60,7 @@ const Input = styled.input<TextFieldProps>`
   display: block;
 
   ${({ width }) => width && `width: ${width * 0.4}rem`};
+  ${({ fullWidth }) => fullWidth && 'width: 100%;'}
 
   border: none;
   border-radius: 0;
