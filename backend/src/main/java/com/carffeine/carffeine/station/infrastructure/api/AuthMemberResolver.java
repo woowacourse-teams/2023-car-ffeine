@@ -22,6 +22,7 @@ public class AuthMemberResolver implements HandlerMethodArgumentResolver {
     private static final int TOKEN_START_INDEX = 7;
 
     private final MemberRepository memberRepository;
+    private final Jwt jwt;
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
@@ -39,7 +40,6 @@ public class AuthMemberResolver implements HandlerMethodArgumentResolver {
 
         String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
         String token = authorization.substring(TOKEN_START_INDEX);
-        Jwt jwt = new Jwt();
 
         return jwt.extractId(token);
     }

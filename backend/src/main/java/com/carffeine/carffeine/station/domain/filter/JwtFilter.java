@@ -23,6 +23,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
     private final MemberRepository memberRepository;
     private final ObjectMapper objectMapper;
+    private final Jwt jwt;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -39,7 +40,6 @@ public class JwtFilter extends OncePerRequestFilter {
         }
 
         String token = authorization.substring(BEARER_PREFIX.length());
-        Jwt jwt = new Jwt();
 
         if (jwt.isExpired(token)) {
             filterChain.doFilter(request, response);
