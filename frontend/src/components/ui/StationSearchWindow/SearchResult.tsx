@@ -14,13 +14,15 @@ export interface SearchResultProps {
   isLoading: boolean;
   isError: boolean;
   setSelectedStationId: (param: number | SetStateCallbackType<number>) => void;
-  showStationDetails?: (param: StationPosition) => void;
+  showStationDetails: (param: StationPosition) => void;
 }
 
-const SearchResult = ({ ...props }: SearchResultProps) => {
+const SearchResult = (props: SearchResultProps) => {
   const { stations, isLoading, isError, setSelectedStationId, showStationDetails } = props;
 
-  const handleShowStationDetails = ({ stationId, latitude, longitude }: StationPosition) => {
+  const handleShowStationDetails = (handlerProps: StationPosition) => {
+    const { stationId, latitude, longitude } = handlerProps;
+
     setSelectedStationId(stationId);
     showStationDetails({ stationId, latitude, longitude });
   };

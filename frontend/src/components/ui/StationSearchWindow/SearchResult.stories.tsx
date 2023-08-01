@@ -23,6 +23,9 @@ const meta = {
     setSelectedStationId: () => {
       ('');
     },
+    showStationDetails: () => {
+      ('');
+    },
   },
 } satisfies Meta<typeof SearchResult>;
 
