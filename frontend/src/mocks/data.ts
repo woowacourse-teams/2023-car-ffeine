@@ -18,8 +18,8 @@ const generateRandomData = <T>(array: T[]): T => {
   return array[randomIndex];
 };
 
-const generateRandomChargers = () => {
-  const length = Math.floor(Math.random() * 4) + 1;
+export const generateRandomChargers = () => {
+  const length = Math.floor(Math.random() * 10) + 1;
   const chargers: ChargerDetails[] = Array.from({ length }, () => ({
     type: generateRandomData<ChargerType>(getTypedObjectKeys(CHARGER_TYPES)),
     price: generateRandomData([200, 250, 300, 350, 400]),

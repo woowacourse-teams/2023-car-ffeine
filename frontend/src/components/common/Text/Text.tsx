@@ -61,7 +61,7 @@ const S = {
           `;
         default:
           return css`
-            text-align: left;
+            text-align: inherit;
           `;
       }
     }}

@@ -1,11 +1,17 @@
-import { css, styled } from 'styled-components';
+import { css } from 'styled-components';
+
+import { modalActions } from '@stores/modalStore';
+
+import { useStationChargerReport } from '@hooks/useStationChargerReport';
 
 import Alert from '@common/Alert';
 import Box from '@common/Box';
+import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
 import ChargerCard from '@ui/DetailedStationInfo/ChargerCard';
+import ChargerReportConfirmation from '@ui/DetailedStationInfo/ChargerReportConfirmation';
 
 import type { StationDetails } from '../../../types';
 
@@ -15,6 +21,7 @@ export interface DetailedStationProps {
 
 const DetailedStation = ({ station }: DetailedStationProps) => {
   const {
+    stationId,
     stationName,
     companyName,
     contact,
@@ -29,9 +36,16 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
     reportCount,
   } = station;
 
+  const { data: isStationChargerReported, isLoading: isStationChargerReportedLoading } =
+    useStationChargerReport(stationId);
+
+  const reportStation = (stationId: number) => {
+    alert(`report this station's information: ${stationId}`);
+  };
+
   return (
     <Box px={2} pt={10} css={containerCss}>
-      <Box my={2} px={1}>
+      <Box mt={10} mb={5} px={1}>
         <Text variant="label">{companyName}</Text>
         <Box my={1}>
           <Text variant="title">{stationName}</Text>
@@ -66,6 +80,12 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
         </Box>
       </Box>
 
+      <FlexBox justifyContent="center">
+        <Button size="sm" onClick={() => reportStation(stationId)}>
+          📝 올바른 충전소 정보 제보하기
+        </Button>
+      </FlexBox>
+
       <hr />
 
       <FlexBox>
@@ -74,9 +94,24 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
         ))}
       </FlexBox>
 
+      <FlexBox justifyContent="center">
+        {isStationChargerReportedLoading ? (
+          '⌛️'
+        ) : (
+          <Button
+            size="sm"
+            onClick={() =>
+              modalActions.openModal(<ChargerReportConfirmation stationId={stationId} />)
+            }
+            disabled={isStationChargerReported}
+          >
+            {isStationChargerReported ? '이미 신고한 충전소입니다.' : '🚨 충전기 고장 신고 '}
+          </Button>
+        )}
+      </FlexBox>
       {reportCount > 0 && (
         <Box my={1}>
-          <Alert color={'secondary'} text={`최근 충전기 고장 신고가 ${reportCount}번 접수됐어요`} />
+          <Alert color={'secondary'} text={`충전 상태 불일치 신고가 ${reportCount}번 접수됐어요`} />
         </Box>
       )}
     </Box>

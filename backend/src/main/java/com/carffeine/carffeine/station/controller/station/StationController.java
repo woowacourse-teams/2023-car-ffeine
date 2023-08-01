@@ -6,6 +6,7 @@ import com.carffeine.carffeine.station.domain.charger.ChargerType;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.service.station.StationService;
 import com.carffeine.carffeine.station.service.station.dto.CoordinateRequest;
+import com.carffeine.carffeine.station.service.station.dto.StationsSearchResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @RequestMapping("/api")
@@ -34,6 +36,13 @@ public class StationController {
         return ResponseEntity.ok(chargerStationsSimpleResponse);
     }
 
+    @GetMapping("/stations/search")
+    public ResponseEntity<StationsSearchResponse> searchStations(@RequestParam(value = "q") String query,
+                                                                 @RequestParam(value = "scope") Set<String> scope,
+                                                                 @RequestParam(value = "page") int page) {
+        StationsSearchResponse stationSearchResponse = stationService.searchStations(query, scope, page);
+        return ResponseEntity.ok(stationSearchResponse);
+    }
 
     @GetMapping("/stations/{stationId}")
     public ResponseEntity<StationSpecificResponse> getStationById(@PathVariable String stationId) {
