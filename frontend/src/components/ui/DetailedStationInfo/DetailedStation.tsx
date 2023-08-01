@@ -105,9 +105,7 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
             }
             disabled={isStationChargerReported}
           >
-            {isStationChargerReported
-              ? '이미 신고한 충전소입니다.'
-              : '📢 실제 충전기 상태와 일치하지 않는 충전소에요'}
+            {isStationChargerReported ? '이미 신고한 충전소입니다.' : '🚨 충전기 고장 신고 '}
           </Button>
         )}
       </FlexBox>

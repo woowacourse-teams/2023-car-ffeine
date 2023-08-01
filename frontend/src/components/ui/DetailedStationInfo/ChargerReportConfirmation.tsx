@@ -21,9 +21,9 @@ const ChargerReportConfirmation = ({ stationId }: ChargerReportConfirmationProps
   return (
     <Box p={2}>
       <Text variant="title" mb={3}>
-        충전기의 상태가 실제와 다른가요?
+        표시된 정보가 실제 충전기 상태와 다를 수 있습니다.
       </Text>
-      <Alert color="primary" text="앱에 표시된 정보가 실제와 차이가 나는 경우가 있습니다." />
+      <Alert color="primary" text="충전기가 고장나있다면 신고해주세요." />
       <FlexBox justifyContent="between">
         <Button size="md" onClick={() => modalActions.closeModal()}>
           생각해보니 문제가 없는 것 같아요
