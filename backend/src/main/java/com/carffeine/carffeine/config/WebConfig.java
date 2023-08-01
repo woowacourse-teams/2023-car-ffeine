@@ -1,10 +1,7 @@
 package com.carffeine.carffeine.config;
 
-import com.carffeine.carffeine.station.domain.filter.JwtFilter;
-import com.carffeine.carffeine.station.domain.jwt.Jwt;
-import com.carffeine.carffeine.station.domain.member.MemberRepository;
-import com.carffeine.carffeine.station.infrastructure.api.AuthMemberResolver;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.carffeine.carffeine.member.controller.AuthFilter;
+import com.carffeine.carffeine.member.controller.AuthMemberResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -19,15 +16,13 @@ import java.util.List;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    private final MemberRepository memberRepository;
     private final AuthMemberResolver authMemberResolver;
-    private final ObjectMapper objectMapper;
-    private final Jwt jwt;
+    private final AuthFilter authFilter;
 
     @Bean
     public FilterRegistrationBean<Filter> jwtFilter() {
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
-        filterRegistrationBean.setFilter(new JwtFilter(memberRepository, objectMapper, jwt));
+        filterRegistrationBean.setFilter(authFilter);
         filterRegistrationBean.setOrder(1);
         filterRegistrationBean.addUrlPatterns("/api/search");
         return filterRegistrationBean;

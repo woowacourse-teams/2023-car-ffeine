@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.station.infrastructure.api;
+package com.carffeine.carffeine.member.controller;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,6 +1,6 @@
-package com.carffeine.carffeine.station.service.auth;
+package com.carffeine.carffeine.member.service;
 
-import com.carffeine.carffeine.station.domain.jwt.Jwt;
+import com.carffeine.carffeine.member.domain.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class MemberService {
 
-    private final Jwt jwt;
+    private final TokenProvider tokenProvider;
 
     public String createJwt(Long memberId) {
-        return jwt.createJwt(memberId);
+        return tokenProvider.createJwt(memberId);
     }
 }

@@ -1,9 +1,7 @@
-package com.carffeine.carffeine.station.infrastructure.api;
+package com.carffeine.carffeine.member.controller;
 
-import com.carffeine.carffeine.station.domain.jwt.Jwt;
-import com.carffeine.carffeine.station.domain.member.MemberRepository;
+import com.carffeine.carffeine.member.domain.TokenProvider;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
@@ -14,15 +12,13 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 import javax.servlet.http.HttpServletRequest;
 
-@Component
 @RequiredArgsConstructor
-@Slf4j
+@Component
 public class AuthMemberResolver implements HandlerMethodArgumentResolver {
 
     private static final int TOKEN_START_INDEX = 7;
 
-    private final MemberRepository memberRepository;
-    private final Jwt jwt;
+    private final TokenProvider tokenProvider;
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
@@ -41,6 +37,6 @@ public class AuthMemberResolver implements HandlerMethodArgumentResolver {
         String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
         String token = authorization.substring(TOKEN_START_INDEX);
 
-        return jwt.extractId(token);
+        return tokenProvider.extract(token);
     }
 }

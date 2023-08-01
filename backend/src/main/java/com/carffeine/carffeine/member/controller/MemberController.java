@@ -1,7 +1,7 @@
-package com.carffeine.carffeine.station.controller.auth;
+package com.carffeine.carffeine.member.controller;
 
-import com.carffeine.carffeine.station.controller.auth.dto.JwtResponse;
-import com.carffeine.carffeine.station.service.auth.MemberService;
+import com.carffeine.carffeine.member.controller.dto.JwtResponse;
+import com.carffeine.carffeine.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

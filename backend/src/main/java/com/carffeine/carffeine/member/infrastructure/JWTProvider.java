@@ -1,5 +1,6 @@
-package com.carffeine.carffeine.station.domain.jwt;
+package com.carffeine.carffeine.member.infrastructure;
 
+import com.carffeine.carffeine.member.domain.TokenProvider;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -18,7 +19,7 @@ import java.util.Date;
 @Getter
 @Component
 @NoArgsConstructor
-public class Jwt {
+public class JWTProvider implements TokenProvider {
 
     @Value("${jwt.secret}")
     private String secret;
@@ -27,10 +28,11 @@ public class Jwt {
     private Key key;
 
     @PostConstruct
-    public void init() {
+    private void init() {
         key = Keys.hmacShaKeyFor(secret.getBytes());
     }
 
+    @Override
     public String createJwt(Long id) {
         Claims claims = Jwts.claims();
         claims.put("id", id);
@@ -56,6 +58,7 @@ public class Jwt {
         return Date.from(now.plusHours(expirationPeriod).atZone(ZoneId.systemDefault()).toInstant());
     }
 
+    @Override
     public boolean isExpired(String token) {
         return Jwts.parser()
                 .setSigningKey(secret)
@@ -65,7 +68,8 @@ public class Jwt {
                 .before(new Date());
     }
 
-    public Long extractId(String token) {
+    @Override
+    public Long extract(String token) {
         return Jwts.parser()
                 .setSigningKey(secret)
                 .parseClaimsJws(token)
