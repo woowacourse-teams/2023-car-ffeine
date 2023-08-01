@@ -71,7 +71,7 @@ const ServerStationFilters = () => {
 
   return (
     <FlexBox
-      width={28}
+      width={34}
       height={'100vh'}
       alignItems={'center'}
       direction={'column'}

@@ -27,7 +27,7 @@ const FilterSection = ({
   getIsFilterSelected,
 }: FilterSectionProps) => {
   return (
-    <FlexBox width={24} direction={'column'}>
+    <FlexBox width={30} direction={'column'}>
       <Text variant={'h6'} mb={1}>
         {title}
       </Text>

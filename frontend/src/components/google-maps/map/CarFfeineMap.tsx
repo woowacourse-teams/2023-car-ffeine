@@ -12,9 +12,10 @@ import { useUpdateStations } from '@hooks/useUpdateStations';
 import ClientStationFilters from '@ui/ClientStationFilters';
 import DetailedStationInfo from '@ui/DetailedStationInfo';
 import MapController from '@ui/MapController';
+import ModalContainer from '@ui/ModalContainer';
 import Navigator from '@ui/Navigator';
 import ServerStationFilters from '@ui/ServerStationFilters';
-import StationList from '@ui/StationList';
+import StationList from '@ui/StationList/StationList';
 import StationSearchWindow from '@ui/StationSearchWindow';
 
 import { LOCAL_STORAGE_KEY_LAST_POSITION } from '@constants';
@@ -31,6 +32,7 @@ const CarFfeineMap = () => {
       <Navigator />
       <ServerStationFilters />
       <StationSearchWindow />
+      <ModalContainer />
     </>
   );
 };

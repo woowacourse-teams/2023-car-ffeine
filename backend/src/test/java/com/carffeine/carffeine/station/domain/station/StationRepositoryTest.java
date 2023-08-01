@@ -87,4 +87,30 @@ class StationRepositoryTest {
         //then
         assertThat(stationById).usingRecursiveComparison().isEqualTo(station);
     }
+
+    @Test
+    void 충전소를_이름으로_조회한다() {
+        // given
+        Station station = StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
+        stationRepository.save(station);
+
+        //when
+        List<Station> stations = stationRepository.findAllByStationNameContainingOrAddressContainingOrderByStationId("선릉역", "asdf");
+
+        //then
+        assertThat(stations).hasSize(1);
+    }
+
+    @Test
+    void 충전소를_주소로_조회한다() {
+        // given
+        Station station = StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
+        stationRepository.save(station);
+
+        //when
+        List<Station> stations = stationRepository.findAllByStationNameContainingOrAddressContainingOrderByStationId("asdf", "123");
+
+        //then
+        assertThat(stations).hasSize(1);
+    }
 }
