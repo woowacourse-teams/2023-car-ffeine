@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.station.domain.member;
+package com.carffeine.carffeine.member.domain;
 
 import org.springframework.data.repository.Repository;
 

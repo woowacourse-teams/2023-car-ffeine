@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.station.domain.filter;
+package com.carffeine.carffeine.member.controller.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

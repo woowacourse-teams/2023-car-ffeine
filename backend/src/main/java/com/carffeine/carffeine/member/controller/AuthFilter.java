@@ -1,12 +1,13 @@
-package com.carffeine.carffeine.station.domain.filter;
+package com.carffeine.carffeine.member.controller;
 
 import com.carffeine.carffeine.common.exception.ExceptionResponse;
-import com.carffeine.carffeine.station.domain.jwt.Jwt;
-import com.carffeine.carffeine.station.domain.member.MemberRepository;
+import com.carffeine.carffeine.member.domain.MemberRepository;
+import com.carffeine.carffeine.member.infrastructure.JWTProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -15,15 +16,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@Component
 @RequiredArgsConstructor
 @Slf4j
-public class JwtFilter extends OncePerRequestFilter {
+public class AuthFilter extends OncePerRequestFilter {
 
     private static final String BEARER_PREFIX = "Bearer ";
 
     private final MemberRepository memberRepository;
     private final ObjectMapper objectMapper;
-    private final Jwt jwt;
+    private final JWTProvider tokenProvider;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -40,7 +42,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String token = authorization.substring(BEARER_PREFIX.length());
 
-        if (jwt.isExpired(token)) {
+        if (tokenProvider.isExpired(token)) {
             sendUnauthorizedError(response, "이미 만료된 토큰입니다");
             filterChain.doFilter(request, response);
         }
@@ -59,7 +61,7 @@ public class JwtFilter extends OncePerRequestFilter {
     }
 
     private boolean isMemberExists(String token) {
-        Long id = jwt.extractId(token);
+        Long id = tokenProvider.extract(token);
 
         return memberRepository.findById(id)
                 .isPresent();
