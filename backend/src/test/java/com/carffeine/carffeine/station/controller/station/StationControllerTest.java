@@ -6,6 +6,8 @@ import com.carffeine.carffeine.station.exception.StationException;
 import com.carffeine.carffeine.station.exception.StationExceptionType;
 import com.carffeine.carffeine.station.service.station.StationService;
 import com.carffeine.carffeine.station.service.station.dto.CoordinateRequest;
+import com.carffeine.carffeine.station.service.station.dto.StationSearchResponse;
+import com.carffeine.carffeine.station.service.station.dto.StationsSearchResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator.ReplaceUnderscores;
@@ -25,6 +27,8 @@ import java.util.List;
 import static com.carffeine.carffeine.helper.RestDocsHelper.customDocument;
 import static com.carffeine.carffeine.station.fixture.station.StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
 import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -159,6 +163,59 @@ class StationControllerTest {
                         responseFields(
                                 fieldWithPath("exceptionCode").type(JsonFieldType.NUMBER).description("커스텀 예외 코드"),
                                 fieldWithPath("message").type(JsonFieldType.STRING).description("예외 메시지")
+                        )
+                ));
+    }
+
+    @Test
+    void 충전소를_검색한다() throws Exception {
+        when(stationService.searchStations(any(), any(), anyInt()))
+                .thenReturn(new StationsSearchResponse(
+                        2,
+                        List.of(
+                                new StationSearchResponse(
+                                        "stationId",
+                                        "잠실 충전소",
+                                        List.of(
+                                                "QUICK",
+                                                "STANDARD"
+                                        ),
+                                        "address",
+                                        BigDecimal.valueOf(37.123456),
+                                        BigDecimal.valueOf(127.123456)
+                                ),
+                                new StationSearchResponse(
+                                        "stationId2",
+                                        "선릉 충전소",
+                                        List.of(
+                                                "QUICK"
+                                        ),
+                                        "address2",
+                                        BigDecimal.valueOf(37.123456),
+                                        BigDecimal.valueOf(127.123456)
+                                )
+                        )
+                ));
+
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/api/stations/search?q=선릉&page=1&scope=stationName&scope=address&scope=speed&scope=latitude&scope=longitude"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.totalCount").value(2))
+                .andExpect(jsonPath("$.stations", hasSize(2)))
+                .andDo(customDocument("searchStations",
+                        requestParameters(
+                                parameterWithName("q").description("검색어"),
+                                parameterWithName("page").description("페이지 번호"),
+                                parameterWithName("scope").description("검색 범위")
+                        ),
+                        responseFields(
+                                fieldWithPath("totalCount").type(JsonFieldType.NUMBER).description("검색 결과 전체 개수"),
+                                fieldWithPath("stations").type(JsonFieldType.ARRAY).description("검색 결과"),
+                                fieldWithPath("stations[].stationId").type(JsonFieldType.STRING).description("충전소 ID"),
+                                fieldWithPath("stations[].stationName").type(JsonFieldType.STRING).description("충전소 이름"),
+                                fieldWithPath("stations[].address").type(JsonFieldType.STRING).description("충전소 주소"),
+                                fieldWithPath("stations[].latitude").type(JsonFieldType.NUMBER).description("위도"),
+                                fieldWithPath("stations[].longitude").type(JsonFieldType.NUMBER).description("경도"),
+                                fieldWithPath("stations[].speed").type(JsonFieldType.ARRAY).description("충전소에 포함되어있는 급속 완속 충전기 종류")
                         )
                 ));
     }
