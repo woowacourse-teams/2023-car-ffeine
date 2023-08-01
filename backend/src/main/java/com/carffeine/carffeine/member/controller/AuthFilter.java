@@ -2,7 +2,7 @@ package com.carffeine.carffeine.member.controller;
 
 import com.carffeine.carffeine.common.exception.ExceptionResponse;
 import com.carffeine.carffeine.member.domain.MemberRepository;
-import com.carffeine.carffeine.member.infrastructure.JWTProvider;
+import com.carffeine.carffeine.member.domain.TokenProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ public class AuthFilter extends OncePerRequestFilter {
 
     private final MemberRepository memberRepository;
     private final ObjectMapper objectMapper;
-    private final JWTProvider tokenProvider;
+    private final TokenProvider tokenProvider;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

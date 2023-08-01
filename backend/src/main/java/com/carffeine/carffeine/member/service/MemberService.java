@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.member.service;
 
-import com.carffeine.carffeine.member.infrastructure.JWTProvider;
+import com.carffeine.carffeine.member.domain.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MemberService {
 
-    private final JWTProvider tokenProvider;
+    private final TokenProvider tokenProvider;
 
     public String createJwt(Long memberId) {
         return tokenProvider.createJwt(memberId);
