@@ -1,8 +1,9 @@
 package com.carffeine.carffeine.station.domain.filter;
 
+import com.carffeine.carffeine.common.exception.ExceptionResponse;
 import com.carffeine.carffeine.station.domain.jwt.Jwt;
-import com.carffeine.carffeine.station.domain.member.Member;
 import com.carffeine.carffeine.station.domain.member.MemberRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -21,6 +22,7 @@ public class JwtFilter extends OncePerRequestFilter {
     private static final String BEARER_PREFIX = "Bearer ";
 
     private final MemberRepository memberRepository;
+    private final ObjectMapper objectMapper;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -45,14 +47,21 @@ public class JwtFilter extends OncePerRequestFilter {
 
         Long id = jwt.extractId(token);
 
-        Member member = memberRepository.findById(id);
-        if (member == null) {
+        if (isMemberPresent(id)) {
             sendUnauthorizedError(response, "등록되지 않은 회원입니다");
             filterChain.doFilter(request, response);
         }
     }
 
     private void sendUnauthorizedError(HttpServletResponse response, String errorMessage) throws IOException {
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, errorMessage);
+        ExceptionResponse exceptionResponse = new ExceptionResponse(HttpServletResponse.SC_UNAUTHORIZED, errorMessage);
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setContentType("application/json");
+        objectMapper.writeValue(response.getWriter(), exceptionResponse);
+    }
+
+    private boolean isMemberPresent(Long id) {
+        return memberRepository.findById(id)
+                .isPresent();
     }
 }
