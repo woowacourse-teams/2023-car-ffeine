@@ -23,7 +23,7 @@ const StationInformation = ({ station }: StationInformationProps) => {
   } = station;
 
   return (
-    <>
+    <Box p={3}>
       <Box px={1}>
         <Text variant="label">{companyName}</Text>
         <Box my={1}>
@@ -56,7 +56,7 @@ const StationInformation = ({ station }: StationInformationProps) => {
           </Text>
         </Box>
       </Box>
-    </>
+    </Box>
   );
 };
 

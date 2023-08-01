@@ -4,6 +4,7 @@ import Box from '@common/Box';
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
+import TextField from '@common/TextField';
 
 import StationInformation from '@ui/DetailedStationInfo/StationInformation';
 
@@ -26,6 +27,13 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
       <Box border>
         <StationInformation station={station} />
       </Box>
+
+      <TextField label="상세주소" fullWidth />
+      <TextField label="운영시간" fullWidth />
+      <TextField label="연락처" fullWidth />
+      <TextField label="주차비" fullWidth />
+      <TextField label="사용 제한 여부" fullWidth />
+      <TextField label="사용 제한 사유" fullWidth />
 
       <FlexBox justifyContent="between">
         <Button size="md" onClick={() => modalActions.closeModal()}>
