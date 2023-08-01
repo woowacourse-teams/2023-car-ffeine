@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { modalActions } from '@stores/modalStore';
 
 import Box from '@common/Box';
@@ -15,8 +17,10 @@ interface StationReportConfirmationProps {
 }
 
 const StationReportConfirmation = ({ station }: StationReportConfirmationProps) => {
+  const [form, setForm] = useState({ ...station });
+
   const reportCharger = async () => {
-    alert(`report this station's information: ${station.stationId}`);
+    alert(`report this station's information: ${JSON.stringify(form)}`);
   };
 
   return (
@@ -28,12 +32,26 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
         <StationInformation station={station} />
       </Box>
 
-      <TextField label="상세주소" fullWidth />
-      <TextField label="운영시간" fullWidth />
-      <TextField label="연락처" fullWidth />
-      <TextField label="주차비" fullWidth />
-      <TextField label="사용 제한 여부" fullWidth />
-      <TextField label="사용 제한 사유" fullWidth />
+      <TextField label="상세주소" fullWidth value={form.detailLocation} />
+      <TextField label="운영시간" fullWidth value={form.operatingTime} />
+      <TextField label="연락처" fullWidth value={form.contact} />
+      <Box>
+        <Button>
+          <FlexBox alignItems="center">
+            <input type="checkbox" checked={form.isParkingFree} />
+            <Text>주차비 무료</Text>
+          </FlexBox>
+        </Button>
+      </Box>
+      <Box>
+        <Button>
+          <FlexBox alignItems="center">
+            <input type="checkbox" checked={form.isPrivate} />
+            <Text>사용 제한</Text>
+          </FlexBox>
+        </Button>
+      </Box>
+      <TextField label="사용 제한 사유" fullWidth value={form.privateReason} />
 
       <FlexBox justifyContent="between">
         <Button size="md" onClick={() => modalActions.closeModal()}>
