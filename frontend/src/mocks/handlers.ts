@@ -87,10 +87,7 @@ export const handlers = [
       return res(ctx.status(404), ctx.json({ message: ERROR_MESSAGES.NO_SEARCH_RESULT }));
     }
 
-    const searchResult = {
-      // totalCount: stations.length,
-      stations: getSearchedStations(searchWord),
-    };
+    const searchResult = getSearchedStations(searchWord);
 
     return res(ctx.delay(200), ctx.status(200), ctx.json(searchResult));
   }),

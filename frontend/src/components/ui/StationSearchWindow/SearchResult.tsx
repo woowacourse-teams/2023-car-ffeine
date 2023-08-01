@@ -7,10 +7,10 @@ import List from '@common/List';
 import ListItem from '@common/ListItem';
 import Text from '@common/Text';
 
-import type { SearchedStations, StationPosition } from 'types';
+import type { SearchedStation, StationPosition } from 'types';
 
 export interface SearchResultProps {
-  stations: SearchedStations['stations'];
+  stations: SearchedStation[];
   isLoading: boolean;
   isError: boolean;
   setSelectedStationId: (param: number | SetStateCallbackType<number>) => void;

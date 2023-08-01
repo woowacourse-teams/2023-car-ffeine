@@ -28,15 +28,18 @@ export interface Coordinates {
   longitude: number;
 }
 
-export interface Station extends Coordinates {
-  stationId: number;
-  stationName: string;
+export interface Station extends Coordinates, StationKeyInfo {
   companyName: string;
   isParkingFree: boolean;
   operatingTime: string | null;
   detailLocation: string | null;
-  address: string;
   isPrivate: boolean;
+}
+
+export interface StationKeyInfo {
+  stationId: number;
+  stationName: string;
+  address: string;
 }
 
 export interface ChargerCount {
@@ -83,18 +86,8 @@ export interface CongestionStatistics {
   };
 }
 
-export interface SearchedStations {
-  totalCount: number;
-  stations: [
-    {
-      stationId: number;
-      stationName: string;
-      speed: keyof typeof CHARGING_SPEED;
-      address: string | null;
-      latitude: number;
-      longitude: number;
-    }
-  ];
+export interface SearchedStation extends StationKeyInfo, Coordinates {
+  speed: keyof typeof CHARGING_SPEED;
 }
 
 export interface StationPosition extends Coordinates, Pick<Station, 'stationId'> {}

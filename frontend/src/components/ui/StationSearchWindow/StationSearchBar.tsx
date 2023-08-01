@@ -20,7 +20,7 @@ import { pillStyle } from '@style';
 
 import SearchResult from './SearchResult';
 
-import type { SearchedStations, StationPosition } from 'types';
+import type { StationPosition } from 'types';
 
 const StationSearchBar = () => {
   const [isFocused, setIsFocused] = useState(false);
