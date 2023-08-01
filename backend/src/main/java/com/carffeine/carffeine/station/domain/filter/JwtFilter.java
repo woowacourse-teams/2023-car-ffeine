@@ -27,7 +27,6 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
         String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
         if (authorization == null) {
             sendUnauthorizedError(response, "토큰이 존재하지 않습니다");
@@ -45,9 +44,7 @@ public class JwtFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
         }
 
-        Long id = jwt.extractId(token);
-
-        if (isMemberPresent(id)) {
+        if (!isMemberExists(token)) {
             sendUnauthorizedError(response, "등록되지 않은 회원입니다");
             filterChain.doFilter(request, response);
         }
@@ -60,7 +57,9 @@ public class JwtFilter extends OncePerRequestFilter {
         objectMapper.writeValue(response.getWriter(), exceptionResponse);
     }
 
-    private boolean isMemberPresent(Long id) {
+    private boolean isMemberExists(String token) {
+        Long id = jwt.extractId(token);
+
         return memberRepository.findById(id)
                 .isPresent();
     }

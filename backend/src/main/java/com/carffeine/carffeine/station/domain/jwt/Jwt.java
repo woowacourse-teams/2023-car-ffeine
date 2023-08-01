@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.security.Key;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -21,9 +22,14 @@ public class Jwt {
 
     @Value("${jwt.secret}")
     private String secret;
-
     @Value("${jwt.expiration-period}")
     private int expirationPeriod;
+    private Key key;
+
+    @PostConstruct
+    public void init() {
+        key = Keys.hmacShaKeyFor(secret.getBytes());
+    }
 
     public String createJwt(Long id) {
         Claims claims = Jwts.claims();
@@ -32,18 +38,12 @@ public class Jwt {
     }
 
     private String createToken(Claims claims) {
-        Key key = gethmacShaKey();
-
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(getIssuedAt())
                 .setExpiration(getExpiration())
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
-    }
-
-    private Key gethmacShaKey() {
-        return Keys.hmacShaKeyFor(secret.getBytes());
     }
 
     private Date getIssuedAt() {
