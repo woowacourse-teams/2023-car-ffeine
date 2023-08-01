@@ -41,6 +41,7 @@ public class JwtFilter extends OncePerRequestFilter {
         String token = authorization.substring(BEARER_PREFIX.length());
 
         if (jwt.isExpired(token)) {
+            sendUnauthorizedError(response, "이미 만료된 토큰입니다");
             filterChain.doFilter(request, response);
         }
 
