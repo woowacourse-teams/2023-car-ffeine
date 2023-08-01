@@ -51,4 +51,11 @@ public class FakeStationRepository implements StationRepository {
     public List<Station> findAll() {
         return new ArrayList<>(map.values());
     }
+
+    @Override
+    public List<Station> findAllByStationNameContainingOrAddressContainingOrderByStationId(String stationName, String address) {
+        return map.values().stream()
+                .filter(it -> it.getStationName().contains(stationName) || it.getAddress().contains(address))
+                .toList();
+    }
 }
