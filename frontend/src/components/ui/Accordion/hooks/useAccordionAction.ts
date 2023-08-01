@@ -1,10 +1,11 @@
 import { useContext } from 'react';
 
-import type { basePanelType } from '..';
+import type { BasePanelType } from '..';
 import { AccordionContext } from '..';
 
 export const useAccordionAction = () => {
   const {
+    basePanelType,
     isBasePanelOpen,
     isLastPanelOpen,
     setIsBasePanelOpen,
@@ -12,8 +13,13 @@ export const useAccordionAction = () => {
     setBasePanelType,
   } = useContext(AccordionContext);
 
-  const handleOpenBasePanel = (basePanelType: basePanelType) => {
-    setBasePanelType(basePanelType);
+  const toggleOpenBasePanel = (selectedBasePanelType: BasePanelType) => {
+    if (basePanelType === selectedBasePanelType) {
+      setIsBasePanelOpen(false);
+      setBasePanelType(null);
+      return;
+    }
+    setBasePanelType(selectedBasePanelType);
     setIsBasePanelOpen(true);
   };
 
@@ -36,12 +42,13 @@ export const useAccordionAction = () => {
   };
 
   const handleCloseAllPanel = () => {
+    setBasePanelType(null);
     setIsBasePanelOpen(false);
     setIsLastPanelOpen(false);
   };
 
   return {
-    handleOpenBasePanel,
+    toggleOpenBasePanel,
     handleOpenLastPanel,
     handleCloseBasePanel,
     handleCloseLastPanel,

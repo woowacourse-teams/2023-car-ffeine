@@ -55,7 +55,7 @@ const StationList = () => {
   };
 
   return (
-    <FlexBox width={34} height="100vh" css={[windowPositionTriggeredByLnb, containerCss]}>
+    <FlexBox width={34} height="100vh" css={containerCss}>
       {isSuccess && (
         <List css={listContainer}>
           {stations.map((station) => {

@@ -14,8 +14,8 @@ interface AccordionContextType {
   setIsBasePanelOpen: Dispatch<SetStateAction<boolean>>;
   isLastPanelOpen: boolean;
   setIsLastPanelOpen: Dispatch<SetStateAction<boolean>>;
-  basePanelType: basePanelType;
-  setBasePanelType: Dispatch<SetStateAction<basePanelType>>;
+  basePanelType: BasePanelType;
+  setBasePanelType: Dispatch<SetStateAction<BasePanelType>>;
 }
 
 export const AccordionContext = createContext<AccordionContextType>(null);
@@ -24,12 +24,12 @@ interface Props {
   isBasePanelOpenInDefault?: boolean;
 }
 
-export type basePanelType = 'searchWindow' | 'stationList' | 'serverStationFilters';
+export type BasePanelType = 'searchWindow' | 'stationList' | 'serverStationFilters' | null;
 
 const Accordion = ({ isBasePanelOpenInDefault = false, children }: PropsWithChildren<Props>) => {
   const [isBasePanelOpen, setIsBasePanelOpen] = useState(isBasePanelOpenInDefault);
   const [isLastPanelOpen, setIsLastPanelOpen] = useState(false);
-  const [basePanelType, setBasePanelType] = useState<basePanelType>(null);
+  const [basePanelType, setBasePanelType] = useState<BasePanelType>(null);
 
   return (
     <AccordionContext.Provider

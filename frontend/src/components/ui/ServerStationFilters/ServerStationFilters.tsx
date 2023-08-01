@@ -49,8 +49,6 @@ const buttonCss = css`
 `;
 
 const ServerStationFilters = () => {
-  const [isOpen, setIsOpen] = useExternalState(serverStationFiltersOpenStore);
-
   const { updateStations } = useUpdateStations();
 
   const {
@@ -64,10 +62,7 @@ const ServerStationFilters = () => {
 
   const handleApplySelectedFilters = () => {
     updateStations();
-    setIsOpen(false);
   };
-
-  if (!isOpen) return <></>;
 
   return (
     <FlexBox
@@ -77,7 +72,7 @@ const ServerStationFilters = () => {
       direction={'column'}
       background={'white'}
       css={`
-        ${windowPositionTriggeredByLnb}${overFlowCss}${borderCss}${paddingCss}
+        ${overFlowCss}${borderCss}${paddingCss}
       `}
       nowrap={true}
       noRadius={'all'}

@@ -7,12 +7,12 @@ import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-import type { basePanelType } from '.';
+import type { BasePanelType } from '.';
 import { AccordionContext } from '.';
 import { useAccordionAction } from './hooks/useAccordionAction';
 
 interface Props {
-  render: (basePanelType: basePanelType) => ReactNode;
+  render: (basePanelType: BasePanelType) => ReactNode;
 }
 
 const BasePanel = ({ render }: Props) => {
@@ -35,6 +35,7 @@ const BasePanel = ({ render }: Props) => {
 
 const containerCss = css`
   position: relative;
+  margin-left: 7rem;
 `;
 
 export const closeAllPanelButtonCss = css`

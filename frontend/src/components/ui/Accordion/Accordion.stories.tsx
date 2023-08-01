@@ -5,7 +5,7 @@ import { useContext } from 'react';
 
 import FlexBox from '@common/FlexBox';
 
-import type { basePanelType } from '.';
+import type { BasePanelType } from '.';
 import Accordion, { AccordionContext } from '.';
 import { useAccordionAction } from './hooks/useAccordionAction';
 
@@ -18,7 +18,7 @@ const meta = {
 export default meta;
 
 export const Default = () => {
-  const renderBasePanel = (displayBasePanelType: basePanelType) => {
+  const renderBasePanel = (displayBasePanelType: BasePanelType) => {
     switch (displayBasePanelType) {
       case 'searchWindow':
         return <BaseContainer />;
