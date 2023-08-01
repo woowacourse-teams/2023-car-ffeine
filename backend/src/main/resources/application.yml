@@ -17,11 +17,8 @@ api:
 initialize-charge:
   enabled: true
 
-# Spring Boot Actuator
 management:
   endpoints:
     web:
       exposure:
-        include: info, health, prometheus # 필요한 endpoint 노출
-  server:
-    port: 8090 # Actuator 포트 설정
+        include: info, health, prometheus
