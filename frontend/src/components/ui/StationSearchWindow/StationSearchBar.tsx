@@ -1,15 +1,17 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import type { CSSProp } from 'styled-components';
 import { styled } from 'styled-components';
 
 import { useState } from 'react';
-import type { ChangeEvent, FormEvent, InputHTMLAttributes } from 'react';
+import type { ChangeEvent, FormEvent } from 'react';
 
-import { useSetExternalState } from '@utils/external-state';
+import { useExternalValue, useSetExternalState } from '@utils/external-state';
 
+import { getGoogleMapStore } from '@stores/googleMapStore';
 import { searchWordStore } from '@stores/searchWordStore';
 
+import { useSearchedStations } from '@hooks/useSearchedStations';
 import { useUpdateSearchResult } from '@hooks/useUpdateSearchResult';
+import { useUpdateStations } from '@hooks/useUpdateStations';
 
 import Button from '@common/Button';
 
@@ -17,20 +19,26 @@ import { pillStyle } from '@style';
 
 import SearchResult from './SearchResult';
 
-export interface StationSearchBarProps extends InputHTMLAttributes<HTMLInputElement> {
-  outlined?: boolean;
-  background?: string;
-  borderColor?: string;
-  css?: CSSProp;
-}
-
-const StationSearchBar = ({ ...props }: StationSearchBarProps) => {
+const StationSearchBar = () => {
   const [isFocused, setIsFocused] = useState(false);
-  const { updateSearchResult } = useUpdateSearchResult();
+  const googleMap = useExternalValue(getGoogleMapStore());
   const setSearchWord = useSetExternalState(searchWordStore);
+  const { updateSearchResult } = useUpdateSearchResult();
+  const { updateStations } = useUpdateStations();
+
+  const { data: stations, isLoading, isError } = useSearchedStations();
 
   const handleSubmitSearchWord = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (stations) {
+      const [{ latitude: lat, longitude: lng }] = stations;
+
+      googleMap.panTo({ lat, lng });
+      updateStations();
+    }
+
+    updateSearchResult();
   };
 
   const handleRequestSearchResult = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
@@ -45,16 +53,17 @@ const StationSearchBar = ({ ...props }: StationSearchBarProps) => {
         <S.Search
           type="search"
           role="searchbox"
-          {...props}
           onChange={handleRequestSearchResult}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
         />
         <Button type="submit" aria-label="검색하기">
-          <MagnifyingGlassIcon width="2.4rem" stroke={props.borderColor || '#333'} />
+          <MagnifyingGlassIcon width="2.4rem" stroke="#767676" />
         </Button>
       </S.Form>
-      {isFocused && <SearchResult />}
+      {isFocused && stations && (
+        <SearchResult stations={stations} isLoading={isLoading} isError={isError} />
+      )}
     </>
   );
 };
@@ -64,10 +73,10 @@ const S = {
     position: relative;
   `,
 
-  Search: styled.input<StationSearchBarProps>`
+  Search: styled.input`
     ${pillStyle}
 
-    background: ${({ background }) => background || '#fff'};
+    background: #fcfcfc;
     border: 1px solid #d0d2d8;
 
     width: 100%;
@@ -85,8 +94,6 @@ const S = {
       box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2);
       outline: 0;
     }
-
-    ${({ css }) => css};
   `,
 };
 

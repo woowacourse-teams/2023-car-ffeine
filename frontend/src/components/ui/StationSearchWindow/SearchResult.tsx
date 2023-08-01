@@ -1,18 +1,20 @@
 import { css } from 'styled-components';
 
-import { useSearchedStations } from '@hooks/useSearchedStations';
-
 import Button from '@common/Button';
 import List from '@common/List';
 import ListItem from '@common/ListItem';
 import Text from '@common/Text';
 
-const SearchResult = () => {
-  const { data, isLoading, isError } = useSearchedStations();
+import type { SearchedStations } from 'types';
 
+export interface SearchResultProps {
+  stations: SearchedStations['stations'];
+  isLoading: boolean;
+  isError: boolean;
+}
+
+const SearchResult = ({ stations, isLoading, isError }: SearchResultProps) => {
   if (isLoading || isError) return <></>;
-
-  const { stations } = data;
 
   return (
     <List css={searchResultList}>

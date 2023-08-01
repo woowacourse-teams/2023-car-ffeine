@@ -14,14 +14,14 @@ export const fetchSearchedStations = async (searchWord: string) => {
     {
       method: 'GET',
     }
-  ).then<SearchedStations>(async (response) => {
+  ).then<SearchedStations['stations']>(async (response) => {
     if (!response.ok) {
       throw new Error(ERROR_MESSAGES.NO_SEARCH_RESULT);
     }
 
     const data: SearchedStations = await response.json();
 
-    return data;
+    return data.stations;
   });
 
   return searchedStations;
