@@ -42,38 +42,37 @@ const S = {
   Button: styled.button<ButtonNextProps>`
     border-radius: 4px;
     margin: 1px;
-    padding: 6px 16px;
-    cursor: pointer;
+    ${({ disabled }) => disabled && `cursor: unset;`}
     ${({ variant, color, disabled }) => {
       switch (variant) {
         case 'text':
           return css`
-            color: ${color === 'light' ? '#000000' : getColor(color)};
+            color: ${disabled ? '#a0a0a0' : color === 'light' ? '#000000' : getColor(color)};
             background: transparent;
             border: none;
 
             &:hover {
-              background: #1976d20a;
+              background: ${disabled ? 'transparent' : '#1976d20a'};
             }
           `;
         case 'outlined':
           return css`
-            color: ${color === 'light' ? '#000000' : getColor(color)};
+            color: ${disabled ? '#a0a0a0' : color === 'light' ? '#000000' : getColor(color)};
             background: transparent;
-            border: 1.5px solid ${getColor(color)};
+            border: 1.5px solid ${disabled ? '#a0a0a0' : getColor(color)};
 
             &:hover {
-              background: #1976d20a;
+              background: ${disabled ? 'transparent' : '#1976d20a'};
             }
           `;
         case 'contained':
         default:
           return css`
-            color: ${color === 'light' ? '#000000' : '#ffffff'};
-            background: ${getColor(color)};
+            color: ${disabled ? '#a0a0a0' : color === 'light' ? '#000000' : '#ffffff'};
+            background: ${disabled ? '#e0e0e0' : getColor(color)};
 
             &:hover {
-              background: ${getHoverColor(color)};
+              background: ${disabled ? '#e0e0e0' : getHoverColor(color)};
             }
           `;
       }
