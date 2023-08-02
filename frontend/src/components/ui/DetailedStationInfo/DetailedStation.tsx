@@ -15,6 +15,7 @@ import StationInformation from '@ui/DetailedStationInfo/StationInformation';
 import StationReportConfirmation from '@ui/DetailedStationInfo/StationReportConfirmation';
 
 import type { StationDetails } from '../../../types';
+import CongestionStatistics from './CongestionStatistics';
 
 export interface DetailedStationProps {
   station: StationDetails;
@@ -27,7 +28,7 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
     useStationChargerReport(stationId);
 
   return (
-    <Box px={2} pt={10} css={containerCss}>
+    <Box px={2} py={10} css={containerCss}>
       <StationInformation station={station} />
       <FlexBox justifyContent="center">
         <Button
@@ -68,6 +69,7 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
           <Alert color={'secondary'} text={`충전 상태 불일치 신고가 ${reportCount}번 접수됐어요`} />
         </Box>
       )}
+      <CongestionStatistics />
     </Box>
   );
 };
