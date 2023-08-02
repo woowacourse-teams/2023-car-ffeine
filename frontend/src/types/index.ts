@@ -93,3 +93,7 @@ export interface SearchedStation extends StationKeyInfo, Coordinates {
 }
 
 export interface StationPosition extends Coordinates, StationId {}
+
+export interface SearchedStationRes {
+  stations: SearchedStation[];
+}

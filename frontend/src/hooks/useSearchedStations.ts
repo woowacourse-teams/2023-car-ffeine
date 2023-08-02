@@ -6,7 +6,7 @@ import { searchWordStore } from '@stores/searchWordStore';
 
 import { DEVELOP_URL, ERROR_MESSAGES, SEARCH_SCOPE } from '@constants';
 
-import type { SearchedStation } from 'types';
+import type { SearchedStation, SearchedStationRes } from 'types';
 
 export const fetchSearchedStations = async (searchWord: string) => {
   const searchedStations = await fetch(
@@ -19,9 +19,9 @@ export const fetchSearchedStations = async (searchWord: string) => {
       throw new Error(ERROR_MESSAGES.NO_SEARCH_RESULT);
     }
 
-    const data: SearchedStation[] = await response.json();
+    const data: SearchedStationRes = await response.json();
 
-    return data;
+    return data.stations;
   });
 
   return searchedStations;
