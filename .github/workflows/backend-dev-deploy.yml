@@ -79,6 +79,7 @@ jobs:
             sudo docker pull woowacarffeine/backend-dev:latest
             sudo docker stop backend-dev || true
             sudo docker run -d --rm -p 8081:8080 \
+            -e "SPRING_PROFILE=prod" \
             -e "ENCRYPT_KEY=${{secrets.JASYPT_KEY}}" \
             -e "DATABASE_USERNAME=${{secrets.DATABASE_USERNAME}}" \
             -e "DATABASE_PASSWORD=${{secrets.DATABASE_PASSWORD}}" \
