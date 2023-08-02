@@ -49,7 +49,6 @@ const Navigator = () => {
         <Bars3Icon width="2.8rem" stroke="#333" />
       </Button>
       {process.env.NODE_ENV === 'development' && <MswControlButton />}
-      {process.env.NODE_ENV === 'development' && <DevelopmentServerControlButton />}
     </FlexBox>
   );
 };
