@@ -84,12 +84,12 @@ const S = {
 const labelButtonStyle = css`
   position: absolute;
   top: 1.2rem;
-  right: -3.38rem;
+  right: -3.37rem;
   height: 6.2rem;
   padding: 0 0.6rem 0 0.2rem;
   background: #fcfcfc;
   border: 1.5px solid #e1e4eb;
-  border-left: none;
+  border-left: 0.2px solid #e1e4eb;
 
   ${borderRadius('left')}
 `;

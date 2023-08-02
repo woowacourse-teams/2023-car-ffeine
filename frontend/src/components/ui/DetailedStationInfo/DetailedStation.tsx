@@ -77,9 +77,8 @@ const containerCss = css`
   height: 100vh;
   background-color: white;
   box-shadow: 1px 1px 2px gray;
-  outline: 1.5px solid #e1e4eb;
   border-left: 0.5px solid #e1e4eb;
-
+  border-right: 0.5px solid #e1e4eb;
   overflow: scroll;
 `;
 

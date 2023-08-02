@@ -10,7 +10,7 @@ const StationSearchWindow = () => {
   return (
     <S.Container>
       <StationSearchBar />
-      <Text tag="h2" fontSize={1.7} weight="bold" css={labelText}>
+      <Text role="figure" tag="h2" fontSize={1.7} weight="bold" css={labelText}>
         주변 충전소
       </Text>
 
@@ -20,7 +20,7 @@ const StationSearchWindow = () => {
 };
 
 const S = {
-  Container: styled.section`
+  Container: styled.article`
     width: 34rem;
     height: 100vh;
     background: #fcfcfc;
