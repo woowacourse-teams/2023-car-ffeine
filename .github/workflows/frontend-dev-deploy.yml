@@ -41,12 +41,12 @@ jobs:
           port: ${{ secrets.SERVER_PORT }}
 
           script: |
-            sudo docker stop frontend || true
+            sudo docker stop frontend-dev || true
             sudo docker pull woowacarffeine/frontend-dev:latest
             
             sudo docker run --rm -d -p 3001:3000 \
             -e "YARN_PROFILE= " \
-            --name frontend \
+            --name frontend-dev \
             woowacarffeine/frontend-dev:latest
             
             sudo docker image prune -f
