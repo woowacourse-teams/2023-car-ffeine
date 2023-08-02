@@ -16,7 +16,7 @@ import {
 import { serverStore } from '@stores/serverStore';
 import { stationFilterStore } from '@stores/stationFilterStore';
 
-import { SERVERS } from '@constants';
+import { INITIAL_ZOOM_SIZE, SERVERS } from '@constants';
 
 import type { DisplayPosition, StationSummary } from 'types';
 
@@ -24,7 +24,7 @@ export const fetchStation = async () => {
   const googleMap = getStoreSnapshot(getGoogleMapStore());
   const displayPosition = getDisplayPosition(googleMap);
 
-  if (displayPosition.zoom < 15) {
+  if (displayPosition.zoom < INITIAL_ZOOM_SIZE) {
     return new Promise<StationSummary[]>((resolve) => resolve([]));
   }
 
