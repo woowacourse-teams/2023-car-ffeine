@@ -2,14 +2,14 @@ import { rest } from 'msw';
 
 import { getSessionStorage, setSessionStorage } from '@utils/storage';
 
-import { DEVELOP_URL, ERROR_MESSAGES, SESSION_KEY_REPORTED_STATIONS } from '@constants';
+import { ERROR_MESSAGES, SERVERS, SESSION_KEY_REPORTED_STATIONS } from '@constants';
 
 import { getSearchedStations, stations } from './data';
 
 import type { StationSummary } from 'types';
 
 export const handlers = [
-  rest.get(`${DEVELOP_URL}/stations`, async (req, res, ctx) => {
+  rest.get(`${SERVERS.localhost}/stations`, async (req, res, ctx) => {
     const { searchParams } = req.url;
 
     const latitude = Number(searchParams.get('latitude'));
@@ -80,7 +80,7 @@ export const handlers = [
     );
   }),
 
-  rest.get(`${DEVELOP_URL}/stations/search`, async (req, res, ctx) => {
+  rest.get(`${SERVERS.localhost}/stations/search`, async (req, res, ctx) => {
     const searchWord = req.url.searchParams.get('q');
 
     if (!stations.length) {
@@ -94,7 +94,7 @@ export const handlers = [
     return res(ctx.delay(200), ctx.status(200), ctx.json(searchResult));
   }),
 
-  rest.get(`${DEVELOP_URL}/stations/:id`, async (req, res, ctx) => {
+  rest.get(`${SERVERS.localhost}/stations/:id`, async (req, res, ctx) => {
     const stationId = Number(req.params.id);
     const selectedStation = stations.find((station) => station.stationId === stationId);
 
@@ -105,7 +105,7 @@ export const handlers = [
     return res(ctx.delay(200), ctx.status(200), ctx.json(selectedStation));
   }),
 
-  rest.post(`${DEVELOP_URL}/stations/:stationId/reports`, (req, res, ctx) => {
+  rest.post(`${SERVERS.localhost}/stations/:stationId/reports`, (req, res, ctx) => {
     const stationId = Number(req.params.stationId);
     const prevReportedStations = getSessionStorage<number[]>(SESSION_KEY_REPORTED_STATIONS, []);
 
@@ -116,7 +116,7 @@ export const handlers = [
     return res(ctx.delay(200), ctx.status(204));
   }),
 
-  rest.get(`${DEVELOP_URL}/stations/:stationId/reports/me`, (req, res, ctx) => {
+  rest.get(`${SERVERS.localhost}/stations/:stationId/reports/me`, (req, res, ctx) => {
     console.log(req.headers.get('Authorization')); // TODO: 이후에 비로그인 기능도 구현할 때 활용해야함
     const stationId = Number(req.params.stationId);
     const reportedStations = getSessionStorage<number[]>(SESSION_KEY_REPORTED_STATIONS, []);
@@ -128,10 +128,13 @@ export const handlers = [
     );
   }),
 
-  rest.post(`${DEVELOP_URL}/stations/:stationId/misinformation-reports`, async (req, res, ctx) => {
-    const body = await req.json();
-    console.log(JSON.stringify(body.stationDetailsToUpdate));
+  rest.post(
+    `${SERVERS.localhost}/stations/:stationId/misinformation-reports`,
+    async (req, res, ctx) => {
+      const body = await req.json();
+      console.log(JSON.stringify(body.stationDetailsToUpdate));
 
-    return res(ctx.delay(200), ctx.status(204));
-  }),
+      return res(ctx.delay(200), ctx.status(204));
+    }
+  ),
 ];

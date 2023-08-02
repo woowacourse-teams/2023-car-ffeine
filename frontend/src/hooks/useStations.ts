@@ -13,9 +13,10 @@ import {
   selectedChargerTypesFilterStore,
   selectedCompanyNamesFilterStore,
 } from '@stores/selectedServerStationFiltersStore';
+import { serverStore } from '@stores/serverStore';
 import { stationFilterStore } from '@stores/stationFilterStore';
 
-import { BASE_URL } from '@constants';
+import { SERVERS } from '@constants';
 
 import type { DisplayPosition, StationSummary } from 'types';
 
@@ -37,7 +38,8 @@ export const fetchStation = async () => {
     chargerTypes: getStoreSnapshot(selectedChargerTypesFilterStore).join(','),
   });
 
-  const stations = await fetch(`${BASE_URL}/stations?${requestQueryParams}`, {
+  const mode = serverStore.getState();
+  const stations = await fetch(`${SERVERS[mode]}/stations?${requestQueryParams}`, {
     method: 'GET',
   }).then<StationSummary[]>(async (response) => {
     const data = await response.json();
