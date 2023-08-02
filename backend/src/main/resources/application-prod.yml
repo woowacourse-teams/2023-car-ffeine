@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: ENC(4I29dLZPEIZYtuvEbquXTzdGeSHOS+9SMy+tmDunkmdQrD0UceF3mDeSDo1dft0rEBsrrxmym0wfTar/4kdATlX6ZWAqZEFutwQxTjHtZvQo+7DN8XQ0Ld23V/wM1Ei9Xj0wZCTefIrfwYmL7MTN2eaQEckm5sc7547KDQfTbjWbWeBIE+vtpTpEqE/oQkpTz1//Mlc/FIQ=)
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
