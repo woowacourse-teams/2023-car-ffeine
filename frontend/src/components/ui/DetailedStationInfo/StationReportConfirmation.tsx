@@ -1,6 +1,8 @@
 import type { ChangeEvent } from 'react';
 import { useState } from 'react';
 
+import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
+
 import { modalActions } from '@stores/modalStore';
 
 import { useUpdateStationChargerReport } from '@hooks/useUpdateStationReport';
@@ -26,29 +28,24 @@ export interface Differences {
 const StationReportConfirmation = ({ station }: StationReportConfirmationProps) => {
   const [form, setForm] = useState<StationDetails>({ ...station });
   const { updateStationReport } = useUpdateStationChargerReport();
-  const handleChangeTextField = (e: ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.id]: e.target.value });
+  const handleChangeTextField = ({ target: { id, value } }: ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [id]: value });
   };
 
   const handleClickButton = (key: 'isParkingFree' | 'isPrivate') => {
     setForm({ ...form, [key]: !form[key] });
   };
 
-  const findDifferences = (obj1: StationDetails, obj2: StationDetails) => {
-    const differences: Differences = {};
-    for (const key of Object.keys(obj1) as Array<keyof StationDetails>) {
-      if (obj1[key] !== obj2[key]) {
-        differences[key] = obj1[key];
-      }
-    }
-    return differences;
-  };
+  const findDifferentKeys = (formStation: StationDetails, originStation: StationDetails) =>
+    getTypedObjectKeys<StationDetails>(formStation).filter(
+      (key) => formStation[key] !== originStation[key]
+    );
 
   const reportCharger = async () => {
-    const differences = findDifferences(form, station);
-    const differencesArray: Differences[] = Object.keys(differences).map((key) => ({
+    const differentKeys = findDifferentKeys(form, station);
+    const differencesArray: Differences[] = differentKeys.map((key) => ({
       category: key,
-      reportedDetail: differences[key],
+      reportedDetail: form[key],
     }));
     if (differencesArray.length > 0) {
       updateStationReport({ stationId: station.stationId, differences: differencesArray });
