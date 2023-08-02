@@ -39,7 +39,7 @@ public class StationController {
     @GetMapping("/stations/search")
     public ResponseEntity<StationsSearchResponse> searchStations(@RequestParam(value = "q") String query,
                                                                  @RequestParam(value = "scope") Set<String> scope,
-                                                                 @RequestParam(value = "page") int page) {
+                                                                 @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
         StationsSearchResponse stationSearchResponse = stationService.searchStations(query, scope, page);
         return ResponseEntity.ok(stationSearchResponse);
     }
