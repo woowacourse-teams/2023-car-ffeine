@@ -23,6 +23,16 @@ export const Variant = () => {
     </>
   );
 };
+export const Size = () => {
+  return (
+    <>
+      <ButtonNext size="small">Text</ButtonNext>
+      <ButtonNext size="medium">Outlined</ButtonNext>
+      <ButtonNext size="large">Contained</ButtonNext>
+    </>
+  );
+};
+
 export const Colors = () => {
   return (
     <>
