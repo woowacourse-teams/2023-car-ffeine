@@ -48,7 +48,7 @@ const S = {
       switch (variant) {
         case 'text':
           return css`
-            color: ${getColor(color)};
+            color: ${color === 'light' ? '#000000' : getColor(color)};
             background: transparent;
             border: none;
 
@@ -58,9 +58,9 @@ const S = {
           `;
         case 'outlined':
           return css`
-            color: ${getColor(color)};
+            color: ${color === 'light' ? '#000000' : getColor(color)};
             background: transparent;
-            border: 1px solid ${getColor(color)};
+            border: 1.5px solid ${getColor(color)};
 
             &:hover {
               background: #1976d20a;
