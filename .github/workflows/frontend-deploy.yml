@@ -45,7 +45,6 @@ jobs:
             sudo docker pull woowacarffeine/frontend:latest
             
             sudo docker run --rm -d -p 3000:3000 \
-            -e "YARN_PROFILE=--production" \
             --name frontend \
             woowacarffeine/frontend:latest
             

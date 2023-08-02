@@ -27,7 +27,7 @@ jobs:
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
           context: ./frontend
-          file: ./frontend/Dockerfile
+          file: ./frontend/DevDockerfile
           push: true
           tags: woowacarffeine/frontend-dev:latest
           labels: ${{ steps.meta.outputs.labels }}
@@ -45,7 +45,6 @@ jobs:
             sudo docker pull woowacarffeine/frontend-dev:latest
             
             sudo docker run --rm -d -p 3001:3000 \
-            -e "YARN_PROFILE= " \
             --name frontend-dev \
             woowacarffeine/frontend-dev:latest
             
