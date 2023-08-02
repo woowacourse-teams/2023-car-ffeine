@@ -11,7 +11,7 @@ COPY . .
 
 EXPOSE 3000
 
-RUN yarn build
+RUN yarn build-dev
 
 RUN npm install -g serve
 
