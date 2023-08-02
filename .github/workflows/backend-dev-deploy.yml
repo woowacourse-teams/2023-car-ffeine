@@ -3,7 +3,7 @@ name: deploy
 on:
   push:
     branches:
-      - main/backend
+      - release/backend
 
 jobs:
   docker-build:
@@ -54,7 +54,7 @@ jobs:
           file: ./backend/Dockerfile
           push: true
           platforms: linux/arm64
-          tags: woowacarffeine/backend:latest
+          tags: woowacarffeine/backend-dev:latest
           labels: ${{ steps.meta.outputs.labels }}
 
   deploy:
@@ -76,13 +76,13 @@ jobs:
           envs: JASYPT_KEY, DATABASE_USERNAME, DATABASE_PASSWORD
 
           script: |
-            sudo docker pull woowacarffeine/backend:latest
-            sudo docker stop backend || true
-            sudo docker run -d --rm -p 8080:8080 \
+            sudo docker pull woowacarffeine/backend-dev:latest
+            sudo docker stop backend-dev || true
+            sudo docker run -d --rm -p 8081:8080 \
             -e "ENCRYPT_KEY=${{secrets.JASYPT_KEY}}" \
             -e "DATABASE_USERNAME=${{secrets.DATABASE_USERNAME}}" \
             -e "DATABASE_PASSWORD=${{secrets.DATABASE_PASSWORD}}" \
-            --name backend \
-            woowacarffeine/backend:latest
+            --name backend-dev \
+            woowacarffeine/backend-dev:latest
             
             sudo docker image prune -f
