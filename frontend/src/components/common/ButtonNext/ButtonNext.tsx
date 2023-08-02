@@ -49,7 +49,7 @@ const S = {
             border: none;
 
             &:hover {
-              background: ${getHoverColor(color)};
+              background: #1976d20a;
             }
           `;
         case 'outlined':
@@ -59,16 +59,15 @@ const S = {
             border: 1px solid ${getColor(color)};
 
             &:hover {
-              background: ${getHoverColor(color)};
-              color: #fff;
+              background: #1976d20a;
             }
           `;
         case 'contained':
         default:
           return css`
-            color: #ffffff;
+            color: ${color === 'light' ? '#000000' : '#ffffff'};
             background: ${getColor(color)};
-            border: 1px solid ${getColor(color)};
+            //border: 1px solid ${getColor(color)};
 
             ${!disabled &&
             css`
