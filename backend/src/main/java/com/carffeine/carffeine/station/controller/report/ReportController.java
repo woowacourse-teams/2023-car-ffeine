@@ -21,9 +21,9 @@ public class ReportController {
     @PostMapping("/api/stations/{stationId}/reports")
     public ResponseEntity<Void> saveReport(
             @PathVariable String stationId,
-            @RequestHeader("Authorization") Long memberId
+            @RequestHeader("Authorization") String memberId
     ) {
-        reportService.saveFaultReport(stationId, memberId);
+        reportService.saveFaultReport(stationId, Long.valueOf(memberId));
         return ResponseEntity.noContent().build();
     }
 
