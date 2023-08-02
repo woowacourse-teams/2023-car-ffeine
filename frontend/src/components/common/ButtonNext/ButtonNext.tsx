@@ -47,12 +47,21 @@ const S = {
             color: ${getColor(color)};
             background: transparent;
             border: none;
+
+            &:hover {
+              background: ${getHoverColor(color)};
+            }
           `;
         case 'outlined':
           return css`
             color: ${getColor(color)};
             background: transparent;
             border: 1px solid ${getColor(color)};
+
+            &:hover {
+              background: ${getHoverColor(color)};
+              color: #fff;
+            }
           `;
         case 'contained':
         default:
