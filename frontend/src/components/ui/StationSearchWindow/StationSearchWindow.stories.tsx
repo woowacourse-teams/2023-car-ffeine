@@ -11,8 +11,6 @@ import Text from '@common/Text';
 
 import Navigator from '@ui/Navigator';
 
-import { windowPositionTriggeredByLnb } from '@style';
-
 import { Default as StationSearchBar } from './StationSearchBar.stories';
 import StationSearchWindow from './StationSearchWindow';
 
@@ -32,7 +30,7 @@ export const Default = () => {
     <>
       <Navigator />
       <S.Container>
-        <Button variant="label" onClick={() => setIsOpen(false)} aria-label="검색창 닫기">
+        <Button variant="label" aria-label="검색창 닫기">
           <ChevronLeftIcon width="2.4rem" stroke="#9c9fa7" />
         </Button>
         <StationSearchBar />
@@ -51,8 +49,6 @@ const S = {
     background: #fcfcfc;
     outline: 1.5px solid #e1e4eb;
     padding: 2.8rem 2.4rem 5.2rem;
-
-    ${windowPositionTriggeredByLnb}
   `,
 };
 

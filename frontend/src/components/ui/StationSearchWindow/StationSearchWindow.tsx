@@ -1,21 +1,15 @@
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 import { css, styled } from 'styled-components';
 
-import { useExternalState } from '@utils/external-state';
-
-import { stationSearchWindowOpenStore } from '@stores/navItemsOpenStore';
-
 import Button from '@common/Button';
 import Text from '@common/Text';
-
-import SearchResult from './SearchResult';
 
 import StationSearchBar from './StationSearchBar';
 
 const StationSearchWindow = () => {
   return (
     <S.Container>
-      <Button variant="label" onClick={() => setIsOpen(false)} aria-label="검색창 닫기">
+      <Button variant="label" aria-label="검색창 닫기">
         <ChevronLeftIcon width="2.4rem" stroke="#9c9fa7" />
       </Button>
       <StationSearchBar />
