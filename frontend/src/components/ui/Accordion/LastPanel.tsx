@@ -1,3 +1,4 @@
+import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 import { css } from 'styled-components';
 
 import type { ReactNode } from 'react';
@@ -5,10 +6,8 @@ import { useContext } from 'react';
 
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
-import Text from '@common/Text';
 
 import { AccordionContext } from '.';
-import { closeAllPanelButtonCss } from './BasePanel';
 import { useAccordionAction } from './hooks/useAccordionAction';
 
 interface Props {
@@ -16,7 +15,7 @@ interface Props {
 }
 
 const LastPanel = ({ render }: Props) => {
-  const { handleCloseAllPanel, handleCloseLastPanel } = useAccordionAction();
+  const { handleCloseLastPanel } = useAccordionAction();
   const { isLastPanelOpen, isBasePanelOpen } = useContext(AccordionContext);
 
   return (
@@ -24,11 +23,8 @@ const LastPanel = ({ render }: Props) => {
       {isLastPanelOpen && isBasePanelOpen && (
         <>
           {render()}
-          <Button css={closeAllPanelButtonCss} onClick={handleCloseAllPanel}>
-            <Text>{'<'}</Text>
-          </Button>
-          <Button css={closeLastPanelButtonCss} onClick={handleCloseLastPanel}>
-            <Text>{'X'}</Text>
+          <Button variant="label" aria-label="검색창 닫기" onClick={handleCloseLastPanel}>
+            <ChevronLeftIcon width="2.4rem" stroke="#9c9fa7" />
           </Button>
         </>
       )}
@@ -38,22 +34,6 @@ const LastPanel = ({ render }: Props) => {
 
 const containerCss = css`
   position: relative;
-`;
-
-const closeLastPanelButtonCss = css`
-  width: 3rem;
-  height: 3rem;
-
-  border: 1px solid lightgrey;
-  border-left: 0;
-  border-radius: 0;
-
-  position: absolute;
-  top: 0;
-  right: -3rem;
-
-  background-color: white;
-  color: black;
 `;
 
 export default LastPanel;

@@ -27,7 +27,7 @@ const overFlowCss = css`
 `;
 
 const borderCss = css`
-  border-right: 0.1rem solid \#dddddd;
+  outline: 1.5px solid #e1e4eb;
 `;
 
 const buttonCss = css`

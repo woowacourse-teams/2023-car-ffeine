@@ -60,9 +60,10 @@ const SearchResult = (props: SearchResultProps) => {
 
 export const searchResultList = css`
   position: absolute;
-  width: 29.2rem;
-  max-height: 20rem;
-  margin-top: 2.2rem;
+  z-index: 9999;
+  width: 29.6rem;
+  max-height: 32rem;
+  margin-top: 2rem;
   overflow: auto;
   border: 1.5px solid #d9d9da;
   border-radius: 10px;
