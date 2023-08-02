@@ -1,3 +1,5 @@
+import { startMsw, stopMsw } from '@mocks/configureMsw';
+
 import { useState } from 'react';
 
 import { useSetExternalState } from '@utils/external-state';
@@ -8,8 +10,6 @@ import Button from '@common/Button';
 import Text from '@common/Text';
 
 import DevelopmentServerControlButton from '@ui/DevelopmentServerControlButton';
-
-import { startMsw, stopMsw } from '../../mocks/configureMsw';
 
 const MswControlButton = () => {
   const [isMswMode, setMswMode] = useState(true);
