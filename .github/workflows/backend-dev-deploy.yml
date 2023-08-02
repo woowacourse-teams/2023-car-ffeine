@@ -82,6 +82,7 @@ jobs:
             -e "ENCRYPT_KEY=${{secrets.JASYPT_KEY}}" \
             -e "DATABASE_USERNAME=${{secrets.DATABASE_USERNAME}}" \
             -e "DATABASE_PASSWORD=${{secrets.DATABASE_PASSWORD}}" \
+            -e "SLACK_WEBHOOK_URL=${{secrets.SLACK_WEBHOOK_URL}}" \
             --name backend-dev \
             woowacarffeine/backend-dev:latest
             
