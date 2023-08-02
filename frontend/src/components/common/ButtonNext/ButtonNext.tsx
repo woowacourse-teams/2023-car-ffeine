@@ -26,57 +26,57 @@ const S = {
       switch (color) {
         case 'primary':
           return css`
-            color: #052c65;
-            background: #cfe2ff;
+            color: #ffffff;
+            background: #0d6efd;
             border: 1px solid #9ec5fe;
           `;
         case 'secondary':
           return css`
-            color: #2b2f32;
-            background: #e9ecef;
+            color: #ffffff;
+            background: #212529;
             border: 1px solid #c4c8cb;
           `;
         case 'success':
           return css`
-            color: #0a3622;
-            background: #d1e7dd;
+            color: #ffffff;
+            background: #198754;
             border: 1px solid #a3cfbb;
           `;
         case 'error':
           return css`
-            color: #58151c;
-            background: #f8d7da;
+            color: #ffffff;
+            background: #dc3545;
             border: 1px solid #f1aeb5;
           `;
         case 'warning':
           return css`
-            color: #664d03;
-            background: #fff3cd;
+            color: #ffffff;
+            background: #ffc107;
             border: 1px solid #ffe69c;
           `;
         case 'info':
           return css`
-            color: #055160;
-            background: #cff4fc;
+            color: #ffffff;
+            background: #0dcaf0;
             border: 1px solid #9eeaf9;
           `;
         case 'light':
           return css`
-            color: #495057;
-            background: #fcfcfd;
+            color: #212529;
+            background: #f8f9fa;
             border: 1px solid #e9ecef;
           `;
         case 'dark':
           return css`
-            color: #495057;
-            background: #ced4da;
+            color: #ffffff;
+            background: #212529;
             border: 1px solid #adb5bd;
           `;
         default:
           return css`
-            color: #495057;
-            background: #fcfcfd;
-            border: 1px solid #e9ecef;
+            color: #ffffff;
+            background: #0d6efd;
+            border: 1px solid #9ec5fe;
           `;
       }
     }}

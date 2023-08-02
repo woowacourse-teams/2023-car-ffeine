@@ -27,14 +27,30 @@ export const Colors = () => {
   return (
     <>
       <ButtonNext variant="contained" color="primary">
-        Contained
-      </ButtonNext>
-      <ButtonNext variant="contained" color="warning">
-        Contained
+        primary
       </ButtonNext>
       <ButtonNext variant="contained" color="secondary">
-        Contained
+        secondary
       </ButtonNext>
+      <ButtonNext variant="contained" color="info">
+        info
+      </ButtonNext>
+      <ButtonNext variant="contained" color="success">
+        success
+      </ButtonNext>
+      <ButtonNext variant="contained" color="warning">
+        warning
+      </ButtonNext>
+      <ButtonNext variant="contained" color="error">
+        error
+      </ButtonNext>
+      <ButtonNext variant="contained" color="dark">
+        dark
+      </ButtonNext>
+      <ButtonNext variant="contained" color="light">
+        light
+      </ButtonNext>
+      <ButtonNext variant="contained">None</ButtonNext>
     </>
   );
 };
