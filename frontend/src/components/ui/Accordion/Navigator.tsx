@@ -2,7 +2,7 @@ import {
   AdjustmentsHorizontalIcon,
   Bars3Icon,
   MagnifyingGlassIcon,
-} from '@heroicons/react/24/solid';
+} from '@heroicons/react/24/outline';
 import { css } from 'styled-components';
 
 import { useContext } from 'react';
