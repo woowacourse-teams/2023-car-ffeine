@@ -3,12 +3,15 @@ import styled, { css } from 'styled-components';
 
 import React from 'react';
 
+import { getColor, getHoverColor } from '@constants/styles';
+
 import type { Color } from '../../../types/style';
+import type { Size } from '../../../types/style';
 
 export interface ButtonNextProps {
   noTheme?: boolean;
   variant?: 'text' | 'outlined' | 'contained';
-  size?: 'small' | 'medium' | 'large';
+  size?: Size;
   children?: string;
   color?: Color;
   disabled?: boolean;
@@ -68,7 +71,6 @@ const S = {
           return css`
             color: ${color === 'light' ? '#000000' : '#ffffff'};
             background: ${getColor(color)};
-            //border: 1px solid ${getColor(color)};
 
             ${!disabled &&
             css`
@@ -77,23 +79,17 @@ const S = {
             &:hover {
               background: ${getHoverColor(color)};
             }
-
-            &:focus {
-              outline: none;
-              background: ${getHoverColor(color)};
-              box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
-            }
           `;
       }
     }}
 
     padding: ${({ size }) => {
       switch (size) {
-        case 'small':
+        case 'sm':
           return '4px 12px';
-        case 'medium':
+        case 'md':
           return '6px 16px';
-        case 'large':
+        case 'lg':
           return '8px 20px';
         default:
           return '6px 16px';
@@ -102,11 +98,11 @@ const S = {
 
     font-size: ${({ size }) => {
       switch (size) {
-        case 'small':
+        case 'sm':
           return '16px';
-        case 'medium':
+        case 'md':
           return '18px';
-        case 'large':
+        case 'lg':
           return '20px';
         default:
           return '18px';
@@ -119,51 +115,5 @@ const S = {
     ${({ css }) => css};
   `,
 };
-
-function getColor(color?: Color): string {
-  switch (color) {
-    case 'primary':
-      return '#0d6efd';
-    case 'secondary':
-      return '#212529';
-    case 'success':
-      return '#198754';
-    case 'error':
-      return '#dc3545';
-    case 'warning':
-      return '#ffc107';
-    case 'info':
-      return '#0dcaf0';
-    case 'light':
-      return '#f8f9fa';
-    case 'dark':
-      return '#212529';
-    default:
-      return '#0d6efd';
-  }
-}
-
-function getHoverColor(color?: Color): string {
-  switch (color) {
-    case 'primary':
-      return '#0b5ed7';
-    case 'secondary':
-      return '#1a1d21';
-    case 'success':
-      return '#147a3d';
-    case 'error':
-      return '#c82333';
-    case 'warning':
-      return '#e0a800';
-    case 'info':
-      return '#0da8d6';
-    case 'light':
-      return '#e2e6ea';
-    case 'dark':
-      return '#16181b';
-    default:
-      return '#0b5ed7';
-  }
-}
 
 export default ButtonNext;

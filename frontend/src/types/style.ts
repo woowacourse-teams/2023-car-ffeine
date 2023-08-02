@@ -9,3 +9,4 @@ export type Color =
   | 'error'
   | 'light'
   | 'dark';
+export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
