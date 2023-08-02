@@ -5,7 +5,6 @@ import com.carffeine.carffeine.station.domain.report.FaultReport;
 import com.carffeine.carffeine.station.domain.report.MisinformationReport;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.fixture.station.StationFixture;
-import com.carffeine.carffeine.station.service.report.ReportService;
 import com.carffeine.carffeine.station.service.report.dto.MisinformationReportRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayNameGeneration;
@@ -14,8 +13,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -29,7 +28,6 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
@@ -80,6 +78,7 @@ class ReportControllerTest extends MockBeanInjection {
         long memberId = 12L;
         MisinformationReportRequest.StationDetailToUpdate detail = new MisinformationReportRequest.StationDetailToUpdate("address", "부산");
         MisinformationReportRequest request = new MisinformationReportRequest(List.of(detail));
+
         // when
         MisinformationReport misinformationReport = MisinformationReport.builder()
                 .memberId(memberId)
@@ -91,6 +90,7 @@ class ReportControllerTest extends MockBeanInjection {
         // then
         mockMvc.perform(post("/api/stations/{stationId}/misinformation-reports", station.getStationId())
                         .header(HttpHeaders.AUTHORIZATION, memberId)
+                        .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request))
                 )
                 .andExpect(status().isNoContent())
@@ -100,7 +100,7 @@ class ReportControllerTest extends MockBeanInjection {
                                 requestFields(
                                         fieldWithPath("stationDetailsToUpdate").type(JsonFieldType.ARRAY).description("잘못된 정보들"),
                                         fieldWithPath("stationDetailsToUpdate[].category").type(JsonFieldType.STRING).description("카테고리"),
-                                        fieldWithPath("stationDetailsToUpdate[].reportDetail").type(JsonFieldType.STRING).description("상세정보")
+                                        fieldWithPath("stationDetailsToUpdate[].reportedDetail").type(JsonFieldType.STRING).description("상세정보")
                                 )
                         )
                 );
