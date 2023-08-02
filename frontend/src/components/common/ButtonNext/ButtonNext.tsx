@@ -1,9 +1,17 @@
+import styled from 'styled-components';
+
+import type { ButtonProps } from '@common/Button/Button';
+
 export interface ButtonNextProps {
-  foo: string;
+  variant: 'text' | 'outlined' | 'contained';
 }
 
-const ButtonNext = ({ foo }: ButtonNextProps) => {
-  return <div />;
+const ButtonNext = ({ variant }: ButtonNextProps) => {
+  return <S.Button />;
+};
+
+const S = {
+  Button: styled.button<ButtonProps>``,
 };
 
 export default ButtonNext;

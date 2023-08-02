@@ -11,5 +11,5 @@ const meta = {
 export default meta;
 
 export const Default = (args: ButtonNextProps) => {
-  return <ButtonNext {...args} />;
+  return <ButtonNext {...args}>Button</ButtonNext>;
 };
