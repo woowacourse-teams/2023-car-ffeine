@@ -7,7 +7,7 @@ import StationList from './StationList';
 const StationListWindow = () => {
   return (
     <S.Container>
-      <Text tag="h2" fontSize={1.7} weight="bold" css={labelText}>
+      <Text tag="h2" tabIndex={0} fontSize={1.7} weight="bold" css={labelText}>
         주변 충전소
       </Text>
       <StationList />
@@ -16,7 +16,7 @@ const StationListWindow = () => {
 };
 
 const S = {
-  Container: styled.section`
+  Container: styled.article`
     width: 34rem;
     height: 100vh;
     background: #fcfcfc;

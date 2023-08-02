@@ -72,9 +72,9 @@ const StationList = () => {
             operatingTime,
             chargers,
           } = station;
-          const chargerCount = chargers.length;
+          // const chargerCount = chargers.length;
           const fastChargerCount = chargers.filter(({ capacity }) => capacity >= 50).length;
-          const slowChargerCount = chargerCount - fastChargerCount;
+          // const slowChargerCount = chargerCount - fastChargerCount;
 
           return (
             <ListItem key={stationId}>
@@ -108,12 +108,7 @@ const StationList = () => {
                     <Text variant="caption" align="left" lineClamp={1} mb={3} color="#585858">
                       {operatingTime}
                     </Text>
-                    <FlexBox
-                      columnGap={3}
-                      css={css`
-                        margin-bottom: 1.2rem;
-                      `}
-                    >
+                    <FlexBox columnGap={3}>
                       <Text variant="label" align="left" color="#4b4b4b" css={labelStyle}>
                         {isPrivate ? '이용제한구역' : '공공 충전소'}
                       </Text>
@@ -123,20 +118,6 @@ const StationList = () => {
                     </FlexBox>
                   </article>
                   {fastChargerCount !== 0 && <ChargingSpeedIcon />}
-                </FlexBox>
-                <FlexBox nowrap rowGap={2} columnGap={3} justifyContent="between">
-                  <Text variant="label" align="left" color="#4b4b4b" css={chargerTypeStyle}>
-                    <Text tag="span" weight="bold">
-                      급속
-                    </Text>
-                    {fastChargerCount}
-                  </Text>
-                  <Text variant="label" align="left" color="#4b4b4b" css={chargerTypeStyle}>
-                    <Text tag="span" weight="bold">
-                      완속
-                    </Text>
-                    {slowChargerCount}
-                  </Text>
                 </FlexBox>
               </Button>
             </ListItem>
@@ -153,7 +134,7 @@ const searchResultList = css`
   bottom: 0;
   width: 34rem;
   height: calc(100vh - 16rem);
-  border-top: 2.4rem solid var(--lighter-color);
+  border-top: 1.8rem solid var(--lighter-color);
   border-bottom: 4rem solid var(--lighter-color);
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
@@ -166,22 +147,22 @@ const companyNameText = css`
 `;
 
 const foundStationButton = css`
-  padding: 1.4rem 1.2rem 1.8rem;
+  padding: 1.4rem 1.2rem 2rem;
   box-shadow: 0 0.3rem 0.8rem 0 var(--gray-200-color);
   border-radius: 1.2rem;
 `;
 
 const labelStyle = css`
-  padding: 0.2rem 1rem;
+  padding: 0.2rem 1rem 0.3rem;
   background: var(--light-color);
   border-radius: 0.8rem;
 `;
 
-const chargerTypeStyle = css`
-  width: 100%;
-  padding: 0.4rem 2rem;
-  border: 1.5px solid #e5e5e5;
-  border-radius: 0.8rem;
-`;
+// const chargerTypeStyle = css`
+//   width: 100%;
+//   padding: 0.4rem 2rem;
+//   border: 1.5px solid #e5e5e5;
+//   border-radius: 0.8rem;
+// `;
 
 export default StationList;
