@@ -15,12 +15,12 @@ public record MisinformationReportRequest(
 
     public record StationDetailToUpdate(
             String category,
-            String reportDetail
+            String reportedDetail
     ) {
 
         private MisinformationDetailReport toDetailReport() {
             return MisinformationDetailReport.builder()
-                    .content(reportDetail)
+                    .content(reportedDetail)
                     .category(category)
                     .build();
         }

@@ -37,6 +37,7 @@ public class MisinformationReport {
     private boolean isChecked;
 
     @ManyToOne
+    @JoinColumn(name = "station_id")
     private Station station;
 
     @Builder.Default
