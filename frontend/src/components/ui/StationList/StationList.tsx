@@ -128,13 +128,13 @@ const StationList = () => {
                   <Text variant="label" align="left" color="#4b4b4b" css={chargerTypeStyle}>
                     <Text tag="span" weight="bold">
                       급속
-                    </Text>{' '}
+                    </Text>
                     {fastChargerCount}
                   </Text>
                   <Text variant="label" align="left" color="#4b4b4b" css={chargerTypeStyle}>
                     <Text tag="span" weight="bold">
                       완속
-                    </Text>{' '}
+                    </Text>
                     {slowChargerCount}
                   </Text>
                 </FlexBox>
