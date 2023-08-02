@@ -1,6 +1,5 @@
 package com.carffeine.carffeine.web;
 
-
 import org.springframework.http.HttpMethod;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -14,14 +13,11 @@ import java.util.Objects;
 public class CorsFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if (isPreflightRequest(request)) {
-            response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
-            response.setHeader("Access-Control-Allow-Credentials", "true");
-            response.setHeader("Access-Control-Allow-Methods", "*");
-            response.setHeader("Access-Control-Max-Age", "3600");
-            response.setHeader("Access-Control-Allow-Headers", "*");
-            return;
-        }
+        response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+        response.setHeader("Access-Control-Allow-Methods", "*");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "*");
 
         filterChain.doFilter(request, response);
     }
