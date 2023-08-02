@@ -7,6 +7,7 @@ import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 import { getDisplayPosition } from '@utils/google-maps';
 import { getQueryFormattedUrl } from '@utils/request-query-params';
 
+import { developmentServerStore } from '@stores/developmentServerStore';
 import { getGoogleMapStore } from '@stores/googleMapStore';
 import {
   selectedCapacitiesFilterStore,
@@ -15,7 +16,7 @@ import {
 } from '@stores/selectedServerStationFiltersStore';
 import { stationFilterStore } from '@stores/stationFilterStore';
 
-import { BASE_URL } from '@constants';
+import { servers } from '@constants';
 
 import type { DisplayPosition, StationSummary } from 'types';
 
@@ -37,7 +38,8 @@ export const fetchStation = async () => {
     chargerTypes: getStoreSnapshot(selectedChargerTypesFilterStore).join(','),
   });
 
-  const stations = await fetch(`${BASE_URL}/stations?${requestQueryParams}`, {
+  const mode = developmentServerStore.getState();
+  const stations = await fetch(`${servers[mode]}/stations?${requestQueryParams}`, {
     method: 'GET',
   }).then<StationSummary[]>(async (response) => {
     const data = await response.json();

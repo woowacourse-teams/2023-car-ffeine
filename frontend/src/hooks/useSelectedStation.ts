@@ -2,14 +2,17 @@ import { useQuery } from '@tanstack/react-query';
 
 import { useExternalValue } from '@utils/external-state';
 
+import { developmentServerStore } from '@stores/developmentServerStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
-import { BASE_URL, ERROR_MESSAGES, INVALID_VALUE_LIST } from '@constants';
+import { ERROR_MESSAGES, INVALID_VALUE_LIST, servers } from '@constants';
 
 import type { StationDetails } from 'types';
 
 export const fetchStationDetails = async (selectedStationId: number) => {
-  const stationDetails = await fetch(`${BASE_URL}/stations/${selectedStationId}`, {
+  const mode = developmentServerStore.getState();
+
+  const stationDetails = await fetch(`${servers[mode]}/stations/${selectedStationId}`, {
     method: 'GET',
   }).then<StationDetails>(async (response) => {
     if (!response.ok) {

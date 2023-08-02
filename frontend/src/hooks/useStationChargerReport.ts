@@ -2,10 +2,14 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getLocalStorage } from '@utils/storage';
 
-import { DEFAULT_TOKEN, DEVELOP_URL, LOCAL_KEY_TOKEN } from '@constants';
+import { developmentServerStore } from '@stores/developmentServerStore';
 
-const fetchStationChargerReport = (token: number, stationId: number) =>
-  fetch(`${DEVELOP_URL}/stations/${stationId}/reports/me`, {
+import { DEFAULT_TOKEN, LOCAL_KEY_TOKEN, servers } from '@constants';
+
+const fetchStationChargerReport = (token: number, stationId: number) => {
+  const mode = developmentServerStore.getState();
+
+  return fetch(`${servers[mode]}/stations/${stationId}/reports/me`, {
     method: 'GET',
     headers: {
       Authorization: `${token}`,
@@ -15,6 +19,7 @@ const fetchStationChargerReport = (token: number, stationId: number) =>
     const data = await response.json();
     return data.isReported;
   });
+};
 
 export const useStationChargerReport = (stationId: number) => {
   const token = getLocalStorage<number>(LOCAL_KEY_TOKEN, DEFAULT_TOKEN);

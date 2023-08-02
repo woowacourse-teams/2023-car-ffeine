@@ -9,18 +9,18 @@ export const INITIAL_ZOOM_SIZE = 14;
 
 export const INVALID_VALUE_LIST = ['null', '.', '..', '1', '#'] as const;
 
-export const DEVELOP_URL = 'http://localhost:8080/api';
-export const PRODUCTION_URL = 'http://1.1.1.1:8080/api';
+// export const DEVELOP_URL = 'http://localhost:8080/api';
+// export const PRODUCTION_URL = 'http://1.1.1.1:8080/api';
 
-type ModeType = 'development' | 'production';
+// type ModeType = 'development' | 'production';
 
-const URL: Readonly<Record<ModeType, string>> = {
-  development: DEVELOP_URL,
-  production: PRODUCTION_URL,
-};
+// const URL: Readonly<Record<ModeType, string>> = {
+//   development: DEVELOP_URL,
+//   production: PRODUCTION_URL,
+// };
 
-const MODE = process.env.NODE_ENV as ModeType;
-export const BASE_URL = URL[MODE];
+// const MODE = process.env.NODE_ENV as ModeType;
+// export const BASE_URL = URL[MODE];
 
 const ERROR_PREFIX = '[error]';
 export const ERROR_MESSAGES = {
@@ -186,4 +186,5 @@ export const MAX_SEARCH_RESULTS = 10;
 export const servers = {
   localhost: 'http://localhost:8080/api',
   dain: 'https://dain.carffe.in/api',
+  production: 'https://api.carffe.in/api',
 } as const;
