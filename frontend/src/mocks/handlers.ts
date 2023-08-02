@@ -4,7 +4,7 @@ import { getSessionStorage, setSessionStorage } from '@utils/storage';
 
 import { ERROR_MESSAGES, SERVERS, SESSION_KEY_REPORTED_STATIONS } from '@constants';
 
-import { getSearchedStations, stations } from './data';
+import { getCongestionStatistics, getSearchedStations, stations } from './data';
 
 import type { StationSummary } from 'types';
 
@@ -137,4 +137,14 @@ export const handlers = [
       return res(ctx.delay(200), ctx.status(204));
     }
   ),
+
+  rest.get(`${SERVERS.localhost}/stations/:stationId/statistics`, (req, res, ctx) => {
+    const stationId = Number(
+      req.url.pathname.replace(/\/api\/stations\//, '').replace(/\/statistics/, '')
+    );
+
+    const congestionStatistics = getCongestionStatistics(stationId);
+
+    return res(ctx.json(congestionStatistics), ctx.delay(1000), ctx.status(200));
+  }),
 ];
