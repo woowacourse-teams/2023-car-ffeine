@@ -1,3 +1,4 @@
+import type { CSSProp } from 'styled-components';
 import styled, { css } from 'styled-components';
 
 export type Color =
@@ -11,17 +12,25 @@ export type Color =
   | 'dark';
 
 export interface ButtonNextProps {
+  noTheme?: boolean;
   variant?: 'text' | 'outlined' | 'contained';
   children?: string;
   color?: Color;
+  css?: CSSProp;
 }
 
-const ButtonNext = ({ children, ...props }: ButtonNextProps) => {
-  return <S.Button {...props}>{children}</S.Button>;
+const ButtonNext = ({ children, noTheme, ...props }: ButtonNextProps) => {
+  return noTheme ? (
+    <S.PureButton {...props}>{children}</S.PureButton>
+  ) : (
+    <S.Button {...props}>{children}</S.Button>
+  );
 };
 
 const S = {
   Button: styled.button<ButtonNextProps>`
+    border-radius: 4px;
+    padding: 6px 16px;
     ${({ color }) => {
       switch (color) {
         case 'primary':
@@ -80,6 +89,11 @@ const S = {
           `;
       }
     }}
+
+    ${({ css }) => css};
+  `,
+  PureButton: styled.button<ButtonNextProps>`
+    ${({ css }) => css};
   `,
 };
 
