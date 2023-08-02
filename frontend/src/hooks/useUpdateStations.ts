@@ -4,7 +4,7 @@ export const useUpdateStations = () => {
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation(['stations'], {
-    mutationFn: () => new Promise<Response>(() => new Response()),
+    mutationFn: () => new Promise<Response>((resolve) => resolve(new Response())),
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['stations'] });
     },
