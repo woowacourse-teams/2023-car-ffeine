@@ -65,6 +65,10 @@ export const Colors = () => {
   );
 };
 
+export const Disabled = () => {
+  return <ButtonNext disabled>사용할 수 없는 버튼</ButtonNext>;
+};
+
 export const NoTheme = () => {
   return <ButtonNext noTheme>테마가 모두 사라져버린 버튼</ButtonNext>;
 };
