@@ -34,6 +34,7 @@ export const fetchStationDetails = async (selectedStationId: number) => {
 
 export const useSelectedStation = () => {
   const selectedStationId = useExternalValue(selectedStationIdStore);
+
   return useQuery({
     queryKey: ['stationDetails', selectedStationId],
     queryFn: () => fetchStationDetails(selectedStationId),

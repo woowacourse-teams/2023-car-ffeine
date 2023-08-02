@@ -1,4 +1,4 @@
-import type { ENGLISH_DAYS, KOREAN_DAYS } from '@constants';
+import type { CHARGING_SPEED, ENGLISH_DAYS, KOREAN_DAYS } from '@constants';
 import type { CAPACITIES, CHARGER_TYPES, COMPANY_NAME } from '@constants';
 
 export type CapacityType = 3 | 7 | 50 | 100 | 200;
@@ -28,15 +28,21 @@ export interface Coordinates {
   longitude: number;
 }
 
-export interface Station extends Coordinates {
+interface StationId {
   stationId: number;
-  stationName: string;
+}
+
+export interface Station extends Coordinates, StationKeyInfo {
   companyName: string;
   isParkingFree: boolean;
   operatingTime: string | null;
   detailLocation: string | null;
-  address: string;
   isPrivate: boolean;
+}
+
+export interface StationKeyInfo extends StationId {
+  stationName: string;
+  address: string;
 }
 
 export interface ChargerCount {
@@ -75,24 +81,15 @@ export interface Congestion {
   ratio: number;
 }
 
-export interface CongestionStatistics {
-  stationId: number;
+export interface CongestionStatistics extends StationId {
   congestion: {
     STANDARD?: Record<EnglishDaysType, Congestion[]>;
     QUICK?: Record<EnglishDaysType, Congestion[]>;
   };
 }
 
-export interface SearchedStations {
-  totalCount: number;
-  stations: [
-    {
-      stationId: number;
-      stationName: string;
-      speed: 'STANDARD' | 'QUICK';
-      address: string | null;
-      latitude: number;
-      longitude: number;
-    }
-  ];
+export interface SearchedStation extends StationKeyInfo, Coordinates {
+  speed: keyof typeof CHARGING_SPEED;
 }
+
+export interface StationPosition extends Coordinates, StationId {}

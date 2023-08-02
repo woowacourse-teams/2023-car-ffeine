@@ -10,6 +10,10 @@ export interface ListProps {
   css?: CSSProp;
 }
 
+const List = ({ children, ...props }: ListProps) => {
+  return <ListWrapper {...props}>{children}</ListWrapper>;
+};
+
 const ListWrapper = styled.ul<ListProps>`
   list-style-type: none;
   ${({ p }) => p && `padding: ${p * 0.4}rem`};
@@ -17,9 +21,5 @@ const ListWrapper = styled.ul<ListProps>`
 
   ${({ css }) => css};
 `;
-
-const List = ({ children, ...props }: ListProps) => {
-  return <ListWrapper {...props}>{children}</ListWrapper>;
-};
 
 export default List;
