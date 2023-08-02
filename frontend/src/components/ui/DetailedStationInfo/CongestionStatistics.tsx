@@ -10,11 +10,12 @@ import Text from '@common/Text';
 
 import StatisticsGraph from '@ui/StatisticsGraph';
 
+import type { CHARGING_SPEED } from '@constants';
 import { ENGLISH_DAYS } from '@constants';
 
 const CongestionStatistics = () => {
   const { data: congestionStatistics, isFetching } = useStationCongestionStatistics();
-  const [chargingSpeed, setChargingSpeed] = useState<'QUICK' | 'STANDARD'>('QUICK');
+  const [chargingSpeed, setChargingSpeed] = useState<keyof typeof CHARGING_SPEED>('QUICK');
 
   // TODO: 그래프 모양 로딩 스켈레톤 추가하기
   if (isFetching) {
