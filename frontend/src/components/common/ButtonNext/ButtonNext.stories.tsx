@@ -27,9 +27,12 @@ export const Variant = () => {
 export const Size = () => {
   return (
     <>
-      <ButtonNext size="sm">Text</ButtonNext>
-      <ButtonNext size="md">Outlined</ButtonNext>
-      <ButtonNext size="lg">Contained</ButtonNext>
+      <ButtonNext size="xs">sm</ButtonNext>
+      <ButtonNext size="sm">sm</ButtonNext>
+      <ButtonNext size="md">md</ButtonNext>
+      <ButtonNext size="lg">lg</ButtonNext>
+      <ButtonNext size="xl">xl</ButtonNext>
+      <ButtonNext size="xxl">xxl</ButtonNext>
     </>
   );
 };

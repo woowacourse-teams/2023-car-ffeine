@@ -72,10 +72,6 @@ const S = {
             color: ${color === 'light' ? '#000000' : '#ffffff'};
             background: ${getColor(color)};
 
-            ${!disabled &&
-            css`
-              box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
-            `}
             &:hover {
               background: ${getHoverColor(color)};
             }
@@ -85,12 +81,18 @@ const S = {
 
     padding: ${({ size }) => {
       switch (size) {
+        case 'xs':
+          return '2px 8px';
         case 'sm':
           return '4px 12px';
         case 'md':
           return '6px 16px';
         case 'lg':
           return '8px 20px';
+        case 'xl':
+          return '10px 24px';
+        case 'xxl':
+          return '12px 28px';
         default:
           return '6px 16px';
       }
@@ -98,12 +100,18 @@ const S = {
 
     font-size: ${({ size }) => {
       switch (size) {
+        case 'xs':
+          return '14px';
         case 'sm':
           return '16px';
         case 'md':
           return '18px';
         case 'lg':
           return '20px';
+        case 'xl':
+          return '22px';
+        case 'xxl':
+          return '24px';
         default:
           return '18px';
       }
