@@ -2,11 +2,13 @@ package com.carffeine.carffeine.station.controller.report;
 
 import com.carffeine.carffeine.station.controller.report.dto.DuplicateReportResponse;
 import com.carffeine.carffeine.station.service.report.ReportService;
+import com.carffeine.carffeine.station.service.report.dto.MisinformationReportRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,9 +30,10 @@ public class ReportController {
     @PostMapping("/api/stations/{stationId}/misinformation-reports")
     public ResponseEntity<Void> saveMisinformationReport(
             @PathVariable String stationId,
-            @RequestHeader("Authorization") Long memberId
+            @RequestHeader("Authorization") Long memberId,
+            @RequestBody MisinformationReportRequest request
     ) {
-        reportService.saveFaultReport(stationId, memberId);
+        reportService.saveMisinformationReport(stationId, memberId, request);
         return ResponseEntity.noContent().build();
     }
 

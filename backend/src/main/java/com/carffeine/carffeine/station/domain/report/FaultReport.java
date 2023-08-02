@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -29,5 +30,6 @@ public class FaultReport {
     private Long memberId;
 
     @ManyToOne
+    @JoinColumn(name = "station_id")
     private Station station;
 }
