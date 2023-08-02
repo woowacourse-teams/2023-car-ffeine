@@ -1,44 +1,86 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import type { CSSProp } from 'styled-components';
 import { styled } from 'styled-components';
 
-import type { ChangeEvent, FormEvent, InputHTMLAttributes } from 'react';
+import { useState } from 'react';
+import type { ChangeEvent, FormEvent } from 'react';
 
-import { useSetExternalState } from '@utils/external-state';
+import { useExternalValue, useSetExternalState } from '@utils/external-state';
 
+import { getGoogleMapStore } from '@stores/googleMapStore';
 import { searchWordStore } from '@stores/searchWordStore';
+import { selectedStationIdStore } from '@stores/selectedStationStore';
+
+import { useSearchedStations } from '@hooks/useSearchedStations';
+import { useUpdateSearchResult } from '@hooks/useUpdateSearchResult';
+import { useUpdateStations } from '@hooks/useUpdateStations';
 
 import Button from '@common/Button';
 
 import { pillStyle } from '@style';
 
-export interface StationSearchBarProps extends InputHTMLAttributes<HTMLInputElement> {
-  shadow?: boolean;
-  outlined?: boolean;
-  background?: string;
-  borderColor?: string;
-  css?: CSSProp;
-}
+import SearchResult from './SearchResult';
 
-const StationSearchBar = ({ ...props }: StationSearchBarProps) => {
+import type { StationPosition } from 'types';
+
+const StationSearchBar = () => {
+  const [isFocused, setIsFocused] = useState(false);
+  const googleMap = useExternalValue(getGoogleMapStore());
   const setSearchWord = useSetExternalState(searchWordStore);
+  const { updateSearchResult } = useUpdateSearchResult();
+  const { updateStations } = useUpdateStations();
+  const setSelectedStationId = useSetExternalState(selectedStationIdStore);
+
+  const { data: stations, isLoading, isError } = useSearchedStations();
 
   const handleSubmitSearchWord = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (stations) {
+      const [{ stationId, latitude, longitude }] = stations;
+      showStationDetails({ stationId, latitude, longitude });
+    }
+
+    updateSearchResult();
+  };
+
+  const showStationDetails = ({ stationId, latitude, longitude }: StationPosition) => {
+    googleMap.panTo({ lat: latitude, lng: longitude });
+    updateStations();
+    setSelectedStationId(stationId);
   };
 
   const handleRequestSearchResult = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
     const searchWord = encodeURIComponent(value);
     setSearchWord(searchWord);
+    updateSearchResult();
   };
 
   return (
-    <S.Form role="search" onSubmit={handleSubmitSearchWord}>
-      <S.Search type="search" role="searchbox" onChange={handleRequestSearchResult} {...props} />
-      <Button type="submit" aria-label="검색하기">
-        <MagnifyingGlassIcon width="2.4rem" stroke={props.borderColor || '#333'} />
-      </Button>
-    </S.Form>
+    <>
+      <S.Form role="search" onSubmit={handleSubmitSearchWord}>
+        <S.Search
+          type="search"
+          role="searchbox"
+          // eslint-disable-next-line jsx-a11y/no-autofocus
+          autoFocus
+          onChange={handleRequestSearchResult}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+        />
+        <Button type="submit" aria-label="검색하기">
+          <MagnifyingGlassIcon width="2.4rem" stroke="#767676" />
+        </Button>
+      </S.Form>
+      {isFocused && stations && (
+        <SearchResult
+          stations={stations}
+          isLoading={isLoading}
+          isError={isError}
+          setSelectedStationId={setSelectedStationId}
+          showStationDetails={showStationDetails}
+        />
+      )}
+    </>
   );
 };
 
@@ -47,13 +89,11 @@ const S = {
     position: relative;
   `,
 
-  Search: styled.input<StationSearchBarProps>`
+  Search: styled.input`
     ${pillStyle}
 
-    background: ${({ background }) => background || '#fff'};
-    border: ${({ outlined, borderColor }) =>
-      outlined ? `1.5px solid ${borderColor || '#333'}` : 'none'};
-    box-shadow: ${({ shadow }) => `${shadow ? '0 3px 8px 0 gray' : 'none'}`};
+    background: #fcfcfc;
+    border: 1px solid #d0d2d8;
 
     width: 100%;
     padding: 1.9rem 4.6rem 2rem 1.8rem;
@@ -67,10 +107,9 @@ const S = {
     }
 
     &:focus {
+      box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2);
       outline: 0;
     }
-
-    ${({ css }) => css};
   `,
 };
 

@@ -94,3 +94,7 @@ export const HelperText = () => {
 export const Width = () => {
   return <TextField label="가로가 긴 TextField" width={100} />;
 };
+
+export const FullWidth = () => {
+  return <TextField label="가로로 꽉찬 TextField" fullWidth />;
+};

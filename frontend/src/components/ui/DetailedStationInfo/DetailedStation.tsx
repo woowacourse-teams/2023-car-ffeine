@@ -12,6 +12,8 @@ import Text from '@common/Text';
 
 import ChargerCard from '@ui/DetailedStationInfo/ChargerCard';
 import ChargerReportConfirmation from '@ui/DetailedStationInfo/ChargerReportConfirmation';
+import StationInformation from '@ui/DetailedStationInfo/StationInformation';
+import StationReportConfirmation from '@ui/DetailedStationInfo/StationReportConfirmation';
 
 import type { StationDetails } from '../../../types';
 
@@ -20,69 +22,22 @@ export interface DetailedStationProps {
 }
 
 const DetailedStation = ({ station }: DetailedStationProps) => {
-  const {
-    stationId,
-    stationName,
-    companyName,
-    contact,
-    chargers,
-    isParkingFree,
-    operatingTime,
-    address,
-    detailLocation,
-    isPrivate,
-    stationState,
-    privateReason,
-    reportCount,
-  } = station;
+  const { stationId, chargers, reportCount } = station;
 
   const { data: isStationChargerReported, isLoading: isStationChargerReportedLoading } =
     useStationChargerReport(stationId);
 
-  const reportStation = (stationId: number) => {
-    alert(`report this station's information: ${stationId}`);
-  };
-
   return (
     <Box px={2} pt={10} css={containerCss}>
-      <Box mt={10} mb={5} px={1}>
-        <Text variant="label">{companyName}</Text>
-        <Box my={1}>
-          <Text variant="title">{stationName}</Text>
-        </Box>
-        <Text variant="subtitle">{address}</Text>
-        {detailLocation && <Text variant="caption">{detailLocation}</Text>}
-      </Box>
-      <hr />
-
-      {stationState && <Alert color="warning" text={`[공지] ${stationState}`} />}
-
-      <Box px={1}>
-        <Box my={1}>
-          <Text variant="h6">운영시간</Text>
-          <Text variant="body">{operatingTime ?? '운영시간 미확인'}</Text>
-        </Box>
-        <Box my={1}>
-          <Text variant="h6">연락처</Text>
-          <Text variant="body">{contact ?? '연락처 없음'}</Text>
-        </Box>
-        <Box my={1}>
-          <Text variant="h6">주차비</Text>
-          <Text variant="body">{isParkingFree ? '무료' : '유료'}</Text>
-        </Box>
-        <Box my={1}>
-          <Text variant="h6">사용 제한 여부</Text>
-          <Text variant="body">
-            {isPrivate || privateReason
-              ? `사용 제한됨 (사유: ${privateReason})`
-              : '누구나 사용가능'}
-          </Text>
-        </Box>
-      </Box>
-
+      <StationInformation station={station} />
       <FlexBox justifyContent="center">
-        <Button size="sm" onClick={() => reportStation(stationId)}>
-          📝 올바른 충전소 정보 제보하기
+        <Button
+          size="sm"
+          onClick={() => {
+            modalActions.openModal(<StationReportConfirmation station={station} />);
+          }}
+        >
+          📝 충전소 정보 수정 제안하기
         </Button>
       </FlexBox>
 
@@ -100,9 +55,9 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
         ) : (
           <Button
             size="sm"
-            onClick={() =>
-              modalActions.openModal(<ChargerReportConfirmation stationId={stationId} />)
-            }
+            onClick={() => {
+              modalActions.openModal(<ChargerReportConfirmation stationId={stationId} />);
+            }}
             disabled={isStationChargerReported}
           >
             {isStationChargerReported ? '이미 신고한 충전소입니다.' : '🚨 충전기 고장 신고 '}
@@ -123,6 +78,8 @@ const containerCss = css`
   height: 100vh;
   background-color: white;
   box-shadow: 1px 1px 2px gray;
+
+  overflow: scroll;
 `;
 
 export default DetailedStation;

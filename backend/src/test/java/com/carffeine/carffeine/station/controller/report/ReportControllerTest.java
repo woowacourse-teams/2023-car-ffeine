@@ -1,5 +1,6 @@
 package com.carffeine.carffeine.station.controller.report;
 
+import com.carffeine.carffeine.station.MockBeanInjection;
 import com.carffeine.carffeine.station.domain.report.FaultReport;
 import com.carffeine.carffeine.station.domain.report.MisinformationReport;
 import com.carffeine.carffeine.station.domain.station.Station;
@@ -13,7 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -38,10 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SuppressWarnings("NonAsciiCharacters")
 @WebMvcTest(ReportController.class)
 @AutoConfigureRestDocs
-class ReportControllerTest {
-
-    @MockBean
-    private ReportService reportService;
+class ReportControllerTest extends MockBeanInjection {
 
     @Autowired
     private MockMvc mockMvc;

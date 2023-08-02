@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import type { CSSProp } from 'styled-components';
 
 import type { ButtonHTMLAttributes, MouseEventHandler } from 'react';
@@ -7,7 +7,7 @@ import { borderRadius, getSize, pillStyle } from '@style';
 
 import type { BorderRadiusDirectionType } from 'types/style';
 
-type VariantType = 'pill';
+type VariantType = 'pill' | 'label';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: VariantType;
@@ -58,18 +58,40 @@ const S = {
     box-shadow: ${({ shadow }) => `${shadow ? '0 0.3rem 0.8rem 0 gray' : 'none'}`};
 
     cursor: pointer;
-    border-radius: 0.8rem;
+    border-radius: 1.2rem;
     text-align: center;
+
+    ${({ noRadius }) => noRadius && borderRadius(noRadius)};
+    ${({ variant }) => {
+      switch (variant) {
+        case 'pill':
+          return pillStyle;
+        case 'label':
+          return labelButtonStyle;
+        default:
+          return;
+      }
+    }};
 
     &:hover {
       ${({ hover }) => hover && 'background-color: #f0f0f0'};
     }
 
-    ${({ noRadius }) => noRadius && borderRadius(noRadius)};
-    ${({ variant }) => variant && pillStyle};
-
     ${({ css }) => css};
   `,
 };
+
+const labelButtonStyle = css`
+  position: absolute;
+  top: 1.2rem;
+  right: -3.4rem;
+  height: 6.2rem;
+  padding: 0 0.6rem 0 0.2rem;
+  background: #fcfcfc;
+  border: 1.5px solid #e1e4eb;
+  border-left: none;
+
+  ${borderRadius('left')}
+`;
 
 export default Button;

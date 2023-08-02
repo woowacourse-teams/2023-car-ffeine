@@ -87,10 +87,7 @@ export const handlers = [
       return res(ctx.status(404), ctx.json({ message: ERROR_MESSAGES.NO_SEARCH_RESULT }));
     }
 
-    const searchResult = {
-      // totalCount: stations.length,
-      stations: getSearchedStations(searchWord),
-    };
+    const searchResult = getSearchedStations(searchWord);
 
     return res(ctx.delay(200), ctx.status(200), ctx.json(searchResult));
   }),
@@ -127,5 +124,12 @@ export const handlers = [
       ctx.status(200),
       ctx.json({ isReported: reportedStations.includes(stationId) })
     );
+  }),
+
+  rest.post(`${DEVELOP_URL}/stations/:stationId/misinformation-reports`, async (req, res, ctx) => {
+    const body = await req.json();
+    console.log(JSON.stringify(body.stationDetailsToUpdate));
+
+    return res(ctx.delay(200), ctx.status(204));
   }),
 ];
