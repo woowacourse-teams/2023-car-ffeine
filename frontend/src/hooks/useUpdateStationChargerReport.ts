@@ -2,14 +2,14 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { getLocalStorage } from '@utils/storage';
 
-import { developmentServerStore } from '@stores/developmentServerStore';
 import { modalActions } from '@stores/modalStore';
+import { serverStore } from '@stores/serverStore';
 
 import { DEFAULT_TOKEN, LOCAL_KEY_TOKEN, SERVERS } from '@constants';
 
 const fetchReportCharger = async (stationId: number) => {
   const token = getLocalStorage<number>(LOCAL_KEY_TOKEN, DEFAULT_TOKEN);
-  const mode = developmentServerStore.getState();
+  const mode = serverStore.getState();
   return fetch(`${SERVERS[mode]}/stations/${stationId}/reports`, {
     method: 'POST',
     headers: {

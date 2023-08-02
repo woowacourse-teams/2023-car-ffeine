@@ -7,13 +7,13 @@ import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 import { getDisplayPosition } from '@utils/google-maps';
 import { getQueryFormattedUrl } from '@utils/request-query-params';
 
-import { developmentServerStore } from '@stores/developmentServerStore';
 import { getGoogleMapStore } from '@stores/googleMapStore';
 import {
   selectedCapacitiesFilterStore,
   selectedChargerTypesFilterStore,
   selectedCompanyNamesFilterStore,
 } from '@stores/selectedServerStationFiltersStore';
+import { serverStore } from '@stores/serverStore';
 import { stationFilterStore } from '@stores/stationFilterStore';
 
 import { SERVERS } from '@constants';
@@ -38,7 +38,7 @@ export const fetchStation = async () => {
     chargerTypes: getStoreSnapshot(selectedChargerTypesFilterStore).join(','),
   });
 
-  const mode = developmentServerStore.getState();
+  const mode = serverStore.getState();
   const stations = await fetch(`${SERVERS[mode]}/stations?${requestQueryParams}`, {
     method: 'GET',
   }).then<StationSummary[]>(async (response) => {

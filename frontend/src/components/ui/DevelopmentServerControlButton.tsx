@@ -1,15 +1,15 @@
 import { useExternalValue } from '@utils/external-state';
 
-import { developmentServerActions, developmentServerStore } from '@stores/developmentServerStore';
+import { serverActions, serverStore } from '@stores/serverStore';
 
 import Button from '@common/Button';
 import Text from '@common/Text';
 
 const DevelopmentServerControlButton = () => {
-  const currentServer = useExternalValue(developmentServerStore);
+  const currentServer = useExternalValue(serverStore);
 
   const handleClickDevelopmentServerControlButton = () => {
-    developmentServerActions.changeServer(currentServer === 'localhost' ? 'dain' : 'localhost');
+    serverActions.changeServer(currentServer === 'localhost' ? 'dain' : 'localhost');
   };
 
   return (
