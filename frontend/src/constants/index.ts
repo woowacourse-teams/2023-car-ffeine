@@ -182,3 +182,8 @@ export const SEARCH_SCOPE =
   '&scope=stationName&scope=address&scope=speed&scope=latitude&scope=longitude';
 
 export const MAX_SEARCH_RESULTS = 10;
+
+export const servers = {
+  localhost: 'http://localhost:8080/api',
+  dain: 'https://dain.carffe.in/api',
+} as const;
