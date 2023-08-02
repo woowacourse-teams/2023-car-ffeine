@@ -8,7 +8,7 @@ import type { BasePanelType } from '..';
 import { AccordionContext } from '..';
 
 export const useAccordionAction = () => {
-  const [forceOpenAccordionPanel, setForceOpenAccordionPanel] = useExternalState(
+  const [isForceOpenAccordionPanel, setIsForceOpenAccordionPanel] = useExternalState(
     forceOpenAccordionPanelStore
   );
 
@@ -21,12 +21,12 @@ export const useAccordionAction = () => {
     setBasePanelType,
   } = useContext(AccordionContext);
 
-  if (forceOpenAccordionPanel) {
+  if (isForceOpenAccordionPanel) {
     setBasePanelType('stationList');
     setIsBasePanelOpen(true);
     setIsLastPanelOpen(true);
 
-    setForceOpenAccordionPanel(false);
+    setIsForceOpenAccordionPanel(false);
   }
 
   const toggleOpenBasePanel = (selectedBasePanelType: BasePanelType) => {
