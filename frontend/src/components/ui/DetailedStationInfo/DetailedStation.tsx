@@ -8,7 +8,6 @@ import Alert from '@common/Alert';
 import Box from '@common/Box';
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
-import Text from '@common/Text';
 
 import ChargerCard from '@ui/DetailedStationInfo/ChargerCard';
 import ChargerReportConfirmation from '@ui/DetailedStationInfo/ChargerReportConfirmation';
@@ -78,6 +77,8 @@ const containerCss = css`
   height: 100vh;
   background-color: white;
   box-shadow: 1px 1px 2px gray;
+  outline: 1.5px solid #e1e4eb;
+  border-left: 0.5px solid #e1e4eb;
 
   overflow: scroll;
 `;

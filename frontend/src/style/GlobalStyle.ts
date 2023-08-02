@@ -20,7 +20,10 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   :root {
-
+    --light-color: #e9edf8;
+    --lighter-color: #eef0f5;
+    
+    --gray-200-color: #ebebeb;
   }
 
   body:has(.modal-open) {

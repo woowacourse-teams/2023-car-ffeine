@@ -48,7 +48,7 @@ const S = {
     height: 100vh;
     background: #fcfcfc;
     outline: 1.5px solid #e1e4eb;
-    padding: 2.8rem 2.4rem 5.2rem;
+    padding: 2.8rem 2.2rem 5.2rem;
   `,
 };
 
