@@ -145,6 +145,6 @@ export const handlers = [
 
     const congestionStatistics = getCongestionStatistics(stationId);
 
-    return res(ctx.json(congestionStatistics), ctx.delay(200), ctx.status(200));
+    return res(ctx.json(congestionStatistics), ctx.delay(1000), ctx.status(200));
   }),
 ];

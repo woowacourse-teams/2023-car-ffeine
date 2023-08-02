@@ -16,8 +16,13 @@ const CongestionStatistics = () => {
   const { data: congestionStatistics, isFetching } = useStationCongestionStatistics();
   const [chargingSpeed, setChargingSpeed] = useState<'QUICK' | 'STANDARD'>('QUICK');
 
+  // TODO: 그래프 모양 로딩 스켈레톤 추가하기
   if (isFetching) {
-    return <FlexBox>loading...</FlexBox>;
+    return (
+      <FlexBox width="100%" height="50rem" justifyContent="center" alignItems="center">
+        <Text variant="h2">⌛</Text>
+      </FlexBox>
+    );
   }
 
   return (
