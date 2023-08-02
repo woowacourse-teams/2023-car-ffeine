@@ -5,11 +5,11 @@ import { developmentServerActions, developmentServerStore } from '@stores/develo
 import Button from '@common/Button';
 import Text from '@common/Text';
 
-import type { servers } from '@constants';
+import type { SERVERS } from '@constants';
 
 const DevelopmentServerSelect = () => {
   const currentServer = useExternalValue(developmentServerStore);
-  const changeServer = (nextServer: keyof typeof servers) => {
+  const changeServer = (nextServer: keyof typeof SERVERS) => {
     developmentServerActions.changeServer(nextServer);
   };
 

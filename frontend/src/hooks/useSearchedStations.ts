@@ -5,14 +5,14 @@ import { useExternalValue } from '@utils/external-state';
 import { developmentServerStore } from '@stores/developmentServerStore';
 import { searchWordStore } from '@stores/searchWordStore';
 
-import { ERROR_MESSAGES, SEARCH_SCOPE, servers } from '@constants';
+import { ERROR_MESSAGES, SEARCH_SCOPE, SERVERS } from '@constants';
 
 import type { SearchedStation, SearchedStationResponse } from 'types';
 
 export const fetchSearchedStations = async (searchWord: string) => {
   const mode = developmentServerStore.getState();
   const searchedStations = await fetch(
-    `${servers[mode]}/stations/search?q=${searchWord}${SEARCH_SCOPE}`,
+    `${SERVERS[mode]}/stations/search?q=${searchWord}${SEARCH_SCOPE}`,
     {
       method: 'GET',
     }

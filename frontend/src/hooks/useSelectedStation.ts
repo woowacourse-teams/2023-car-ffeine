@@ -5,14 +5,14 @@ import { useExternalValue } from '@utils/external-state';
 import { developmentServerStore } from '@stores/developmentServerStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
-import { ERROR_MESSAGES, INVALID_VALUE_LIST, servers } from '@constants';
+import { ERROR_MESSAGES, INVALID_VALUE_LIST, SERVERS } from '@constants';
 
 import type { StationDetails } from 'types';
 
 export const fetchStationDetails = async (selectedStationId: number) => {
   const mode = developmentServerStore.getState();
 
-  const stationDetails = await fetch(`${servers[mode]}/stations/${selectedStationId}`, {
+  const stationDetails = await fetch(`${SERVERS[mode]}/stations/${selectedStationId}`, {
     method: 'GET',
   }).then<StationDetails>(async (response) => {
     if (!response.ok) {

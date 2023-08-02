@@ -7,7 +7,7 @@ import { modalActions } from '@stores/modalStore';
 
 import type { Differences } from '@ui/DetailedStationInfo/StationReportConfirmation';
 
-import { DEFAULT_TOKEN, LOCAL_KEY_TOKEN, servers } from '@constants';
+import { DEFAULT_TOKEN, LOCAL_KEY_TOKEN, SERVERS } from '@constants';
 
 interface fetchReportStationRequest {
   stationId: number;
@@ -18,7 +18,7 @@ const fetchReportStation = async (fetchReportStationRequestParams: fetchReportSt
   const { stationId, differences } = fetchReportStationRequestParams;
   const token = getLocalStorage<number>(LOCAL_KEY_TOKEN, DEFAULT_TOKEN);
   const mode = developmentServerStore.getState();
-  return fetch(`${servers[mode]}/stations/${stationId}/misinformation-reports`, {
+  return fetch(`${SERVERS[mode]}/stations/${stationId}/misinformation-reports`, {
     method: 'POST',
     headers: {
       Authorization: `${token}`,

@@ -4,12 +4,12 @@ import { getLocalStorage } from '@utils/storage';
 
 import { developmentServerStore } from '@stores/developmentServerStore';
 
-import { DEFAULT_TOKEN, LOCAL_KEY_TOKEN, servers } from '@constants';
+import { DEFAULT_TOKEN, LOCAL_KEY_TOKEN, SERVERS } from '@constants';
 
 const fetchStationChargerReport = (token: number, stationId: number) => {
   const mode = developmentServerStore.getState();
 
-  return fetch(`${servers[mode]}/stations/${stationId}/reports/me`, {
+  return fetch(`${SERVERS[mode]}/stations/${stationId}/reports/me`, {
     method: 'GET',
     headers: {
       Authorization: `${token}`,

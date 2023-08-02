@@ -16,7 +16,7 @@ import {
 } from '@stores/selectedServerStationFiltersStore';
 import { stationFilterStore } from '@stores/stationFilterStore';
 
-import { servers } from '@constants';
+import { SERVERS } from '@constants';
 
 import type { DisplayPosition, StationSummary } from 'types';
 
@@ -39,7 +39,7 @@ export const fetchStation = async () => {
   });
 
   const mode = developmentServerStore.getState();
-  const stations = await fetch(`${servers[mode]}/stations?${requestQueryParams}`, {
+  const stations = await fetch(`${SERVERS[mode]}/stations?${requestQueryParams}`, {
     method: 'GET',
   }).then<StationSummary[]>(async (response) => {
     const data = await response.json();
