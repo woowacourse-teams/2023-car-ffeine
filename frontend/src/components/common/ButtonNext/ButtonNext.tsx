@@ -3,15 +3,7 @@ import styled, { css } from 'styled-components';
 
 import React from 'react';
 
-export type Color =
-  | 'primary'
-  | 'secondary'
-  | 'success'
-  | 'info'
-  | 'warning'
-  | 'error'
-  | 'light'
-  | 'dark';
+import type { Color } from '../../../types/style';
 
 export interface ButtonNextProps {
   noTheme?: boolean;
@@ -23,9 +15,17 @@ export interface ButtonNextProps {
   css?: CSSProp;
 }
 
-const ButtonNext = ({ children, noTheme, variant, size, disabled, ...props }: ButtonNextProps) => {
+const ButtonNext = ({
+  children,
+  noTheme,
+  variant,
+  size,
+  disabled,
+  css,
+  ...props
+}: ButtonNextProps) => {
   return noTheme ? (
-    <S.PureButton {...props} disabled={disabled}>
+    <S.PureButton css={css} disabled={disabled}>
       {children}
     </S.PureButton>
   ) : (
@@ -38,6 +38,7 @@ const ButtonNext = ({ children, noTheme, variant, size, disabled, ...props }: Bu
 const S = {
   Button: styled.button<ButtonNextProps>`
     border-radius: 4px;
+    margin: 1px;
     padding: 6px 16px;
     cursor: pointer;
     ${({ variant, color, disabled }) => {
