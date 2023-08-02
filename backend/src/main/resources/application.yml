@@ -4,6 +4,10 @@ server:
 spring:
   profiles:
     active: local
+  datasource:
+    hikari:
+      minimum-idle: 22
+      maximum-pool-size: 22
 
 jasypt:
   encryptor:
