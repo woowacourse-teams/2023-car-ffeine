@@ -1,17 +1,11 @@
 import { css } from 'styled-components';
 
-import { useExternalState } from '@utils/external-state';
-
-import { serverStationFiltersOpenStore } from '@stores/navItemsOpenStore';
-
 import { useServerStationFilters } from '@hooks/useServerStationFilters';
 import { useUpdateStations } from '@hooks/useUpdateStations';
 
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
-
-import { windowPositionTriggeredByLnb } from '@style';
 
 import { CHARGER_TYPES, CAPACITIES, COMPANY_NAME } from '@constants';
 
@@ -49,8 +43,6 @@ const buttonCss = css`
 `;
 
 const ServerStationFilters = () => {
-  const [isOpen, setIsOpen] = useExternalState(serverStationFiltersOpenStore);
-
   const { updateStations } = useUpdateStations();
 
   const {
@@ -64,10 +56,7 @@ const ServerStationFilters = () => {
 
   const handleApplySelectedFilters = () => {
     updateStations();
-    setIsOpen(false);
   };
-
-  if (!isOpen) return <></>;
 
   return (
     <FlexBox
@@ -77,7 +66,7 @@ const ServerStationFilters = () => {
       direction={'column'}
       background={'white'}
       css={`
-        ${windowPositionTriggeredByLnb}${overFlowCss}${borderCss}${paddingCss}
+        ${overFlowCss}${borderCss}${paddingCss}
       `}
       nowrap={true}
       noRadius={'all'}

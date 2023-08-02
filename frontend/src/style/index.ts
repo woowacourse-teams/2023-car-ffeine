@@ -27,10 +27,3 @@ export const getSize = (size: string | number) => {
   }
   return 'auto';
 };
-
-export const windowPositionTriggeredByLnb = css`
-  position: fixed;
-  left: 7rem;
-  top: 0;
-  z-index: 999;
-`;

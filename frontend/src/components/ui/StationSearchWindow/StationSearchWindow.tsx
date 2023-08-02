@@ -8,15 +8,11 @@ import { stationSearchWindowOpenStore } from '@stores/navItemsOpenStore';
 import Button from '@common/Button';
 import Text from '@common/Text';
 
-import { windowPositionTriggeredByLnb } from '@style';
+import SearchResult from './SearchResult';
 
 import StationSearchBar from './StationSearchBar';
 
 const StationSearchWindow = () => {
-  const [isOpen, setIsOpen] = useExternalState(stationSearchWindowOpenStore);
-
-  if (!isOpen) return <></>;
-
   return (
     <S.Container>
       <Button variant="label" onClick={() => setIsOpen(false)} aria-label="검색창 닫기">
@@ -37,8 +33,6 @@ const S = {
     background: #fcfcfc;
     outline: 1.5px solid #e1e4eb;
     padding: 2.8rem 2.4rem 5.2rem;
-
-    ${windowPositionTriggeredByLnb}
   `,
 };
 
