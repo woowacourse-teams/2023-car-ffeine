@@ -10,6 +10,7 @@ import { useContext } from 'react';
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 
+import DevelopmentServerControlButton from '@ui/DevelopmentServerControlButton';
 import MswControlButton from '@ui/MswControlButton';
 import LogoIcon from '@ui/Svg/LogoIcon';
 
@@ -48,6 +49,7 @@ const Navigator = () => {
         <Bars3Icon width="2.8rem" stroke="#333" />
       </Button>
       {process.env.NODE_ENV === 'development' && <MswControlButton />}
+      {process.env.NODE_ENV === 'development' && <DevelopmentServerControlButton />}
     </FlexBox>
   );
 };
