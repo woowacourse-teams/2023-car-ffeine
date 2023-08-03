@@ -1,13 +1,10 @@
 import { css } from 'styled-components';
 
-import { useQueryClient } from '@tanstack/react-query';
+import { useSetExternalState } from '@utils/external-state';
 
-import { useExternalValue, useSetExternalState } from '@utils/external-state';
-
-import { getBriefStationInfoWindowStore } from '@stores/briefStationInfoWindowStore';
-import { getGoogleMapStore } from '@stores/googleMapStore';
-import { markerInstanceStore } from '@stores/markerInstanceStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
+
+import { useStationSummary } from '@hooks/useStationSummary';
 
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
@@ -16,8 +13,6 @@ import Text from '@common/Text';
 
 import { useAccordionAction } from '@ui/Accordion/hooks/useAccordionAction';
 import ChargingSpeedIcon from '@ui/ChargingSpeedIcon';
-
-import BriefStationInfo from '../BriefStationInfo';
 
 import type { StationSummary } from 'types';
 
@@ -28,37 +23,8 @@ interface Props {
 }
 
 const StationSummaryCard = ({ station, tag, $noPadding }: Props) => {
-  const googleMap = useExternalValue(getGoogleMapStore());
   const { handleOpenLastPanel } = useAccordionAction();
-
-  const stationMarkers = useExternalValue(markerInstanceStore);
-
-  const { infoWindowInstance, briefStationInfoRoot } = useExternalValue(
-    getBriefStationInfoWindowStore()
-  );
-  const setSelectedStationId = useSetExternalState(selectedStationIdStore);
-  const queryClient = useQueryClient();
-
-  const handleBriefStationInfoOpen = (station: StationSummary) => {
-    const { stationId, latitude: lat, longitude: lng } = station;
-
-    const selectedStation = stationMarkers.find((marker) => marker.stationId === stationId);
-
-    googleMap.panTo({ lat, lng });
-    queryClient.invalidateQueries({ queryKey: ['stations'] });
-
-    infoWindowInstance.open({
-      anchor: selectedStation.markerInstance,
-      map: googleMap,
-    });
-
-    briefStationInfoRoot.render(<BriefStationInfo station={station} />);
-  };
-
-  const handleStationDetailsOpen = (stationId: number) => {
-    setSelectedStationId(stationId);
-    handleOpenLastPanel();
-  };
+  const { openStationSummary } = useStationSummary();
 
   const {
     stationId,
@@ -79,8 +45,8 @@ const StationSummaryCard = ({ station, tag, $noPadding }: Props) => {
         shadow
         css={foundStationButton}
         onClick={() => {
-          handleBriefStationInfoOpen(station);
-          handleStationDetailsOpen(stationId);
+          openStationSummary(station);
+          handleOpenLastPanel();
         }}
       >
         <FlexBox alignItems="start" justifyContent="between" nowrap columnGap={2.8}>

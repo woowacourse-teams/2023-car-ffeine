@@ -79,7 +79,7 @@ const ClientStationFilters = () => {
         color="dark"
         size="sm"
       >
-        외부인 출입 제한
+        공공 충전소
       </ButtonNext>
     </Container>
   );
