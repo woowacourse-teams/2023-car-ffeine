@@ -26,6 +26,16 @@ export const Variant = () => {
     </>
   );
 };
+
+export const Pill = () => {
+  return (
+    <>
+      <ButtonNext pill>pill</ButtonNext>
+      <ButtonNext>no pill</ButtonNext>
+    </>
+  );
+};
+
 export const Size = () => {
   return (
     <>

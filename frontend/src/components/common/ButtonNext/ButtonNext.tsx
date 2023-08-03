@@ -30,7 +30,7 @@ const ButtonNext = ({ children, noTheme, ...props }: ButtonNextProps) => {
 
 const S = {
   Button: styled.button<ButtonNextProps>`
-    border-radius: 10px;
+    border-radius: 6px;
     ${({ pill }) => pill && 'border-radius: 20px;'}
 
     margin: 1px;
