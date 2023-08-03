@@ -1,6 +1,7 @@
 import type { CSSProp } from 'styled-components';
 import styled, { css } from 'styled-components';
 
+import type { ReactNode } from 'react';
 import React from 'react';
 
 import { getColor, getHoverColor } from '@constants/styles';
@@ -12,7 +13,7 @@ export interface ButtonNextProps {
   noTheme?: boolean;
   variant?: 'text' | 'outlined' | 'contained';
   size?: Size;
-  children?: string;
+  children?: ReactNode;
   color?: Color;
   disabled?: boolean;
   fullWidth?: boolean;

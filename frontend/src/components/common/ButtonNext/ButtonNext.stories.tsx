@@ -8,8 +8,39 @@ const meta = {
   title: 'Components/ButtonNext',
   component: ButtonNext,
   tags: ['autodocs'],
-  args: {},
-  argTypes: {},
+  args: {
+    children: 'Button',
+  },
+  argTypes: {
+    children: {
+      control: {
+        type: 'text',
+      },
+      description:
+        '버튼 내용을 입력할 수 있습니다.<br> 원하는 컴포넌트, 텍스트 등을 넣을 수 있습니다.',
+    },
+    noTheme: {
+      description: '테마를 끌 수 있습니다.',
+    },
+    variant: {
+      description: '버튼의 형태를 정할 수 있습니다. 가득참, 빈, 텍스트 모드로 전환할 수 있습니다.',
+    },
+    size: {
+      description: '사이즈를 정할 수 있습니다.',
+    },
+    disabled: {
+      description: '버튼을 비활성화 할 수 있습니다.',
+    },
+    fullWidth: {
+      description: '버튼을 가득 채울 수 있습니다.',
+    },
+    pill: {
+      description: '버튼을 알약 모양으로 만들 수 있습니다.',
+    },
+    css: {
+      description: '버튼에 CSS를 부여할 수 있습니다.',
+    },
+  },
 };
 export default meta;
 
