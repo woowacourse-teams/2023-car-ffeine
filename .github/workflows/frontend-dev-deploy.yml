@@ -34,10 +34,9 @@ jobs:
       - name: Add Enviromnet
         run: |
           cd frontend          
-          pwd
           touch .env
           echo "${{ secrets.GOOGLE_MAPS_API_KEY }}" >> .env
-          
+
       - name: Join EC2 dev server
         uses: appleboy/ssh-action@master
         with:
