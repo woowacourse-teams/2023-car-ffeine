@@ -1,17 +1,14 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
+
+import { fetchStation } from './useStations';
 
 export const useUpdateStations = () => {
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation(['stations'], {
-    mutationFn: () => new Promise<Response>((resolve) => resolve(new Response())),
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['stations'] });
-    },
-  });
+  const updateStations = async () => {
+    await fetchStation();
 
-  const updateStations = () => {
-    mutate();
+    queryClient.invalidateQueries({ queryKey: ['stations'] });
   };
 
   return { updateStations };
