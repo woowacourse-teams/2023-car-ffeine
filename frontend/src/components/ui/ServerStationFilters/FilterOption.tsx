@@ -1,8 +1,8 @@
-import Button from '@common/Button';
+import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-import type { CHARGER_TYPES } from './../../../constants/index';
+import type { CHARGER_TYPES } from '@constants';
 
 import type { Capacity, ChargerType, CompanyName } from 'types';
 
@@ -22,7 +22,7 @@ const FilterSection = ({
   title,
   filterOptionNames,
   filterOptionValues,
-  filterButtonVariant = 'xs',
+  filterButtonVariant = 'sm',
   toggleSelectFilter,
   getIsFilterSelected,
 }: FilterSectionProps) => {
@@ -33,15 +33,15 @@ const FilterSection = ({
       </Text>
       <FlexBox gap={2}>
         {filterOptionNames.map((filterOption, index) => (
-          <Button
+          <ButtonNext
             key={index}
+            variant={getIsFilterSelected(filterOptionValues[index]) ? 'contained' : 'outlined'}
             size={filterButtonVariant}
-            outlined={true}
             onClick={() => toggleSelectFilter(filterOptionValues[index])}
-            background={getIsFilterSelected(filterOptionValues[index]) && '#c8c8c8'}
+            pill
           >
             <Text variant={'subtitle'}>{filterOption}</Text>
-          </Button>
+          </ButtonNext>
         ))}
       </FlexBox>
     </FlexBox>
