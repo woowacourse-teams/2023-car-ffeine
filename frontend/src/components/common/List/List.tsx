@@ -1,9 +1,9 @@
 import type { CSSProp } from 'styled-components';
 import styled from 'styled-components';
 
-import type { ReactNode } from 'react';
+import type { HTMLAttributes, ReactNode } from 'react';
 
-export interface ListProps {
+export interface ListProps extends HTMLAttributes<HTMLUListElement> {
   children: ReactNode;
   p?: number;
   border?: boolean;

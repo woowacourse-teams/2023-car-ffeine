@@ -1,9 +1,9 @@
 import type { CSSProp } from 'styled-components';
 import styled from 'styled-components';
 
-import type { ReactNode } from 'react';
+import type { HTMLAttributes, ReactNode } from 'react';
 
-export interface BoxProps {
+export interface BoxProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
   border?: boolean;
   p?: number;
