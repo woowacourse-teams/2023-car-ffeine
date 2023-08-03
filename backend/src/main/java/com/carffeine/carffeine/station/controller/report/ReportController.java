@@ -21,28 +21,28 @@ public class ReportController {
     @PostMapping("/api/stations/{stationId}/reports")
     public ResponseEntity<Void> saveReport(
             @PathVariable String stationId,
-            @RequestHeader("Authorization") String memberId
+            @RequestHeader("Authorization") Long memberId
     ) {
-        reportService.saveFaultReport(stationId, Long.valueOf(memberId));
+        reportService.saveFaultReport(stationId, memberId);
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/api/stations/{stationId}/misinformation-reports")
     public ResponseEntity<Void> saveMisinformationReport(
             @PathVariable String stationId,
-            @RequestHeader("Authorization") String memberId,
+            @RequestHeader("Authorization") Long memberId,
             @RequestBody MisinformationReportRequest request
     ) {
-        reportService.saveMisinformationReport(stationId, Long.valueOf(memberId), request);
+        reportService.saveMisinformationReport(stationId, memberId, request);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/api/stations/{stationId}/reports/me")
     public ResponseEntity<DuplicateReportResponse> isDuplicateReport(
             @PathVariable String stationId,
-            @RequestHeader("Authorization") String memberId
+            @RequestHeader("Authorization") Long memberId
     ) {
-        boolean isAlreadyReport = reportService.isDuplicateReportStation(Long.valueOf(memberId), stationId);
+        boolean isAlreadyReport = reportService.isDuplicateReportStation(memberId, stationId);
         DuplicateReportResponse response = new DuplicateReportResponse(isAlreadyReport);
         return ResponseEntity.ok(response);
     }
