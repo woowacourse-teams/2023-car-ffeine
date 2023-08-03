@@ -23,7 +23,7 @@ const fetchStationChargerReport = (token: number, stationId: number) => {
 
 export const useStationChargerReport = (stationId: number) => {
   const token = getLocalStorage<number>(LOCAL_KEY_TOKEN, DEFAULT_TOKEN);
-  console.log(stationId);
+
   return useQuery({
     queryKey: ['isStationChargerReported', stationId],
     queryFn: () => fetchStationChargerReport(token, stationId),

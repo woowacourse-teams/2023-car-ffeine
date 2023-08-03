@@ -12,8 +12,6 @@ interface BarContainerProps extends GraphProps {
 const BarContainer = ({ align, statistics, renderBar }: BarContainerProps) => {
   const { selectedDay } = useContext(GraphContext);
 
-  console.log(selectedDay);
-
   return (
     <FlexBox
       direction={align}

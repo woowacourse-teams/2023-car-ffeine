@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 
+import { useQueryClient } from '@tanstack/react-query';
+
 import { useExternalValue, useSetExternalState } from '@utils/external-state';
 import { getStoreSnapshot } from '@utils/external-state/tools';
 
@@ -7,8 +9,6 @@ import { getBriefStationInfoWindowStore } from '@stores/briefStationInfoWindowSt
 import { getGoogleMapStore } from '@stores/googleMapStore';
 import { markerInstanceStore } from '@stores/markerInstanceStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
-
-import { useUpdateStations } from '@hooks/useUpdateStations';
 
 import BriefStationInfo from '@ui/BriefStationInfo';
 
@@ -23,8 +23,8 @@ interface Props {
 const StationMarker = ({ station }: Props) => {
   const { latitude, longitude, stationName, stationId } = station;
   const googleMap = useExternalValue(getGoogleMapStore());
+  const queryClient = useQueryClient();
 
-  const { updateStations } = useUpdateStations();
   const { briefStationInfoRoot, infoWindowInstance } = useExternalValue(
     getBriefStationInfoWindowStore()
   );
@@ -57,7 +57,7 @@ const StationMarker = ({ station }: Props) => {
       setSelectedStationId(stationId);
       briefStationInfoRoot.render(<BriefStationInfo station={station} />);
       googleMap.panTo(markerInstance.getPosition());
-      updateStations();
+      queryClient.invalidateQueries({ queryKey: ['stations'] });
     });
 
     return () => {

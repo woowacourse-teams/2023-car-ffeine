@@ -85,10 +85,6 @@ const ClientStationFilters = () => {
   );
 };
 
-interface ButtonProps {
-  isActive: boolean;
-}
-
 const Container = styled.div`
   position: fixed;
   top: 10px;
@@ -101,14 +97,5 @@ const Container = styled.div`
   display: flex;
   gap: 10px;
 `;
-
-// const Button = styled.button<ButtonProps>`
-//   border: 1px solid;
-//   border-radius: 5px;
-//   padding: 10px;
-
-//   color: ${(props) => (props.isActive ? 'white' : 'black')};
-//   background-color: ${(props) => (props.isActive ? 'black' : 'white')};
-// `;
 
 export default ClientStationFilters;
