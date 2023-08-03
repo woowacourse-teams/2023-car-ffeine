@@ -26,6 +26,7 @@ module.exports = {
         exclude: /node_modules/,
         resolve: {
           extensions: ['.ts', '.tsx', '.js', '.json'],
+          fallback: { 'process': false },
         },
       },
       {
