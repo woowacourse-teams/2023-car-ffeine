@@ -1,5 +1,6 @@
 import { useSetExternalState } from '@utils/external-state';
 
+import { forceOpenAccordionPanelStore } from '@stores/forceOpenAccordionPanelStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
 import { CHARGING_SPEED } from '@constants';
@@ -12,6 +13,7 @@ interface Props {
 
 const BriefStationInfo = ({ station }: Props) => {
   const setSelectedStationId = useSetExternalState(selectedStationIdStore);
+  const setForceOpenAccordionPanel = useSetExternalState(forceOpenAccordionPanelStore);
 
   const {
     stationId,
@@ -28,6 +30,7 @@ const BriefStationInfo = ({ station }: Props) => {
 
   const handleOpenStationDetail = () => {
     setSelectedStationId(stationId);
+    setForceOpenAccordionPanel(true);
   };
 
   return (
