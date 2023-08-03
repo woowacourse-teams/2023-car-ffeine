@@ -9,3 +9,9 @@ spring:
     hibernate:
       ddl-auto: update
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+
+initialize-charge:
+  enabled: false
+
+scheduling:
+  enabled: false
