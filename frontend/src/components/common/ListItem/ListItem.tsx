@@ -8,10 +8,17 @@ export interface ListItemProps {
   divider?: boolean;
   NoLastDivider?: boolean;
   css?: CSSProp;
+  tag?: string;
 }
 
-const ListItem = ({ children, ...props }: ListItemProps) => {
-  return <ListItemWrapper {...props}>{children}</ListItemWrapper>;
+const ListItem = ({ children, tag, ...props }: ListItemProps) => {
+  const changeableTag = tag || 'li';
+
+  return (
+    <ListItemWrapper as={changeableTag} {...props}>
+      {children}
+    </ListItemWrapper>
+  );
 };
 
 const ListItemWrapper = styled.li<ListItemProps>`
