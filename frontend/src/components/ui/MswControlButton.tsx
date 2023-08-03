@@ -11,10 +11,10 @@ import Text from '@common/Text';
 import DevelopmentServerControlButton from '@ui/DevelopmentServerControlButton';
 
 const MswControlButton = () => {
-  const [isMswMode, setMswMode] = useExternalState(mswModeStore);
+  const [isMswMode, setIsMswMode] = useExternalState(mswModeStore);
   const setDevelopmentServer = useSetExternalState(serverStore);
   const switchMswMode = async () => {
-    setMswMode(!isMswMode);
+    setIsMswMode(!isMswMode);
     if (isMswMode) {
       await mswModeActions.stopMsw();
     } else {
