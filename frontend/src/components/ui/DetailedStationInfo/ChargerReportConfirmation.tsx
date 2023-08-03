@@ -4,7 +4,7 @@ import { useUpdateStationChargerReport } from '@hooks/useUpdateStationChargerRep
 
 import Alert from '@common/Alert';
 import Box from '@common/Box';
-import Button from '@common/Button';
+import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
@@ -24,13 +24,25 @@ const ChargerReportConfirmation = ({ stationId }: ChargerReportConfirmationProps
         표시된 정보가 실제 충전기 상태와 다를 수 있습니다.
       </Text>
       <Alert color="primary" text="충전기가 고장나있다면 신고해주세요." />
-      <FlexBox justifyContent="between">
-        <Button size="md" onClick={() => modalActions.closeModal()}>
+      <FlexBox justifyContent="between" nowrap>
+        <ButtonNext
+          variant="outlined"
+          color="error"
+          size="md"
+          fullWidth
+          onClick={() => modalActions.closeModal()}
+        >
           생각해보니 문제가 없는 것 같아요
-        </Button>
-        <Button size="md" onClick={() => reportCharger()}>
+        </ButtonNext>
+        <ButtonNext
+          variant="contained"
+          color="success"
+          size="md"
+          fullWidth
+          onClick={() => reportCharger()}
+        >
           제보하기
-        </Button>
+        </ButtonNext>
       </FlexBox>
     </Box>
   );

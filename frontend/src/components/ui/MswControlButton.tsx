@@ -6,7 +6,7 @@ import { useSetExternalState } from '@utils/external-state';
 
 import { serverStore } from '@stores/serverStore';
 
-import Button from '@common/Button';
+import ButtonNext from '@common/ButtonNext';
 import Text from '@common/Text';
 
 import DevelopmentServerControlButton from '@ui/DevelopmentServerControlButton';
@@ -26,12 +26,16 @@ const MswControlButton = () => {
 
   return (
     <>
-      <Button onClick={() => switchMswMode()}>
+      <ButtonNext
+        variant="text"
+        color={isMswMode ? 'primary' : 'error'}
+        onClick={() => switchMswMode()}
+      >
         <>
           <Text align="center">MSW</Text>
           <Text align="center">{isMswMode ? 'ON' : 'OFF'}</Text>
         </>
-      </Button>
+      </ButtonNext>
       {!isMswMode && <DevelopmentServerControlButton />}
     </>
   );

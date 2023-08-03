@@ -1,7 +1,7 @@
 import type { CSSProp } from 'styled-components';
 import styled, { css } from 'styled-components';
 
-import type { ReactNode } from 'react';
+import type { ReactNode, MouseEventHandler } from 'react';
 import React from 'react';
 
 import { getColor, getHoverColor } from '@constants/styles';
@@ -18,6 +18,7 @@ export interface ButtonNextProps {
   disabled?: boolean;
   fullWidth?: boolean;
   pill?: boolean;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   css?: CSSProp;
 }
 

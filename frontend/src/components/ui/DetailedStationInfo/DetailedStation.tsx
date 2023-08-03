@@ -6,7 +6,7 @@ import { useStationChargerReport } from '@hooks/useStationChargerReport';
 
 import Alert from '@common/Alert';
 import Box from '@common/Box';
-import Button from '@common/Button';
+import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 
 import ChargerCard from '@ui/DetailedStationInfo/ChargerCard';
@@ -31,14 +31,17 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
     <Box px={2} py={10} css={containerCss}>
       <StationInformation station={station} />
       <FlexBox justifyContent="center">
-        <Button
+        <ButtonNext
+          fullWidth
+          variant="text"
           size="sm"
+          color="light"
           onClick={() => {
             modalActions.openModal(<StationReportConfirmation station={station} />);
           }}
         >
           📝 충전소 정보 수정 제안하기
-        </Button>
+        </ButtonNext>
       </FlexBox>
 
       <hr />
@@ -53,15 +56,18 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
         {isStationChargerReportedLoading ? (
           '⌛️'
         ) : (
-          <Button
+          <ButtonNext
+            fullWidth
+            variant="text"
             size="sm"
+            color="light"
             onClick={() => {
               modalActions.openModal(<ChargerReportConfirmation stationId={stationId} />);
             }}
             disabled={isStationChargerReported}
           >
             {isStationChargerReported ? '이미 신고한 충전소입니다.' : '🚨 충전기 고장 신고 '}
-          </Button>
+          </ButtonNext>
         )}
       </FlexBox>
       {reportCount > 0 && (

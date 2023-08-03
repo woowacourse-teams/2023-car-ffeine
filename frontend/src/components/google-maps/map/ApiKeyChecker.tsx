@@ -5,6 +5,7 @@ import { getLocalStorage, setLocalStorage } from '@utils/storage';
 
 import Box from '@common/Box';
 import Button from '@common/Button';
+import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import TextField from '@common/TextField';
 
@@ -61,16 +62,15 @@ function ApiKeyChecker({ render }: ApiKeyCheckerProps) {
               supportingText={value.length > 0 && '키는 항상 자동으로 브라우저에 저장됩니다.'}
             />
             <FlexBox justifyContent={'between'}>
-              <Button
-                size={'md'}
-                outlined
+              <ButtonNext
+                variant="outlined"
                 onClick={() => setLocalStorage(LOCAL_KEY_GOOGLE_MAPS_API, '')}
               >
                 브라우저에 저장된 키 제거
-              </Button>
-              <Button size={'md'} outlined onClick={handleClickLogin}>
+              </ButtonNext>
+              <ButtonNext variant="contained" color="success" onClick={handleClickLogin}>
                 전송하기
-              </Button>
+              </ButtonNext>
             </FlexBox>
           </Box>
         </FlexBox>
