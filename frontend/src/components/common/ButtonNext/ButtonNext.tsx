@@ -19,11 +19,9 @@ export interface ButtonNextProps {
   css?: CSSProp;
 }
 
-const ButtonNext = ({ children, noTheme, disabled, css, ...props }: ButtonNextProps) => {
+const ButtonNext = ({ children, noTheme, ...props }: ButtonNextProps) => {
   return noTheme ? (
-    <S.PureButton css={css} disabled={disabled}>
-      {children}
-    </S.PureButton>
+    <S.PureButton {...props}>{children}</S.PureButton>
   ) : (
     <S.Button {...props}>{children}</S.Button>
   );
