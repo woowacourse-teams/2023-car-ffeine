@@ -5,10 +5,11 @@ import { createContext, useEffect, useRef, useState } from 'react';
 
 import { useSetExternalState } from '@utils/external-state';
 
-import { navigatorAccordionWidthStore } from '@stores/navigatorWidthStore';
+import { browserWidthStore, navigatorAccordionWidthStore } from '@stores/componentWidthStore';
 
 import FlexBox from '@common/FlexBox';
 
+import { useCalculatedMapDelta } from './../../../hooks/useCalculatedMapDelta';
 import BasePanel from './BasePanel';
 import LastPanel from './LastPanel';
 import Navigator from './Navigator';
@@ -38,9 +39,19 @@ const Accordion = ({ isBasePanelOpenInDefault = false, children }: PropsWithChil
   const [basePanelType, setBasePanelType] = useState<BasePanelType>('searchWindow');
 
   const setNavigatorAccordionWidth = useSetExternalState(navigatorAccordionWidthStore);
+  const setBrowserWidth = useSetExternalState(browserWidthStore);
+  const delta = useCalculatedMapDelta();
 
   useEffect(() => {
     setNavigatorAccordionWidth(accordionContainerRef.current.offsetWidth);
+    setBrowserWidth((prev) => {
+      if (prev === null) {
+        return document.body.offsetWidth;
+      }
+      return prev;
+    });
+
+    console.log(delta);
   }, [isBasePanelOpen, isLastPanelOpen]);
 
   return (
