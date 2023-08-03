@@ -7,17 +7,17 @@ import ApiKeyChecker from '@map/ApiKeyChecker';
 
 import { configureToken } from '@utils/configureToken';
 
+import { mswModeActions } from '@stores/mswModeStore';
+
 import App from 'App';
 
 import { GlobalStyle } from 'style/GlobalStyle';
-
-import { startMsw } from './mocks/configureMsw';
 
 const queryClient = new QueryClient();
 
 const main = async () => {
   if (process.env.NODE_ENV === 'development') {
-    await startMsw();
+    await mswModeActions.startMsw();
   }
 
   const domNode = document.getElementById('root');

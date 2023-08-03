@@ -14,7 +14,7 @@ const render = (status: Status) => {
 };
 
 const App = ({ apiKey }: { apiKey: string }) => {
-  return <Wrapper apiKey={apiKey} render={render} />;
+  return <Wrapper apiKey={apiKey} render={render} libraries={['marker']} />;
 };
 
 export default App;
