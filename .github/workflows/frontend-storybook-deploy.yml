@@ -49,7 +49,7 @@ jobs:
     steps:
       - name: Remove previous version app
         working-directory: frontend/dev/
-        run: rm -rf dist
+        run: rm -rf dist || true
 
       - name: Download the built file to AWS
         uses: actions/download-artifact@v3
