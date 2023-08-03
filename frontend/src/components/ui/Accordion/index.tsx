@@ -9,7 +9,6 @@ import { browserWidthStore, navigatorAccordionWidthStore } from '@stores/compone
 
 import FlexBox from '@common/FlexBox';
 
-import { useCalculatedMapDelta } from './../../../hooks/useCalculatedMapDelta';
 import BasePanel from './BasePanel';
 import LastPanel from './LastPanel';
 import Navigator from './Navigator';
