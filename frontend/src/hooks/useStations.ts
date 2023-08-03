@@ -76,9 +76,9 @@ export const useStations = () => {
         const isNoFastCharge =
           isFastChargeStationFilterSelected && !chargers.some((charger) => charger.capacity >= 50);
         const isNoFreeParking = isParkingFreeStationFilterSelected && !isParkingFree;
-        const isNoPrivate = isPrivateStationFilterSelected && !isPrivate;
+        const isNoPublic = isPrivateStationFilterSelected && isPrivate;
 
-        if (isNoAvailable || isNoFastCharge || isNoFreeParking || isNoPrivate) return false;
+        if (isNoAvailable || isNoFastCharge || isNoFreeParking || isNoPublic) return false;
         return true;
       });
     },
