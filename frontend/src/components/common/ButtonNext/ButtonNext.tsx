@@ -16,6 +16,7 @@ export interface ButtonNextProps {
   color?: Color;
   disabled?: boolean;
   fullWidth?: boolean;
+  pill?: boolean;
   css?: CSSProp;
 }
 
@@ -29,7 +30,9 @@ const ButtonNext = ({ children, noTheme, ...props }: ButtonNextProps) => {
 
 const S = {
   Button: styled.button<ButtonNextProps>`
-    border-radius: 4px;
+    border-radius: 10px;
+    ${({ pill }) => pill && 'border-radius: 20px;'}
+
     margin: 1px;
     ${({ fullWidth }) => fullWidth && 'width: 100%;'}
     ${({ disabled }) => disabled && `cursor: unset;`}
