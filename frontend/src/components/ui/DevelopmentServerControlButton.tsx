@@ -2,9 +2,7 @@ import { useExternalValue } from '@utils/external-state';
 
 import { serverActions, serverStore } from '@stores/serverStore';
 
-import Button from '@common/Button';
 import ButtonNext from '@common/ButtonNext';
-import Text from '@common/Text';
 
 const DevelopmentServerControlButton = () => {
   const currentServer = useExternalValue(serverStore);
@@ -16,7 +14,7 @@ const DevelopmentServerControlButton = () => {
   return (
     <ButtonNext
       variant="text"
-      color="dark"
+      color={currentServer === 'localhost' ? 'secondary' : 'success'}
       size="xs"
       onClick={handleClickDevelopmentServerControlButton}
     >

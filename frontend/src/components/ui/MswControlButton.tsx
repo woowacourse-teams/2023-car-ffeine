@@ -26,7 +26,11 @@ const MswControlButton = () => {
 
   return (
     <>
-      <ButtonNext variant="text" onClick={() => switchMswMode()}>
+      <ButtonNext
+        variant="text"
+        color={isMswMode ? 'primary' : 'error'}
+        onClick={() => switchMswMode()}
+      >
         <>
           <Text align="center">MSW</Text>
           <Text align="center">{isMswMode ? 'ON' : 'OFF'}</Text>
