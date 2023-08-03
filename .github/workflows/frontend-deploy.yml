@@ -36,6 +36,7 @@ jobs:
           push: true
           tags: woowacarffeine/frontend:latest
           labels: ${{ steps.meta.outputs.labels }}
+
       - name: Join EC2 dev server
         uses: appleboy/ssh-action@master
         with:
