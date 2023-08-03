@@ -1,10 +1,10 @@
 package com.carffeine.carffeine.config;
 
-import org.springframework.context.annotation.Profile;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Component;
 
-@Profile("prod")
+@ConditionalOnProperty(name = "scheduling.enabled", havingValue = "true")
 @EnableScheduling
 @Component
 public class SchedulingConfig {

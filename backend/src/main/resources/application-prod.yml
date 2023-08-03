@@ -12,3 +12,6 @@ spring:
 
 initialize-charge:
   enabled: true
+
+scheduling:
+  enabled: true
