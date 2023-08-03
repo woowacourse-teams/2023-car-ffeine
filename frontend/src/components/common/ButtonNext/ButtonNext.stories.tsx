@@ -1,6 +1,8 @@
 import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import type { ButtonNextProps } from '@common/ButtonNext/ButtonNext';
+import FlexBox from '@common/FlexBox';
+import Text from '@common/Text';
 
 const meta = {
   title: 'Components/ButtonNext',
@@ -139,4 +141,33 @@ export const Disabled = () => {
 
 export const NoTheme = () => {
   return <ButtonNext noTheme>테마가 모두 사라져버린 버튼</ButtonNext>;
+};
+
+export const FullWidth = () => {
+  return <ButtonNext fullWidth>길쭉이</ButtonNext>;
+};
+
+export const FullWidthExample = () => {
+  return (
+    <>
+      <Box mb={5}>
+        <Text variant="title">with fullWidth</Text>
+        <FlexBox nowrap>
+          <ButtonNext color="error" fullWidth>
+            취소
+          </ButtonNext>
+          <ButtonNext color="success" fullWidth>
+            제출
+          </ButtonNext>
+        </FlexBox>
+      </Box>
+      <Box>
+        <Text variant="title">without fullWidth</Text>
+        <FlexBox nowrap>
+          <ButtonNext color="error">취소</ButtonNext>
+          <ButtonNext color="success">제출</ButtonNext>
+        </FlexBox>
+      </Box>
+    </>
+  );
 };

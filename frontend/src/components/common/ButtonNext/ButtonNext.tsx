@@ -15,26 +15,17 @@ export interface ButtonNextProps {
   children?: string;
   color?: Color;
   disabled?: boolean;
+  fullWidth?: boolean;
   css?: CSSProp;
 }
 
-const ButtonNext = ({
-  children,
-  noTheme,
-  variant,
-  size,
-  disabled,
-  css,
-  ...props
-}: ButtonNextProps) => {
+const ButtonNext = ({ children, noTheme, disabled, css, ...props }: ButtonNextProps) => {
   return noTheme ? (
     <S.PureButton css={css} disabled={disabled}>
       {children}
     </S.PureButton>
   ) : (
-    <S.Button variant={variant} size={size} color={props.color} disabled={disabled} {...props}>
-      {children}
-    </S.Button>
+    <S.Button {...props}>{children}</S.Button>
   );
 };
 
@@ -42,6 +33,7 @@ const S = {
   Button: styled.button<ButtonNextProps>`
     border-radius: 4px;
     margin: 1px;
+    ${({ fullWidth }) => fullWidth && 'width: 100%;'}
     ${({ disabled }) => disabled && `cursor: unset;`}
     ${({ variant, color, disabled }) => {
       switch (variant) {
