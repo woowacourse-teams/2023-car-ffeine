@@ -16,13 +16,18 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - uses: actions/checkout@v3
+      - name: Add Enviromnet
+        run: |
+          cd frontend          
+          touch .env
+          echo "${{ secrets.GOOGLE_MAPS_API_KEY }}" >> .env
+
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
           images: woowacarffeine/frontend
-
       - name: Build and push Docker image
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
@@ -31,12 +36,6 @@ jobs:
           push: true
           tags: woowacarffeine/frontend:latest
           labels: ${{ steps.meta.outputs.labels }}
-      - name: Add Enviromnet
-        run: |
-          cd frontend          
-          touch .env
-          echo "${{ secrets.GOOGLE_MAPS_API_KEY }}" >> .env
-
       - name: Join EC2 dev server
         uses: appleboy/ssh-action@master
         with:
