@@ -2,15 +2,7 @@ import styled, { css } from 'styled-components';
 
 import React from 'react';
 
-export type Color =
-  | 'primary'
-  | 'secondary'
-  | 'success'
-  | 'info'
-  | 'warning'
-  | 'error'
-  | 'light'
-  | 'dark';
+import type { Color } from '../../../types/style';
 
 export interface AlertProps {
   color: Color;

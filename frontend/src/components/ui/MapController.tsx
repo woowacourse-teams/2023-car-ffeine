@@ -6,13 +6,15 @@ import { getGoogleMapStore, googleMapActions } from '@stores/googleMapStore';
 
 import { useCurrentPosition } from '@hooks/useCurrentPosition';
 
+import { INITIAL_ZOOM_SIZE } from '@constants';
+
 const MapController = () => {
   const position = useCurrentPosition();
   const googleMap = useExternalValue(getGoogleMapStore());
 
   const handleCurrentPositionButton = () => {
     googleMap.panTo({ lat: position.lat, lng: position.lng });
-    googleMap.setZoom(15);
+    googleMap.setZoom(INITIAL_ZOOM_SIZE);
   };
 
   const handleZoomUpButton = () => {
