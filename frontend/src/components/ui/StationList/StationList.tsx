@@ -30,7 +30,7 @@ const StationList = () => {
   const { data: stations, isSuccess } = useStations();
   const stationMarkers = useExternalValue(markerInstanceStore);
 
-  if (stations.length === 0) {
+  if (stations && stations.length === 0) {
     handleCloseAllPanel();
   }
 
