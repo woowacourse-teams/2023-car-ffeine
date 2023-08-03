@@ -6,7 +6,9 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
+@Profile("prod")
 @RequiredArgsConstructor
 @Configuration
 @ConditionalOnProperty(name = "initialize-charge.enabled", havingValue = "true")
