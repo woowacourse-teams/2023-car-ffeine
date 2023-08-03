@@ -33,11 +33,11 @@ const StationMarker = ({ station }: Props) => {
   const setSelectedStationId = useSetExternalState(selectedStationIdStore);
 
   useEffect(() => {
-    const markerInstance = new google.maps.Marker({
+    const markerInstance = new google.maps.marker.AdvancedMarkerElement({
       position: { lat: latitude, lng: longitude },
       map: googleMap,
       title: stationName,
-      icon: BlueMarker,
+      // icon: BlueMarker,
     });
 
     setMarkerInstanceState((previewsMarkerInstances) => [
@@ -56,7 +56,7 @@ const StationMarker = ({ station }: Props) => {
 
       setSelectedStationId(stationId);
       briefStationInfoRoot.render(<BriefStationInfo station={station} />);
-      googleMap.panTo(markerInstance.getPosition());
+      googleMap.panTo(markerInstance.position);
       queryClient.invalidateQueries({ queryKey: ['stations'] });
     });
 
@@ -69,7 +69,7 @@ const StationMarker = ({ station }: Props) => {
 
       if (selectedStationId === stationId) setSelectedStationId(null);
 
-      markerInstance.setMap(null);
+      markerInstance.map = null;
     };
   }, []);
 
