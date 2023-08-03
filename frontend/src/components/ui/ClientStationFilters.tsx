@@ -4,7 +4,7 @@ import { useExternalState } from '@utils/external-state';
 
 import { stationFilterStore } from '@stores/stationFilterStore';
 
-import Button from '@common/Button';
+import ButtonNext from '@common/ButtonNext';
 
 import { CHARGING_SPEED } from '@constants';
 
@@ -49,38 +49,38 @@ const ClientStationFilters = () => {
 
   return (
     <Container>
-      <Button
+      <ButtonNext
         onClick={toggleAvailableStation}
-        background={isAvailableStationFilterSelected ? 'black' : 'white'}
-        color={isAvailableStationFilterSelected ? 'white' : 'black'}
-        size={'sm'}
+        variant={isAvailableStationFilterSelected ? 'contained' : 'outlined'}
+        color="dark"
+        size="sm"
       >
         현재 사용 가능
-      </Button>
-      <Button
+      </ButtonNext>
+      <ButtonNext
         onClick={toggleParkingFreeStation}
-        background={isParkingFreeStationFilterSelected ? 'black' : 'white'}
-        color={isAvailableStationFilterSelected ? 'white' : 'black'}
-        size={'sm'}
+        variant={isParkingFreeStationFilterSelected ? 'contained' : 'outlined'}
+        color="dark"
+        size="sm"
       >
         주차 무료
-      </Button>
-      <Button
+      </ButtonNext>
+      <ButtonNext
         onClick={toggleFastChargeStation}
-        background={isFastChargeStationFilterSelected ? 'black' : 'white'}
-        color={isAvailableStationFilterSelected ? 'white' : 'black'}
-        size={'sm'}
+        variant={isFastChargeStationFilterSelected ? 'contained' : 'outlined'}
+        color="dark"
+        size="sm"
       >
         {CHARGING_SPEED.QUICK}
-      </Button>
-      <Button
+      </ButtonNext>
+      <ButtonNext
         onClick={togglePrivateStation}
-        background={isPrivateStationFilterSelected ? 'black' : 'white'}
-        color={isAvailableStationFilterSelected ? 'white' : 'black'}
-        size={'sm'}
+        variant={isPrivateStationFilterSelected ? 'contained' : 'outlined'}
+        color="dark"
+        size="sm"
       >
         외부인 출입 제한
-      </Button>
+      </ButtonNext>
     </Container>
   );
 };
@@ -92,7 +92,6 @@ const Container = styled.div`
   z-index: 998;
   padding: 10px;
   background-color: white;
-  box-shadow: 1px 1px 2px gray;
 
   display: flex;
   gap: 10px;
