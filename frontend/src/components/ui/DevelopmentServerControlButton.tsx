@@ -3,6 +3,7 @@ import { useExternalValue } from '@utils/external-state';
 import { serverActions, serverStore } from '@stores/serverStore';
 
 import Button from '@common/Button';
+import ButtonNext from '@common/ButtonNext';
 import Text from '@common/Text';
 
 const DevelopmentServerControlButton = () => {
@@ -13,14 +14,16 @@ const DevelopmentServerControlButton = () => {
   };
 
   return (
-    <Button onClick={handleClickDevelopmentServerControlButton}>
-      <>
-        <Text align="center">현재서버</Text>
-        <Text align="center" variant="caption">
-          {currentServer}
-        </Text>
-      </>
-    </Button>
+    <ButtonNext
+      variant="text"
+      color="dark"
+      size="xs"
+      onClick={handleClickDevelopmentServerControlButton}
+    >
+      서버
+      <br />
+      {currentServer}
+    </ButtonNext>
   );
 };
 
