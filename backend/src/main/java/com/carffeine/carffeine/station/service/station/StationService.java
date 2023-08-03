@@ -1,7 +1,6 @@
 package com.carffeine.carffeine.station.service.station;
 
 import com.carffeine.carffeine.station.domain.charger.Charger;
-import com.carffeine.carffeine.station.domain.charger.ChargerCondition;
 import com.carffeine.carffeine.station.domain.charger.ChargerStatus;
 import com.carffeine.carffeine.station.domain.charger.ChargerStatusRepository;
 import com.carffeine.carffeine.station.domain.charger.ChargerType;
@@ -27,16 +26,13 @@ import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 @RequiredArgsConstructor
 @Service
 public class StationService {
 
-    private static final int PAGE_SIZE = 6;
     private static final String QUICK = "QUICK";
     private static final String STANDARD = "STANDARD";
 
@@ -79,19 +75,19 @@ public class StationService {
         periodicCongestionCustomRepository.updateTotalCountByPeriod(dayOfWeek, period);
     }
 
-    public StationsSearchResponse searchStations(String query, Set<String> scope, int page) {
+    public StationsSearchResponse searchStations(String query, Set<String> scope, int page, int limit) {
         List<Station> stations = stationRepository.findAllByStationNameContainingOrAddressContainingOrderByStationId(query, query);
-        List<StationSearchResponse> stationByScope = stationsToScope(stations, scope, page);
+        List<StationSearchResponse> stationByScope = stationsToScope(stations, scope, page, limit);
         return new StationsSearchResponse(
                 stations.size(),
                 stationByScope
         );
     }
 
-    private List<StationSearchResponse> stationsToScope(List<Station> stations, Set<String> scope, int page) {
+    private List<StationSearchResponse> stationsToScope(List<Station> stations, Set<String> scope, int page, int limit) {
         return stations.stream()
-                .skip((page - 1) * PAGE_SIZE)
-                .limit(PAGE_SIZE)
+                .skip((page - 1) * limit)
+                .limit(limit)
                 .map(station -> stationToScope(station, scope))
                 .toList();
     }
