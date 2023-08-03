@@ -25,10 +25,14 @@ import type { StationSummary } from 'types';
 
 const StationList = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
-  const { handleOpenLastPanel } = useAccordionAction();
+  const { handleOpenLastPanel, handleCloseAllPanel } = useAccordionAction();
 
   const { data: stations, isSuccess } = useStations();
   const stationMarkers = useExternalValue(markerInstanceStore);
+
+  if (stations.length === 0) {
+    handleCloseAllPanel();
+  }
 
   const { infoWindowInstance, briefStationInfoRoot } = useExternalValue(
     getBriefStationInfoWindowStore()
@@ -155,7 +159,6 @@ const foundStationButton = css`
 const labelStyle = css`
   padding: 0.2rem 1rem 0.3rem;
   background: var(--light-color);
-  border-radius: 0.8rem;
 `;
 
 // const chargerTypeStyle = css`

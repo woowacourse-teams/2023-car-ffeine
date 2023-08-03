@@ -10,11 +10,13 @@ export const getDisplayPosition = (map: google.maps.Map) => {
     : 0;
   const longitude = center.lng();
   const latitude = center.lat();
+  const zoom = map.getZoom();
 
   return {
     longitude,
     latitude,
     longitudeDelta,
     latitudeDelta,
+    zoom,
   };
 };

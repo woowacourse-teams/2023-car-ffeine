@@ -7,7 +7,9 @@ import type {
   CapacityType,
   ChargerDetails,
   CompanyName,
+  Congestion,
   CongestionStatistics,
+  EnglishDaysType,
   MockStation,
 } from '../types';
 import type { ChargerType } from '../types';
@@ -92,22 +94,26 @@ export const getSearchedStations = (searchWord: string) => {
     .slice(0, MAX_SEARCH_RESULTS);
 };
 
-const congestionObject = getTypedObjectFromEntries(
-  ENGLISH_DAYS,
-  ENGLISH_DAYS.map(() =>
-    Array.from({ length: 24 }).map((_, i) => {
-      return {
-        hour: i,
-        ratio: Math.floor(Math.random() * 102 - 1),
-      };
-    })
-  )
-);
+export const getCongestionStatistics = (stationId: number): CongestionStatistics => {
+  return {
+    stationId,
+    congestion: {
+      QUICK: getCongestions(),
+      STANDARD: getCongestions(),
+    },
+  };
+};
 
-export const congestions: CongestionStatistics = {
-  stationId: 0,
-  congestion: {
-    QUICK: congestionObject,
-    STANDARD: congestionObject,
-  },
+const getCongestions = (): Record<EnglishDaysType, Congestion[]> => {
+  return getTypedObjectFromEntries(
+    ENGLISH_DAYS,
+    ENGLISH_DAYS.map(() =>
+      Array.from({ length: 24 }).map((_, i) => {
+        return {
+          hour: i,
+          ratio: Math.floor(Math.random() * 102 - 1),
+        };
+      })
+    )
+  );
 };

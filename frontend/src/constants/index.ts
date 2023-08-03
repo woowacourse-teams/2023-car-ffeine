@@ -5,7 +5,7 @@ export const DEFAULT_CENTER = {
   lng: 127.05081496722168,
 } as const;
 
-export const INITIAL_ZOOM_SIZE = 14;
+export const INITIAL_ZOOM_SIZE = 15;
 
 export const INVALID_VALUE_LIST = ['null', '.', '..', '1', '#'] as const;
 

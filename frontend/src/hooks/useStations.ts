@@ -24,6 +24,10 @@ export const fetchStation = async () => {
   const googleMap = getStoreSnapshot(getGoogleMapStore());
   const displayPosition = getDisplayPosition(googleMap);
 
+  if (displayPosition.zoom < 15) {
+    return new Promise<StationSummary[]>((resolve) => resolve([]));
+  }
+
   const displayPositionKey = getTypedObjectKeys<DisplayPosition>(displayPosition);
   const displayPositionValue = Object.values(displayPosition).map(String);
 

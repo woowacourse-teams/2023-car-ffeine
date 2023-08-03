@@ -12,7 +12,7 @@ const MapController = () => {
 
   const handleCurrentPositionButton = () => {
     googleMap.panTo({ lat: position.lat, lng: position.lng });
-    googleMap.setZoom(14);
+    googleMap.setZoom(15);
   };
 
   const handleZoomUpButton = () => {
