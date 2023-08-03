@@ -4,14 +4,16 @@ import { styled } from 'styled-components';
 import { useState } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
 
+import { useQueryClient } from '@tanstack/react-query';
+
 import { useExternalValue, useSetExternalState } from '@utils/external-state';
 
 import { getGoogleMapStore } from '@stores/googleMapStore';
 import { searchWordStore } from '@stores/searchWordStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
+import { useDebounce } from '@hooks/useDebounce';
 import { useSearchedStations } from '@hooks/useSearchedStations';
-import { useUpdateSearchResult } from '@hooks/useUpdateSearchResult';
 import { useUpdateStations } from '@hooks/useUpdateStations';
 
 import Button from '@common/Button';
@@ -25,10 +27,21 @@ import type { StationPosition } from 'types';
 const StationSearchBar = () => {
   const [isFocused, setIsFocused] = useState(false);
   const googleMap = useExternalValue(getGoogleMapStore());
-  const setSearchWord = useSetExternalState(searchWordStore);
-  const { updateSearchResult } = useUpdateSearchResult();
   const { updateStations } = useUpdateStations();
   const setSelectedStationId = useSetExternalState(selectedStationIdStore);
+
+  const [inputValue, setInputValue] = useState('');
+  const setSearchWord = useSetExternalState(searchWordStore);
+
+  const queryClient = useQueryClient();
+
+  useDebounce(
+    () => {
+      setSearchWord(inputValue);
+    },
+    [inputValue],
+    400
+  );
 
   const { data: stations, isLoading, isError } = useSearchedStations();
 
@@ -40,7 +53,7 @@ const StationSearchBar = () => {
       showStationDetails({ stationId, latitude, longitude });
     }
 
-    updateSearchResult();
+    queryClient.invalidateQueries({ queryKey: ['searchedStations'] });
   };
 
   const showStationDetails = ({ stationId, latitude, longitude }: StationPosition) => {
@@ -51,8 +64,8 @@ const StationSearchBar = () => {
 
   const handleRequestSearchResult = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
     const searchWord = encodeURIComponent(value);
-    setSearchWord(searchWord);
-    updateSearchResult();
+
+    setInputValue(searchWord);
   };
 
   return (

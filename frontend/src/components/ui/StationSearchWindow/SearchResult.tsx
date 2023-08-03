@@ -62,7 +62,7 @@ export const searchResultList = css`
   position: absolute;
   z-index: 9999;
   width: 29.6rem;
-  max-height: 32rem;
+  max-height: 46rem;
   margin-top: 2rem;
   overflow: auto;
   border: 1.5px solid #d9d9da;
