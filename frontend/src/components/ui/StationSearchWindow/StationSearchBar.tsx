@@ -17,6 +17,8 @@ import { useSearchedStations } from '@hooks/useSearchedStations';
 
 import Button from '@common/Button';
 
+import { useAccordionAction } from '@ui/Accordion/hooks/useAccordionAction';
+
 import { pillStyle } from '@style';
 
 import SearchResult from './SearchResult';
@@ -27,6 +29,8 @@ const StationSearchBar = () => {
   const [isFocused, setIsFocused] = useState(false);
   const googleMap = useExternalValue(getGoogleMapStore());
   const setSelectedStationId = useSetExternalState(selectedStationIdStore);
+
+  const { handleOpenLastPanel } = useAccordionAction();
 
   const [inputValue, setInputValue] = useState('');
   const setSearchWord = useSetExternalState(searchWordStore);
@@ -57,6 +61,7 @@ const StationSearchBar = () => {
     googleMap.panTo({ lat: latitude, lng: longitude });
     queryClient.invalidateQueries({ queryKey: ['stations'] });
     setSelectedStationId(stationId);
+    handleOpenLastPanel();
   };
 
   const handleRequestSearchResult = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {

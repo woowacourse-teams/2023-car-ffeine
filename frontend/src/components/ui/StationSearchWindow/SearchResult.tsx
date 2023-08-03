@@ -29,31 +29,29 @@ const SearchResult = (props: SearchResultProps) => {
 
   if (isLoading || isError) return <></>;
 
-  return (
+  return stations.length ? (
     <List css={searchResultList}>
-      {stations.length ? (
-        stations.map(({ stationId, stationName, address, latitude, longitude }) => (
-          <ListItem divider NoLastDivider key={stationId} css={foundStationList}>
-            <Button
-              width="100%"
-              noRadius="all"
-              onMouseDown={() => handleShowStationDetails({ stationId, latitude, longitude })}
-            >
-              <Text variant="h6" align="left" title={stationName} lineClamp={1}>
-                {stationName}
-              </Text>
-              <Text variant="label" align="left" lineClamp={1} color="#585858">
-                {address || '위도 경도로 주소를 알아내자'}
-              </Text>
-            </Button>
-          </ListItem>
-        ))
-      ) : (
-        <>
-          <ListItem css={noSearchResult}>검색 결과가 없습니다.</ListItem>
-          <ListItem>검색어를 다시 한 번 확인해 주세요.</ListItem>
-        </>
-      )}
+      {stations.map(({ stationId, stationName, address, latitude, longitude }) => (
+        <ListItem divider NoLastDivider key={stationId} css={foundStationList}>
+          <Button
+            width="100%"
+            noRadius="all"
+            onMouseDown={() => handleShowStationDetails({ stationId, latitude, longitude })}
+          >
+            <Text variant="h6" align="left" title={stationName} lineClamp={1}>
+              {stationName}
+            </Text>
+            <Text variant="label" align="left" lineClamp={1} color="#585858">
+              {address || '위도 경도로 주소를 알아내자'}
+            </Text>
+          </Button>
+        </ListItem>
+      ))}
+    </List>
+  ) : (
+    <List role="dialog" aria-live="assertive" css={searchResultList}>
+      <ListItem css={noSearchResult}>검색 결과가 없습니다.</ListItem>
+      <ListItem>검색어를 다시 한 번 확인해 주세요.</ListItem>
     </List>
   );
 };
