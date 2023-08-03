@@ -8,6 +8,7 @@ import { getDisplayPosition } from '@utils/google-maps';
 import { getQueryFormattedUrl } from '@utils/request-query-params';
 
 import { getGoogleMapStore } from '@stores/googleMapStore';
+import { mswModeStore } from '@stores/mswModaStore';
 import {
   selectedCapacitiesFilterStore,
   selectedChargerTypesFilterStore,
@@ -24,7 +25,9 @@ export const fetchStation = async () => {
   const googleMap = getStoreSnapshot(getGoogleMapStore());
   const displayPosition = getDisplayPosition(googleMap);
 
-  if (displayPosition.zoom < INITIAL_ZOOM_SIZE) {
+  const mswMode = getStoreSnapshot(mswModeStore);
+
+  if (!mswMode && displayPosition.zoom < INITIAL_ZOOM_SIZE) {
     return new Promise<StationSummary[]>((resolve) => resolve([]));
   }
 

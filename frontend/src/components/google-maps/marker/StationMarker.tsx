@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import { createElement, useEffect } from 'react';
+import { createRoot } from 'react-dom/client';
 
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -33,12 +34,17 @@ const StationMarker = ({ station }: Props) => {
   const setSelectedStationId = useSetExternalState(selectedStationIdStore);
 
   useEffect(() => {
+    const container = document.createElement('div');
+
     const markerInstance = new google.maps.marker.AdvancedMarkerElement({
       position: { lat: latitude, lng: longitude },
       map: googleMap,
       title: stationName,
-      // icon: BlueMarker,
+      content: container,
     });
+
+    const markerRoot = createRoot(container);
+    markerRoot.render(<img src={BlueMarker} alt={stationName} />);
 
     setMarkerInstanceState((previewsMarkerInstances) => [
       ...previewsMarkerInstances,
@@ -67,7 +73,9 @@ const StationMarker = ({ station }: Props) => {
         prevMarkerInstances.filter((stationMarker) => stationMarker.stationId !== stationId)
       );
 
-      if (selectedStationId === stationId) setSelectedStationId(null);
+      if (selectedStationId === stationId) {
+        setSelectedStationId(null);
+      }
 
       markerInstance.map = null;
     };
