@@ -39,20 +39,12 @@ const CarFfeineMapListener = () => {
 
   useEffect(() => {
     googleMap.addListener('idle', () => {
+      console.log('idle');
+      queryClient.invalidateQueries({ queryKey: ['stations'] });
       setLocalStorage<google.maps.LatLngLiteral>(LOCAL_STORAGE_KEY_LAST_POSITION, {
         lat: googleMap.getCenter().lat(),
         lng: googleMap.getCenter().lng(),
       });
-    });
-
-    googleMap.addListener('dragend', () => {
-      console.log('dragend');
-      queryClient.invalidateQueries({ queryKey: ['stations'] });
-    });
-
-    googleMap.addListener('zoom_changed', () => {
-      console.log('zoom_changed');
-      queryClient.invalidateQueries({ queryKey: ['stations'] });
     });
 
     const initMarkersEvent = googleMap.addListener('bounds_changed', async () => {
