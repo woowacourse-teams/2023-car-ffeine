@@ -47,12 +47,12 @@ const BriefStationInfo = ({ station }: Props) => {
       <div style={{ display: 'flex', gap: 10 }}>
         {slowChargerCount > 0 && (
           <div>
-            {CHARGING_SPEED.STANDARD}: {slowChargerCount}개
+            {CHARGING_SPEED.standard}: {slowChargerCount}개
           </div>
         )}
         {fastChargerCount > 0 && (
           <div>
-            {CHARGING_SPEED.QUICK}: {fastChargerCount}개
+            {CHARGING_SPEED.quick}: {fastChargerCount}개
           </div>
         )}
       </div>

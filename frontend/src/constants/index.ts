@@ -145,8 +145,8 @@ export const COMPANY_NAME = {
 // 충전 속도
 export const CAPACITIES = [3, 7, 50, 100, 200] as const;
 export const CHARGING_SPEED = {
-  QUICK: '급속',
-  STANDARD: '완속',
+  quick: '급속',
+  standard: '완속',
 } as const;
 
 // 키
