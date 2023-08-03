@@ -7,7 +7,7 @@ import ApiKeyChecker from '@map/ApiKeyChecker';
 
 import { configureToken } from '@utils/configureToken';
 
-import { mswModeActions } from '@stores/mswModaStore';
+import { mswModeActions } from '@stores/mswModeStore';
 
 import App from 'App';
 

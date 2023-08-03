@@ -8,7 +8,7 @@ import { getDisplayPosition } from '@utils/google-maps';
 import { getQueryFormattedUrl } from '@utils/request-query-params';
 
 import { getGoogleMapStore } from '@stores/googleMapStore';
-import { mswModeStore } from '@stores/mswModaStore';
+import { mswModeStore } from '@stores/mswModeStore';
 import {
   selectedCapacitiesFilterStore,
   selectedChargerTypesFilterStore,

@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { useExternalState, useSetExternalState } from '@utils/external-state';
 
-import { mswModeActions, mswModeStore } from '@stores/mswModaStore';
+import { mswModeActions, mswModeStore } from '@stores/mswModeStore';
 import { serverStore } from '@stores/serverStore';
 
 import ButtonNext from '@common/ButtonNext';
