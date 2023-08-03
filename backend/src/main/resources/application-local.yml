@@ -1,5 +1,4 @@
 spring:
-
   datasource:
     url: jdbc:mysql://localhost:13306/charge?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true
     username: root
@@ -10,9 +9,6 @@ spring:
     hibernate:
       ddl-auto: update
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    properties:
-      hibernate:
-        show_sql: true
-        format_sql: true
-        use_sql_comments: true
 
+initialize-charge:
+  enabled: false
