@@ -1,5 +1,7 @@
 package com.carffeine.carffeine.station.domain.station;
 
+import org.springframework.data.domain.Pageable;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +35,6 @@ public class FakeStationRepository implements StationRepository {
                 .toList();
     }
 
-
     @Override
     public Optional<Station> findChargeStationByStationId(String stationId) {
         return map.values().stream()
@@ -56,6 +57,27 @@ public class FakeStationRepository implements StationRepository {
     public List<Station> findAllByStationNameContainingOrAddressContainingOrderByStationId(String stationName, String address) {
         return map.values().stream()
                 .filter(it -> it.getStationName().contains(stationName) || it.getAddress().contains(address))
+                .toList();
+    }
+
+    @Override
+    public List<Station> findAllByPaging(String stationId, Pageable pageable) {
+        List<String> list = map.keySet().stream()
+                .sorted().toList();
+        int startIndex = list.indexOf(stationId);
+        return list.stream()
+                .skip(startIndex)
+                .limit(pageable.getPageSize())
+                .map(map::get)
+                .toList();
+    }
+
+    @Override
+    public List<Station> findAllByOrder(Pageable pageable) {
+        return map.keySet().stream()
+                .sorted()
+                .limit(pageable.getPageSize())
+                .map(map::get)
                 .toList();
     }
 }

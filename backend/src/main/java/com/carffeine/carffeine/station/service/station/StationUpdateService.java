@@ -6,6 +6,7 @@ import com.carffeine.carffeine.station.domain.station.CustomStationRepository;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.domain.station.StationRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,10 +25,10 @@ public class StationUpdateService {
     private final CustomChargerRepository customChargerRepository;
 
     @Transactional
-    public void updateStations(List<Station> updatedStations) {
-        List<Station> stations = stationRepository.findAllFetch();
+    public String updateStations(List<Station> updatedStations, String lastStationId, int limit) {
+        List<Station> savedStations = getStations(lastStationId, limit);
 
-        Map<String, Station> savedStationsByStationId = stations.stream()
+        Map<String, Station> savedStationsByStationId = savedStations.stream()
                 .collect(Collectors.toMap(Station::getStationId, Function.identity()));
 
         List<Station> toSaveStations = new ArrayList<>();
@@ -49,11 +50,25 @@ public class StationUpdateService {
             updateChargers(updateStation, savedStation, toSaveChargers, toUpdateChargers);
         }
 
-        saveAllStations(toSaveStations);
-        updateAllStations(toUpdateStations);
+        customStationRepository.saveAllStationsBatch(toSaveStations);
+        customStationRepository.updateAllStationsBatch(toUpdateStations);
+        customChargerRepository.saveAllChargersBatch(toSaveChargers);
+        customChargerRepository.updateAllChargersBatch(toUpdateChargers);
+        return getLastStationId(savedStations);
+    }
 
-        saveAllChargers(toSaveChargers);
-        updateAllChargers(toUpdateChargers);
+    private String getLastStationId(List<Station> savedStations) {
+        if (savedStations.isEmpty()) {
+            return null;
+        }
+        return savedStations.get(savedStations.size() - 1).getStationId();
+    }
+
+    private List<Station> getStations(String stationId, int limit) {
+        if (stationId == null) {
+            return stationRepository.findAllByOrder(Pageable.ofSize(limit));
+        }
+        return stationRepository.findAllByPaging(stationId, Pageable.ofSize(limit));
     }
 
     private boolean isNewStation(Map<String, Station> savedStationsByStationId, Station newStationFromScrap) {
@@ -84,21 +99,5 @@ public class StationUpdateService {
 
     private boolean isNewCharger(Map<String, Charger> savedChargerByChargerId, Charger updatedCharger) {
         return !savedChargerByChargerId.containsKey(updatedCharger.getChargerId());
-    }
-
-    private void saveAllStations(List<Station> toSaveStations) {
-        customStationRepository.saveAllStationsBatch(toSaveStations);
-    }
-
-    private void updateAllStations(List<Station> toUpdateStations) {
-        customStationRepository.updateAllStationsBatch(toUpdateStations);
-    }
-
-    private void saveAllChargers(List<Charger> toSaveChargers) {
-        customChargerRepository.saveAllChargersBatch(toSaveChargers);
-    }
-
-    private void updateAllChargers(List<Charger> toUpdateChargers) {
-        customChargerRepository.updateAllChargersBatch(toUpdateChargers);
     }
 }

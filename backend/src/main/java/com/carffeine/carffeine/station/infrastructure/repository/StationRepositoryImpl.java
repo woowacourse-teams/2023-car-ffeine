@@ -35,7 +35,7 @@ public class StationRepositoryImpl implements CustomStationRepository {
             return;
         }
 
-        String sql = "INSERT INTO charge_station (station_id, station_name, company_name, address, is_parking_free, operating_time, detail_location, latitude, longitude, is_private, contact, station_state, private_reason)" +
+        String sql = "INSERT IGNORE INTO charge_station (station_id, station_name, company_name, address, is_parking_free, operating_time, detail_location, latitude, longitude, is_private, contact, station_state, private_reason)" +
                 " VALUES (:stationId, :stationName, :companyName, :address, :isParkingFree, :operatingTime, :detailLocation, :latitude, :longitude, :isPrivate, :contact, :stationState, :privateReason)";
         namedParameterJdbcTemplate.batchUpdate(sql, chargeStationSqlParameterSource(stations));
     }

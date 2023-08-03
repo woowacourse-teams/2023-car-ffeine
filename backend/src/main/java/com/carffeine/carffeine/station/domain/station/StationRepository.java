@@ -1,5 +1,6 @@
 package com.carffeine.carffeine.station.domain.station;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
@@ -35,4 +36,10 @@ public interface StationRepository extends Repository<Station, Long> {
     List<Station> findAll();
 
     List<Station> findAllByStationNameContainingOrAddressContainingOrderByStationId(String stationName, String address);
+
+    @Query("SELECT s FROM Station s LEFT JOIN FETCH s.chargers WHERE s.stationId > :stationId ORDER BY s.stationId")
+    List<Station> findAllByPaging(@Param("stationId") String stationId, Pageable pageable);
+
+    @Query("SELECT s FROM Station s LEFT JOIN FETCH s.chargers ORDER BY s.stationId")
+    List<Station> findAllByOrder(Pageable pageable);
 }

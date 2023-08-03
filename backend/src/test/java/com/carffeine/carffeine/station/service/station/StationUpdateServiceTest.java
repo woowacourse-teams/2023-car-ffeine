@@ -29,7 +29,7 @@ class StationUpdateServiceTest extends IntegrationTest {
         List<Station> updateStations = List.of(StationFixture.선릉역_충전소_충전기_2개_사용가능_1개);
 
         // when
-        stationUpdateService.updateStations(updateStations);
+        stationUpdateService.updateStations(updateStations, null, 10000);
 
         // then
         List<Station> result = stationRepository.findAll();
@@ -41,12 +41,11 @@ class StationUpdateServiceTest extends IntegrationTest {
         // given
         Station originStation = StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
         Station changeStation = StationFixture.선릉역_충전소_충전기_2개_사용가능_1개_이름_변경됨;
-
         stationRepository.save(originStation);
         List<Station> updateStations = List.of(changeStation);
 
         // when
-        stationUpdateService.updateStations(updateStations);
+        stationUpdateService.updateStations(updateStations, null, 10000);
 
         // then
         List<Station> stations = stationRepository.findAll();
@@ -61,7 +60,7 @@ class StationUpdateServiceTest extends IntegrationTest {
         List<Station> updateStations = List.of(StationFixture.잠실역_충전소_충전기_2개_사용가능_1개);
 
         // when
-        stationUpdateService.updateStations(updateStations);
+        stationUpdateService.updateStations(updateStations, null, 10000);
 
         // then
         List<Station> stations = stationRepository.findAll();
@@ -76,7 +75,7 @@ class StationUpdateServiceTest extends IntegrationTest {
         List<Station> updateStations = List.of(StationFixture.선릉역_충전소_충전기_2개_사용가능_1개_이름_변경됨);
 
         // when
-        stationUpdateService.updateStations(updateStations);
+        stationUpdateService.updateStations(updateStations, null, 10000);
 
         // then
         List<Station> stations = stationRepository.findAll();
