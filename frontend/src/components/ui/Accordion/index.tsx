@@ -29,7 +29,7 @@ export type BasePanelType = 'searchWindow' | 'stationList' | 'serverStationFilte
 const Accordion = ({ isBasePanelOpenInDefault = false, children }: PropsWithChildren<Props>) => {
   const [isBasePanelOpen, setIsBasePanelOpen] = useState(isBasePanelOpenInDefault);
   const [isLastPanelOpen, setIsLastPanelOpen] = useState(false);
-  const [basePanelType, setBasePanelType] = useState<BasePanelType>(null);
+  const [basePanelType, setBasePanelType] = useState<BasePanelType>('searchWindow');
 
   return (
     <AccordionContext.Provider

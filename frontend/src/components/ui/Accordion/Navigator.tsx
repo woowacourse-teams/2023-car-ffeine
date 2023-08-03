@@ -5,20 +5,15 @@ import {
 } from '@heroicons/react/24/outline';
 import { css } from 'styled-components';
 
-import { useContext } from 'react';
-
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 
-import DevelopmentServerControlButton from '@ui/DevelopmentServerControlButton';
 import MswControlButton from '@ui/MswControlButton';
 import LogoIcon from '@ui/Svg/LogoIcon';
 
-import { AccordionContext } from '.';
 import { useAccordionAction } from './hooks/useAccordionAction';
 
 const Navigator = () => {
-  const { basePanelType } = useContext(AccordionContext);
   const { toggleOpenBasePanel: handleOpenBasePanel } = useAccordionAction();
 
   return (
