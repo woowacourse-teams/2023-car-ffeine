@@ -8,11 +8,10 @@
     "dev": "webpack-dev-server --open --mode development --hot --port 3000",
     "start": "webpack-dev-server --open --mode production --hot --port 3000",
     "build": "webpack --mode production",
+    "build-dev": "webpack --mode development",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "cypress": "cypress open",
-    "prepare": "cd .. && husky install frontend/.husky && cd frontend",
-    "prepare:mac": "cd .. && husky install frontend/.husky && chmod +x frontend/.husky/* && git update-index --chmod=+x && cd frontend"
+    "cypress": "cypress open"
   },
   "author": "",
   "license": "ISC",

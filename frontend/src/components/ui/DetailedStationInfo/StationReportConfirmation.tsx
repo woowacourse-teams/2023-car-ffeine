@@ -8,7 +8,7 @@ import { modalActions } from '@stores/modalStore';
 import { useUpdateStationChargerReport } from '@hooks/useUpdateStationReport';
 
 import Box from '@common/Box';
-import Button from '@common/Button';
+import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 import TextField from '@common/TextField';
@@ -92,20 +92,20 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
         onChange={handleChangeTextField}
       />
       <Box>
-        <Button onClick={() => handleClickButton('isParkingFree')}>
+        <ButtonNext noTheme onClick={() => handleClickButton('isParkingFree')}>
           <FlexBox alignItems="center">
             <input type="checkbox" checked={form.isParkingFree} />
             <Text>주차비 무료</Text>
           </FlexBox>
-        </Button>
+        </ButtonNext>
       </Box>
       <Box>
-        <Button onClick={() => handleClickButton('isPrivate')}>
+        <ButtonNext noTheme onClick={() => handleClickButton('isPrivate')}>
           <FlexBox alignItems="center">
             <input type="checkbox" checked={form.isPrivate} />
             <Text>사용 제한</Text>
           </FlexBox>
-        </Button>
+        </ButtonNext>
       </Box>
       <TextField
         id="privateReason"
@@ -115,13 +115,25 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
         onChange={handleChangeTextField}
       />
 
-      <FlexBox justifyContent="between">
-        <Button size="md" onClick={() => modalActions.closeModal()}>
+      <FlexBox justifyContent="between" nowrap>
+        <ButtonNext
+          variant="outlined"
+          color="error"
+          size="md"
+          fullWidth
+          onClick={() => modalActions.closeModal()}
+        >
           저장하지 않고 닫을래요
-        </Button>
-        <Button size="md" onClick={() => reportCharger()}>
+        </ButtonNext>
+        <ButtonNext
+          variant="contained"
+          color="success"
+          size="md"
+          fullWidth
+          onClick={() => reportCharger()}
+        >
           제안하기
-        </Button>
+        </ButtonNext>
       </FlexBox>
     </Box>
   );

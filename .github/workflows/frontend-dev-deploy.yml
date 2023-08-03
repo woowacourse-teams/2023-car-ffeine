@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - prod/frontend
+      - release/frontend
 
 jobs:
   deploy:
@@ -21,15 +21,15 @@ jobs:
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
-          images: woowacarffeine/frontend
+          images: woowacarffeine/frontend-dev
 
       - name: Build and push Docker image
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
           context: ./frontend
-          file: ./frontend/Dockerfile
+          file: ./frontend/DevDockerfile
           push: true
-          tags: woowacarffeine/frontend:latest
+          tags: woowacarffeine/frontend-dev:latest
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Join EC2 dev server
@@ -41,12 +41,12 @@ jobs:
           port: ${{ secrets.SERVER_PORT }}
 
           script: |
-            sudo docker stop frontend || true
-            sudo docker pull woowacarffeine/frontend:latest
+            sudo docker stop frontend-dev || true
+            sudo docker pull woowacarffeine/frontend-dev:latest
             
-            sudo docker run --rm -d -p 3000:3000 \
-            --name frontend \
-            woowacarffeine/frontend:latest
+            sudo docker run --rm -d -p 3001:3000 \
+            --name frontend-dev \
+            woowacarffeine/frontend-dev:latest
             
             sudo docker image prune -f
       - name: clean images

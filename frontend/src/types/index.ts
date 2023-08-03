@@ -83,8 +83,8 @@ export interface Congestion {
 
 export interface CongestionStatistics extends StationId {
   congestion: {
-    STANDARD?: Record<EnglishDaysType, Congestion[]>;
-    QUICK?: Record<EnglishDaysType, Congestion[]>;
+    standard?: Record<EnglishDaysType, Congestion[]>;
+    quick?: Record<EnglishDaysType, Congestion[]>;
   };
 }
 

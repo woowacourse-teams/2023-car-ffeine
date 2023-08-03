@@ -1,8 +1,12 @@
 import { css } from 'styled-components';
 
-import { useSetExternalState } from '@utils/external-state';
+import { useQueryClient } from '@tanstack/react-query';
 
-import { forceOpenAccordionPanelStore } from '@stores/forceOpenAccordionPanelStore';
+import { useExternalValue, useSetExternalState } from '@utils/external-state';
+
+import { getBriefStationInfoWindowStore } from '@stores/briefStationInfoWindowStore';
+import { getGoogleMapStore } from '@stores/googleMapStore';
+import { markerInstanceStore } from '@stores/markerInstanceStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
 import Button from '@common/Button';
@@ -10,40 +14,75 @@ import FlexBox from '@common/FlexBox';
 import ListItem from '@common/ListItem';
 import Text from '@common/Text';
 
-import ChargingSpeedIcon from './ChargingSpeedIcon';
+import { useAccordionAction } from '@ui/Accordion/hooks/useAccordionAction';
+import ChargingSpeedIcon from '@ui/ChargingSpeedIcon';
+
+import BriefStationInfo from '../BriefStationInfo';
 
 import type { StationSummary } from 'types';
 
 interface Props {
   station: StationSummary;
+  tag?: string;
+  $noPadding?: boolean;
 }
 
-const BriefStationInfo = ({ station }: Props) => {
+const StationSummaryCard = ({ station, tag, $noPadding }: Props) => {
+  const googleMap = useExternalValue(getGoogleMapStore());
+  const { handleOpenLastPanel } = useAccordionAction();
+
+  const stationMarkers = useExternalValue(markerInstanceStore);
+
+  const { infoWindowInstance, briefStationInfoRoot } = useExternalValue(
+    getBriefStationInfoWindowStore()
+  );
   const setSelectedStationId = useSetExternalState(selectedStationIdStore);
-  const setForceOpenAccordionPanel = useSetExternalState(forceOpenAccordionPanelStore);
+  const queryClient = useQueryClient();
+
+  const handleBriefStationInfoOpen = (station: StationSummary) => {
+    const { stationId, latitude: lat, longitude: lng } = station;
+
+    const selectedStation = stationMarkers.find((marker) => marker.stationId === stationId);
+
+    googleMap.panTo({ lat, lng });
+    queryClient.invalidateQueries({ queryKey: ['stations'] });
+
+    infoWindowInstance.open({
+      anchor: selectedStation.markerInstance,
+      map: googleMap,
+    });
+
+    briefStationInfoRoot.render(<BriefStationInfo station={station} />);
+  };
+
+  const handleStationDetailsOpen = (stationId: number) => {
+    setSelectedStationId(stationId);
+    handleOpenLastPanel();
+  };
 
   const {
     stationId,
-    chargers,
-    companyName,
     stationName,
     address,
-    operatingTime,
-    isParkingFree,
+    companyName,
     isPrivate,
+    isParkingFree,
+    operatingTime,
+    chargers,
   } = station;
-
-  const slowChargerCount = chargers.filter((charger) => charger.capacity < 50).length;
-  const fastChargerCount = chargers.length - slowChargerCount;
-
-  const handleOpenStationDetail = () => {
-    setSelectedStationId(stationId);
-    setForceOpenAccordionPanel(true);
-  };
+  const fastChargerCount = chargers.filter(({ capacity }) => capacity >= 50).length;
 
   return (
-    <ListItem tag="div" key={stationId} css={noPadding}>
-      <Button width="100%" shadow css={foundStationButton} onClick={handleOpenStationDetail}>
+    <ListItem tag={tag} key={stationId} css={$noPadding && noPadding}>
+      <Button
+        width="100%"
+        shadow
+        css={foundStationButton}
+        onClick={() => {
+          handleBriefStationInfoOpen(station);
+          handleStationDetailsOpen(stationId);
+        }}
+      >
         <FlexBox alignItems="start" justifyContent="between" nowrap columnGap={2.8}>
           <article>
             <Text
@@ -101,4 +140,4 @@ const labelStyle = css`
   border-radius: 8px;
 `;
 
-export default BriefStationInfo;
+export default StationSummaryCard;

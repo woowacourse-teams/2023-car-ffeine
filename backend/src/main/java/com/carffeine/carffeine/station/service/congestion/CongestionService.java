@@ -40,7 +40,7 @@ public class CongestionService {
         Map<String, List<CongestionInfoResponse>> quickSpeedResponse = calculateQuick(congestions, chargers);
         Map<String, List<CongestionInfoResponse>> standardSpeedResponse = calculateStandard(congestions, chargers);
 
-        return new StatisticsResponse(stationId, new CongestionResponse(quickSpeedResponse, standardSpeedResponse));
+        return new StatisticsResponse(stationId, new CongestionResponse(standardSpeedResponse, quickSpeedResponse));
     }
 
     private Map<String, List<CongestionInfoResponse>> calculateQuick(List<PeriodicCongestion> congestions, List<Charger> chargers) {

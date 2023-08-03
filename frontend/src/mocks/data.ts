@@ -98,8 +98,8 @@ export const getCongestionStatistics = (stationId: number): CongestionStatistics
   return {
     stationId,
     congestion: {
-      QUICK: getCongestions(),
-      STANDARD: getCongestions(),
+      quick: getCongestions(),
+      standard: getCongestions(),
     },
   };
 };

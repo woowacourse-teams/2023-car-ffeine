@@ -2,8 +2,7 @@ import { css } from 'styled-components';
 
 import { useContext, type PropsWithChildren } from 'react';
 
-import Button from '@common/Button';
-import Text from '@common/Text';
+import ButtonNext from '@common/ButtonNext';
 
 import { ENGLISH_DAYS, ENGLISH_DAYS_TO_KOREAN_DAYS } from '@constants';
 
@@ -25,23 +24,20 @@ const CircleDaySelectButton = ({ children }: PropsWithChildren) => {
   };
 
   return (
-    <Button
+    <ButtonNext
       size="sm"
-      outlined
+      variant={selectedDay === children ? 'contained' : 'outlined'}
       css={[buttonCss, selectedDay === children && colorCss]}
-      background={selectedDay === children && '#0064ff'}
       onClick={() => {
         if (typeof children === 'string') {
           handleSelectDay(children);
         }
       }}
     >
-      <Text variant="h6">
-        {typeof children === 'string' &&
-          isEnglishDays(children) &&
-          `${ENGLISH_DAYS_TO_KOREAN_DAYS[children]}`}
-      </Text>
-    </Button>
+      {typeof children === 'string' &&
+        isEnglishDays(children) &&
+        `${ENGLISH_DAYS_TO_KOREAN_DAYS[children]}`}
+    </ButtonNext>
   );
 };
 

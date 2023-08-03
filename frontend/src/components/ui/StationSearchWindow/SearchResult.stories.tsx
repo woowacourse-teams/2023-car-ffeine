@@ -12,7 +12,7 @@ const meta = {
       {
         stationId: 0,
         stationName: '충전소 이름이라네',
-        speed: 'STANDARD',
+        speed: 'quick',
         address: '서울시 강남구 테헤란로 411',
         latitude: 1,
         longitude: 1,

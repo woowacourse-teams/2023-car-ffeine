@@ -1,10 +1,8 @@
-import { css } from 'styled-components';
-
 import { useState } from 'react';
 
 import { useStationCongestionStatistics } from '@hooks/useStationCongestionStatistics';
 
-import Button from '@common/Button';
+import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
@@ -15,7 +13,7 @@ import { ENGLISH_DAYS } from '@constants';
 
 const CongestionStatistics = () => {
   const { data: congestionStatistics, isFetching } = useStationCongestionStatistics();
-  const [chargingSpeed, setChargingSpeed] = useState<keyof typeof CHARGING_SPEED>('QUICK');
+  const [chargingSpeed, setChargingSpeed] = useState<keyof typeof CHARGING_SPEED>('quick');
 
   // TODO: 그래프 모양 로딩 스켈레톤 추가하기
   if (isFetching) {
@@ -28,30 +26,23 @@ const CongestionStatistics = () => {
 
   return (
     <FlexBox direction="column" gap={4}>
-      <FlexBox justifyContent="between">
-        <Button
-          background={chargingSpeed === 'QUICK' && '#0064ff'}
-          width="48%"
-          outlined
-          css={buttonBorderColorCss}
-          onClick={() => setChargingSpeed('QUICK')}
+      <FlexBox nowrap>
+        <ButtonNext
+          variant={chargingSpeed === 'quick' ? 'contained' : 'outlined'}
+          size="xs"
+          onClick={() => setChargingSpeed('quick')}
+          fullWidth
         >
-          <Text variant="h6" color={chargingSpeed === 'QUICK' && '#fff'}>
-            급속 보기
-          </Text>
-        </Button>
-        <Button
-          background={chargingSpeed === 'STANDARD' && '#0064ff'}
-          color={chargingSpeed === 'STANDARD' && '#fff'}
-          width="48%"
-          outlined
-          css={buttonBorderColorCss}
-          onClick={() => setChargingSpeed('STANDARD')}
+          급속 보기
+        </ButtonNext>
+        <ButtonNext
+          variant={chargingSpeed === 'standard' ? 'contained' : 'outlined'}
+          size="xs"
+          onClick={() => setChargingSpeed('standard')}
+          fullWidth
         >
-          <Text variant="h6" color={chargingSpeed === 'STANDARD' && '#fff'}>
-            완속 보기
-          </Text>
-        </Button>
+          완속 보기
+        </ButtonNext>
       </FlexBox>
       <StatisticsGraph
         statistics={congestionStatistics.congestion[chargingSpeed]}
@@ -61,9 +52,5 @@ const CongestionStatistics = () => {
     </FlexBox>
   );
 };
-
-const buttonBorderColorCss = css`
-  border: 1px solid #d4d4d4;
-`;
 
 export default CongestionStatistics;
