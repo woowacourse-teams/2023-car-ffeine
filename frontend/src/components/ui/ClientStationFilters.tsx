@@ -71,7 +71,7 @@ const ClientStationFilters = () => {
         color="dark"
         size="sm"
       >
-        {CHARGING_SPEED.QUICK}
+        {CHARGING_SPEED.quick}
       </ButtonNext>
       <ButtonNext
         onClick={togglePrivateStation}
