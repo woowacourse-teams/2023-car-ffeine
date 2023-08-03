@@ -1,7 +1,8 @@
 import { css } from 'styled-components';
 
+import { useQueryClient } from '@tanstack/react-query';
+
 import { useServerStationFilters } from '@hooks/useServerStationFilters';
-import { useUpdateStations } from '@hooks/useUpdateStations';
 
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
@@ -13,37 +14,8 @@ import FilterSection from './FilterOption';
 
 import type { ChargerType } from 'types';
 
-const paddingCss = css`
-  padding-top: 1.5rem;
-`;
-
-const overFlowCss = css`
-  overflow-y: scroll;
-  overflow-x: hidden;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
-
-const borderCss = css`
-  outline: 1.5px solid #e1e4eb;
-`;
-
-const buttonCss = css`
-  width: 100%;
-  height: 6rem;
-
-  position: sticky;
-  bottom: 0;
-
-  flex-shrink: 0;
-
-  color: \#fff;
-`;
-
 const ServerStationFilters = () => {
-  const { updateStations } = useUpdateStations();
+  const queryClient = useQueryClient();
 
   const {
     toggleSelectCapacityFilter,
@@ -55,7 +27,7 @@ const ServerStationFilters = () => {
   } = useServerStationFilters();
 
   const handleApplySelectedFilters = () => {
-    updateStations();
+    queryClient.invalidateQueries({ queryKey: ['stations'] });
   };
 
   return (
@@ -105,5 +77,34 @@ const ServerStationFilters = () => {
     </FlexBox>
   );
 };
+
+const paddingCss = css`
+  padding-top: 1.5rem;
+`;
+
+const overFlowCss = css`
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const borderCss = css`
+  outline: 1.5px solid #e1e4eb;
+`;
+
+const buttonCss = css`
+  width: 100%;
+  height: 6rem;
+
+  position: sticky;
+  bottom: 0;
+
+  flex-shrink: 0;
+
+  color: \#fff;
+`;
 
 export default ServerStationFilters;

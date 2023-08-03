@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 
+import { useQueryClient } from '@tanstack/react-query';
+
 import StationMarkersContainer from '@marker/StationMarkersContainer';
 
 import { useExternalValue } from '@utils/external-state';
@@ -33,6 +35,8 @@ const CarFfeineMapListener = () => {
   const { updateStations } = useUpdateStations();
   const googleMap = useExternalValue(getGoogleMapStore());
 
+  const queryClient = useQueryClient();
+
   useEffect(() => {
     googleMap.addListener('idle', () => {
       setLocalStorage<google.maps.LatLngLiteral>(LOCAL_STORAGE_KEY_LAST_POSITION, {
@@ -43,16 +47,17 @@ const CarFfeineMapListener = () => {
 
     googleMap.addListener('dragend', () => {
       console.log('dragend');
-      updateStations();
+      queryClient.invalidateQueries({ queryKey: ['stations'] });
     });
 
     googleMap.addListener('zoom_changed', () => {
       console.log('zoom_changed');
-      updateStations();
+      queryClient.invalidateQueries({ queryKey: ['stations'] });
     });
 
-    const initMarkersEvent = googleMap.addListener('bounds_changed', () => {
+    const initMarkersEvent = googleMap.addListener('bounds_changed', async () => {
       updateStations();
+
       google.maps.event.removeListener(initMarkersEvent);
     });
   }, []);
