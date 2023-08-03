@@ -170,11 +170,4 @@ const labelStyle = css`
   background: var(--light-color);
 `;
 
-// const chargerTypeStyle = css`
-//   width: 100%;
-//   padding: 0.4rem 2rem;
-//   border: 1.5px solid #e5e5e5;
-//   border-radius: 0.8rem;
-// `;
-
 export default StationList;
