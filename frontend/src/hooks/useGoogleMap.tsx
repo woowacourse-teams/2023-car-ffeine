@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { useExternalValue, useSetExternalState } from '@utils/external-state';
 import { getStoreSnapshot } from '@utils/external-state/tools';
 
+import { forceOpenAccordionPanelStore } from '@stores/forceOpenAccordionPanelStore';
 import { getGoogleMapStore } from '@stores/googleMapStore';
 import { markerInstanceStore } from '@stores/markerInstanceStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
@@ -17,6 +18,7 @@ export const useGoogleMap = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
   const setMarkerInstanceState = useSetExternalState(markerInstanceStore);
   const setSelectedStationId = useSetExternalState(selectedStationIdStore);
+  const setForceOpenAccordionPanel = useSetExternalState(forceOpenAccordionPanelStore);
   const { openStationSummary } = useStationSummary();
 
   const renderStationMarker = (station: StationSummary) => {
@@ -35,6 +37,7 @@ export const useGoogleMap = () => {
 
     markerInstance.addListener('click', () => {
       openStationSummary(station, markerInstance);
+      setForceOpenAccordionPanel(true);
     });
 
     setMarkerInstanceState((previewsMarkerInstances) => [

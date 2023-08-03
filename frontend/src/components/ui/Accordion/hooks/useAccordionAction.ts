@@ -22,7 +22,7 @@ export const useAccordionAction = () => {
   } = useContext(AccordionContext);
 
   if (isForceOpenAccordionPanel) {
-    setBasePanelType('stationList');
+    setBasePanelType('searchWindow');
     setIsBasePanelOpen(true);
     setIsLastPanelOpen(true);
 

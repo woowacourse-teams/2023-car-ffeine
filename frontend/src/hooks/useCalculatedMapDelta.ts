@@ -14,6 +14,8 @@ export const useCalculatedMapDelta = () => {
   }
 
   const navigatorAccordionWidthRatio = navigatorAccordionWidth / browserWidth;
+  const calculatedMapDelta =
+    getDisplayPosition(googleMap).longitudeDelta * 2 * navigatorAccordionWidthRatio;
 
-  return getDisplayPosition(googleMap).longitudeDelta * 2 * navigatorAccordionWidthRatio;
+  return calculatedMapDelta;
 };

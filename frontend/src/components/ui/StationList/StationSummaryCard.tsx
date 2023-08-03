@@ -26,8 +26,6 @@ const StationSummaryCard = ({ station, tag, $noPadding }: Props) => {
   const { handleOpenLastPanel } = useAccordionAction();
   const { openStationSummary } = useStationSummary();
 
-  const setSelectedStationId = useSetExternalState(selectedStationIdStore);
-
   const {
     stationId,
     stationName,
@@ -47,7 +45,6 @@ const StationSummaryCard = ({ station, tag, $noPadding }: Props) => {
         shadow
         css={foundStationButton}
         onClick={() => {
-          setSelectedStationId(stationId);
           openStationSummary(station);
           handleOpenLastPanel();
         }}
