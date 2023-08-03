@@ -21,10 +21,10 @@ const CarFfeineMap = () => {
     <>
       <CarFfeineMapListener />
       <StationMarkersContainer />
-      <MapController />
-      <ClientStationFilters />
       <Navigator />
+      <ClientStationFilters />
       <ModalContainer />
+      <MapController />
     </>
   );
 };

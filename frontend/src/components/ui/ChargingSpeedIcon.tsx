@@ -6,7 +6,7 @@ import FlexBox from '@common/FlexBox';
 const ChargingSpeedIcon = () => {
   return (
     <FlexBox
-      aria-disabled
+      aria-label="급속 충전기가 있는 충전소"
       background="#e9edf8"
       justifyContent="center"
       alignItems="center"
