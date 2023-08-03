@@ -7,7 +7,7 @@ import { getGoogleMapStore } from '@stores/googleMapStore';
 export const useCalculatedMapDelta = () => {
   const navigatorAccordionWidth = useExternalValue(navigatorAccordionWidthStore);
   const browserWidth = useExternalValue(browserWidthStore);
-  const map = useExternalValue(getGoogleMapStore());
+  const googleMap = useExternalValue(getGoogleMapStore());
 
   if (browserWidth === null) {
     return 0;
@@ -15,7 +15,5 @@ export const useCalculatedMapDelta = () => {
 
   const navigatorAccordionWidthRatio = navigatorAccordionWidth / browserWidth;
 
-  console.log(getDisplayPosition(map).longitudeDelta * 2 * navigatorAccordionWidthRatio);
-
-  return navigatorAccordionWidthRatio;
+  return getDisplayPosition(googleMap).longitudeDelta * 2 * navigatorAccordionWidthRatio;
 };

@@ -40,7 +40,6 @@ const Accordion = ({ isBasePanelOpenInDefault = false, children }: PropsWithChil
 
   const setNavigatorAccordionWidth = useSetExternalState(navigatorAccordionWidthStore);
   const setBrowserWidth = useSetExternalState(browserWidthStore);
-  const delta = useCalculatedMapDelta();
 
   useEffect(() => {
     setNavigatorAccordionWidth(accordionContainerRef.current.offsetWidth);
@@ -50,8 +49,6 @@ const Accordion = ({ isBasePanelOpenInDefault = false, children }: PropsWithChil
       }
       return prev;
     });
-
-    console.log(delta);
   }, [isBasePanelOpen, isLastPanelOpen]);
 
   return (
