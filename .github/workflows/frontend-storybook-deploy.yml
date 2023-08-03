@@ -48,7 +48,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Remove previous version app
-        working-directory: frontend/dev/
+        working-directory: .
         run: rm -rf dist
 
       - name: Download the built file to AWS
