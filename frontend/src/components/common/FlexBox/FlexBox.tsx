@@ -1,7 +1,8 @@
 import type { CSSProp } from 'styled-components';
 import styled from 'styled-components';
 
-import type { HTMLAttributes, ReactNode } from 'react';
+import type { ForwardedRef } from 'react';
+import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
 
 import { borderRadius, getSize } from '@style';
 
@@ -33,11 +34,12 @@ export interface FlexBoxProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
 }
 
-const FlexBox = ({ children, tag, ...props }: FlexBoxProps) => {
+// TODO: tag가 바뀌었을 때 ref의 타입을 바꾸는 로직을 추가한다.
+const FlexBox = ({ children, tag, ...props }: FlexBoxProps, ref: ForwardedRef<HTMLDivElement>) => {
   const changeableTag = tag || 'div';
 
   return (
-    <S.FlexBox as={changeableTag} {...props}>
+    <S.FlexBox as={changeableTag} {...props} ref={ref}>
       {children}
     </S.FlexBox>
   );
@@ -77,4 +79,4 @@ const S = {
   `,
 };
 
-export default FlexBox;
+export default forwardRef(FlexBox);

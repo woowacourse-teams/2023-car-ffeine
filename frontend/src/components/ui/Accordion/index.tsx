@@ -1,7 +1,11 @@
 import { css } from 'styled-components';
 
 import type { Dispatch, PropsWithChildren, SetStateAction } from 'react';
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useRef, useState } from 'react';
+
+import { useSetExternalState } from '@utils/external-state';
+
+import { navigatorAccordionWidthStore } from '@stores/navigatorWidthStore';
 
 import FlexBox from '@common/FlexBox';
 
@@ -27,9 +31,17 @@ interface Props {
 export type BasePanelType = 'searchWindow' | 'stationList' | 'serverStationFilters' | null;
 
 const Accordion = ({ isBasePanelOpenInDefault = false, children }: PropsWithChildren<Props>) => {
+  const accordionContainerRef = useRef(null);
+
   const [isBasePanelOpen, setIsBasePanelOpen] = useState(isBasePanelOpenInDefault);
   const [isLastPanelOpen, setIsLastPanelOpen] = useState(false);
   const [basePanelType, setBasePanelType] = useState<BasePanelType>('searchWindow');
+
+  const setNavigatorAccordionWidth = useSetExternalState(navigatorAccordionWidthStore);
+
+  useEffect(() => {
+    setNavigatorAccordionWidth(accordionContainerRef.current.offsetWidth);
+  }, [isBasePanelOpen, isLastPanelOpen]);
 
   return (
     <AccordionContext.Provider
@@ -42,7 +54,7 @@ const Accordion = ({ isBasePanelOpenInDefault = false, children }: PropsWithChil
         setBasePanelType,
       }}
     >
-      <FlexBox gap={0} nowrap css={accordionContainerCss}>
+      <FlexBox gap={0} nowrap css={accordionContainerCss} ref={accordionContainerRef}>
         {children}
       </FlexBox>
     </AccordionContext.Provider>
