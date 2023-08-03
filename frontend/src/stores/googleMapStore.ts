@@ -24,6 +24,7 @@ export const getGoogleMapStore = (() => {
         center: initialCenter,
         zoom: INITIAL_ZOOM_SIZE,
         disableDefaultUI: true,
+        mapId: '92cb7201b7d43b21',
       });
     }
 
