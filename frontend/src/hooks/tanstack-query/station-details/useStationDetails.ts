@@ -5,7 +5,8 @@ import { useExternalValue } from '@utils/external-state';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 import { serverStore } from '@stores/serverStore';
 
-import { ERROR_MESSAGES, INVALID_VALUE_LIST, SERVERS } from '@constants';
+import { INVALID_VALUE_LIST, SERVERS } from '@constants';
+import { ERROR_MESSAGES } from '@constants/errorMessages';
 
 import type { StationDetails } from '../../../types';
 

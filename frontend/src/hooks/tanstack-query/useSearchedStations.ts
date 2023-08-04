@@ -5,7 +5,8 @@ import { useExternalValue } from '@utils/external-state';
 import { searchWordStore } from '@stores/searchWordStore';
 import { serverStore } from '@stores/serverStore';
 
-import { ERROR_MESSAGES, SEARCH_SCOPE, SERVERS } from '@constants';
+import { SEARCH_SCOPE, SERVERS } from '@constants';
+import { ERROR_MESSAGES } from '@constants/errorMessages';
 
 import type { SearchedStation, SearchedStationResponse } from '../../types';
 

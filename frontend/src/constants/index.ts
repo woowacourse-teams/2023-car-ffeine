@@ -9,13 +9,6 @@ export const INITIAL_ZOOM_SIZE = 15;
 
 export const INVALID_VALUE_LIST = ['null', '.', '..', '1', '#'] as const;
 
-const ERROR_PREFIX = '[error]';
-export const ERROR_MESSAGES = {
-  NO_STATION_FOUND: `${ERROR_PREFIX} 해당 충전소가 존재하지 않습니다.`,
-  STATION_DETAILS_FETCH_ERROR: `${ERROR_PREFIX} 충전소 세부 정보를 불러올 수 없습니다.`,
-  NO_SEARCH_RESULT: `${ERROR_PREFIX} 검색 결과가 없습니다.`,
-} as const;
-
 // 키
 export const LOCAL_STORAGE_KEY_LAST_POSITION = 'CARFFEINE_LAST_POSITION';
 export const LOCAL_KEY_GOOGLE_MAPS_API = 'CARFFEINE_GOOGLE_MAPS_API';
