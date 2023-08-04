@@ -8,8 +8,8 @@ import Text from '@common/Text';
 
 import StatisticsGraph from '@ui/StatisticsGraph';
 
-import { ENGLISH_DAYS } from '@constants';
 import type { CHARGING_SPEED } from '@constants/chargers';
+import { ENGLISH_DAYS } from '@constants/congestion';
 
 const CongestionStatistics = () => {
   const { data: congestionStatistics, isFetching } = useStationCongestionStatistics();

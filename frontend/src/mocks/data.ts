@@ -1,8 +1,8 @@
 import { getTypedObjectFromEntries } from '@utils/getTypedObjectFromEntries';
 import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 
-import { ENGLISH_DAYS } from '@constants';
 import { CHARGER_TYPES, COMPANY_NAME } from '@constants/chargers';
+import { ENGLISH_DAYS } from '@constants/congestion';
 import { MAX_SEARCH_RESULTS } from '@constants/stationSearch';
 
 import type {

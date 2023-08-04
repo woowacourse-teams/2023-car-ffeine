@@ -9,14 +9,6 @@ export const INITIAL_ZOOM_SIZE = 15;
 
 export const INVALID_VALUE_LIST = ['null', '.', '..', '1', '#'] as const;
 
-// 날짜
-export const KOREAN_DAYS = ['월', '화', '수', '목', '금', '토', '일'] as const;
-export const ENGLISH_DAYS = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'] as const;
-
-export const ENGLISH_DAYS_TO_KOREAN_DAYS = Object.fromEntries(
-  ENGLISH_DAYS.map((day, index) => [day, KOREAN_DAYS[index]])
-);
-
 export const SERVERS = {
   localhost: 'http://localhost:8080/api',
   dain: 'https://dain.carffe.in/api',

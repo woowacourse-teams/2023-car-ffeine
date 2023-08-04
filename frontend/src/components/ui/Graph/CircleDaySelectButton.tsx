@@ -4,7 +4,7 @@ import { useContext, type PropsWithChildren } from 'react';
 
 import ButtonNext from '@common/ButtonNext';
 
-import { ENGLISH_DAYS, ENGLISH_DAYS_TO_KOREAN_DAYS } from '@constants';
+import { ENGLISH_DAYS, ENGLISH_DAYS_TO_KOREAN_DAYS } from '@constants/congestion';
 
 import { GraphContext } from '.';
 
