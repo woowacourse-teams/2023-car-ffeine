@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 import type { ReactNode, MouseEventHandler } from 'react';
 import React from 'react';
 
-import { getColor, getHoverColor } from '@constants/styles';
+import { getColor, getHoverColor } from '@style';
 
 import type { Color } from '../../../types/style';
 import type { Size } from '../../../types/style';
