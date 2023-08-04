@@ -3,6 +3,7 @@ import { useSelectedStation } from '@hooks/useSelectedStation';
 import Box from '@common/Box';
 import Text from '@common/Text';
 
+import { useAccordionAction } from '@ui/Accordion/hooks/useAccordionAction';
 import DetailedStation from '@ui/DetailedStationInfo/DetailedStation';
 
 const DetailedStationInfo = () => {
@@ -10,7 +11,13 @@ const DetailedStationInfo = () => {
     data: selectedStation,
     isLoading: isSelectedStationLoading,
     isError: isSelectedStationError,
+    isFetching,
   } = useSelectedStation();
+  const { handleCloseLastPanel } = useAccordionAction();
+
+  if (!isFetching && selectedStation === undefined) {
+    handleCloseLastPanel();
+  }
 
   if (isSelectedStationError || isSelectedStationLoading) {
     return (

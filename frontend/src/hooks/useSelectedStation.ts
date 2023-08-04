@@ -10,6 +10,10 @@ import { ERROR_MESSAGES, INVALID_VALUE_LIST, SERVERS } from '@constants';
 import type { StationDetails } from 'types';
 
 export const fetchStationDetails = async (selectedStationId: number) => {
+  if (selectedStationId === null) {
+    throw new Error('선택된 충전소가 없습니다.');
+  }
+
   const mode = serverStore.getState();
 
   const stationDetails = await fetch(`${SERVERS[mode]}/stations/${selectedStationId}`, {

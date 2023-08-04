@@ -1,9 +1,5 @@
 import { css } from 'styled-components';
 
-import { useSetExternalState } from '@utils/external-state';
-
-import { selectedStationIdStore } from '@stores/selectedStationStore';
-
 import { useStationSummary } from '@hooks/useStationSummary';
 
 import Button from '@common/Button';
