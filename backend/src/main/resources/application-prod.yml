@@ -11,7 +11,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
 
 initialize-charge:
-  enabled: true
+  enabled: false
 
 scheduling:
-  enabled: true
+  enabled: false

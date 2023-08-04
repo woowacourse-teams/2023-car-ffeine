@@ -14,4 +14,4 @@ initialize-charge:
   enabled: false
 
 scheduling:
-  enabled: false
+  enabled: ture
