@@ -9,13 +9,6 @@ export const INITIAL_ZOOM_SIZE = 15;
 
 export const INVALID_VALUE_LIST = ['null', '.', '..', '1', '#'] as const;
 
-// 키
-export const LOCAL_STORAGE_KEY_LAST_POSITION = 'CARFFEINE_LAST_POSITION';
-export const LOCAL_KEY_GOOGLE_MAPS_API = 'CARFFEINE_GOOGLE_MAPS_API';
-export const LOCAL_KEY_GOOGLE_MAPS_API_LAST_LOGIN = 'CARFFEINE_GOOGLE_MAPS_API_LAST_LOGIN';
-export const LOCAL_KEY_TOKEN = 'CARFFEINE_TOKEN';
-export const SESSION_KEY_REPORTED_STATIONS = 'CARFFEINE_REPORTED_STATIONS';
-
 // 날짜
 export const KOREAN_DAYS = ['월', '화', '수', '목', '금', '토', '일'] as const;
 export const ENGLISH_DAYS = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'] as const;

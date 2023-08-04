@@ -1,7 +1,8 @@
 import { store } from '@utils/external-state';
 import { getLocalStorage } from '@utils/storage';
 
-import { DEFAULT_CENTER, INITIAL_ZOOM_SIZE, LOCAL_STORAGE_KEY_LAST_POSITION } from '@constants';
+import { DEFAULT_CENTER, INITIAL_ZOOM_SIZE } from '@constants';
+import { LOCAL_KEY_LAST_POSITION } from '@constants/storageKeys';
 
 export const getGoogleMapStore = (() => {
   let googleMap: google.maps.Map;
@@ -16,7 +17,7 @@ export const getGoogleMapStore = (() => {
   return () => {
     if (!googleMap) {
       const initialCenter = getLocalStorage<google.maps.LatLngLiteral>(
-        LOCAL_STORAGE_KEY_LAST_POSITION,
+        LOCAL_KEY_LAST_POSITION,
         DEFAULT_CENTER
       );
 

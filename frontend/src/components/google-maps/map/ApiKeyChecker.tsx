@@ -9,7 +9,10 @@ import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import TextField from '@common/TextField';
 
-import { LOCAL_KEY_GOOGLE_MAPS_API, LOCAL_KEY_GOOGLE_MAPS_API_LAST_LOGIN } from '@constants';
+import {
+  LOCAL_KEY_GOOGLE_MAPS_API,
+  LOCAL_KEY_GOOGLE_MAPS_API_LAST_LOGIN,
+} from '@constants/storageKeys';
 
 interface ApiKeyCheckerProps {
   render: (apiKey: string) => ReactNode;
