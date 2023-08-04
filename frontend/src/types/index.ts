@@ -1,5 +1,5 @@
-import type { CHARGING_SPEED, ENGLISH_DAYS, KOREAN_DAYS } from '@constants';
-import type { CAPACITIES, CHARGER_TYPES, COMPANY_NAME } from '@constants';
+import type { ENGLISH_DAYS, KOREAN_DAYS } from '@constants';
+import type { CAPACITIES, CHARGER_TYPES, CHARGING_SPEED, COMPANY_NAME } from '@constants/chargers';
 
 export type CapacityType = 3 | 7 | 50 | 100 | 200;
 export type ChargerStateType =

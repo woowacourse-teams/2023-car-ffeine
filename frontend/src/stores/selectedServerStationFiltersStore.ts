@@ -1,6 +1,6 @@
 import { store } from '@utils/external-state';
 
-import type { CHARGER_TYPES, CAPACITIES, COMPANY_NAME } from '@constants';
+import type { CAPACITIES, CHARGER_TYPES, COMPANY_NAME } from '@constants/chargers';
 
 export const selectedCompanyNamesFilterStore = store<
   (typeof COMPANY_NAME)[keyof typeof COMPANY_NAME][]

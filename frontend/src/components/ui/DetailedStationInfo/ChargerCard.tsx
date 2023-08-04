@@ -5,7 +5,7 @@ import Box from '@common/Box';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-import { CHARGER_STATES, CHARGER_TYPES } from '@constants';
+import { CHARGER_STATES, CHARGER_TYPES } from '@constants/chargers';
 
 import type { ChargerDetails } from '../../../types';
 

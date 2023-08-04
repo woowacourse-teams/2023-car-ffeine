@@ -8,7 +8,7 @@ import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-import { CHARGER_TYPES, CAPACITIES, COMPANY_NAME } from '@constants';
+import { CAPACITIES, CHARGER_TYPES, COMPANY_NAME } from '@constants/chargers';
 
 import FilterSection from './FilterOption';
 

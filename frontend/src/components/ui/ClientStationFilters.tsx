@@ -6,7 +6,7 @@ import { stationFilterStore } from '@stores/stationFilterStore';
 
 import ButtonNext from '@common/ButtonNext';
 
-import { CHARGING_SPEED } from '@constants';
+import { CHARGING_SPEED } from '@constants/chargers';
 
 const ClientStationFilters = () => {
   const [

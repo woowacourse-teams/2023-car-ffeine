@@ -1,7 +1,8 @@
 import { getTypedObjectFromEntries } from '@utils/getTypedObjectFromEntries';
 import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 
-import { CHARGER_TYPES, COMPANY_NAME, ENGLISH_DAYS, MAX_SEARCH_RESULTS } from '@constants';
+import { ENGLISH_DAYS, MAX_SEARCH_RESULTS } from '@constants';
+import { CHARGER_TYPES, COMPANY_NAME } from '@constants/chargers';
 
 import type {
   CapacityType,

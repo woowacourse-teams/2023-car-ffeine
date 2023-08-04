@@ -2,7 +2,7 @@ import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-import type { CHARGER_TYPES } from '@constants';
+import type { CHARGER_TYPES } from '@constants/chargers';
 
 import type { Capacity, ChargerType, CompanyName } from 'types';
 
