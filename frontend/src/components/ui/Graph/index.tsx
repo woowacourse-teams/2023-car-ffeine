@@ -2,12 +2,11 @@ import { type PropsWithChildren, useState, createContext } from 'react';
 
 import FlexBox from '@common/FlexBox';
 
+import type { Congestion, EnglishDaysType } from '../../../types/congestion';
 import Bar from './Bar';
 import BarContainer from './BarContainer';
 import CircleDaySelectButton from './CircleDaySelectButton';
 import DayMenus from './DayMenus';
-
-import type { Congestion, EnglishDaysType } from 'types';
 
 export interface GraphProps {
   align: 'row' | 'column';

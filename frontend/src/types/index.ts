@@ -1,5 +1,4 @@
 import type { CAPACITIES, CHARGER_TYPES, CHARGING_SPEED, COMPANY_NAME } from '@constants/chargers';
-import type { ENGLISH_DAYS, KOREAN_DAYS } from '@constants/congestion';
 
 export type CapacityType = 3 | 7 | 50 | 100 | 200;
 export type ChargerStateType =
@@ -28,7 +27,7 @@ export interface Coordinates {
   longitude: number;
 }
 
-interface StationId {
+export interface StationId {
   stationId: number;
 }
 
@@ -72,21 +71,6 @@ export interface DisplayPosition extends Coordinates {
 export type ChargerType = keyof typeof CHARGER_TYPES;
 export type CompanyName = (typeof COMPANY_NAME)[keyof typeof COMPANY_NAME];
 export type Capacity = (typeof CAPACITIES)[number];
-
-export type EnglishDaysType = (typeof ENGLISH_DAYS)[number];
-export type KoreanDaysType = (typeof KOREAN_DAYS)[number];
-
-export interface Congestion {
-  hour: number;
-  ratio: number;
-}
-
-export interface CongestionStatistics extends StationId {
-  congestion: {
-    standard?: Record<EnglishDaysType, Congestion[]>;
-    quick?: Record<EnglishDaysType, Congestion[]>;
-  };
-}
 
 export interface SearchedStation extends StationKeyInfo, Coordinates {
   speed: keyof typeof CHARGING_SPEED;

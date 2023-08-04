@@ -5,16 +5,9 @@ import { CHARGER_TYPES, COMPANY_NAME } from '@constants/chargers';
 import { ENGLISH_DAYS } from '@constants/congestion';
 import { MAX_SEARCH_RESULTS } from '@constants/stationSearch';
 
-import type {
-  CapacityType,
-  ChargerDetails,
-  CompanyName,
-  Congestion,
-  CongestionStatistics,
-  EnglishDaysType,
-  MockStation,
-} from '../types';
+import type { CapacityType, ChargerDetails, CompanyName, MockStation } from '../types';
 import type { ChargerType } from '../types';
+import type { Congestion, CongestionStatistics, EnglishDaysType } from '../types/congestion';
 
 const generateRandomData = <T>(array: T[]): T => {
   const randomIndex = Math.floor(Math.random() * array.length);
