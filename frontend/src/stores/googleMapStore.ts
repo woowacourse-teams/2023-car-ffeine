@@ -1,7 +1,7 @@
 import { store } from '@utils/external-state';
 import { getLocalStorage } from '@utils/storage';
 
-import { DEFAULT_CENTER, INITIAL_ZOOM_SIZE } from '@constants';
+import { DEFAULT_CENTER, INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
 import { LOCAL_KEY_LAST_POSITION } from '@constants/storageKeys';
 
 export const getGoogleMapStore = (() => {
