@@ -21,8 +21,6 @@ export const fetchStationDetails = async (selectedStationId: number) => {
 
     const congestionStatistics: CongestionStatistics = await response.json();
 
-    console.log(congestionStatistics);
-
     return congestionStatistics;
   });
 
