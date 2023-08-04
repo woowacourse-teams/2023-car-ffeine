@@ -1,4 +1,4 @@
-import type { ChargerType } from './index';
+import type { CAPACITIES, CHARGER_TYPES } from '@constants/chargers';
 
 export type CapacityType = 3 | 7 | 50 | 100 | 200;
 export type ChargerStateType =
@@ -8,7 +8,10 @@ export type ChargerStateType =
   | 'OPERATION_SUSPENDED'
   | 'UNDER_INSPECTION'
   | 'STATUS_UNKNOWN';
+
 export type ChargerMethodType = '단독' | '동시' | null;
+export type ChargerType = keyof typeof CHARGER_TYPES;
+export type Capacity = (typeof CAPACITIES)[number];
 
 export interface ChargerSummary {
   type: ChargerType;

@@ -10,9 +10,8 @@ import Text from '@common/Text';
 
 import { CAPACITIES, CHARGER_TYPES, COMPANY_NAME } from '@constants/chargers';
 
+import type { ChargerType } from '../../../types/chargers';
 import FilterSection from './FilterOption';
-
-import type { ChargerType } from 'types';
 
 const ServerStationFilters = () => {
   const queryClient = useQueryClient();

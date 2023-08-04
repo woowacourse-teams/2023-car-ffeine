@@ -1,4 +1,4 @@
-import type { CAPACITIES, CHARGER_TYPES, CHARGING_SPEED, COMPANY_NAME } from '@constants/chargers';
+import type { CHARGING_SPEED, COMPANY_NAME } from '@constants/chargers';
 
 import type { ChargerDetails, ChargerSummary } from './chargers';
 
@@ -48,9 +48,7 @@ export interface DisplayPosition extends Coordinates {
   latitudeDelta: number;
 }
 
-export type ChargerType = keyof typeof CHARGER_TYPES;
 export type CompanyName = (typeof COMPANY_NAME)[keyof typeof COMPANY_NAME];
-export type Capacity = (typeof CAPACITIES)[number];
 
 export interface SearchedStation extends StationKeyInfo, Coordinates {
   speed: keyof typeof CHARGING_SPEED;
