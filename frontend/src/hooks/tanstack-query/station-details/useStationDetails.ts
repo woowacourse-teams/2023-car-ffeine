@@ -39,7 +39,7 @@ export const fetchStationDetails = async (selectedStationId: number) => {
   return stationDetails;
 };
 
-export const useSelectedStation = () => {
+export const useStationDetails = () => {
   const selectedStationId = useExternalValue(selectedStationIdStore);
 
   return useQuery({
