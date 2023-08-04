@@ -2,7 +2,7 @@ import { css } from 'styled-components';
 
 import { modalActions } from '@stores/modalStore';
 
-import { useStationChargerReport } from '@hooks/useStationChargerReport';
+import { useStationChargerReport } from '@hooks/tanstack-query/station-details/reports/useStationChargerReport';
 
 import Alert from '@common/Alert';
 import Box from '@common/Box';

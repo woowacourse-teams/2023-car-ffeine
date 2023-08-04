@@ -1,4 +1,4 @@
-import { useSelectedStation } from '@hooks/useSelectedStation';
+import { useStationDetails } from '@hooks/tanstack-query/station-details/useStationDetails';
 
 import Box from '@common/Box';
 import Text from '@common/Text';
@@ -12,7 +12,7 @@ const DetailedStationInfo = () => {
     isLoading: isSelectedStationLoading,
     isError: isSelectedStationError,
     isFetching,
-  } = useSelectedStation();
+  } = useStationDetails();
   const { handleCloseLastPanel } = useAccordionAction();
 
   if (!isFetching && selectedStation === undefined) {

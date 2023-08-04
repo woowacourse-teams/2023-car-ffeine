@@ -5,9 +5,10 @@ import { useExternalValue } from '@utils/external-state';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 import { serverStore } from '@stores/serverStore';
 
-import { ERROR_MESSAGES, SERVERS } from '@constants';
+import { SERVERS } from '@constants';
+import { ERROR_MESSAGES } from '@constants/errorMessages';
 
-import type { CongestionStatistics } from 'types';
+import type { CongestionStatistics } from '../../../types/congestion';
 
 export const fetchStationDetails = async (selectedStationId: number) => {
   const mode = serverStore.getState();

@@ -5,7 +5,7 @@ import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 
 import { modalActions } from '@stores/modalStore';
 
-import { useUpdateStationChargerReport } from '@hooks/useUpdateStationReport';
+import { useUpdateStationChargerReport } from '@hooks/tanstack-query/station-details/reports/useUpdateStationReport';
 
 import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
@@ -15,7 +15,8 @@ import TextField from '@common/TextField';
 
 import StationInformation from '@ui/DetailedStationInfo/StationInformation';
 
-import type { ChargerDetails, StationDetails } from '../../../types';
+import type { StationDetails } from '../../../types';
+import type { ChargerDetails } from '../../../types/chargers';
 
 interface StationReportConfirmationProps {
   station: StationDetails;

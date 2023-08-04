@@ -5,7 +5,8 @@ import { getLocalStorage } from '@utils/storage';
 import { modalActions } from '@stores/modalStore';
 import { serverStore } from '@stores/serverStore';
 
-import { DEFAULT_TOKEN, LOCAL_KEY_TOKEN, SERVERS } from '@constants';
+import { DEFAULT_TOKEN, SERVERS } from '@constants';
+import { LOCAL_KEY_TOKEN } from '@constants/storageKeys';
 
 const fetchReportCharger = async (stationId: number) => {
   const token = getLocalStorage<number>(LOCAL_KEY_TOKEN, DEFAULT_TOKEN);

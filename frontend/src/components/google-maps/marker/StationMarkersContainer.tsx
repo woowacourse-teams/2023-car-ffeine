@@ -1,4 +1,4 @@
-import { useStations } from '@hooks/useStations';
+import { useStations } from '@hooks/tanstack-query/station-markers/useStations';
 
 import StationMarker from './StationMarker';
 

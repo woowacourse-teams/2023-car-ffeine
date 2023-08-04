@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { useGoogleMap } from '@hooks/useGoogleMap';
+import { useGoogleMap } from '@hooks/google-maps/useGoogleMap';
 
 import type { StationSummary } from 'types';
 

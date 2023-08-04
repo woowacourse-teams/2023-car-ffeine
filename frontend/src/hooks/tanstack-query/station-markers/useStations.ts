@@ -17,9 +17,10 @@ import {
 import { serverStore } from '@stores/serverStore';
 import { stationFilterStore } from '@stores/stationFilterStore';
 
-import { INITIAL_ZOOM_SIZE, SERVERS } from '@constants';
+import { SERVERS } from '@constants';
+import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
 
-import type { DisplayPosition, StationSummary } from 'types';
+import type { DisplayPosition, StationSummary } from '../../../types';
 
 export const fetchStation = async () => {
   const googleMap = getStoreSnapshot(getGoogleMapStore());

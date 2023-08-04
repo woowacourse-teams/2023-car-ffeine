@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { useStationCongestionStatistics } from '@hooks/useStationCongestionStatistics';
+import { useStationCongestionStatistics } from '@hooks/tanstack-query/station-details/useStationCongestionStatistics';
 
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
@@ -8,8 +8,8 @@ import Text from '@common/Text';
 
 import StatisticsGraph from '@ui/StatisticsGraph';
 
-import type { CHARGING_SPEED } from '@constants';
-import { ENGLISH_DAYS } from '@constants';
+import type { CHARGING_SPEED } from '@constants/chargers';
+import { ENGLISH_DAYS } from '@constants/congestion';
 
 const CongestionStatistics = () => {
   const { data: congestionStatistics, isFetching } = useStationCongestionStatistics();

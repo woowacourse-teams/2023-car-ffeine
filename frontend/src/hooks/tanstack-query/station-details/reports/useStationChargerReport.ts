@@ -4,7 +4,8 @@ import { getLocalStorage } from '@utils/storage';
 
 import { serverStore } from '@stores/serverStore';
 
-import { DEFAULT_TOKEN, LOCAL_KEY_TOKEN, SERVERS } from '@constants';
+import { DEFAULT_TOKEN, SERVERS } from '@constants';
+import { LOCAL_KEY_TOKEN } from '@constants/storageKeys';
 
 const fetchStationChargerReport = (token: number, stationId: number) => {
   const mode = serverStore.getState();

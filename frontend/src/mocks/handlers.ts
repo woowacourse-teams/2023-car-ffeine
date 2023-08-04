@@ -2,7 +2,9 @@ import { rest } from 'msw';
 
 import { getSessionStorage, setSessionStorage } from '@utils/storage';
 
-import { ERROR_MESSAGES, SERVERS, SESSION_KEY_REPORTED_STATIONS } from '@constants';
+import { SERVERS } from '@constants';
+import { ERROR_MESSAGES } from '@constants/errorMessages';
+import { SESSION_KEY_REPORTED_STATIONS } from '@constants/storageKeys';
 
 import { getCongestionStatistics, getSearchedStations, stations } from './data';
 

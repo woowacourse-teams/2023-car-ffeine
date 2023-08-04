@@ -2,12 +2,12 @@ import { useExternalValue } from '@utils/external-state';
 
 import { getGoogleMapStore, googleMapActions } from '@stores/googleMapStore';
 
-import { useCurrentPosition } from '@hooks/useCurrentPosition';
+import { useCurrentPosition } from '@hooks/google-maps/useCurrentPosition';
 
 import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 
-import { INITIAL_ZOOM_SIZE } from '@constants';
+import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
 
 const MapController = () => {
   const position = useCurrentPosition();
