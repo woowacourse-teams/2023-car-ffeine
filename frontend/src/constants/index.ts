@@ -17,12 +17,6 @@ export const ENGLISH_DAYS_TO_KOREAN_DAYS = Object.fromEntries(
   ENGLISH_DAYS.map((day, index) => [day, KOREAN_DAYS[index]])
 );
 
-// API 검색
-export const SEARCH_SCOPE =
-  '&scope=stationName&scope=address&scope=speed&scope=latitude&scope=longitude';
-
-export const MAX_SEARCH_RESULTS = 10;
-
 export const SERVERS = {
   localhost: 'http://localhost:8080/api',
   dain: 'https://dain.carffe.in/api',
