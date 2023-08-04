@@ -9,7 +9,7 @@ import { setLocalStorage } from '@utils/storage';
 
 import { getGoogleMapStore } from '@stores/googleMapStore';
 
-import { useUpdateStations } from '@hooks/useUpdateStations';
+import { useUpdateStations } from '@hooks/tanstack-query/station-markers/useUpdateStations';
 
 import ClientStationFilters from '@ui/ClientStationFilters';
 import MapController from '@ui/MapController';

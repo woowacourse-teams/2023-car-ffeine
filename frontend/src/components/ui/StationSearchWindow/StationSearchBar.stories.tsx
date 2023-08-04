@@ -10,7 +10,7 @@ import { useSetExternalState } from '@utils/external-state';
 import { searchWordStore } from '@stores/searchWordStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
-import { useSearchedStations } from '@hooks/useSearchedStations';
+import { useSearchedStations } from '@hooks/tanstack-query/useSearchedStations';
 
 import Button from '@common/Button';
 

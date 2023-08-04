@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-import { useStations } from '@hooks/useStations';
+import { useStations } from '@hooks/tanstack-query/station-markers/useStations';
 
 import List from '@common/List';
 import Text from '@common/Text';

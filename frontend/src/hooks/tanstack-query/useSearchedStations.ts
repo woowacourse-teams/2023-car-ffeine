@@ -7,7 +7,7 @@ import { serverStore } from '@stores/serverStore';
 
 import { ERROR_MESSAGES, SEARCH_SCOPE, SERVERS } from '@constants';
 
-import type { SearchedStation, SearchedStationResponse } from 'types';
+import type { SearchedStation, SearchedStationResponse } from '../../types';
 
 export const fetchSearchedStations = async (searchWord: string) => {
   const mode = serverStore.getState();

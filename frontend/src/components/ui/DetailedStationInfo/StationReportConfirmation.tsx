@@ -5,7 +5,7 @@ import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 
 import { modalActions } from '@stores/modalStore';
 
-import { useUpdateStationChargerReport } from '@hooks/useUpdateStationReport';
+import { useUpdateStationChargerReport } from '@hooks/tanstack-query/station-details/reports/useUpdateStationReport';
 
 import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';

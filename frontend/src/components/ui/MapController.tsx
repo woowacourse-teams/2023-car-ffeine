@@ -2,7 +2,7 @@ import { useExternalValue } from '@utils/external-state';
 
 import { getGoogleMapStore, googleMapActions } from '@stores/googleMapStore';
 
-import { useCurrentPosition } from '@hooks/useCurrentPosition';
+import { useCurrentPosition } from '@hooks/google-maps/useCurrentPosition';
 
 import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';

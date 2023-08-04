@@ -1,6 +1,6 @@
 import { modalActions } from '@stores/modalStore';
 
-import { useUpdateStationChargerReport } from '@hooks/useUpdateStationChargerReport';
+import { useUpdateStationChargerReport } from '@hooks/tanstack-query/station-details/reports/useUpdateStationChargerReport';
 
 import Alert from '@common/Alert';
 import Box from '@common/Box';

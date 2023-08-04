@@ -7,7 +7,7 @@ import { serverStore } from '@stores/serverStore';
 
 import { ERROR_MESSAGES, INVALID_VALUE_LIST, SERVERS } from '@constants';
 
-import type { StationDetails } from 'types';
+import type { StationDetails } from '../../../types';
 
 export const fetchStationDetails = async (selectedStationId: number) => {
   if (selectedStationId === null) {

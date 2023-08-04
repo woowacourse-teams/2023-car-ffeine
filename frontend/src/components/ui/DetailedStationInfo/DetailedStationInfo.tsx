@@ -1,4 +1,4 @@
-import { useSelectedStation } from '@hooks/useSelectedStation';
+import { useSelectedStation } from '@hooks/tanstack-query/station-details/useSelectedStation';
 
 import Box from '@common/Box';
 import Text from '@common/Text';

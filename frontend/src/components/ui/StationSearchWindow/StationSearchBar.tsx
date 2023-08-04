@@ -12,8 +12,8 @@ import { getGoogleMapStore } from '@stores/googleMapStore';
 import { searchWordStore } from '@stores/searchWordStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
+import { useSearchedStations } from '@hooks/tanstack-query/useSearchedStations';
 import { useDebounce } from '@hooks/useDebounce';
-import { useSearchedStations } from '@hooks/useSearchedStations';
 
 import Button from '@common/Button';
 

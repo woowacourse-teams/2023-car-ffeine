@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { useStationCongestionStatistics } from '@hooks/useStationCongestionStatistics';
+import { useStationCongestionStatistics } from '@hooks/tanstack-query/station-details/useStationCongestionStatistics';
 
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';

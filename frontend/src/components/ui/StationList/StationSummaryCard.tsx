@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-import { useStationSummary } from '@hooks/useStationSummary';
+import { useStationSummary } from '@hooks/google-maps/useStationSummary';
 
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';

@@ -5,10 +5,10 @@ import { getGoogleMapStore } from '@stores/googleMapStore';
 import { markerInstanceStore } from '@stores/markerInstanceStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
-import BriefStationInfo from '../components/ui/BriefStationInfo';
-import { useCalculatedMapDelta } from './useCalculatedMapDelta';
+import BriefStationInfo from '@ui/BriefStationInfo';
 
-import type { StationSummary } from 'types';
+import type { StationSummary } from '../../types';
+import { useCalculatedMapDelta } from './useCalculatedMapDelta';
 
 export const useStationSummary = () => {
   const googleMap = useExternalValue(getGoogleMapStore());

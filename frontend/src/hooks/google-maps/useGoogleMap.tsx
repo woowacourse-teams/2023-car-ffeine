@@ -10,9 +10,8 @@ import { selectedStationIdStore } from '@stores/selectedStationStore';
 
 import BlueMarker from '@assets/blue-marker.svg';
 
+import type { StationSummary } from '../../types';
 import { useStationSummary } from './useStationSummary';
-
-import type { StationSummary } from 'types';
 
 export const useGoogleMap = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
