@@ -15,7 +15,7 @@ import ChargerReportConfirmation from '@ui/DetailedStationInfo/reports/ChargerRe
 import StationReportConfirmation from '@ui/DetailedStationInfo/reports/StationReportConfirmation';
 
 import type { StationDetails } from '../../../types';
-import CongestionStatistics from './CongestionStatistics';
+import CongestionStatistics from './congestion/CongestionStatistics';
 
 export interface DetailedStationProps {
   station: StationDetails;
