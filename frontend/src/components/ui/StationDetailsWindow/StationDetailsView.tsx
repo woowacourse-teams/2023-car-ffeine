@@ -9,10 +9,10 @@ import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 
-import ChargerCard from '@ui/DetailedStationInfo/ChargerCard';
-import StationInformation from '@ui/DetailedStationInfo/StationInformation';
-import ChargerReportConfirmation from '@ui/DetailedStationInfo/reports/ChargerReportConfirmation';
-import StationReportConfirmation from '@ui/DetailedStationInfo/reports/StationReportConfirmation';
+import ChargerCard from '@ui/StationDetailsWindow/ChargerCard';
+import StationInformation from '@ui/StationDetailsWindow/StationInformation';
+import ChargerReportConfirmation from '@ui/StationDetailsWindow/reports/ChargerReportConfirmation';
+import StationReportConfirmation from '@ui/StationDetailsWindow/reports/StationReportConfirmation';
 
 import type { StationDetails } from '../../../types';
 import CongestionStatistics from './congestion/CongestionStatistics';
@@ -21,7 +21,7 @@ export interface DetailedStationProps {
   station: StationDetails;
 }
 
-const DetailedStation = ({ station }: DetailedStationProps) => {
+const StationDetailsView = ({ station }: DetailedStationProps) => {
   const { stationId, chargers, reportCount } = station;
 
   const { data: isStationChargerReported, isLoading: isStationChargerReportedLoading } =
@@ -90,4 +90,4 @@ const containerCss = css`
   overflow: scroll;
 `;
 
-export default DetailedStation;
+export default StationDetailsView;

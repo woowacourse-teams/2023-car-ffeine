@@ -13,7 +13,7 @@ import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 import TextField from '@common/TextField';
 
-import StationInformation from '@ui/DetailedStationInfo/StationInformation';
+import StationInformation from '@ui/StationDetailsWindow/StationInformation';
 
 import type { StationDetails } from '../../../../types';
 import type { ChargerDetails } from '../../../../types/chargers';

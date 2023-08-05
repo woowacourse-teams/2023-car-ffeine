@@ -1,6 +1,7 @@
+import DetailedStationInfo from 'components/ui/StationDetailsWindow';
+
 import type { BasePanelType } from '@ui/Accordion';
 import Accordion from '@ui/Accordion';
-import DetailedStationInfo from '@ui/DetailedStationInfo';
 import ServerStationFilters from '@ui/ServerStationFilters';
 import StationListWindow from '@ui/StationList/StationListWindow';
 import StationSearchWindow from '@ui/StationSearchWindow';
