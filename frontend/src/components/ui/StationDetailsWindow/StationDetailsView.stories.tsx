@@ -1,6 +1,6 @@
 import type { Meta } from '@storybook/react';
 
-import type { DetailedStationProps } from '@ui/StationDetailsWindow/StationDetailsView';
+import type { StationDetailsViewProps } from '@ui/StationDetailsWindow/StationDetailsView';
 import StationDetailsView from '@ui/StationDetailsWindow/StationDetailsView';
 
 const meta = {
@@ -76,6 +76,6 @@ const meta = {
 
 export default meta;
 
-export const Default = (args: DetailedStationProps) => {
+export const Default = (args: StationDetailsViewProps) => {
   return <StationDetailsView {...args} />;
 };

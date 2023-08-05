@@ -17,11 +17,11 @@ import StationReportPreConfirmation from '@ui/StationDetailsWindow/reports/Stati
 import type { StationDetails } from '../../../types';
 import CongestionStatistics from './congestion/CongestionStatistics';
 
-export interface DetailedStationProps {
+export interface StationDetailsViewProps {
   station: StationDetails;
 }
 
-const StationDetailsView = ({ station }: DetailedStationProps) => {
+const StationDetailsView = ({ station }: StationDetailsViewProps) => {
   const { stationId, chargers, reportCount } = station;
 
   const { data: isStationChargerReported, isLoading: isStationChargerReportedLoading } =
