@@ -1,8 +1,7 @@
-import DetailedStationInfo from 'components/ui/StationDetailsWindow';
-
 import type { BasePanelType } from '@ui/Accordion';
 import Accordion from '@ui/Accordion';
 import ServerStationFilters from '@ui/ServerStationFilters';
+import StationDetailsWindow from '@ui/StationDetailsWindow';
 import StationListWindow from '@ui/StationList/StationListWindow';
 import StationSearchWindow from '@ui/StationSearchWindow';
 
@@ -22,7 +21,7 @@ const Navigator = () => {
     <Accordion isBasePanelOpenInDefault>
       <Accordion.Navigator />
       <Accordion.BasePanel render={renderBasePanel} />
-      <Accordion.LastPanel render={() => <DetailedStationInfo />} />
+      <Accordion.LastPanel render={() => <StationDetailsWindow />} />
     </Accordion>
   );
 };
