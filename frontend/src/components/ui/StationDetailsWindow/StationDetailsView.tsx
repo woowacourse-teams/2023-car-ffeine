@@ -12,7 +12,7 @@ import FlexBox from '@common/FlexBox';
 import ChargerCard from '@ui/StationDetailsWindow/ChargerCard';
 import StationInformation from '@ui/StationDetailsWindow/StationInformation';
 import ChargerReportConfirmation from '@ui/StationDetailsWindow/reports/ChargerReportConfirmation';
-import StationReportConfirmation from '@ui/StationDetailsWindow/reports/StationReportConfirmation';
+import StationReportPreConfirmation from '@ui/StationDetailsWindow/reports/StationReportPreConfirmation';
 
 import type { StationDetails } from '../../../types';
 import CongestionStatistics from './congestion/CongestionStatistics';
@@ -37,7 +37,7 @@ const StationDetailsView = ({ station }: DetailedStationProps) => {
           size="sm"
           color="light"
           onClick={() => {
-            modalActions.openModal(<StationReportConfirmation station={station} />);
+            modalActions.openModal(<StationReportPreConfirmation station={station} />);
           }}
         >
           📝 충전소 정보 수정 제안하기

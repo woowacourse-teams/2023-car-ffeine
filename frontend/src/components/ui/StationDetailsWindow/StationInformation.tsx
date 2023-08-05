@@ -35,19 +35,19 @@ const StationInformation = ({ station }: StationInformationProps) => {
       <hr />
       {stationState && <Alert color="warning" text={`[공지] ${stationState}`} />}
       <Box px={1}>
-        <Box my={1}>
+        <Box my={2}>
           <Text variant="h6">운영시간</Text>
           <Text variant="body">{operatingTime ?? '운영시간 미확인'}</Text>
         </Box>
-        <Box my={1}>
+        <Box my={2}>
           <Text variant="h6">연락처</Text>
           <Text variant="body">{contact ?? '연락처 없음'}</Text>
         </Box>
-        <Box my={1}>
+        <Box my={2}>
           <Text variant="h6">주차비</Text>
           <Text variant="body">{isParkingFree ? '무료' : '유료'}</Text>
         </Box>
-        <Box my={1}>
+        <Box my={2}>
           <Text variant="h6">사용 제한 여부</Text>
           <Text variant="body">
             {isPrivate || privateReason
