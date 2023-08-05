@@ -10,9 +10,9 @@ import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 
 import ChargerCard from '@ui/DetailedStationInfo/ChargerCard';
-import ChargerReportConfirmation from '@ui/DetailedStationInfo/ChargerReportConfirmation';
 import StationInformation from '@ui/DetailedStationInfo/StationInformation';
-import StationReportConfirmation from '@ui/DetailedStationInfo/StationReportConfirmation';
+import ChargerReportConfirmation from '@ui/DetailedStationInfo/reports/ChargerReportConfirmation';
+import StationReportConfirmation from '@ui/DetailedStationInfo/reports/StationReportConfirmation';
 
 import type { StationDetails } from '../../../types';
 import CongestionStatistics from './CongestionStatistics';
