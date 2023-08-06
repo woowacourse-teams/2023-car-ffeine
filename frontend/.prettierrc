@@ -21,9 +21,10 @@
     "^@style",
     "^style/(.*)$",
     "^@constants",
+    "@type",
     "^@assets/(.*)$",
-    "^[./]",
-    "^types"
+    "^[./]"
   ],
-  "importOrderSeparation": true
+  "importOrderSeparation": true,
+  "plugins": ["@trivago/prettier-plugin-sort-imports"]
 }

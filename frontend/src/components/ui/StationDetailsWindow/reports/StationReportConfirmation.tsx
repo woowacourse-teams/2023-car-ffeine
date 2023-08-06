@@ -15,8 +15,8 @@ import TextField from '@common/TextField';
 
 import StationInformation from '@ui/StationDetailsWindow/StationInformation';
 
-import type { StationDetails } from '../../../../types';
-import type { ChargerDetails } from '../../../../types/chargers';
+import type { StationDetails } from '@type';
+import type { ChargerDetails } from '@type/chargers';
 
 interface StationReportConfirmationProps {
   station: StationDetails;
