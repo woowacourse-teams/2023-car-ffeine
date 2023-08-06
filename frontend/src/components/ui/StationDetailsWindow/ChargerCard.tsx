@@ -7,7 +7,7 @@ import Text from '@common/Text';
 
 import { CHARGER_STATES, CHARGER_TYPES } from '@constants/chargers';
 
-import type { ChargerDetails } from '../../../types/chargers';
+import type { ChargerDetails } from '@type/chargers';
 
 export interface ChargerCardProps {
   charger: ChargerDetails;

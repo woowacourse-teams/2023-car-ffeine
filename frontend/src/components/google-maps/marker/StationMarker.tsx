@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { useGoogleMap } from '@hooks/google-maps/useGoogleMap';
 
-import type { StationSummary } from 'types';
+import type { StationSummary } from '@type';
 
 interface Props {
   station: StationSummary;

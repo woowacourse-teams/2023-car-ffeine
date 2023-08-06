@@ -10,7 +10,7 @@ import Text from '@common/Text';
 import StationInformation from '@ui/StationDetailsWindow/StationInformation';
 import StationReportConfirmation from '@ui/StationDetailsWindow/reports/StationReportConfirmation';
 
-import type { StationDetails } from '../../../../types';
+import type { StationDetails } from '@type';
 
 interface StationReportPreConfirmationProps {
   station: StationDetails;

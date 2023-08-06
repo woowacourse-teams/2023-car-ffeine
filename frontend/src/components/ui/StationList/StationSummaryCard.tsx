@@ -10,7 +10,7 @@ import Text from '@common/Text';
 import { useAccordionAction } from '@ui/Accordion/hooks/useAccordionAction';
 import ChargingSpeedIcon from '@ui/ChargingSpeedIcon';
 
-import type { StationSummary } from 'types';
+import type { StationSummary } from '@type';
 
 interface Props {
   station: StationSummary;
