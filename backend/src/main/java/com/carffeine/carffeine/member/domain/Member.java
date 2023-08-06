@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.member.domain;
 
-import com.carffeine.carffeine.station.domain.BaseTime;
+import com.carffeine.carffeine.station.domain.BaseEntity;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -13,7 +13,7 @@ import javax.persistence.Id;
 @Getter
 @Builder
 @Entity
-public class Member extends BaseTime {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

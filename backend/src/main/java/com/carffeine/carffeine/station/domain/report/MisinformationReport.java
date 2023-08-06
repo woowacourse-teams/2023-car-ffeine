@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.station.domain.report;
 
-import com.carffeine.carffeine.station.domain.BaseTime;
+import com.carffeine.carffeine.station.domain.BaseEntity;
 import com.carffeine.carffeine.station.domain.station.Station;
 import lombok.*;
 
@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "misinformation_report")
 @Entity
-public class MisinformationReport extends BaseTime {
+public class MisinformationReport extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

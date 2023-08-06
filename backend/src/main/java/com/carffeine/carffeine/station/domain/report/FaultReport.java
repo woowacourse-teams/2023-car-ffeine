@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.station.domain.report;
 
-import com.carffeine.carffeine.station.domain.BaseTime;
+import com.carffeine.carffeine.station.domain.BaseEntity;
 import com.carffeine.carffeine.station.domain.station.Station;
 import lombok.*;
 
@@ -12,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "fault_report")
 @Entity
-public class FaultReport extends BaseTime {
+public class FaultReport extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

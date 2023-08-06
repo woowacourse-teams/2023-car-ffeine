@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.station.domain.report;
 
-import com.carffeine.carffeine.station.domain.BaseTime;
+import com.carffeine.carffeine.station.domain.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "misinformation_detail_report")
 @Entity
-public class MisinformationDetailReport extends BaseTime {
+public class MisinformationDetailReport extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

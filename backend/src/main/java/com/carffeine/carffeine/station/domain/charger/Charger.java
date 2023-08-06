@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.station.domain.charger;
 
-import com.carffeine.carffeine.station.domain.BaseTime;
+import com.carffeine.carffeine.station.domain.BaseEntity;
 import com.carffeine.carffeine.station.domain.station.Station;
 import lombok.*;
 
@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 @IdClass(ChargerId.class)
 @Entity
 @Table(name = "charger")
-public class Charger extends BaseTime {
+public class Charger extends BaseEntity {
 
     private static final BigDecimal OUTPUT_THRESHOLD = BigDecimal.valueOf(50);
 
