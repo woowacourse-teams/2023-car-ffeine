@@ -1,27 +1,10 @@
 package com.carffeine.carffeine.station.domain.charger;
 
+import com.carffeine.carffeine.station.domain.BaseTime;
 import com.carffeine.carffeine.station.domain.station.Station;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.ConstraintMode;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Getter
@@ -31,7 +14,7 @@ import java.math.BigDecimal;
 @IdClass(ChargerId.class)
 @Entity
 @Table(name = "charger")
-public class Charger {
+public class Charger extends BaseTime {
 
     private static final BigDecimal OUTPUT_THRESHOLD = BigDecimal.valueOf(50);
 

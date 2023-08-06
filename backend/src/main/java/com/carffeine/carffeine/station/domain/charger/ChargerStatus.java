@@ -1,18 +1,9 @@
 package com.carffeine.carffeine.station.domain.charger;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.carffeine.carffeine.station.domain.BaseTime;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @ToString
@@ -22,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @IdClass(ChargerId.class)
 @Entity
-public class ChargerStatus {
+public class ChargerStatus extends BaseTime {
 
     @Id
     @Column(name = "station_id")

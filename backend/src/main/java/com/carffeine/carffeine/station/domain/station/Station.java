@@ -1,21 +1,11 @@
 package com.carffeine.carffeine.station.domain.station;
 
+import com.carffeine.carffeine.station.domain.BaseTime;
 import com.carffeine.carffeine.station.domain.charger.Charger;
 import com.carffeine.carffeine.station.domain.report.FaultReport;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -28,7 +18,7 @@ import java.util.Set;
 @Entity
 @EqualsAndHashCode(of = "stationId")
 @Table(name = "charge_station", indexes = @Index(name = "idx_station_coordination", columnList = "latitude, longitude, stationId"))
-public class Station {
+public class Station extends BaseTime {
 
     @Id
     private String stationId;
