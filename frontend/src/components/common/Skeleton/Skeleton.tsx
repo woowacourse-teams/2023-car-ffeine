@@ -28,7 +28,7 @@ const SkeletonWrapper = styled.div<SkeletonProps>`
   border-radius: ${({ borderRadius }) => borderRadius || '6px'};
 `;
 
-const Skeleton = (props: SkeletonProps) => {
+const Skeleton = ({ ...props }: SkeletonProps) => {
   return <SkeletonWrapper {...props} />;
 };
 
