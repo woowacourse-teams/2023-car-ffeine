@@ -111,15 +111,18 @@ describe('findDifferentKeys()', () => {
       },
       10,
     ],
-  ])('findDifferentKeys() with different objects', (form, station, expectedDifferentCount) => {
-    const differentKeys = findDifferentKeys(form, station);
-    expect(differentKeys.length).toBe(expectedDifferentCount);
+  ])(
+    '여러 StationDetailsWithoutChargers 객체를 활용한 findDifferentKeys() 테스트',
+    (form, station, expectedDifferentCount) => {
+      const differentKeys = findDifferentKeys(form, station);
+      expect(differentKeys.length).toBe(expectedDifferentCount);
 
-    const differencesArray: Differences[] = differentKeys.map((key) => ({
-      category: key,
-      reportedDetail: form[key],
-    }));
+      const differencesArray: Differences[] = differentKeys.map((key) => ({
+        category: key,
+        reportedDetail: form[key],
+      }));
 
-    expect(differencesArray.length).toBe(expectedDifferentCount);
-  });
+      expect(differencesArray.length).toBe(expectedDifferentCount);
+    }
+  );
 });
