@@ -1,9 +1,19 @@
 package com.carffeine.carffeine.station.domain.charger;
 
 import com.carffeine.carffeine.station.domain.BaseEntity;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
 import java.time.LocalDateTime;
 
 @ToString
