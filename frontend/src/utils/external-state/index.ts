@@ -1,6 +1,1 @@
-export {
-  store,
-  useExternalState,
-  useSetExternalState,
-  useExternalValue
-} from './tools';
+export { store, useExternalState, useSetExternalState, useExternalValue } from './tools';

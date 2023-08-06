@@ -2,7 +2,7 @@ import Alert from '@common/Alert';
 import Box from '@common/Box';
 import Text from '@common/Text';
 
-import type { StationDetails } from '../../../types';
+import type { StationDetails } from '@type';
 
 export interface StationInformationProps {
   station: StationDetails;

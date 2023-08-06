@@ -5,7 +5,7 @@ import type { ButtonHTMLAttributes, MouseEventHandler } from 'react';
 
 import { borderRadius, getSize, pillStyle } from '@style';
 
-import type { BorderRadiusDirectionType } from 'types/style';
+import type { BorderRadiusDirectionType } from '@type/style';
 
 type VariantType = 'pill' | 'label';
 

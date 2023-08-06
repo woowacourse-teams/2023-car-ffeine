@@ -7,7 +7,7 @@ import List from '@common/List';
 import ListItem from '@common/ListItem';
 import Text from '@common/Text';
 
-import type { SearchedStation, StationPosition } from 'types';
+import type { SearchedStation, StationPosition } from '@type';
 
 export interface SearchResultProps {
   stations: SearchedStation[];

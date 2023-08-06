@@ -2,12 +2,10 @@ import type { CSSProp } from 'styled-components';
 import styled, { css } from 'styled-components';
 
 import type { ReactNode, MouseEventHandler } from 'react';
-import React from 'react';
 
 import { getColor, getHoverColor } from '@style';
 
-import type { Color } from '../../../types/style';
-import type { Size } from '../../../types/style';
+import type { Color, Size } from '@type/style';
 
 export interface ButtonNextProps {
   noTheme?: boolean;
