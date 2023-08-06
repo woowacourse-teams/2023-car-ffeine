@@ -21,9 +21,9 @@
     "^@style",
     "^style/(.*)$",
     "^@constants",
+    "@type",
     "^@assets/(.*)$",
-    "^[./]",
-    "^types"
+    "^[./]"
   ],
   "importOrderSeparation": true
 }
