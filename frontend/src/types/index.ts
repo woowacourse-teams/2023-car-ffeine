@@ -59,3 +59,5 @@ export interface StationPosition extends Coordinates, StationId {}
 export interface SearchedStationResponse {
   stations: SearchedStation[];
 }
+
+export type StationDetailsWithoutChargers = Omit<StationDetails, 'chargers'>;

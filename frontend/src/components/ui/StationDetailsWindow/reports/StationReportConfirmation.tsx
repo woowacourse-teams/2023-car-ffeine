@@ -1,8 +1,6 @@
 import type { ChangeEvent } from 'react';
 import { useState } from 'react';
 
-import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
-
 import { modalActions } from '@stores/modalStore';
 
 import { useUpdateStationChargerReport } from '@hooks/tanstack-query/station-details/reports/useUpdateStationReport';
@@ -14,8 +12,9 @@ import Text from '@common/Text';
 import TextField from '@common/TextField';
 
 import StationInformation from '@ui/StationDetailsWindow/StationInformation';
+import { findDifferentKeys } from '@ui/StationDetailsWindow/reports/domain';
 
-import type { StationDetails } from '@type';
+import type { StationDetails, StationDetailsWithoutChargers } from '@type';
 import type { ChargerDetails } from '@type/chargers';
 
 interface StationReportConfirmationProps {
@@ -27,7 +26,8 @@ export interface Differences {
 }
 
 const StationReportConfirmation = ({ station }: StationReportConfirmationProps) => {
-  const [form, setForm] = useState<StationDetails>({ ...station });
+  const { chargers, ...stationWithoutChargers } = station;
+  const [form, setForm] = useState<StationDetailsWithoutChargers>({ ...stationWithoutChargers });
   const { updateStationReport } = useUpdateStationChargerReport();
   const handleChangeTextField = ({ target: { id, value } }: ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [id]: value });
@@ -37,13 +37,8 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
     setForm({ ...form, [key]: !form[key] });
   };
 
-  const findDifferentKeys = (formStation: StationDetails, originStation: StationDetails) =>
-    getTypedObjectKeys<StationDetails>(formStation).filter(
-      (key) => formStation[key] !== originStation[key]
-    );
-
   const reportCharger = () => {
-    const differentKeys = findDifferentKeys(form, station);
+    const differentKeys = findDifferentKeys(form, stationWithoutChargers);
     const differencesArray: Differences[] = differentKeys.map((key) => ({
       category: key,
       reportedDetail: form[key],
@@ -62,7 +57,7 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
       </Text>
       <Text variant="label">변경사항 미리보기</Text>
       <Box border mt={2} mb={10}>
-        <StationInformation station={form} />
+        <StationInformation station={{ chargers: [], ...form }} />
       </Box>
 
       <TextField
