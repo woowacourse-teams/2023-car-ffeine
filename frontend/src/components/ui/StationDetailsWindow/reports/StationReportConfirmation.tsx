@@ -50,6 +50,8 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
     }
   };
 
+  const handleCloseModalButton = () => modalActions.closeModal();
+
   return (
     <Box p={2}>
       <Text variant="title" mb={3}>
@@ -118,17 +120,11 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
           color="error"
           size="md"
           fullWidth
-          onClick={() => modalActions.closeModal()}
+          onClick={handleCloseModalButton}
         >
           저장하지 않고 닫을래요
         </ButtonNext>
-        <ButtonNext
-          variant="contained"
-          color="success"
-          size="md"
-          fullWidth
-          onClick={() => reportCharger()}
-        >
+        <ButtonNext variant="contained" color="success" size="md" fullWidth onClick={reportCharger}>
           제안하기
         </ButtonNext>
       </FlexBox>
