@@ -19,7 +19,7 @@ const Navigator = () => {
 
   return (
     <Accordion isBasePanelOpenInDefault>
-      <Accordion.Navigator />
+      <Accordion.Menu />
       <Accordion.BasePanel render={renderBasePanel} />
       <Accordion.LastPanel render={() => <DetailedStationInfo />} />
     </Accordion>

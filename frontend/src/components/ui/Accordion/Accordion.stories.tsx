@@ -31,7 +31,7 @@ export const Default = () => {
 
   return (
     <Accordion>
-      <Accordion.Navigator />
+      <Accordion.Menu />
       <Accordion.BasePanel render={renderBasePanel} />
       <Accordion.LastPanel render={() => <LastContainer />} />
       <OpenTriggerButton />

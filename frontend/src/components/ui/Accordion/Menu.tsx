@@ -13,7 +13,7 @@ import LogoIcon from '@ui/Svg/LogoIcon';
 
 import { useAccordionAction } from './hooks/useAccordionAction';
 
-const Navigator = () => {
+const Menu = () => {
   const { toggleOpenBasePanel: handleOpenBasePanel } = useAccordionAction();
 
   return (
@@ -63,4 +63,4 @@ const borderCss = css`
   border-right: 0.1rem solid #ddd;
 `;
 
-export default Navigator;
+export default Menu;

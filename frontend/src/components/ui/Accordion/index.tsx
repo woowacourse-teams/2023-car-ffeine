@@ -11,7 +11,7 @@ import FlexBox from '@common/FlexBox';
 
 import BasePanel from './BasePanel';
 import LastPanel from './LastPanel';
-import Navigator from './Navigator';
+import Menu from './Menu';
 
 interface AccordionContextType {
   isBasePanelOpen: boolean;
@@ -68,7 +68,7 @@ const Accordion = ({ isBasePanelOpenInDefault = false, children }: PropsWithChil
   );
 };
 
-Accordion.Navigator = Navigator;
+Accordion.Menu = Menu;
 Accordion.BasePanel = BasePanel;
 Accordion.LastPanel = LastPanel;
 
