@@ -1,5 +1,6 @@
 package com.carffeine.carffeine.station.domain.congestion;
 
+import com.carffeine.carffeine.station.config.RequestPeriodConverter;
 import com.carffeine.carffeine.station.domain.charger.Charger;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -31,6 +33,7 @@ public class PeriodicCongestion {
 
     @Enumerated(EnumType.STRING)
     private DayOfWeek dayOfWeek;
+    @Convert(converter = RequestPeriodConverter.class)
     private RequestPeriod startTime;
     private int useCount;
     private int totalCount;
