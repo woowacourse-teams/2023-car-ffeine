@@ -17,7 +17,8 @@ import { useDebounce } from '@hooks/useDebounce';
 
 import Button from '@common/Button';
 
-import { useAccordionAction } from '@ui/Accordion/hooks/useAccordionAction';
+import StationDetailsWindow from '@ui/StationDetailsWindow';
+import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
 import { pillStyle } from '@style';
 
@@ -30,7 +31,7 @@ const StationSearchBar = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
   const setSelectedStationId = useSetExternalState(selectedStationIdStore);
 
-  const { handleOpenLastPanel } = useAccordionAction();
+  const { openLastPanel } = useNavigationBar();
 
   const [inputValue, setInputValue] = useState('');
   const setSearchWord = useSetExternalState(searchWordStore);
@@ -61,7 +62,7 @@ const StationSearchBar = () => {
     googleMap.panTo({ lat: latitude, lng: longitude });
     queryClient.invalidateQueries({ queryKey: ['stations'] });
     setSelectedStationId(stationId);
-    handleOpenLastPanel();
+    openLastPanel(<StationDetailsWindow />);
   };
 
   const handleRequestSearchResult = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
