@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -46,6 +45,6 @@ public class ChargerStatusCustomRepositoryImpl implements ChargerStatusCustomRep
                 .addValue("latestUpdateTime", item.getLatestUpdateTime())
                 .addValue("chargerCondition", item.getChargerCondition().name())
                 .addValue("createdAt", item.getCreatedAt())
-                .addValue("updatedAt", LocalDateTime.now());
+                .addValue("updatedAt", item.getUpdatedAt());
     }
 }

@@ -50,7 +50,7 @@ public class PeriodicCongestionCustomRepositoryImpl implements PeriodicCongestio
                 .addValue("id", id)
                 .addValue("dayOfWeek", dayOfWeek.name())
                 .addValue("startTime", period.getSection())
-                .addValue("updatedAt", LocalDateTime.now());
+                .addValue("updatedAt", it.getUpdatedAt());
     }
 
     @Override
@@ -76,8 +76,8 @@ public class PeriodicCongestionCustomRepositoryImpl implements PeriodicCongestio
                 .addValue("startTime", periodicCongestion.getStartTime().getSection())
                 .addValue("totalCount", 0)
                 .addValue("useCount", 0)
-                .addValue("createdAt", periodicCongestion.getCreatedAt().toLocalTime())
-                .addValue("updatedAt", LocalDateTime.now());
+                .addValue("createdAt", periodicCongestion.getCreatedAt())
+                .addValue("updatedAt", periodicCongestion.getUpdatedAt());
     }
 
     private MapSqlParameterSource changeToSqlParameterSource(DayOfWeek dayOfWeek, RequestPeriod requestPeriod) {
