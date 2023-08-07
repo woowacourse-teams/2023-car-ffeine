@@ -4,7 +4,7 @@ import {
   selectedCapacitiesFilterStore,
   selectedChargerTypesFilterStore,
   selectedCompanyNamesFilterStore,
-} from '@stores/selectedServerStationFiltersStore';
+} from '@stores/station-filters/serverStationFiltersStore';
 
 import type { CAPACITIES, CHARGER_TYPES, COMPANY_NAME } from '@constants/chargers';
 

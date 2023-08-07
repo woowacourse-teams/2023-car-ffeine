@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 
 import { useExternalState } from '@utils/external-state';
 
-import { stationFilterStore } from '@stores/stationFilterStore';
+import { clientStationFiltersStore } from '@stores/station-filters/clientStationFiltersStore';
 
 import ButtonNext from '@common/ButtonNext';
 
@@ -17,7 +17,7 @@ const ClientStationFilters = () => {
       isPrivateStationFilterSelected,
     },
     setFilterOption,
-  ] = useExternalState(stationFilterStore);
+  ] = useExternalState(clientStationFiltersStore);
 
   const toggleAvailableStation = () => {
     setFilterOption((prev) => ({

@@ -1,7 +1,7 @@
 import type { ChangeEvent } from 'react';
 import { useState } from 'react';
 
-import { modalActions } from '@stores/modalStore';
+import { modalActions } from '@stores/layout/modalStore';
 
 import { useUpdateStationChargerReport } from '@hooks/tanstack-query/station-details/reports/useUpdateStationReport';
 
@@ -14,8 +14,8 @@ import TextField from '@common/TextField';
 import StationInformation from '@ui/StationDetailsWindow/StationInformation';
 import { findDifferentKeys } from '@ui/StationDetailsWindow/reports/domain';
 
-import type { StationDetails, StationDetailsWithoutChargers } from '@type';
 import type { ChargerDetails } from '@type/chargers';
+import type { StationDetails, StationDetailsWithoutChargers } from '@type/stations';
 
 interface StationReportConfirmationProps {
   station: StationDetails;

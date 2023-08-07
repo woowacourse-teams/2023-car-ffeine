@@ -97,7 +97,7 @@ export const handlers = [
   }),
 
   rest.get(`${SERVERS.localhost}/stations/:id`, async (req, res, ctx) => {
-    const stationId = Number(req.params.id);
+    const stationId = req.params.id;
     const selectedStation = stations.find((station) => station.stationId === stationId);
 
     if (!selectedStation) {
@@ -141,9 +141,7 @@ export const handlers = [
   ),
 
   rest.get(`${SERVERS.localhost}/stations/:stationId/statistics`, (req, res, ctx) => {
-    const stationId = Number(
-      req.url.pathname.replace(/\/api\/stations\//, '').replace(/\/statistics/, '')
-    );
+    const stationId = req.url.pathname.replace(/\/api\/stations\//, '').replace(/\/statistics/, '');
 
     const congestionStatistics = getCongestionStatistics(stationId);
 

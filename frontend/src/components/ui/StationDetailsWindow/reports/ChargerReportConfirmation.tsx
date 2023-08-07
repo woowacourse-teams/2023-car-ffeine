@@ -1,4 +1,4 @@
-import { modalActions } from '@stores/modalStore';
+import { modalActions } from '@stores/layout/modalStore';
 
 import { useUpdateStationChargerReport } from '@hooks/tanstack-query/station-details/reports/useUpdateStationChargerReport';
 
@@ -9,7 +9,7 @@ import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
 interface ChargerReportConfirmationProps {
-  stationId: number;
+  stationId: string;
 }
 
 const ChargerReportConfirmation = ({ stationId }: ChargerReportConfirmationProps) => {

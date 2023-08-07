@@ -7,7 +7,7 @@ interface StationFilter {
   isPrivateStationFilterSelected: boolean;
 }
 
-export const stationFilterStore = store<StationFilter>({
+export const clientStationFiltersStore = store<StationFilter>({
   isAvailableStationFilterSelected: false,
   isFastChargeStationFilterSelected: false,
   isParkingFreeStationFilterSelected: false,

@@ -16,7 +16,7 @@ export default meta;
 export const Column = () => {
   return (
     <StatisticsGraph
-      statistics={getCongestionStatistics(1).congestion.quick}
+      statistics={getCongestionStatistics('1').congestion.quick}
       align="column"
       menus={[...ENGLISH_DAYS]}
     />
@@ -26,7 +26,7 @@ export const Column = () => {
 export const Row = () => {
   return (
     <StatisticsGraph
-      statistics={getCongestionStatistics(1).congestion.quick}
+      statistics={getCongestionStatistics('1').congestion.quick}
       align="row"
       menus={[...ENGLISH_DAYS]}
     />

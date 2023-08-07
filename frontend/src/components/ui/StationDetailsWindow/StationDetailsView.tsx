@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-import { modalActions } from '@stores/modalStore';
+import { modalActions } from '@stores/layout/modalStore';
 
 import { useStationChargerReport } from '@hooks/tanstack-query/station-details/reports/useStationChargerReport';
 

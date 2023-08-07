@@ -2,7 +2,7 @@ import { useContext } from 'react';
 
 import { useExternalState } from '@utils/external-state';
 
-import { forceOpenAccordionPanelStore } from '@stores/forceOpenAccordionPanelStore';
+import { forceOpenAccordionPanelStore } from '@stores/layout/forceOpenAccordionPanelStore';
 
 import type { BasePanelType } from '..';
 import { AccordionContext } from '..';

@@ -23,7 +23,7 @@ it('hi', () => {
           operatingTime: '매일매일',
           privateReason: '',
           reportCount: 1,
-          stationId: 10,
+          stationId: '10',
           stationName: 'X 충전소',
           stationState: '운영중임?',
         }}
