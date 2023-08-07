@@ -7,15 +7,15 @@ import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 import { getDisplayPosition } from '@utils/google-maps';
 import { getQueryFormattedUrl } from '@utils/request-query-params';
 
-import { clientStationFiltersStore } from '@stores/clientStationFiltersStore';
 import { mswModeStore } from '@stores/config/mswModeStore';
 import { serverStore } from '@stores/config/serverStore';
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
+import { clientStationFiltersStore } from '@stores/station-filters/clientStationFiltersStore';
 import {
   selectedCapacitiesFilterStore,
   selectedChargerTypesFilterStore,
   selectedCompanyNamesFilterStore,
-} from '@stores/serverStationFiltersStore';
+} from '@stores/station-filters/serverStationFiltersStore';
 
 import { SERVERS } from '@constants';
 import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';

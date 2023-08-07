@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 
 import { useExternalState } from '@utils/external-state';
 
-import { clientStationFiltersStore } from '@stores/clientStationFiltersStore';
+import { clientStationFiltersStore } from '@stores/station-filters/clientStationFiltersStore';
 
 import ButtonNext from '@common/ButtonNext';
 
