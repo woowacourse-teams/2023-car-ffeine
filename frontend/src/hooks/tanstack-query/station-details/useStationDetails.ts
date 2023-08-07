@@ -2,8 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 
 import { useExternalValue } from '@utils/external-state';
 
+import { serverStore } from '@stores/config/serverStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
-import { serverStore } from '@stores/serverStore';
 
 import { INVALID_VALUE_LIST, SERVERS } from '@constants';
 import { ERROR_MESSAGES } from '@constants/errorMessages';

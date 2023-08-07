@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getLocalStorage } from '@utils/storage';
 
-import { serverStore } from '@stores/serverStore';
+import { serverStore } from '@stores/config/serverStore';
 
 import { DEFAULT_TOKEN, SERVERS } from '@constants';
 import { LOCAL_KEY_TOKEN } from '@constants/storageKeys';

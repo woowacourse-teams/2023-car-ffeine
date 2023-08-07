@@ -7,14 +7,14 @@ import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 import { getDisplayPosition } from '@utils/google-maps';
 import { getQueryFormattedUrl } from '@utils/request-query-params';
 
+import { mswModeStore } from '@stores/config/mswModeStore';
+import { serverStore } from '@stores/config/serverStore';
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
-import { mswModeStore } from '@stores/mswModeStore';
 import {
   selectedCapacitiesFilterStore,
   selectedChargerTypesFilterStore,
   selectedCompanyNamesFilterStore,
 } from '@stores/selectedServerStationFiltersStore';
-import { serverStore } from '@stores/serverStore';
 import { stationFilterStore } from '@stores/stationFilterStore';
 
 import { SERVERS } from '@constants';

@@ -2,8 +2,8 @@ import { useMutation } from '@tanstack/react-query';
 
 import { getLocalStorage } from '@utils/storage';
 
+import { serverStore } from '@stores/config/serverStore';
 import { modalActions } from '@stores/modalStore';
-import { serverStore } from '@stores/serverStore';
 
 import type { Differences } from '@ui/StationDetailsWindow/reports/StationReportConfirmation';
 
