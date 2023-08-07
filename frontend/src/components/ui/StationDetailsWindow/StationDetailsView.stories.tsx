@@ -1,7 +1,10 @@
 import type { Meta } from '@storybook/react';
 
+import FlexBox from '@common/FlexBox';
+
 import type { StationDetailsViewProps } from '@ui/StationDetailsWindow/StationDetailsView';
 import StationDetailsView from '@ui/StationDetailsWindow/StationDetailsView';
+import StationDetailsViewSkeleton from '@ui/StationDetailsWindow/StationDetailsViewSkeleton';
 
 const meta = {
   title: 'UI/StationDetailsView',
@@ -78,4 +81,13 @@ export default meta;
 
 export const Default = (args: StationDetailsViewProps) => {
   return <StationDetailsView {...args} />;
+};
+
+export const Skeleton = (args: StationDetailsViewProps) => {
+  return (
+    <FlexBox>
+      <StationDetailsView {...args} />
+      <StationDetailsViewSkeleton />
+    </FlexBox>
+  );
 };

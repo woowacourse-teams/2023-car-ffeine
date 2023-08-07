@@ -5,6 +5,7 @@ import Text from '@common/Text';
 
 import { useAccordionAction } from '@ui/Accordion/hooks/useAccordionAction';
 import StationDetailsView from '@ui/StationDetailsWindow/StationDetailsView';
+import StationDetailsViewSkeleton from '@ui/StationDetailsWindow/StationDetailsViewSkeleton';
 
 const StationDetailsWindow = () => {
   const {
@@ -25,12 +26,10 @@ const StationDetailsWindow = () => {
         css={{
           width: '34rem',
           zIndex: '999',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          overflow: 'scroll',
         }}
       >
-        <Text variant="h1">⌛</Text>
+        <StationDetailsViewSkeleton />
       </Box>
     );
   }
