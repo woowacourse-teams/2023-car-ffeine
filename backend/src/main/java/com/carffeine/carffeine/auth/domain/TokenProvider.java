@@ -7,5 +7,4 @@ public interface TokenProvider {
     boolean isExpired(String token);
 
     Long extract(String token);
-
 }
