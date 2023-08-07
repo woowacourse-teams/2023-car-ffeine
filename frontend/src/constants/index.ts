@@ -7,3 +7,5 @@ export const SERVERS = {
   dain: 'https://dain.carffe.in/api',
   production: 'https://api.carffe.in/api',
 } as const;
+
+export const FORM_TEXT_LENGTH_LIMIT = 100;

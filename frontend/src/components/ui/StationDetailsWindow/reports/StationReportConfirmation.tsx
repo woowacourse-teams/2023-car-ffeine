@@ -14,6 +14,8 @@ import TextField from '@common/TextField';
 import StationInformation from '@ui/StationDetailsWindow/StationInformation';
 import { findDifferentKeys } from '@ui/StationDetailsWindow/reports/domain';
 
+import { FORM_TEXT_LENGTH_LIMIT } from '@constants';
+
 import type { ChargerDetails } from '@type/chargers';
 import type { StationDetails, StationDetailsWithoutChargers } from '@type/stations';
 
@@ -25,10 +27,26 @@ export interface Differences {
   [key: string]: string | number | boolean | ChargerDetails[];
 }
 
+const validateForm = (form: StationDetailsWithoutChargers) => {
+  if (!form) {
+    return true;
+  }
+
+  return (
+    (!form.address || form.address.length <= FORM_TEXT_LENGTH_LIMIT) &&
+    (!form.detailLocation || form.detailLocation.length <= FORM_TEXT_LENGTH_LIMIT) &&
+    (!form.operatingTime || form.operatingTime.length <= FORM_TEXT_LENGTH_LIMIT) &&
+    (!form.contact || form.contact.length <= FORM_TEXT_LENGTH_LIMIT) &&
+    (!form.privateReason || form.privateReason.length <= FORM_TEXT_LENGTH_LIMIT)
+  );
+};
+
 const StationReportConfirmation = ({ station }: StationReportConfirmationProps) => {
   const { chargers, ...stationWithoutChargers } = station;
   const [form, setForm] = useState<StationDetailsWithoutChargers>({ ...stationWithoutChargers });
   const { updateStationReport, isLoading } = useUpdateStationReport();
+  const isFormValid = validateForm(form);
+
   const handleChangeTextField = ({ target: { id, value } }: ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [id]: value });
   };
@@ -57,17 +75,20 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
       <Text variant="title" mb={3}>
         개선할 충전소 정보가 있나요?
       </Text>
-      <Text variant="label">변경사항 미리보기</Text>
-      <Box border mt={2} mb={10}>
+      <Text variant="subtitle">변경사항 미리보기</Text>
+      <Box border mt={2} mb={3}>
         <StationInformation station={{ chargers: [], ...form }} />
       </Box>
-
       <TextField
         id="address"
         label="도로명 주소"
         fullWidth
         value={form.address}
         onChange={handleChangeTextField}
+        supportingText={
+          form.address?.length > FORM_TEXT_LENGTH_LIMIT &&
+          `${FORM_TEXT_LENGTH_LIMIT}자 이내로 작성해주셔야 합니다.`
+        }
       />
       <TextField
         id="detailLocation"
@@ -75,6 +96,10 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
         fullWidth
         value={form.detailLocation}
         onChange={handleChangeTextField}
+        supportingText={
+          form.detailLocation?.length > FORM_TEXT_LENGTH_LIMIT &&
+          `${FORM_TEXT_LENGTH_LIMIT}자 이내로 작성해주셔야 합니다.`
+        }
       />
       <TextField
         id="operatingTime"
@@ -82,6 +107,10 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
         fullWidth
         value={form.operatingTime}
         onChange={handleChangeTextField}
+        supportingText={
+          form.operatingTime?.length > FORM_TEXT_LENGTH_LIMIT &&
+          `${FORM_TEXT_LENGTH_LIMIT}자 이내로 작성해주셔야 합니다.`
+        }
       />
       <TextField
         id="contact"
@@ -89,6 +118,10 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
         fullWidth
         value={form.contact}
         onChange={handleChangeTextField}
+        supportingText={
+          form.contact?.length > FORM_TEXT_LENGTH_LIMIT &&
+          `${FORM_TEXT_LENGTH_LIMIT}자 이내로 작성해주셔야 합니다.`
+        }
       />
       <Box>
         <ButtonNext noTheme onClick={() => handleClickButton('isParkingFree')}>
@@ -112,6 +145,10 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
         fullWidth
         value={form.privateReason}
         onChange={handleChangeTextField}
+        supportingText={
+          form.privateReason?.length > FORM_TEXT_LENGTH_LIMIT &&
+          `${FORM_TEXT_LENGTH_LIMIT}자 이내로 작성해주셔야 합니다.`
+        }
       />
 
       <FlexBox justifyContent="between" nowrap>
@@ -124,16 +161,22 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
         >
           저장하지 않고 닫을래요
         </ButtonNext>
-        <ButtonNext
-          disabled={isLoading}
-          variant="contained"
-          color="success"
-          size="md"
-          fullWidth
-          onClick={reportCharger}
-        >
-          {isLoading ? '처리중...' : '제안하기'}
-        </ButtonNext>
+        {isFormValid ? (
+          <ButtonNext
+            disabled={isLoading}
+            variant="contained"
+            color="success"
+            size="md"
+            fullWidth
+            onClick={reportCharger}
+          >
+            {isLoading ? '처리중...' : '제안하기'}
+          </ButtonNext>
+        ) : (
+          <ButtonNext disabled variant="contained" color="success" size="md" fullWidth>
+            다시확인해주세요
+          </ButtonNext>
+        )}
       </FlexBox>
     </Box>
   );
