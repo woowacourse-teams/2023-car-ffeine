@@ -9,7 +9,11 @@ import { SERVERS } from '@constants';
 import { ERROR_MESSAGES } from '@constants/errorMessages';
 import { SEARCH_SCOPE } from '@constants/stationSearch';
 
-import type { SearchedStation, SearchedStationResponse } from '@type';
+import type { SearchedStation } from '@type';
+
+interface SearchedStationResponse {
+  stations: SearchedStation[];
+}
 
 export const fetchSearchedStations = async (searchWord: string) => {
   const mode = serverStore.getState();

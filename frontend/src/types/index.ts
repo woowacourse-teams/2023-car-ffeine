@@ -1,4 +1,6 @@
-import type { CHARGING_SPEED, COMPANY_NAME } from '@constants/chargers';
+import type { CHARGING_SPEED } from '@constants/chargers';
+
+import type { Coordinates } from '@type/stations';
 
 import type { ChargerDetails, ChargerSummary } from './chargers';
 
@@ -10,11 +12,6 @@ export interface StationDetails extends Station {
   stationState: string | null;
   privateReason: string | null;
   reportCount: number;
-}
-
-export interface Coordinates {
-  latitude: number;
-  longitude: number;
 }
 
 export interface StationId {
@@ -43,21 +40,10 @@ export interface StationSummary extends Station, ChargerCount {
   chargers: ChargerSummary[];
 }
 
-export interface DisplayPosition extends Coordinates {
-  longitudeDelta: number;
-  latitudeDelta: number;
-}
-
-export type CompanyName = (typeof COMPANY_NAME)[keyof typeof COMPANY_NAME];
-
 export interface SearchedStation extends StationKeyInfo, Coordinates {
   speed: keyof typeof CHARGING_SPEED;
 }
 
 export interface StationPosition extends Coordinates, StationId {}
-
-export interface SearchedStationResponse {
-  stations: SearchedStation[];
-}
 
 export type StationDetailsWithoutChargers = Omit<StationDetails, 'chargers'>;
