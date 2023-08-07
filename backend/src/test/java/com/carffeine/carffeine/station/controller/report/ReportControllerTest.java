@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.station.controller.report;
 
-import com.carffeine.carffeine.station.MockBeanInjection;
+import com.carffeine.carffeine.helper.MockBeanInjection;
 import com.carffeine.carffeine.station.domain.report.FaultReport;
 import com.carffeine.carffeine.station.domain.report.MisinformationReport;
 import com.carffeine.carffeine.station.domain.station.Station;
