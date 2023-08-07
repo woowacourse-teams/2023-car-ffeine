@@ -27,7 +27,7 @@ public class FakeGoogleController {
         if (isBasicAuthValid(authorizationHeader) &&
                 code.equals("carffeine") &&
                 grantType.equals("authorization_code") &&
-                redirectUri.equals("google-redirect-url")) {
+                redirectUri.equals("http://localhost:8080/")) {
             return new OAuthTokenResponse("accessToken", "scope", "Bearer");
         }
         throw new RuntimeException();
