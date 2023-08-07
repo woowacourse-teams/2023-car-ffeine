@@ -7,7 +7,7 @@ import { serverStore } from '@stores/serverStore';
 import { DEFAULT_TOKEN, SERVERS } from '@constants';
 import { LOCAL_KEY_TOKEN } from '@constants/storageKeys';
 
-const fetchStationChargerReport = (token: number, stationId: number) => {
+const fetchStationChargerReport = (token: number, stationId: string) => {
   const mode = serverStore.getState();
 
   return fetch(`${SERVERS[mode]}/stations/${stationId}/reports/me`, {
@@ -22,7 +22,7 @@ const fetchStationChargerReport = (token: number, stationId: number) => {
   });
 };
 
-export const useStationChargerReport = (stationId: number) => {
+export const useStationChargerReport = (stationId: string) => {
   const token = getLocalStorage<number>(LOCAL_KEY_TOKEN, DEFAULT_TOKEN);
 
   return useQuery({

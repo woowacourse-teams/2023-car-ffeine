@@ -21,7 +21,7 @@ import { useAccordionAction } from '@ui/Accordion/hooks/useAccordionAction';
 
 import { pillStyle } from '@style';
 
-import type { StationPosition } from '@type';
+import type { StationPosition } from '@type/stations';
 
 import SearchResult from './SearchResult';
 

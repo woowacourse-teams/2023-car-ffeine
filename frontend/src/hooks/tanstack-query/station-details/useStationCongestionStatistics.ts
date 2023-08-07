@@ -10,7 +10,7 @@ import { ERROR_MESSAGES } from '@constants/errorMessages';
 
 import type { CongestionStatistics } from '@type/congestion';
 
-export const fetchStationDetails = async (selectedStationId: number) => {
+export const fetchStationDetails = async (selectedStationId: string) => {
   const mode = serverStore.getState();
 
   const stationDetails = await fetch(`${SERVERS[mode]}/stations/${selectedStationId}/statistics`, {

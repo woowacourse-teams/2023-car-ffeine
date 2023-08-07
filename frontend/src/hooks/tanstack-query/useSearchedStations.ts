@@ -9,7 +9,7 @@ import { SERVERS } from '@constants';
 import { ERROR_MESSAGES } from '@constants/errorMessages';
 import { SEARCH_SCOPE } from '@constants/stationSearch';
 
-import type { SearchedStation } from '@type';
+import type { SearchedStation } from '@type/stations';
 
 interface SearchedStationResponse {
   stations: SearchedStation[];

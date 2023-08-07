@@ -5,10 +5,9 @@ import { CHARGER_TYPES, COMPANY_NAME } from '@constants/chargers';
 import { ENGLISH_DAYS } from '@constants/congestion';
 import { MAX_SEARCH_RESULTS } from '@constants/stationSearch';
 
-import type { MockStation } from '@type';
 import type { Capacity, ChargerDetails, ChargerType } from '@type/chargers';
 import type { Congestion, CongestionStatistics, EnglishDaysType } from '@type/congestion';
-import type { CompanyName } from '@type/stations';
+import type { CompanyName, Station } from '@type/stations';
 
 const generateRandomData = <T>(array: T[]): T => {
   const randomIndex = Math.floor(Math.random() * array.length);
@@ -44,9 +43,9 @@ export const generateRandomChargers = () => {
   return chargers;
 };
 
-export const stations: MockStation[] = Array.from({ length: 3000 }).map((_, index) => {
+export const stations: Station[] = Array.from({ length: 3000 }).map((_, index) => {
   return {
-    stationId: index,
+    stationId: String(index),
     stationName: `잠실의 충전소 ${index}`,
     companyName: generateRandomData<CompanyName>(Object.values(COMPANY_NAME)),
     contact: generateRandomData(['', '010-1234-5678', '02-000-0000']),
@@ -90,7 +89,7 @@ export const getSearchedStations = (searchWord: string) => {
     .slice(0, MAX_SEARCH_RESULTS);
 };
 
-export const getCongestionStatistics = (stationId: number): CongestionStatistics => {
+export const getCongestionStatistics = (stationId: string): CongestionStatistics => {
   return {
     stationId,
     congestion: {

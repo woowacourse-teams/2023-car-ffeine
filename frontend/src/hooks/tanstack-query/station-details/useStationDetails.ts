@@ -10,7 +10,7 @@ import { ERROR_MESSAGES } from '@constants/errorMessages';
 
 import type { StationDetails } from '@type';
 
-export const fetchStationDetails = async (selectedStationId: number) => {
+export const fetchStationDetails = async (selectedStationId: string) => {
   if (selectedStationId === null) {
     throw new Error('선택된 충전소가 없습니다.');
   }
@@ -27,7 +27,7 @@ export const fetchStationDetails = async (selectedStationId: number) => {
     const data: StationDetails = await response.json();
 
     const changedDataList = Object.entries(data).map(([key, value]) => {
-      if (INVALID_VALUE_LIST.includes(value)) {
+      if (INVALID_VALUE_LIST.includes(String(value))) {
         return [key, null];
       }
 

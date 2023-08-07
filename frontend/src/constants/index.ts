@@ -1,6 +1,6 @@
 export const DEFAULT_TOKEN = -1;
 
-export const INVALID_VALUE_LIST = ['null', '.', '..', '1', '#'] as const;
+export const INVALID_VALUE_LIST = ['null', '.', '..', '1', '#'];
 
 export const SERVERS = {
   localhost: 'http://localhost:8080/api',

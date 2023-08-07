@@ -1,4 +1,5 @@
-import type { COMPANY_NAME } from '@constants/chargers';
+import type { CHARGING_SPEED, COMPANY_NAME } from '@constants/chargers';
+import type { CHARGER_TYPES } from '@constants/chargers';
 
 import type { Capacity, ChargerMethodType, ChargerStateType } from '@type/chargers';
 
@@ -8,7 +9,7 @@ export interface Charger {
   method: ChargerMethodType;
   price: number;
   state: ChargerStateType;
-  type: ChargerMethodType;
+  type: keyof typeof CHARGER_TYPES;
 }
 
 export interface Station {
@@ -25,7 +26,7 @@ export interface Station {
   operatingTime: string;
   privateReason: string;
   reportCount: number;
-  stationId: number;
+  stationId: string;
   stationName: string;
   stationState: string;
   totalCount: number;
@@ -67,11 +68,18 @@ export type StationDetails = Pick<
   | 'stationState'
 >;
 
-export type Coordinates = Pick<Station, 'latitude' | 'longitude'>;
-
-export interface DisplayPosition extends Coordinates {
+export interface DisplayPosition extends Pick<Station, 'latitude' | 'longitude'> {
   longitudeDelta: number;
   latitudeDelta: number;
 }
 
 export type CompanyName = (typeof COMPANY_NAME)[keyof typeof COMPANY_NAME];
+
+export interface SearchedStation
+  extends Pick<Station, 'stationId' | 'stationName' | 'address' | 'latitude' | 'longitude'> {
+  speed: keyof typeof CHARGING_SPEED;
+}
+
+export type StationPosition = Pick<Station, 'stationId' | 'longitude' | 'latitude'>;
+
+export type StationDetailsWithoutChargers = Omit<StationDetails, 'chargers'>;

@@ -11,7 +11,7 @@ import { DEFAULT_TOKEN, SERVERS } from '@constants';
 import { LOCAL_KEY_TOKEN } from '@constants/storageKeys';
 
 interface fetchReportStationRequest {
-  stationId: number;
+  stationId: string;
   differences: Differences[];
 }
 

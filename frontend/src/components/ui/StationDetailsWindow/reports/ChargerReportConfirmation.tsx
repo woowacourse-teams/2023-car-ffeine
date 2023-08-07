@@ -9,7 +9,7 @@ import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
 interface ChargerReportConfirmationProps {
-  stationId: number;
+  stationId: string;
 }
 
 const ChargerReportConfirmation = ({ stationId }: ChargerReportConfirmationProps) => {

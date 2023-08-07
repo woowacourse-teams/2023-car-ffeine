@@ -10,7 +10,7 @@ const meta = {
   args: {
     stations: [
       {
-        stationId: 0,
+        stationId: '0',
         stationName: '충전소 이름이라네',
         speed: 'quick',
         address: '서울시 강남구 테헤란로 411',

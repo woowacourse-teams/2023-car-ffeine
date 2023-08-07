@@ -14,8 +14,8 @@ import TextField from '@common/TextField';
 import StationInformation from '@ui/StationDetailsWindow/StationInformation';
 import { findDifferentKeys } from '@ui/StationDetailsWindow/reports/domain';
 
-import type { StationDetails, StationDetailsWithoutChargers } from '@type';
 import type { ChargerDetails } from '@type/chargers';
+import type { StationDetails, StationDetailsWithoutChargers } from '@type/stations';
 
 interface StationReportConfirmationProps {
   station: StationDetails;
