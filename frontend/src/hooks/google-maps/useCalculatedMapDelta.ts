@@ -2,7 +2,7 @@ import { useExternalValue } from '@utils/external-state';
 import { getDisplayPosition } from '@utils/google-maps';
 
 import { browserWidthStore, navigatorAccordionWidthStore } from '@stores/componentWidthStore';
-import { getGoogleMapStore } from '@stores/googleMapStore';
+import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 
 export const useCalculatedMapDelta = () => {
   const navigatorAccordionWidth = useExternalValue(navigatorAccordionWidthStore);

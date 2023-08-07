@@ -7,7 +7,7 @@ import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 import { getDisplayPosition } from '@utils/google-maps';
 import { getQueryFormattedUrl } from '@utils/request-query-params';
 
-import { getGoogleMapStore } from '@stores/googleMapStore';
+import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { mswModeStore } from '@stores/mswModeStore';
 import {
   selectedCapacitiesFilterStore,

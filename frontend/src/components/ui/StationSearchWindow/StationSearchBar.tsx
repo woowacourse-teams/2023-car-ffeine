@@ -8,7 +8,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import { useExternalValue, useSetExternalState } from '@utils/external-state';
 
-import { getGoogleMapStore } from '@stores/googleMapStore';
+import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { searchWordStore } from '@stores/searchWordStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 

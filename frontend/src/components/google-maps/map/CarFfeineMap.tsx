@@ -7,7 +7,7 @@ import StationMarkersContainer from '@marker/StationMarkersContainer';
 import { useExternalValue } from '@utils/external-state';
 import { setLocalStorage } from '@utils/storage';
 
-import { getGoogleMapStore } from '@stores/googleMapStore';
+import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 
 import { useUpdateStations } from '@hooks/tanstack-query/station-markers/useUpdateStations';
 

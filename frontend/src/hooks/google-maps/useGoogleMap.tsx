@@ -4,7 +4,7 @@ import { useExternalValue, useSetExternalState } from '@utils/external-state';
 import { getStoreSnapshot } from '@utils/external-state/tools';
 
 import { forceOpenAccordionPanelStore } from '@stores/forceOpenAccordionPanelStore';
-import { getGoogleMapStore } from '@stores/googleMapStore';
+import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { markerInstanceStore } from '@stores/markerInstanceStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
