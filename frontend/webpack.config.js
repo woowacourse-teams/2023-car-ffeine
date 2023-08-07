@@ -26,7 +26,7 @@ module.exports = {
         exclude: /node_modules/,
         resolve: {
           extensions: ['.ts', '.tsx', '.js', '.json'],
-          fallback: { 'process': false },
+          fallback: { process: false },
         },
       },
       {
@@ -59,6 +59,7 @@ module.exports = {
       '@constants': path.resolve(__dirname, './src/constants'),
       '@assets': path.resolve(__dirname, './src/assets'),
       '@style': path.resolve(__dirname, './src/style'),
+      '@type': path.resolve(__dirname, './src/types'),
     },
   },
   plugins: [

@@ -2,6 +2,8 @@ import { css } from 'styled-components';
 
 import { useQueryClient } from '@tanstack/react-query';
 
+import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
+
 import { useServerStationFilters } from '@hooks/useServerStationFilters';
 
 import Button from '@common/Button';
@@ -10,7 +12,6 @@ import Text from '@common/Text';
 
 import { CAPACITIES, CHARGER_TYPES, COMPANY_NAME } from '@constants/chargers';
 
-import type { ChargerType } from '../../../types/chargers';
 import FilterSection from './FilterOption';
 
 const ServerStationFilters = () => {
@@ -46,7 +47,7 @@ const ServerStationFilters = () => {
       <FilterSection
         title={'커넥터 타입'}
         filterOptionNames={Object.values(CHARGER_TYPES)}
-        filterOptionValues={Object.keys(CHARGER_TYPES) as ChargerType[]}
+        filterOptionValues={getTypedObjectKeys(CHARGER_TYPES)}
         toggleSelectFilter={toggleSelectChargerTypesFilter}
         getIsFilterSelected={getIsChargerTypeSelected}
       />

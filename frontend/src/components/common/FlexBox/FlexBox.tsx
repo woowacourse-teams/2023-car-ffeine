@@ -6,7 +6,7 @@ import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
 
 import { borderRadius, getSize } from '@style';
 
-import type { AxisType, BorderRadiusDirectionType } from 'types/style';
+import type { AxisType, BorderRadiusDirectionType } from '@type/style';
 
 export const FLEX_BOX_ITEM_POSITION = {
   start: 'start',

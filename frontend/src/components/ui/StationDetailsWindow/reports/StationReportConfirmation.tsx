@@ -13,10 +13,10 @@ import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 import TextField from '@common/TextField';
 
-import StationInformation from '@ui/DetailedStationInfo/StationInformation';
+import StationInformation from '@ui/StationDetailsWindow/StationInformation';
 
-import type { StationDetails } from '../../../types';
-import type { ChargerDetails } from '../../../types/chargers';
+import type { StationDetails } from '@type';
+import type { ChargerDetails } from '@type/chargers';
 
 interface StationReportConfirmationProps {
   station: StationDetails;
@@ -42,7 +42,7 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
       (key) => formStation[key] !== originStation[key]
     );
 
-  const reportCharger = async () => {
+  const reportCharger = () => {
     const differentKeys = findDifferentKeys(form, station);
     const differencesArray: Differences[] = differentKeys.map((key) => ({
       category: key,
@@ -60,7 +60,8 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
       <Text variant="title" mb={3}>
         개선할 충전소 정보가 있나요?
       </Text>
-      <Box border>
+      <Text variant="label">변경사항 미리보기</Text>
+      <Box border mt={2} mb={10}>
         <StationInformation station={form} />
       </Box>
 

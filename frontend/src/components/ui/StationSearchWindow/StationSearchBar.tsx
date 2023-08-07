@@ -21,9 +21,9 @@ import { useAccordionAction } from '@ui/Accordion/hooks/useAccordionAction';
 
 import { pillStyle } from '@style';
 
-import SearchResult from './SearchResult';
+import type { StationPosition } from '@type';
 
-import type { StationPosition } from 'types';
+import SearchResult from './SearchResult';
 
 const StationSearchBar = () => {
   const [isFocused, setIsFocused] = useState(false);
