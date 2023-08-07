@@ -17,7 +17,7 @@ const meta = {
       control: {
         type: 'text',
       },
-      description: '높이를 지정할 수 있습니다. 기본 값은 1rem 입니다.',
+      description: '높이를 지정할 수 있습니다. 기본 값은 10px 입니다.',
     },
     width: {
       control: {
@@ -49,7 +49,7 @@ export const Example = () => {
       <Box mb={2}>
         <Skeleton width="40rem" height="30rem" />
       </Box>
-      <Skeleton width="100px" height="100px" borderRadius="50%" />
+      <Skeleton width="10rem" height="10rem" borderRadius="50%" />
     </>
   );
 };

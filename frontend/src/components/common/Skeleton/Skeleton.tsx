@@ -19,7 +19,6 @@ const skeletonAnimation = keyframes`
 `;
 
 const SkeletonWrapper = styled.div<SkeletonProps>`
-  display: inline-block;
   width: ${({ width }) => width || '100%'};
   height: ${({ height }) => height || '1rem'};
   background: linear-gradient(-90deg, #aaa, #f0f0f0, #aaa, #f0f0f0);
