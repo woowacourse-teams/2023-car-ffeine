@@ -4,8 +4,16 @@ import Button from '@common/Button';
 
 import { useNavigationBar } from './hooks/useNavigationBar';
 
-const CloseButton = () => {
+interface Props {
+  canDisplay: boolean
+}
+
+const CloseButton = ({ canDisplay }: Props) => {
   const { handleClosePanel } = useNavigationBar();
+
+  if(!canDisplay) {
+    return <></>
+  }
 
   return (
     <Button variant="label" aria-label="검색창 닫기" onClick={handleClosePanel}>

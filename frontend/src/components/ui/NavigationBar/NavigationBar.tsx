@@ -6,13 +6,14 @@ import NavigationBar from '@ui/compound/NavigationBar';
 
 const Navigator = () => {
   const { basePanel, lastPanel } = useExternalValue(navigationBarPanelStore);
+  const canDisplayCloseButton = basePanel !== null || lastPanel !== null;
 
   return (
     <NavigationBar>
       <NavigationBar.Menu />
       <NavigationBar.BasePanel component={basePanel} />
       <NavigationBar.LastPanel component={lastPanel} />
-      <NavigationBar.CloseButton />
+      <NavigationBar.CloseButton canDisplay={canDisplayCloseButton} />
     </NavigationBar>
   );
 };
