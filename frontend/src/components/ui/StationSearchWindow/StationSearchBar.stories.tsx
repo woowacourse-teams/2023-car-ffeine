@@ -16,7 +16,7 @@ import Button from '@common/Button';
 
 import { pillStyle } from '@style';
 
-import type { StationPosition } from '@type';
+import type { StationPosition } from '@type/stations';
 
 import SearchResult from './SearchResult';
 

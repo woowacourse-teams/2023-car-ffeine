@@ -2,10 +2,6 @@ import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 import type { Meta } from '@storybook/react';
 import { css, styled } from 'styled-components';
 
-import { useSetExternalState } from '@utils/external-state';
-
-import { stationSearchWindowOpenStore } from '@stores/navItemsOpenStore';
-
 import Button from '@common/Button';
 import Text from '@common/Text';
 
@@ -22,10 +18,6 @@ const meta = {
 export default meta;
 
 export const Default = () => {
-  const setIsOpen = useSetExternalState(stationSearchWindowOpenStore);
-
-  setIsOpen(true);
-
   return (
     <>
       <Navigator />

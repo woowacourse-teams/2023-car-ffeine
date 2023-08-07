@@ -1,7 +1,5 @@
 import type { ENGLISH_DAYS, KOREAN_DAYS } from '@constants/congestion';
 
-import type { StationId } from './index';
-
 export type EnglishDaysType = (typeof ENGLISH_DAYS)[number];
 export type KoreanDaysType = (typeof KOREAN_DAYS)[number];
 
@@ -10,7 +8,8 @@ export interface Congestion {
   ratio: number;
 }
 
-export interface CongestionStatistics extends StationId {
+export interface CongestionStatistics {
+  stationId: string;
   congestion: {
     standard?: Record<EnglishDaysType, Congestion[]>;
     quick?: Record<EnglishDaysType, Congestion[]>;

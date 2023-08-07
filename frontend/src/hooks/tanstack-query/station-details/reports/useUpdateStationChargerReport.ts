@@ -2,13 +2,13 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { getLocalStorage } from '@utils/storage';
 
-import { modalActions } from '@stores/modalStore';
-import { serverStore } from '@stores/serverStore';
+import { serverStore } from '@stores/config/serverStore';
+import { modalActions } from '@stores/layout/modalStore';
 
 import { DEFAULT_TOKEN, SERVERS } from '@constants';
 import { LOCAL_KEY_TOKEN } from '@constants/storageKeys';
 
-const fetchReportCharger = async (stationId: number) => {
+const fetchReportCharger = async (stationId: string) => {
   const token = getLocalStorage<number>(LOCAL_KEY_TOKEN, DEFAULT_TOKEN);
   const mode = serverStore.getState();
   return fetch(`${SERVERS[mode]}/stations/${stationId}/reports`, {
@@ -33,7 +33,7 @@ export const useUpdateStationChargerReport = () => {
     },
   });
 
-  const updateStationChargerReport = (stationId: number) => {
+  const updateStationChargerReport = (stationId: string) => {
     mutate(stationId);
   };
 

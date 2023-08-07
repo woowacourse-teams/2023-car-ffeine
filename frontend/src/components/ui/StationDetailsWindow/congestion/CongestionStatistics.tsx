@@ -12,11 +12,11 @@ import type { CHARGING_SPEED } from '@constants/chargers';
 import { ENGLISH_DAYS } from '@constants/congestion';
 
 const CongestionStatistics = () => {
-  const { data: congestionStatistics, isFetching } = useStationCongestionStatistics();
+  const { data: congestionStatistics, isLoading } = useStationCongestionStatistics();
   const [chargingSpeed, setChargingSpeed] = useState<keyof typeof CHARGING_SPEED>('quick');
 
   // TODO: 그래프 모양 로딩 스켈레톤 추가하기
-  if (isFetching) {
+  if (isLoading) {
     return (
       <FlexBox width="100%" height="50rem" justifyContent="center" alignItems="center">
         <Text variant="h2">⌛</Text>

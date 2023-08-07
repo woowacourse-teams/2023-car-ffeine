@@ -1,4 +1,4 @@
-import { modalActions } from '@stores/modalStore';
+import { modalActions } from '@stores/layout/modalStore';
 
 import { useUpdateStationChargerReport } from '@hooks/tanstack-query/station-details/reports/useUpdateStationReport';
 
@@ -18,9 +18,17 @@ interface StationReportPreConfirmationProps {
 
 const StationReportPreConfirmation = ({ station }: StationReportPreConfirmationProps) => {
   const { updateStationReport } = useUpdateStationChargerReport();
+
   const reportCharger = () => {
     updateStationReport({ stationId: station.stationId, differences: [] });
   };
+
+  const handleReportMoreButton = () => {
+    modalActions.openModal(<StationReportConfirmation station={station} />);
+  };
+
+  const handleCloseModalButton = () => modalActions.closeModal();
+
   return (
     <>
       <Text variant="title" mb={3}>
@@ -35,9 +43,7 @@ const StationReportPreConfirmation = ({ station }: StationReportPreConfirmationP
           variant="contained"
           size="md"
           color="primary"
-          onClick={() => {
-            modalActions.openModal(<StationReportConfirmation station={station} />);
-          }}
+          onClick={handleReportMoreButton}
         >
           데이터를 직접 수정/제안하고 싶어요
         </ButtonNext>
@@ -48,17 +54,11 @@ const StationReportPreConfirmation = ({ station }: StationReportPreConfirmationP
           variant="outlined"
           size="sm"
           color="error"
-          onClick={() => modalActions.closeModal()}
+          onClick={handleCloseModalButton}
         >
           닫기
         </ButtonNext>
-        <ButtonNext
-          fullWidth
-          variant="outlined"
-          size="sm"
-          color="success"
-          onClick={() => reportCharger()}
-        >
+        <ButtonNext fullWidth variant="outlined" size="sm" color="success" onClick={reportCharger}>
           바쁘니깐
           <br />
           알아서 확인해주세요
