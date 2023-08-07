@@ -4,6 +4,7 @@ import { useStations } from '@hooks/tanstack-query/station-markers/useStations';
 
 import List from '@common/List';
 
+import EmptyStationsNotice from '@ui/StationList/EmptyStationsNotice';
 import StationSummaryCardSkeleton from '@ui/StationList/StationSummaryCardSkeleton';
 
 import StationSummaryCard from './StationSummaryCard';
@@ -26,9 +27,13 @@ const StationList = () => {
   return (
     isSuccess && (
       <List css={searchResultList}>
-        {stations.map((station) => {
-          return <StationSummaryCard key={station.stationId} station={station} />;
-        })}
+        {stations.length > 0 ? (
+          stations.map((station) => (
+            <StationSummaryCard key={station.stationId} station={station} />
+          ))
+        ) : (
+          <EmptyStationsNotice />
+        )}
       </List>
     )
   );

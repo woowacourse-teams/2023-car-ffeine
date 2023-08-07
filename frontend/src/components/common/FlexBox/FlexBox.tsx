@@ -66,7 +66,7 @@ const S = {
     align-items: ${({ alignItems }) => FLEX_BOX_ITEM_POSITION[alignItems]};
     align-content: ${({ alignContent }) => FLEX_BOX_ITEM_POSITION[alignContent]};
     gap: ${({ gap, rowGap, columnGap }) => getGap({ gap, rowGap, columnGap })};
-    background: ${({ background }) => background || '#fff'};
+    ${({ background }) => background && `background: ${background};`}
     border: ${({ outlined }) => (outlined ? '0.15rem solid #000' : 'none')};
 
     display: flex;
