@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -39,12 +40,13 @@ public class ChargerStatusCustomRepositoryImpl implements ChargerStatusCustomRep
     }
 
     private MapSqlParameterSource changeToSqlParameterSource(ChargerStatus item) {
+        LocalDateTime now = LocalDateTime.now();
         return new MapSqlParameterSource()
                 .addValue("stationId", item.getStationId())
                 .addValue("chargerId", item.getChargerId())
                 .addValue("latestUpdateTime", item.getLatestUpdateTime())
                 .addValue("chargerCondition", item.getChargerCondition().name())
-                .addValue("createdAt", item.getCreatedAt())
-                .addValue("updatedAt", item.getUpdatedAt());
+                .addValue("createdAt", now)
+                .addValue("updatedAt", now);
     }
 }

@@ -44,13 +44,13 @@ public class PeriodicCongestionCustomRepositoryImpl implements PeriodicCongestio
     }
 
     private Object changeToSqlParameterSource(DayOfWeek dayOfWeek, RequestPeriod period, ChargerStatus it) {
-
         String id = IdGenerator.generateId(dayOfWeek, period, it.getStationId(), it.getChargerId());
+        LocalDateTime now = LocalDateTime.now();
         return new MapSqlParameterSource()
                 .addValue("id", id)
                 .addValue("dayOfWeek", dayOfWeek.name())
                 .addValue("startTime", period.getSection())
-                .addValue("updatedAt", it.getUpdatedAt());
+                .addValue("updatedAt", now);
     }
 
     @Override
@@ -67,6 +67,7 @@ public class PeriodicCongestionCustomRepositoryImpl implements PeriodicCongestio
     }
 
     private MapSqlParameterSource changeToSqlParameterSource(PeriodicCongestion periodicCongestion) {
+        LocalDateTime now = LocalDateTime.now();
         return new MapSqlParameterSource()
                 .addValue("id", periodicCongestion.getId())
                 .addValue("stationId", periodicCongestion.getStationId())
@@ -76,14 +77,15 @@ public class PeriodicCongestionCustomRepositoryImpl implements PeriodicCongestio
                 .addValue("startTime", periodicCongestion.getStartTime().getSection())
                 .addValue("totalCount", 0)
                 .addValue("useCount", 0)
-                .addValue("createdAt", periodicCongestion.getCreatedAt())
-                .addValue("updatedAt", periodicCongestion.getUpdatedAt());
+                .addValue("createdAt", now)
+                .addValue("updatedAt", now);
     }
 
     private MapSqlParameterSource changeToSqlParameterSource(DayOfWeek dayOfWeek, RequestPeriod requestPeriod) {
+        LocalDateTime now = LocalDateTime.now();
         return new MapSqlParameterSource()
                 .addValue("dayOfWeek", dayOfWeek.name())
                 .addValue("startTime", requestPeriod.getSection())
-                .addValue("updatedAt", LocalDateTime.now());
+                .addValue("updatedAt", now);
     }
 }

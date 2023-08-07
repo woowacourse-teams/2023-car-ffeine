@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -60,6 +61,7 @@ public class StationRepositoryImpl implements CustomStationRepository {
     }
 
     private MapSqlParameterSource changeToSqlParameterSource(Station station) {
+        LocalDateTime now = LocalDateTime.now();
         return new MapSqlParameterSource()
                 .addValue("stationId", station.getStationId())
                 .addValue("stationName", station.getStationName())
@@ -74,7 +76,7 @@ public class StationRepositoryImpl implements CustomStationRepository {
                 .addValue("contact", station.getContact())
                 .addValue("stationState", station.getStationState())
                 .addValue("privateReason", station.getPrivateReason())
-                .addValue("createdAt", station.getCreatedAt())
-                .addValue("updatedAt", station.getUpdatedAt());
+                .addValue("createdAt", now)
+                .addValue("updatedAt", now);
     }
 }

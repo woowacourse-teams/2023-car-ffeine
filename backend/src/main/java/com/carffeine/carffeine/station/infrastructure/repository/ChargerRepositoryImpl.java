@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -30,6 +31,7 @@ public class ChargerRepositoryImpl implements CustomChargerRepository {
     }
 
     private MapSqlParameterSource changeToSqlParameterSource(Charger charger) {
+        LocalDateTime now = LocalDateTime.now();
         return new MapSqlParameterSource()
                 .addValue("stationId", charger.getStationId())
                 .addValue("chargerId", charger.getChargerId())
@@ -38,8 +40,8 @@ public class ChargerRepositoryImpl implements CustomChargerRepository {
                 .addValue("price", charger.getPrice())
                 .addValue("capacity", charger.getCapacity())
                 .addValue("method", charger.getMethod())
-                .addValue("createdAt", charger.getCreatedAt())
-                .addValue("updatedAt", charger.getUpdatedAt());
+                .addValue("createdAt", now)
+                .addValue("updatedAt", now);
     }
 
     @Override
