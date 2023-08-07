@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { modalActions } from '@stores/layout/modalStore';
 
-import { useUpdateStationChargerReport } from '@hooks/tanstack-query/station-details/reports/useUpdateStationReport';
+import { useUpdateStationReport } from '@hooks/tanstack-query/station-details/reports/useUpdateStationReport';
 
 import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
@@ -28,7 +28,7 @@ export interface Differences {
 const StationReportConfirmation = ({ station }: StationReportConfirmationProps) => {
   const { chargers, ...stationWithoutChargers } = station;
   const [form, setForm] = useState<StationDetailsWithoutChargers>({ ...stationWithoutChargers });
-  const { updateStationReport } = useUpdateStationChargerReport();
+  const { updateStationReport, isLoading } = useUpdateStationReport();
   const handleChangeTextField = ({ target: { id, value } }: ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [id]: value });
   };
@@ -124,8 +124,15 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
         >
           저장하지 않고 닫을래요
         </ButtonNext>
-        <ButtonNext variant="contained" color="success" size="md" fullWidth onClick={reportCharger}>
-          제안하기
+        <ButtonNext
+          disabled={isLoading}
+          variant="contained"
+          color="success"
+          size="md"
+          fullWidth
+          onClick={reportCharger}
+        >
+          {isLoading ? '처리중...' : '제안하기'}
         </ButtonNext>
       </FlexBox>
     </Box>
