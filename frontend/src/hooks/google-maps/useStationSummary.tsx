@@ -1,8 +1,8 @@
 import { useExternalValue, useSetExternalState } from '@utils/external-state';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
+import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
 import { getStationSummaryWindowStore } from '@stores/google-maps/stationSummaryWindowStore';
-import { markerInstanceStore } from '@stores/markerInstanceStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
 import StationSummaryWindow from '@ui/StationSummaryWindow';

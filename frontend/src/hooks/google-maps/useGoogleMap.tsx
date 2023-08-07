@@ -5,7 +5,7 @@ import { getStoreSnapshot } from '@utils/external-state/tools';
 
 import { forceOpenAccordionPanelStore } from '@stores/forceOpenAccordionPanelStore';
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
-import { markerInstanceStore } from '@stores/markerInstanceStore';
+import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
 import type { StationSummary } from '@type';
