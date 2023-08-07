@@ -1,7 +1,7 @@
 import type { ChangeEvent } from 'react';
 import { useState } from 'react';
 
-import { modalActions } from '@stores/modalStore';
+import { modalActions } from '@stores/layout/modalStore';
 
 import { useUpdateStationChargerReport } from '@hooks/tanstack-query/station-details/reports/useUpdateStationReport';
 

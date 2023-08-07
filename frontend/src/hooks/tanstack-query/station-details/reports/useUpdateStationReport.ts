@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import { getLocalStorage } from '@utils/storage';
 
 import { serverStore } from '@stores/config/serverStore';
-import { modalActions } from '@stores/modalStore';
+import { modalActions } from '@stores/layout/modalStore';
 
 import type { Differences } from '@ui/StationDetailsWindow/reports/StationReportConfirmation';
 

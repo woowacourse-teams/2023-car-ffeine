@@ -5,7 +5,10 @@ import { createContext, useEffect, useRef, useState } from 'react';
 
 import { useSetExternalState } from '@utils/external-state';
 
-import { browserWidthStore, navigatorAccordionWidthStore } from '@stores/componentWidthStore';
+import {
+  browserWidthStore,
+  navigatorAccordionWidthStore,
+} from '@stores/layout/componentWidthStore';
 
 import FlexBox from '@common/FlexBox';
 

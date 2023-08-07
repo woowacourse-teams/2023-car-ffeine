@@ -2,7 +2,7 @@ import { css } from 'styled-components';
 
 import { useSetExternalState } from '@utils/external-state';
 
-import { forceOpenAccordionPanelStore } from '@stores/forceOpenAccordionPanelStore';
+import { forceOpenAccordionPanelStore } from '@stores/layout/forceOpenAccordionPanelStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
 import Button from '@common/Button';

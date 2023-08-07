@@ -1,4 +1,4 @@
-import { modalActions } from '@stores/modalStore';
+import { modalActions } from '@stores/layout/modalStore';
 
 import { useUpdateStationChargerReport } from '@hooks/tanstack-query/station-details/reports/useUpdateStationChargerReport';
 
