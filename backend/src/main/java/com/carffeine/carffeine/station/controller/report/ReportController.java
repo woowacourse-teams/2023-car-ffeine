@@ -18,7 +18,7 @@ public class ReportController {
 
     private final ReportService reportService;
 
-    @PostMapping("/api/stations/{stationId}/reports")
+    @PostMapping("/stations/{stationId}/reports")
     public ResponseEntity<Void> saveReport(
             @PathVariable String stationId,
             @RequestHeader("Authorization") Long memberId
@@ -27,7 +27,7 @@ public class ReportController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/api/stations/{stationId}/misinformation-reports")
+    @PostMapping("/stations/{stationId}/misinformation-reports")
     public ResponseEntity<Void> saveMisinformationReport(
             @PathVariable String stationId,
             @RequestHeader("Authorization") Long memberId,
@@ -37,7 +37,7 @@ public class ReportController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/api/stations/{stationId}/reports/me")
+    @GetMapping("/stations/{stationId}/reports/me")
     public ResponseEntity<DuplicateReportResponse> isDuplicateReport(
             @PathVariable String stationId,
             @RequestHeader("Authorization") Long memberId
