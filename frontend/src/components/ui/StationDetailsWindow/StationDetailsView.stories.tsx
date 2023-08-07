@@ -1,10 +1,13 @@
 import type { Meta } from '@storybook/react';
+import { css } from 'styled-components';
 
+import Box from '@common/Box';
 import FlexBox from '@common/FlexBox';
 
 import type { StationDetailsViewProps } from '@ui/StationDetailsWindow/StationDetailsView';
 import StationDetailsView from '@ui/StationDetailsWindow/StationDetailsView';
 import StationDetailsViewSkeleton from '@ui/StationDetailsWindow/StationDetailsViewSkeleton';
+import CongestionStatisticsSkeleton from '@ui/StationDetailsWindow/congestion/CongestionStatisticsSkeleton';
 
 const meta = {
   title: 'UI/StationDetailsView',
@@ -91,3 +94,21 @@ export const Skeleton = (args: StationDetailsViewProps) => {
     </FlexBox>
   );
 };
+
+export const StatisticsSkeleton = () => {
+  return (
+    <Box css={containerCss}>
+      <CongestionStatisticsSkeleton />
+    </Box>
+  );
+};
+
+const containerCss = css`
+  width: 36rem;
+  height: 100vh;
+  background-color: white;
+  box-shadow: 1px 1px 2px gray;
+  border-left: 0.5px solid #e1e4eb;
+  border-right: 0.5px solid #e1e4eb;
+  padding: 2rem;
+`;

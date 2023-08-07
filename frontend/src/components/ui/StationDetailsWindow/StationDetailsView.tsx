@@ -8,6 +8,7 @@ import Alert from '@common/Alert';
 import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
+import Skeleton from '@common/Skeleton';
 
 import ChargerCard from '@ui/StationDetailsWindow/ChargerCard';
 import StationInformation from '@ui/StationDetailsWindow/StationInformation';
@@ -53,24 +54,27 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
         ))}
       </FlexBox>
 
-      <FlexBox justifyContent="center">
-        {isStationChargerReportedLoading ? (
-          '⌛️'
-        ) : (
-          <ButtonNext
-            fullWidth
-            variant="text"
-            size="sm"
-            color="light"
-            onClick={() => {
-              modalActions.openModal(<ChargerReportConfirmation stationId={stationId} />);
-            }}
-            disabled={isStationChargerReported}
-          >
-            {isStationChargerReported ? '이미 신고한 충전소입니다.' : '🚨 충전기 고장 신고 '}
-          </ButtonNext>
-        )}
-      </FlexBox>
+      <Box my={1}>
+        <FlexBox justifyContent="center">
+          {isStationChargerReportedLoading ? (
+            <Skeleton height="3rem" />
+          ) : (
+            <ButtonNext
+              fullWidth
+              variant="text"
+              size="sm"
+              color="light"
+              onClick={() => {
+                modalActions.openModal(<ChargerReportConfirmation stationId={stationId} />);
+              }}
+              disabled={isStationChargerReported}
+            >
+              {isStationChargerReported ? '이미 신고한 충전소입니다.' : '🚨 충전기 고장 신고 '}
+            </ButtonNext>
+          )}
+        </FlexBox>
+      </Box>
+
       {reportCount > 0 && (
         <Box my={1}>
           <Alert color={'secondary'} text={`충전 상태 불일치 신고가 ${reportCount}번 접수됐어요`} />
