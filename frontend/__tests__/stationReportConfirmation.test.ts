@@ -1,7 +1,7 @@
 import type { Differences } from '@ui/StationDetailsWindow/reports/StationReportConfirmation';
 import { findDifferentKeys } from '@ui/StationDetailsWindow/reports/domain';
 
-describe('findDifferentKeys()', () => {
+describe('findDifferentKeys()를 테스트한다.', () => {
   test.each([
     // case 1
     [
