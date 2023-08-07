@@ -63,6 +63,7 @@ const S = {
           return css`
             color: ${disabled ? '#a0a0a0' : color === 'light' ? '#000000' : '#ffffff'};
             background: ${disabled ? '#e0e0e0' : getColor(color)};
+            border: 1.5px solid ${disabled ? '#e0e0e0' : getColor(color)};
 
             &:hover {
               background: ${disabled ? '#e0e0e0' : getHoverColor(color)};
