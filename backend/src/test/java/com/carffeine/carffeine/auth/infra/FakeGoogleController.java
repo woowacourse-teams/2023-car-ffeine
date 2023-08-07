@@ -18,19 +18,23 @@ import java.util.Map;
 public class FakeGoogleController {
 
     @PostMapping("/v4/token")
-    public OAuthTokenResponse token(
+    public OAuthTokenResponse generateToken(
             @RequestParam String code,
             @RequestParam(name = "grant_type") String grantType,
             @RequestParam(name = "redirect_uri") String redirectUri,
             @RequestHeader(value = "Authorization", required = false) String authorizationHeader
     ) {
-        if (isBasicAuthValid(authorizationHeader) &&
-                code.equals("carffeine") &&
-                grantType.equals("authorization_code") &&
-                redirectUri.equals("http://localhost:8080/")) {
+        if (isValidTypes(code, grantType, redirectUri, authorizationHeader)) {
             return new OAuthTokenResponse("accessToken", "scope", "Bearer");
         }
         throw new RuntimeException();
+    }
+
+    private boolean isValidTypes(String code, String grantType, String redirectUri, String authorizationHeader) {
+        return isBasicAuthValid(authorizationHeader) &&
+                code.equals("carffeine") &&
+                grantType.equals("authorization_code") &&
+                redirectUri.equals("http://localhost:8080/");
     }
 
     private boolean isBasicAuthValid(String authorizationHeader) {

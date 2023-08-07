@@ -1,6 +1,7 @@
 package com.carffeine.carffeine.auth.domain;
 
 import com.carffeine.carffeine.auth.exception.AuthException;
+import com.carffeine.carffeine.auth.exception.AuthExceptionType;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
@@ -32,6 +33,6 @@ class ProviderTest {
         // when & then
         assertThatThrownBy(() -> Provider.from(wrongName))
                 .isInstanceOf(AuthException.class)
-                .hasMessage("지원하지 않는 로그인 플랫폼입니다");
+                .hasMessage(AuthExceptionType.INVALID_AUTH_PROVIDER.message());
     }
 }

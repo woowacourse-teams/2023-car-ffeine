@@ -62,13 +62,18 @@ public class RestTemplateOAuthRequester implements OAuthRequester {
     }
 
     private OAuthTokenResponse requestAccessToken(OAuthProviderProperty property, OAuthLoginRequest loginRequest) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBasicAuth(property.getId(), property.getSecret());
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        HttpHeaders headers = headerWithProviderSecret(property);
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(headers);
         URI tokenUri = getTokenUri(property, loginRequest);
         return restTemplate.postForEntity(tokenUri, request, OAuthTokenResponse.class).getBody();
+    }
+
+    private HttpHeaders headerWithProviderSecret(OAuthProviderProperty property) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBasicAuth(property.getId(), property.getSecret());
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        return headers;
     }
 
     private URI getTokenUri(OAuthProviderProperty property, OAuthLoginRequest request) {
@@ -81,13 +86,18 @@ public class RestTemplateOAuthRequester implements OAuthRequester {
     }
 
     private Map<String, Object> getUserAttributes(OAuthProviderProperty property, OAuthTokenResponse tokenResponse) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(tokenResponse.accessToken());
-        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpHeaders headers = headerWithToken(tokenResponse);
         URI uri = URI.create(property.getInfoUrl());
         RequestEntity<?> requestEntity = new RequestEntity<>(headers, HttpMethod.GET, uri);
         ResponseEntity<Map<String, Object>> responseEntity = restTemplate.exchange(requestEntity, new ParameterizedTypeReference<>() {
         });
         return responseEntity.getBody();
+    }
+
+    private HttpHeaders headerWithToken(OAuthTokenResponse tokenResponse) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(tokenResponse.accessToken());
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        return headers;
     }
 }
