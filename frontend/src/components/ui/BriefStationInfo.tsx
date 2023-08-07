@@ -10,9 +10,9 @@ import FlexBox from '@common/FlexBox';
 import ListItem from '@common/ListItem';
 import Text from '@common/Text';
 
-import ChargingSpeedIcon from './ChargingSpeedIcon';
+import type { StationSummary } from '@type';
 
-import type { StationSummary } from 'types';
+import ChargingSpeedIcon from './ChargingSpeedIcon';
 
 interface Props {
   station: StationSummary;

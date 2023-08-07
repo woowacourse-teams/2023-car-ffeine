@@ -7,7 +7,8 @@ import { selectedStationIdStore } from '@stores/selectedStationStore';
 
 import BriefStationInfo from '@ui/BriefStationInfo';
 
-import type { StationSummary } from '../../types';
+import type { StationSummary } from '@type';
+
 import { useCalculatedMapDelta } from './useCalculatedMapDelta';
 
 export const useStationSummary = () => {

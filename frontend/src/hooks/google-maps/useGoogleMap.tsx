@@ -8,9 +8,10 @@ import { getGoogleMapStore } from '@stores/googleMapStore';
 import { markerInstanceStore } from '@stores/markerInstanceStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
+import type { StationSummary } from '@type';
+
 import BlueMarker from '@assets/blue-marker.svg';
 
-import type { StationSummary } from '../../types';
 import { useStationSummary } from './useStationSummary';
 
 export const useGoogleMap = () => {

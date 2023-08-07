@@ -8,7 +8,7 @@ import { serverStore } from '@stores/serverStore';
 import { SERVERS } from '@constants';
 import { ERROR_MESSAGES } from '@constants/errorMessages';
 
-import type { CongestionStatistics } from '../../../types/congestion';
+import type { CongestionStatistics } from '@type/congestion';
 
 export const fetchStationDetails = async (selectedStationId: number) => {
   const mode = serverStore.getState();

@@ -4,9 +4,9 @@ import Box from '@common/Box';
 import Text from '@common/Text';
 
 import { useAccordionAction } from '@ui/Accordion/hooks/useAccordionAction';
-import DetailedStation from '@ui/DetailedStationInfo/DetailedStation';
+import StationDetailsView from '@ui/StationDetailsWindow/StationDetailsView';
 
-const DetailedStationInfo = () => {
+const StationDetailsWindow = () => {
   const {
     data: selectedStation,
     isLoading: isSelectedStationLoading,
@@ -43,9 +43,9 @@ const DetailedStationInfo = () => {
         overflow: 'scroll',
       }}
     >
-      <DetailedStation station={selectedStation} />
+      <StationDetailsView station={selectedStation} />
     </Box>
   );
 };
 
-export default DetailedStationInfo;
+export default StationDetailsWindow;
