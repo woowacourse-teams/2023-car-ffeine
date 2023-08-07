@@ -5,7 +5,7 @@ import { markerInstanceStore } from '@stores/markerInstanceStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 import { getStationSummaryWindowStore } from '@stores/stationSummaryWindowStore';
 
-import BriefStationInfo from '@ui/BriefStationInfo';
+import StationSummaryWindow from '@ui/StationSummaryWindow';
 
 import type { StationSummary } from '@type';
 
@@ -38,7 +38,7 @@ export const useStationSummary = () => {
       map: googleMap,
     });
 
-    infoWindowInstance.stationSummaryRoot.render(<BriefStationInfo station={station} />);
+    infoWindowInstance.stationSummaryRoot.render(<StationSummaryWindow station={station} />);
   };
 
   return { openStationSummary };

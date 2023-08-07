@@ -18,7 +18,7 @@ interface Props {
   station: StationSummary;
 }
 
-const BriefStationInfo = ({ station }: Props) => {
+const StationSummaryWindow = ({ station }: Props) => {
   const setSelectedStationId = useSetExternalState(selectedStationIdStore);
   const setForceOpenAccordionPanel = useSetExternalState(forceOpenAccordionPanelStore);
 
@@ -101,4 +101,4 @@ const labelStyle = css`
   border-radius: 8px;
 `;
 
-export default BriefStationInfo;
+export default StationSummaryWindow;
