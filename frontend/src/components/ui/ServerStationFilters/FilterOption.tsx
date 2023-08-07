@@ -4,9 +4,8 @@ import Text from '@common/Text';
 
 import type { CHARGER_TYPES } from '@constants/chargers';
 
-import type { Capacity, ChargerType } from '../../../types/chargers';
-
-import type { CompanyName } from 'types';
+import type { Capacity, ChargerType } from '@type/chargers';
+import type { CompanyName } from '@type/stations';
 
 interface FilterSectionProps {
   title: string;

@@ -3,14 +3,15 @@ import { createRoot } from 'react-dom/client';
 import { useExternalValue, useSetExternalState } from '@utils/external-state';
 import { getStoreSnapshot } from '@utils/external-state/tools';
 
-import { forceOpenAccordionPanelStore } from '@stores/forceOpenAccordionPanelStore';
-import { getGoogleMapStore } from '@stores/googleMapStore';
-import { markerInstanceStore } from '@stores/markerInstanceStore';
+import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
+import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
+import { forceOpenAccordionPanelStore } from '@stores/layout/forceOpenAccordionPanelStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
+
+import type { StationSummary } from '@type';
 
 import BlueMarker from '@assets/blue-marker.svg';
 
-import type { StationSummary } from '../../types';
 import { useStationSummary } from './useStationSummary';
 
 export const useGoogleMap = () => {

@@ -1,15 +1,15 @@
 import type { Meta } from '@storybook/react';
 
-import type { DetailedStationProps } from '@ui/DetailedStationInfo/DetailedStation';
-import DetailedStation from '@ui/DetailedStationInfo/DetailedStation';
+import type { StationDetailsViewProps } from '@ui/StationDetailsWindow/StationDetailsView';
+import StationDetailsView from '@ui/StationDetailsWindow/StationDetailsView';
 
 const meta = {
-  title: 'UI/DetailedStation',
-  component: DetailedStation,
+  title: 'UI/StationDetailsView',
+  component: StationDetailsView,
   tags: ['autodocs'],
   args: {
     station: {
-      stationId: 99,
+      stationId: '99',
       stationName: '박스터 충전소',
       companyName: 'CARffeine',
       contact: '02-1234-5678',
@@ -72,10 +72,10 @@ const meta = {
       description: '충전소 데이터를 수정할 수 있습니다.',
     },
   },
-} satisfies Meta<typeof DetailedStation>;
+} satisfies Meta<typeof StationDetailsView>;
 
 export default meta;
 
-export const Default = (args: DetailedStationProps) => {
-  return <DetailedStation {...args} />;
+export const Default = (args: StationDetailsViewProps) => {
+  return <StationDetailsView {...args} />;
 };

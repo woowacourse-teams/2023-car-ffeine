@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-import { modalActions } from '@stores/modalStore';
+import { modalActions } from '@stores/layout/modalStore';
 
 import { useStationChargerReport } from '@hooks/tanstack-query/station-details/reports/useStationChargerReport';
 
@@ -9,19 +9,20 @@ import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 
-import ChargerCard from '@ui/DetailedStationInfo/ChargerCard';
-import ChargerReportConfirmation from '@ui/DetailedStationInfo/ChargerReportConfirmation';
-import StationInformation from '@ui/DetailedStationInfo/StationInformation';
-import StationReportConfirmation from '@ui/DetailedStationInfo/StationReportConfirmation';
+import ChargerCard from '@ui/StationDetailsWindow/ChargerCard';
+import StationInformation from '@ui/StationDetailsWindow/StationInformation';
+import ChargerReportConfirmation from '@ui/StationDetailsWindow/reports/ChargerReportConfirmation';
+import StationReportPreConfirmation from '@ui/StationDetailsWindow/reports/StationReportPreConfirmation';
 
-import type { StationDetails } from '../../../types';
-import CongestionStatistics from './CongestionStatistics';
+import type { StationDetails } from '@type';
 
-export interface DetailedStationProps {
+import CongestionStatistics from './congestion/CongestionStatistics';
+
+export interface StationDetailsViewProps {
   station: StationDetails;
 }
 
-const DetailedStation = ({ station }: DetailedStationProps) => {
+const StationDetailsView = ({ station }: StationDetailsViewProps) => {
   const { stationId, chargers, reportCount } = station;
 
   const { data: isStationChargerReported, isLoading: isStationChargerReportedLoading } =
@@ -37,7 +38,7 @@ const DetailedStation = ({ station }: DetailedStationProps) => {
           size="sm"
           color="light"
           onClick={() => {
-            modalActions.openModal(<StationReportConfirmation station={station} />);
+            modalActions.openModal(<StationReportPreConfirmation station={station} />);
           }}
         >
           📝 충전소 정보 수정 제안하기
@@ -90,4 +91,4 @@ const containerCss = css`
   overflow: scroll;
 `;
 
-export default DetailedStation;
+export default StationDetailsView;

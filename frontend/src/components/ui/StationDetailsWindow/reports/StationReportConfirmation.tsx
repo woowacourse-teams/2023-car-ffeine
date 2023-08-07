@@ -1,9 +1,7 @@
 import type { ChangeEvent } from 'react';
 import { useState } from 'react';
 
-import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
-
-import { modalActions } from '@stores/modalStore';
+import { modalActions } from '@stores/layout/modalStore';
 
 import { useUpdateStationChargerReport } from '@hooks/tanstack-query/station-details/reports/useUpdateStationReport';
 
@@ -13,10 +11,11 @@ import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 import TextField from '@common/TextField';
 
-import StationInformation from '@ui/DetailedStationInfo/StationInformation';
+import StationInformation from '@ui/StationDetailsWindow/StationInformation';
+import { findDifferentKeys } from '@ui/StationDetailsWindow/reports/domain';
 
-import type { StationDetails } from '../../../types';
-import type { ChargerDetails } from '../../../types/chargers';
+import type { ChargerDetails } from '@type/chargers';
+import type { StationDetails, StationDetailsWithoutChargers } from '@type/stations';
 
 interface StationReportConfirmationProps {
   station: StationDetails;
@@ -27,7 +26,8 @@ export interface Differences {
 }
 
 const StationReportConfirmation = ({ station }: StationReportConfirmationProps) => {
-  const [form, setForm] = useState<StationDetails>({ ...station });
+  const { chargers, ...stationWithoutChargers } = station;
+  const [form, setForm] = useState<StationDetailsWithoutChargers>({ ...stationWithoutChargers });
   const { updateStationReport } = useUpdateStationChargerReport();
   const handleChangeTextField = ({ target: { id, value } }: ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [id]: value });
@@ -37,13 +37,8 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
     setForm({ ...form, [key]: !form[key] });
   };
 
-  const findDifferentKeys = (formStation: StationDetails, originStation: StationDetails) =>
-    getTypedObjectKeys<StationDetails>(formStation).filter(
-      (key) => formStation[key] !== originStation[key]
-    );
-
-  const reportCharger = async () => {
-    const differentKeys = findDifferentKeys(form, station);
+  const reportCharger = () => {
+    const differentKeys = findDifferentKeys(form, stationWithoutChargers);
     const differencesArray: Differences[] = differentKeys.map((key) => ({
       category: key,
       reportedDetail: form[key],
@@ -55,13 +50,16 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
     }
   };
 
+  const handleCloseModalButton = () => modalActions.closeModal();
+
   return (
     <Box p={2}>
       <Text variant="title" mb={3}>
         개선할 충전소 정보가 있나요?
       </Text>
-      <Box border>
-        <StationInformation station={form} />
+      <Text variant="label">변경사항 미리보기</Text>
+      <Box border mt={2} mb={10}>
+        <StationInformation station={{ chargers: [], ...form }} />
       </Box>
 
       <TextField
@@ -122,17 +120,11 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
           color="error"
           size="md"
           fullWidth
-          onClick={() => modalActions.closeModal()}
+          onClick={handleCloseModalButton}
         >
           저장하지 않고 닫을래요
         </ButtonNext>
-        <ButtonNext
-          variant="contained"
-          color="success"
-          size="md"
-          fullWidth
-          onClick={() => reportCharger()}
-        >
+        <ButtonNext variant="contained" color="success" size="md" fullWidth onClick={reportCharger}>
           제안하기
         </ButtonNext>
       </FlexBox>

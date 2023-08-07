@@ -1,8 +1,10 @@
-import { type PropsWithChildren, useState, createContext } from 'react';
+import type { PropsWithChildren } from 'react';
+import { useState, createContext } from 'react';
 
 import FlexBox from '@common/FlexBox';
 
-import type { Congestion, EnglishDaysType } from '../../../types/congestion';
+import type { Congestion, EnglishDaysType } from '@type/congestion';
+
 import Bar from './Bar';
 import BarContainer from './BarContainer';
 import CircleDaySelectButton from './CircleDaySelectButton';

@@ -1,6 +1,6 @@
 import { useExternalValue } from '@utils/external-state';
 
-import { modalActions, modalContentStore, modalOpenStore } from '@stores/modalStore';
+import { modalActions, modalContentStore, modalOpenStore } from '@stores/layout/modalStore';
 
 import Modal from '@common/Modal';
 

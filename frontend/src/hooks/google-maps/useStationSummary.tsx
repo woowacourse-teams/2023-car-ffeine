@@ -1,18 +1,19 @@
 import { useExternalValue, useSetExternalState } from '@utils/external-state';
 
-import { getBriefStationInfoWindowStore } from '@stores/briefStationInfoWindowStore';
-import { getGoogleMapStore } from '@stores/googleMapStore';
-import { markerInstanceStore } from '@stores/markerInstanceStore';
+import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
+import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
+import { getStationSummaryWindowStore } from '@stores/google-maps/stationSummaryWindowStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
-import BriefStationInfo from '@ui/BriefStationInfo';
+import StationSummaryWindow from '@ui/StationSummaryWindow';
 
-import type { StationSummary } from '../../types';
+import type { StationSummary } from '@type';
+
 import { useCalculatedMapDelta } from './useCalculatedMapDelta';
 
 export const useStationSummary = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
-  const infoWindowInstance = useExternalValue(getBriefStationInfoWindowStore());
+  const infoWindowInstance = useExternalValue(getStationSummaryWindowStore());
   const stationMarkers = useExternalValue(markerInstanceStore);
   const calculatedMapDelta = useCalculatedMapDelta();
   const setSelectedStationId = useSetExternalState(selectedStationIdStore);
@@ -37,7 +38,7 @@ export const useStationSummary = () => {
       map: googleMap,
     });
 
-    infoWindowInstance.briefStationInfoRoot.render(<BriefStationInfo station={station} />);
+    infoWindowInstance.stationSummaryRoot.render(<StationSummaryWindow station={station} />);
   };
 
   return { openStationSummary };

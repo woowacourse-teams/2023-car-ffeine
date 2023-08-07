@@ -6,9 +6,9 @@ import { SERVERS } from '@constants';
 import { ERROR_MESSAGES } from '@constants/errorMessages';
 import { SESSION_KEY_REPORTED_STATIONS } from '@constants/storageKeys';
 
-import { getCongestionStatistics, getSearchedStations, stations } from './data';
+import type { StationSummary } from '@type';
 
-import type { StationSummary } from 'types';
+import { getCongestionStatistics, getSearchedStations, stations } from './data';
 
 export const handlers = [
   rest.get(`${SERVERS.localhost}/stations`, async (req, res, ctx) => {
@@ -97,7 +97,7 @@ export const handlers = [
   }),
 
   rest.get(`${SERVERS.localhost}/stations/:id`, async (req, res, ctx) => {
-    const stationId = Number(req.params.id);
+    const stationId = req.params.id;
     const selectedStation = stations.find((station) => station.stationId === stationId);
 
     if (!selectedStation) {
@@ -141,9 +141,7 @@ export const handlers = [
   ),
 
   rest.get(`${SERVERS.localhost}/stations/:stationId/statistics`, (req, res, ctx) => {
-    const stationId = Number(
-      req.url.pathname.replace(/\/api\/stations\//, '').replace(/\/statistics/, '')
-    );
+    const stationId = req.url.pathname.replace(/\/api\/stations\//, '').replace(/\/statistics/, '');
 
     const congestionStatistics = getCongestionStatistics(stationId);
 

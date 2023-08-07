@@ -24,7 +24,7 @@ public abstract class StationIntegrationTestFixture extends AcceptanceTestFixtur
                 .param("longitude", request.longitude())
                 .param("latitudeDelta", request.latitudeDelta())
                 .param("longitudeDelta", request.longitudeDelta())
-                .get("/api/stations")
+                .get("/stations")
                 .then().log().all()
                 .extract();
     }
@@ -42,7 +42,7 @@ public abstract class StationIntegrationTestFixture extends AcceptanceTestFixtur
 
     public static ExtractableResponse<Response> 충전소_ID로_상세_정보를_조회한다(String 충전소_ID) {
         return RestAssured.given().log().all()
-                .get("/api/stations/{stationId}", 충전소_ID)
+                .get("/stations/{stationId}", 충전소_ID)
                 .then().log().all()
                 .extract();
     }

@@ -8,7 +8,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import { useExternalValue, useSetExternalState } from '@utils/external-state';
 
-import { getGoogleMapStore } from '@stores/googleMapStore';
+import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { searchWordStore } from '@stores/searchWordStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
@@ -21,9 +21,9 @@ import { useAccordionAction } from '@ui/Accordion/hooks/useAccordionAction';
 
 import { pillStyle } from '@style';
 
-import SearchResult from './SearchResult';
+import type { StationPosition } from '@type/stations';
 
-import type { StationPosition } from 'types';
+import SearchResult from './SearchResult';
 
 const StationSearchBar = () => {
   const [isFocused, setIsFocused] = useState(false);

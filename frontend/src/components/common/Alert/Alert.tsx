@@ -1,8 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import React from 'react';
-
-import type { Color } from '../../../types/style';
+import type { Color } from '@type/style';
 
 export interface AlertProps {
   color: Color;

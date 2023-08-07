@@ -1,6 +1,6 @@
 import { useExternalValue } from '@utils/external-state';
 
-import { serverActions, serverStore } from '@stores/serverStore';
+import { serverActions, serverStore } from '@stores/config/serverStore';
 
 import ButtonNext from '@common/ButtonNext';
 

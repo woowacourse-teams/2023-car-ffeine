@@ -9,7 +9,7 @@ import ApiKeyChecker from '@map/ApiKeyChecker';
 
 import { configureToken } from '@utils/configureToken';
 
-import { mswModeActions } from '@stores/mswModeStore';
+import { mswModeActions } from '@stores/config/mswModeStore';
 
 import App from 'App';
 
