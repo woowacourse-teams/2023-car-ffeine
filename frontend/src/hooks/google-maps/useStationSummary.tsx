@@ -1,9 +1,9 @@
 import { useExternalValue, useSetExternalState } from '@utils/external-state';
 
-import { getBriefStationInfoWindowStore } from '@stores/briefStationInfoWindowStore';
 import { getGoogleMapStore } from '@stores/googleMapStore';
 import { markerInstanceStore } from '@stores/markerInstanceStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
+import { getStationSummaryWindowStore } from '@stores/stationSummaryWindowStore';
 
 import BriefStationInfo from '@ui/BriefStationInfo';
 
@@ -13,7 +13,7 @@ import { useCalculatedMapDelta } from './useCalculatedMapDelta';
 
 export const useStationSummary = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
-  const infoWindowInstance = useExternalValue(getBriefStationInfoWindowStore());
+  const infoWindowInstance = useExternalValue(getStationSummaryWindowStore());
   const stationMarkers = useExternalValue(markerInstanceStore);
   const calculatedMapDelta = useCalculatedMapDelta();
   const setSelectedStationId = useSetExternalState(selectedStationIdStore);
@@ -38,7 +38,7 @@ export const useStationSummary = () => {
       map: googleMap,
     });
 
-    infoWindowInstance.briefStationInfoRoot.render(<BriefStationInfo station={station} />);
+    infoWindowInstance.stationSummaryRoot.render(<BriefStationInfo station={station} />);
   };
 
   return { openStationSummary };
