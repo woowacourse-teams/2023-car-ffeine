@@ -49,7 +49,7 @@ class CongestionControllerTest extends MockBeanInjection {
                                 getExpected())
                 );
 
-        mockMvc.perform(get("/api/stations/{stationId}/statistics", stationId))
+        mockMvc.perform(get("/stations/{stationId}/statistics", stationId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.stationId").value("1"))
                 .andDo(customDocument("statistics",
