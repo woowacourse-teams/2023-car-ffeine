@@ -10,7 +10,9 @@
     "^@marker/(.*)$": "<rootDir>/src/components/google-maps/marker/$1",
     "^@hooks/(.*)$": "<rootDir>/src/hooks/$1",
     "^@stores/(.*)$": "<rootDir>/src/stores/$1",
+    "^@style": "<rootDir>/src/style/index.ts",
     "^@style/(.*)$": "<rootDir>/src/style/$1",
+    "^@constants": "<rootDir>/src/constants/index.ts",
     "^@constants/(.*)$": "<rootDir>/src/constants/$1",
     "^@assets/(.*)$": "<rootDir>/src/assets/$1",
     "^@type/(.*)$": "<rootDir>/src/types/$1"
