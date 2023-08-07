@@ -25,7 +25,7 @@ public class FakeMemberRepository implements MemberRepository {
         map.put(id, member);
         return member;
     }
-    
+
     @Override
     public boolean existsById(Long id) {
         return map.containsKey(id);
