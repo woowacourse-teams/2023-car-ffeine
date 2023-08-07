@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.station.domain.station;
 
-import com.carffeine.carffeine.station.domain.BaseEntity;
+import com.carffeine.carffeine.common.domain.BaseEntity;
 import com.carffeine.carffeine.station.domain.charger.Charger;
 import com.carffeine.carffeine.station.domain.report.FaultReport;
 import lombok.AccessLevel;

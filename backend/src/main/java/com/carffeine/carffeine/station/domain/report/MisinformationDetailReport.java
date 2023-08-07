@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.station.domain.report;
 
-import com.carffeine.carffeine.station.domain.BaseEntity;
+import com.carffeine.carffeine.common.domain.BaseEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.station.domain;
+package com.carffeine.carffeine.common.domain;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
