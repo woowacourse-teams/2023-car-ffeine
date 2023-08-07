@@ -7,6 +7,7 @@ import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 import { getDisplayPosition } from '@utils/google-maps';
 import { getQueryFormattedUrl } from '@utils/request-query-params';
 
+import { clientStationFiltersStore } from '@stores/clientStationFiltersStore';
 import { mswModeStore } from '@stores/config/mswModeStore';
 import { serverStore } from '@stores/config/serverStore';
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
@@ -15,7 +16,6 @@ import {
   selectedChargerTypesFilterStore,
   selectedCompanyNamesFilterStore,
 } from '@stores/serverStationFiltersStore';
-import { stationFilterStore } from '@stores/stationFilterStore';
 
 import { SERVERS } from '@constants';
 import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
@@ -65,7 +65,7 @@ export const useStations = () => {
     isFastChargeStationFilterSelected,
     isParkingFreeStationFilterSelected,
     isPrivateStationFilterSelected,
-  } = useExternalValue(stationFilterStore);
+  } = useExternalValue(clientStationFiltersStore);
 
   return useQuery({
     queryKey: ['stations'],
