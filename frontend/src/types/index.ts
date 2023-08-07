@@ -2,6 +2,16 @@ import type { CHARGING_SPEED, COMPANY_NAME } from '@constants/chargers';
 
 import type { ChargerDetails, ChargerSummary } from './chargers';
 
+export interface MockStation extends StationDetails, ChargerCount {}
+
+export interface StationDetails extends Station {
+  contact: string | null;
+  chargers: ChargerDetails[];
+  stationState: string | null;
+  privateReason: string | null;
+  reportCount: number;
+}
+
 export interface Coordinates {
   latitude: number;
   longitude: number;
@@ -32,16 +42,6 @@ export interface ChargerCount {
 export interface StationSummary extends Station, ChargerCount {
   chargers: ChargerSummary[];
 }
-
-export interface StationDetails extends Station {
-  contact: string | null;
-  chargers: ChargerDetails[];
-  stationState: string | null;
-  privateReason: string | null;
-  reportCount: number;
-}
-
-export interface MockStation extends StationDetails, ChargerCount {}
 
 export interface DisplayPosition extends Coordinates {
   longitudeDelta: number;
