@@ -173,7 +173,7 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
             {isLoading ? '처리중...' : '제안하기'}
           </ButtonNext>
         ) : (
-          <ButtonNext disabled variant="contained" color="success" size="md" fullWidth>
+          <ButtonNext disabled variant="contained" size="md" fullWidth>
             다시확인해주세요
           </ButtonNext>
         )}
