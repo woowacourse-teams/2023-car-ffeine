@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.station.controller.station;
 
-import com.carffeine.carffeine.station.MockBeanInjection;
+import com.carffeine.carffeine.helper.MockBeanInjection;
 import com.carffeine.carffeine.station.domain.charger.ChargerType;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.exception.StationException;

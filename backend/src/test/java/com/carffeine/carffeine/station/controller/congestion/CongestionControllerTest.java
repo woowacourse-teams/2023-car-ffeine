@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.station.controller.congestion;
 
-import com.carffeine.carffeine.station.MockBeanInjection;
+import com.carffeine.carffeine.helper.MockBeanInjection;
 import com.carffeine.carffeine.station.controller.congestion.dto.CongestionInfoResponse;
 import com.carffeine.carffeine.station.controller.congestion.dto.CongestionResponse;
 import com.carffeine.carffeine.station.controller.congestion.dto.StatisticsResponse;
