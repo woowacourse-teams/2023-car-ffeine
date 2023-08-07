@@ -18,8 +18,8 @@ public class StationRepositoryImpl implements CustomStationRepository {
 
     @Override
     public void saveAll(Collection<Station> stations) {
-        String sql = "INSERT IGNORE INTO charge_station (station_id, station_name, company_name, address, is_parking_free, operating_time, detail_location, latitude, longitude, is_private, contact, station_state, private_reason)" +
-                " VALUES (:stationId, :stationName, :companyName, :address, :isParkingFree, :operatingTime, :detailLocation, :latitude, :longitude, :isPrivate, :contact, :stationState, :privateReason)";
+        String sql = "INSERT IGNORE INTO charge_station (station_id, station_name, company_name, address, is_parking_free, operating_time, detail_location, latitude, longitude, is_private, contact, station_state, private_reason, created_at, updated_at)" +
+                " VALUES (:stationId, :stationName, :companyName, :address, :isParkingFree, :operatingTime, :detailLocation, :latitude, :longitude, :isPrivate, :contact, :stationState, :privateReason, :createdAt, :updatedAt)";
         namedParameterJdbcTemplate.batchUpdate(sql, chargeStationSqlParameterSource(stations));
     }
 
@@ -35,8 +35,8 @@ public class StationRepositoryImpl implements CustomStationRepository {
             return;
         }
 
-        String sql = "INSERT INTO charge_station (station_id, station_name, company_name, address, is_parking_free, operating_time, detail_location, latitude, longitude, is_private, contact, station_state, private_reason)" +
-                " VALUES (:stationId, :stationName, :companyName, :address, :isParkingFree, :operatingTime, :detailLocation, :latitude, :longitude, :isPrivate, :contact, :stationState, :privateReason)";
+        String sql = "INSERT INTO charge_station (station_id, station_name, company_name, address, is_parking_free, operating_time, detail_location, latitude, longitude, is_private, contact, station_state, private_reason, created_at, updated_at)" +
+                " VALUES (:stationId, :stationName, :companyName, :address, :isParkingFree, :operatingTime, :detailLocation, :latitude, :longitude, :isPrivate, :contact, :stationState, :privateReason, :createdAt, :updatedAt)";
         namedParameterJdbcTemplate.batchUpdate(sql, chargeStationSqlParameterSource(stations));
     }
 
@@ -47,7 +47,7 @@ public class StationRepositoryImpl implements CustomStationRepository {
         }
 
         String sql = "UPDATE charge_station " +
-                "SET contact = :contact, company_name = :companyName, address = :address, detail_location = :detailLocation, is_parking_free = :isParkingFree, is_private = :isPrivate, latitude = :latitude, longitude = :longitude, operating_time = :operatingTime, private_reason = :privateReason, station_name = :stationName, station_state =:stationState " +
+                "SET contact = :contact, company_name = :companyName, address = :address, detail_location = :detailLocation, is_parking_free = :isParkingFree, is_private = :isPrivate, latitude = :latitude, longitude = :longitude, operating_time = :operatingTime, private_reason = :privateReason, station_name = :stationName, station_state =:stationState, updated_at = :updatedAt " +
                 "WHERE station_id = :stationId";
 
         namedParameterJdbcTemplate.batchUpdate(sql, chargeStationSqlParameterSource(stations));
@@ -73,6 +73,8 @@ public class StationRepositoryImpl implements CustomStationRepository {
                 .addValue("isPrivate", station.getIsPrivate())
                 .addValue("contact", station.getContact())
                 .addValue("stationState", station.getStationState())
-                .addValue("privateReason", station.getPrivateReason());
+                .addValue("privateReason", station.getPrivateReason())
+                .addValue("createdAt", station.getCreatedAt())
+                .addValue("updatedAt", station.getUpdatedAt());
     }
 }

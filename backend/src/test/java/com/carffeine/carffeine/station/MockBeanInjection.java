@@ -8,7 +8,9 @@ import com.carffeine.carffeine.station.service.congestion.CongestionService;
 import com.carffeine.carffeine.station.service.report.ReportService;
 import com.carffeine.carffeine.station.service.station.StationService;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 
+@MockBean(JpaMetamodelMappingContext.class)
 public class MockBeanInjection {
 
     @MockBean
