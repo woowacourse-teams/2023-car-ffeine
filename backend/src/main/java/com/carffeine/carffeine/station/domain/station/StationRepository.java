@@ -41,4 +41,7 @@ public interface StationRepository extends Repository<Station, Long> {
     Page<Station> findAllByStationNameContains(Pageable pageable, String stationName);
 
     List<Station> findAllByStationNameContainingOrAddressContainingOrderByStationId(String stationName, String address);
+
+    @Query("SELECT DISTINCT s FROM Station s JOIN FETCH s.chargers WHERE s.stationId = :stationId")
+    Optional<Station> findFetchByStationId(@Param("stationId") String stationId);
 }

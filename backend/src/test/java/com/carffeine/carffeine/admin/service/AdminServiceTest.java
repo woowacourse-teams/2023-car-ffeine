@@ -9,12 +9,14 @@ import com.carffeine.carffeine.member.domain.MemberRole;
 import com.carffeine.carffeine.station.domain.station.FakeStationRepository;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.domain.station.StationRepository;
+import com.carffeine.carffeine.station.fixture.station.StationFixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 import static org.springframework.data.domain.PageRequest.of;
@@ -86,5 +88,18 @@ public class AdminServiceTest {
         assertThatThrownBy(() -> adminService.getStations(of(0, 10), "9", user.getId()))
                 .isInstanceOf(AdminException.class)
                 .hasMessage(AdminExceptionType.NOT_ADMIN.message());
+    }
+
+    @Test
+    void 충전소의_정보를_상세_조회한다() {
+        // given
+        Station saved = stationRepository.save(StationFixture.천호역_충전소_충전기_2개_사용가능_1개);
+
+        // when
+        Station station = adminService.getStation(saved.getStationId(), admin.getId());
+
+        // then
+        assertThat(station).usingRecursiveComparison()
+                .isEqualTo(saved);
     }
 }

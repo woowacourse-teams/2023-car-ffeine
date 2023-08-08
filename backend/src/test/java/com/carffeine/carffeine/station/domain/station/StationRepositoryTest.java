@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
@@ -145,7 +146,6 @@ class StationRepositoryTest {
         stationRepository.save(StationFixture.선릉역_충전소_충전기_2개_사용가능_1개);
         stationRepository.save(StationFixture.잠실역_충전소_충전기_2개_사용가능_1개);
         stationRepository.save(StationFixture.천호역_충전소_충전기_2개_사용가능_1개);
-        Pageable pageable = Pageable.ofSize(1);
 
         // when
         Page<Station> stations = stationRepository.findAllByStationNameContains(PageRequest.of(0, 1), query);
@@ -154,6 +154,21 @@ class StationRepositoryTest {
         assertSoftly(softly -> {
             softly.assertThat(stations.getSize()).isEqualTo(1);
             softly.assertThat(stations.getTotalPages()).isEqualTo(size);
+        });
+    }
+
+    @Test
+    void 충전소와_충전기를_한꺼번에_조회한다() {
+        // given
+        Station saved = stationRepository.save(StationFixture.선릉역_충전소_충전기_2개_사용가능_1개);
+
+        // when
+        Optional<Station> findStation = stationRepository.findFetchByStationId(saved.getStationId());
+
+        // then
+        assertSoftly(softly -> {
+            softly.assertThat(findStation.isPresent()).isTrue();
+            softly.assertThat(findStation.get().getChargers()).hasSize(2);
         });
     }
 }
