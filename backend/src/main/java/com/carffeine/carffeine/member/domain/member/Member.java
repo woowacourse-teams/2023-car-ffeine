@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.member.domain;
+package com.carffeine.carffeine.member.domain.member;
 
 import com.carffeine.carffeine.common.domain.BaseEntity;
 import lombok.AccessLevel;

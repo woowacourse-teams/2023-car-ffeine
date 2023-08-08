@@ -1,8 +1,8 @@
 package com.carffeine.carffeine.auth.controller;
 
-import com.carffeine.carffeine.common.exception.ExceptionResponse;
-import com.carffeine.carffeine.member.domain.MemberRepository;
 import com.carffeine.carffeine.auth.domain.TokenProvider;
+import com.carffeine.carffeine.common.exception.ExceptionResponse;
+import com.carffeine.carffeine.member.domain.member.MemberRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
