@@ -2,8 +2,11 @@ import {
   AdjustmentsHorizontalIcon,
   Bars3Icon,
   MagnifyingGlassIcon,
+  UserCircleIcon,
 } from '@heroicons/react/24/outline';
 import { css } from 'styled-components';
+
+import { serverStore } from '@stores/config/serverStore';
 
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
@@ -13,6 +16,10 @@ import ServerStationFilters from '@ui/ServerStationFilters';
 import StationListWindow from '@ui/StationList/StationListWindow';
 import StationSearchWindow from '@ui/StationSearchWindow';
 import LogoIcon from '@ui/Svg/LogoIcon';
+
+import { SERVERS } from '@constants';
+
+import type { LoginUriResponse } from '@type/login';
 
 import { useNavigationBar } from './hooks/useNavigationBar';
 
@@ -42,6 +49,20 @@ const Menu = () => {
       </Button>
       <Button aria-label="충전소 목록 보기" onClick={() => openBasePanel(<StationListWindow />)}>
         <Bars3Icon width="2.8rem" stroke="#333" />
+      </Button>
+      <Button
+        aria-label="로그인 하기"
+        onClick={async () => {
+          const mode = serverStore.getState();
+
+          const loginUriResponse = await fetch(
+            `${SERVERS[mode]}/oauth/google/login-uri?redirect-uri=http://localhost:3000/google`
+          ).then<LoginUriResponse>((response) => response.json());
+
+          window.location.href = loginUriResponse.loginUri.replace(/;/, '');
+        }}
+      >
+        <UserCircleIcon width="2.8rem" stroke="#333" />
       </Button>
       {process.env.NODE_ENV === 'development' && <MswControlButton />}
     </FlexBox>
