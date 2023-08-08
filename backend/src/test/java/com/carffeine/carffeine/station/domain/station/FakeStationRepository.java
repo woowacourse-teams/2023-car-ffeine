@@ -80,4 +80,9 @@ public class FakeStationRepository implements StationRepository {
                 .filter(it -> it.getStationName().contains(stationName) || it.getAddress().contains(address))
                 .toList();
     }
+
+    @Override
+    public Optional<Station> findFetchByStationId(String stationId) {
+        return Optional.of(map.get(stationId));
+    }
 }
