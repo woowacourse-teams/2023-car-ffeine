@@ -14,7 +14,13 @@ import TextField from '@common/TextField';
 import StationInformation from '@ui/StationDetailsWindow/StationInformation';
 import { findDifferentKeys } from '@ui/StationDetailsWindow/reports/domain';
 
-import { FORM_TEXT_LENGTH_LIMIT } from '@constants';
+import {
+  FORM_ADDRESS_LENGTH_LIMIT,
+  FORM_CONTACT_LENGTH_LIMIT,
+  FORM_DETAIL_LOCATION_LENGTH_LIMIT,
+  FORM_OPERATING_TIME_LENGTH_LIMIT,
+  FORM_PRIVATE_REASON_LENGTH_LIMIT,
+} from '@constants';
 
 import type { ChargerDetails } from '@type/chargers';
 import type { StationDetails, StationDetailsWithoutChargers } from '@type/stations';
@@ -33,11 +39,11 @@ const validateForm = (form: StationDetailsWithoutChargers) => {
   }
 
   return (
-    (!form.address || form.address.length <= FORM_TEXT_LENGTH_LIMIT) &&
-    (!form.detailLocation || form.detailLocation.length <= FORM_TEXT_LENGTH_LIMIT) &&
-    (!form.operatingTime || form.operatingTime.length <= FORM_TEXT_LENGTH_LIMIT) &&
-    (!form.contact || form.contact.length <= FORM_TEXT_LENGTH_LIMIT) &&
-    (!form.privateReason || form.privateReason.length <= FORM_TEXT_LENGTH_LIMIT)
+    (!form.address || form.address.length <= FORM_ADDRESS_LENGTH_LIMIT) &&
+    (!form.detailLocation || form.detailLocation.length <= FORM_DETAIL_LOCATION_LENGTH_LIMIT) &&
+    (!form.operatingTime || form.operatingTime.length <= FORM_OPERATING_TIME_LENGTH_LIMIT) &&
+    (!form.contact || form.contact.length <= FORM_CONTACT_LENGTH_LIMIT) &&
+    (!form.privateReason || form.privateReason.length <= FORM_PRIVATE_REASON_LENGTH_LIMIT)
   );
 };
 
@@ -86,8 +92,8 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
         value={form.address}
         onChange={handleChangeTextField}
         supportingText={
-          form.address?.length > FORM_TEXT_LENGTH_LIMIT &&
-          `${FORM_TEXT_LENGTH_LIMIT}자 이내로 작성해주셔야 합니다.`
+          form.address?.length > FORM_ADDRESS_LENGTH_LIMIT &&
+          `${FORM_ADDRESS_LENGTH_LIMIT}자 이내로 작성해주셔야 합니다.`
         }
       />
       <TextField
@@ -97,8 +103,8 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
         value={form.detailLocation}
         onChange={handleChangeTextField}
         supportingText={
-          form.detailLocation?.length > FORM_TEXT_LENGTH_LIMIT &&
-          `${FORM_TEXT_LENGTH_LIMIT}자 이내로 작성해주셔야 합니다.`
+          form.detailLocation?.length > FORM_DETAIL_LOCATION_LENGTH_LIMIT &&
+          `${FORM_DETAIL_LOCATION_LENGTH_LIMIT}자 이내로 작성해주셔야 합니다.`
         }
       />
       <TextField
@@ -108,8 +114,8 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
         value={form.operatingTime}
         onChange={handleChangeTextField}
         supportingText={
-          form.operatingTime?.length > FORM_TEXT_LENGTH_LIMIT &&
-          `${FORM_TEXT_LENGTH_LIMIT}자 이내로 작성해주셔야 합니다.`
+          form.operatingTime?.length > FORM_OPERATING_TIME_LENGTH_LIMIT &&
+          `${FORM_OPERATING_TIME_LENGTH_LIMIT}자 이내로 작성해주셔야 합니다.`
         }
       />
       <TextField
@@ -119,8 +125,8 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
         value={form.contact}
         onChange={handleChangeTextField}
         supportingText={
-          form.contact?.length > FORM_TEXT_LENGTH_LIMIT &&
-          `${FORM_TEXT_LENGTH_LIMIT}자 이내로 작성해주셔야 합니다.`
+          form.contact?.length > FORM_CONTACT_LENGTH_LIMIT &&
+          `${FORM_CONTACT_LENGTH_LIMIT}자 이내로 작성해주셔야 합니다.`
         }
       />
       <Box>
@@ -146,8 +152,8 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
         value={form.privateReason}
         onChange={handleChangeTextField}
         supportingText={
-          form.privateReason?.length > FORM_TEXT_LENGTH_LIMIT &&
-          `${FORM_TEXT_LENGTH_LIMIT}자 이내로 작성해주셔야 합니다.`
+          form.privateReason?.length > FORM_PRIVATE_REASON_LENGTH_LIMIT &&
+          `${FORM_PRIVATE_REASON_LENGTH_LIMIT}자 이내로 작성해주셔야 합니다.`
         }
       />
 
