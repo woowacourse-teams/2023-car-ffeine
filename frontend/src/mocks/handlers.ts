@@ -147,4 +147,8 @@ export const handlers = [
 
     return res(ctx.json(congestionStatistics), ctx.delay(1000), ctx.status(200));
   }),
+
+  rest.get(`${SERVERS.localhost}/api/stations/:stationId/total-ratings`, (req, res, ctx) => {
+    return res(ctx.json({ totalRatings: 5 }), ctx.delay(1000), ctx.status(204));
+  })
 ];
