@@ -1,10 +1,6 @@
 import { css } from 'styled-components';
 
-import { modalActions } from '@stores/layout/modalStore';
-
-import Alert from '@common/Alert';
 import Box from '@common/Box';
-import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import Skeleton from '@common/Skeleton';
 
