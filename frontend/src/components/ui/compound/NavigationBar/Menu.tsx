@@ -6,11 +6,14 @@ import {
 } from '@heroicons/react/24/outline';
 import { css } from 'styled-components';
 
+import { useState } from 'react';
+
 import { getLoginUri } from '@utils/login';
 
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 
+import LoginModal from '@ui/LoginModal/LoginModal';
 import MswControlButton from '@ui/MswControlButton';
 import ServerStationFilters from '@ui/ServerStationFilters';
 import StationListWindow from '@ui/StationList/StationListWindow';
@@ -20,6 +23,7 @@ import LogoIcon from '@ui/Svg/LogoIcon';
 import { useNavigationBar } from './hooks/useNavigationBar';
 
 const Menu = () => {
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const { openBasePanel } = useNavigationBar();
 
   return (
@@ -34,6 +38,15 @@ const Menu = () => {
       noRadius="all"
       nowrap={true}
     >
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+        redirectToLoginPage={() => {
+          getLoginUri('google').then((loginUri) => {
+            window.location.href = loginUri;
+          });
+        }}
+      />
       <Button>
         <LogoIcon width={3} />
       </Button>
@@ -49,9 +62,7 @@ const Menu = () => {
       <Button
         aria-label="로그인 하기"
         onClick={() => {
-          getLoginUri('google').then((loginUri) => {
-            window.location.href = loginUri;
-          });
+          setIsLoginModalOpen(true);
         }}
       >
         <UserCircleIcon width="2.8rem" stroke="#333" />
