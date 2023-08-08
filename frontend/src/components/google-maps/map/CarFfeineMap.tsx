@@ -5,7 +5,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import StationMarkersContainer from '@marker/StationMarkersContainer';
 
 import { useExternalValue } from '@utils/external-state';
-import { setLocalStorage } from '@utils/storage';
+import { getSessionStorage, setLocalStorage } from '@utils/storage';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 
@@ -19,6 +19,8 @@ import NavigationBar from '@ui/NavigationBar';
 import { LOCAL_KEY_LAST_POSITION } from '@constants/storageKeys';
 
 const CarFfeineMap = () => {
+  console.log(getSessionStorage('CARFFEINE_USER_TOKEN', ''));
+
   return (
     <>
       <CarFfeineMapListener />
