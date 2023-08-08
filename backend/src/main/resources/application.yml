@@ -29,3 +29,14 @@ management:
 jwt:
   secret: ENC(t6iKCv1Nj+ygRxG2oZCw3l4v9y0ALS2GfQwYIKvO0tRuPzFp4UYRZYfBFdBW+xQl77rOLbfIPJ13tys/tXj3Qw==)
   expiration-period: ENC(Ua9DcFiPKX/5r0/WGkN5JQ==)
+
+oauth2:
+  provider:
+    google:
+      id: 482896035816-ldevmjo314h6d42vns69v7q58d7me3ks.apps.googleusercontent.com
+      secret: ENC(nK9sW+p8qRGQCOmFrHxFxpk/QW0eiCOSR1T8Y40xcqV+TEGl4ryb5GgEVt1+dn+s)
+      token-url: https://www.googleapis.com/oauth2/v4/token
+      info-url: https://www.googleapis.com/oauth2/v2/userinfo
+      login-url: https://accounts.google.com/o/oauth2/auth?
+      scope: https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile;
+

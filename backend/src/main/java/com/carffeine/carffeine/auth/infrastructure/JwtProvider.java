@@ -1,6 +1,6 @@
-package com.carffeine.carffeine.member.infrastructure;
+package com.carffeine.carffeine.auth.infrastructure;
 
-import com.carffeine.carffeine.member.domain.TokenProvider;
+import com.carffeine.carffeine.auth.domain.TokenProvider;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -19,7 +19,7 @@ import java.util.Date;
 @Getter
 @Component
 @NoArgsConstructor
-public class JWTProvider implements TokenProvider {
+public class JwtProvider implements TokenProvider {
 
     @Value("${jwt.secret}")
     private String secret;
@@ -33,7 +33,7 @@ public class JWTProvider implements TokenProvider {
     }
 
     @Override
-    public String createJwt(Long id) {
+    public String create(Long id) {
         Claims claims = Jwts.claims();
         claims.put("id", id);
         return createToken(claims);
@@ -42,18 +42,18 @@ public class JWTProvider implements TokenProvider {
     private String createToken(Claims claims) {
         return Jwts.builder()
                 .setClaims(claims)
-                .setIssuedAt(getIssuedAt())
-                .setExpiration(getExpiration())
+                .setIssuedAt(issuedAt())
+                .setExpiration(expiredAt())
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    private Date getIssuedAt() {
+    private Date issuedAt() {
         LocalDateTime now = LocalDateTime.now();
         return Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
     }
 
-    private Date getExpiration() {
+    private Date expiredAt() {
         LocalDateTime now = LocalDateTime.now();
         return Date.from(now.plusHours(expirationPeriod).atZone(ZoneId.systemDefault()).toInstant());
     }

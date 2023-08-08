@@ -1,6 +1,6 @@
-package com.carffeine.carffeine.member.controller;
+package com.carffeine.carffeine.auth.controller;
 
-import com.carffeine.carffeine.member.domain.TokenProvider;
+import com.carffeine.carffeine.auth.domain.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpHeaders;
@@ -16,27 +16,25 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class AuthMemberResolver implements HandlerMethodArgumentResolver {
 
-    private static final int TOKEN_START_INDEX = 7;
+    private static final String TOKEN_PREFIX = "Bearer ";
 
     private final TokenProvider tokenProvider;
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.hasParameterAnnotation(AuthMember.class);
+        return parameter.hasParameterAnnotation(AuthMember.class) &&
+                parameter.getParameterType().equals(Long.class);
     }
 
     @Override
-    public Object resolveArgument(
+    public Long resolveArgument(
             MethodParameter parameter,
             ModelAndViewContainer mavContainer,
             NativeWebRequest webRequest,
             WebDataBinderFactory binderFactory) {
-
         HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
-
         String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
-        String token = authorization.substring(TOKEN_START_INDEX);
-
+        String token = authorization.substring(TOKEN_PREFIX.length());
         return tokenProvider.extract(token);
     }
 }

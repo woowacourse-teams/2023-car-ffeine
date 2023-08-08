@@ -1,12 +1,12 @@
-package com.carffeine.carffeine.member.controller;
+package com.carffeine.carffeine.auth.controller;
 
 import com.carffeine.carffeine.common.exception.ExceptionResponse;
 import com.carffeine.carffeine.member.domain.MemberRepository;
-import com.carffeine.carffeine.member.domain.TokenProvider;
+import com.carffeine.carffeine.auth.domain.TokenProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -16,9 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Component
 @RequiredArgsConstructor
-@Slf4j
+@Component
 public class AuthFilter extends OncePerRequestFilter {
 
     private static final String BEARER_PREFIX = "Bearer ";
@@ -30,6 +29,7 @@ public class AuthFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
+
         if (authorization == null) {
             sendUnauthorizedError(response, "토큰이 존재하지 않습니다");
             return;
@@ -44,26 +44,25 @@ public class AuthFilter extends OncePerRequestFilter {
 
         if (tokenProvider.isExpired(token)) {
             sendUnauthorizedError(response, "이미 만료된 토큰입니다");
-            filterChain.doFilter(request, response);
+            return;
         }
 
         if (!isMemberExists(token)) {
             sendUnauthorizedError(response, "등록되지 않은 회원입니다");
-            filterChain.doFilter(request, response);
+            return;
         }
+        filterChain.doFilter(request, response);
     }
 
     private void sendUnauthorizedError(HttpServletResponse response, String errorMessage) throws IOException {
         ExceptionResponse exceptionResponse = new ExceptionResponse(HttpServletResponse.SC_UNAUTHORIZED, errorMessage);
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        response.setContentType("application/json");
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         objectMapper.writeValue(response.getWriter(), exceptionResponse);
     }
 
     private boolean isMemberExists(String token) {
         Long id = tokenProvider.extract(token);
-
-        return memberRepository.findById(id)
-                .isPresent();
+        return memberRepository.existsById(id);
     }
 }

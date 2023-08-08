@@ -1,7 +1,7 @@
 package com.carffeine.carffeine.config;
 
-import com.carffeine.carffeine.member.controller.AuthFilter;
-import com.carffeine.carffeine.member.controller.AuthMemberResolver;
+import com.carffeine.carffeine.auth.controller.AuthFilter;
+import com.carffeine.carffeine.auth.controller.AuthMemberResolver;
 import com.carffeine.carffeine.web.CorsFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;

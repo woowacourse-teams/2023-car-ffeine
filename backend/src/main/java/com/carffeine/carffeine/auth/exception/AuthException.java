@@ -1,11 +1,11 @@
-package com.carffeine.carffeine.member.exception;
+package com.carffeine.carffeine.auth.exception;
 
 import com.carffeine.carffeine.common.exception.BaseException;
 import com.carffeine.carffeine.common.exception.ExceptionType;
 
-public class MemberException extends BaseException {
+public class AuthException extends BaseException {
 
-    public MemberException(ExceptionType exceptionType) {
+    public AuthException(ExceptionType exceptionType) {
         super(exceptionType);
     }
 }

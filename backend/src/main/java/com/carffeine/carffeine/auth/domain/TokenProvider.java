@@ -1,8 +1,8 @@
-package com.carffeine.carffeine.member.domain;
+package com.carffeine.carffeine.auth.domain;
 
 public interface TokenProvider {
 
-    String createJwt(Long id);
+    String create(Long id);
 
     boolean isExpired(String token);
 
