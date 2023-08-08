@@ -10,6 +10,8 @@ import com.carffeine.carffeine.filter.controller.dto.capacity.CapacitiesRequest;
 import com.carffeine.carffeine.filter.controller.dto.companyName.CompanyNamesRequest;
 import com.carffeine.carffeine.filter.controller.dto.connectorType.ConnectorTypesRequest;
 import com.carffeine.carffeine.filter.controller.dto.filter.FiltersResponse;
+import com.carffeine.carffeine.filter.exception.FilterException;
+import com.carffeine.carffeine.filter.exception.FilterExceptionType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -75,7 +77,7 @@ public class FilterService {
                 .anyMatch(it -> companyNameRepository.existsByCompanyName(it.companyName()));
 
         if (isExistsCompanyNamesAlready) {
-            throw new IllegalArgumentException("Company name already exists");
+            throw new FilterException(FilterExceptionType.FILTER_ALREADY_REGISTERED);
         }
     }
 
@@ -85,7 +87,7 @@ public class FilterService {
                 .anyMatch(it -> connectorTypeRepository.existsByConnectorKey(it.connectorKey()));
 
         if (isExistsConnectorType) {
-            throw new IllegalArgumentException("Company name already exists");
+            throw new FilterException(FilterExceptionType.FILTER_ALREADY_REGISTERED);
         }
     }
 
@@ -95,7 +97,7 @@ public class FilterService {
                 .anyMatch(it -> capacityRepository.existsByCapacity(it.capacity()));
 
         if (isExistsCompanyNamesAlready) {
-            throw new IllegalArgumentException("Company name already exists");
+            throw new FilterException(FilterExceptionType.FILTER_ALREADY_REGISTERED);
         }
     }
 }
