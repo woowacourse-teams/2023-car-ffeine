@@ -4,7 +4,6 @@ import com.carffeine.carffeine.auth.domain.OAuthMember;
 import com.carffeine.carffeine.auth.domain.Provider;
 import com.carffeine.carffeine.auth.domain.TokenProvider;
 import com.carffeine.carffeine.auth.service.dto.OAuthLoginRequest;
-import com.carffeine.carffeine.auth.service.dto.OAuthUriRequest;
 import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.member.domain.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +26,7 @@ public class AuthService {
         return tokenProvider.create(member.getId());
     }
 
-    public String loginUri(OAuthUriRequest request, String provider) {
-        return oAuthRequester.loginUri(Provider.from(provider), request.redirectUri());
+    public String loginUri(String redirectUri, String provider) {
+        return oAuthRequester.loginUri(Provider.from(provider), redirectUri);
     }
 }
