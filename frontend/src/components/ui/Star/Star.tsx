@@ -1,8 +1,6 @@
 import { StarIcon } from '@heroicons/react/24/solid';
 import styled, { css } from 'styled-components';
 
-import React from 'react';
-
 import type { Size } from '@type';
 
 export interface StarProps {
@@ -11,7 +9,7 @@ export interface StarProps {
   size?: Size;
 }
 
-const getSize = (size?: Size) => {
+const getSize = (size: Size) => {
   switch (size) {
     case 'xs':
       return css`

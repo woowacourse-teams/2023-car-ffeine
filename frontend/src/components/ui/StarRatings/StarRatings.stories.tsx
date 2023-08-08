@@ -7,8 +7,6 @@ import Text from '@common/Text';
 import StarRatings from '@ui/StarRatings';
 import type { StarRatingsProps } from '@ui/StarRatings/StarRatings';
 
-import { Size } from '@type';
-
 const meta = {
   title: 'UI/StarRatings',
   component: StarRatings,

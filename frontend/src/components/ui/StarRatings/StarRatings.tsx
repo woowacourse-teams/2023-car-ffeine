@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import React from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 
 import Star from '@ui/Star';
 
@@ -8,7 +8,7 @@ import type { Size } from '@type';
 
 export interface StarRatingsProps {
   stars: number;
-  setStars: React.Dispatch<React.SetStateAction<number>>;
+  setStars: Dispatch<SetStateAction<number>>;
   size?: Size;
 }
 
