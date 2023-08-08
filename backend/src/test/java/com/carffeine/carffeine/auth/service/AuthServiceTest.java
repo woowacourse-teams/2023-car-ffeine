@@ -1,6 +1,7 @@
 package com.carffeine.carffeine.auth.service;
 
 import com.carffeine.carffeine.auth.domain.GoogleMember;
+import com.carffeine.carffeine.auth.domain.OAuthMember;
 import com.carffeine.carffeine.auth.domain.TokenProvider;
 import com.carffeine.carffeine.auth.service.dto.OAuthLoginRequest;
 import com.carffeine.carffeine.fake.member.FakeMemberRepository;
@@ -44,8 +45,12 @@ class AuthServiceTest {
                 .willReturn(new GoogleMember(OAuthFixture.구글_회원_정보));
         given(tokenProvider.create(any()))
                 .willReturn("token");
+        OAuthLoginRequest request = new OAuthLoginRequest("http://localhost:8080/", "carffeine");
+        String provider = "google";
+
         // when
-        String token = authService.oAuthLogin(new OAuthLoginRequest("http://localhost:8080/", "carffeine"), "google");
+        OAuthMember oAuthMember = oAuthRequester.login(request, provider);
+        String token = authService.generateToken(oAuthMember);
 
         // then
         assertThat(token).isEqualTo("token");
