@@ -1,15 +1,15 @@
 package com.carffeine.carffeine.fake.member;
 
-import com.carffeine.carffeine.domain.member.Member;
-import com.carffeine.carffeine.domain.member.MemberRepository;
+import com.carffeine.carffeine.member.domain.Member;
+import com.carffeine.carffeine.member.domain.MemberRepository;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
 public class FakeMemberRepository implements MemberRepository {
-
     private final Map<Long, Member> map = new HashMap<>();
+
     private Long id = 0L;
 
     @Override
@@ -24,5 +24,10 @@ public class FakeMemberRepository implements MemberRepository {
         id++;
         map.put(id, member);
         return member;
+    }
+    
+    @Override
+    public boolean existsById(Long id) {
+        return map.containsKey(id);
     }
 }
