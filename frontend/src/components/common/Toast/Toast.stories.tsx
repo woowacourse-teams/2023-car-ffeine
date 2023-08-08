@@ -1,6 +1,8 @@
 import type { Meta } from '@storybook/react';
 
-import { toastActions } from '@stores/layout/toastStore';
+import { useExternalValue } from '@utils/external-state';
+
+import { toastActions, toastListStore } from '@stores/layout/toastStore';
 
 import ButtonNext from '@common/ButtonNext';
 
@@ -35,14 +37,19 @@ const meta = {
 export default meta;
 
 export const Default = (args: ToastProps) => {
-  const { openToast } = toastActions;
+  const toastItems = useExternalValue<ToastProps[]>(toastListStore);
+  const { showToast } = toastActions;
 
   return (
     <>
-      <ButtonNext color="dark" onClick={openToast}>
+      <ButtonNext color="dark" onClick={() => showToast(args.message, args.position, args.color)}>
         나와라 토스트!
       </ButtonNext>
-      <Toast {...args} />
+      <>
+        {toastItems.map((toastItem) => (
+          <Toast key={toastItem.toastId} {...toastItem} />
+        ))}
+      </>
     </>
   );
 };
