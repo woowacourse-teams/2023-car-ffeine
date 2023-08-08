@@ -19,10 +19,12 @@ const LoginModal = ({ isOpen, onClose, redirectToLoginPage }: Props) => {
       <FlexBox width="100%" justifyContent="center" alignItems="center" css={containerCss}>
         <FlexBox justifyContent="center" alignItems="center" css={loginButtonContainerCss}>
           <FlexBox width={7} height={7} justifyContent="center" alignItems="center" css={iconCss}>
-            <UserCircleIcon width="7rem" stroke="#333" />
+            <UserCircleIcon width="7rem" stroke="lightgrey" />
           </FlexBox>
           <FlexBox direction="column" alignItems="center" gap={5}>
-            <Text variant="h4">간편 로그인</Text>
+            <Text variant="h4" color="#333">
+              간편 로그인
+            </Text>
             <ButtonNext noTheme onClick={redirectToLoginPage}>
               <img width="80%" src={GoogleLoginButton} alt="구글 로그인 버튼 이미지" />
             </ButtonNext>
@@ -41,11 +43,10 @@ const loginButtonContainerCss = css`
   width: 80%;
   height: 25rem;
 
+  border: 1px solid lightgrey;
   border-radius: 1rem;
 
   position: relative;
-
-  background-color: var(--lighter-color);
 `;
 
 const iconCss = css`
