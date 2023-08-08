@@ -11,7 +11,7 @@ import ButtonNext from '@common/ButtonNext';
 import NavigationBar from '.';
 
 const meta = {
-  title: 'UI/Accordion',
+  title: 'UI/NavigationBar',
   component: NavigationBar,
   tags: ['autodocs'],
 } satisfies Meta<typeof NavigationBar>;
@@ -25,9 +25,9 @@ export const Default = () => {
   const handleClosePanel = () => {
     if (lastPanel !== null) {
       setLastPanel(null);
-      return;
+    } else {
+      setBasePanel(null);
     }
-    setBasePanel(null);
   };
 
   return (
