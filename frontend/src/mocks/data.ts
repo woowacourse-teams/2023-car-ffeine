@@ -101,40 +101,42 @@ const getCongestions = (): Record<EnglishDaysType, Congestion[]> => {
   );
 };
 
-export const reviews: Review[] = Array.from({ length: 3 }, (_, i) => {
-  return {
-    reviewId: i,
-    userId: generateRandomToken(),
-    latestUpdateDate: getRandomTime(),
-    ratings: parseFloat((Math.random() * 5).toFixed(2)),
-    content: generateRandomData([
-      '정말 멋진 충전소네요.',
-      '고장이 잘나요',
-      '주차 공간이 너무 좁아요',
-      '후면 주차가 어려워요',
-      '손잡이가 드러워요',
-      '비매너 사용자들이 많아요',
-      '자리가 넉넉해요',
-    ]),
-    isUpdated: generateRandomData([true, false]),
-    isDeleted: generateRandomData([true, false]),
-    replies: [
-      {
-        replyId: generateRandomToken(),
-        userId: generateRandomToken(),
-        latestUpdateDate: getRandomTime(),
-        content: generateRandomData([
-          '정말 멋진 충전소네요.',
-          '고장이 잘나요',
-          '주차 공간이 너무 좁아요',
-          '후면 주차가 어려워요',
-          '손잡이가 드러워요',
-          '비매너 사용자들이 많아요',
-          '자리가 넉넉해요',
-        ]),
-        isUpdated: generateRandomData([true, false]),
-        isDeleted: generateRandomData([true, false]),
-      },
-    ],
-  };
-});
+export const generateReviewsWithReplies = (): Review[] => {
+  return Array.from({ length: 50 }, (_, i) => {
+    return {
+      reviewId: i,
+      userId: generateRandomToken(),
+      latestUpdateDate: getRandomTime(),
+      ratings: parseFloat((Math.random() * 5).toFixed(2)),
+      content: generateRandomData([
+        '정말 멋진 충전소네요.',
+        '고장이 잘나요',
+        '주차 공간이 너무 좁아요',
+        '후면 주차가 어려워요',
+        '손잡이가 드러워요',
+        '비매너 사용자들이 많아요',
+        '자리가 넉넉해요',
+      ]),
+      isUpdated: generateRandomData([true, false]),
+      isDeleted: generateRandomData([true, false]),
+      replies: [
+        {
+          replyId: generateRandomToken(),
+          userId: generateRandomToken(),
+          latestUpdateDate: getRandomTime(),
+          content: generateRandomData([
+            '정말 멋진 충전소네요.',
+            '고장이 잘나요',
+            '주차 공간이 너무 좁아요',
+            '후면 주차가 어려워요',
+            '손잡이가 드러워요',
+            '비매너 사용자들이 많아요',
+            '자리가 넉넉해요',
+          ]),
+          isUpdated: generateRandomData([true, false]),
+          isDeleted: generateRandomData([true, false]),
+        },
+      ],
+    };
+  });
+};
