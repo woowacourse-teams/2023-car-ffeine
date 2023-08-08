@@ -32,21 +32,19 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
   return (
     <Box px={2} py={10} css={containerCss}>
       <StationInformation station={station} />
-      <FlexBox justifyContent="center">
+      <Box my={2}>
         <ButtonNext
           fullWidth
-          variant="text"
+          variant="outlined"
           size="sm"
-          color="light"
+          color="dark"
           onClick={() => {
             modalActions.openModal(<StationReportPreConfirmation station={station} />);
           }}
         >
           📝 충전소 정보 수정 제안하기
         </ButtonNext>
-      </FlexBox>
-
-      <hr />
+      </Box>
 
       <FlexBox>
         {chargers.map((charger, index) => (
@@ -54,25 +52,23 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
         ))}
       </FlexBox>
 
-      <Box my={1}>
-        <FlexBox justifyContent="center">
-          {isStationChargerReportedLoading ? (
-            <Skeleton height="3rem" />
-          ) : (
-            <ButtonNext
-              fullWidth
-              variant="text"
-              size="sm"
-              color="light"
-              onClick={() => {
-                modalActions.openModal(<ChargerReportConfirmation stationId={stationId} />);
-              }}
-              disabled={isStationChargerReported}
-            >
-              {isStationChargerReported ? '이미 신고한 충전소입니다.' : '🚨 충전기 고장 신고 '}
-            </ButtonNext>
-          )}
-        </FlexBox>
+      <Box my={3}>
+        {isStationChargerReportedLoading ? (
+          <Skeleton height="3rem" />
+        ) : (
+          <ButtonNext
+            fullWidth
+            variant="outlined"
+            size="sm"
+            color="dark"
+            onClick={() => {
+              modalActions.openModal(<ChargerReportConfirmation stationId={stationId} />);
+            }}
+            disabled={isStationChargerReported}
+          >
+            {isStationChargerReported ? '이미 신고한 충전소입니다.' : '🚨 충전기 고장 신고 '}
+          </ButtonNext>
+        )}
       </Box>
 
       {reportCount > 0 && (

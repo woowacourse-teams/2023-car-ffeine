@@ -11,10 +11,11 @@ const StationDetailsViewSkeleton = () => {
   return (
     <Box px={2} py={10} css={containerCss}>
       <StationInformationSkeleton />
-      <FlexBox justifyContent="center">
-        <Skeleton width="90%" height="3rem" />
-      </FlexBox>
-      <hr />
+      <Box my={3}>
+        <FlexBox justifyContent="center">
+          <Skeleton width="90%" height="3rem" />
+        </FlexBox>
+      </Box>
       <FlexBox>
         {Array(10)
           .fill(undefined)
