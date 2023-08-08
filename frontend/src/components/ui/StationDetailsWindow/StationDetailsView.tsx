@@ -9,11 +9,13 @@ import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import Skeleton from '@common/Skeleton';
+import Text from '@common/Text';
 
 import ChargerCard from '@ui/StationDetailsWindow/ChargerCard';
 import StationInformation from '@ui/StationDetailsWindow/StationInformation';
 import ChargerReportConfirmation from '@ui/StationDetailsWindow/reports/ChargerReportConfirmation';
 import StationReportPreConfirmation from '@ui/StationDetailsWindow/reports/StationReportPreConfirmation';
+import ReviewView from '@ui/StationDetailsWindow/reviews/ReviewView';
 
 import type { StationDetails } from '@type';
 
@@ -70,13 +72,21 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
           </ButtonNext>
         )}
       </Box>
-
       {reportCount > 0 && (
         <Box my={1}>
           <Alert color={'secondary'} text={`충전 상태 불일치 신고가 ${reportCount}번 접수됐어요`} />
         </Box>
       )}
-      <CongestionStatistics />
+      <Box my={5}>
+        <Text variant="title">충전소 사용통계</Text>
+      </Box>
+      <Box my={3}>
+        <CongestionStatistics />
+      </Box>
+      <Box my={5}>
+        <Text variant="title">충전소 후기</Text>
+      </Box>
+      <ReviewView />
     </Box>
   );
 };
