@@ -8,7 +8,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import { useExternalValue, useSetExternalState } from '@utils/external-state';
 
-import { getGoogleMapStore } from '@stores/googleMapStore';
+import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { searchWordStore } from '@stores/searchWordStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
@@ -17,11 +17,12 @@ import { useDebounce } from '@hooks/useDebounce';
 
 import Button from '@common/Button';
 
-import { useAccordionAction } from '@ui/Accordion/hooks/useAccordionAction';
+import StationDetailsWindow from '@ui/StationDetailsWindow';
+import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
 import { pillStyle } from '@style';
 
-import type { StationPosition } from '@type';
+import type { StationPosition } from '@type/stations';
 
 import SearchResult from './SearchResult';
 
@@ -30,7 +31,7 @@ const StationSearchBar = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
   const setSelectedStationId = useSetExternalState(selectedStationIdStore);
 
-  const { handleOpenLastPanel } = useAccordionAction();
+  const { openLastPanel } = useNavigationBar();
 
   const [inputValue, setInputValue] = useState('');
   const setSearchWord = useSetExternalState(searchWordStore);
@@ -61,7 +62,7 @@ const StationSearchBar = () => {
     googleMap.panTo({ lat: latitude, lng: longitude });
     queryClient.invalidateQueries({ queryKey: ['stations'] });
     setSelectedStationId(stationId);
-    handleOpenLastPanel();
+    openLastPanel(<StationDetailsWindow />);
   };
 
   const handleRequestSearchResult = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {

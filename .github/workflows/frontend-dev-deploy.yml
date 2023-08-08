@@ -52,9 +52,11 @@ jobs:
 
           script: |
             sudo docker stop frontend-dev || true
+            sudo docker container prune
+            
             sudo docker pull woowacarffeine/frontend-dev:latest
             
-            sudo docker run --rm -d -p 3001:3000 \
+            sudo docker run -d -p 3001:3000 \
             --name frontend-dev \
             woowacarffeine/frontend-dev:latest
             

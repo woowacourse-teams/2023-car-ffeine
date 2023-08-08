@@ -2,15 +2,15 @@ import { useQuery } from '@tanstack/react-query';
 
 import { useExternalValue } from '@utils/external-state';
 
+import { serverStore } from '@stores/config/serverStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
-import { serverStore } from '@stores/serverStore';
 
 import { SERVERS } from '@constants';
 import { ERROR_MESSAGES } from '@constants/errorMessages';
 
 import type { CongestionStatistics } from '@type/congestion';
 
-export const fetchStationDetails = async (selectedStationId: number) => {
+export const fetchStationDetails = async (selectedStationId: string) => {
   const mode = serverStore.getState();
 
   const stationDetails = await fetch(`${SERVERS[mode]}/stations/${selectedStationId}/statistics`, {

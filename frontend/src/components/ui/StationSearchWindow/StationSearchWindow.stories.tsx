@@ -2,14 +2,10 @@ import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 import type { Meta } from '@storybook/react';
 import { css, styled } from 'styled-components';
 
-import { useSetExternalState } from '@utils/external-state';
-
-import { stationSearchWindowOpenStore } from '@stores/navItemsOpenStore';
-
 import Button from '@common/Button';
 import Text from '@common/Text';
 
-import Navigator from '@ui/Navigator';
+import NavigationBar from '@ui/NavigationBar';
 
 import { Default as StationSearchBar } from './StationSearchBar.stories';
 import StationSearchWindow from './StationSearchWindow';
@@ -22,13 +18,9 @@ const meta = {
 export default meta;
 
 export const Default = () => {
-  const setIsOpen = useSetExternalState(stationSearchWindowOpenStore);
-
-  setIsOpen(true);
-
   return (
     <>
-      <Navigator />
+      <NavigationBar />
       <S.Container>
         <Button variant="label" aria-label="검색창 닫기">
           <ChevronLeftIcon width="2.4rem" stroke="#9c9fa7" />

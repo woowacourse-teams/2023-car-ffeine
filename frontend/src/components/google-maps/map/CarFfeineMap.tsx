@@ -7,14 +7,14 @@ import StationMarkersContainer from '@marker/StationMarkersContainer';
 import { useExternalValue } from '@utils/external-state';
 import { setLocalStorage } from '@utils/storage';
 
-import { getGoogleMapStore } from '@stores/googleMapStore';
+import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 
 import { useUpdateStations } from '@hooks/tanstack-query/station-markers/useUpdateStations';
 
 import ClientStationFilters from '@ui/ClientStationFilters';
 import MapController from '@ui/MapController';
 import ModalContainer from '@ui/ModalContainer';
-import Navigator from '@ui/Navigator';
+import NavigationBar from '@ui/NavigationBar';
 
 import { LOCAL_KEY_LAST_POSITION } from '@constants/storageKeys';
 
@@ -23,7 +23,7 @@ const CarFfeineMap = () => {
     <>
       <CarFfeineMapListener />
       <StationMarkersContainer />
-      <Navigator />
+      <NavigationBar />
       <ClientStationFilters />
       <ModalContainer />
       <MapController />

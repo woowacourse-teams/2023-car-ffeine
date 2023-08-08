@@ -1,6 +1,6 @@
 import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 
-import type { StationDetailsWithoutChargers } from '@type';
+import type { StationDetailsWithoutChargers } from '@type/stations';
 
 export const findDifferentKeys = (
   formStation: StationDetailsWithoutChargers,

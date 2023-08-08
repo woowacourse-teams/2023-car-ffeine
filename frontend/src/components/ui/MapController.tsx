@@ -1,6 +1,6 @@
 import { useExternalValue } from '@utils/external-state';
 
-import { getGoogleMapStore, googleMapActions } from '@stores/googleMapStore';
+import { getGoogleMapStore, googleMapActions } from '@stores/google-maps/googleMapStore';
 
 import { useCurrentPosition } from '@hooks/google-maps/useCurrentPosition';
 

@@ -3,8 +3,8 @@ import { useStationDetails } from '@hooks/tanstack-query/station-details/useStat
 import Box from '@common/Box';
 import Text from '@common/Text';
 
-import { useAccordionAction } from '@ui/Accordion/hooks/useAccordionAction';
 import StationDetailsView from '@ui/StationDetailsWindow/StationDetailsView';
+import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
 const StationDetailsWindow = () => {
   const {
@@ -13,10 +13,10 @@ const StationDetailsWindow = () => {
     isError: isSelectedStationError,
     isFetching,
   } = useStationDetails();
-  const { handleCloseLastPanel } = useAccordionAction();
+  const { handleClosePanel } = useNavigationBar();
 
   if (!isFetching && selectedStation === undefined) {
-    handleCloseLastPanel();
+    handleClosePanel();
   }
 
   if (isSelectedStationError || isSelectedStationLoading) {
@@ -24,6 +24,7 @@ const StationDetailsWindow = () => {
       <Box
         css={{
           width: '34rem',
+          height: '100vh',
           zIndex: '999',
           display: 'flex',
           alignItems: 'center',
@@ -39,6 +40,7 @@ const StationDetailsWindow = () => {
     <Box
       css={{
         width: '34rem',
+        height: '100vh',
         zIndex: '999',
         overflow: 'scroll',
       }}

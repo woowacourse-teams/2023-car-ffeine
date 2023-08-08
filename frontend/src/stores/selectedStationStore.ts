@@ -1,3 +1,3 @@
 import { store } from '@utils/external-state';
 
-export const selectedStationIdStore = store<number>(null);
+export const selectedStationIdStore = store<string>(null);

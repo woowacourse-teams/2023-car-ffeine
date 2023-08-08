@@ -61,7 +61,7 @@ class ReportControllerTest extends MockBeanInjection {
         when(reportService.saveFaultReport(station.getStationId(), memberId)).thenReturn(faultReport);
 
         // then
-        mockMvc.perform(post("/api/stations/{stationId}/reports", station.getStationId())
+        mockMvc.perform(post("/stations/{stationId}/reports", station.getStationId())
                         .header(HttpHeaders.AUTHORIZATION, memberId))
 
                 .andExpect(status().isNoContent())
@@ -88,7 +88,7 @@ class ReportControllerTest extends MockBeanInjection {
         when(reportService.saveMisinformationReport(station.getStationId(), memberId, request)).thenReturn(misinformationReport);
 
         // then
-        mockMvc.perform(post("/api/stations/{stationId}/misinformation-reports", station.getStationId())
+        mockMvc.perform(post("/stations/{stationId}/misinformation-reports", station.getStationId())
                         .header(HttpHeaders.AUTHORIZATION, memberId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request))
@@ -116,7 +116,7 @@ class ReportControllerTest extends MockBeanInjection {
         when(reportService.isDuplicateReportStation(memberId, station.getStationId())).thenReturn(false);
 
         // then
-        mockMvc.perform(get("/api/stations/{stationId}/reports/me", station.getStationId())
+        mockMvc.perform(get("/stations/{stationId}/reports/me", station.getStationId())
                         .header(HttpHeaders.AUTHORIZATION, memberId))
 
                 .andExpect(status().isOk())

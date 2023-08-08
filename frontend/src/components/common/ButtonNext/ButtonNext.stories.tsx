@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import type { ButtonNextProps } from '@common/ButtonNext/ButtonNext';
@@ -54,6 +56,21 @@ export const Variant = () => {
       <ButtonNext variant="text">Text</ButtonNext>
       <ButtonNext variant="outlined">Outlined</ButtonNext>
       <ButtonNext variant="contained">Contained</ButtonNext>
+    </>
+  );
+};
+
+export const Clickable = () => {
+  const [isSelected, setIsSelected] = useState(false);
+  return (
+    <>
+      <Text>Click Me!</Text>
+      <ButtonNext
+        variant={isSelected ? 'outlined' : 'contained'}
+        onClick={() => setIsSelected(!isSelected)}
+      >
+        {isSelected ? 'OFF' : 'ON'}
+      </ButtonNext>
     </>
   );
 };

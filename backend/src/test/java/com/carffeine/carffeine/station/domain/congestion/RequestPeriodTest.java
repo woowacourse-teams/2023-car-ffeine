@@ -24,6 +24,6 @@ class RequestPeriodTest {
     void TWELVE_구간에_있는지_알수있다(int input) {
         RequestPeriod result = RequestPeriod.from(input);
 
-        assertThat(result).isSameAs(RequestPeriod.ZERO);
+        assertThat(result).isSameAs(RequestPeriod.TWELVE);
     }
 }

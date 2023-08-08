@@ -14,7 +14,7 @@ public enum RequestPeriod {
 
     private static final int UNIT = 100;
     private static final List<RequestPeriod> periods = Arrays.stream(values())
-            .sorted(Comparator.comparingInt(RequestPeriod::getSection))
+            .sorted(Comparator.comparingInt(RequestPeriod::getSection).reversed())
             .toList();
 
     private final int section;

@@ -1,6 +1,5 @@
 import type { CAPACITIES, CHARGER_TYPES } from '@constants/chargers';
 
-export type CapacityType = 3 | 7 | 50 | 100 | 200;
 export type ChargerStateType =
   | 'COMMUNICATION_ERROR'
   | 'STANDBY'
@@ -16,7 +15,7 @@ export type Capacity = (typeof CAPACITIES)[number];
 export interface ChargerSummary {
   type: ChargerType;
   price: number;
-  capacity: CapacityType;
+  capacity: Capacity;
 }
 
 export interface ChargerDetails extends ChargerSummary {

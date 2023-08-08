@@ -2,8 +2,8 @@ import { useMutation } from '@tanstack/react-query';
 
 import { getLocalStorage } from '@utils/storage';
 
-import { modalActions } from '@stores/modalStore';
-import { serverStore } from '@stores/serverStore';
+import { serverStore } from '@stores/config/serverStore';
+import { modalActions } from '@stores/layout/modalStore';
 
 import type { Differences } from '@ui/StationDetailsWindow/reports/StationReportConfirmation';
 
@@ -11,7 +11,7 @@ import { DEFAULT_TOKEN, SERVERS } from '@constants';
 import { LOCAL_KEY_TOKEN } from '@constants/storageKeys';
 
 interface fetchReportStationRequest {
-  stationId: number;
+  stationId: string;
   differences: Differences[];
 }
 
@@ -28,8 +28,8 @@ const fetchReportStation = async (fetchReportStationRequestParams: fetchReportSt
     body: JSON.stringify({ stationDetailsToUpdate: differences }),
   });
 };
-export const useUpdateStationChargerReport = () => {
-  const { mutate } = useMutation({
+export const useUpdateStationReport = () => {
+  const { mutate, isLoading } = useMutation({
     mutationFn: fetchReportStation,
     onSuccess: () => {
       alert('제보가 완료됐습니다.');
@@ -41,5 +41,5 @@ export const useUpdateStationChargerReport = () => {
     mutate(fetchReportStationRequestParams);
   };
 
-  return { updateStationReport };
+  return { updateStationReport, isLoading };
 };

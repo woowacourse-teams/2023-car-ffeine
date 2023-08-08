@@ -63,7 +63,7 @@ class StationControllerTest extends MockBeanInjection {
         when(stationService.findByCoordinate(coordinateRequest, List.of("볼튼"), List.of(ChargerType.DC_COMBO), List.of(new BigDecimal("50.00")))).thenReturn(fakeStations);
 
         // then
-        mockMvc.perform(get("/api/stations")
+        mockMvc.perform(get("/stations")
                         .param("latitude", latitude.toString())
                         .param("longitude", longitude.toString())
                         .param("latitudeDelta", latitudeDelta.toString())
@@ -117,7 +117,7 @@ class StationControllerTest extends MockBeanInjection {
         when(stationService.findStationById(stationId)).thenReturn(station);
 
         // then
-        mockMvc.perform(RestDocumentationRequestBuilders.get("/api/stations/" + stationId))
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/stations/" + stationId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.chargers", hasSize(2)))
                 .andDo(customDocument("findChargeStationById",
@@ -153,7 +153,7 @@ class StationControllerTest extends MockBeanInjection {
         when(stationService.findStationById("errorId")).thenThrow(new StationException(StationExceptionType.NOT_FOUND_ID));
 
         // then
-        mockMvc.perform(RestDocumentationRequestBuilders.get("/api/stations/" + "errorId"))
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/stations/" + "errorId"))
                 .andExpect(status().isNotFound())
                 .andDo(customDocument("findChargeStationByInvalidId",
                         responseFields(
@@ -193,7 +193,7 @@ class StationControllerTest extends MockBeanInjection {
                         )
                 ));
 
-        mockMvc.perform(RestDocumentationRequestBuilders.get("/api/stations/search?q=선릉&page=1&scope=stationName&scope=address&scope=speed&scope=latitude&scope=longitude"))
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/stations/search?q=선릉&page=1&scope=stationName&scope=address&scope=speed&scope=latitude&scope=longitude"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalCount").value(2))
                 .andExpect(jsonPath("$.stations", hasSize(2)))

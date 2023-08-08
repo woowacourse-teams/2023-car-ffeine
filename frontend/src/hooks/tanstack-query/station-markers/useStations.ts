@@ -7,20 +7,21 @@ import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 import { getDisplayPosition } from '@utils/google-maps';
 import { getQueryFormattedUrl } from '@utils/request-query-params';
 
-import { getGoogleMapStore } from '@stores/googleMapStore';
-import { mswModeStore } from '@stores/mswModeStore';
+import { mswModeStore } from '@stores/config/mswModeStore';
+import { serverStore } from '@stores/config/serverStore';
+import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
+import { clientStationFiltersStore } from '@stores/station-filters/clientStationFiltersStore';
 import {
   selectedCapacitiesFilterStore,
   selectedChargerTypesFilterStore,
   selectedCompanyNamesFilterStore,
-} from '@stores/selectedServerStationFiltersStore';
-import { serverStore } from '@stores/serverStore';
-import { stationFilterStore } from '@stores/stationFilterStore';
+} from '@stores/station-filters/serverStationFiltersStore';
 
 import { SERVERS } from '@constants';
 import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
 
-import type { DisplayPosition, StationSummary } from '@type';
+import type { StationSummary } from '@type';
+import type { DisplayPosition } from '@type/stations';
 
 export const fetchStation = async () => {
   const googleMap = getStoreSnapshot(getGoogleMapStore());
@@ -64,7 +65,7 @@ export const useStations = () => {
     isFastChargeStationFilterSelected,
     isParkingFreeStationFilterSelected,
     isPrivateStationFilterSelected,
-  } = useExternalValue(stationFilterStore);
+  } = useExternalValue(clientStationFiltersStore);
 
   return useQuery({
     queryKey: ['stations'],

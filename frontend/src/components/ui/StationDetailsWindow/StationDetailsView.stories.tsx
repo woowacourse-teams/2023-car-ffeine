@@ -9,7 +9,7 @@ const meta = {
   tags: ['autodocs'],
   args: {
     station: {
-      stationId: 99,
+      stationId: '99',
       stationName: '박스터 충전소',
       companyName: 'CARffeine',
       contact: '02-1234-5678',
