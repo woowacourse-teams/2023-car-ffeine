@@ -1,8 +1,5 @@
 package com.carffeine.carffeine.filter.controller;
 
-import com.carffeine.carffeine.filter.controller.domain.capacity.Capacity;
-import com.carffeine.carffeine.filter.controller.domain.companyName.CompanyName;
-import com.carffeine.carffeine.filter.controller.domain.connectorType.ConnectorType;
 import com.carffeine.carffeine.filter.controller.dto.capacity.CapacitiesRequest;
 import com.carffeine.carffeine.filter.controller.dto.capacity.CapacityRequest;
 import com.carffeine.carffeine.filter.controller.dto.companyName.CompanyNameRequest;
@@ -10,6 +7,9 @@ import com.carffeine.carffeine.filter.controller.dto.companyName.CompanyNamesReq
 import com.carffeine.carffeine.filter.controller.dto.connectorType.ConnectorTypeRequest;
 import com.carffeine.carffeine.filter.controller.dto.connectorType.ConnectorTypesRequest;
 import com.carffeine.carffeine.filter.controller.dto.filter.FiltersResponse;
+import com.carffeine.carffeine.filter.domain.capacity.Capacity;
+import com.carffeine.carffeine.filter.domain.companyName.CompanyName;
+import com.carffeine.carffeine.filter.domain.connectorType.ConnectorType;
 import com.carffeine.carffeine.helper.MockBeanInjection;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayNameGeneration;

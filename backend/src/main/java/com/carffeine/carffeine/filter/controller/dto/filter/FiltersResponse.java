@@ -1,11 +1,11 @@
 package com.carffeine.carffeine.filter.controller.dto.filter;
 
-import com.carffeine.carffeine.filter.controller.domain.capacity.Capacity;
-import com.carffeine.carffeine.filter.controller.domain.companyName.CompanyName;
-import com.carffeine.carffeine.filter.controller.domain.connectorType.ConnectorType;
 import com.carffeine.carffeine.filter.controller.dto.capacity.CapacityResponse;
 import com.carffeine.carffeine.filter.controller.dto.companyName.CompanyNameResponse;
 import com.carffeine.carffeine.filter.controller.dto.connectorType.ConnectorTypeResponse;
+import com.carffeine.carffeine.filter.domain.capacity.Capacity;
+import com.carffeine.carffeine.filter.domain.companyName.CompanyName;
+import com.carffeine.carffeine.filter.domain.connectorType.ConnectorType;
 
 import java.util.List;
 

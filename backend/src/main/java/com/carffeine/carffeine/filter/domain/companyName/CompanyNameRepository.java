@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.filter.controller.domain.companyName;
+package com.carffeine.carffeine.filter.domain.companyName;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

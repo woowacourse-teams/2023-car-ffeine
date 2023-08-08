@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.filter.controller.dto.connectorType;
 
-import com.carffeine.carffeine.filter.controller.domain.connectorType.ConnectorType;
+import com.carffeine.carffeine.filter.domain.connectorType.ConnectorType;
 
 public record ConnectorTypeResponse(String connectorKey, String value) {
 

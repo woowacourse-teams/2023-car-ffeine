@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.filter.controller.domain.connectorType;
+package com.carffeine.carffeine.filter.domain.connectorType;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

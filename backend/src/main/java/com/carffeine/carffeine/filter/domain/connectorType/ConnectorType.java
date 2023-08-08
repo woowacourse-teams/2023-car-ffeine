@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.filter.controller.domain.companyName;
+package com.carffeine.carffeine.filter.domain.connectorType;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -15,18 +15,20 @@ import javax.persistence.Table;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Table(name = "company_name")
+@Table(name = "connector_type")
 @Entity
-public class CompanyName {
+public class ConnectorType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true)
-    private String companyName;
+    private String connectorKey;
 
-    public static CompanyName from(String companyName) {
-        return new CompanyName(null, companyName);
+    private String value;
+
+    public static ConnectorType from(String connectorKey, String value) {
+        return new ConnectorType(null, connectorKey, value);
     }
 }

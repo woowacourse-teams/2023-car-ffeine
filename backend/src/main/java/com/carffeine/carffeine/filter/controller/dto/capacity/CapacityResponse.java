@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.filter.controller.dto.capacity;
 
-import com.carffeine.carffeine.filter.controller.domain.capacity.Capacity;
+import com.carffeine.carffeine.filter.domain.capacity.Capacity;
 
 import java.math.BigDecimal;
 

@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.filter.controller.dto.companyName;
 
-import com.carffeine.carffeine.filter.controller.domain.companyName.CompanyName;
+import com.carffeine.carffeine.filter.domain.companyName.CompanyName;
 
 public record CompanyNameResponse(String companyName) {
 

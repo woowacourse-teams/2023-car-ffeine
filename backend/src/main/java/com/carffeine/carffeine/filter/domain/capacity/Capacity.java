@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.filter.controller.domain.capacity;
+package com.carffeine.carffeine.filter.domain.capacity;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
