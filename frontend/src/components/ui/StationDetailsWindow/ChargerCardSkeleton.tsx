@@ -10,20 +10,18 @@ const ChargerCardSkeleton = () => {
       <Box mb={1}>
         <Skeleton width="100%" height="2.8rem" />
       </Box>
-      <article>
-        <Box mb={1}>
-          <Skeleton width="5rem" height="1.2rem" />
-        </Box>
-        <Box mb={1}>
-          <Skeleton width="5rem" height="1.2rem" />
-        </Box>
-        <Box mb={1}>
-          <Skeleton width="5rem" height="1.2rem" />
-        </Box>
-        <Box mb={1}>
-          <Skeleton width="5rem" height="1.2rem" />
-        </Box>
-      </article>
+      <Box mb={1}>
+        <Skeleton width="5rem" height="1.2rem" />
+      </Box>
+      <Box mb={1}>
+        <Skeleton width="5rem" height="1.2rem" />
+      </Box>
+      <Box mb={1}>
+        <Skeleton width="5rem" height="1.2rem" />
+      </Box>
+      <Box mb={1}>
+        <Skeleton width="5rem" height="1.2rem" />
+      </Box>
       <FlexBox justifyContent="end" alignItems="center">
         <Skeleton width="5rem" height="1rem" />
       </FlexBox>

@@ -11,7 +11,7 @@ const StationSummaryCardSkeleton = () => {
     <ListItem>
       <Button width="100%" shadow css={foundStationButton}>
         <FlexBox alignItems="start" justifyContent="between" nowrap columnGap={2.8}>
-          <article>
+          <Box>
             <Box mb={2}>
               <Skeleton width="7rem" height="1.2rem" />
             </Box>
@@ -28,7 +28,7 @@ const StationSummaryCardSkeleton = () => {
               <Skeleton width="8rem" height="2.2rem" />
               <Skeleton width="8rem" height="2.2rem" />
             </FlexBox>
-          </article>
+          </Box>
           <Skeleton width="4rem" height="4rem" borderRadius="50%" />
         </FlexBox>
       </Button>
