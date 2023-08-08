@@ -29,7 +29,9 @@ const StationInformation = ({ station }: StationInformationProps) => {
         <Box my={1}>
           <Text variant="title">{stationName}</Text>
         </Box>
-        <Text variant="subtitle">{address}</Text>
+        <Text variant="subtitle" mb={1}>
+          {address}
+        </Text>
         {detailLocation && <Text variant="caption">{detailLocation}</Text>}
       </Box>
       <hr />
