@@ -30,7 +30,7 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
     useStationChargerReport(stationId);
 
   return (
-    <Box px={2} py={10} css={containerCss}>
+    <Box px={2} py={10} css={stationDetailsViewContainerCss}>
       <StationInformation station={station} />
       <Box my={2}>
         <ButtonNext
@@ -81,7 +81,7 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
   );
 };
 
-const containerCss = css`
+export const stationDetailsViewContainerCss = css`
   width: 34rem;
   height: 100vh;
   background-color: white;
