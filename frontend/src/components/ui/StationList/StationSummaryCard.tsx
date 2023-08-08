@@ -7,8 +7,9 @@ import FlexBox from '@common/FlexBox';
 import ListItem from '@common/ListItem';
 import Text from '@common/Text';
 
-import { useAccordionAction } from '@ui/Accordion/hooks/useAccordionAction';
 import ChargingSpeedIcon from '@ui/ChargingSpeedIcon';
+import StationDetailsWindow from '@ui/StationDetailsWindow';
+import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
 import type { StationSummary } from '@type';
 
@@ -19,7 +20,7 @@ interface Props {
 }
 
 const StationSummaryCard = ({ station, tag, $noPadding }: Props) => {
-  const { handleOpenLastPanel } = useAccordionAction();
+  const { openLastPanel } = useNavigationBar();
   const { openStationSummary } = useStationSummary();
 
   const {
@@ -42,7 +43,7 @@ const StationSummaryCard = ({ station, tag, $noPadding }: Props) => {
         css={foundStationButton}
         onClick={() => {
           openStationSummary(station);
-          handleOpenLastPanel();
+          openLastPanel(<StationDetailsWindow />);
         }}
       >
         <FlexBox alignItems="start" justifyContent="between" nowrap columnGap={2.8}>
