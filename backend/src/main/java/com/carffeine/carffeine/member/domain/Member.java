@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,12 +27,20 @@ public class Member extends BaseEntity {
 
     private String email;
 
+    @Enumerated(EnumType.STRING)
+    private MemberRole memberRole;
+
     public Member(String email) {
         this.email = email;
+        this.memberRole = MemberRole.USER;
     }
 
     public Member update(String email) {
         this.email = email;
         return this;
+    }
+
+    public boolean isNotAdmin() {
+        return memberRole != MemberRole.ADMIN;
     }
 }

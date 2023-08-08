@@ -1,5 +1,7 @@
 package com.carffeine.carffeine.station.domain.station;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
@@ -33,6 +35,10 @@ public interface StationRepository extends Repository<Station, Long> {
     List<Station> findAllFetch();
 
     List<Station> findAll();
+
+    Page<Station> findAll(Pageable pageable);
+
+    Page<Station> findAllByStationNameContains(Pageable pageable, String stationName);
 
     List<Station> findAllByStationNameContainingOrAddressContainingOrderByStationId(String stationName, String address);
 }

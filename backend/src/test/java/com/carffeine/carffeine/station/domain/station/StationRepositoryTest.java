@@ -4,12 +4,18 @@ import com.carffeine.carffeine.station.fixture.station.StationFixture;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
@@ -112,5 +118,42 @@ class StationRepositoryTest {
 
         //then
         assertThat(stations).hasSize(1);
+    }
+
+    @Test
+    void page의_갯수만큼_조회한다() {
+        // given
+        stationRepository.save(StationFixture.선릉역_충전소_충전기_2개_사용가능_1개);
+        stationRepository.save(StationFixture.잠실역_충전소_충전기_2개_사용가능_1개);
+        stationRepository.save(StationFixture.천호역_충전소_충전기_2개_사용가능_1개);
+        Pageable pageable = Pageable.ofSize(1);
+
+        // when
+        Page<Station> stations = stationRepository.findAll(pageable);
+
+        // then
+        assertSoftly(softly -> {
+            softly.assertThat(stations.getSize()).isEqualTo(1);
+            softly.assertThat(stations.getTotalPages()).isEqualTo(3);
+        });
+    }
+
+    @CsvSource(value = {"잠실:1", "충전:3"}, delimiter = ':')
+    @ParameterizedTest
+    void 충전소_이름이_포함되는_충전소를_page의_갯수만큼_조회한다(String query, int size) {
+        // given
+        stationRepository.save(StationFixture.선릉역_충전소_충전기_2개_사용가능_1개);
+        stationRepository.save(StationFixture.잠실역_충전소_충전기_2개_사용가능_1개);
+        stationRepository.save(StationFixture.천호역_충전소_충전기_2개_사용가능_1개);
+        Pageable pageable = Pageable.ofSize(1);
+
+        // when
+        Page<Station> stations = stationRepository.findAllByStationNameContains(PageRequest.of(0, 1), query);
+
+        // then
+        assertSoftly(softly -> {
+            softly.assertThat(stations.getSize()).isEqualTo(1);
+            softly.assertThat(stations.getTotalPages()).isEqualTo(size);
+        });
     }
 }
