@@ -2,7 +2,6 @@ import { css } from 'styled-components';
 
 import { useSetExternalState } from '@utils/external-state';
 
-import { forceOpenAccordionPanelStore } from '@stores/layout/forceOpenAccordionPanelStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
 import Button from '@common/Button';
@@ -13,6 +12,8 @@ import Text from '@common/Text';
 import type { StationSummary } from '@type';
 
 import ChargingSpeedIcon from './ChargingSpeedIcon';
+import { useNavigationBar } from './compound/NavigationBar/hooks/useNavigationBar';
+import StationDetailsWindow from './StationDetailsWindow';
 
 interface Props {
   station: StationSummary;
@@ -20,7 +21,7 @@ interface Props {
 
 const StationSummaryWindow = ({ station }: Props) => {
   const setSelectedStationId = useSetExternalState(selectedStationIdStore);
-  const setForceOpenAccordionPanel = useSetExternalState(forceOpenAccordionPanelStore);
+  const {openLastPanel} = useNavigationBar();
 
   const {
     stationId,
@@ -38,7 +39,7 @@ const StationSummaryWindow = ({ station }: Props) => {
 
   const handleOpenStationDetail = () => {
     setSelectedStationId(stationId);
-    setForceOpenAccordionPanel(true);
+    openLastPanel(<StationDetailsWindow />)
   };
 
   return (

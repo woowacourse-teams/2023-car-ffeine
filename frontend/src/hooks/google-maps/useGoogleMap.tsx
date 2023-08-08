@@ -5,7 +5,6 @@ import { getStoreSnapshot } from '@utils/external-state/tools';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
-import { forceOpenAccordionPanelStore } from '@stores/layout/forceOpenAccordionPanelStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
 import type { StationSummary } from '@type';
@@ -13,12 +12,15 @@ import type { StationSummary } from '@type';
 import BlueMarker from '@assets/blue-marker.svg';
 
 import { useStationSummary } from './useStationSummary';
+import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
+import StationDetailsWindow from '@ui/StationDetailsWindow';
 
 export const useGoogleMap = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
   const setMarkerInstanceState = useSetExternalState(markerInstanceStore);
   const setSelectedStationId = useSetExternalState(selectedStationIdStore);
-  const setForceOpenAccordionPanel = useSetExternalState(forceOpenAccordionPanelStore);
+  
+  const { openLastPanel } = useNavigationBar();
   const { openStationSummary } = useStationSummary();
 
   const renderStationMarker = (station: StationSummary) => {
@@ -37,7 +39,7 @@ export const useGoogleMap = () => {
 
     markerInstance.addListener('click', () => {
       openStationSummary(station, markerInstance);
-      setForceOpenAccordionPanel(true);
+      openLastPanel(<StationDetailsWindow />);
     });
 
     setMarkerInstanceState((previewsMarkerInstances) => [
