@@ -1,5 +1,6 @@
 package com.carffeine.carffeine.station.domain.congestion;
 
+import com.carffeine.carffeine.common.domain.BaseEntity;
 import com.carffeine.carffeine.station.config.RequestPeriodConverter;
 import com.carffeine.carffeine.station.domain.charger.Charger;
 import lombok.AccessLevel;
