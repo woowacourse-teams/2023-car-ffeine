@@ -15,11 +15,9 @@ const StationList = () => {
   if (isFetching) {
     return (
       <List css={searchResultList}>
-        {Array(10)
-          .fill(undefined)
-          .map((arr, i) => (
-            <StationSummaryCardSkeleton key={i} />
-          ))}
+        {Array.from({ length: 10 }, (_, index) => (
+          <StationSummaryCardSkeleton key={index} />
+        ))}
       </List>
     );
   }

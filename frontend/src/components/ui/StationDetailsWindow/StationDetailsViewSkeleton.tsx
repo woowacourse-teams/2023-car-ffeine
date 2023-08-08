@@ -17,11 +17,9 @@ const StationDetailsViewSkeleton = () => {
         </FlexBox>
       </Box>
       <FlexBox>
-        {Array(10)
-          .fill(undefined)
-          .map((v, i) => (
-            <ChargerCardSkeleton key={i} />
-          ))}
+        {Array.from({ length: 10 }, (_, index) => (
+          <ChargerCardSkeleton key={index} />
+        ))}
       </FlexBox>
     </Box>
   );

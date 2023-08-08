@@ -14,22 +14,18 @@ const CongestionStatisticsSkeleton = () => {
       </FlexBox>
       <Box mb={4}>
         <FlexBox justifyContent="center">
-          {Array(7)
-            .fill(undefined)
-            .map((v, i) => (
-              <Skeleton key={i} width="4.2rem" height="4.2rem" borderRadius="50%" />
-            ))}
+          {Array.from({ length: 7 }, (_, index) => (
+            <Skeleton key={index} width="4.2rem" height="4.2rem" borderRadius="50%" />
+          ))}
         </FlexBox>
       </Box>
       <FlexBox direction="column">
-        {Array(24)
-          .fill(undefined)
-          .map((v, i) => (
-            <Box key={i} css={graphCss}>
-              <Text variant="caption">{i}</Text>
-              <Skeleton width="90%" />
-            </Box>
-          ))}
+        {Array.from({ length: 24 }, (_, index) => (
+          <Box key={index} css={graphCss}>
+            <Text variant="caption">{index}</Text>
+            <Skeleton width="90%" />
+          </Box>
+        ))}
       </FlexBox>
     </FlexBox>
   );
