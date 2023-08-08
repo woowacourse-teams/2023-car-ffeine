@@ -1,0 +1,64 @@
+= filters API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+
+== 현재 서버에 등록된 모든 필터를 조회한다
+
+=== Request
+
+include::{snippets}/filter-controller-test/find_all_filters/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/filter-controller-test/find_all_filters/http-response.adoc[]
+include::{snippets}/filter-controller-test/find_all_filters/response-fields.adoc[]
+
+== 서버에 회사 이름을 필터로 등록한다
+
+=== Request
+
+include::{snippets}/filter-controller-test/add_company_names_on_filter/http-request.adoc[]
+include::{snippets}/filter-controller-test/add_company_names_on_filter/request-fields.adoc[]
+
+=== Response
+
+include::{snippets}/filter-controller-test/add_company_names_on_filter/http-response.adoc[]
+
+
+== 서버에 충전 타입을 필터로 등록한다
+
+=== Request
+
+include::{snippets}/filter-controller-test/add_type_on_filter/http-request.adoc[]
+include::{snippets}/filter-controller-test/add_type_on_filter/request-fields.adoc[]
+
+=== Response
+
+include::{snippets}/filter-controller-test/add_type_on_filter/http-response.adoc[]
+
+
+== 서버에 회사 이름을 필터로 등록한다
+
+=== Request
+
+include::{snippets}/filter-controller-test/add_company_names_on_filter/http-request.adoc[]
+include::{snippets}/filter-controller-test/add_company_names_on_filter/request-fields.adoc[]
+
+=== Response
+
+include::{snippets}/filter-controller-test/add_company_names_on_filter/http-response.adoc[]
+
+
+== 서버에 충전기 용량을 필터로 등록한다
+
+=== Request
+
+include::{snippets}/filter-controller-test/add_capacities_on_filter/http-request.adoc[]
+include::{snippets}/filter-controller-test/add_capacities_on_filter/request-fields.adoc[]
+
+=== Response
+
+include::{snippets}/filter-controller-test/add_capacities_on_filter/http-response.adoc[]
