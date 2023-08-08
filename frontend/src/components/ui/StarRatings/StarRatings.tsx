@@ -1,14 +1,12 @@
 import styled from 'styled-components';
 
-import type { Dispatch, SetStateAction } from 'react';
-
 import Star from '@ui/Star';
 
 import type { Size } from '@type';
 
 export interface StarRatingsProps {
   stars: number;
-  setStars: Dispatch<SetStateAction<number>>;
+  setStars: (newStar: number) => void;
   size?: Size;
 }
 
@@ -19,7 +17,7 @@ const StarRatings = ({ stars, setStars, size }: StarRatingsProps) => {
 
   return (
     <StarContainer>
-      {Array.from({ length: 5 }).map((_, index) => (
+      {Array.from({ length: 5 }, (_, index) => (
         <Star
           key={index}
           isSelected={index < stars}
