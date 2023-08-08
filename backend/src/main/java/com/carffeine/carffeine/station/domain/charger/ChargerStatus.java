@@ -1,5 +1,6 @@
 package com.carffeine.carffeine.station.domain.charger;
 
+import com.carffeine.carffeine.common.domain.BaseEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +23,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @IdClass(ChargerId.class)
 @Entity
-public class ChargerStatus {
+public class ChargerStatus extends BaseEntity {
 
     @Id
     @Column(name = "station_id")

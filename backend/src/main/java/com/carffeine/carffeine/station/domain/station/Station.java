@@ -1,5 +1,6 @@
 package com.carffeine.carffeine.station.domain.station;
 
+import com.carffeine.carffeine.common.domain.BaseEntity;
 import com.carffeine.carffeine.station.domain.charger.Charger;
 import com.carffeine.carffeine.station.domain.report.FaultReport;
 import lombok.AccessLevel;
@@ -28,7 +29,7 @@ import java.util.Set;
 @Entity
 @EqualsAndHashCode(of = "stationId")
 @Table(name = "charge_station", indexes = @Index(name = "idx_station_coordination", columnList = "latitude, longitude, stationId"))
-public class Station {
+public class Station extends BaseEntity {
 
     @Id
     private String stationId;

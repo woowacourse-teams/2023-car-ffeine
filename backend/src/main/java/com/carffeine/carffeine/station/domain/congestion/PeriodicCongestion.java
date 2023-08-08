@@ -1,5 +1,6 @@
 package com.carffeine.carffeine.station.domain.congestion;
 
+import com.carffeine.carffeine.common.domain.BaseEntity;
 import com.carffeine.carffeine.station.config.RequestPeriodConverter;
 import com.carffeine.carffeine.station.domain.charger.Charger;
 import lombok.AccessLevel;
@@ -26,7 +27,7 @@ import java.time.DayOfWeek;
 @AllArgsConstructor
 @Entity
 @Table(name = "periodic_congestion")
-public class PeriodicCongestion {
+public class PeriodicCongestion extends BaseEntity {
 
     @Id
     private String id;
