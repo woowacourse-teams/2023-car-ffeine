@@ -19,7 +19,7 @@ const calculateLatestUpdateTime = (latestUpdateTimeString: string) => {
   const diffInSeconds = Math.floor((currentDate.getTime() - latestUpdatedDate.getTime()) / 1000);
 
   if (diffInSeconds < 60) {
-    return `${diffInSeconds}초 전`;
+    return `방금 전`;
   }
 
   const diffInMinutes = Math.floor(diffInSeconds / 60);
