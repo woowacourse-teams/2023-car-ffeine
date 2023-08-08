@@ -11,8 +11,24 @@ const meta = {
   title: 'UI/Star',
   component: Star,
   tags: ['autodocs'],
-  args: {},
-  argTypes: {},
+  args: {
+    isSelected: false,
+    onClick: () => {
+      alert('제가 눌렸어요!!!');
+    },
+    size: 'md',
+  },
+  argTypes: {
+    isSelected: {
+      description: '별에 불을 들어오게 하는 역할을 합니다.',
+    },
+    onClick: {
+      description: '눌렀을 때 반응하도록 할 수 있습니다.',
+    },
+    size: {
+      description: '크기를 지정할 수 있습니다.',
+    },
+  },
 } satisfies Meta<typeof Star>;
 
 export default meta;

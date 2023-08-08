@@ -1,18 +1,36 @@
 import type { Meta } from '@storybook/react';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import Text from '@common/Text';
 
 import StarRatings from '@ui/StarRatings';
 import type { StarRatingsProps } from '@ui/StarRatings/StarRatings';
 
+import { Size } from '@type';
+
 const meta = {
   title: 'UI/StarRatings',
   component: StarRatings,
   tags: ['autodocs'],
-  args: {},
-  argTypes: {},
+  args: {
+    stars: 3,
+    setStars: () => {
+      alert('제가 눌렸어요!!!');
+    },
+    size: 'md',
+  },
+  argTypes: {
+    stars: {
+      description: '0~5의 숫자를 줄 수 있습니다. ',
+    },
+    setStars: {
+      description: '별의 갯수롤 조절할 수 있습니다.',
+    },
+    size: {
+      description: '사이즈를 조절할 수 있습니다.',
+    },
+  },
 } satisfies Meta<typeof StarRatings>;
 
 export default meta;
