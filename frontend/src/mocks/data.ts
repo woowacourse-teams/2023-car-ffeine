@@ -1,7 +1,6 @@
-import { generateRandomToken } from '@utils/configureToken';
 import { getTypedObjectFromEntries } from '@utils/getTypedObjectFromEntries';
 import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
-import { getRandomTime } from '@utils/randomDataGenerator';
+import { generateRandomData, generateRandomToken, getRandomTime } from '@utils/randomDataGenerator';
 
 import { CHARGER_TYPES, COMPANY_NAME } from '@constants/chargers';
 import { ENGLISH_DAYS } from '@constants/congestion';
@@ -10,12 +9,6 @@ import { MAX_SEARCH_RESULTS } from '@constants/stationSearch';
 import type { Capacity, ChargerDetails, ChargerType } from '@type/chargers';
 import type { Congestion, CongestionStatistics, EnglishDaysType } from '@type/congestion';
 import type { CompanyName, Review, Station } from '@type/stations';
-
-const generateRandomData = <T>(array: T[]): T => {
-  const randomIndex = Math.floor(Math.random() * array.length);
-
-  return array[randomIndex];
-};
 
 export const generateRandomChargers = () => {
   const length = Math.floor(Math.random() * 10) + 1;
