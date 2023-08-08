@@ -9,12 +9,15 @@ import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 
 import MswControlButton from '@ui/MswControlButton';
+import ServerStationFilters from '@ui/ServerStationFilters';
+import StationListWindow from '@ui/StationList/StationListWindow';
+import StationSearchWindow from '@ui/StationSearchWindow';
 import LogoIcon from '@ui/Svg/LogoIcon';
 
-import { useAccordionAction } from './hooks/useAccordionAction';
+import { useNavigationBar } from './hooks/useNavigationBar';
 
-const Navigator = () => {
-  const { toggleOpenBasePanel: handleOpenBasePanel } = useAccordionAction();
+const Menu = () => {
+  const { openBasePanel } = useNavigationBar();
 
   return (
     <FlexBox
@@ -31,16 +34,13 @@ const Navigator = () => {
       <Button>
         <LogoIcon width={3} />
       </Button>
-      <Button aria-label="검색창 열기" onClick={() => handleOpenBasePanel('searchWindow')}>
+      <Button aria-label="검색창 열기" onClick={() => openBasePanel(<StationSearchWindow />)}>
         <MagnifyingGlassIcon width="2.8rem" stroke="#333" />
       </Button>
-      <Button
-        aria-label="필터링 메뉴 열기"
-        onClick={() => handleOpenBasePanel('serverStationFilters')}
-      >
+      <Button aria-label="필터링 메뉴 열기" onClick={() => openBasePanel(<ServerStationFilters />)}>
         <AdjustmentsHorizontalIcon width="2.8rem" stroke="#333" />
       </Button>
-      <Button aria-label="충전소 목록 보기" onClick={() => handleOpenBasePanel('stationList')}>
+      <Button aria-label="충전소 목록 보기" onClick={() => openBasePanel(<StationListWindow />)}>
         <Bars3Icon width="2.8rem" stroke="#333" />
       </Button>
       {process.env.NODE_ENV === 'development' && <MswControlButton />}
@@ -63,4 +63,4 @@ const borderCss = css`
   border-right: 0.1rem solid #ddd;
 `;
 
-export default Navigator;
+export default Menu;

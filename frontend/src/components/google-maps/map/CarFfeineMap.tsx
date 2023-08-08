@@ -14,7 +14,7 @@ import { useUpdateStations } from '@hooks/tanstack-query/station-markers/useUpda
 import ClientStationFilters from '@ui/ClientStationFilters';
 import MapController from '@ui/MapController';
 import ModalContainer from '@ui/ModalContainer';
-import Navigator from '@ui/Navigator';
+import NavigationBar from '@ui/NavigationBar';
 
 import { LOCAL_KEY_LAST_POSITION } from '@constants/storageKeys';
 
@@ -23,7 +23,7 @@ const CarFfeineMap = () => {
     <>
       <CarFfeineMapListener />
       <StationMarkersContainer />
-      <Navigator />
+      <NavigationBar />
       <ClientStationFilters />
       <ModalContainer />
       <MapController />
