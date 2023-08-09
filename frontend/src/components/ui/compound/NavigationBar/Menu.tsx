@@ -2,22 +2,41 @@ import {
   AdjustmentsHorizontalIcon,
   Bars3Icon,
   MagnifyingGlassIcon,
+  UserCircleIcon,
 } from '@heroicons/react/24/outline';
 import { css } from 'styled-components';
+
+import { useState } from 'react';
+
+import { getSessionStorage } from '@utils/storage';
 
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 
+import LoginModal from '@ui/LoginModal/LoginModal';
 import MswControlButton from '@ui/MswControlButton';
 import ServerStationFilters from '@ui/ServerStationFilters';
 import StationListWindow from '@ui/StationList/StationListWindow';
 import StationSearchWindow from '@ui/StationSearchWindow';
 import LogoIcon from '@ui/Svg/LogoIcon';
 
+import { SESSION_KEY_USER_TOKEN } from '@constants/storageKeys';
+
 import { useNavigationBar } from './hooks/useNavigationBar';
 
 const Menu = () => {
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const { openBasePanel } = useNavigationBar();
+
+  const handleClickLoginIcon = () => {
+    const userToken = getSessionStorage(SESSION_KEY_USER_TOKEN, '');
+
+    if (userToken === '') {
+      setIsLoginModalOpen(true);
+      return;
+    }
+    alert('사용자 메뉴 열림');
+  };
 
   return (
     <FlexBox
@@ -29,8 +48,9 @@ const Menu = () => {
       gap={7.5}
       css={[fixedPositionCss, paddingCss, borderCss]}
       noRadius="all"
-      nowrap={true}
+      nowrap
     >
+      <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
       <Button>
         <LogoIcon width={3} />
       </Button>
@@ -42,6 +62,9 @@ const Menu = () => {
       </Button>
       <Button aria-label="충전소 목록 보기" onClick={() => openBasePanel(<StationListWindow />)}>
         <Bars3Icon width="2.8rem" stroke="#333" />
+      </Button>
+      <Button aria-label="로그인 하기" onClick={handleClickLoginIcon}>
+        <UserCircleIcon width="2.8rem" stroke="#333" />
       </Button>
       {process.env.NODE_ENV === 'development' && <MswControlButton />}
     </FlexBox>

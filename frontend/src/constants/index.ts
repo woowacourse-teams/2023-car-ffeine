@@ -8,6 +8,8 @@ export const SERVERS = {
   production: 'https://api.carffe.in/api',
 } as const;
 
+export const MSW_OFF = 'mswOff';
+
 export const FORM_ADDRESS_LENGTH_LIMIT = 150;
 export const FORM_DETAIL_LOCATION_LENGTH_LIMIT = 200;
 export const FORM_OPERATING_TIME_LENGTH_LIMIT = 50;
