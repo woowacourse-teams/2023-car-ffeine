@@ -4,6 +4,8 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 
+import { toastActions } from '@stores/layout/toastStore';
+
 import { useServerStationFilters } from '@hooks/useServerStationFilters';
 
 import Button from '@common/Button';
@@ -16,6 +18,7 @@ import FilterSection from './FilterOption';
 
 const ServerStationFilters = () => {
   const queryClient = useQueryClient();
+  const { showToast } = toastActions;
 
   const {
     toggleSelectCapacityFilter,
@@ -28,6 +31,7 @@ const ServerStationFilters = () => {
 
   const handleApplySelectedFilters = () => {
     queryClient.invalidateQueries({ queryKey: ['stations'] });
+    showToast('필터가 적용되었습니다');
   };
 
   return (

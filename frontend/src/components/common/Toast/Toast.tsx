@@ -4,15 +4,15 @@ import { css, styled } from 'styled-components';
 import type { HTMLAttributes } from 'react';
 
 import { calculateToastDuration } from '@utils/calculateToastDuration';
-import { useExternalValue } from '@utils/external-state';
 
-import { toastActions, toastOpenStore } from '@stores/layout/toastStore';
+import { toastActions } from '@stores/layout/toastStore';
 
 import { getPopupAnimation } from '@style';
 
 import type { Color, ToastPosition } from '@type/style';
 
 export interface ToastProps extends HTMLAttributes<HTMLDivElement> {
+  toastId: number;
   message: string;
   position?: `${ToastPosition['column']}-${ToastPosition['row']}`;
   color?: Color;
@@ -23,22 +23,19 @@ interface StyleProps extends Pick<ToastProps, 'color' | 'css' | 'position'> {
   duration?: number;
 }
 
-const Toast = ({ message, ...props }: ToastProps) => {
-  const isShowing = useExternalValue(toastOpenStore);
-  const { closeToast } = toastActions;
+const Toast = ({ toastId, message, ...props }: ToastProps) => {
+  const { deleteToast } = toastActions;
 
   const duration = calculateToastDuration(message);
 
   setTimeout(() => {
-    closeToast();
+    deleteToast(toastId);
   }, duration * 1000);
 
   return (
-    isShowing && (
-      <S.Toast role="alert" aria-live="assertive" duration={duration} {...props}>
-        {message}
-      </S.Toast>
-    )
+    <S.Toast role="alert" aria-live="assertive" duration={duration} {...props}>
+      {message}
+    </S.Toast>
   );
 };
 
@@ -48,7 +45,7 @@ const S = {
     width: max-content;
     max-width: 40rem;
     z-index: 99999;
-    padding: 1.4rem 2.4rem;
+    padding: 1.2rem 2.4rem;
     font-size: 1.5rem;
     text-align: center;
     word-break: keep-all;
@@ -65,7 +62,7 @@ const S = {
 };
 
 // TODO: Alert랑 통일
-const getToastColor = (color?: Color) => {
+export const getToastColor = (color?: Color) => {
   switch (color) {
     case 'primary':
       return css`
