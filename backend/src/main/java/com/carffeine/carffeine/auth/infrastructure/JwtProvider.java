@@ -61,7 +61,7 @@ public class JwtProvider implements TokenProvider {
     @Override
     public boolean isExpired(String token) {
         return Jwts.parser()
-                .setSigningKey(secret)
+                .setSigningKey(secret.getBytes())
                 .parseClaimsJws(token)
                 .getBody()
                 .getExpiration()
@@ -71,7 +71,7 @@ public class JwtProvider implements TokenProvider {
     @Override
     public Long extract(String token) {
         return Jwts.parser()
-                .setSigningKey(secret)
+                .setSigningKey(secret.getBytes())
                 .parseClaimsJws(token)
                 .getBody()
                 .get("id", Long.class);
