@@ -148,7 +148,6 @@ public class AdminControllerTest extends MockBeanInjection {
                 "Updated Address",
                 new BigDecimal("37.12345"),
                 new BigDecimal("122.54321")
-
         );
 
         // when & then
@@ -176,5 +175,4 @@ public class AdminControllerTest extends MockBeanInjection {
                         )
                 ));
     }
-
 }

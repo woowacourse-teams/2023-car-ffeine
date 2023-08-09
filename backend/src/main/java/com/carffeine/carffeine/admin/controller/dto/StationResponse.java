@@ -21,6 +21,7 @@ public record StationResponse(
         BigDecimal longitude,
         List<ChargerResponse> chargers
 ) {
+
     public static StationResponse from(Station station) {
         return new StationResponse(
                 station.getStationId(),
@@ -52,6 +53,7 @@ public record StationResponse(
             BigDecimal capacity,
             String method
     ) {
+
         public static ChargerResponse from(Charger charger) {
             return new ChargerResponse(
                     charger.getStationId(),

@@ -40,7 +40,7 @@ public class Member extends BaseEntity {
         return this;
     }
 
-    public boolean isNotAdmin() {
-        return memberRole != MemberRole.ADMIN;
+    public boolean isAdmin() {
+        return memberRole == MemberRole.ADMIN;
     }
 }

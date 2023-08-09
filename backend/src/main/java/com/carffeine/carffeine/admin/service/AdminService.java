@@ -43,12 +43,9 @@ public class AdminService {
     }
 
     private void validateRole(Long memberId) {
-        boolean isNotAdmin = memberRepository.findById(memberId)
-                .filter(Member::isNotAdmin)
-                .isPresent();
-        if (isNotAdmin) {
-            throw new AdminException(AdminExceptionType.NOT_ADMIN);
-        }
+        memberRepository.findById(memberId)
+                .filter(Member::isAdmin)
+                .orElseThrow(() -> new AdminException(AdminExceptionType.NOT_ADMIN));
     }
 
     @Transactional

@@ -6,5 +6,4 @@ public record CustomPage<T>(
         int lastPage,
         List<T> elements
 ) {
-
 }
