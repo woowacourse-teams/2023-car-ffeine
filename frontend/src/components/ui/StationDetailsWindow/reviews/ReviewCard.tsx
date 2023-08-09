@@ -13,6 +13,13 @@ export interface ReviewCardProps {
 
 const ReviewCard = ({ review }: ReviewCardProps) => {
   const { replies, content, isUpdated, latestUpdateDate, userId, ratings, isDeleted } = review;
+  if (isDeleted) {
+    return (
+      <Box border p={5} bgColor="#eeeeee">
+        <Text variant="body">삭제된 리뷰입니다.</Text>
+      </Box>
+    );
+  }
   return (
     <Box border p={2}>
       <Box p={2}>
