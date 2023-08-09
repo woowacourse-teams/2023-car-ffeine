@@ -22,8 +22,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -35,26 +34,6 @@ public class ReviewControllerTest extends MockBeanInjection {
     @Autowired
     private MockMvc mockMvc;
 
-//    @Test
-//    void 충전소의_리뷰를_등록한다() throws Exception {
-//        // given
-//        String stationId = "ME101010";
-//        long memberId = 1L;
-//        CreateReviewRequest createReviewRequest = new CreateReviewRequest();
-//        // createReviewRequest에 필요한 데이터를 설정
-//
-//        // when
-//        mockMvc.perform(post("/stations/{stationId}/review", stationId)
-//                        .param("memberId", String.valueOf(memberId))
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(objectMapper.writeValueAsString(createReviewRequest)))
-//                .andExpect(status().isNoContent())
-//                .andDo(customDocument("save-review")); // 문서화 추가
-//
-//        // then
-//        verify(reviewService, times(1)).saveReview(createReviewRequest, stationId, memberId);
-//    }
-
     @Test
     void 충전소의_리뷰를_조회한다() throws Exception {
         // when
@@ -65,13 +44,17 @@ public class ReviewControllerTest extends MockBeanInjection {
         when(reviewService.findAllReviews(stationId, 1)).thenReturn(reviews);
 
         // then
-        mockMvc.perform(get("/stations/{stationId}/reviews", stationId))
+        mockMvc.perform(get("/stations/{stationId}/reviews", stationId)
+                        .param("page", "1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.reviews", hasSize(1)))
                 .andDo(customDocument("find-reviews",
                         pathParameters(
                                 parameterWithName("stationId").description("충전소 ID")
+                        ),
+                        requestParameters(
+                                parameterWithName("page").description("페이지")
                         ),
                         responseFields(
                                 fieldWithPath("reviews").type(JsonFieldType.ARRAY).description("리뷰들"),

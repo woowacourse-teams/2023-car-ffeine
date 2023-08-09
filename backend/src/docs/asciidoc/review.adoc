@@ -1,0 +1,19 @@
+= Home API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+
+== 충전소에 등록된 리뷰를 조회한다(/stations/{stationId}/reviews)
+
+=== Request
+
+include::{snippets}/review-controller-test/find-reviews/http-request.adoc[]
+include::{snippets}/review-controller-test/find-reviews/path-parameters.adoc[]
+include::{snippets}/review-controller-test/find-reviews/request-parameters.adoc[]
+
+=== Response
+
+include::{snippets}/review-controller-test/find-reviews/http-response.adoc[]
+include::{snippets}/review-controller-test/find-reviews/response-fields.adoc[]
