@@ -17,26 +17,33 @@ const ReviewView = ({ stationId }: ReviewViewProps) => {
   if (isReviewRatingsLoading || isReviewsLoading) {
     return <></>;
   }
+
+  const aliveReviews = reviews.filter((review) => !review.isDeleted);
+
   return (
     <Box my={5}>
       <UserRatings counts={reviews.length} ratings={totalRatings} />
-      {reviews.map((review, i) => {
-        return (
-          <ReviewCard
-            key={i}
-            review={{
-              content: review.content,
-              isDeleted: review.isDeleted,
-              isUpdated: review.isUpdated,
-              latestUpdateDate: review.latestUpdateDate,
-              ratings: review.ratings,
-              replies: review.replies,
-              reviewId: review.reviewId,
-              userId: review.userId,
-            }}
-          />
-        );
-      })}
+      {aliveReviews.length === 0 ? (
+        <Box>등록된 리뷰가 없습니다.</Box>
+      ) : (
+        aliveReviews.slice(0, 3).map((review, i) => {
+          return (
+            <ReviewCard
+              key={i}
+              review={{
+                content: review.content,
+                isDeleted: review.isDeleted,
+                isUpdated: review.isUpdated,
+                latestUpdateDate: review.latestUpdateDate,
+                ratings: review.ratings,
+                replies: review.replies,
+                reviewId: review.reviewId,
+                userId: review.userId,
+              }}
+            />
+          );
+        })
+      )}
     </Box>
   );
 };
