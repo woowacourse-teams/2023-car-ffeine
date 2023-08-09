@@ -1,8 +1,10 @@
 import { rest } from 'msw';
 
+import { getTypedObjectEntries } from '@utils/getTypedObjectEntries';
 import { getSessionStorage, setSessionStorage } from '@utils/storage';
 
 import { SERVERS } from '@constants';
+import { CAPACITIES, CHARGER_TYPES, COMPANY_NAME } from '@constants/chargers';
 import { ERROR_MESSAGES } from '@constants/errorMessages';
 import { SESSION_KEY_REPORTED_STATIONS } from '@constants/storageKeys';
 
@@ -146,5 +148,104 @@ export const handlers = [
     const congestionStatistics = getCongestionStatistics(stationId);
 
     return res(ctx.json(congestionStatistics), ctx.delay(1000), ctx.status(200));
+  }),
+
+  rest.get(`${SERVERS.localhost}/filters`, (_, res, ctx) => {
+    CHARGER_TYPES;
+    COMPANY_NAME;
+    CAPACITIES;
+
+    return res(
+      ctx.json({
+        connectorTypes: getTypedObjectEntries(CHARGER_TYPES).map(([key, value]) => ({
+          key,
+          value,
+        })),
+        capacities: CAPACITIES.map((capacity) => ({ capacity })),
+        companyNames: getTypedObjectEntries(COMPANY_NAME).map(([key, value]) => ({
+          key,
+          value,
+        })),
+      })
+    );
+  }),
+
+  rest.get(`${SERVERS.localhost}/members`, (req, res, ctx) => {
+    const userToken = req.headers.get('Authorization');
+
+    if (userToken === undefined || userToken.replace('Bearer', '') === '') {
+      return res(ctx.status(401), ctx.json('unauthorized error'));
+    }
+
+    return res(
+      ctx.status(200),
+      ctx.json({
+        userId: Math.random(),
+        car: {
+          name: '포르쉐 타이칸',
+          year: '2022',
+        },
+      })
+    );
+  }),
+
+  rest.post(`${SERVERS.localhost}/members/filters`, async (req, res, ctx) => {
+    const userToken = req.headers.get('Authorization');
+    const filters = await req.json();
+
+    const connectorTypes = filters.connectorTypes;
+    const capacities = filters.capacities;
+    const companyNames = filters.companyNames;
+
+    if (userToken === undefined || userToken.replace('Bearer', '') === '') {
+      return res(ctx.status(401), ctx.json('unauthorized error'));
+    }
+
+    return res(ctx.status(200), ctx.json({ connectorTypes, capacities, companyNames }));
+  }),
+
+  rest.get(`${SERVERS.localhost}/members/filters`, (req, res, ctx) => {
+    const userToken = req.headers.get('Authorization');
+
+    if (userToken === undefined || userToken.replace('Bearer', '') === '') {
+      return res(ctx.status(401), ctx.json('unauthorized error'));
+    }
+
+    return res(
+      ctx.status(200),
+      ctx.json({
+        companyNames: [
+          {
+            key: 'HG',
+            value: '환경부',
+          },
+          {
+            key: 'HG2',
+            value: '환경부',
+          },
+        ],
+        capacities: [
+          {
+            capacity: 3.0,
+          },
+          {
+            capacity: 7.0,
+          },
+          {
+            capacity: 10.0,
+          },
+        ],
+        connectorTypes: [
+          {
+            key: 'DC_COMBO',
+            value: '고속차지',
+          },
+          {
+            key: 'DC_COMBO2',
+            value: '고속차지',
+          },
+        ],
+      })
+    );
   }),
 ];
