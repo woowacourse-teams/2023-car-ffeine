@@ -1,4 +1,5 @@
 import { useReviewRatings } from '@hooks/tanstack-query/station-details/reviews/useReviewRatings';
+import { useReviews } from '@hooks/tanstack-query/station-details/reviews/useReviews';
 
 import Box from '@common/Box';
 
@@ -13,26 +14,27 @@ export interface ReviewViewProps {
 
 const ReviewView = ({ stationId }: ReviewViewProps) => {
   const { data: totalRatings, isLoading: isReviewRatingsLoading } = useReviewRatings(stationId);
+  const { data: reviews, isLoading: isReviewsLoading } = useReviews(stationId);
 
-  if (isReviewRatingsLoading) {
+  if (isReviewRatingsLoading || isReviewsLoading) {
     return <></>;
   }
   return (
     <Box my={5}>
-      <UserRatings counts={325} ratings={totalRatings} />
-      {Array.from({ length: 3 }, (_, i) => {
+      <UserRatings counts={reviews.length} ratings={totalRatings} />
+      {reviews.map((review, i) => {
         return (
           <ReviewCard
             key={i}
             review={{
-              content: '',
-              isDeleted: false,
-              isUpdated: false,
-              latestUpdateDate: '',
-              ratings: 0,
-              replies: [] as Reply[],
-              reviewId: 0,
-              userId: 0,
+              content: review.content,
+              isDeleted: review.isDeleted,
+              isUpdated: review.isUpdated,
+              latestUpdateDate: review.latestUpdateDate,
+              ratings: review.ratings,
+              replies: review.replies,
+              reviewId: review.reviewId,
+              userId: review.userId,
             }}
           />
         );

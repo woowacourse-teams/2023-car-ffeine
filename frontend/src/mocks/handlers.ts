@@ -166,6 +166,6 @@ export const handlers = [
 
   rest.get(`${SERVERS.localhost}/stations/:stationId/reviews/?page=:page`, (req, res, ctx) => {
     const reviews = generateReviewsWithReplies();
-    return res(ctx.json(reviews), ctx.delay(1000), ctx.status(200));
+    return res(ctx.json({ reviews }), ctx.delay(1000), ctx.status(200));
   }),
 ];

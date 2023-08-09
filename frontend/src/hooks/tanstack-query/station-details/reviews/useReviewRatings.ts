@@ -5,7 +5,6 @@ import { serverStore } from '@stores/config/serverStore';
 import { SERVERS } from '@constants';
 
 export const fetchReviewRatings = async (stationId: string) => {
-  console.log('fetchReviewRatings', stationId);
   const mode = serverStore.getState();
   return fetch(`${SERVERS[mode]}/stations/${stationId}/total-ratings`).then<number>(
     async (response) => {
@@ -16,7 +15,7 @@ export const fetchReviewRatings = async (stationId: string) => {
 };
 export const useReviewRatings = (stationId: string) => {
   return useQuery({
-    queryKey: ['review', stationId],
+    queryKey: ['review-ratings', stationId],
     queryFn: () => fetchReviewRatings(stationId),
   });
 };
