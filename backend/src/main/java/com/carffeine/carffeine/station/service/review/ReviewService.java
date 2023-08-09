@@ -7,10 +7,12 @@ import com.carffeine.carffeine.station.exception.review.ReviewExceptionType;
 import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @RequiredArgsConstructor
+@Transactional
 @Service
 public class ReviewService {
 
@@ -76,7 +78,7 @@ public class ReviewService {
                 .toList();
     }
 
-    public Review updateReview(CreateReviewRequest request, Long reviewId, long memberId) {
+    public Review updateReview(CreateReviewRequest request, Long reviewId, Long memberId) {
         validateRequest(request);
 
         Review review = reviewRepository.findById(reviewId);
@@ -85,12 +87,22 @@ public class ReviewService {
 
         review.updateReview(request.ratings(), request.content());
 
-        return reviewRepository.save(review);
+        return review;
     }
 
-    private void validateMember(Review review, long memberId) {
-        if (review.getMemberId() != memberId) {
+    private void validateMember(Review review, Long memberId) {
+        if (!review.getMemberId().equals(memberId)) {
             throw new ReviewException(ReviewExceptionType.UNAUTHORIZED_MEMBER);
         }
+    }
+
+    public Review deleteReview(Long memberId, long reviewId) {
+        Review review = reviewRepository.findById(reviewId);
+
+        validateMember(review, memberId);
+
+        review.delete();
+
+        return review;
     }
 }

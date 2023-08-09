@@ -49,7 +49,7 @@ class ReportControllerTest extends MockBeanInjection {
     void 충전소를_신고한다() throws Exception {
         // given
         Station station = StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
-        long memberId = 12L;
+        Long memberId = 12L;
 
         // when
         FaultReport faultReport = FaultReport.builder()
@@ -75,7 +75,7 @@ class ReportControllerTest extends MockBeanInjection {
     void 충전소의_잘못된_정보를_신고한다() throws Exception {
         // given
         Station station = StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
-        long memberId = 12L;
+        Long memberId = 12L;
         MisinformationReportRequest.StationDetailToUpdate detail = new MisinformationReportRequest.StationDetailToUpdate("address", "부산");
         MisinformationReportRequest request = new MisinformationReportRequest(List.of(detail));
 
@@ -110,7 +110,7 @@ class ReportControllerTest extends MockBeanInjection {
     void 충전소를_이미_신고했는지_확인한다() throws Exception {
         // given
         Station station = StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
-        long memberId = 12L;
+        Long memberId = 12L;
 
         // when
         when(reportService.isDuplicateReportStation(memberId, station.getStationId())).thenReturn(false);

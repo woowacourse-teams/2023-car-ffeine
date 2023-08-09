@@ -18,6 +18,7 @@ import java.util.List;
 import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.SoftAssertions.*;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
@@ -176,15 +177,6 @@ class ReviewServiceTest extends IntegrationTest {
         Long memberId = 1L;
         CreateReviewRequest request = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
 
-        Review expected = Review.builder()
-                .stationId(stationId)
-                .memberId(memberId)
-                .ratings(request.ratings())
-                .content(request.content())
-                .isUpdated(false)
-                .isDeleted(false)
-                .build();
-
         Review review = reviewService.saveReview(request, stationId, memberId);
 
         // when
@@ -192,9 +184,25 @@ class ReviewServiceTest extends IntegrationTest {
         CreateReviewRequest updateRequest = new CreateReviewRequest(2, "생각해보니 별로인 듯 합니다");
         Review updatedReview = reviewService.updateReview(updateRequest, reviewId, memberId);
 
-        SoftAssertions.assertSoftly(softly -> {
+        assertSoftly(softly -> {
             softly.assertThat(updatedReview.getRatings()).isEqualTo(updateRequest.ratings());
             softly.assertThat(updatedReview.getContent()).isEqualTo(updateRequest.content());
         });
+    }
+
+    @Test
+    void 리뷰를_삭제한다() {
+        // given
+        String stationId = "ME101010";
+        Long memberId = 1L;
+        CreateReviewRequest request = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
+
+        Review review = reviewService.saveReview(request, stationId, memberId);
+
+        // when
+        Review deletedReview = reviewService.deleteReview(memberId, review.getId());
+
+        // then
+        assertThat(deletedReview.isDeleted()).isTrue();
     }
 }
