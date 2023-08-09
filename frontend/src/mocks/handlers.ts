@@ -173,7 +173,7 @@ export const handlers = [
   rest.get(`${SERVERS.localhost}/members`, (req, res, ctx) => {
     const userToken = req.headers.get('Authorization');
 
-    if (userToken.replace('Bearer', '') === '') {
+    if (userToken === undefined || userToken.replace('Bearer', '') === '') {
       return res(ctx.status(401), ctx.json('unauthorized error'));
     }
 
@@ -197,10 +197,55 @@ export const handlers = [
     const capacities = filters.capacities;
     const companyNames = filters.companyNames;
 
-    if (userToken.replace('Bearer', '') === '') {
+    if (userToken === undefined || userToken.replace('Bearer', '') === '') {
       return res(ctx.status(401), ctx.json('unauthorized error'));
     }
 
     return res(ctx.status(200), ctx.json({ connectorTypes, capacities, companyNames }));
+  }),
+
+  rest.get(`${SERVERS.localhost}/members/filters`, (req, res, ctx) => {
+    const userToken = req.headers.get('Authorization');
+
+    if (userToken === undefined || userToken.replace('Bearer', '') === '') {
+      return res(ctx.status(401), ctx.json('unauthorized error'));
+    }
+
+    return res(
+      ctx.status(200),
+      ctx.json({
+        companyNames: [
+          {
+            key: 'HG',
+            value: '환경부',
+          },
+          {
+            key: 'HG2',
+            value: '환경부',
+          },
+        ],
+        capacities: [
+          {
+            capacity: 3.0,
+          },
+          {
+            capacity: 7.0,
+          },
+          {
+            capacity: 10.0,
+          },
+        ],
+        connectorTypes: [
+          {
+            key: 'DC_COMBO',
+            value: '고속차지',
+          },
+          {
+            key: 'DC_COMBO2',
+            value: '고속차지',
+          },
+        ],
+      })
+    );
   }),
 ];

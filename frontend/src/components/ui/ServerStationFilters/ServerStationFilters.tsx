@@ -94,6 +94,15 @@ const ServerStationFilters = () => {
     })
       .then((response) => response.json())
       .then((data) => console.log(data));
+
+    fetch(`${SERVERS.localhost}/members/filters`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${getSessionStorage(SESSION_KEY_USER_TOKEN, '')}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
   }, []);
 
   return (
