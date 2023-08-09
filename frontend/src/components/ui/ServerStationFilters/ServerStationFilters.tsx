@@ -39,6 +39,7 @@ const ServerStationFilters = () => {
     showToast('필터가 적용되었습니다');
   };
 
+  // TODO: 이 부분 훅 분리 하거나 함수 분리 하기
   useEffect(() => {
     fetch(`${SERVERS.localhost}/filters`)
       .then((response) => response.json())
