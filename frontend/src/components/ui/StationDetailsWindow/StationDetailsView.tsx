@@ -83,7 +83,7 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
       <Box my={3}>
         <CongestionStatistics />
       </Box>
-      <ReviewView />
+      <ReviewView stationId={stationId} />
     </Box>
   );
 };
