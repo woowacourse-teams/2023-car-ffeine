@@ -6,7 +6,9 @@ import { toastActions } from '@stores/layout/toastStore';
 import { MSW_OFF, SERVERS } from '@constants';
 import { SESSION_KEY_SERVER_MODE } from '@constants/storageKeys';
 
-import type { LoginUriResponse, TokenResponse } from '@type/login';
+interface TokenResponse {
+  token: string;
+}
 
 export const getUserToken = async (url: string) => {
   const mode = serverStore.getState();
@@ -26,6 +28,10 @@ export const getUserToken = async (url: string) => {
 
   return userToken;
 };
+
+interface LoginUriResponse {
+  loginUri: string;
+}
 
 export const redirectToLoginPage = (provider: string) => {
   const mode = serverStore.getState();

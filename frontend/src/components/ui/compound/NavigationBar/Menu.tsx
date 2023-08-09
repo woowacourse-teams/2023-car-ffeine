@@ -48,7 +48,7 @@ const Menu = () => {
       gap={7.5}
       css={[fixedPositionCss, paddingCss, borderCss]}
       noRadius="all"
-      nowrap={true}
+      nowrap
     >
       <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
       <Button>
