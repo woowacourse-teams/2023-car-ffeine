@@ -1,19 +1,21 @@
 import * as process from 'process';
+import { router } from 'router';
 
 import { createRoot } from 'react-dom/client';
+import { RouterProvider } from 'react-router-dom';
 
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import ApiKeyChecker from '@map/ApiKeyChecker';
-
 import { configureToken } from '@utils/configureToken';
+import { getSessionStorage, setSessionStorage } from '@utils/storage';
 
 import { mswModeActions } from '@stores/config/mswModeStore';
-
-import App from 'App';
+import { serverActions } from '@stores/config/serverStore';
 
 import { GlobalStyle } from 'style/GlobalStyle';
+
+import { SESSION_KEY_SERVER_MODE } from '@constants/storageKeys';
 
 const queryClient = new QueryClient();
 
@@ -22,20 +24,22 @@ const main = async () => {
     await mswModeActions.startMsw();
   }
 
+  if (
+    process.env.NODE_ENV === 'development' &&
+    getSessionStorage<string>(SESSION_KEY_SERVER_MODE, '') === 'mswOff'
+  ) {
+    mswModeActions.stopMsw();
+    serverActions.changeServer('dain');
+    setSessionStorage(SESSION_KEY_SERVER_MODE, '');
+  }
+
   const domNode = document.getElementById('root');
   const root = createRoot(domNode);
 
   root.render(
     <QueryClientProvider client={queryClient}>
       <GlobalStyle />
-      {/*<ApiKeyChecker render={(apiKey) => <App apiKey={apiKey} />} />*/}
-      <App
-        apiKey={
-          process.env.NODE_ENV === 'development'
-            ? process.env.GOOGLE_MAPS_API_KEY_DEV
-            : process.env.GOOGLE_MAPS_API_KEY_PROD
-        }
-      />
+      <RouterProvider router={router} />
       <ReactQueryDevtools initialIsOpen={true} />
     </QueryClientProvider>
   );

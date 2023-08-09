@@ -24,11 +24,20 @@ public class FakeMemberRepository implements MemberRepository {
     public Member save(Member member) {
         id++;
         map.put(id, member);
-        return member;
+        return Member.builder()
+                .id(id)
+                .memberRole(member.getMemberRole())
+                .email(member.getEmail())
+                .build();
     }
 
     @Override
     public boolean existsById(Long id) {
         return map.containsKey(id);
+    }
+
+    @Override
+    public Optional<Member> findById(Long memberId) {
+        return Optional.of(map.get(memberId));
     }
 }
