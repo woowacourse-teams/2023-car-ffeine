@@ -52,7 +52,7 @@ export const Default = (args: ToastProps) => {
 
   return (
     <>
-      <ButtonNext color="dark" onClick={() => showToast(message, position, color)}>
+      <ButtonNext color="dark" onClick={() => showToast(message, color, position)}>
         나와라 토스트!
       </ButtonNext>
       <>

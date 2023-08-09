@@ -54,7 +54,7 @@ const S = {
     font-weight: 500;
     color: #fff;
 
-    ${({ color = 'success' }) => getToastColor(color)};
+    ${({ color }) => getToastColor(color)};
     ${({ position, duration }) => getPopupAnimation(position, duration)}
 
     ${({ css }) => css}
