@@ -50,4 +50,8 @@ public class MisinformationReport extends BaseEntity {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "misinformation_report_id", updatable = false, nullable = false)
     private List<MisinformationDetailReport> misinformationDetailReports = new ArrayList<>();
+
+    public void check() {
+        this.isChecked = true;
+    }
 }

@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,5 +45,14 @@ public class AdminReportController {
     ) {
         MisinformationReport report = adminReportService.getMisinformationDetail(misinformationId, memberId);
         return ResponseEntity.ok(MisinformationDetailResponse.from(report));
+    }
+
+    @PatchMapping("/misinformation-reports/{misinformationId}")
+    public ResponseEntity<Void> updateChecked(
+            @AuthMember Long memberId,
+            @PathVariable Long misinformationId
+    ) {
+        adminReportService.check(misinformationId, memberId);
+        return ResponseEntity.noContent().build();
     }
 }

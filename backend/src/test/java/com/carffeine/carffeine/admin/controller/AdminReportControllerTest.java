@@ -67,7 +67,7 @@ public class AdminReportControllerTest extends MockBeanInjection {
     }
 
     @Test
-    void 충전소_상세_정보_조회한다() throws Exception {
+    void 충전소_정보_제보를_조회한다() throws Exception {
         // given
         given(adminReportService.getMisinformationDetail(any(), any()))
                 .willReturn(선릉역_상세정보가_포함된_잘못된_정보_제보);

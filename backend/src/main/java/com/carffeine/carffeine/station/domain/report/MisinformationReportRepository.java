@@ -17,4 +17,6 @@ public interface MisinformationReportRepository extends Repository<Misinformatio
 
     @Query("select m from MisinformationReport m join fetch m.misinformationDetailReports where m.id = :misinformationId")
     Optional<MisinformationReport> findFetchById(@Param("misinformationId") Long misinformationId);
+
+    Optional<MisinformationReport> findById(Long misinformationId);
 }

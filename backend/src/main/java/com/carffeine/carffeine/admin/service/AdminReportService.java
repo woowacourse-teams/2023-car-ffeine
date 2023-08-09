@@ -33,9 +33,18 @@ public class AdminReportService {
                 .orElseThrow(() -> new AdminException(AdminExceptionType.NOT_ADMIN));
     }
 
+    @Transactional(readOnly = true)
     public MisinformationReport getMisinformationDetail(Long misinformationId, Long memberId) {
         validateRole(memberId);
         return misinformationReportRepository.findFetchById(misinformationId)
                 .orElseThrow(() -> new ReportException(ReportExceptionType.NOT_FOUND));
+    }
+
+    @Transactional
+    public void check(Long misinformationId, Long memberId) {
+        validateRole(memberId);
+        MisinformationReport misinformationReport = misinformationReportRepository.findById(misinformationId)
+                .orElseThrow(() -> new ReportException(ReportExceptionType.NOT_FOUND));
+        misinformationReport.check();
     }
 }

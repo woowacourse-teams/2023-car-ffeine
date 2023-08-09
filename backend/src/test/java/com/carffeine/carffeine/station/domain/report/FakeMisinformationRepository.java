@@ -43,4 +43,9 @@ public class FakeMisinformationRepository implements MisinformationReportReposit
     public Optional<MisinformationReport> findFetchById(Long misinformationId) {
         return Optional.of(map.get(misinformationId));
     }
+
+    @Override
+    public Optional<MisinformationReport> findById(Long misinformationId) {
+        return Optional.of(map.get(misinformationId));
+    }
 }
