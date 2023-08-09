@@ -15,7 +15,7 @@ const UserRatings = ({ ratings, counts }: UserRatingsProps) => {
       <FlexBox justifyContent="between" alignItems="center">
         <Text variant="title">충전소 후기 </Text>
         <Text variant="subtitle">
-          <StarIcon width={10} display="inline-block" />
+          <StarIcon width={14} display="inline-block" />
           {ratings} ({counts}명)
         </Text>
       </FlexBox>

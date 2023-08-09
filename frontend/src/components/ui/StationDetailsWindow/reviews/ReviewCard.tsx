@@ -1,3 +1,4 @@
+import { PencilIcon, TrashIcon } from '@heroicons/react/20/solid';
 import { StarIcon } from '@heroicons/react/24/solid';
 
 import { useState } from 'react';
@@ -32,18 +33,47 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
       <Box p={2} mb={5}>
         <Box p={2}>
           <FlexBox justifyContent="between">
-            <FlexBox>
-              <Text variant="caption">{userId}님</Text>
+            <Box>
+              <Box mb={2}>
+                <FlexBox>
+                  <Text variant="label">{userId}님</Text>
+                  <Text variant="label">
+                    ( <StarIcon width={10} display="inline-block" />
+                    {ratings})
+                  </Text>
+                </FlexBox>
+              </Box>
+
               <Text variant="caption">
-                ( <StarIcon width={10} display="inline-block" />
-                {ratings})
+                {calculateLatestUpdateTime(latestUpdateDate)} {isUpdated && '(수정됨)'}
               </Text>
+            </Box>
+            <FlexBox>
+              {Math.random() < 0.5 ? (
+                <></>
+              ) : (
+                <>
+                  <ButtonNext
+                    size="xs"
+                    variant="text"
+                    color="secondary"
+                    onClick={() => alert('수정')}
+                  >
+                    <PencilIcon width={15} display="inline-block" />
+                  </ButtonNext>
+                  <ButtonNext
+                    size="xs"
+                    variant="text"
+                    color="secondary"
+                    onClick={() => alert('삭제')}
+                  >
+                    <TrashIcon width={15} display="inline-block" />
+                  </ButtonNext>
+                </>
+              )}
             </FlexBox>
-            <Text variant="caption">
-              {calculateLatestUpdateTime(latestUpdateDate)} {isUpdated && '(수정됨)'}
-            </Text>
           </FlexBox>
-          <Box mt={3}>
+          <Box my={3}>
             <Text variant="body">{content}</Text>
           </Box>
         </Box>
@@ -53,14 +83,6 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
             <ButtonNext size="xs" variant="text" onClick={() => setIsRepliesOpen(!isRepliesOpen)}>
               {isRepliesOpen ? `답글 닫기` : `답글 ${replies.length > 0 ? replies.length : '달기'}`}
             </ButtonNext>
-            <FlexBox>
-              <ButtonNext size="xs" variant="text" color="secondary" onClick={() => alert('수정')}>
-                수정
-              </ButtonNext>
-              <ButtonNext size="xs" variant="text" color="error" onClick={() => alert('삭제')}>
-                삭제
-              </ButtonNext>
-            </FlexBox>
           </FlexBox>
         )}
       </Box>
