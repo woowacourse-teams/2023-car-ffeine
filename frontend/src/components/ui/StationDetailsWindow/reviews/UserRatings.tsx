@@ -1,7 +1,20 @@
-import Alert from '@common/Alert';
+import FlexBox from '@common/FlexBox';
+import Text from '@common/Text';
 
-const UserRatings = () => {
-  return <Alert color="light" text="n명의 사용자들에게 평균 n점을 받은 충전소입니다." />;
+export interface UserRatingsProps {
+  ratings: number;
+  counts: number;
+}
+
+const UserRatings = ({ ratings, counts }: UserRatingsProps) => {
+  return (
+    <FlexBox justifyContent="between" alignItems="center">
+      <Text variant="title">충전소 후기 </Text>
+      <Text variant="caption">
+        ★{ratings} ({counts}명)
+      </Text>
+    </FlexBox>
+  );
 };
 
 export default UserRatings;
