@@ -11,7 +11,7 @@ export interface UserRatingsProps {
 
 const UserRatings = ({ ratings, counts }: UserRatingsProps) => {
   return (
-    <Box mb={5}>
+    <Box mb={5} px={4}>
       <FlexBox justifyContent="between" alignItems="center">
         <Text variant="title">충전소 후기 </Text>
         <Text variant="subtitle">

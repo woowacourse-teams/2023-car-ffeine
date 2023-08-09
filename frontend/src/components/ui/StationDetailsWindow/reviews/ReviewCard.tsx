@@ -30,7 +30,7 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
 
   return (
     <>
-      <Box p={2} mb={5}>
+      <Box p={2} mb={4} border>
         <Box p={2}>
           <FlexBox justifyContent="between">
             <Box>
@@ -88,36 +88,41 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
       </Box>
 
       {isRepliesOpen &&
-        replies.map((reply) => (
-          <Box p={3} key={reply.replyId} pl={8}>
-            <Box pl={4} py={3} css={{ borderLeft: '1px solid #66666666' }}>
-              <FlexBox justifyContent="between">
-                <FlexBox>
-                  <Text variant="caption">{reply.userId}님</Text>
+        replies.map((reply, index) => (
+          <>
+            <Box key={reply.replyId} p={3} pl={8}>
+              <Box pl={4} py={3} css={{ borderLeft: '1px solid #66666666' }}>
+                <FlexBox justifyContent="between">
+                  <FlexBox>
+                    <Text variant="caption">{reply.userId}님</Text>
+                  </FlexBox>
+                  <Text variant="caption">
+                    {calculateLatestUpdateTime(reply.latestUpdateDate)}{' '}
+                    {reply.isUpdated && '(수정됨)'}
+                  </Text>
                 </FlexBox>
-                <Text variant="caption">
-                  {calculateLatestUpdateTime(reply.latestUpdateDate)}{' '}
-                  {reply.isUpdated && '(수정됨)'}
-                </Text>
-              </FlexBox>
-              <Box mt={3}>
-                <Text variant="body">{reply.content}</Text>
+                <Box mt={3}>
+                  <Text variant="body">{reply.content}</Text>
+                </Box>
+                <FlexBox justifyContent="end">
+                  <ButtonNext
+                    size="xs"
+                    variant="text"
+                    color="secondary"
+                    onClick={() => alert('수정')}
+                  >
+                    수정
+                  </ButtonNext>
+                  <ButtonNext size="xs" variant="text" color="error" onClick={() => alert('삭제')}>
+                    삭제
+                  </ButtonNext>
+                </FlexBox>
               </Box>
-              <FlexBox justifyContent="end">
-                <ButtonNext
-                  size="xs"
-                  variant="text"
-                  color="secondary"
-                  onClick={() => alert('수정')}
-                >
-                  수정
-                </ButtonNext>
-                <ButtonNext size="xs" variant="text" color="error" onClick={() => alert('삭제')}>
-                  삭제
-                </ButtonNext>
-              </FlexBox>
             </Box>
-          </Box>
+            {index + 1 !== replies.length && (
+              <Box ml={16} my={2} css={{ borderBottom: '1px solid #66666666' }} />
+            )}
+          </>
         ))}
     </>
   );
