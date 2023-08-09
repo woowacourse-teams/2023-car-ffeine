@@ -6,7 +6,7 @@ import { serverStore } from '@stores/config/serverStore';
 import { modalActions } from '@stores/layout/modalStore';
 
 import { DEFAULT_TOKEN, SERVERS } from '@constants';
-import { STATION_CHARGER_REPORT_QUERY_KEY } from '@constants/queryKeys';
+import { QUERY_KEY_STATION_CHARGER_REPORT } from '@constants/queryKeys';
 import { LOCAL_KEY_TOKEN } from '@constants/storageKeys';
 
 const fetchReportCharger = async (stationId: string) => {
@@ -30,7 +30,7 @@ export const useUpdateStationChargerReport = () => {
       modalActions.closeModal();
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: [STATION_CHARGER_REPORT_QUERY_KEY] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_CHARGER_REPORT] });
     },
   });
 

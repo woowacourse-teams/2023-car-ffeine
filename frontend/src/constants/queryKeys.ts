@@ -1,7 +1,7 @@
-export const STATION_CHARGER_REPORT_QUERY_KEY = 'isStationChargerReported';
-export const STATION_CONGESTION_STATISTICS_QUERY_KEY = 'StationCongestionStatistics';
-export const STATION_DETAILS_QUERY_KEY = 'stationDetails';
-export const STATIONS_QUERY_KEY = 'stations';
-export const SEARCHED_STATION_QUERY_KEY = 'searchedStations';
-export const SERVER_STATION_FILTERS_QUERY_KEY = 'serverStationFilters';
-export const USER_SELECTED_FILTERS_QUERY_KEY = 'userSelectedFilters';
+export const QUERY_KEY_STATION_CHARGER_REPORT = 'isStationChargerReported';
+export const QUERY_KEY_STATION_CONGESTION_STATISTICS = 'StationCongestionStatistics';
+export const QUERY_KEY_STATION_DETAILS = 'stationDetails';
+export const QUERY_KEY_STATIONS = 'stations';
+export const QUERY_KEY_SEARCHED_STATION = 'searchedStations';
+export const QUERY_KEY_SERVER_STATION_FILTERS = 'serverStationFilters';
+export const QUERY_KEY_USER_SELECTED_FILTERS = 'userSelectedFilters';

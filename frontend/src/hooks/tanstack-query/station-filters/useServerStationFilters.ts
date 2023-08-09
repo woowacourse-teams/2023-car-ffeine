@@ -4,7 +4,7 @@ import { serverStore } from '@stores/config/serverStore';
 
 import { SERVERS } from '@constants';
 import type { CAPACITIES, CHARGER_TYPES, COMPANY_NAME } from '@constants/chargers';
-import { SERVER_STATION_FILTERS_QUERY_KEY } from '@constants/queryKeys';
+import { QUERY_KEY_SERVER_STATION_FILTERS } from '@constants/queryKeys';
 
 type CompanyNameKeys = keyof typeof COMPANY_NAME;
 type ConnectorTypeKeys = keyof typeof CHARGER_TYPES;
@@ -27,7 +27,7 @@ const fetchServerStationFilters = async () => {
 
 export const useServerStationFilters = () => {
   return useQuery({
-    queryKey: [SERVER_STATION_FILTERS_QUERY_KEY],
+    queryKey: [QUERY_KEY_SERVER_STATION_FILTERS],
     queryFn: fetchServerStationFilters,
   });
 };

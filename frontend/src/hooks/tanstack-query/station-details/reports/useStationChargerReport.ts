@@ -5,7 +5,7 @@ import { getLocalStorage } from '@utils/storage';
 import { serverStore } from '@stores/config/serverStore';
 
 import { DEFAULT_TOKEN, SERVERS } from '@constants';
-import { STATION_CHARGER_REPORT_QUERY_KEY } from '@constants/queryKeys';
+import { QUERY_KEY_STATION_CHARGER_REPORT } from '@constants/queryKeys';
 import { LOCAL_KEY_TOKEN } from '@constants/storageKeys';
 
 const fetchStationChargerReport = (token: number, stationId: string) => {
@@ -27,7 +27,7 @@ export const useStationChargerReport = (stationId: string) => {
   const token = getLocalStorage<number>(LOCAL_KEY_TOKEN, DEFAULT_TOKEN);
 
   return useQuery({
-    queryKey: [STATION_CHARGER_REPORT_QUERY_KEY, stationId],
+    queryKey: [QUERY_KEY_STATION_CHARGER_REPORT, stationId],
     queryFn: () => fetchStationChargerReport(token, stationId),
   });
 };

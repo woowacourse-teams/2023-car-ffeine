@@ -5,7 +5,7 @@ import { getSessionStorage } from '@utils/storage';
 import { serverStore } from '@stores/config/serverStore';
 
 import { SERVERS } from '@constants';
-import { USER_SELECTED_FILTERS_QUERY_KEY } from '@constants/queryKeys';
+import { QUERY_KEY_USER_SELECTED_FILTERS } from '@constants/queryKeys';
 import { SESSION_KEY_USER_TOKEN } from '@constants/storageKeys';
 
 import type { ServerStationFilters } from './useServerStationFilters';
@@ -29,7 +29,7 @@ const fetchUserFilters = async () => {
 
 export const useUserFilters = () => {
   return useQuery({
-    queryKey: [USER_SELECTED_FILTERS_QUERY_KEY],
+    queryKey: [QUERY_KEY_USER_SELECTED_FILTERS],
     queryFn: fetchUserFilters,
   });
 };
