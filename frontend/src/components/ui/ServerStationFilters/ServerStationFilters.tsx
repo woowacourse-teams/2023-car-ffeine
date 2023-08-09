@@ -1,8 +1,11 @@
 import { css } from 'styled-components';
 
+import { useEffect } from 'react';
+
 import { useQueryClient } from '@tanstack/react-query';
 
 import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
+import { getSessionStorage } from '@utils/storage';
 
 import { toastActions } from '@stores/layout/toastStore';
 
@@ -12,7 +15,9 @@ import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
+import { SERVERS } from '@constants';
 import { CAPACITIES, CHARGER_TYPES, COMPANY_NAME } from '@constants/chargers';
+import { SESSION_KEY_USER_TOKEN } from '@constants/storageKeys';
 
 import FilterSection from './FilterOption';
 
@@ -33,6 +38,21 @@ const ServerStationFilters = () => {
     queryClient.invalidateQueries({ queryKey: ['stations'] });
     showToast('필터가 적용되었습니다');
   };
+
+  useEffect(() => {
+    fetch(`${SERVERS.localhost}/filters`)
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+
+    fetch(`${SERVERS.localhost}/members`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${getSessionStorage(SESSION_KEY_USER_TOKEN, '')}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+  }, []);
 
   return (
     <FlexBox
