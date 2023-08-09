@@ -12,7 +12,7 @@ export const toastActions = {
   /**
    * @param message : 토스트로 보여줄 문구
    * @param color : 토스트 색상, [기본값] primary
-   * @param position : 토스트가 마지막으로 위치하는 곳, [기본값] bottom-center
+   * @param position : 토스트가 튀어나오는 곳, [기본값] bottom-center
    */
   showToast: (
     message: string,
