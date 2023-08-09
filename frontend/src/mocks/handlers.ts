@@ -1,8 +1,12 @@
 import { rest } from 'msw';
 
+import { getTypedObjectEntries } from '@utils/getTypedObjectEntries';
+import { getTypedObjectFromEntries } from '@utils/getTypedObjectFromEntries';
+import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 import { getSessionStorage, setSessionStorage } from '@utils/storage';
 
 import { SERVERS } from '@constants';
+import { CAPACITIES, CHARGER_TYPES, COMPANY_NAME } from '@constants/chargers';
 import { ERROR_MESSAGES } from '@constants/errorMessages';
 import { SESSION_KEY_REPORTED_STATIONS } from '@constants/storageKeys';
 
@@ -146,5 +150,25 @@ export const handlers = [
     const congestionStatistics = getCongestionStatistics(stationId);
 
     return res(ctx.json(congestionStatistics), ctx.delay(1000), ctx.status(200));
+  }),
+
+  rest.get(`${SERVERS.localhost}/filters`, (_, res, ctx) => {
+    CHARGER_TYPES;
+    COMPANY_NAME;
+    CAPACITIES;
+
+    return res(
+      ctx.json({
+        connectorTypes: getTypedObjectEntries(CHARGER_TYPES).map(([key, value]) => ({
+          key,
+          value,
+        })),
+        capacities: CAPACITIES.map((capacity) => ({ capacity })),
+        companyNames: getTypedObjectEntries(COMPANY_NAME).map(([key, value]) => ({
+          key,
+          value,
+        })),
+      })
+    );
   }),
 ];
