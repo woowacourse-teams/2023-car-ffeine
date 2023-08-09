@@ -1,8 +1,6 @@
 import { rest } from 'msw';
 
 import { getTypedObjectEntries } from '@utils/getTypedObjectEntries';
-import { getTypedObjectFromEntries } from '@utils/getTypedObjectFromEntries';
-import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 import { getSessionStorage, setSessionStorage } from '@utils/storage';
 
 import { SERVERS } from '@constants';
@@ -175,7 +173,7 @@ export const handlers = [
   rest.get(`${SERVERS.localhost}/members`, (req, res, ctx) => {
     const userToken = req.headers.get('Authorization');
 
-    if (userToken.replace('Bearer ', '') === '') {
+    if (userToken.replace('Bearer', '') === '') {
       return res(ctx.status(401), ctx.json('unauthorized error'));
     }
 
@@ -189,5 +187,20 @@ export const handlers = [
         },
       })
     );
+  }),
+
+  rest.post(`${SERVERS.localhost}/members/filters`, async (req, res, ctx) => {
+    const userToken = req.headers.get('Authorization');
+    const filters = await req.json();
+
+    const connectorTypes = filters.connectorTypes;
+    const capacities = filters.capacities;
+    const companyNames = filters.companyNames;
+
+    if (userToken.replace('Bearer', '') === '') {
+      return res(ctx.status(401), ctx.json('unauthorized error'));
+    }
+
+    return res(ctx.status(200), ctx.json({ connectorTypes, capacities, companyNames }));
   }),
 ];

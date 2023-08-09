@@ -52,6 +52,48 @@ const ServerStationFilters = () => {
     })
       .then((response) => response.json())
       .then((data) => console.log(data));
+
+    fetch(`${SERVERS.localhost}/members/filters`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${getSessionStorage(SESSION_KEY_USER_TOKEN, '')}`,
+      },
+      body: JSON.stringify({
+        connectorTypes: [
+          {
+            key: 'DC_COMBO',
+            value: '고속차지',
+          },
+          {
+            key: 'DC_COMBO2',
+            value: '고속차지',
+          },
+        ],
+        capacities: [
+          {
+            capacity: 3.0,
+          },
+          {
+            capacity: 7.0,
+          },
+          {
+            capacity: 10.0,
+          },
+        ],
+        companyNames: [
+          {
+            key: 'HG',
+            value: '환경부',
+          },
+          {
+            key: 'HG2',
+            value: '환경부',
+          },
+        ],
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
   }, []);
 
   return (
