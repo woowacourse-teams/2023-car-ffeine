@@ -1,8 +1,14 @@
 package com.carffeine.carffeine.filter.domain.companyName;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.Repository;
 
-public interface CompanyNameRepository extends JpaRepository<CompanyName, Long> {
+import java.util.List;
+
+public interface CompanyNameRepository extends Repository<CompanyName, Long> {
 
     boolean existsByCompanyName(String companyName);
+
+    List<CompanyName> findAll();
+
+    <S extends CompanyName> List<S> saveAll(Iterable<S> entities);
 }
