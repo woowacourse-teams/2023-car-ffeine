@@ -1,10 +1,12 @@
 package com.carffeine.carffeine.admin.controller;
 
 import com.carffeine.carffeine.admin.common.CustomPage;
+import com.carffeine.carffeine.admin.controller.dto.FaultReportsResponse;
 import com.carffeine.carffeine.admin.controller.dto.MisinformationDetailResponse;
 import com.carffeine.carffeine.admin.controller.dto.MisinformationReportResponse;
 import com.carffeine.carffeine.admin.service.AdminReportService;
 import com.carffeine.carffeine.auth.controller.AuthMember;
+import com.carffeine.carffeine.station.domain.report.FaultReport;
 import com.carffeine.carffeine.station.domain.report.MisinformationReport;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -54,5 +56,18 @@ public class AdminReportController {
     ) {
         adminReportService.check(misinformationId, memberId);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/fault-reports")
+    public ResponseEntity<CustomPage<FaultReportsResponse>> getFaultReports(
+            Pageable pageable,
+            @AuthMember Long memberId
+    ) {
+        Page<FaultReport> pagedFaultReports = adminReportService.getFaultReports(pageable, memberId);
+        int totalPages = pagedFaultReports.getTotalPages();
+        List<FaultReportsResponse> elements = pagedFaultReports.getContent().stream()
+                .map(FaultReportsResponse::from)
+                .toList();
+        return ResponseEntity.ok(new CustomPage<>(totalPages, elements));
     }
 }

@@ -1,6 +1,9 @@
 package com.carffeine.carffeine.admin.controller;
 
 import com.carffeine.carffeine.helper.MockBeanInjection;
+import com.carffeine.carffeine.member.fixture.MemberFixture;
+import com.carffeine.carffeine.station.domain.report.FaultReport;
+import com.carffeine.carffeine.station.fixture.station.StationFixture;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
@@ -22,6 +25,7 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
@@ -67,7 +71,7 @@ public class AdminReportControllerTest extends MockBeanInjection {
     }
 
     @Test
-    void 충전소_정보_제보를_조회한다() throws Exception {
+    void 충전소_정보_제보_상세_조회한다() throws Exception {
         // given
         given(adminReportService.getMisinformationDetail(any(), any()))
                 .willReturn(선릉역_상세정보가_포함된_잘못된_정보_제보);
@@ -89,6 +93,48 @@ public class AdminReportControllerTest extends MockBeanInjection {
                                 subsectionWithPath("details[].detailId").description("상세 정보 ID"),
                                 subsectionWithPath("details[].category").description("카테고리"),
                                 subsectionWithPath("details[].content").description("내용")
+                        )
+                ));
+    }
+
+    @Test
+    void 충전소_제보_확인으로_변경한다() throws Exception {
+        mockMvc.perform(patch("/admin/misinformation-reports/{misinformationId}", 123L)
+                        .header(HttpHeaders.AUTHORIZATION, "token~~"))
+                .andExpect(status().isNoContent())
+                .andDo(customDocument("update-misinformation-checked",
+                        pathParameters(parameterWithName("misinformationId").description("미스인포메이션 리포트 ID")),
+                        requestHeaders(headerWithName(HttpHeaders.AUTHORIZATION).description("인증 토큰"))
+                ));
+    }
+
+    @Test
+    void 충전소_고장_신고를_페이지_단위로_조회한다() throws Exception {
+        FaultReport fault = FaultReport.builder().id(1L)
+                .member(MemberFixture.일반_회원)
+                .station(StationFixture.선릉역_충전소_충전기_2개_사용가능_1개_완속)
+                .build();
+        given(adminReportService.getFaultReports(any(), any()))
+                .willReturn(new PageImpl<>(List.of(fault), Pageable.ofSize(2), 2));
+
+        mockMvc.perform(get("/admin/fault-reports")
+                        .param("page", "0")
+                        .param("size", "2")
+                        .header(HttpHeaders.AUTHORIZATION, "token~~"))
+                .andExpect(status().isOk())
+                .andDo(customDocument("get-fault-reports",
+                        requestParameters(
+                                parameterWithName("page").description("페이지 번호"),
+                                parameterWithName("size").description("페이지 크기")
+                        ),
+                        requestHeaders(headerWithName(HttpHeaders.AUTHORIZATION).description("인증 토큰")),
+                        responseFields(
+                                fieldWithPath("lastPage").description("전체 페이지 수"),
+                                subsectionWithPath("elements").description("리스트의 요소들")
+                                        .type(JsonFieldType.ARRAY),
+                                subsectionWithPath("elements[].id").description("리포트 ID"),
+                                subsectionWithPath("elements[].memberId").description("신고한 회원 ID"),
+                                subsectionWithPath("elements[].stationId").description("신고당한 충전소 ID")
                         )
                 ));
     }

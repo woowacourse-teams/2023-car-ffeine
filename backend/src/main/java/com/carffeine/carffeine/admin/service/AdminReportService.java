@@ -4,6 +4,8 @@ import com.carffeine.carffeine.admin.exception.AdminException;
 import com.carffeine.carffeine.admin.exception.AdminExceptionType;
 import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.member.domain.MemberRepository;
+import com.carffeine.carffeine.station.domain.report.FaultReport;
+import com.carffeine.carffeine.station.domain.report.FaultReportRepository;
 import com.carffeine.carffeine.station.domain.report.MisinformationReport;
 import com.carffeine.carffeine.station.domain.report.MisinformationReportRepository;
 import com.carffeine.carffeine.station.exception.report.ReportException;
@@ -20,6 +22,7 @@ public class AdminReportService {
 
     private final MemberRepository memberRepository;
     private final MisinformationReportRepository misinformationReportRepository;
+    private final FaultReportRepository faultReportRepository;
 
     @Transactional(readOnly = true)
     public Page<MisinformationReport> getMisinformationReports(Pageable pageable, Long memberId) {
@@ -46,5 +49,11 @@ public class AdminReportService {
         MisinformationReport misinformationReport = misinformationReportRepository.findById(misinformationId)
                 .orElseThrow(() -> new ReportException(ReportExceptionType.NOT_FOUND));
         misinformationReport.check();
+    }
+
+    @Transactional(readOnly = true)
+    public Page<FaultReport> getFaultReports(Pageable pageable, Long memberId) {
+        validateRole(memberId);
+        return faultReportRepository.findAll(pageable);
     }
 }

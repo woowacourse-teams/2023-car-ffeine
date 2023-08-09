@@ -12,8 +12,11 @@ import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
@@ -31,11 +34,15 @@ class FaultReportRepositoryTest {
 
     private Station station;
     private Member member;
+    private Member otherMember;
 
     @BeforeEach
     void setUp() {
         station = stationRepository.save(StationFixture.선릉역_충전소_충전기_2개_사용가능_1개);
         member = memberRepository.save(Member.builder()
+                .memberRole(MemberRole.USER)
+                .build());
+        otherMember = memberRepository.save(Member.builder()
                 .memberRole(MemberRole.USER)
                 .build());
     }
@@ -85,5 +92,27 @@ class FaultReportRepositoryTest {
 
         // then
         assertThat(result).isFalse();
+    }
+
+    @Test
+    void 고장_신고_목록을_페이지로_조회한다() {
+        // given
+        FaultReport faultReport = faultReportRepository.save(FaultReport.builder()
+                .station(station)
+                .member(member)
+                .build());
+        faultReportRepository.save(FaultReport.builder()
+                .station(station)
+                .member(otherMember)
+                .build());
+
+        // when
+        Page<FaultReport> result = faultReportRepository.findAll(Pageable.ofSize(1));
+
+        // then
+        assertSoftly(softly -> {
+            softly.assertThat(result.getTotalPages()).isEqualTo(2);
+            softly.assertThat(result.getContent()).containsExactly(faultReport);
+        });
     }
 }

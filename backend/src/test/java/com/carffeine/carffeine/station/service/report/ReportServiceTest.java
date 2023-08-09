@@ -4,7 +4,7 @@ import com.carffeine.carffeine.fake.member.FakeMemberRepository;
 import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.member.domain.MemberRepository;
 import com.carffeine.carffeine.member.fixture.MemberFixture;
-import com.carffeine.carffeine.station.domain.report.FakeFaultRepository;
+import com.carffeine.carffeine.station.domain.report.FakeFaultReportRepository;
 import com.carffeine.carffeine.station.domain.report.FakeMisinformationRepository;
 import com.carffeine.carffeine.station.domain.report.FaultReport;
 import com.carffeine.carffeine.station.domain.report.FaultReportRepository;
@@ -42,7 +42,7 @@ class ReportServiceTest {
     void setUp() {
         misinformationReportRepository = new FakeMisinformationRepository();
         stationRepository = new FakeStationRepository();
-        faultReportRepository = new FakeFaultRepository();
+        faultReportRepository = new FakeFaultReportRepository();
         memberRepository = new FakeMemberRepository();
         reportService = new ReportService(faultReportRepository, stationRepository, memberRepository, misinformationReportRepository);
     }

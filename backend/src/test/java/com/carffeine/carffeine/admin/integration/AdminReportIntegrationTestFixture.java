@@ -1,8 +1,10 @@
 package com.carffeine.carffeine.admin.integration;
 
 import com.carffeine.carffeine.admin.common.CustomPage;
+import com.carffeine.carffeine.admin.controller.dto.FaultReportsResponse;
 import com.carffeine.carffeine.admin.controller.dto.MisinformationDetailResponse;
 import com.carffeine.carffeine.admin.controller.dto.MisinformationReportResponse;
+import com.carffeine.carffeine.station.domain.report.FaultReport;
 import com.carffeine.carffeine.station.domain.report.MisinformationReport;
 import io.restassured.RestAssured;
 import io.restassured.common.mapper.TypeRef;
@@ -66,5 +68,28 @@ public class AdminReportIntegrationTestFixture {
     public static void 충전소_제보가_체크되었는지_확인한다(ExtractableResponse<Response> 응답) {
         var response = 응답.as(MisinformationDetailResponse.class);
         assertThat(response.isChecked()).isTrue();
+    }
+
+    public static void 충전소_제보_신고_페이지를_검증한다(ExtractableResponse<Response> extract, int 페이지_사이즈, FaultReport... 충전소_제보들) {
+        CustomPage<FaultReportsResponse> response = extract.as(new TypeRef<>() {
+        });
+        List<FaultReportsResponse> result = Arrays.stream(충전소_제보들)
+                .map(FaultReportsResponse::from)
+                .toList();
+        assertSoftly(softly -> {
+            softly.assertThat(response.elements()).usingRecursiveComparison()
+                    .isEqualTo(result);
+            softly.assertThat(response.lastPage()).isEqualTo(페이지_사이즈);
+        });
+    }
+
+    public static ExtractableResponse<Response> 토큰과_함께_페이지_번호와_사이즈로_충전소_신고_목록을_요청한다(String 토큰, int 페이지_번호, int 페이지_사이즈) {
+        return RestAssured.given().log().all()
+                .header(HttpHeaders.AUTHORIZATION, 토큰)
+                .param("page", 페이지_번호)
+                .param("size", 페이지_사이즈)
+                .get("/admin/fault-reports")
+                .then().log().all()
+                .extract();
     }
 }

@@ -6,7 +6,10 @@ import com.carffeine.carffeine.fake.member.FakeMemberRepository;
 import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.member.domain.MemberRepository;
 import com.carffeine.carffeine.member.domain.MemberRole;
+import com.carffeine.carffeine.station.domain.report.FakeFaultReportRepository;
 import com.carffeine.carffeine.station.domain.report.FakeMisinformationRepository;
+import com.carffeine.carffeine.station.domain.report.FaultReport;
+import com.carffeine.carffeine.station.domain.report.FaultReportRepository;
 import com.carffeine.carffeine.station.domain.report.MisinformationReport;
 import com.carffeine.carffeine.station.domain.report.MisinformationReportRepository;
 import com.carffeine.carffeine.station.fixture.report.MisinformationReportFixture;
@@ -28,14 +31,16 @@ public class AdminReportServiceTest {
     private MisinformationReportRepository misinformationReportRepository;
     private MemberRepository memberRepository;
     private AdminReportService adminReportService;
+    private FaultReportRepository faultReportRepository;
     private Member admin;
     private Member user;
 
     @BeforeEach
     void setUp() {
         memberRepository = new FakeMemberRepository();
+        faultReportRepository = new FakeFaultReportRepository();
         misinformationReportRepository = new FakeMisinformationRepository();
-        adminReportService = new AdminReportService(memberRepository, misinformationReportRepository);
+        adminReportService = new AdminReportService(memberRepository, misinformationReportRepository, faultReportRepository);
 
         admin = memberRepository.save(Member.builder()
                 .memberRole(MemberRole.ADMIN)
@@ -86,5 +91,24 @@ public class AdminReportServiceTest {
         assertThatThrownBy(() -> adminReportService.getMisinformationDetail(report.getId(), user.getId()))
                 .isInstanceOf(AdminException.class)
                 .hasMessage(AdminExceptionType.NOT_ADMIN.message());
+    }
+
+    @Test
+    void 충전소의_모든_신고를_요청한_갯수만큼_가져온다() {
+        // given
+        for (int i = 0; i < 30; i++) {
+            faultReportRepository.save(FaultReport.builder()
+                    .id((long) i)
+                    .build());
+        }
+
+        // when
+        Page<FaultReport> faultPage = adminReportService.getFaultReports(of(0, 10), admin.getId());
+
+        // then
+        assertSoftly(softly -> {
+            softly.assertThat(faultPage.getNumberOfElements()).isEqualTo(10);
+            softly.assertThat(faultPage.getTotalPages()).isEqualTo(3);
+        });
     }
 }
