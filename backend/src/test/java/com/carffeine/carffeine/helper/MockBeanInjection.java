@@ -1,5 +1,6 @@
 package com.carffeine.carffeine.helper;
 
+import com.carffeine.carffeine.admin.service.AdminReportService;
 import com.carffeine.carffeine.admin.service.AdminStationService;
 import com.carffeine.carffeine.auth.controller.AuthMemberResolver;
 import com.carffeine.carffeine.auth.domain.TokenProvider;
@@ -33,4 +34,6 @@ public class MockBeanInjection {
     protected OAuthRequester oAuthRequester;
     @MockBean
     protected AdminStationService adminStationService;
+    @MockBean
+    protected AdminReportService adminReportService;
 }
