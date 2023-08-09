@@ -33,6 +33,13 @@ export const generateRandomToken = () => {
 };
 
 /**
+ * 범위 내의 랜덤한 수 하나를 생성한다.
+ */
+export const generateRandomCommentsLength = (min: number, max: number) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+/**
  * 배열 내부에 있는 값 중 아무거나 랜덤으로 반환한다.
  */
 export const generateRandomData = <T>(array: T[]): T => {

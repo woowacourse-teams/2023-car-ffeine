@@ -1,6 +1,11 @@
 import { getTypedObjectFromEntries } from '@utils/getTypedObjectFromEntries';
 import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
-import { generateRandomData, generateRandomToken, getRandomTime } from '@utils/randomDataGenerator';
+import {
+  generateRandomCommentsLength,
+  generateRandomData,
+  generateRandomToken,
+  getRandomTime,
+} from '@utils/randomDataGenerator';
 
 import { CHARGER_TYPES, COMPANY_NAME } from '@constants/chargers';
 import { ENGLISH_DAYS } from '@constants/congestion';
@@ -102,7 +107,7 @@ const getCongestions = (): Record<EnglishDaysType, Congestion[]> => {
 };
 
 export const generateReviewsWithReplies = (): Review[] => {
-  return Array.from({ length: 50 }, (_, i) => {
+  return Array.from({ length: generateRandomCommentsLength(0, 15) }, (_, i) => {
     return {
       reviewId: i,
       userId: generateRandomToken(),
@@ -119,8 +124,8 @@ export const generateReviewsWithReplies = (): Review[] => {
       ]),
       isUpdated: generateRandomData([true, false]),
       isDeleted: generateRandomData([true, false]),
-      replies: [
-        {
+      replies: Array.from({ length: generateRandomCommentsLength(0, 4) }, (_, i) => {
+        return {
           replyId: generateRandomToken(),
           userId: generateRandomToken(),
           latestUpdateDate: getRandomTime(),
@@ -135,8 +140,8 @@ export const generateReviewsWithReplies = (): Review[] => {
           ]),
           isUpdated: generateRandomData([true, false]),
           isDeleted: generateRandomData([true, false]),
-        },
-      ],
+        };
+      }),
     };
   });
 };
