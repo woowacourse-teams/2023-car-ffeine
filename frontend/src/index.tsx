@@ -8,16 +8,28 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { configureToken } from '@utils/configureToken';
+import { getSessionStorage } from '@utils/storage';
 
 import { mswModeActions } from '@stores/config/mswModeStore';
+import { serverActions } from '@stores/config/serverStore';
 
 import { GlobalStyle } from 'style/GlobalStyle';
+
+import { SESSION_KEY_SERVER_MODE } from '@constants/storageKeys';
 
 const queryClient = new QueryClient();
 
 const main = async () => {
   if (process.env.NODE_ENV === 'development') {
     await mswModeActions.startMsw();
+  }
+
+  if (
+    process.env.NODE_ENV === 'development' &&
+    getSessionStorage<string>(SESSION_KEY_SERVER_MODE, '') === 'mswOff'
+  ) {
+    mswModeActions.stopMsw();
+    serverActions.changeServer('dain');
   }
 
   const domNode = document.getElementById('root');

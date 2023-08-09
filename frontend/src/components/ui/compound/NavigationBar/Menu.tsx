@@ -9,6 +9,7 @@ import { css } from 'styled-components';
 import { useState } from 'react';
 
 import { getLoginUri } from '@utils/login';
+import { setSessionStorage } from '@utils/storage';
 
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
@@ -19,6 +20,9 @@ import ServerStationFilters from '@ui/ServerStationFilters';
 import StationListWindow from '@ui/StationList/StationListWindow';
 import StationSearchWindow from '@ui/StationSearchWindow';
 import LogoIcon from '@ui/Svg/LogoIcon';
+
+import { MSW_OFF } from '@constants';
+import { SESSION_KEY_SERVER_MODE } from '@constants/storageKeys';
 
 import { useNavigationBar } from './hooks/useNavigationBar';
 
@@ -43,6 +47,9 @@ const Menu = () => {
         onClose={() => setIsLoginModalOpen(false)}
         redirectToLoginPage={() => {
           getLoginUri('google').then((loginUri) => {
+            // 리다이렉트 진행시 msw가 강제로 켜지는 문제가 있어서 해당 문제를 해결하고자 세션 스토리지를 활용함.
+            setSessionStorage(SESSION_KEY_SERVER_MODE, MSW_OFF);
+
             window.location.href = loginUri;
           });
         }}
