@@ -8,8 +8,7 @@ import { css } from 'styled-components';
 
 import { useState } from 'react';
 
-import { getLoginUri } from '@utils/login';
-import { setSessionStorage } from '@utils/storage';
+import { getSessionStorage } from '@utils/storage';
 
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
@@ -21,14 +20,23 @@ import StationListWindow from '@ui/StationList/StationListWindow';
 import StationSearchWindow from '@ui/StationSearchWindow';
 import LogoIcon from '@ui/Svg/LogoIcon';
 
-import { MSW_OFF } from '@constants';
-import { SESSION_KEY_SERVER_MODE } from '@constants/storageKeys';
+import { SESSION_KEY_USER_TOKEN } from '@constants/storageKeys';
 
 import { useNavigationBar } from './hooks/useNavigationBar';
 
 const Menu = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const { openBasePanel } = useNavigationBar();
+
+  const handleClickLoginIcon = () => {
+    const userToken = getSessionStorage(SESSION_KEY_USER_TOKEN, '');
+
+    if (userToken === '') {
+      setIsLoginModalOpen(true);
+      return;
+    }
+    alert('사용자 메뉴 열림');
+  };
 
   return (
     <FlexBox
@@ -42,18 +50,7 @@ const Menu = () => {
       noRadius="all"
       nowrap={true}
     >
-      <LoginModal
-        isOpen={isLoginModalOpen}
-        onClose={() => setIsLoginModalOpen(false)}
-        redirectToLoginPage={() => {
-          getLoginUri('google').then((loginUri) => {
-            // 리다이렉트 진행시 msw가 강제로 켜지는 문제가 있어서 해당 문제를 해결하고자 세션 스토리지를 활용함.
-            setSessionStorage(SESSION_KEY_SERVER_MODE, MSW_OFF);
-
-            window.location.href = loginUri;
-          });
-        }}
-      />
+      <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
       <Button>
         <LogoIcon width={3} />
       </Button>
@@ -66,12 +63,7 @@ const Menu = () => {
       <Button aria-label="충전소 목록 보기" onClick={() => openBasePanel(<StationListWindow />)}>
         <Bars3Icon width="2.8rem" stroke="#333" />
       </Button>
-      <Button
-        aria-label="로그인 하기"
-        onClick={() => {
-          setIsLoginModalOpen(true);
-        }}
-      >
+      <Button aria-label="로그인 하기" onClick={handleClickLoginIcon}>
         <UserCircleIcon width="2.8rem" stroke="#333" />
       </Button>
       {process.env.NODE_ENV === 'development' && <MswControlButton />}

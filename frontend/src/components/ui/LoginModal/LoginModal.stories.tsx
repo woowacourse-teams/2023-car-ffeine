@@ -24,11 +24,7 @@ export const Default = () => {
   return (
     <>
       <ButtonNext onClick={() => setIsOpen(true)}>열기</ButtonNext>
-      <LoginModal
-        isOpen={isOpen}
-        onClose={closeModal}
-        redirectToLoginPage={() => console.log('로그인 시도')}
-      />
+      <LoginModal isOpen={isOpen} onClose={closeModal} />
     </>
   );
 };
