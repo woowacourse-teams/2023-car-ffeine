@@ -1,4 +1,4 @@
 package com.carffeine.carffeine.filter.controller.dto.connectorType;
 
-public record ConnectorTypeRequest(String connectorKey, String value) {
+public record ConnectorTypeRequest(String key, String value) {
 }

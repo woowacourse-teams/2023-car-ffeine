@@ -41,7 +41,7 @@ public class FilterService {
 
         List<CompanyName> companyNames = companyNamesRequest.companyNames()
                 .stream()
-                .map(it -> CompanyName.from(it.companyName()))
+                .map(it -> CompanyName.from(it.key(), it.value()))
                 .toList();
 
         companyNameRepository.saveAll(companyNames);
@@ -53,7 +53,7 @@ public class FilterService {
 
         List<ConnectorType> connectorTypes = connectorTypesRequest.connectTypes()
                 .stream()
-                .map(it -> ConnectorType.from(it.connectorKey(), it.value()))
+                .map(it -> ConnectorType.from(it.key(), it.value()))
                 .toList();
 
         connectorTypeRepository.saveAll(connectorTypes);
@@ -65,7 +65,7 @@ public class FilterService {
 
         List<Capacity> capacities = capacitiesRequest.capacities()
                 .stream()
-                .map(it -> Capacity.from(it.capacity()))
+                .map(Capacity::from)
                 .toList();
 
         capacityRepository.saveAll(capacities);
@@ -74,7 +74,7 @@ public class FilterService {
     private void validateDuplicatedName(CompanyNamesRequest companyNamesRequest) {
         boolean isExistsCompanyNamesAlready = companyNamesRequest.companyNames()
                 .stream()
-                .anyMatch(it -> companyNameRepository.existsByCompanyName(it.companyName()));
+                .anyMatch(it -> companyNameRepository.existsByCompanyKey(it.key()));
 
         if (isExistsCompanyNamesAlready) {
             throw new FilterException(FilterExceptionType.FILTER_ALREADY_REGISTERED);
@@ -84,7 +84,7 @@ public class FilterService {
     private void validateDuplicatedConnectorType(ConnectorTypesRequest connectorTypesRequest) {
         boolean isExistsConnectorType = connectorTypesRequest.connectTypes()
                 .stream()
-                .anyMatch(it -> connectorTypeRepository.existsByConnectorKey(it.connectorKey()));
+                .anyMatch(it -> connectorTypeRepository.existsByConnectorKey(it.key()));
 
         if (isExistsConnectorType) {
             throw new FilterException(FilterExceptionType.FILTER_ALREADY_REGISTERED);
@@ -94,7 +94,7 @@ public class FilterService {
     private void validateDuplicatedCapacity(CapacitiesRequest capacitiesRequest) {
         boolean isExistsCompanyNamesAlready = capacitiesRequest.capacities()
                 .stream()
-                .anyMatch(it -> capacityRepository.existsByCapacity(it.capacity()));
+                .anyMatch(capacityRepository::existsByCapacity);
 
         if (isExistsCompanyNamesAlready) {
             throw new FilterException(FilterExceptionType.FILTER_ALREADY_REGISTERED);

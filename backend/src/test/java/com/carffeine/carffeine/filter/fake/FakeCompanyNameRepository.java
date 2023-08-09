@@ -15,10 +15,10 @@ public class FakeCompanyNameRepository implements CompanyNameRepository {
     private Long id = 0L;
 
     @Override
-    public boolean existsByCompanyName(String companyName) {
+    public boolean existsByCompanyKey(String key) {
         return map.values()
                 .stream()
-                .anyMatch(it -> it.getCompanyName().equals(companyName));
+                .anyMatch(it -> it.getCompanyKey().equals(key));
     }
 
     @Override

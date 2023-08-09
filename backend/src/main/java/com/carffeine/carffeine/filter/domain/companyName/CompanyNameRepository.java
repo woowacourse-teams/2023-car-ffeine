@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CompanyNameRepository extends Repository<CompanyName, Long> {
 
-    boolean existsByCompanyName(String companyName);
+    boolean existsByCompanyKey(String companyKey);
 
     List<CompanyName> findAll();
 

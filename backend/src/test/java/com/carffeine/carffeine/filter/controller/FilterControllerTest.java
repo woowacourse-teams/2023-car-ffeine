@@ -1,7 +1,6 @@
 package com.carffeine.carffeine.filter.controller;
 
 import com.carffeine.carffeine.filter.controller.dto.capacity.CapacitiesRequest;
-import com.carffeine.carffeine.filter.controller.dto.capacity.CapacityRequest;
 import com.carffeine.carffeine.filter.controller.dto.companyName.CompanyNameRequest;
 import com.carffeine.carffeine.filter.controller.dto.companyName.CompanyNamesRequest;
 import com.carffeine.carffeine.filter.controller.dto.connectorType.ConnectorTypeRequest;
@@ -50,7 +49,7 @@ class FilterControllerTest extends MockBeanInjection {
     void 현재_존재하는_모든_필터를_반환한다() throws Exception {
         // given
         FiltersResponse filtersResponse = FiltersResponse.of(
-                List.of(CompanyName.from("회사명")),
+                List.of(CompanyName.from("HG", "환경부")),
                 List.of(Capacity.from(BigDecimal.valueOf(2))),
                 List.of(ConnectorType.from("DC_COMBO", "고속"))
         );
@@ -63,9 +62,10 @@ class FilterControllerTest extends MockBeanInjection {
                 .andExpect(status().isOk())
                 .andDo(customDocument("find_all_filters",
                         responseFields(
-                                fieldWithPath("companyNames[0].companyName").type(JsonFieldType.STRING).description("필터에 적용된 회사 이름"),
+                                fieldWithPath("companyNames[0].key").type(JsonFieldType.STRING).description("필터에 적용된 회사명 키"),
+                                fieldWithPath("companyNames[0].value").type(JsonFieldType.STRING).description("필터에 적용된 회사 이름"),
                                 fieldWithPath("capacities[0].capacity").type(JsonFieldType.NUMBER).description("필터에 적용된 충전기 용량"),
-                                fieldWithPath("connectorTypes[0].connectorKey").type(JsonFieldType.STRING).description("필터에 적용된 커넥터 이름 축약"),
+                                fieldWithPath("connectorTypes[0].key").type(JsonFieldType.STRING).description("필터에 적용된 커넥터 이름 키"),
                                 fieldWithPath("connectorTypes[0].value").type(JsonFieldType.STRING).description("필터에 적용된 사용자용 커넥터의 이름")
                         )
                 ));
@@ -75,7 +75,7 @@ class FilterControllerTest extends MockBeanInjection {
     void 회사_이름을_필터에_추가한다() throws Exception {
         // given
         CompanyNamesRequest companyNamesRequest = new CompanyNamesRequest(
-                List.of(new CompanyNameRequest("환경부"))
+                List.of(new CompanyNameRequest("HG", "환경부"))
         );
 
         // when & then
@@ -85,7 +85,8 @@ class FilterControllerTest extends MockBeanInjection {
                 ).andExpect(status().isNoContent())
                 .andDo(customDocument("add_company_names_on_filter",
                         requestFields(
-                                fieldWithPath("companyNames[0].companyName").type(JsonFieldType.STRING).description("필터에 적용할 회사 이름")
+                                fieldWithPath("companyNames[0].key").type(JsonFieldType.STRING).description("필터에 적용할 회사 이름 키"),
+                                fieldWithPath("companyNames[0].value").type(JsonFieldType.STRING).description("필터에 적용할 회사 이름")
                         )
                 ));
     }
@@ -104,7 +105,7 @@ class FilterControllerTest extends MockBeanInjection {
                 ).andExpect(status().isNoContent())
                 .andDo(customDocument("add_type_on_filter",
                         requestFields(
-                                fieldWithPath("connectTypes[0].connectorKey").type(JsonFieldType.STRING).description("필터에 적용할 커넥터 이름 축약"),
+                                fieldWithPath("connectTypes[0].key").type(JsonFieldType.STRING).description("필터에 적용할 커넥터 이름 축약"),
                                 fieldWithPath("connectTypes[0].value").type(JsonFieldType.STRING).description("필터에 적용된 사용자용 커넥터의 이름")
                         )
                 ));
@@ -114,7 +115,7 @@ class FilterControllerTest extends MockBeanInjection {
     void 충전기_용량을_필터에_추가한다() throws Exception {
         // given
         CapacitiesRequest capacitiesRequest = new CapacitiesRequest(
-                List.of(new CapacityRequest(new BigDecimal("2.00")))
+                List.of(new BigDecimal("2.00"))
         );
 
         // when & then
@@ -124,7 +125,7 @@ class FilterControllerTest extends MockBeanInjection {
                 ).andExpect(status().isNoContent())
                 .andDo(customDocument("add_capacities_on_filter",
                         requestFields(
-                                fieldWithPath("capacities[0].capacity").type(JsonFieldType.NUMBER).description("필터에 적용할 충전기 속도")
+                                fieldWithPath("capacities[0]").type(JsonFieldType.ARRAY).description("필터에 적용할 충전기 속도")
                         )
                 ));
     }

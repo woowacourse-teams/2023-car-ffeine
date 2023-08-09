@@ -1,7 +1,6 @@
 package com.carffeine.carffeine.filter.service;
 
 import com.carffeine.carffeine.filter.controller.dto.capacity.CapacitiesRequest;
-import com.carffeine.carffeine.filter.controller.dto.capacity.CapacityRequest;
 import com.carffeine.carffeine.filter.controller.dto.companyName.CompanyNameRequest;
 import com.carffeine.carffeine.filter.controller.dto.companyName.CompanyNamesRequest;
 import com.carffeine.carffeine.filter.controller.dto.connectorType.ConnectorTypeRequest;
@@ -49,7 +48,7 @@ class FilterServiceTest {
     @Test
     void 현재_저장된_모든_필터를_반환한다() {
         // given
-        companyNameRepository.saveAll(List.of(CompanyName.from("환경부")));
+        companyNameRepository.saveAll(List.of(CompanyName.from("HG", "환경부")));
         connectorTypeRepository.saveAll(List.of(ConnectorType.from("DC_COMBO", "고속")));
         capacityRepository.saveAll(List.of(Capacity.from(BigDecimal.valueOf(2.00))));
 
@@ -67,7 +66,7 @@ class FilterServiceTest {
     @Test
     void 회사_이름을_필터로_저장한다() {
         // given
-        CompanyNamesRequest companyNamesRequest = new CompanyNamesRequest(List.of(new CompanyNameRequest("환경부")));
+        CompanyNamesRequest companyNamesRequest = new CompanyNamesRequest(List.of(new CompanyNameRequest("HG", "환경부")));
 
         // when
         filterService.saveCompanyNamesFilter(companyNamesRequest);
@@ -77,13 +76,13 @@ class FilterServiceTest {
 
         assertSoftly(softly -> {
             softly.assertThat(companyNames.size()).isEqualTo(1);
-            softly.assertThat(companyNames.get(0).getCompanyName()).isEqualTo(companyNamesRequest.companyNames().get(0).companyName());
+            softly.assertThat(companyNames.get(0).getCompanyKey()).isEqualTo(companyNamesRequest.companyNames().get(0).key());
         });
     }
 
     @Test
     void 충전기_명이_중복되면_예외_발생한다() {
-        CompanyNamesRequest companyNamesRequest = new CompanyNamesRequest(List.of(new CompanyNameRequest("환경부")));
+        CompanyNamesRequest companyNamesRequest = new CompanyNamesRequest(List.of(new CompanyNameRequest("HG", "환경부")));
         filterService.saveCompanyNamesFilter(companyNamesRequest);
 
         // when
@@ -105,7 +104,7 @@ class FilterServiceTest {
 
         assertSoftly(softly -> {
             softly.assertThat(connectorTypes.size()).isEqualTo(1);
-            softly.assertThat(connectorTypes.get(0).getConnectorKey()).isEqualTo(connectorTypesRequest.connectTypes().get(0).connectorKey());
+            softly.assertThat(connectorTypes.get(0).getConnectorKey()).isEqualTo(connectorTypesRequest.connectTypes().get(0).key());
         });
     }
 
@@ -123,7 +122,7 @@ class FilterServiceTest {
     @Test
     void 충전_용량을_필터로_저장한다() {
         // given
-        CapacitiesRequest capacitiesRequest = new CapacitiesRequest(List.of(new CapacityRequest(BigDecimal.valueOf(2.00))));
+        CapacitiesRequest capacitiesRequest = new CapacitiesRequest(List.of(BigDecimal.valueOf(2.00)));
 
         // when
         filterService.saveCapacitiesFilter(capacitiesRequest);
@@ -133,13 +132,13 @@ class FilterServiceTest {
 
         assertSoftly(softly -> {
             softly.assertThat(capacities.size()).isEqualTo(1);
-            softly.assertThat(capacities.get(0).getCapacity()).isEqualTo(capacitiesRequest.capacities().get(0).capacity());
+            softly.assertThat(capacities.get(0).getCapacity()).isEqualTo(capacitiesRequest.capacities().get(0));
         });
     }
 
     @Test
     void 충전_용량이_중복되면_예외_발생한다() {
-        CapacitiesRequest capacitiesRequest = new CapacitiesRequest(List.of(new CapacityRequest(BigDecimal.valueOf(2.00))));
+        CapacitiesRequest capacitiesRequest = new CapacitiesRequest(List.of(BigDecimal.valueOf(2.00)));
         filterService.saveCapacitiesFilter(capacitiesRequest);
 
         // when

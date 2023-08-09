@@ -24,9 +24,11 @@ public class CompanyName {
     private Long id;
 
     @Column(unique = true)
+    private String companyKey;
+
     private String companyName;
 
-    public static CompanyName from(String companyName) {
-        return new CompanyName(null, companyName);
+    public static CompanyName from(String companyKey, String companyName) {
+        return new CompanyName(null, companyKey, companyName);
     }
 }
