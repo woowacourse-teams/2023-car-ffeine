@@ -11,6 +11,8 @@ import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 
 import { useUpdateStations } from '@hooks/tanstack-query/station-markers/useUpdateStations';
 
+import ToastContainer from '@common/Toast/ToastContainer';
+
 import ClientStationFilters from '@ui/ClientStationFilters';
 import MapController from '@ui/MapController';
 import ModalContainer from '@ui/ModalContainer';
@@ -29,6 +31,7 @@ const CarFfeineMap = () => {
       <ClientStationFilters />
       <ModalContainer />
       <MapController />
+      <ToastContainer />
     </>
   );
 };

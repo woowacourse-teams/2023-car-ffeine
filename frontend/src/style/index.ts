@@ -114,10 +114,10 @@ const popup = (position: ToastPositionProps = 'bottom-center') => {
   return css`
     @keyframes PopUp {
       from {
-        ${row === 'center' ? `${column}: 0; left: 50%;` : `${column}: 20%; ${row}: 0;`}
+        ${row === 'center' ? `${column}: 0; left: 50%;` : `${column}: 10%; ${row}: 0;`}
       }
       to {
-        ${column}: 20%;
+        ${column}: 10%;
         left: 50%;
         transform: translateX(-50%);
       }
