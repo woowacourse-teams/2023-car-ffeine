@@ -1,8 +1,11 @@
 import { css } from 'styled-components';
 
+import { useEffect } from 'react';
+
 import { useQueryClient } from '@tanstack/react-query';
 
 import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
+import { getSessionStorage } from '@utils/storage';
 
 import { toastActions } from '@stores/layout/toastStore';
 
@@ -12,7 +15,9 @@ import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
+import { SERVERS } from '@constants';
 import { CAPACITIES, CHARGER_TYPES, COMPANY_NAME } from '@constants/chargers';
+import { SESSION_KEY_USER_TOKEN } from '@constants/storageKeys';
 
 import FilterSection from './FilterOption';
 
@@ -33,6 +38,73 @@ const ServerStationFilters = () => {
     queryClient.invalidateQueries({ queryKey: ['stations'] });
     showToast('필터가 적용되었습니다');
   };
+
+  // TODO: 이 부분 훅 분리 하거나 함수 분리 하기
+  useEffect(() => {
+    fetch(`${SERVERS.localhost}/filters`)
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+
+    fetch(`${SERVERS.localhost}/members`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${getSessionStorage(SESSION_KEY_USER_TOKEN, '')}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+
+    fetch(`${SERVERS.localhost}/members/filters`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${getSessionStorage(SESSION_KEY_USER_TOKEN, '')}`,
+      },
+      body: JSON.stringify({
+        connectorTypes: [
+          {
+            key: 'DC_COMBO',
+            value: '고속차지',
+          },
+          {
+            key: 'DC_COMBO2',
+            value: '고속차지',
+          },
+        ],
+        capacities: [
+          {
+            capacity: 3.0,
+          },
+          {
+            capacity: 7.0,
+          },
+          {
+            capacity: 10.0,
+          },
+        ],
+        companyNames: [
+          {
+            key: 'HG',
+            value: '환경부',
+          },
+          {
+            key: 'HG2',
+            value: '환경부',
+          },
+        ],
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+
+    fetch(`${SERVERS.localhost}/members/filters`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${getSessionStorage(SESSION_KEY_USER_TOKEN, '')}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+  }, []);
 
   return (
     <FlexBox
