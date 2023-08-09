@@ -1,0 +1,33 @@
+package com.carffeine.carffeine.admin.service;
+
+import com.carffeine.carffeine.admin.exception.AdminException;
+import com.carffeine.carffeine.admin.exception.AdminExceptionType;
+import com.carffeine.carffeine.member.domain.Member;
+import com.carffeine.carffeine.member.domain.MemberRepository;
+import com.carffeine.carffeine.station.domain.report.MisinformationReport;
+import com.carffeine.carffeine.station.domain.report.MisinformationReportRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@RequiredArgsConstructor
+@Service
+public class AdminReportService {
+
+    private final MemberRepository memberRepository;
+    private final MisinformationReportRepository misinformationReportRepository;
+
+    @Transactional(readOnly = true)
+    public Page<MisinformationReport> getMisinformationReports(Pageable pageable, Long memberId) {
+        validateRole(memberId);
+        return misinformationReportRepository.findAll(pageable);
+    }
+
+    private void validateRole(Long memberId) {
+        memberRepository.findById(memberId)
+                .filter(Member::isAdmin)
+                .orElseThrow(() -> new AdminException(AdminExceptionType.NOT_ADMIN));
+    }
+}
