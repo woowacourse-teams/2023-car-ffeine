@@ -19,6 +19,7 @@ import {
 
 import { SERVERS } from '@constants';
 import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
+import { STATIONS_QUERY_KEY } from '@constants/queryKeys';
 
 import type { StationSummary } from '@type';
 import type { DisplayPosition } from '@type/stations';
@@ -68,7 +69,7 @@ export const useStations = () => {
   } = useExternalValue(clientStationFiltersStore);
 
   return useQuery({
-    queryKey: ['stations'],
+    queryKey: [STATIONS_QUERY_KEY],
     queryFn: fetchStation,
     select: (data) => {
       return data.filter((station) => {

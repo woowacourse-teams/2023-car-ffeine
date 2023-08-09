@@ -7,6 +7,7 @@ import { selectedStationIdStore } from '@stores/selectedStationStore';
 
 import { INVALID_VALUE_LIST, SERVERS } from '@constants';
 import { ERROR_MESSAGES } from '@constants/errorMessages';
+import { STATION_DETAILS_QUERY_KEY } from '@constants/queryKeys';
 
 import type { StationDetails } from '@type';
 
@@ -44,7 +45,7 @@ export const useStationDetails = () => {
   const selectedStationId = useExternalValue(selectedStationIdStore);
 
   return useQuery({
-    queryKey: ['stationDetails', selectedStationId],
+    queryKey: [STATION_DETAILS_QUERY_KEY, selectedStationId],
     queryFn: () => fetchStationDetails(selectedStationId),
     enabled: !!selectedStationId,
   });

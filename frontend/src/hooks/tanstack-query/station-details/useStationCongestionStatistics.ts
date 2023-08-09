@@ -7,6 +7,7 @@ import { selectedStationIdStore } from '@stores/selectedStationStore';
 
 import { SERVERS } from '@constants';
 import { ERROR_MESSAGES } from '@constants/errorMessages';
+import { STATION_CONGESTION_STATISTICS_QUERY_KEY } from '@constants/queryKeys';
 
 import type { CongestionStatistics } from '@type/congestion';
 
@@ -32,7 +33,7 @@ export const useStationCongestionStatistics = () => {
   const selectedStationId = useExternalValue(selectedStationIdStore);
 
   return useQuery({
-    queryKey: ['stationCongestionStatistics', selectedStationId],
+    queryKey: [STATION_CONGESTION_STATISTICS_QUERY_KEY, selectedStationId],
     queryFn: () => fetchStationDetails(selectedStationId),
     enabled: !!selectedStationId,
   });
