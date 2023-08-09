@@ -1,6 +1,7 @@
 package com.carffeine.carffeine.admin.controller;
 
 import com.carffeine.carffeine.admin.common.CustomPage;
+import com.carffeine.carffeine.admin.controller.dto.MisinformationDetailResponse;
 import com.carffeine.carffeine.admin.controller.dto.MisinformationReportResponse;
 import com.carffeine.carffeine.admin.service.AdminReportService;
 import com.carffeine.carffeine.auth.controller.AuthMember;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,5 +35,14 @@ public class AdminReportController {
                 .map(MisinformationReportResponse::from)
                 .toList();
         return ResponseEntity.ok(new CustomPage<>(totalPages, elements));
+    }
+
+    @GetMapping("/misinformation-reports/{misinformationId}")
+    public ResponseEntity<MisinformationDetailResponse> getMisinformationDetail(
+            @AuthMember Long memberId,
+            @PathVariable Long misinformationId
+    ) {
+        MisinformationReport report = adminReportService.getMisinformationDetail(misinformationId, memberId);
+        return ResponseEntity.ok(MisinformationDetailResponse.from(report));
     }
 }

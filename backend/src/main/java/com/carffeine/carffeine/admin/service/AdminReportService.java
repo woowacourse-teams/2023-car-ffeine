@@ -6,6 +6,8 @@ import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.member.domain.MemberRepository;
 import com.carffeine.carffeine.station.domain.report.MisinformationReport;
 import com.carffeine.carffeine.station.domain.report.MisinformationReportRepository;
+import com.carffeine.carffeine.station.exception.report.ReportException;
+import com.carffeine.carffeine.station.exception.report.ReportExceptionType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,5 +31,11 @@ public class AdminReportService {
         memberRepository.findById(memberId)
                 .filter(Member::isAdmin)
                 .orElseThrow(() -> new AdminException(AdminExceptionType.NOT_ADMIN));
+    }
+
+    public MisinformationReport getMisinformationDetail(Long misinformationId, Long memberId) {
+        validateRole(memberId);
+        return misinformationReportRepository.findFetchById(misinformationId)
+                .orElseThrow(() -> new ReportException(ReportExceptionType.NOT_FOUND));
     }
 }

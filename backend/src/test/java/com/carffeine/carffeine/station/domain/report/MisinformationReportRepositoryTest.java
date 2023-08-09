@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.carffeine.carffeine.station.fixture.station.StationFixture.선릉역_충전소_충전기_2개_사용가능_1개_완속;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -52,9 +53,11 @@ public class MisinformationReportRepositoryTest {
 
         // when
         MisinformationReport result = misinformationReportRepository.save(misinformationReport);
+        Optional<MisinformationReport> findReport = misinformationReportRepository.findFetchById(result.getId());
 
         // then
         assertThat(result.getId()).isNotNull();
+        assertThat(findReport).isPresent();
     }
 
     @Test

@@ -26,6 +26,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWit
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -61,6 +62,33 @@ public class AdminReportControllerTest extends MockBeanInjection {
                                 subsectionWithPath("elements[].id").description("리포트 ID"),
                                 subsectionWithPath("elements[].memberId").description("제보한 회원 ID"),
                                 subsectionWithPath("elements[].isChecked").description("확인 여부")
+                        )
+                ));
+    }
+
+    @Test
+    void 충전소_상세_정보_조회한다() throws Exception {
+        // given
+        given(adminReportService.getMisinformationDetail(any(), any()))
+                .willReturn(선릉역_상세정보가_포함된_잘못된_정보_제보);
+
+        // when & then
+        mockMvc.perform(get("/admin/misinformation-reports/{misinformationId}", 123L)
+                        .header(HttpHeaders.AUTHORIZATION, "token~~"))
+                .andExpect(status().isOk())
+                .andDo(customDocument("get-misinformation-detail",
+                        pathParameters(parameterWithName("misinformationId").description("제보 ID")),
+                        requestHeaders(headerWithName(HttpHeaders.AUTHORIZATION).description("인증 토큰")),
+                        responseFields(
+                                fieldWithPath("id").description("리포트 ID"),
+                                fieldWithPath("stationId").description("충전소 ID"),
+                                fieldWithPath("memberId").description("멤버 ID"),
+                                fieldWithPath("isChecked").description("체크 여부"),
+                                subsectionWithPath("details").description("상세 정보 목록")
+                                        .type(JsonFieldType.ARRAY),
+                                subsectionWithPath("details[].detailId").description("상세 정보 ID"),
+                                subsectionWithPath("details[].category").description("카테고리"),
+                                subsectionWithPath("details[].content").description("내용")
                         )
                 ));
     }

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class FakeMisinformationRepository implements MisinformationReportRepository {
 
@@ -36,5 +37,10 @@ public class FakeMisinformationRepository implements MisinformationReportReposit
         int end = Math.min((start + pageable.getPageSize()), misinformationReports.size());
         List<MisinformationReport> pagedStations = misinformationReports.subList(start, end);
         return new PageImpl<>(pagedStations, pageable, misinformationReports.size());
+    }
+
+    @Override
+    public Optional<MisinformationReport> findFetchById(Long misinformationId) {
+        return Optional.of(map.get(misinformationId));
     }
 }
