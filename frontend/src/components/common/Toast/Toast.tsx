@@ -45,7 +45,7 @@ const S = {
     width: max-content;
     max-width: 40rem;
     z-index: 99999;
-    padding: 1.4rem 2.4rem;
+    padding: 1.2rem 2.4rem;
     font-size: 1.5rem;
     text-align: center;
     word-break: keep-all;
@@ -62,7 +62,7 @@ const S = {
 };
 
 // TODO: Alert랑 통일
-const getToastColor = (color?: Color) => {
+export const getToastColor = (color?: Color) => {
   switch (color) {
     case 'primary':
       return css`

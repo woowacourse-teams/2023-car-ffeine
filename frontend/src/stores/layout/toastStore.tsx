@@ -1,6 +1,5 @@
 import { store } from '@utils/external-state';
 
-import Toast from '@common/Toast';
 import type { ToastProps } from '@common/Toast/Toast';
 
 import type { Color, ToastPosition } from '@type/style';
@@ -18,15 +17,5 @@ export const toastActions = {
 
   deleteToast: (toastId: number) => {
     toastListStore.setState((prev) => prev.filter((toast) => toast.toastId !== toastId));
-  },
-
-  renderToast: () => {
-    return (
-      <>
-        {toastListStore.getState().map((toastItem) => (
-          <Toast key={toastItem.toastId} {...toastItem} />
-        ))}
-      </>
-    );
   },
 };
