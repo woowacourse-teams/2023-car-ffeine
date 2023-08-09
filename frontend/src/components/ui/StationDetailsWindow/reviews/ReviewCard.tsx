@@ -30,19 +30,14 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
 
   return (
     <>
-      <Box p={2} mb={4} border>
+      <Box p={2} mb={4}>
         <Box p={2}>
           <FlexBox justifyContent="between">
             <Box>
-              <Box mb={2}>
-                <FlexBox>
-                  <Text variant="label">{userId}님</Text>
-                  <Text variant="label">
-                    ( <StarIcon width={10} display="inline-block" />
-                    {ratings})
-                  </Text>
-                </FlexBox>
-              </Box>
+              <Text variant="label" mb={2}>
+                {userId}님 ( <StarIcon width={10} display="inline-block" />
+                {ratings})
+              </Text>
 
               <Text variant="caption">
                 {calculateLatestUpdateTime(latestUpdateDate)} {isUpdated && '(수정됨)'}
@@ -93,30 +88,41 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
             <Box key={reply.replyId} p={3} pl={8}>
               <Box pl={4} py={3} css={{ borderLeft: '1px solid #66666666' }}>
                 <FlexBox justifyContent="between">
-                  <FlexBox>
-                    <Text variant="caption">{reply.userId}님</Text>
-                  </FlexBox>
-                  <Text variant="caption">
-                    {calculateLatestUpdateTime(reply.latestUpdateDate)}{' '}
-                    {reply.isUpdated && '(수정됨)'}
-                  </Text>
+                  <Box>
+                    <Text variant="label" mb={2}>
+                      {reply.userId}님
+                    </Text>
+                    <Text variant="caption">
+                      {calculateLatestUpdateTime(reply.latestUpdateDate)}{' '}
+                      {reply.isUpdated && '(수정됨)'}
+                    </Text>
+                  </Box>
+                  {Math.random() < 0.5 ? (
+                    <></>
+                  ) : (
+                    <div>
+                      <ButtonNext
+                        size="xs"
+                        variant="text"
+                        color="secondary"
+                        onClick={() => alert('수정')}
+                      >
+                        <PencilIcon width={15} display="inline-block" />
+                      </ButtonNext>
+                      <ButtonNext
+                        size="xs"
+                        variant="text"
+                        color="secondary"
+                        onClick={() => alert('삭제')}
+                      >
+                        <TrashIcon width={15} display="inline-block" />
+                      </ButtonNext>
+                    </div>
+                  )}
                 </FlexBox>
                 <Box mt={3}>
                   <Text variant="body">{reply.content}</Text>
                 </Box>
-                <FlexBox justifyContent="end">
-                  <ButtonNext
-                    size="xs"
-                    variant="text"
-                    color="secondary"
-                    onClick={() => alert('수정')}
-                  >
-                    수정
-                  </ButtonNext>
-                  <ButtonNext size="xs" variant="text" color="error" onClick={() => alert('삭제')}>
-                    삭제
-                  </ButtonNext>
-                </FlexBox>
               </Box>
             </Box>
             {index + 1 !== replies.length && (

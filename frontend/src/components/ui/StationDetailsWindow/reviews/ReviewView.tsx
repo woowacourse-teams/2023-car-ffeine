@@ -24,7 +24,7 @@ const ReviewView = ({ stationId }: ReviewViewProps) => {
     <Box my={5}>
       <UserRatings counts={reviews.length} ratings={totalRatings} />
       {aliveReviews.length === 0 ? (
-        <Box>등록된 리뷰가 없습니다.</Box>
+        <Box p={5}>등록된 리뷰가 없습니다.</Box>
       ) : (
         aliveReviews.slice(0, 3).map((review, i) => {
           return (
