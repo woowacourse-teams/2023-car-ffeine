@@ -3,6 +3,7 @@ package com.carffeine.carffeine.station.service.review;
 import com.carffeine.carffeine.helper.integration.IntegrationTest;
 import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.exception.review.ReviewException;
+import com.carffeine.carffeine.station.fixture.review.ReviewFixture;
 import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Assertions;

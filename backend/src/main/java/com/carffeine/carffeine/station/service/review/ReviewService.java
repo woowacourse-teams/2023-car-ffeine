@@ -1,5 +1,6 @@
 package com.carffeine.carffeine.station.service.review;
 
+import com.carffeine.carffeine.station.controller.review.dto.ReviewResponse;
 import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.domain.review.ReviewRepository;
 import com.carffeine.carffeine.station.exception.review.ReviewException;
