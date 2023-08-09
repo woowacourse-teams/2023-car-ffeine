@@ -3,6 +3,7 @@ package com.carffeine.carffeine.station.service.review;
 import com.carffeine.carffeine.helper.integration.IntegrationTest;
 import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.exception.review.ReviewException;
+import com.carffeine.carffeine.station.fixture.review.ReviewFixture;
 import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -11,6 +12,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
+import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -110,5 +114,57 @@ class ReviewServiceTest extends IntegrationTest {
         assertThatThrownBy(() -> reviewService.saveReview(request, stationId, memberId))
                 .isInstanceOf(ReviewException.class)
                 .hasMessage("리뷰 내용은 최대 200자 입니다");
+    }
+
+    @Test
+    void 전쳬_리뷰를_조회한다(){
+        // given
+        String stationId = "ME101010";
+        Long memberId = 1L;
+        int page = 1;
+        CreateReviewRequest request = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
+        reviewService.saveReview(request, stationId, memberId);
+
+        // when
+        List<Review> reviews = reviewService.findAllReviews(stationId, page);
+
+        // then
+        assertThat(reviews).hasSize(1);
+    }
+
+    @Test
+    void 충전소의_리뷰가_13개일_경우_첫_페이지엔_10개의_리뷰가_보여진다(){
+        // given
+        String stationId = "ME101010";
+        Long memberId = 1L;
+        int page = 1;
+
+        for (CreateReviewRequest request : 리뷰_13개()) {
+            reviewService.saveReview(request, stationId, memberId);
+        }
+
+        // when
+        List<Review> reviews = reviewService.findAllReviews(stationId, page);
+
+        // then
+        assertThat(reviews).hasSize(10);
+    }
+
+    @Test
+    void 충전소의_리뷰가_13개일_경우_두번째_페이지엔_3개의_리뷰가_보여진다(){
+        // given
+        String stationId = "ME101010";
+        Long memberId = 1L;
+        int page = 2;
+
+        for (CreateReviewRequest request : 리뷰_13개()) {
+            reviewService.saveReview(request, stationId, memberId);
+        }
+
+        // when
+        List<Review> reviews = reviewService.findAllReviews(stationId, page);
+
+        // then
+        assertThat(reviews).hasSize(3);
     }
 }
