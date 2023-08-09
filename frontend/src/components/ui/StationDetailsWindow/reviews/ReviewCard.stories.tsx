@@ -20,10 +20,18 @@ const meta = {
       ratings: 4,
       replies: [
         {
-          content: '',
+          content: '동의해요',
           isDeleted: false,
           isUpdated: false,
-          latestUpdateDate: '',
+          latestUpdateDate: '2023-08-09T15:11:40+00:00',
+          replyId: 0,
+          userId: 0,
+        },
+        {
+          content: '동의하지 않아요',
+          isDeleted: false,
+          isUpdated: false,
+          latestUpdateDate: '2023-08-03T15:11:40+00:00',
           replyId: 0,
           userId: 0,
         },
@@ -44,6 +52,8 @@ export default meta;
 export const Default = (args: ReviewCardProps) => {
   return (
     <Box width={80}>
+      <ReviewCard {...args} />
+      <ReviewCard {...args} />
       <ReviewCard {...args} />
     </Box>
   );
