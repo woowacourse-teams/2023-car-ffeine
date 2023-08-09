@@ -1,5 +1,9 @@
 package com.carffeine.carffeine.station.service.report;
 
+import com.carffeine.carffeine.member.domain.Member;
+import com.carffeine.carffeine.member.domain.MemberRepository;
+import com.carffeine.carffeine.member.exception.MemberException;
+import com.carffeine.carffeine.member.exception.MemberExceptionType;
 import com.carffeine.carffeine.station.domain.report.FaultReport;
 import com.carffeine.carffeine.station.domain.report.FaultReportRepository;
 import com.carffeine.carffeine.station.domain.report.MisinformationReport;
@@ -20,6 +24,7 @@ public class ReportService {
 
     private final FaultReportRepository faultReportRepository;
     private final StationRepository stationRepository;
+    private final MemberRepository memberRepository;
     private final MisinformationReportRepository misinformationReportRepository;
 
     public FaultReport saveFaultReport(String stationId, Long memberId) {
@@ -53,8 +58,10 @@ public class ReportService {
             Long memberId,
             MisinformationReportRequest request
     ) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND));
         MisinformationReport misinformationReport = MisinformationReport.builder()
-                .memberId(memberId)
+                .member(member)
                 .station(findStationById(stationId))
                 .misinformationDetailReports(request.toDetailReports())
                 .build();

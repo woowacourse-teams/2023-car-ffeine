@@ -1,10 +1,12 @@
 package com.carffeine.carffeine.station.domain.report;
 
 import com.carffeine.carffeine.common.domain.BaseEntity;
+import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.station.domain.station.Station;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@EqualsAndHashCode(of = "id", callSuper = false)
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -33,7 +36,9 @@ public class MisinformationReport extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long memberId;
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     private boolean isChecked;
 

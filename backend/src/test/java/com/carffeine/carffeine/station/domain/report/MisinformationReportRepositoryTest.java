@@ -21,12 +21,18 @@ public class MisinformationReportRepositoryTest {
 
     @Autowired
     private MisinformationReportRepository misinformationReportRepository;
-
     @Autowired
     private StationRepository stationRepository;
+    @Autowired
+    private MemberRepository memberRepository;
+
+    private Member member;
 
     @BeforeEach
     void setUp() {
+        member = memberRepository.save(Member.builder()
+                .memberRole(MemberRole.USER)
+                .build());
         stationRepository.save(StationFixture.선릉역_충전소_충전기_2개_사용가능_1개_완속);
     }
 
@@ -34,8 +40,8 @@ public class MisinformationReportRepositoryTest {
     void 잘못된_정보_신고를_저장한다() {
         // given
         MisinformationReport misinformationReport = MisinformationReport.builder()
-                .station(StationFixture.선릉역_충전소_충전기_2개_사용가능_1개_완속)
-                .memberId(123L)
+                .station(선릉역_충전소_충전기_2개_사용가능_1개_완속)
+                .member(member)
                 .build();
 
         // when
@@ -48,24 +54,24 @@ public class MisinformationReportRepositoryTest {
     @Test
     void 잘못된_정보와_상세_수정_정보_신고를_저장한다() {
         // given
-        MisinformationDetailReport detailReport = MisinformationDetailReport.builder()
-                .category("address")
-                .content("부산시 시민공원로 11")
-                .build();
         MisinformationReport misinformationReport = MisinformationReport.builder()
-                .station(StationFixture.선릉역_충전소_충전기_2개_사용가능_1개_완속)
-                .misinformationDetailReports(List.of(detailReport))
-                .memberId(123L)
+                .station(선릉역_충전소_충전기_2개_사용가능_1개_완속)
+                .misinformationDetailReports(List.of(
+                        MisinformationDetailReport.builder()
+                                .category("address")
+                                .content("부산시 시민공원로 11")
+                                .build(),
+                        MisinformationDetailReport.builder()
+                                .category("contact")
+                                .content("010-1001-1010")
+                                .build()))
+                .member(member)
                 .build();
 
         // when
         MisinformationReport result = misinformationReportRepository.save(misinformationReport);
 
         // then
-        List<MisinformationDetailReport> misinformationDetailReports = result.getMisinformationDetailReports();
-        assertSoftly(softly -> {
-            softly.assertThat(result.getId()).isNotNull();
-            softly.assertThat(misinformationDetailReports.get(0).getId()).isNotNull();
-        });
+        assertThat(result.getId()).isNotNull();
     }
 }

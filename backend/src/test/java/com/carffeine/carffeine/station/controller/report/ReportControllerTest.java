@@ -1,6 +1,7 @@
 package com.carffeine.carffeine.station.controller.report;
 
 import com.carffeine.carffeine.helper.MockBeanInjection;
+import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.station.domain.report.FaultReport;
 import com.carffeine.carffeine.station.domain.report.MisinformationReport;
 import com.carffeine.carffeine.station.domain.station.Station;
@@ -81,7 +82,9 @@ class ReportControllerTest extends MockBeanInjection {
 
         // when
         MisinformationReport misinformationReport = MisinformationReport.builder()
-                .memberId(memberId)
+                .member(Member.builder()
+                        .id(memberId)
+                        .build())
                 .station(station)
                 .misinformationDetailReports(request.toDetailReports())
                 .build();

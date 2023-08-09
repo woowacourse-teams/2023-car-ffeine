@@ -1,5 +1,9 @@
 package com.carffeine.carffeine.station.service.report;
 
+import com.carffeine.carffeine.fake.member.FakeMemberRepository;
+import com.carffeine.carffeine.member.domain.Member;
+import com.carffeine.carffeine.member.domain.MemberRepository;
+import com.carffeine.carffeine.member.fixture.MemberFixture;
 import com.carffeine.carffeine.station.domain.report.FakeFaultRepository;
 import com.carffeine.carffeine.station.domain.report.FakeMisinformationRepository;
 import com.carffeine.carffeine.station.domain.report.FaultReport;
@@ -31,6 +35,7 @@ class ReportServiceTest {
     private ReportService reportService;
     private StationRepository stationRepository;
     private FaultReportRepository faultReportRepository;
+    private MemberRepository memberRepository;
     private MisinformationReportRepository misinformationReportRepository;
 
     @BeforeEach
@@ -38,7 +43,8 @@ class ReportServiceTest {
         misinformationReportRepository = new FakeMisinformationRepository();
         stationRepository = new FakeStationRepository();
         faultReportRepository = new FakeFaultRepository();
-        reportService = new ReportService(faultReportRepository, stationRepository, misinformationReportRepository);
+        memberRepository = new FakeMemberRepository();
+        reportService = new ReportService(faultReportRepository, stationRepository, memberRepository, misinformationReportRepository);
     }
 
     @Test
@@ -72,17 +78,17 @@ class ReportServiceTest {
     void 충전소의_잘못된_정보를_제보한다() {
         // given
         Station station = stationRepository.save(StationFixture.선릉역_충전소_충전기_2개_사용가능_1개);
-        Long memberId = 123L;
+        Member member = memberRepository.save(MemberFixture.일반_회원);
         StationDetailToUpdate detail = new StationDetailToUpdate("address", "부산");
         MisinformationReportRequest request = new MisinformationReportRequest(List.of(detail));
 
         // when
-        MisinformationReport misinformationReport = reportService.saveMisinformationReport(station.getStationId(), memberId, request);
+        MisinformationReport misinformationReport = reportService.saveMisinformationReport(station.getStationId(), member.getId(), request);
 
         // then
         assertSoftly(softly -> {
             softly.assertThat(misinformationReport.getId()).isEqualTo(1L);
-            softly.assertThat(misinformationReport.getMemberId()).isEqualTo(123L);
+            softly.assertThat(misinformationReport.getMember().getId()).isEqualTo(member.getId());
             softly.assertThat(misinformationReport.isChecked()).isEqualTo(false);
             softly.assertThat(misinformationReport.getMisinformationDetailReports()).hasSize(1);
         });
