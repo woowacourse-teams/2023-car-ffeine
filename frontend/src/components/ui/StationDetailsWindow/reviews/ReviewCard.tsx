@@ -1,3 +1,5 @@
+import { StarIcon } from '@heroicons/react/24/solid';
+
 import { useState } from 'react';
 
 import { calculateLatestUpdateTime } from '@utils/index';
@@ -27,12 +29,15 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
 
   return (
     <>
-      <Box p={2} mb={2}>
+      <Box p={2} mb={5}>
         <Box p={2}>
           <FlexBox justifyContent="between">
             <FlexBox>
               <Text variant="caption">{userId}님</Text>
-              <Text variant="caption">(★ {ratings})</Text>
+              <Text variant="caption">
+                ( <StarIcon width={10} display="inline-block" />
+                {ratings})
+              </Text>
             </FlexBox>
             <Text variant="caption">
               {calculateLatestUpdateTime(latestUpdateDate)} {isUpdated && '(수정됨)'}

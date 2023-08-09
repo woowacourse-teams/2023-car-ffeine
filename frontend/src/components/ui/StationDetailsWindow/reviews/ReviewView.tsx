@@ -6,8 +6,6 @@ import Box from '@common/Box';
 import ReviewCard from '@ui/StationDetailsWindow/reviews/ReviewCard';
 import UserRatings from '@ui/StationDetailsWindow/reviews/UserRatings';
 
-import type { Reply } from '@type';
-
 export interface ReviewViewProps {
   stationId: string;
 }
