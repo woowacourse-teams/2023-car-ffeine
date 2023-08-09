@@ -9,9 +9,9 @@ import { SERVER_STATION_FILTERS_QUERY_KEY } from '@constants/queryKeys';
 type CompanyNameKeys = keyof typeof COMPANY_NAME;
 type ConnectorTypeKeys = keyof typeof CHARGER_TYPES;
 
-interface ServerStationFilters {
+export interface ServerStationFilters {
   companyNames: { key: CompanyNameKeys; value: (typeof COMPANY_NAME)[CompanyNameKeys] }[];
-  capacities: (typeof CAPACITIES)[number][];
+  capacities: { ['capacity']: `${(typeof CAPACITIES)[number]}.00` }[];
   connectorTypes: { key: ConnectorTypeKeys; value: (typeof CHARGER_TYPES)[ConnectorTypeKeys] }[];
 }
 

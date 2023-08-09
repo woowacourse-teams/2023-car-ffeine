@@ -8,8 +8,8 @@ import {
 
 import type { CAPACITIES, CHARGER_TYPES, COMPANY_NAME } from '@constants/chargers';
 
-export const useServerStationFilters = () => {
-  const [selectedCompanyNamesFilters, setSelectedCompanyNamesFilter] = useExternalState(
+export const useServerStationFilterActions = () => {
+  const [selectedCompanyNamesFilters, setSelectedCompaniesFilter] = useExternalState(
     selectedCompanyNamesFilterStore
   );
   const [selectChargerTypesFilters, setSelectedChargerTypesFilter] = useExternalState(
@@ -19,10 +19,8 @@ export const useServerStationFilters = () => {
     selectedCapacitiesFilterStore
   );
 
-  const toggleSelectCompanyNamesFilter = (
-    filter: (typeof COMPANY_NAME)[keyof typeof COMPANY_NAME]
-  ) => {
-    setSelectedCompanyNamesFilter((prev) => {
+  const toggleSelectCompanyNamesFilter = (filter: keyof typeof COMPANY_NAME) => {
+    setSelectedCompaniesFilter((prev) => {
       if (prev.includes(filter)) {
         return prev.filter((companyName) => companyName !== filter);
       }
@@ -39,7 +37,7 @@ export const useServerStationFilters = () => {
     });
   };
 
-  const toggleSelectCapacityFilter = (filter: (typeof CAPACITIES)[number]) => {
+  const toggleSelectCapacityFilter = (filter: `${(typeof CAPACITIES)[number]}.00`) => {
     setSelectedChargeSpeedsFilter((prev) => {
       if (prev.includes(filter)) {
         return prev.filter((companyName) => companyName !== filter);
@@ -48,9 +46,7 @@ export const useServerStationFilters = () => {
     });
   };
 
-  const getIsCompanyNameSelected = (
-    companyName: (typeof COMPANY_NAME)[keyof typeof COMPANY_NAME]
-  ) => {
+  const getIsCompanyNameSelected = (companyName: keyof typeof COMPANY_NAME) => {
     return selectedCompanyNamesFilters.includes(companyName);
   };
 
@@ -58,7 +54,7 @@ export const useServerStationFilters = () => {
     return selectChargerTypesFilters.includes(chargerType);
   };
 
-  const getIsCapacitySelected = (capacity: (typeof CAPACITIES)[number]) => {
+  const getIsCapacitySelected = (capacity: `${(typeof CAPACITIES)[number]}.00`) => {
     return selectedCapacityFilters.includes(capacity);
   };
 

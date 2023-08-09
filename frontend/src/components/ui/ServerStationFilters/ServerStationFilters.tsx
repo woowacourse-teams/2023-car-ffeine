@@ -4,26 +4,32 @@ import { useEffect } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 
-import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
-import { getSessionStorage } from '@utils/storage';
-
 import { toastActions } from '@stores/layout/toastStore';
+import {
+  selectedCapacitiesFilterStore,
+  selectedChargerTypesFilterStore,
+  selectedCompanyNamesFilterStore,
+} from '@stores/station-filters/serverStationFiltersStore';
 
-import { useServerStationFilters } from '@hooks/useServerStationFilters';
+import { useServerStationFilters } from '@hooks/tanstack-query/station-filters/useServerStationFilters';
+import { useUserFilters } from '@hooks/tanstack-query/station-filters/useUserFilters';
+import { useServerStationFilterActions } from '@hooks/useServerStationFilterActions';
 
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-import { SERVERS } from '@constants';
-import { CAPACITIES, CHARGER_TYPES, COMPANY_NAME } from '@constants/chargers';
-import { SESSION_KEY_USER_TOKEN } from '@constants/storageKeys';
+import type { COMPANY_NAME } from '@constants/chargers';
+
+import type { Capacity } from '@type';
 
 import FilterSection from './FilterOption';
 
 const ServerStationFilters = () => {
   const queryClient = useQueryClient();
   const { showToast } = toastActions;
+  const { data: serverStationFilters, isLoading } = useServerStationFilters();
+  const { data: userFilters, isLoading: isUserFilterLoading } = useUserFilters();
 
   const {
     toggleSelectCapacityFilter,
@@ -32,79 +38,92 @@ const ServerStationFilters = () => {
     getIsCapacitySelected,
     getIsChargerTypeSelected,
     getIsCompanyNameSelected,
-  } = useServerStationFilters();
+  } = useServerStationFilterActions();
 
   const handleApplySelectedFilters = () => {
     queryClient.invalidateQueries({ queryKey: ['stations'] });
     showToast('필터가 적용되었습니다');
   };
 
-  // TODO: 이 부분 훅 분리 하거나 함수 분리 하기
   useEffect(() => {
-    fetch(`${SERVERS.localhost}/filters`)
-      .then((response) => response.json())
-      .then((data) => console.log(data));
+    if (userFilters) {
+      const { connectorTypes, capacities, companyNames } = userFilters;
 
-    fetch(`${SERVERS.localhost}/members`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${getSessionStorage(SESSION_KEY_USER_TOKEN, '')}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data));
+      selectedCapacitiesFilterStore.setState(capacities.map(({ capacity }) => capacity));
+      selectedChargerTypesFilterStore.setState(connectorTypes.map(({ key }) => key));
+      selectedCompanyNamesFilterStore.setState(companyNames.map(({ key }) => key));
+    }
+  }, [userFilters]);
 
-    fetch(`${SERVERS.localhost}/members/filters`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${getSessionStorage(SESSION_KEY_USER_TOKEN, '')}`,
-      },
-      body: JSON.stringify({
-        connectorTypes: [
-          {
-            key: 'DC_COMBO',
-            value: '고속차지',
-          },
-          {
-            key: 'DC_COMBO2',
-            value: '고속차지',
-          },
-        ],
-        capacities: [
-          {
-            capacity: 3.0,
-          },
-          {
-            capacity: 7.0,
-          },
-          {
-            capacity: 10.0,
-          },
-        ],
-        companyNames: [
-          {
-            key: 'HG',
-            value: '환경부',
-          },
-          {
-            key: 'HG2',
-            value: '환경부',
-          },
-        ],
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data));
+  if (isLoading || isUserFilterLoading) {
+    return <></>;
+  }
 
-    fetch(`${SERVERS.localhost}/members/filters`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${getSessionStorage(SESSION_KEY_USER_TOKEN, '')}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data));
-  }, []);
+  const { connectorTypes, capacities, companyNames } = serverStationFilters;
+
+  // TODO: 이 부분 훅 분리 하거나 함수 분리 하기
+  // useEffect(() => {
+  //   fetch(`${SERVERS.localhost}/filters`)
+  //     .then((response) => response.json())
+  //     .then((data) => console.log(data));
+  //   fetch(`${SERVERS.localhost}/members`, {
+  //     method: 'GET',
+  //     headers: {
+  //       Authorization: `Bearer ${getSessionStorage(SESSION_KEY_USER_TOKEN, '')}`,
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => console.log(data));
+  //   fetch(`${SERVERS.localhost}/members/filters`, {
+  //     method: 'POST',
+  //     headers: {
+  //       Authorization: `Bearer ${getSessionStorage(SESSION_KEY_USER_TOKEN, '')}`,
+  //     },
+  //     body: JSON.stringify({
+  //       connectorTypes: [
+  //         {
+  //           key: 'DC_COMBO',
+  //           value: '고속차지',
+  //         },
+  //         {
+  //           key: 'DC_COMBO2',
+  //           value: '고속차지',
+  //         },
+  //       ],
+  //       capacities: [
+  //         {
+  //           capacity: 3.0,
+  //         },
+  //         {
+  //           capacity: 7.0,
+  //         },
+  //         {
+  //           capacity: 10.0,
+  //         },
+  //       ],
+  //       companyNames: [
+  //         {
+  //           key: 'HG',
+  //           value: '환경부',
+  //         },
+  //         {
+  //           key: 'HG2',
+  //           value: '환경부',
+  //         },
+  //       ],
+  //     }),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => console.log(data));
+  //   fetch(`${SERVERS.localhost}/members/filters`, {
+  //     method: 'GET',
+  //     headers: {
+  //       Authorization: `Bearer ${getSessionStorage(SESSION_KEY_USER_TOKEN, '')}`,
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => console.log(data));
+  // }, []);
 
   return (
     <FlexBox
@@ -122,23 +141,23 @@ const ServerStationFilters = () => {
     >
       <FilterSection
         title={'커넥터 타입'}
-        filterOptionNames={Object.values(CHARGER_TYPES)}
-        filterOptionValues={getTypedObjectKeys(CHARGER_TYPES)}
+        filterOptionNames={connectorTypes.map((connectorType) => connectorType.value)}
+        filterOptionValues={connectorTypes.map((connectorType) => connectorType.key)}
         toggleSelectFilter={toggleSelectChargerTypesFilter}
         getIsFilterSelected={getIsChargerTypeSelected}
       />
       <FilterSection
         title={'충전 속도(kW)'}
-        filterOptionNames={[...CAPACITIES]}
-        filterOptionValues={[...CAPACITIES]}
+        filterOptionNames={[...capacities.map(({ capacity }) => Number(capacity))] as Capacity[]}
+        filterOptionValues={[...capacities.map(({ capacity }) => capacity)]}
         filterButtonVariant={'sm'}
         toggleSelectFilter={toggleSelectCapacityFilter}
         getIsFilterSelected={getIsCapacitySelected}
       />
       <FilterSection
         title={'충전 사업자'}
-        filterOptionNames={Object.values(COMPANY_NAME)}
-        filterOptionValues={Object.values(COMPANY_NAME)}
+        filterOptionNames={companyNames.map(({ value }) => value)}
+        filterOptionValues={companyNames.map(({ key }) => key) as (keyof typeof COMPANY_NAME)[]}
         toggleSelectFilter={toggleSelectCompanyNamesFilter}
         getIsFilterSelected={getIsCompanyNameSelected}
       />
