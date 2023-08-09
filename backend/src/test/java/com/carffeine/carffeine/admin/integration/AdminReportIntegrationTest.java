@@ -108,7 +108,7 @@ public class AdminReportIntegrationTest extends IntegrationTest {
             misinformationReportRepository.save(간단한_충전소_제보);
 
             // when
-            var 응답 = 토큰과_함께_페이지_번호와_사이즈로_충전소_제보_정보를_요청한다(관리자_토큰, 2, 1);
+            var 응답 = 토큰과_함께_페이지_번호와_사이즈로_충전소_제보_정보를_요청한다(관리자_토큰, 0, 1);
 
             // then
             상태_코드를_검증한다(응답, HttpStatus.OK);
