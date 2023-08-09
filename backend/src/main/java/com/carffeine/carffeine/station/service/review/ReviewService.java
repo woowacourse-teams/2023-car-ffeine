@@ -1,6 +1,5 @@
 package com.carffeine.carffeine.station.service.review;
 
-import com.carffeine.carffeine.station.controller.review.dto.ReviewResponse;
 import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.domain.review.ReviewRepository;
 import com.carffeine.carffeine.station.exception.review.ReviewException;
@@ -75,5 +74,23 @@ public class ReviewService {
                 .skip((long) (page - 1) * REVIEW_LIMIT)
                 .limit(REVIEW_LIMIT)
                 .toList();
+    }
+
+    public Review updateReview(CreateReviewRequest request, Long reviewId, long memberId) {
+        validateRequest(request);
+
+        Review review = reviewRepository.findById(reviewId);
+
+        validateMember(review, memberId);
+
+        review.updateReview(request.ratings(), request.content());
+
+        return reviewRepository.save(review);
+    }
+
+    private void validateMember(Review review, long memberId) {
+        if (review.getMemberId() != memberId) {
+            throw new ReviewException(ReviewExceptionType.UNAUTHORIZED_MEMBER);
+        }
     }
 }

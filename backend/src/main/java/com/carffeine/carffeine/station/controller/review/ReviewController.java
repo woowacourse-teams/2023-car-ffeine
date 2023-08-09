@@ -33,4 +33,14 @@ public class ReviewController {
         ReviewResponses responses = ReviewResponses.from(reviews);
         return ResponseEntity.ok(responses);
     }
+
+    @PostMapping("/api/stations/{stationId}/review/{reviewId}")
+    public ResponseEntity<Void> updateReview(
+            @AuthMember long memberId,
+            @PathVariable String stationId,
+            @PathVariable Long reviewId,
+            @RequestBody CreateReviewRequest createReviewRequest) {
+        reviewService.updateReview(createReviewRequest, reviewId, memberId);
+        return ResponseEntity.noContent().build();
+    }
 }

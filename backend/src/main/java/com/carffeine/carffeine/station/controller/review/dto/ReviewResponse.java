@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public record ReviewResponse(Long reviewId,
                              Long memberId,
                              LocalDateTime latestUpdateDate,
-                             int ratings,
+                             long ratings,
                              String content,
                              boolean isUpdated,
                              boolean isDeleted) {

@@ -14,7 +14,7 @@ public class Review extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @Column(name = "station_id")
     private String stationId;
@@ -22,11 +22,16 @@ public class Review extends BaseEntity {
     @Column(name = "member_id")
     private Long memberId;
 
-    private Integer ratings;
+    private int ratings;
 
     private String content;
 
     private boolean isUpdated;
 
     private boolean isDeleted;
+
+    public void updateReview(int ratings, String content){
+        this.ratings = ratings;
+        this.content = content;
+    }
 }

@@ -3,8 +3,9 @@ package com.carffeine.carffeine.station.service.review;
 import com.carffeine.carffeine.helper.integration.IntegrationTest;
 import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.exception.review.ReviewException;
-import com.carffeine.carffeine.station.fixture.review.ReviewFixture;
 import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;
+import org.assertj.core.api.SoftAssertions;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
@@ -78,7 +79,7 @@ class ReviewServiceTest extends IntegrationTest {
     }
 
     @Test
-    void 리뷰_등록시_글이_없으면_예외가_발생한다(){
+    void 리뷰_등록시_글이_없으면_예외가_발생한다() {
         // given
         String stationId = "ME101010";
         Long memberId = 1L;
@@ -91,7 +92,7 @@ class ReviewServiceTest extends IntegrationTest {
     }
 
     @Test
-    void 리뷰_등록시_글의_길이가_10미만이면_예외가_발생한다(){
+    void 리뷰_등록시_글의_길이가_10미만이면_예외가_발생한다() {
         // given
         String stationId = "ME101010";
         Long memberId = 1L;
@@ -104,7 +105,7 @@ class ReviewServiceTest extends IntegrationTest {
     }
 
     @Test
-    void 리뷰_등록시_글의_길이가_100초과면_예외가_발생한다(){
+    void 리뷰_등록시_글의_길이가_100초과면_예외가_발생한다() {
         // given
         String stationId = "ME101010";
         Long memberId = 1L;
@@ -117,7 +118,7 @@ class ReviewServiceTest extends IntegrationTest {
     }
 
     @Test
-    void 전쳬_리뷰를_조회한다(){
+    void 전쳬_리뷰를_조회한다() {
         // given
         String stationId = "ME101010";
         Long memberId = 1L;
@@ -133,7 +134,7 @@ class ReviewServiceTest extends IntegrationTest {
     }
 
     @Test
-    void 충전소의_리뷰가_13개일_경우_첫_페이지엔_10개의_리뷰가_보여진다(){
+    void 충전소의_리뷰가_13개일_경우_첫_페이지엔_10개의_리뷰가_보여진다() {
         // given
         String stationId = "ME101010";
         Long memberId = 1L;
@@ -151,7 +152,7 @@ class ReviewServiceTest extends IntegrationTest {
     }
 
     @Test
-    void 충전소의_리뷰가_13개일_경우_두번째_페이지엔_3개의_리뷰가_보여진다(){
+    void 충전소의_리뷰가_13개일_경우_두번째_페이지엔_3개의_리뷰가_보여진다() {
         // given
         String stationId = "ME101010";
         Long memberId = 1L;
@@ -166,5 +167,34 @@ class ReviewServiceTest extends IntegrationTest {
 
         // then
         assertThat(reviews).hasSize(3);
+    }
+
+    @Test
+    void 리뷰를_수정할_수_있다() {
+        // given
+        String stationId = "ME101010";
+        Long memberId = 1L;
+        CreateReviewRequest request = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
+
+        Review expected = Review.builder()
+                .stationId(stationId)
+                .memberId(memberId)
+                .ratings(request.ratings())
+                .content(request.content())
+                .isUpdated(false)
+                .isDeleted(false)
+                .build();
+
+        Review review = reviewService.saveReview(request, stationId, memberId);
+
+        // when
+        long reviewId = review.getId();
+        CreateReviewRequest updateRequest = new CreateReviewRequest(2, "생각해보니 별로인 듯 합니다");
+        Review updatedReview = reviewService.updateReview(updateRequest, reviewId, memberId);
+
+        SoftAssertions.assertSoftly(softly -> {
+            softly.assertThat(updatedReview.getRatings()).isEqualTo(updateRequest.ratings());
+            softly.assertThat(updatedReview.getContent()).isEqualTo(updateRequest.content());
+        });
     }
 }
