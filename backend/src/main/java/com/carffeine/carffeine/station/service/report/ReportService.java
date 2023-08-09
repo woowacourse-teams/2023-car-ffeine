@@ -30,8 +30,9 @@ public class ReportService {
     public FaultReport saveFaultReport(String stationId, Long memberId) {
         Station station = findStationById(stationId);
         validateDuplicateReport(memberId, station);
+        Member member = findMemberById(memberId);
         FaultReport faultReport = FaultReport.builder()
-                .memberId(memberId)
+                .member(member)
                 .station(station)
                 .build();
         return faultReportRepository.save(faultReport);
@@ -58,13 +59,17 @@ public class ReportService {
             Long memberId,
             MisinformationReportRequest request
     ) {
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND));
+        Member member = findMemberById(memberId);
         MisinformationReport misinformationReport = MisinformationReport.builder()
                 .member(member)
                 .station(findStationById(stationId))
                 .misinformationDetailReports(request.toDetailReports())
                 .build();
         return misinformationReportRepository.save(misinformationReport);
+    }
+
+    private Member findMemberById(Long memberId) {
+        return memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND));
     }
 }

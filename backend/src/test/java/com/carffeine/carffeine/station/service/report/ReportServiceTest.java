@@ -51,10 +51,10 @@ class ReportServiceTest {
     void 신고를_저장한다() {
         // given
         Station station = stationRepository.save(StationFixture.선릉역_충전소_충전기_2개_사용가능_1개);
-        Long memberId = 123L;
+        Member member = memberRepository.save(MemberFixture.일반_회원);
 
         // when
-        FaultReport faultReport = reportService.saveFaultReport(station.getStationId(), memberId);
+        FaultReport faultReport = reportService.saveFaultReport(station.getStationId(), member.getId());
 
         // then
         List<FaultReport> faultReports = faultReportRepository.findByStation(station);
@@ -65,11 +65,11 @@ class ReportServiceTest {
     void 같은_회원이_이미_신고한_충전소를_신고하면_예외가_발생한다() {
         // given
         Station station = stationRepository.save(StationFixture.선릉역_충전소_충전기_2개_사용가능_1개);
-        Long memberId = 123L;
-        reportService.saveFaultReport(station.getStationId(), memberId);
+        Member member = memberRepository.save(MemberFixture.일반_회원);
+        reportService.saveFaultReport(station.getStationId(), member.getId());
 
         // when && then
-        assertThatThrownBy(() -> reportService.saveFaultReport(station.getStationId(), memberId))
+        assertThatThrownBy(() -> reportService.saveFaultReport(station.getStationId(), member.getId()))
                 .isInstanceOf(ReportException.class)
                 .hasMessage("이미 신고한 충전소는 신고가 불가합니다");
     }
@@ -98,11 +98,11 @@ class ReportServiceTest {
     void 같은_회원이_신고를_했으면_true를_반환한다() {
         // given
         Station station = stationRepository.save(StationFixture.선릉역_충전소_충전기_2개_사용가능_1개);
-        Long memberId = 123L;
-        reportService.saveFaultReport(station.getStationId(), memberId);
+        Member member = memberRepository.save(MemberFixture.일반_회원);
+        reportService.saveFaultReport(station.getStationId(), member.getId());
 
         // when
-        boolean result = reportService.isDuplicateReportStation(memberId, station.getStationId());
+        boolean result = reportService.isDuplicateReportStation(member.getId(), station.getStationId());
 
         // then
         assertThat(result).isTrue();
@@ -112,8 +112,9 @@ class ReportServiceTest {
     void 같은_회원이_신고를_하지_않았다면_false를_반환한다() {
         // given
         Station station = stationRepository.save(StationFixture.선릉역_충전소_충전기_2개_사용가능_1개);
-        reportService.saveFaultReport(station.getStationId(), 123L);
-        Long newMemberId = 1L;
+        Member member = memberRepository.save(MemberFixture.일반_회원);
+        reportService.saveFaultReport(station.getStationId(), member.getId());
+        Long newMemberId = 1000L;
 
         // when
         boolean result = reportService.isDuplicateReportStation(newMemberId, station.getStationId());

@@ -17,7 +17,7 @@ public class FakeFaultRepository implements FaultReportRepository {
         id++;
         FaultReport savedFaultReport = FaultReport.builder()
                 .id(id)
-                .memberId(faultReport.getMemberId())
+                .member(faultReport.getMember())
                 .station(faultReport.getStation())
                 .build();
         map.put(id, savedFaultReport);
@@ -34,6 +34,6 @@ public class FakeFaultRepository implements FaultReportRepository {
     @Override
     public boolean existsByStationAndMemberId(Station station, Long memberId) {
         return map.values().stream()
-                .anyMatch(it -> it.getStation().equals(station) && it.getMemberId().equals(memberId));
+                .anyMatch(it -> it.getStation().equals(station) && it.getMember().getId().equals(memberId));
     }
 }

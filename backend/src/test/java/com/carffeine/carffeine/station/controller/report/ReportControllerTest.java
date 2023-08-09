@@ -2,6 +2,7 @@ package com.carffeine.carffeine.station.controller.report;
 
 import com.carffeine.carffeine.helper.MockBeanInjection;
 import com.carffeine.carffeine.member.domain.Member;
+import com.carffeine.carffeine.member.fixture.MemberFixture;
 import com.carffeine.carffeine.station.domain.report.FaultReport;
 import com.carffeine.carffeine.station.domain.report.MisinformationReport;
 import com.carffeine.carffeine.station.domain.station.Station;
@@ -50,13 +51,14 @@ class ReportControllerTest extends MockBeanInjection {
     void 충전소를_신고한다() throws Exception {
         // given
         Station station = StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
+        Member member = MemberFixture.일반_회원;
         long memberId = 12L;
 
         // when
         FaultReport faultReport = FaultReport.builder()
                 .station(station)
                 .id(1L)
-                .memberId(memberId)
+                .member(member)
                 .build();
 
         when(reportService.saveFaultReport(station.getStationId(), memberId)).thenReturn(faultReport);

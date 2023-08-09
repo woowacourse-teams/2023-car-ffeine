@@ -1,5 +1,8 @@
 package com.carffeine.carffeine.station.domain.report;
 
+import com.carffeine.carffeine.member.domain.Member;
+import com.carffeine.carffeine.member.domain.MemberRepository;
+import com.carffeine.carffeine.member.domain.MemberRole;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.domain.station.StationRepository;
 import com.carffeine.carffeine.station.fixture.station.StationFixture;
@@ -22,11 +25,19 @@ class FaultReportRepositoryTest {
 
     @Autowired
     private StationRepository stationRepository;
+
+    @Autowired
+    private MemberRepository memberRepository;
+
     private Station station;
+    private Member member;
 
     @BeforeEach
     void setUp() {
         station = stationRepository.save(StationFixture.선릉역_충전소_충전기_2개_사용가능_1개);
+        member = memberRepository.save(Member.builder()
+                .memberRole(MemberRole.USER)
+                .build());
     }
 
     @Test
@@ -34,7 +45,7 @@ class FaultReportRepositoryTest {
         // given
         FaultReport faultReport = FaultReport.builder()
                 .station(station)
-                .memberId(123L)
+                .member(member)
                 .build();
 
         // when
@@ -49,12 +60,12 @@ class FaultReportRepositoryTest {
         // given
         FaultReport faultReport = FaultReport.builder()
                 .station(station)
-                .memberId(123L)
+                .member(member)
                 .build();
         faultReportRepository.save(faultReport);
 
         // when
-        boolean result = faultReportRepository.existsByStationAndMemberId(station, 123L);
+        boolean result = faultReportRepository.existsByStationAndMemberId(station, member.getId());
 
         // then
         assertThat(result).isTrue();
@@ -65,7 +76,7 @@ class FaultReportRepositoryTest {
         // given
         FaultReport faultReport = FaultReport.builder()
                 .station(station)
-                .memberId(123L)
+                .member(member)
                 .build();
         faultReportRepository.save(faultReport);
 
