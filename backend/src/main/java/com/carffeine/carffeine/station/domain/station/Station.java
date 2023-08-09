@@ -27,7 +27,7 @@ import java.util.Set;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@EqualsAndHashCode(of = "stationId")
+@EqualsAndHashCode(of = "stationId", callSuper = false)
 @Table(name = "charge_station", indexes = @Index(name = "idx_station_coordination", columnList = "latitude, longitude, stationId"))
 public class Station extends BaseEntity {
 
@@ -74,10 +74,6 @@ public class Station extends BaseEntity {
         return (int) chargers.stream()
                 .filter(Charger::isAvailable)
                 .count();
-    }
-
-    public void setChargers(List<Charger> chargers) {
-        this.chargers = chargers;
     }
 
     public boolean isUpdated(Station station) {
@@ -134,5 +130,20 @@ public class Station extends BaseEntity {
 
     public Integer getReportCount() {
         return faultReports.size();
+    }
+
+    public void update(Station updatedStation) {
+        this.stationName = updatedStation.stationName;
+        this.companyName = updatedStation.companyName;
+        this.address = updatedStation.address;
+        this.isParkingFree = updatedStation.isParkingFree;
+        this.operatingTime = updatedStation.operatingTime;
+        this.detailLocation = updatedStation.detailLocation;
+        this.latitude = updatedStation.latitude;
+        this.longitude = updatedStation.longitude;
+        this.isPrivate = updatedStation.isPrivate;
+        this.contact = updatedStation.contact;
+        this.stationState = updatedStation.stationState;
+        this.privateReason = updatedStation.privateReason;
     }
 }
