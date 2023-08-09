@@ -6,10 +6,19 @@ import type { Color, ToastPosition } from '@type/style';
 
 export const toastListStore = store<ToastProps[]>([]);
 
-type Toast = `${ToastPosition['column']}-${ToastPosition['row']}`;
+type PositionedToast = `${ToastPosition['column']}-${ToastPosition['row']}`;
 
 export const toastActions = {
-  showToast: (message: string, position: Toast = 'bottom-center', color: Color = 'primary') => {
+  /**
+   * @param message : 토스트로 보여줄 문구
+   * @param color : 토스트 색상, [기본값] primary
+   * @param position : 토스트가 마지막으로 위치하는 곳, [기본값] bottom-center
+   */
+  showToast: (
+    message: string,
+    color: Color = 'primary',
+    position: PositionedToast = 'bottom-center'
+  ) => {
     const newToast = { toastId: Date.now(), message, position, color };
 
     toastListStore.setState((prev) => [...prev, newToast]);
