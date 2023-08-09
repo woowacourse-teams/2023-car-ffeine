@@ -112,7 +112,7 @@ public class AdminReportIntegrationTest extends IntegrationTest {
 
             // then
             상태_코드를_검증한다(응답, HttpStatus.OK);
-            충전소_제보_정보_페이지를_검증한다(응답, 1, 저장한_제보);
+            충전소_제보_정보_페이지를_검증한다(응답, 2, 저장한_제보);
         }
 
         @Test
