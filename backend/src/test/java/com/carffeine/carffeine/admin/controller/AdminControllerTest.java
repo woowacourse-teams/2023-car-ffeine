@@ -1,6 +1,8 @@
 package com.carffeine.carffeine.admin.controller;
 
+import com.carffeine.carffeine.admin.service.dto.StationUpdateRequest;
 import com.carffeine.carffeine.helper.MockBeanInjection;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
@@ -10,9 +12,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static com.carffeine.carffeine.helper.RestDocsHelper.customDocument;
@@ -23,7 +27,9 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
@@ -39,6 +45,8 @@ public class AdminControllerTest extends MockBeanInjection {
 
     @Autowired
     private MockMvc mockMvc;
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Test
     void 충전소를_페이지_단위로_조회한다() throws Exception {
@@ -114,6 +122,7 @@ public class AdminControllerTest extends MockBeanInjection {
                                         .type(JsonFieldType.ARRAY)
                                         .optional()
                                         .description("충전기 목록").optional(),
+                                subsectionWithPath("chargers[].stationId").type(JsonFieldType.STRING).description("충전소 ID"),
                                 subsectionWithPath("chargers[].chargerId").type(JsonFieldType.STRING).description("충전기 ID"),
                                 subsectionWithPath("chargers[].type").type(JsonFieldType.STRING).description("충전기 타입"),
                                 subsectionWithPath("chargers[].capacity").type(JsonFieldType.NUMBER).description("용량"),
@@ -122,4 +131,50 @@ public class AdminControllerTest extends MockBeanInjection {
                         )
                 ));
     }
+
+    @Test
+    void 충전소_정보를_수정한다() throws Exception {
+        // given
+        StationUpdateRequest updateRequest = new StationUpdateRequest(
+                "Updated Station",
+                "Updated Company",
+                "updated.contact@example.com",
+                "Updated Detail Location",
+                true,
+                false,
+                "Updated Operating Time",
+                "Updated Private Reason",
+                "Updated Station State",
+                "Updated Address",
+                new BigDecimal("37.12345"),
+                new BigDecimal("122.54321")
+
+        );
+
+        // when & then
+        mockMvc.perform(patch("/admin/stations/{stationId}", "station123")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(updateRequest))
+                        .header(HttpHeaders.AUTHORIZATION, "token~~"))
+                .andExpect(status().isNoContent())
+                .andDo(customDocument("update-station",
+                        pathParameters(parameterWithName("stationId").description("충전소 ID")),
+                        requestHeaders(headerWithName(HttpHeaders.AUTHORIZATION).description("인증 토큰")),
+                        requestFields(
+                                fieldWithPath("stationName").description("충전소 이름"),
+                                fieldWithPath("companyName").description("회사 이름"),
+                                fieldWithPath("contact").description("연락처"),
+                                fieldWithPath("detailLocation").description("상세 위치").optional(),
+                                fieldWithPath("isParkingFree").description("주차 여부"),
+                                fieldWithPath("isPrivate").description("사설 여부"),
+                                fieldWithPath("operationTime").description("운영 시간").optional(),
+                                fieldWithPath("privateReason").description("사설 사유").optional(),
+                                fieldWithPath("stationState").description("충전소 상태").optional(),
+                                fieldWithPath("address").description("주소").optional(),
+                                fieldWithPath("latitude").description("위도"),
+                                fieldWithPath("longitude").description("경도")
+                        )
+                ));
+    }
+
 }

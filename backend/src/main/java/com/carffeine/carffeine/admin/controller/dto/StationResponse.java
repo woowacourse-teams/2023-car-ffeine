@@ -1,5 +1,7 @@
 package com.carffeine.carffeine.admin.controller.dto;
 
+import com.carffeine.carffeine.station.domain.charger.Charger;
+import com.carffeine.carffeine.station.domain.charger.ChargerType;
 import com.carffeine.carffeine.station.domain.station.Station;
 
 import java.math.BigDecimal;
@@ -40,5 +42,25 @@ public record StationResponse(
         return station.getChargers().stream()
                 .map(ChargerResponse::from)
                 .toList();
+    }
+
+    public record ChargerResponse(
+            String stationId,
+            String chargerId,
+            ChargerType type,
+            BigDecimal price,
+            BigDecimal capacity,
+            String method
+    ) {
+        public static ChargerResponse from(Charger charger) {
+            return new ChargerResponse(
+                    charger.getStationId(),
+                    charger.getChargerId(),
+                    charger.getType(),
+                    charger.getPrice(),
+                    charger.getCapacity(),
+                    charger.getMethod()
+            );
+        }
     }
 }

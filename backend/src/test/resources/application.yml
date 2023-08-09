@@ -31,5 +31,5 @@ oauth2:
       info-url: http://localhost:8080/oauth2/v2/userinfo
 
 jwt:
-  secret: qwertyuiioplkjhgfdsazxcvbnmkjhgfd
-  expiration-period: 1
+  secret: qwertyuiioplkjhgfdsazxcvbnmkjhgfdqwertyuiioplkjhgfdsazxcvbnmkjhgfdqwertyuiioplkjhgfdsazxcvbnmkjhgfd
+  expiration-period: 10000

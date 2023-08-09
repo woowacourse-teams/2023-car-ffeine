@@ -2,6 +2,7 @@ package com.carffeine.carffeine.admin.service;
 
 import com.carffeine.carffeine.admin.exception.AdminException;
 import com.carffeine.carffeine.admin.exception.AdminExceptionType;
+import com.carffeine.carffeine.admin.service.dto.StationUpdateRequest;
 import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.member.domain.MemberRepository;
 import com.carffeine.carffeine.station.domain.station.Station;
@@ -33,6 +34,10 @@ public class AdminService {
     @Transactional(readOnly = true)
     public Station getStation(String stationId, Long memberId) {
         validateRole(memberId);
+        return findStation(stationId);
+    }
+
+    private Station findStation(String stationId) {
         return stationRepository.findFetchByStationId(stationId)
                 .orElseThrow(() -> new StationException(StationExceptionType.NOT_FOUND_ID));
     }
@@ -44,5 +49,13 @@ public class AdminService {
         if (isNotAdmin) {
             throw new AdminException(AdminExceptionType.NOT_ADMIN);
         }
+    }
+
+    @Transactional
+    public void updateStation(Long memberId, String stationId, StationUpdateRequest request) {
+        validateRole(memberId);
+        Station station = findStation(stationId);
+        Station updatedStation = request.toDomain();
+        station.update(updatedStation);
     }
 }
