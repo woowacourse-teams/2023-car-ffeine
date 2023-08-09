@@ -1,5 +1,6 @@
 package com.carffeine.carffeine.station.domain.report;
 
+import com.carffeine.carffeine.common.domain.BaseEntity;
 import com.carffeine.carffeine.station.domain.station.Station;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -26,7 +27,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "misinformation_report")
 @Entity
-public class MisinformationReport {
+public class MisinformationReport extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

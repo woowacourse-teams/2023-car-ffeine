@@ -1,0 +1,28 @@
+= Home API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+
+== 충전소의 고장을 신고한다 (/oauth/{provider}/login-uri)
+
+=== Request
+
+include::{snippets}/auth-controller-test/get-redirect-uri/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/auth-controller-test/get-redirect-uri/http-response.adoc[]
+
+== 로그인 후 토큰을 발급받는다 (/oauth/{provider}/login)
+
+=== Request
+
+include::{snippets}/auth-controller-test/login/http-request.adoc[]
+include::{snippets}/auth-controller-test/login/request-fields.adoc[]
+
+=== Response
+
+include::{snippets}/auth-controller-test/login/http-response.adoc[]
+

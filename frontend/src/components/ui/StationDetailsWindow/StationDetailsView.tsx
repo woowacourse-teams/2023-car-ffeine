@@ -8,6 +8,7 @@ import Alert from '@common/Alert';
 import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
+import Skeleton from '@common/Skeleton';
 
 import ChargerCard from '@ui/StationDetailsWindow/ChargerCard';
 import StationInformation from '@ui/StationDetailsWindow/StationInformation';
@@ -29,23 +30,21 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
     useStationChargerReport(stationId);
 
   return (
-    <Box px={2} py={10} css={containerCss}>
+    <Box px={2} py={10} css={stationDetailsViewContainerCss}>
       <StationInformation station={station} />
-      <FlexBox justifyContent="center">
+      <Box my={2}>
         <ButtonNext
           fullWidth
-          variant="text"
+          variant="outlined"
           size="sm"
-          color="light"
+          color="dark"
           onClick={() => {
             modalActions.openModal(<StationReportPreConfirmation station={station} />);
           }}
         >
           📝 충전소 정보 수정 제안하기
         </ButtonNext>
-      </FlexBox>
-
-      <hr />
+      </Box>
 
       <FlexBox>
         {chargers.map((charger, index) => (
@@ -53,15 +52,15 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
         ))}
       </FlexBox>
 
-      <FlexBox justifyContent="center">
+      <Box my={3}>
         {isStationChargerReportedLoading ? (
-          '⌛️'
+          <Skeleton height="3rem" />
         ) : (
           <ButtonNext
             fullWidth
-            variant="text"
+            variant="outlined"
             size="sm"
-            color="light"
+            color="dark"
             onClick={() => {
               modalActions.openModal(<ChargerReportConfirmation stationId={stationId} />);
             }}
@@ -70,7 +69,8 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
             {isStationChargerReported ? '이미 신고한 충전소입니다.' : '🚨 충전기 고장 신고 '}
           </ButtonNext>
         )}
-      </FlexBox>
+      </Box>
+
       {reportCount > 0 && (
         <Box my={1}>
           <Alert color={'secondary'} text={`충전 상태 불일치 신고가 ${reportCount}번 접수됐어요`} />
@@ -81,7 +81,7 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
   );
 };
 
-const containerCss = css`
+export const stationDetailsViewContainerCss = css`
   width: 34rem;
   height: 100vh;
   background-color: white;

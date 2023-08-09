@@ -1,9 +1,9 @@
 import { useStationDetails } from '@hooks/tanstack-query/station-details/useStationDetails';
 
 import Box from '@common/Box';
-import Text from '@common/Text';
 
 import StationDetailsView from '@ui/StationDetailsWindow/StationDetailsView';
+import StationDetailsViewSkeleton from '@ui/StationDetailsWindow/StationDetailsViewSkeleton';
 import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
 const StationDetailsWindow = () => {
@@ -31,7 +31,7 @@ const StationDetailsWindow = () => {
           justifyContent: 'center',
         }}
       >
-        <Text variant="h1">⌛</Text>
+        <StationDetailsViewSkeleton />
       </Box>
     );
   }

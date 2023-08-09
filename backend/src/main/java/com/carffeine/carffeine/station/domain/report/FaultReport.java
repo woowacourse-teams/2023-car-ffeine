@@ -1,5 +1,6 @@
 package com.carffeine.carffeine.station.domain.report;
 
+import com.carffeine.carffeine.common.domain.BaseEntity;
 import com.carffeine.carffeine.station.domain.station.Station;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -15,13 +16,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
 @Getter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "fault_report")
 @Entity
-public class FaultReport {
+public class FaultReport extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

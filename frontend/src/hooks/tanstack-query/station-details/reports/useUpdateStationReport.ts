@@ -28,8 +28,8 @@ const fetchReportStation = async (fetchReportStationRequestParams: fetchReportSt
     body: JSON.stringify({ stationDetailsToUpdate: differences }),
   });
 };
-export const useUpdateStationChargerReport = () => {
-  const { mutate } = useMutation({
+export const useUpdateStationReport = () => {
+  const { mutate, isLoading } = useMutation({
     mutationFn: fetchReportStation,
     onSuccess: () => {
       alert('제보가 완료됐습니다.');
@@ -41,5 +41,5 @@ export const useUpdateStationChargerReport = () => {
     mutate(fetchReportStationRequestParams);
   };
 
-  return { updateStationReport };
+  return { updateStationReport, isLoading };
 };

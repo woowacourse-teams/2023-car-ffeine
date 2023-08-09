@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-import type { BorderRadiusDirectionType, Color } from '@type/style';
+import type { BorderRadiusDirectionType, Color, ToastPosition } from '@type/style';
 
 export const borderRadius = (direction: BorderRadiusDirectionType) => css`
   ${direction === 'all' && 'border-radius: 0;'}
@@ -27,12 +27,13 @@ export const getSize = (size: string | number) => {
   }
   return 'auto';
 };
+
 export const getColor = (color?: Color) => {
   switch (color) {
     case 'primary':
       return '#0d6efd';
     case 'secondary':
-      return '#212529';
+      return '#1a1d21';
     case 'success':
       return '#198754';
     case 'error':
@@ -49,6 +50,7 @@ export const getColor = (color?: Color) => {
       return '#0d6efd';
   }
 };
+
 export const getHoverColor = (color?: Color) => {
   switch (color) {
     case 'primary':
@@ -70,4 +72,55 @@ export const getHoverColor = (color?: Color) => {
     default:
       return '#0b5ed7';
   }
+};
+
+type ToastPositionProps = `${ToastPosition['column']}-${ToastPosition['row']}`;
+
+export const getPopupAnimation = (position: ToastPositionProps, duration: number) => {
+  return css`
+    ${position.includes('top') ? 'top: 0' : 'bottom: 0'};
+    ${position.includes('left') && 'left: 0'};
+    ${position.includes('right') && 'right: 0'};
+    ${position.includes('center') && 'left: 50%; transform: translateX(-50%);'};
+
+    animation:
+      fadeIn ${duration}s,
+      PopUp 1s forwards;
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+
+    ${popup(position)}
+  `;
+};
+
+const popup = (position: ToastPositionProps = 'bottom-center') => {
+  const column = position.includes('top') ? 'top' : 'bottom';
+  const row = position.includes('center')
+    ? 'center'
+    : position.includes('right')
+    ? 'right'
+    : 'left';
+
+  return css`
+    @keyframes PopUp {
+      from {
+        ${row === 'center' ? `${column}: 0; left: 50%;` : `${column}: 10%; ${row}: 0;`}
+      }
+      to {
+        ${column}: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+  `;
 };

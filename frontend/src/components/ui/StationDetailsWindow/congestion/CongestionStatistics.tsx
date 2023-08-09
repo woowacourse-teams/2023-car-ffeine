@@ -6,6 +6,7 @@ import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
+import CongestionStatisticsSkeleton from '@ui/StationDetailsWindow/congestion/CongestionStatisticsSkeleton';
 import StatisticsGraph from '@ui/StatisticsGraph';
 
 import type { CHARGING_SPEED } from '@constants/chargers';
@@ -15,13 +16,8 @@ const CongestionStatistics = () => {
   const { data: congestionStatistics, isLoading } = useStationCongestionStatistics();
   const [chargingSpeed, setChargingSpeed] = useState<keyof typeof CHARGING_SPEED>('quick');
 
-  // TODO: 그래프 모양 로딩 스켈레톤 추가하기
   if (isLoading) {
-    return (
-      <FlexBox width="100%" height="50rem" justifyContent="center" alignItems="center">
-        <Text variant="h2">⌛</Text>
-      </FlexBox>
-    );
+    return <CongestionStatisticsSkeleton />;
   }
 
   return (

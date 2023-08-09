@@ -1,6 +1,6 @@
 import { modalActions } from '@stores/layout/modalStore';
 
-import { useUpdateStationChargerReport } from '@hooks/tanstack-query/station-details/reports/useUpdateStationReport';
+import { useUpdateStationReport } from '@hooks/tanstack-query/station-details/reports/useUpdateStationReport';
 
 import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
@@ -17,7 +17,7 @@ interface StationReportPreConfirmationProps {
 }
 
 const StationReportPreConfirmation = ({ station }: StationReportPreConfirmationProps) => {
-  const { updateStationReport } = useUpdateStationChargerReport();
+  const { updateStationReport, isLoading } = useUpdateStationReport();
 
   const reportCharger = () => {
     updateStationReport({ stationId: station.stationId, differences: [] });
@@ -58,10 +58,15 @@ const StationReportPreConfirmation = ({ station }: StationReportPreConfirmationP
         >
           닫기
         </ButtonNext>
-        <ButtonNext fullWidth variant="outlined" size="sm" color="success" onClick={reportCharger}>
-          바쁘니깐
-          <br />
-          알아서 확인해주세요
+        <ButtonNext
+          disabled={isLoading}
+          fullWidth
+          variant="outlined"
+          size="sm"
+          color="success"
+          onClick={reportCharger}
+        >
+          {isLoading ? '처리중...' : '바쁘니깐 알아서 확인해주세요'}
         </ButtonNext>
       </FlexBox>
     </>

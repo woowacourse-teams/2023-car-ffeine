@@ -3,18 +3,21 @@ import { css } from 'styled-components';
 import { useStations } from '@hooks/tanstack-query/station-markers/useStations';
 
 import List from '@common/List';
-import Text from '@common/Text';
+
+import EmptyStationsNotice from '@ui/StationList/EmptyStationsNotice';
+import StationSummaryCardSkeleton from '@ui/StationList/StationSummaryCardSkeleton';
 
 import StationSummaryCard from './StationSummaryCard';
 
 const StationList = () => {
-  const { data: stations, isSuccess } = useStations();
+  const { data: stations, isSuccess, isFetching } = useStations();
 
-  // TODO: 주변 충전소 목록 스켈레톤 적용하기
-  if (stations === undefined) {
+  if (isFetching) {
     return (
-      <List css={[searchResultList, tempAlign]}>
-        <Text variant="h1">⌛</Text>
+      <List css={searchResultList}>
+        {Array.from({ length: 10 }, (_, index) => (
+          <StationSummaryCardSkeleton key={index} />
+        ))}
       </List>
     );
   }
@@ -22,19 +25,17 @@ const StationList = () => {
   return (
     isSuccess && (
       <List css={searchResultList}>
-        {stations.map((station) => {
-          return <StationSummaryCard key={station.stationId} station={station} />;
-        })}
+        {stations.length > 0 ? (
+          stations.map((station) => (
+            <StationSummaryCard key={station.stationId} station={station} />
+          ))
+        ) : (
+          <EmptyStationsNotice />
+        )}
       </List>
     )
   );
 };
-
-const tempAlign = css`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
 
 const searchResultList = css`
   position: fixed;
