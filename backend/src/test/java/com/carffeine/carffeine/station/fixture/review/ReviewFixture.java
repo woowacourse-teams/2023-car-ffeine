@@ -5,6 +5,7 @@ import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 @SuppressWarnings("NonAsciiCharacters")
 
@@ -18,7 +19,7 @@ public class ReviewFixture {
         return createReviewRequests;
     }
 
-    public static final Review 선릉역_충전소_리뷰_별4_15글자 = Review.builder()
+    public static final Supplier<Review> 선릉역_충전소_리뷰_별4_15글자 = ()->Review.builder()
             .stationId("ME101010")
             .memberId(1L)
             .ratings(4)

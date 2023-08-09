@@ -28,7 +28,7 @@ public class ReviewController {
 
     @GetMapping("/stations/{stationId}/reviews")
     public ResponseEntity<ReviewResponses> findReviews(@PathVariable String stationId,
-                                                       @RequestParam(value = "page", defaultValue = "1") int page) {
+                                                       @RequestParam(value = "page",required = false, defaultValue = "1") int page) {
         List<Review> reviews = reviewService.findAllReviews(stationId, page);
         ReviewResponses responses = ReviewResponses.from(reviews);
         return ResponseEntity.ok(responses);
