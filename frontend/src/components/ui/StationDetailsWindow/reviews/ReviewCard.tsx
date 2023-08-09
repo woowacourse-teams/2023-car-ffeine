@@ -27,7 +27,7 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
 
   return (
     <>
-      <Box border p={2}>
+      <Box p={2} mb={2}>
         <Box p={2}>
           <FlexBox justifyContent="between">
             <FlexBox>
@@ -44,13 +44,22 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
         </Box>
 
         {replies.length > 0 && (
-          <Box>
+          <FlexBox justifyContent="between">
             <ButtonNext size="xs" variant="text" onClick={() => setIsRepliesOpen(!isRepliesOpen)}>
               {isRepliesOpen ? `답글 닫기` : `답글 ${replies.length > 0 ? replies.length : '달기'}`}
             </ButtonNext>
-          </Box>
+            <FlexBox>
+              <ButtonNext size="xs" variant="text" color="secondary" onClick={() => alert('수정')}>
+                수정
+              </ButtonNext>
+              <ButtonNext size="xs" variant="text" color="error" onClick={() => alert('삭제')}>
+                삭제
+              </ButtonNext>
+            </FlexBox>
+          </FlexBox>
         )}
       </Box>
+
       {isRepliesOpen &&
         replies.map((reply) => (
           <Box p={3} key={reply.replyId} pl={8}>
@@ -67,6 +76,19 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
               <Box mt={3}>
                 <Text variant="body">{reply.content}</Text>
               </Box>
+              <FlexBox justifyContent="end">
+                <ButtonNext
+                  size="xs"
+                  variant="text"
+                  color="secondary"
+                  onClick={() => alert('수정')}
+                >
+                  수정
+                </ButtonNext>
+                <ButtonNext size="xs" variant="text" color="error" onClick={() => alert('삭제')}>
+                  삭제
+                </ButtonNext>
+              </FlexBox>
             </Box>
           </Box>
         ))}
