@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class FakeCompanyNameRepository implements CompanyNameRepository {
 
@@ -37,5 +38,13 @@ public class FakeCompanyNameRepository implements CompanyNameRepository {
         }
 
         return savedCompanies;
+    }
+
+    @Override
+    public Optional<CompanyName> findByCompanyKey(final String companyKey) {
+        return map.values()
+                .stream()
+                .filter(it -> it.getCompanyKey().equals(companyKey))
+                .findAny();
     }
 }

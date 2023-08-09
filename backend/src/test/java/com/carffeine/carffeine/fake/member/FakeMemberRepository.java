@@ -14,6 +14,11 @@ public class FakeMemberRepository implements MemberRepository {
     private Long id = 0L;
 
     @Override
+    public Optional<Member> findById(final Long id) {
+        return Optional.of(map.get(id));
+    }
+
+    @Override
     public Optional<Member> findByEmail(String email) {
         return map.values().stream()
                 .filter(it -> it.getEmail().equals(email))

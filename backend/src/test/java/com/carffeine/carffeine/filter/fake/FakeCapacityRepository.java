@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class FakeCapacityRepository implements CapacityRepository {
 
@@ -38,5 +39,13 @@ public class FakeCapacityRepository implements CapacityRepository {
         }
 
         return savedCapacities;
+    }
+
+    @Override
+    public Optional<Capacity> findByCapacity(final BigDecimal capacity) {
+        return map.values()
+                .stream()
+                .filter(it -> it.getCapacity().equals(capacity))
+                .findAny();
     }
 }

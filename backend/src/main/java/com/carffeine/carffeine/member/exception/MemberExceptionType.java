@@ -1,18 +1,17 @@
-package com.carffeine.carffeine.filter.exception;
+package com.carffeine.carffeine.member.exception;
 
 import com.carffeine.carffeine.common.exception.ExceptionType;
 import com.carffeine.carffeine.common.exception.Status;
 
-public enum FilterExceptionType implements ExceptionType {
+public enum MemberExceptionType implements ExceptionType {
 
-    FILTER_ALREADY_REGISTERED(Status.BAD_REQUEST, 1001, "중복된 필터가 포함되어 있습니다."),
-    FILTER_NOT_FOUND(Status.NOT_FOUND, 1002, "요청하신 필터를 찾을 수 없습니다.");
+    MEMBER_NOT_FOUND(Status.NOT_FOUND, 1001, "로그인한 유저의 정보를 찾을 수 없습니다.");
 
     private final Status status;
     private final int exceptionCode;
     private final String message;
 
-    FilterExceptionType(final Status status, final int exceptionCode, final String message) {
+    MemberExceptionType(Status status, int exceptionCode, String message) {
         this.status = status;
         this.exceptionCode = exceptionCode;
         this.message = message;

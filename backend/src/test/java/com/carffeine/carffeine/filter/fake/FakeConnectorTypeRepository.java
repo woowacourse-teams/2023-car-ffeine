@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class FakeConnectorTypeRepository implements ConnectorTypeRepository {
 
@@ -37,5 +38,13 @@ public class FakeConnectorTypeRepository implements ConnectorTypeRepository {
         }
 
         return savedConnectorType;
+    }
+
+    @Override
+    public Optional<ConnectorType> findByConnectorKey(final String connectorKey) {
+        return map.values()
+                .stream()
+                .filter(it -> it.getConnectorKey().equals(connectorKey))
+                .findAny();
     }
 }
