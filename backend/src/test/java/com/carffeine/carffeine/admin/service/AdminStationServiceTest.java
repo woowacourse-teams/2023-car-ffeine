@@ -23,11 +23,11 @@ import static org.springframework.data.domain.PageRequest.of;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
-public class AdminServiceTest {
+public class AdminStationServiceTest {
 
     private StationRepository stationRepository;
     private MemberRepository memberRepository;
-    private AdminService adminService;
+    private AdminStationService adminStationService;
     private Member admin;
     private Member user;
 
@@ -35,7 +35,7 @@ public class AdminServiceTest {
     void setUp() {
         memberRepository = new FakeMemberRepository();
         stationRepository = new FakeStationRepository();
-        adminService = new AdminService(stationRepository, memberRepository);
+        adminStationService = new AdminStationService(stationRepository, memberRepository);
 
         admin = memberRepository.save(Member.builder()
                 .memberRole(MemberRole.ADMIN)
@@ -55,7 +55,7 @@ public class AdminServiceTest {
         }
 
         // when
-        Page<Station> stations = adminService.getStations(of(0, 10), null, admin.getId());
+        Page<Station> stations = adminStationService.getStations(of(0, 10), null, admin.getId());
 
         // then
         assertSoftly(softly -> {
@@ -74,7 +74,7 @@ public class AdminServiceTest {
                     .build());
         }
         // when
-        Page<Station> stations = adminService.getStations(of(0, 10), "9", admin.getId());
+        Page<Station> stations = adminStationService.getStations(of(0, 10), "9", admin.getId());
 
         // then
         assertSoftly(softly -> {
@@ -85,7 +85,7 @@ public class AdminServiceTest {
 
     @Test
     void 충전소_조회_시_관리자가_아니라면_예외가_발생한다() {
-        assertThatThrownBy(() -> adminService.getStations(of(0, 10), "9", user.getId()))
+        assertThatThrownBy(() -> adminStationService.getStations(of(0, 10), "9", user.getId()))
                 .isInstanceOf(AdminException.class)
                 .hasMessage(AdminExceptionType.NOT_ADMIN.message());
     }
@@ -96,7 +96,7 @@ public class AdminServiceTest {
         Station saved = stationRepository.save(StationFixture.천호역_충전소_충전기_2개_사용가능_1개);
 
         // when
-        Station station = adminService.getStation(saved.getStationId(), admin.getId());
+        Station station = adminStationService.getStation(saved.getStationId(), admin.getId());
 
         // then
         assertThat(station).usingRecursiveComparison()

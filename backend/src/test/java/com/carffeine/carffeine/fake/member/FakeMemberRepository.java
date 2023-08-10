@@ -23,12 +23,13 @@ public class FakeMemberRepository implements MemberRepository {
     @Override
     public Member save(Member member) {
         id++;
-        map.put(id, member);
-        return Member.builder()
+        Member savedMember = Member.builder()
                 .id(id)
                 .memberRole(member.getMemberRole())
                 .email(member.getEmail())
                 .build();
+        map.put(id, savedMember);
+        return savedMember;
     }
 
     @Override
