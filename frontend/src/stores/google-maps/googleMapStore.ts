@@ -29,6 +29,15 @@ export const getGoogleMapStore = (() => {
         minZoom: 8,
         maxZoom: 20,
         gestureHandling: 'greedy',
+        restriction: {
+          latLngBounds: {
+            north: 39,
+            south: 33,
+            east: 132,
+            west: 124,
+          },
+          strictBounds: true,
+        },
       });
     }
 
