@@ -1,14 +1,16 @@
 package com.carffeine.carffeine.station.domain.review;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.Repository;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface ReviewRepository extends Repository<Review, Long> {
 
     Review save(Review review);
 
-    Review findById(Long reviewId);
+    Optional<Review> findById(Long reviewId);
 
-    List<Review> findAllByStationId(String stationId);
+    Page<Review> findAllByStationId(String stationId, Pageable pageable);
 }

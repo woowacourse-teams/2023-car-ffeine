@@ -1,13 +1,16 @@
 package com.carffeine.carffeine.station.domain.review;
 
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-
+import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.리뷰_13개;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -19,7 +22,7 @@ class ReviewRepositoryTest {
     private ReviewRepository reviewRepository;
 
     @Test
-    void 리뷰를_등록한다(){
+    void 리뷰를_등록한다() {
         // given
         Review review = Review.builder()
                 .stationId("ME101010")
@@ -33,7 +36,7 @@ class ReviewRepositoryTest {
         Long reviewId = savedReview.getId();
 
         // when
-        Review foundReview = reviewRepository.findById(reviewId);
+        Review foundReview = reviewRepository.findById(reviewId).get();
 
         // then
         assertThat(foundReview).usingRecursiveComparison()
@@ -41,23 +44,22 @@ class ReviewRepositoryTest {
     }
 
     @Test
-    void 전체_리뷰를_조회한다(){
+    void 전체_리뷰를_조회한다() {
         // given
-        Review review = Review.builder()
-                .stationId("ME101010")
-                .memberId(1L)
-                .ratings(4)
-                .content("덕분에 빠르게 충전했습니다")
-                .isUpdated(false)
-                .isDeleted(false)
-                .build();
-        reviewRepository.save(review);
+        for (Review review : 리뷰_13개()) {
+            reviewRepository.save(review);
+        }
+
+        String stationId = "ME101010";
+        Pageable pageable = PageRequest.of(0, 10);
 
         // when
-        String stationId = "ME101010";
-        List<Review> foundReviews = reviewRepository.findAllByStationId(stationId);
+        Page<Review> foundReviews = reviewRepository.findAllByStationId(stationId, pageable);
 
         // then
-        assertThat(foundReviews).hasSize(1);
+        SoftAssertions.assertSoftly(softly -> {
+            softly.assertThat(foundReviews.getSize()).isEqualTo(10);
+            softly.assertThat(foundReviews.getTotalElements()).isEqualTo(13);
+        });
     }
 }

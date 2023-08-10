@@ -5,21 +5,19 @@ import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.exception.review.ReviewException;
 import com.carffeine.carffeine.station.fixture.review.ReviewFixture;
 import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;
-import org.assertj.core.api.SoftAssertions;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-
-import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.*;
+import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.리뷰_요청_13개;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.assertj.core.api.SoftAssertions.*;
+import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
@@ -124,12 +122,12 @@ class ReviewServiceTest extends IntegrationTest {
         // given
         String stationId = "ME101010";
         Long memberId = 1L;
-        int page = 1;
+        Pageable pageable = Pageable.ofSize(2).withPage(0);
         CreateReviewRequest request = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
         reviewService.saveReview(request, stationId, memberId);
 
         // when
-        List<Review> reviews = reviewService.findAllReviews(stationId, page);
+        Page<Review> reviews = reviewService.findAllReviews(stationId, pageable);
 
         // then
         assertThat(reviews).hasSize(1);
@@ -140,14 +138,14 @@ class ReviewServiceTest extends IntegrationTest {
         // given
         String stationId = "ME101010";
         Long memberId = 1L;
-        int page = 1;
+        Pageable pageable = Pageable.ofSize(10).withPage(0);
 
-        for (CreateReviewRequest request : 리뷰_13개()) {
+        for (CreateReviewRequest request : 리뷰_요청_13개()) {
             reviewService.saveReview(request, stationId, memberId);
         }
 
         // when
-        List<Review> reviews = reviewService.findAllReviews(stationId, page);
+        Page<Review> reviews = reviewService.findAllReviews(stationId, pageable);
 
         // then
         assertThat(reviews).hasSize(10);
@@ -158,17 +156,36 @@ class ReviewServiceTest extends IntegrationTest {
         // given
         String stationId = "ME101010";
         Long memberId = 1L;
-        int page = 2;
+        Pageable pageable = Pageable.ofSize(10).withPage(1);
 
-        for (CreateReviewRequest request : 리뷰_13개()) {
+        for (CreateReviewRequest request : 리뷰_요청_13개()) {
             reviewService.saveReview(request, stationId, memberId);
         }
 
         // when
-        List<Review> reviews = reviewService.findAllReviews(stationId, page);
+        Page<Review> reviews = reviewService.findAllReviews(stationId, pageable);
 
         // then
-        assertThat(reviews).hasSize(3);
+        assertThat(reviews.get().count()).isEqualTo(3);
+
+    }
+
+    @Test
+    void 충전소의_리뷰가_13개일_경우_세번째_페이지엔_리뷰가_없다() {
+        // given
+        String stationId = "ME101010";
+        Long memberId = 1L;
+        Pageable pageable = Pageable.ofSize(10).withPage(2);
+
+        for (CreateReviewRequest request : 리뷰_요청_13개()) {
+            reviewService.saveReview(request, stationId, memberId);
+        }
+
+        // when
+        Page<Review> reviews = reviewService.findAllReviews(stationId, pageable);
+
+        // then
+        assertThat(reviews.get().count()).isEqualTo(0);
     }
 
     @Test

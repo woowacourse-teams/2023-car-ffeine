@@ -11,15 +11,8 @@ import java.util.function.Supplier;
 
 public class ReviewFixture {
 
-    public static List<CreateReviewRequest> 리뷰_13개() {
-        List<CreateReviewRequest> createReviewRequests = new ArrayList<>();
-        for (int i = 0; i < 13; i++) {
-            createReviewRequests.add(new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다"));
-        }
-        return createReviewRequests;
-    }
-
-    public static final Supplier<Review> 선릉역_충전소_리뷰_별4_15글자 = ()->Review.builder()
+    public static final Supplier<Review> 선릉역_충전소_리뷰_별4_15글자 = () -> Review.builder()
+            .id(2L)
             .stationId("ME101010")
             .memberId(1L)
             .ratings(4)
@@ -27,4 +20,28 @@ public class ReviewFixture {
             .isUpdated(false)
             .isDeleted(false)
             .build();
+
+    public static List<CreateReviewRequest> 리뷰_요청_13개() {
+        List<CreateReviewRequest> createReviewRequests = new ArrayList<>();
+        for (int i = 0; i < 13; i++) {
+            createReviewRequests.add(new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다"));
+        }
+        return createReviewRequests;
+    }
+
+    public static List<Review> 리뷰_13개() {
+        List<Review> reviews = new ArrayList<>();
+        for (int i = 0; i < 13; i++) {
+            Review review = Review.builder()
+                    .stationId("ME101010")
+                    .memberId(1L)
+                    .ratings(2)
+                    .content("감사합니다 감사합니다")
+                    .isUpdated(false)
+                    .isDeleted(false)
+                    .build();
+            reviews.add(review);
+        }
+        return reviews;
+    }
 }

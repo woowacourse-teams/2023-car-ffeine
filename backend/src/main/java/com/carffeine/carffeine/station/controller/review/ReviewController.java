@@ -6,6 +6,8 @@ import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.service.review.ReviewService;
 import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,14 +30,15 @@ public class ReviewController {
     }
 
     @GetMapping("/stations/{stationId}/reviews")
-    public ResponseEntity<ReviewResponses> findReviews(@PathVariable String stationId,
-                                                       @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
-        List<Review> reviews = reviewService.findAllReviews(stationId, page);
+    public ResponseEntity<ReviewResponses> findReviews(
+            @PathVariable String stationId,
+            Pageable pageable) {
+        Page<Review> reviews = reviewService.findAllReviews(stationId, pageable);
         ReviewResponses responses = ReviewResponses.from(reviews);
         return ResponseEntity.ok(responses);
     }
 
-    @PostMapping("/api/reviews/{reviewId}")
+    @PostMapping("/reviews/{reviewId}")
     public ResponseEntity<Void> updateReview(
             @AuthMember Long memberId,
             @PathVariable Long reviewId,
@@ -44,8 +47,10 @@ public class ReviewController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/api/reviews/{reviewId}")
-    public ResponseEntity<Void> deleteReview(@AuthMember Long memberId, @PathVariable long reviewId) {
+    @DeleteMapping("/reviews/{reviewId}")
+    public ResponseEntity<Void> deleteReview(
+            @AuthMember Long memberId,
+            @PathVariable long reviewId) {
         reviewService.deleteReview(memberId, reviewId);
         return ResponseEntity.noContent().build();
     }

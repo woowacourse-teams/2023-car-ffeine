@@ -7,10 +7,10 @@ import com.carffeine.carffeine.station.exception.review.ReviewException;
 import com.carffeine.carffeine.station.exception.review.ReviewExceptionType;
 import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Transactional
@@ -58,25 +58,8 @@ public class ReviewService {
             throw new ReviewException(ReviewExceptionType.INVALID_CONTENT_NOTNULL);
         }
 
-        if (content.length() < MIN_CONTENT) {
-            throw new ReviewException(ReviewExceptionType.INVALID_CONTENT_MIN_LENGTH);
-        }
-
-        if (content.length() > MAX_CONTENT) {
-            throw new ReviewException(ReviewExceptionType.INVALID_CONTENT_MAX_LENGTH);
-        }
-    }
-
-    public List<Review> findAllReviews(String stationId, int page) {
-        List<Review> allByStationId = reviewRepository.findAllByStationId(stationId);
-        return reviewsByPage(allByStationId, page);
-    }
-
-    private List<Review> reviewsByPage(List<Review> reviews, int page) {
-        return reviews.stream()
-                .skip((long) (page - 1) * REVIEW_LIMIT)
-                .limit(REVIEW_LIMIT)
-                .toList();
+    public Page<Review> findAllReviews(String stationId, Pageable pageable) {
+        return reviewRepository.findAllByStationId(stationId, pageable);
     }
 
     public Review updateReview(CreateReviewRequest request, Long reviewId, Long memberId) {
