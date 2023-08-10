@@ -19,6 +19,7 @@ import MapController from '@ui/MapController';
 import ModalContainer from '@ui/ModalContainer';
 import NavigationBar from '@ui/NavigationBar';
 
+import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
 import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
 import { LOCAL_KEY_LAST_POSITION, SESSION_KEY_USER_TOKEN } from '@constants/storageKeys';
 
@@ -46,7 +47,9 @@ const CarFfeineMapListener = () => {
     googleMap.addListener('idle', () => {
       console.log('idle (테스트용: 제거 예정)');
 
-      console.log(googleMap.getZoom());
+      if (googleMap.getZoom() < INITIAL_ZOOM_SIZE) {
+        toastActions.showToast('지도를 조금만 더 확대해주세요', 'warning', 'bottom-center');
+      }
 
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
       setLocalStorage<google.maps.LatLngLiteral>(LOCAL_KEY_LAST_POSITION, {
