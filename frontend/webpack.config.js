@@ -13,10 +13,12 @@ module.exports = {
   output: {
     path: path.join(__dirname, '/dist'),
     filename: 'bundle.js',
+    publicPath: '/',
   },
   devtool: prod ? undefined : 'source-map',
   devServer: {
     static: './dist',
+    historyApiFallback: true,
   },
   module: {
     rules: [

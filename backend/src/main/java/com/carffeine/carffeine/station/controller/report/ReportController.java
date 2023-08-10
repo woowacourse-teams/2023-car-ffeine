@@ -1,5 +1,6 @@
 package com.carffeine.carffeine.station.controller.report;
 
+import com.carffeine.carffeine.auth.controller.AuthMember;
 import com.carffeine.carffeine.station.controller.report.dto.DuplicateReportResponse;
 import com.carffeine.carffeine.station.service.report.ReportService;
 import com.carffeine.carffeine.station.service.report.dto.MisinformationReportRequest;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -21,7 +21,7 @@ public class ReportController {
     @PostMapping("/stations/{stationId}/reports")
     public ResponseEntity<Void> saveReport(
             @PathVariable String stationId,
-            @RequestHeader("Authorization") Long memberId
+            @AuthMember Long memberId
     ) {
         reportService.saveFaultReport(stationId, memberId);
         return ResponseEntity.noContent().build();
@@ -30,7 +30,7 @@ public class ReportController {
     @PostMapping("/stations/{stationId}/misinformation-reports")
     public ResponseEntity<Void> saveMisinformationReport(
             @PathVariable String stationId,
-            @RequestHeader("Authorization") Long memberId,
+            @AuthMember Long memberId,
             @RequestBody MisinformationReportRequest request
     ) {
         reportService.saveMisinformationReport(stationId, memberId, request);
@@ -40,7 +40,7 @@ public class ReportController {
     @GetMapping("/stations/{stationId}/reports/me")
     public ResponseEntity<DuplicateReportResponse> isDuplicateReport(
             @PathVariable String stationId,
-            @RequestHeader("Authorization") Long memberId
+            @AuthMember Long memberId
     ) {
         boolean isAlreadyReport = reportService.isDuplicateReportStation(memberId, stationId);
         DuplicateReportResponse response = new DuplicateReportResponse(isAlreadyReport);

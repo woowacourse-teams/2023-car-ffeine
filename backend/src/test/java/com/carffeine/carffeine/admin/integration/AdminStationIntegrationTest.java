@@ -16,19 +16,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
-import static com.carffeine.carffeine.admin.integration.AdminIntegrationTestFixture.수정할_충전소_정보;
-import static com.carffeine.carffeine.admin.integration.AdminIntegrationTestFixture.충전소_상세_정보_응답을_검증한다;
-import static com.carffeine.carffeine.admin.integration.AdminIntegrationTestFixture.충전소_정보_페이지를_검증한다;
-import static com.carffeine.carffeine.admin.integration.AdminIntegrationTestFixture.충전소가_수정된_응답을_검증한다;
-import static com.carffeine.carffeine.admin.integration.AdminIntegrationTestFixture.토큰과_충전소_ID로_충전소_정보를_수정한다;
-import static com.carffeine.carffeine.admin.integration.AdminIntegrationTestFixture.토큰과_충전소_ID로_충전소_정보를_요청한다;
-import static com.carffeine.carffeine.admin.integration.AdminIntegrationTestFixture.토큰과_함께_충전소_이름과_페이지_번호와_사이즈로_충전소_정보를_요청한다;
-import static com.carffeine.carffeine.admin.integration.AdminIntegrationTestFixture.토큰과_함께_페이지_번호와_사이즈로_충전소_정보를_요청한다;
+import static com.carffeine.carffeine.admin.integration.AdminStationIntegrationTestFixture.수정할_충전소_정보;
+import static com.carffeine.carffeine.admin.integration.AdminStationIntegrationTestFixture.충전소_상세_정보_응답을_검증한다;
+import static com.carffeine.carffeine.admin.integration.AdminStationIntegrationTestFixture.충전소_정보_페이지를_검증한다;
+import static com.carffeine.carffeine.admin.integration.AdminStationIntegrationTestFixture.충전소가_수정된_응답을_검증한다;
+import static com.carffeine.carffeine.admin.integration.AdminStationIntegrationTestFixture.토큰과_충전소_ID로_충전소_정보를_수정한다;
+import static com.carffeine.carffeine.admin.integration.AdminStationIntegrationTestFixture.토큰과_충전소_ID로_충전소_정보를_요청한다;
+import static com.carffeine.carffeine.admin.integration.AdminStationIntegrationTestFixture.토큰과_함께_충전소_이름과_페이지_번호와_사이즈로_충전소_정보를_요청한다;
+import static com.carffeine.carffeine.admin.integration.AdminStationIntegrationTestFixture.토큰과_함께_페이지_번호와_사이즈로_충전소_정보를_요청한다;
 import static com.carffeine.carffeine.helper.integration.AcceptanceTestFixture.상태_코드를_검증한다;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
-public class AdminIntegrationTest extends IntegrationTest {
+public class AdminStationIntegrationTest extends IntegrationTest {
 
     @Autowired
     private StationRepository stationRepository;

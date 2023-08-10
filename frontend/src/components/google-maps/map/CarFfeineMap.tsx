@@ -8,7 +8,9 @@ import { useExternalValue } from '@utils/external-state';
 import { getSessionStorage, setLocalStorage } from '@utils/storage';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
+import { toastActions } from '@stores/layout/toastStore';
 
+import { useUserFilters } from '@hooks/tanstack-query/station-filters/useUserFilters';
 import { useUpdateStations } from '@hooks/tanstack-query/station-markers/useUpdateStations';
 
 import ToastContainer from '@common/Toast/ToastContainer';
@@ -18,19 +20,18 @@ import MapController from '@ui/MapController';
 import ModalContainer from '@ui/ModalContainer';
 import NavigationBar from '@ui/NavigationBar';
 
-import { LOCAL_KEY_LAST_POSITION } from '@constants/storageKeys';
+import { LOCAL_KEY_LAST_POSITION, SESSION_KEY_USER_TOKEN } from '@constants/storageKeys';
 
 const CarFfeineMap = () => {
-  console.log(getSessionStorage('CARFFEINE_USER_TOKEN', ''));
-
   return (
     <>
       <CarFfeineMapListener />
-      <StationMarkersContainer />
+      <UserLoginListener />
       <NavigationBar />
       <ClientStationFilters />
-      <ModalContainer />
       <MapController />
+      <StationMarkersContainer />
+      <ModalContainer />
       <ToastContainer />
     </>
   );
@@ -57,6 +58,21 @@ const CarFfeineMapListener = () => {
 
       google.maps.event.removeListener(initMarkersEvent);
     });
+  }, []);
+
+  return <></>;
+};
+
+const UserLoginListener = () => {
+  // 이 부분 리뷰 부탁드립니다
+  useUserFilters();
+
+  useEffect(() => {
+    const userToken = getSessionStorage(SESSION_KEY_USER_TOKEN, '');
+
+    if (userToken !== '') {
+      toastActions.showToast('로그인 되었습니다!');
+    }
   }, []);
 
   return <></>;

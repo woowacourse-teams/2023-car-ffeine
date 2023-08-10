@@ -9,32 +9,81 @@
 
 === Request
 
-include::{snippets}/admin-controller-test/get-stations/http-request.adoc[]
+include::{snippets}/admin-station-controller-test/get-stations/http-request.adoc[]
+
+include::{snippets}/admin-station-controller-test/get-stations/request-parameters.adoc[]
 
 === Response
 
-include::{snippets}/admin-controller-test/get-stations/http-response.adoc[]
-include::{snippets}/admin-controller-test/get-stations/response-fields.adoc[]
+include::{snippets}/admin-station-controller-test/get-stations/http-response.adoc[]
+include::{snippets}/admin-station-controller-test/get-stations/response-fields.adoc[]
 
 == 충전소의 상세 정보를 요청한다 (/admin/stations/{stationId})
 
 === Request
 
-include::{snippets}/admin-controller-test/get-station/http-request.adoc[]
+include::{snippets}/admin-station-controller-test/get-station/http-request.adoc[]
 
 === Response
 
-include::{snippets}/admin-controller-test/get-station/http-response.adoc[]
-include::{snippets}/admin-controller-test/get-station/response-fields.adoc[]
+include::{snippets}/admin-station-controller-test/get-station/http-response.adoc[]
+include::{snippets}/admin-station-controller-test/get-station/response-fields.adoc[]
 
 == 충전소의 정보를 수정한다 (/admin/stdtions/{stationID})
 
 === Request
 
-include::{snippets}/admin-controller-test/update-station/http-request.adoc[]
-include::{snippets}/admin-controller-test/update-station/request-fields.adoc[]
+include::{snippets}/admin-station-controller-test/update-station/http-request.adoc[]
+include::{snippets}/admin-station-controller-test/update-station/request-fields.adoc[]
 
 === Response
 
-include::{snippets}/admin-controller-test/update-station/http-response.adoc[]
+include::{snippets}/admin-station-controller-test/update-station/http-response.adoc[]
 
+== 충전소 신고 목록을 조회한다(/admin/fault-reports)
+
+=== Request
+
+include::{snippets}/admin-report-controller-test/get-fault-reports/http-request.adoc[]
+
+include::{snippets}/admin-report-controller-test/get-fault-reports/request-parameters.adoc[]
+
+=== Response
+
+include::{snippets}/admin-report-controller-test/get-fault-reports/http-response.adoc[]
+
+== 충전소 제보 목록을 조회한다(/admin/misinformation-reports)
+
+=== Request
+
+include::{snippets}/admin-report-controller-test/get-misinformation-reports/http-request.adoc[]
+
+include::{snippets}/admin-report-controller-test/get-misinformation-reports/request-parameters.adoc[]
+
+=== Response
+
+include::{snippets}/admin-report-controller-test/get-misinformation-reports/http-response.adoc[]
+
+== 충전소 제보 상세 정보를 조회한다(/admin/misinformation-reports/{misinformationId)
+
+=== Request
+
+include::{snippets}/admin-report-controller-test/get-misinformation-detail/http-request.adoc[]
+
+include::{snippets}/admin-report-controller-test/get-misinformation-detail/path-parameters.adoc[]
+
+=== Response
+
+include::{snippets}/admin-report-controller-test/get-misinformation-detail/http-response.adoc[]
+
+== 충전소 제보 상세 정보를 조회한다(/admin/misinformation-reports/{misinformationId)
+
+=== Request
+
+include::{snippets}/admin-report-controller-test/update-misinformation-checked/http-request.adoc[]
+
+include::{snippets}/admin-report-controller-test/update-misinformation-checked/path-parameters.adoc[]
+
+=== Response
+
+include::{snippets}/admin-report-controller-test/update-misinformation-checked/http-response.adoc[]
