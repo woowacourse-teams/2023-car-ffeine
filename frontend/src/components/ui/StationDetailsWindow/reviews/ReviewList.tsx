@@ -1,12 +1,10 @@
 import React from 'react';
 
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteReviews } from '@hooks/tanstack-query/station-details/reviews/useInfiniteReviews';
 
-import { serverStore } from '@stores/config/serverStore';
+import Text from '@common/Text';
 
 import ReviewCard from '@ui/StationDetailsWindow/reviews/ReviewCard';
-
-import { SERVERS } from '@constants';
 
 import type { Review } from '@type';
 
@@ -15,37 +13,12 @@ export interface ReviewListProps {
 }
 
 export default function ReviewList({ stationId }: ReviewListProps) {
-  const {
-    status,
-    data,
-    error,
-    isFetching,
-    isFetchingNextPage,
-    fetchNextPage,
-    hasNextPage,
-    isLoading,
-  } = useInfiniteQuery(
-    ['reviews', stationId],
-    async ({ pageParam = 1 }) => {
-      const mode = serverStore.getState();
-      const res = await fetch(`${SERVERS[mode]}/stations/${stationId}/reviews/?page=${pageParam}`);
-      const data = await res.json();
-      return data;
-    },
-    {
-      getNextPageParam: (lastPage) => {
-        return lastPage.nextPage > 0 ? lastPage.nextPage : undefined;
-      },
-    }
-  );
-
-  if (isLoading) {
-    return <></>;
-  }
+  const { status, data, error, isFetching, isFetchingNextPage, fetchNextPage, hasNextPage } =
+    useInfiniteReviews(stationId);
 
   return (
     <div>
-      <h1>Infinite Loading</h1>
+      <Text variant="title">충전소 후기 보기</Text>
       {status === 'loading' ? (
         <p>Loading...</p>
       ) : status === 'error' ? (
