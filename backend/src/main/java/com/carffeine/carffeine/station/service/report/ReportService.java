@@ -1,5 +1,9 @@
 package com.carffeine.carffeine.station.service.report;
 
+import com.carffeine.carffeine.member.domain.Member;
+import com.carffeine.carffeine.member.domain.MemberRepository;
+import com.carffeine.carffeine.member.exception.MemberException;
+import com.carffeine.carffeine.member.exception.MemberExceptionType;
 import com.carffeine.carffeine.station.domain.report.FaultReport;
 import com.carffeine.carffeine.station.domain.report.FaultReportRepository;
 import com.carffeine.carffeine.station.domain.report.MisinformationReport;
@@ -20,13 +24,15 @@ public class ReportService {
 
     private final FaultReportRepository faultReportRepository;
     private final StationRepository stationRepository;
+    private final MemberRepository memberRepository;
     private final MisinformationReportRepository misinformationReportRepository;
 
     public FaultReport saveFaultReport(String stationId, Long memberId) {
         Station station = findStationById(stationId);
         validateDuplicateReport(memberId, station);
+        Member member = findMemberById(memberId);
         FaultReport faultReport = FaultReport.builder()
-                .memberId(memberId)
+                .member(member)
                 .station(station)
                 .build();
         return faultReportRepository.save(faultReport);
@@ -53,11 +59,17 @@ public class ReportService {
             Long memberId,
             MisinformationReportRequest request
     ) {
+        Member member = findMemberById(memberId);
         MisinformationReport misinformationReport = MisinformationReport.builder()
-                .memberId(memberId)
+                .member(member)
                 .station(findStationById(stationId))
                 .misinformationDetailReports(request.toDetailReports())
                 .build();
         return misinformationReportRepository.save(misinformationReport);
+    }
+
+    private Member findMemberById(Long memberId) {
+        return memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND));
     }
 }
