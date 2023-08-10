@@ -6,6 +6,7 @@ import com.carffeine.carffeine.member.domain.member.Member;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
@@ -23,6 +24,7 @@ import javax.persistence.ManyToOne;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode(of = {"id"}, callSuper = false)
 @Entity
 public class MemberCompanyNameFilter extends BaseEntity {
 

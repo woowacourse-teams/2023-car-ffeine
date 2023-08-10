@@ -2,6 +2,7 @@ package com.carffeine.carffeine.filter.domain.connectorType;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,6 +17,7 @@ import javax.persistence.Table;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Table(name = "connector_type")
+@EqualsAndHashCode(of = {"id"})
 @Entity
 public class ConnectorType {
 

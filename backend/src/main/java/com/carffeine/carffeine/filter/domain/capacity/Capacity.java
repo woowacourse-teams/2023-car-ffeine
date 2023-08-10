@@ -2,6 +2,7 @@ package com.carffeine.carffeine.filter.domain.capacity;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -17,6 +18,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Table(name = "capacity")
+@EqualsAndHashCode(of = {"id"})
 @Entity
 public class Capacity {
 

@@ -5,6 +5,7 @@ import com.carffeine.carffeine.member.domain.member.Member;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
@@ -24,6 +25,7 @@ import javax.persistence.Table;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "personalization")
+@EqualsAndHashCode(of = {"id"}, callSuper = false)
 @Entity
 public class Personalization extends BaseEntity {
 
