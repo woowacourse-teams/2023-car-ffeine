@@ -19,7 +19,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
-public class AdminIntegrationTestFixture {
+public class AdminStationIntegrationTestFixture {
 
     public static ExtractableResponse<Response> 토큰과_함께_페이지_번호와_사이즈로_충전소_정보를_요청한다(String 토큰, int 페이지_번호, int 페이지_사이즈) {
         return RestAssured.given().log().all()

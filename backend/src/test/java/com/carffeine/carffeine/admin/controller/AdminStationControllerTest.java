@@ -39,9 +39,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
-@WebMvcTest(AdminController.class)
+@WebMvcTest(AdminStationController.class)
 @AutoConfigureRestDocs
-public class AdminControllerTest extends MockBeanInjection {
+public class AdminStationControllerTest extends MockBeanInjection {
 
     @Autowired
     private MockMvc mockMvc;
@@ -51,7 +51,7 @@ public class AdminControllerTest extends MockBeanInjection {
     @Test
     void 충전소를_페이지_단위로_조회한다() throws Exception {
         //given
-        given(adminService.getStations(any(), any(), any()))
+        given(adminStationService.getStations(any(), any(), any()))
                 .willReturn(new PageImpl<>(List.of(선릉역_충전소_충전기_2개_사용가능_1개, 잠실역_충전소_충전기_2개_사용가능_1개), Pageable.ofSize(1), 2));
 
         // when && then
@@ -94,7 +94,7 @@ public class AdminControllerTest extends MockBeanInjection {
     @Test
     void 충전소_정보를_상세_조회한다() throws Exception {
         // given
-        given(adminService.getStation(any(), any()))
+        given(adminStationService.getStation(any(), any()))
                 .willReturn(선릉역_충전소_충전기_2개_사용가능_1개);
 
         // when && then

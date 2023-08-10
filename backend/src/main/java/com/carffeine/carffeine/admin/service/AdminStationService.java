@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
-public class AdminService {
+public class AdminStationService {
 
     private final StationRepository stationRepository;
     private final MemberRepository memberRepository;
