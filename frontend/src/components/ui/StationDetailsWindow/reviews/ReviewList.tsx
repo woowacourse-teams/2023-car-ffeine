@@ -5,6 +5,7 @@ import { useInfiniteReviews } from '@hooks/tanstack-query/station-details/review
 import Text from '@common/Text';
 
 import ReviewCard from '@ui/StationDetailsWindow/reviews/ReviewCard';
+import ReviewCardSkeleton from '@ui/StationDetailsWindow/reviews/ReviewCardSkeleton';
 
 import type { Review } from '@type';
 
@@ -18,9 +19,17 @@ export default function ReviewList({ stationId }: ReviewListProps) {
 
   return (
     <div>
-      <Text variant="title">충전소 후기 보기</Text>
+      <Text variant="title" mb={5}>
+        충전소 후기 보기
+      </Text>
       {status === 'loading' ? (
-        <p>Loading...</p>
+        <>
+          {Array(10)
+            .fill({ length: 10 })
+            .map((_, i) => (
+              <ReviewCardSkeleton key={i} />
+            ))}
+        </>
       ) : status === 'error' ? (
         <span>Error: {JSON.stringify(error)}</span>
       ) : (

@@ -20,14 +20,6 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
   const { replies, content, isUpdated, latestUpdateDate, userId, ratings, isDeleted } = review;
   const [isRepliesOpen, setIsRepliesOpen] = useState(false);
 
-  if (isDeleted) {
-    return (
-      <Box border p={5} bgColor="#eeeeee">
-        <Text variant="body">삭제된 리뷰입니다.</Text>
-      </Box>
-    );
-  }
-
   return (
     <>
       <Box p={2} mb={4}>
@@ -35,16 +27,22 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
           <FlexBox justifyContent="between">
             <Box>
               <Text variant="label" mb={2}>
-                {userId}님 ( <StarIcon width={10} display="inline-block" />
-                {ratings})
+                {userId}님
+                {!isDeleted && (
+                  <>
+                    ( <StarIcon width={10} display="inline-block" />
+                    {ratings})
+                  </>
+                )}
               </Text>
 
               <Text variant="caption">
-                {calculateLatestUpdateTime(latestUpdateDate)} {isUpdated && '(수정됨)'}
+                {calculateLatestUpdateTime(latestUpdateDate)}
+                {isDeleted ? '(삭제됨)' : isUpdated ? '(수정됨)' : ''}
               </Text>
             </Box>
             <FlexBox>
-              {Math.random() < 0.5 ? (
+              {Math.random() < 0.5 || isDeleted ? (
                 <></>
               ) : (
                 <>
@@ -69,7 +67,7 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
             </FlexBox>
           </FlexBox>
           <Box my={3}>
-            <Text variant="body">{content}</Text>
+            <Text variant="body">{isDeleted ? '(삭제된 리뷰입니다.)' : content}</Text>
           </Box>
         </Box>
 
@@ -97,7 +95,7 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
                       {reply.isUpdated && '(수정됨)'}
                     </Text>
                   </Box>
-                  {Math.random() < 0.5 ? (
+                  {Math.random() < 0.5 || isDeleted ? (
                     <></>
                   ) : (
                     <div>
