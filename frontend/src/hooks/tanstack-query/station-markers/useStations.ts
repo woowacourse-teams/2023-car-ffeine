@@ -42,9 +42,7 @@ export const fetchStation = async () => {
   const requestQueryParams = getQueryFormattedUrl({
     ...displayPositionString,
     companyNames: getStoreSnapshot(selectedCompanyNamesFilterStore).join(','),
-    capacities: getStoreSnapshot(selectedCapacitiesFilterStore)
-      .map((capacity) => `${capacity}.00`)
-      .join(','),
+    capacities: getStoreSnapshot(selectedCapacitiesFilterStore).join(','),
     chargerTypes: getStoreSnapshot(selectedChargerTypesFilterStore).join(','),
   });
 

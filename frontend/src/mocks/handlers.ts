@@ -66,7 +66,10 @@ export const handlers = [
           isCapacityFilterSelected &&
           !station.chargers.some((charger) => selectedCapacities.includes(charger.capacity));
         const isCompanyNameFilterInvalid =
-          isCompanyNameFilterSelected && !selectedCompanyNames.includes(station.companyName);
+          isCompanyNameFilterSelected &&
+          !selectedCompanyNames
+            .map((companyId) => COMPANY_NAME[companyId as keyof typeof COMPANY_NAME])
+            .includes(station.companyName as (typeof COMPANY_NAME)[keyof typeof COMPANY_NAME]);
 
         if (isChargerTypeFilterInvalid || isCapacityFilterInvalid || isCompanyNameFilterInvalid)
           return false;
@@ -229,9 +232,6 @@ export const handlers = [
             },
             {
               capacity: 7.0,
-            },
-            {
-              capacity: 10.0,
             },
           ],
           connectorTypes: [
