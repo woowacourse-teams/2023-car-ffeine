@@ -1,22 +1,31 @@
 import { css, styled } from 'styled-components';
 
-import type { ReactNode } from 'react';
+import type { PropsWithChildren } from 'react';
 
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 
 interface Props {
-  menus: ReactNode[];
+  menus: PropsWithChildren<{ onClick: () => void }>[];
+  closeMenu: () => void;
 }
 
-const Menus = ({ menus }: Props) => {
+const Menus = ({ menus, closeMenu }: Props) => {
   return (
-    <FlexBox tag="ul" width="fit-content" direction="column" alignItems="center" css={containerCss}>
+    <FlexBox tag="ul" width="max-content" direction="column" alignItems="center" css={containerCss}>
       <StartingPointBox />
-      {menus.map((menu, i) => (
+      {menus.map(({ children, onClick }, i) => (
         <FlexBox key={i} tag="li">
-          <ButtonNext variant="text" color="dark" css={buttonCss}>
-            {menu}
+          <ButtonNext
+            variant="text"
+            color="dark"
+            css={buttonCss}
+            onClick={() => {
+              onClick();
+              closeMenu();
+            }}
+          >
+            {children}
           </ButtonNext>
         </FlexBox>
       ))}
@@ -42,6 +51,8 @@ const StartingPointBox = styled.div`
 `;
 
 const containerCss = css`
+  flex-shrink: 0;
+
   position: relative;
 
   border: 1px solid #d6d6d6;
@@ -53,6 +64,7 @@ const buttonCss = css`
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  flex-shrink: 0;
 
   padding: 1rem;
 `;

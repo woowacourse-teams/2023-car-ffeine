@@ -2,9 +2,10 @@ import { setSessionStorage } from '@utils/storage';
 
 import { serverStore } from '@stores/config/serverStore';
 import { toastActions } from '@stores/layout/toastStore';
+import { userTokenActions } from '@stores/userTokenStore';
 
 import { MSW_OFF, SERVERS } from '@constants';
-import { SESSION_KEY_SERVER_MODE } from '@constants/storageKeys';
+import { SESSION_KEY_SERVER_MODE, SESSION_KEY_USER_TOKEN } from '@constants/storageKeys';
 
 interface TokenResponse {
   token: string;
@@ -56,4 +57,11 @@ export const redirectToLoginPage = (provider: string) => {
     .catch(() => {
       showToast('로그인에 실패했습니다', 'error');
     });
+};
+
+export const logout = () => {
+  const { setUserToken } = userTokenActions;
+
+  setUserToken('');
+  setSessionStorage(SESSION_KEY_USER_TOKEN, '');
 };

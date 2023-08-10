@@ -8,7 +8,7 @@ import { useExternalValue } from '@utils/external-state';
 import { getSessionStorage, setLocalStorage } from '@utils/storage';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
-import { toastActions } from '@stores/layout/toastStore';
+import { userTokenActions } from '@stores/userTokenStore';
 
 import { useUserFilters } from '@hooks/tanstack-query/station-filters/useUserFilters';
 import { useUpdateStations } from '@hooks/tanstack-query/station-markers/useUpdateStations';
@@ -68,10 +68,11 @@ const UserLoginListener = () => {
   useUserFilters();
 
   useEffect(() => {
+    const { setUserToken } = userTokenActions;
     const userToken = getSessionStorage(SESSION_KEY_USER_TOKEN, '');
 
     if (userToken !== '') {
-      toastActions.showToast('로그인 되었습니다!');
+      setUserToken(userToken);
     }
   }, []);
 
