@@ -30,4 +30,8 @@ export const GlobalStyle = createGlobalStyle`
   body:has(.modal-open) {
     overflow: hidden;
   }
+
+  button.gm-ui-hover-effect {
+    visibility: hidden;
+  }
 `;
