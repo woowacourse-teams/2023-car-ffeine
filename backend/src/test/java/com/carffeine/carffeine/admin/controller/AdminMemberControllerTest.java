@@ -19,11 +19,11 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
+import static com.carffeine.carffeine.helper.RestDocsHelper.customDocument;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -62,7 +62,7 @@ public class AdminMemberControllerTest extends MockBeanInjection {
                         .param("size", "2")
                         .header(HttpHeaders.AUTHORIZATION, "token~~"))
                 .andExpect(status().isOk())
-                .andDo(document("get-members",
+                .andDo(customDocument("get-members",
                         requestParameters(
                                 parameterWithName("page").description("페이지 번호"),
                                 parameterWithName("size").description("페이지 크기")
@@ -90,7 +90,7 @@ public class AdminMemberControllerTest extends MockBeanInjection {
                         .content(objectMapper.writeValueAsString(updateRequest))
                         .header(HttpHeaders.AUTHORIZATION, "token~~"))
                 .andExpect(status().isNoContent())
-                .andDo(document("update-member-role",
+                .andDo(customDocument("update-member-role",
                         pathParameters(parameterWithName("memberId").description("멤버 ID")),
                         requestHeaders(headerWithName(HttpHeaders.AUTHORIZATION).description("인증 토큰")),
                         requestFields(
