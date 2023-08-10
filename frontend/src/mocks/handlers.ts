@@ -66,7 +66,10 @@ export const handlers = [
           isCapacityFilterSelected &&
           !station.chargers.some((charger) => selectedCapacities.includes(charger.capacity));
         const isCompanyNameFilterInvalid =
-          isCompanyNameFilterSelected && !selectedCompanyNames.includes(station.companyName);
+          isCompanyNameFilterSelected &&
+          !selectedCompanyNames
+            .map((companyId) => COMPANY_NAME[companyId as keyof typeof COMPANY_NAME])
+            .includes(station.companyName as (typeof COMPANY_NAME)[keyof typeof COMPANY_NAME]);
 
         if (isChargerTypeFilterInvalid || isCapacityFilterInvalid || isCompanyNameFilterInvalid)
           return false;
@@ -156,6 +159,7 @@ export const handlers = [
     CAPACITIES;
 
     return res(
+      ctx.status(200),
       ctx.json({
         connectorTypes: getTypedObjectEntries(CHARGER_TYPES).map(([key, value]) => ({
           key,
@@ -166,7 +170,8 @@ export const handlers = [
           key,
           value,
         })),
-      })
+      }),
+      ctx.delay(1000)
     );
   }),
 
@@ -214,37 +219,28 @@ export const handlers = [
     return res(
       ctx.status(200),
       ctx.json({
-        companyNames: [
-          {
-            key: 'HG',
-            value: '환경부',
-          },
-          {
-            key: 'HG2',
-            value: '환경부',
-          },
-        ],
-        capacities: [
-          {
-            capacity: 3.0,
-          },
-          {
-            capacity: 7.0,
-          },
-          {
-            capacity: 10.0,
-          },
-        ],
-        connectorTypes: [
-          {
-            key: 'DC_COMBO',
-            value: '고속차지',
-          },
-          {
-            key: 'DC_COMBO2',
-            value: '고속차지',
-          },
-        ],
+        selectedFilters: {
+          companyNames: [
+            { key: 'AM', value: '아마노코리아' },
+            { key: 'BA', value: '부안군' },
+            { key: 'BG', value: '비긴스' },
+            { key: 'BK', value: '비케이에너지' },
+          ],
+          capacities: [
+            {
+              capacity: 3.0,
+            },
+            {
+              capacity: 7.0,
+            },
+          ],
+          connectorTypes: [
+            {
+              key: 'DC_COMBO',
+              value: '고속차지',
+            },
+          ],
+        },
       })
     );
   }),

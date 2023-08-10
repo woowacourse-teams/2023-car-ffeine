@@ -19,6 +19,7 @@ import {
 
 import { SERVERS } from '@constants';
 import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
+import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
 
 import type { StationSummary } from '@type';
 import type { DisplayPosition } from '@type/stations';
@@ -41,9 +42,7 @@ export const fetchStation = async () => {
   const requestQueryParams = getQueryFormattedUrl({
     ...displayPositionString,
     companyNames: getStoreSnapshot(selectedCompanyNamesFilterStore).join(','),
-    capacities: getStoreSnapshot(selectedCapacitiesFilterStore)
-      .map((capacity) => `${capacity}.00`)
-      .join(','),
+    capacities: getStoreSnapshot(selectedCapacitiesFilterStore).join(','),
     chargerTypes: getStoreSnapshot(selectedChargerTypesFilterStore).join(','),
   });
 
@@ -68,7 +67,7 @@ export const useStations = () => {
   } = useExternalValue(clientStationFiltersStore);
 
   return useQuery({
-    queryKey: ['stations'],
+    queryKey: [QUERY_KEY_STATIONS],
     queryFn: fetchStation,
     select: (data) => {
       return data.filter((station) => {

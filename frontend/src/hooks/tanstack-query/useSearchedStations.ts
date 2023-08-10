@@ -7,6 +7,7 @@ import { searchWordStore } from '@stores/searchWordStore';
 
 import { SERVERS } from '@constants';
 import { ERROR_MESSAGES } from '@constants/errorMessages';
+import { QUERY_KEY_SEARCHED_STATION } from '@constants/queryKeys';
 import { SEARCH_SCOPE } from '@constants/stationSearch';
 
 import type { SearchedStation } from '@type/stations';
@@ -39,7 +40,7 @@ export const useSearchedStations = () => {
   const searchWord = useExternalValue(searchWordStore);
 
   return useQuery({
-    queryKey: ['searchedStations', searchWord],
+    queryKey: [QUERY_KEY_SEARCHED_STATION, searchWord],
     queryFn: () => fetchSearchedStations(searchWord),
     enabled: !!searchWord,
   });

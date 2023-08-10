@@ -1,5 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 
+import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
+
 import { fetchStation } from './useStations';
 
 export const useUpdateStations = () => {
@@ -8,7 +10,7 @@ export const useUpdateStations = () => {
   const updateStations = async () => {
     await fetchStation();
 
-    queryClient.invalidateQueries({ queryKey: ['stations'] });
+    queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
   };
 
   return { updateStations };
