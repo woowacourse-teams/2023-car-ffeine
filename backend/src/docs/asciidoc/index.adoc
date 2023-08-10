@@ -9,3 +9,4 @@ endif::[]
 
 include::station.adoc[]
 include::filters.adoc[]
+include::Member.adoc[]
