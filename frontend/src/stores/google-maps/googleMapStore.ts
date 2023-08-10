@@ -28,6 +28,7 @@ export const getGoogleMapStore = (() => {
         mapId: '92cb7201b7d43b21',
         minZoom: 8,
         maxZoom: 15,
+        gestureHandling: 'greedy',
       });
     }
 
