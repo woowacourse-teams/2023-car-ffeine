@@ -13,16 +13,4 @@ public record ReviewResponse(Long reviewId,
                              String content,
                              boolean isUpdated,
                              boolean isDeleted) {
-
-    public static ReviewResponse from(Review review){
-        return ReviewResponse.builder()
-                .reviewId(review.getId())
-                .memberId(review.getMemberId())
-                .latestUpdateDate(review.getUpdatedAt())
-                .ratings(review.getRatings())
-                .content(review.getContent())
-                .isUpdated(review.isUpdated())
-                .isDeleted(review.isDeleted())
-                .build();
-    }
 }
