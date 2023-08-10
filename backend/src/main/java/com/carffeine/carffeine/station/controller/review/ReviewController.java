@@ -34,18 +34,17 @@ public class ReviewController {
         return ResponseEntity.ok(responses);
     }
 
-    @PostMapping("/api/stations/{stationId}/reviews/{reviewId}")
+    @PostMapping("/api/reviews/{reviewId}")
     public ResponseEntity<Void> updateReview(
             @AuthMember Long memberId,
-            @PathVariable String stationId,
             @PathVariable Long reviewId,
             @RequestBody CreateReviewRequest createReviewRequest) {
         reviewService.updateReview(createReviewRequest, reviewId, memberId);
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/api/stations/{stationId}/reviews/{reviewId}")
-    public ResponseEntity<Void> deleteReview(@AuthMember Long memberId, @PathVariable String stationId, @PathVariable long reviewId) {
+    @DeleteMapping("/api/reviews/{reviewId}")
+    public ResponseEntity<Void> deleteReview(@AuthMember Long memberId, @PathVariable long reviewId) {
         reviewService.deleteReview(memberId, reviewId);
         return ResponseEntity.noContent().build();
     }
