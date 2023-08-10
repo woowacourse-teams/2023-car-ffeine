@@ -36,7 +36,7 @@ public class ReviewService {
     }
 
     public ReviewResponses findAllReviews(String stationId, Pageable pageable) {
-        pageable = PageRequest.of(pageable.getPageNumber(), PAGE_ELEMENT_SIZE, Sort.by(Sort.Direction.DESC, "updatedAt"));
+        pageable = PageRequest.of(pageable.getPageNumber(), PAGE_ELEMENT_SIZE, Sort.by(Sort.Direction.DESC, "createdAt"));
         Page<Review> reviews = findPageReviews(stationId, pageable);
 
         return ReviewResponses.from(reviews);
