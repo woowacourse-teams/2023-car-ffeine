@@ -1,0 +1,59 @@
+= Member API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+
+
+== 자신의 차량 정보를 등록한다
+
+=== Request
+
+include::{snippets}/member-controller-test/upload_my_car_info/request-headers.adoc[]
+include::{snippets}/member-controller-test/upload_my_car_info/request-fields.adoc[]
+include::{snippets}/member-controller-test/upload_my_car_info/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/member-controller-test/upload_my_car_info/response-fields.adoc[]
+include::{snippets}/member-controller-test/upload_my_car_info/http-response.adoc[]
+
+== 자신의 차량 정보를 조회한다
+
+=== Request
+
+include::{snippets}/member-controller-test/find_custom_filters_by_member/request-headers.adoc[]
+include::{snippets}/member-controller-test/find_custom_filters_by_member/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/member-controller-test/find_my_car_info/response-fields.adoc[]
+include::{snippets}/member-controller-test/find_my_car_info/http-response.adoc[]
+
+== 자신의 커스텀 필터를 등록한다
+
+=== Request
+
+include::{snippets}/member-controller-test/add_custom_filter_by_member/request-headers.adoc[]
+include::{snippets}/member-controller-test/add_custom_filter_by_member/request-fields.adoc[]
+include::{snippets}/member-controller-test/add_custom_filter_by_member/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/member-controller-test/add_custom_filter_by_member/response-fields.adoc[]
+include::{snippets}/member-controller-test/add_custom_filter_by_member/http-response.adoc[]
+
+== 자신의 커스텀 필터를 조회한다
+
+=== Request
+
+include::{snippets}/member-controller-test/find_custom_filters_by_member/request-headers.adoc[]
+include::{snippets}/member-controller-test/find_custom_filters_by_member/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/member-controller-test/find_custom_filters_by_member/response-fields.adoc[]
+include::{snippets}/member-controller-test/find_custom_filters_by_member/http-response.adoc[]
+
+

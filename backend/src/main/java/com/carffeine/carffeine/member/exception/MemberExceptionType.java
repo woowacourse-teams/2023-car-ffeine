@@ -5,7 +5,8 @@ import com.carffeine.carffeine.common.exception.Status;
 
 public enum MemberExceptionType implements ExceptionType {
 
-    MEMBER_NOT_FOUND(Status.NOT_FOUND, 1001, "로그인한 유저의 정보를 찾을 수 없습니다.");
+    MEMBER_NOT_FOUND(Status.NOT_FOUND, 1001, "로그인한 유저의 정보를 찾을 수 없습니다."),
+    PERSONALIZATION_NOT_FOUND(Status.NOT_FOUND, 1001, "유저의 차량 정보를 찾을 수 없습니다.");
 
     private final Status status;
     private final int exceptionCode;

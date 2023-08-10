@@ -64,7 +64,7 @@ class FilterControllerTest extends MockBeanInjection {
                         responseFields(
                                 fieldWithPath("companyNames[0].key").type(JsonFieldType.STRING).description("필터에 적용된 회사명 키"),
                                 fieldWithPath("companyNames[0].value").type(JsonFieldType.STRING).description("필터에 적용된 회사 이름"),
-                                fieldWithPath("capacities[0].capacity").type(JsonFieldType.NUMBER).description("필터에 적용된 충전기 용량"),
+                                fieldWithPath("capacities[0]").type(JsonFieldType.ARRAY).description("필터에 적용된 충전기 용량"),
                                 fieldWithPath("connectorTypes[0].key").type(JsonFieldType.STRING).description("필터에 적용된 커넥터 이름 키"),
                                 fieldWithPath("connectorTypes[0].value").type(JsonFieldType.STRING).description("필터에 적용된 사용자용 커넥터의 이름")
                         )
