@@ -10,9 +10,9 @@ import StationSummaryCardSkeleton from '@ui/StationList/StationSummaryCardSkelet
 import StationSummaryCard from './StationSummaryCard';
 
 const StationList = () => {
-  const { data: stations, isSuccess, isFetching } = useStations();
+  const { data: stations, isSuccess, isLoading } = useStations();
 
-  if (isFetching) {
+  if (isLoading) {
     return (
       <List css={searchResultList}>
         {Array.from({ length: 10 }, (_, index) => (
