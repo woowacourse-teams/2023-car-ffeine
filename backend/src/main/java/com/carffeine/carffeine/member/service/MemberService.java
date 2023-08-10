@@ -1,7 +1,5 @@
 package com.carffeine.carffeine.member.service;
 
-import com.carffeine.carffeine.filter.controller.dto.companyName.CompanyNameRequest;
-import com.carffeine.carffeine.filter.controller.dto.connectorType.ConnectorTypeRequest;
 import com.carffeine.carffeine.filter.controller.dto.filter.FiltersResponse;
 import com.carffeine.carffeine.filter.domain.capacity.Capacity;
 import com.carffeine.carffeine.filter.domain.capacity.CapacityRepository;
@@ -30,8 +28,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,22 +49,23 @@ public class MemberService {
         Member member = findMember(memberId);
 
         if (!personalizationRepository.existsByMember(member)) {
-            Personalization personalization = Personalization.from(member, request.name(), request.year());
-            personalizationRepository.save(personalization);
-            return personalization;
+            return personalizationRepository.save(Personalization.from(member, request.name(), request.year()));
         }
 
-        Personalization personalization = personalizationRepository.findByMember(member)
-                .orElseThrow(() -> new MemberException(MemberExceptionType.PERSONALIZATION_NOT_FOUND));
+        Personalization personalization = findPersonalization(member);
 
         return personalization.update(request.name(), request.year());
+    }
+
+    private Personalization findPersonalization(Member member) {
+        return personalizationRepository.findByMember(member)
+                .orElseThrow(() -> new MemberException(MemberExceptionType.PERSONALIZATION_NOT_FOUND));
     }
 
     @Transactional(readOnly = true)
     public MemberResponse findMemberPersonalization(Long memberId) {
         Member member = findMember(memberId);
-        Personalization personalization = personalizationRepository.findByMember(member)
-                .orElseThrow(() -> new MemberException(MemberExceptionType.PERSONALIZATION_NOT_FOUND));
+        Personalization personalization = findPersonalization(member);
 
         return MemberResponse.of(memberId, personalization);
     }
@@ -92,15 +89,12 @@ public class MemberService {
     private void saveCompanyNameFilters(MemberCustomFilterRequest memberCustomFilterRequest, Member member) {
         memberCompanyNameFilterRepository.deleteAllByMember(member);
 
-        List<CompanyNameRequest> companyNameRequests = memberCustomFilterRequest.companyNames();
-
-        List<MemberCompanyNameFilter> addedCompanyNameFilters = new ArrayList<>();
-        for (CompanyNameRequest companyNameRequest : companyNameRequests) {
-            CompanyName companyName = companyNameRepository.findByCompanyKey(companyNameRequest.key())
-                    .orElseThrow(() -> new FilterException(FilterExceptionType.FILTER_NOT_FOUND));
-
-            addedCompanyNameFilters.add(MemberCompanyNameFilter.of(member, companyName));
-        }
+        List<MemberCompanyNameFilter> addedCompanyNameFilters = memberCustomFilterRequest.companyNames()
+                .stream()
+                .map(it -> companyNameRepository.findByCompanyKey(it.key())
+                        .orElseThrow(() -> new FilterException(FilterExceptionType.FILTER_NOT_FOUND)))
+                .map(it -> MemberCompanyNameFilter.of(member, it))
+                .collect(Collectors.toList());
 
         memberCompanyNameFilterRepository.saveAll(addedCompanyNameFilters);
     }
@@ -108,38 +102,28 @@ public class MemberService {
     private void saveCapacityFilters(MemberCustomFilterRequest memberCustomFilterRequest, Member member) {
         memberCapacityFilterRepository.deleteAllByMember(member);
 
-        List<BigDecimal> capacitiesRequest = memberCustomFilterRequest.capacities();
-
-        List<MemberCapacityFilter> addedCapacityFilters = new ArrayList<>();
-
-        for (BigDecimal capacityValue : capacitiesRequest) {
-            Capacity capacity = capacityRepository.findByCapacity(capacityValue)
-                    .orElseThrow(() -> new FilterException(FilterExceptionType.FILTER_NOT_FOUND));
-
-            addedCapacityFilters.add(MemberCapacityFilter.of(member, capacity));
-        }
+        List<MemberCapacityFilter> addedCapacityFilters = memberCustomFilterRequest.capacities()
+                .stream()
+                .map(it -> capacityRepository.findByCapacity(it)
+                        .orElseThrow(() -> new FilterException(FilterExceptionType.FILTER_NOT_FOUND)))
+                .map(it -> MemberCapacityFilter.of(member, it))
+                .collect(Collectors.toList());
 
         memberCapacityFilterRepository.saveAll(addedCapacityFilters);
     }
 
-
     private void saveConnectorTypeFilters(MemberCustomFilterRequest memberCustomFilterRequest, Member member) {
         memberConnectorTypeFilterRepository.deleteAllByMember(member);
 
-        List<ConnectorTypeRequest> connectorTypesRequest = memberCustomFilterRequest.connectorTypes();
-
-        List<MemberConnectorTypeFilter> addedConnectorTypeFilters = new ArrayList<>();
-
-        for (ConnectorTypeRequest connectorTypeValue : connectorTypesRequest) {
-            ConnectorType connectorType = connectorTypeRepository.findByConnectorKey(connectorTypeValue.key())
-                    .orElseThrow(() -> new FilterException(FilterExceptionType.FILTER_NOT_FOUND));
-
-            addedConnectorTypeFilters.add(MemberConnectorTypeFilter.of(member, connectorType));
-        }
+        List<MemberConnectorTypeFilter> addedConnectorTypeFilters = memberCustomFilterRequest.connectorTypes()
+                .stream()
+                .map(it -> connectorTypeRepository.findByConnectorKey(it.key())
+                        .orElseThrow(() -> new FilterException(FilterExceptionType.FILTER_NOT_FOUND)))
+                .map(it -> MemberConnectorTypeFilter.of(member, it))
+                .collect(Collectors.toList());
 
         memberConnectorTypeFilterRepository.saveAll(addedConnectorTypeFilters);
     }
-
 
     @Transactional(readOnly = true)
     public FiltersResponse findFilterChooseByMember(Long memberId) {
