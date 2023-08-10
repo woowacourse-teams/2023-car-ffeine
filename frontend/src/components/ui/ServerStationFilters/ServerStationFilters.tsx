@@ -1,3 +1,4 @@
+import { ArrowLeftIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
 import { css } from 'styled-components';
 
 import { useQueryClient } from '@tanstack/react-query';
@@ -8,8 +9,11 @@ import { useServerStationFilters } from '@hooks/tanstack-query/station-filters/u
 import { useServerStationFilterActions } from '@hooks/useServerStationFilterActions';
 
 import Button from '@common/Button';
+import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
+
+import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
 import type { COMPANY_NAME } from '@constants/chargers';
 
@@ -21,6 +25,7 @@ const ServerStationFilters = () => {
   const queryClient = useQueryClient();
   const { showToast } = toastActions;
   const { data: serverStationFilters, isLoading } = useServerStationFilters();
+  const { closeBasePanel } = useNavigationBar();
 
   const {
     toggleSelectCapacityFilter,
@@ -29,18 +34,19 @@ const ServerStationFilters = () => {
     getIsCapacitySelected,
     getIsChargerTypeSelected,
     getIsCompanyNameSelected,
+    resetAllFilter,
   } = useServerStationFilterActions();
-
-  const handleApplySelectedFilters = () => {
-    queryClient.invalidateQueries({ queryKey: ['stations'] });
-    showToast('필터가 적용되었습니다');
-  };
 
   if (isLoading) {
     return <></>;
   }
 
   const { connectorTypes, capacities, companyNames } = serverStationFilters;
+
+  const handleApplySelectedFilters = () => {
+    queryClient.invalidateQueries({ queryKey: ['stations'] });
+    showToast('필터가 적용되었습니다');
+  };
 
   return (
     <FlexBox
@@ -54,8 +60,16 @@ const ServerStationFilters = () => {
       `}
       nowrap={true}
       noRadius={'all'}
-      gap={6}
+      gap={8}
     >
+      <FlexBox width={30} justifyContent="between">
+        <ButtonNext onClick={closeBasePanel} noTheme aria-label="필터 선택창 닫기">
+          <ArrowLeftIcon width="2.8rem" stroke="#333" />
+        </ButtonNext>
+        <ButtonNext onClick={resetAllFilter} noTheme aria-label="모든 필터 지우기 버튼">
+          <ArrowPathIcon width="2.8rem" stroke="#333" />
+        </ButtonNext>
+      </FlexBox>
       <FilterSection
         title={'커넥터 타입'}
         filterOptionNames={connectorTypes.map((connectorType) => connectorType.value)}
@@ -91,7 +105,7 @@ const ServerStationFilters = () => {
 };
 
 const paddingCss = css`
-  padding-top: 1.5rem;
+  padding-top: 3rem;
 `;
 
 const overFlowCss = css`

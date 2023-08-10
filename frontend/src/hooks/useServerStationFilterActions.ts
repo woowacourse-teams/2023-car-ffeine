@@ -58,6 +58,12 @@ export const useServerStationFilterActions = () => {
     return selectedCapacityFilters.includes(capacity);
   };
 
+  const resetAllFilter = () => {
+    setSelectedCompaniesFilter([]);
+    setSelectedChargeSpeedsFilter([]);
+    setSelectedChargerTypesFilter([]);
+  };
+
   return {
     selectedCompanyNamesFilters,
     selectChargerTypesFilters,
@@ -68,5 +74,6 @@ export const useServerStationFilterActions = () => {
     getIsCompanyNameSelected,
     getIsChargerTypeSelected,
     getIsCapacitySelected,
+    resetAllFilter,
   };
 };

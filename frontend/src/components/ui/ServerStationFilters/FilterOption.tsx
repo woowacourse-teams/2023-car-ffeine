@@ -32,9 +32,12 @@ const FilterSection = ({
 }: FilterSectionProps) => {
   return (
     <FlexBox width={30} direction={'column'}>
-      <Text variant={'h6'} mb={1}>
-        {title}
-      </Text>
+      <FlexBox justifyContent="between">
+        <Text variant={'h6'} mb={1}>
+          {title}
+        </Text>
+        <Text variant="caption">*중복선택 가능</Text>
+      </FlexBox>
       <FlexBox gap={2}>
         {filterOptionNames.map((filterOption, index) => (
           <ButtonNext
