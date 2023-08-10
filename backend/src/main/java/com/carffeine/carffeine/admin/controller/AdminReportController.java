@@ -54,7 +54,7 @@ public class AdminReportController {
             @AuthMember Long memberId,
             @PathVariable Long misinformationId
     ) {
-        adminReportService.check(misinformationId, memberId);
+        adminReportService.checkMisinformation(misinformationId, memberId);
         return ResponseEntity.noContent().build();
     }
 

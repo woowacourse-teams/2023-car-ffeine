@@ -40,7 +40,7 @@ public class FakeMisinformationRepository implements MisinformationReportReposit
     }
 
     @Override
-    public Optional<MisinformationReport> findFetchById(Long misinformationId) {
+    public Optional<MisinformationReport> findByIdFetch(Long misinformationId) {
         return Optional.of(map.get(misinformationId));
     }
 

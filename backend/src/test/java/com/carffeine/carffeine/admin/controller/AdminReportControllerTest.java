@@ -45,9 +45,11 @@ public class AdminReportControllerTest extends MockBeanInjection {
 
     @Test
     void 충전소_정보_제보를_페이지_단위로_조회한다() throws Exception {
+        // given
         given(adminReportService.getMisinformationReports(any(), any()))
                 .willReturn(new PageImpl<>(List.of(선릉역_상세정보가_포함된_잘못된_정보_제보), Pageable.ofSize(2), 2));
 
+        // when & then
         mockMvc.perform(get("/admin/misinformation-reports")
                         .param("page", "0")
                         .param("size", "2")
@@ -110,6 +112,7 @@ public class AdminReportControllerTest extends MockBeanInjection {
 
     @Test
     void 충전소_고장_신고를_페이지_단위로_조회한다() throws Exception {
+        // given
         FaultReport fault = FaultReport.builder().id(1L)
                 .member(MemberFixture.일반_회원)
                 .station(StationFixture.선릉역_충전소_충전기_2개_사용가능_1개_완속)
@@ -117,6 +120,7 @@ public class AdminReportControllerTest extends MockBeanInjection {
         given(adminReportService.getFaultReports(any(), any()))
                 .willReturn(new PageImpl<>(List.of(fault), Pageable.ofSize(2), 2));
 
+        // when & then
         mockMvc.perform(get("/admin/fault-reports")
                         .param("page", "0")
                         .param("size", "2")

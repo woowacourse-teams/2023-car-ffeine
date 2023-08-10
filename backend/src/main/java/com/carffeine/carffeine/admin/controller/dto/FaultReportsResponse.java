@@ -7,6 +7,7 @@ public record FaultReportsResponse(
         String stationId,
         long memberId
 ) {
+
     public static FaultReportsResponse from(FaultReport faultReport) {
         return new FaultReportsResponse(faultReport.getId(), faultReport.getStation().getStationId(), faultReport.getMember().getId());
     }

@@ -12,11 +12,10 @@ public interface MisinformationReportRepository extends Repository<Misinformatio
 
     MisinformationReport save(MisinformationReport misinformationReport);
 
-    @Query(value = "select m from MisinformationReport m left join m.misinformationDetailReports", countQuery = "select count(m) from MisinformationReport m")
     Page<MisinformationReport> findAll(Pageable pageable);
 
     @Query("select m from MisinformationReport m join fetch m.misinformationDetailReports where m.id = :misinformationId")
-    Optional<MisinformationReport> findFetchById(@Param("misinformationId") Long misinformationId);
+    Optional<MisinformationReport> findByIdFetch(@Param("misinformationId") Long misinformationId);
 
     Optional<MisinformationReport> findById(Long misinformationId);
 }

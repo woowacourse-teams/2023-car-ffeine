@@ -39,12 +39,12 @@ public class AdminReportService {
     @Transactional(readOnly = true)
     public MisinformationReport getMisinformationDetail(Long misinformationId, Long memberId) {
         validateRole(memberId);
-        return misinformationReportRepository.findFetchById(misinformationId)
+        return misinformationReportRepository.findByIdFetch(misinformationId)
                 .orElseThrow(() -> new ReportException(ReportExceptionType.NOT_FOUND));
     }
 
     @Transactional
-    public void check(Long misinformationId, Long memberId) {
+    public void checkMisinformation(Long misinformationId, Long memberId) {
         validateRole(memberId);
         MisinformationReport misinformationReport = misinformationReportRepository.findById(misinformationId)
                 .orElseThrow(() -> new ReportException(ReportExceptionType.NOT_FOUND));
