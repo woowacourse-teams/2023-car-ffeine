@@ -2,10 +2,11 @@ import React from 'react';
 
 import { useInfiniteReviews } from '@hooks/tanstack-query/station-details/reviews/useInfiniteReviews';
 
+import ButtonNext from '@common/ButtonNext';
 import Text from '@common/Text';
 
 import ReviewCard from '@ui/StationDetailsWindow/reviews/ReviewCard';
-import ReviewCardSkeleton from '@ui/StationDetailsWindow/reviews/ReviewCardSkeleton';
+import ReviewCardsLoading from '@ui/StationDetailsWindow/reviews/ReviewCardsLoading';
 
 import type { Review } from '@type';
 
@@ -23,48 +24,45 @@ export default function ReviewList({ stationId }: ReviewListProps) {
         충전소 후기 보기
       </Text>
       {status === 'loading' ? (
-        <>
-          {Array(10)
-            .fill({ length: 10 })
-            .map((_, i) => (
-              <ReviewCardSkeleton key={i} />
-            ))}
-        </>
+        <ReviewCardsLoading />
       ) : status === 'error' ? (
-        <span>Error: {JSON.stringify(error)}</span>
+        <Text variant="caption" align="center">
+          Error: {JSON.stringify(error)}
+        </Text>
       ) : (
         <>
-          <div>
-            {data.pages.map((page) => (
-              <div key={page.currentPage}>
-                {(page.reviews as Review[]).map((review) => (
-                  <ReviewCard
-                    key={review.reviewId}
-                    review={{
-                      content: review.content,
-                      isDeleted: review.isDeleted,
-                      isUpdated: review.isUpdated,
-                      latestUpdateDate: review.latestUpdateDate,
-                      ratings: review.ratings,
-                      replies: review.replies,
-                      reviewId: review.reviewId,
-                      userId: review.userId,
-                    }}
-                  />
-                ))}
-              </div>
-            ))}
-          </div>
-          <div>
-            <button onClick={() => fetchNextPage()} disabled={!hasNextPage || isFetchingNextPage}>
-              {isFetchingNextPage
-                ? 'Loading more...'
-                : hasNextPage
-                ? 'Load Newer'
-                : 'Nothing more to load'}
-            </button>
-          </div>
-          <div>{isFetching && !isFetchingNextPage ? 'Background Updating...' : null}</div>
+          {data.pages.map((page) => (
+            <div key={page.currentPage}>
+              {(page.reviews as Review[]).map((review) => (
+                <ReviewCard
+                  key={review.reviewId}
+                  review={{
+                    content: review.content,
+                    isDeleted: review.isDeleted,
+                    isUpdated: review.isUpdated,
+                    latestUpdateDate: review.latestUpdateDate,
+                    ratings: review.ratings,
+                    replies: review.replies,
+                    reviewId: review.reviewId,
+                    userId: review.userId,
+                  }}
+                />
+              ))}
+            </div>
+          ))}
+          {isFetchingNextPage && <ReviewCardsLoading />}
+          <ButtonNext
+            variant="contained"
+            onClick={() => fetchNextPage()}
+            disabled={!hasNextPage || isFetchingNextPage}
+            fullWidth
+          >
+            {isFetchingNextPage
+              ? '로딩중...'
+              : hasNextPage
+              ? '후기 더 보기 (무한스크롤로 수정 예정)'
+              : '더 이상 후기가 없습니다.'}
+          </ButtonNext>
         </>
       )}
     </div>
