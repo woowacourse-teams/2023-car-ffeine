@@ -18,7 +18,7 @@ export const fetchReviews = async (stationId: string) => {
 
 export const useReviews = (stationId: string) => {
   return useQuery({
-    queryKey: ['reviews', stationId],
+    queryKey: ['previews', stationId],
     queryFn: () => fetchReviews(stationId),
   });
 };

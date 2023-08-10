@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { modalActions } from '@stores/layout/modalStore';
 
 import { useReviewRatings } from '@hooks/tanstack-query/station-details/reviews/useReviewRatings';
@@ -22,7 +20,7 @@ const ReviewPreview = ({ stationId }: ReviewPreviewProps) => {
   const { data: reviews, isLoading: isReviewsLoading } = useReviews(stationId);
 
   const handleClickMoreReviewButton = () => {
-    modalActions.openModal(<ReviewList />);
+    modalActions.openModal(<ReviewList stationId={stationId} />);
   };
 
   if (isReviewRatingsLoading || isReviewsLoading) {
