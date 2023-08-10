@@ -1,5 +1,11 @@
 import { getTypedObjectFromEntries } from '@utils/getTypedObjectFromEntries';
 import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
+import {
+  generateRandomCommentsLength,
+  generateRandomData,
+  generateRandomToken,
+  getRandomTime,
+} from '@utils/randomDataGenerator';
 
 import { CHARGER_TYPES, COMPANY_NAME } from '@constants/chargers';
 import { ENGLISH_DAYS } from '@constants/congestion';
@@ -7,13 +13,7 @@ import { MAX_SEARCH_RESULTS } from '@constants/stationSearch';
 
 import type { Capacity, ChargerDetails, ChargerType } from '@type/chargers';
 import type { Congestion, CongestionStatistics, EnglishDaysType } from '@type/congestion';
-import type { CompanyName, Station } from '@type/stations';
-
-const generateRandomData = <T>(array: T[]): T => {
-  const randomIndex = Math.floor(Math.random() * array.length);
-
-  return array[randomIndex];
-};
+import type { CompanyName, Review, Station } from '@type/stations';
 
 export const generateRandomChargers = () => {
   const length = Math.floor(Math.random() * 10) + 1;
@@ -21,14 +21,7 @@ export const generateRandomChargers = () => {
     type: generateRandomData<ChargerType>(getTypedObjectKeys(CHARGER_TYPES)),
     price: generateRandomData([200, 250, 300, 350, 400]),
     capacity: generateRandomData<Capacity>([3, 7, 50, 100, 200]),
-    latestUpdateTime: generateRandomData([
-      '2016-10-27T17:13:40+00:00',
-      '2023-06-27T17:18:40+00:00',
-      '2023-07-18T15:11:40+00:00',
-      '2023-07-22T15:11:40+00:00',
-      '2023-07-28T15:11:40+00:00',
-      '2023-07-30T15:11:40+00:00',
-    ]),
+    latestUpdateTime: getRandomTime(),
     state: generateRandomData([
       'COMMUNICATION_ERROR',
       'STANDBY',
@@ -111,4 +104,46 @@ const getCongestions = (): Record<EnglishDaysType, Congestion[]> => {
       })
     )
   );
+};
+
+export const generateReviewsWithReplies = (): Review[] => {
+  return Array.from({ length: 10 }, (_, i) => {
+    return {
+      reviewId: i,
+      userId: generateRandomToken(),
+      latestUpdateDate: getRandomTime(),
+      ratings: parseFloat((Math.random() * 5).toFixed(2)),
+      content: generateRandomData([
+        '정말 멋진 충전소네요.',
+        '고장이 잘나요',
+        '주차 공간이 너무 좁아요',
+        '후면 주차가 어려워요',
+        '손잡이가 드러워요',
+        '비매너 사용자들이 많아요',
+        '자리가 넉넉해요',
+        '비매너 사용자들이 많아요비매너 사용자들이 많아요비매너 사용자들이 많아요비매너 사용자들이 많아요비매너 사용자들이 많아요비매너 사용자들이 많아요',
+      ]),
+      isUpdated: generateRandomData([true, false]),
+      isDeleted: generateRandomData([true, false]),
+      replies: Array.from({ length: generateRandomCommentsLength(0, 4) }, (_, i) => {
+        return {
+          replyId: generateRandomToken(),
+          userId: generateRandomToken(),
+          latestUpdateDate: getRandomTime(),
+          content: generateRandomData([
+            '정말 멋진 충전소네요.',
+            '고장이 잘나요',
+            '주차 공간이 너무 좁아요',
+            '후면 주차가 어려워요',
+            '손잡이가 드러워요',
+            '비매너 사용자들이 많아요',
+            '자리가 넉넉해요',
+            '비매너 사용자들이 많아요비매너 사용자들이 많아요비매너 사용자들이 많아요비매너 사용자들이 많아요비매너 사용자들이 많아요',
+          ]),
+          isUpdated: generateRandomData([true, false]),
+          isDeleted: generateRandomData([true, false]),
+        };
+      }),
+    };
+  });
 };
