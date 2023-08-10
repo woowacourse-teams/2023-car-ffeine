@@ -6,6 +6,7 @@ import { useReviews } from '@hooks/tanstack-query/station-details/reviews/useRev
 import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
+import Text from '@common/Text';
 
 import ReviewCard from '@ui/StationDetailsWindow/reviews/ReviewCard';
 import ReviewList from '@ui/StationDetailsWindow/reviews/ReviewList';
@@ -17,8 +18,18 @@ export interface ReviewPreviewProps {
 }
 
 const ReviewPreview = ({ stationId }: ReviewPreviewProps) => {
-  const { data: totalRatings, isLoading: isReviewRatingsLoading } = useReviewRatings(stationId);
-  const { data: reviews, isLoading: isReviewsLoading } = useReviews(stationId);
+  const {
+    data: totalRatings,
+    isLoading: isReviewRatingsLoading,
+    isError: isReviewRatingsError,
+    error: reviewRatingsError,
+  } = useReviewRatings(stationId);
+  const {
+    data: reviews,
+    isLoading: isReviewsLoading,
+    isError: isReviewsError,
+    error: reviewsError,
+  } = useReviews(stationId);
 
   const handleClickMoreReviewButton = () => {
     modalActions.openModal(<ReviewList stationId={stationId} />);
@@ -26,6 +37,18 @@ const ReviewPreview = ({ stationId }: ReviewPreviewProps) => {
 
   if (isReviewRatingsLoading || isReviewsLoading) {
     return <ReviewPreviewSkeleton />;
+  }
+
+  if (isReviewRatingsError || isReviewsError) {
+    return (
+      <>
+        <Text variant="title">ReviewPreview Error!</Text>
+        <Text variant="subtitle">reviewRatingsError</Text>
+        <Text>{JSON.stringify(reviewRatingsError)}</Text>
+        <Text variant="subtitle">reviewsError</Text>
+        <Text>{JSON.stringify(reviewsError)}</Text>
+      </>
+    );
   }
 
   const aliveReviews = reviews.filter((review) => !review.isDeleted);
