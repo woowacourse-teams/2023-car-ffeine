@@ -1,0 +1,67 @@
+import { modalActions } from '@stores/layout/modalStore';
+
+import { useReviewRatings } from '@hooks/tanstack-query/station-details/reviews/useReviewRatings';
+import { useReviews } from '@hooks/tanstack-query/station-details/reviews/useReviews';
+
+import Box from '@common/Box';
+import ButtonNext from '@common/ButtonNext';
+import FlexBox from '@common/FlexBox';
+
+import ReviewCard from '@ui/StationDetailsWindow/reviews/ReviewCard';
+import ReviewList from '@ui/StationDetailsWindow/reviews/ReviewList';
+import UserRatings from '@ui/StationDetailsWindow/reviews/UserRatings';
+
+export interface ReviewPreviewProps {
+  stationId: string;
+}
+
+const ReviewPreview = ({ stationId }: ReviewPreviewProps) => {
+  const { data: totalRatings, isLoading: isReviewRatingsLoading } = useReviewRatings(stationId);
+  const { data: reviews, isLoading: isReviewsLoading } = useReviews(stationId);
+
+  const handleClickMoreReviewButton = () => {
+    modalActions.openModal(<ReviewList />);
+  };
+
+  if (isReviewRatingsLoading || isReviewsLoading) {
+    return <></>;
+  }
+
+  const aliveReviews = reviews.filter((review) => !review.isDeleted);
+
+  return (
+    <Box my={5}>
+      <UserRatings counts={reviews.length} ratings={totalRatings} />
+      {aliveReviews.length === 0 ? (
+        <Box p={5}>등록된 리뷰가 없습니다.</Box>
+      ) : (
+        <>
+          {aliveReviews.slice(0, 3).map((review, i) => {
+            return (
+              <ReviewCard
+                key={i}
+                review={{
+                  content: review.content,
+                  isDeleted: review.isDeleted,
+                  isUpdated: review.isUpdated,
+                  latestUpdateDate: review.latestUpdateDate,
+                  ratings: review.ratings,
+                  replies: review.replies,
+                  reviewId: review.reviewId,
+                  userId: review.userId,
+                }}
+              />
+            );
+          })}
+          <FlexBox justifyContent="end">
+            <ButtonNext variant="text" size="sm" onClick={() => handleClickMoreReviewButton()}>
+              후기 더 보기
+            </ButtonNext>
+          </FlexBox>
+        </>
+      )}
+    </Box>
+  );
+};
+
+export default ReviewPreview;
