@@ -19,6 +19,7 @@ import MapController from '@ui/MapController';
 import ModalContainer from '@ui/ModalContainer';
 import NavigationBar from '@ui/NavigationBar';
 
+import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
 import { LOCAL_KEY_LAST_POSITION, SESSION_KEY_USER_TOKEN } from '@constants/storageKeys';
 
 const CarFfeineMap = () => {
@@ -45,7 +46,7 @@ const CarFfeineMapListener = () => {
     googleMap.addListener('idle', () => {
       console.log('idle (테스트용: 제거 예정)');
 
-      queryClient.invalidateQueries({ queryKey: ['stations'] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
       setLocalStorage<google.maps.LatLngLiteral>(LOCAL_KEY_LAST_POSITION, {
         lat: googleMap.getCenter().lat(),
         lng: googleMap.getCenter().lng(),

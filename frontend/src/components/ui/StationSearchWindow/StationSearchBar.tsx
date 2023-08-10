@@ -22,6 +22,8 @@ import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigation
 
 import { pillStyle } from '@style';
 
+import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
+
 import type { StationPosition } from '@type/stations';
 
 import SearchResult from './SearchResult';
@@ -60,7 +62,7 @@ const StationSearchBar = () => {
 
   const showStationDetails = ({ stationId, latitude, longitude }: StationPosition) => {
     googleMap.panTo({ lat: latitude, lng: longitude });
-    queryClient.invalidateQueries({ queryKey: ['stations'] });
+    queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
     setSelectedStationId(stationId);
     openLastPanel(<StationDetailsWindow />);
   };
