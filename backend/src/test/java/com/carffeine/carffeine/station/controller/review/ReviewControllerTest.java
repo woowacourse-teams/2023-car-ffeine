@@ -1,6 +1,7 @@
 package com.carffeine.carffeine.station.controller.review;
 
 import com.carffeine.carffeine.helper.MockBeanInjection;
+import com.carffeine.carffeine.station.controller.review.dto.ReviewResponses;
 import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,6 +19,7 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.carffeine.carffeine.helper.RestDocsHelper.customDocument;
@@ -55,7 +57,7 @@ public class ReviewControllerTest extends MockBeanInjection {
     void 충전소에_리뷰를_등록한다() throws Exception {
         // given
         CreateReviewRequest request = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
-        Review review = 선릉역_충전소_리뷰_별4_15글자();
+        Review review = 선릉역_충전소_리뷰_별4_15글자.get();
 
         // when
         when(reviewService.saveReview(request, review.getStationId(), review.getId())).thenReturn(review);
@@ -84,16 +86,18 @@ public class ReviewControllerTest extends MockBeanInjection {
         // given
         String stationId = "ME101010";
         Pageable pageable = Pageable.ofSize(10).withPage(0);
-        Review review = 선릉역_충전소_리뷰_별4_15글자();
+        Review review = 선릉역_충전소_리뷰_별4_15글자.get();
+        review.setUpdatedAt(LocalDateTime.of(23, 2, 7, 9, 30, 0));
         List<Review> reviews = List.of(review);
         Page<Review> pageReviews = new PageImpl<>(reviews, pageable, reviews.size());
 
         // when
-        when(reviewService.findAllReviews(eq(stationId), any(Pageable.class))).thenReturn(pageReviews);
+        when(reviewService.findAllReviews(eq(stationId), any(Pageable.class))).thenReturn(ReviewResponses.from(pageReviews));
 
         // then
         mockMvc.perform(get("/stations/{stationId}/reviews", stationId)
                         .param("page", "0")
+                        .param("scope", "10")
                 )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -110,7 +114,8 @@ public class ReviewControllerTest extends MockBeanInjection {
                                 fieldWithPath("reviews[].ratings").type(JsonFieldType.NUMBER).description("별점"),
                                 fieldWithPath("reviews[].content").type(JsonFieldType.STRING).description("내용"),
                                 fieldWithPath("reviews[].isUpdated").type(JsonFieldType.BOOLEAN).description("수정 여부"),
-                                fieldWithPath("reviews[].isDeleted").type(JsonFieldType.BOOLEAN).description("삭제 여부")
+                                fieldWithPath("reviews[].isDeleted").type(JsonFieldType.BOOLEAN).description("삭제 여부"),
+                                fieldWithPath("nextPage").type(JsonFieldType.NUMBER).description("다음 페이지")
                         )
                 ));
     }

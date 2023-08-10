@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.station.service.review;
 
-import com.carffeine.carffeine.station.controller.review.dto.ReviewResponse;
+import com.carffeine.carffeine.station.controller.review.dto.ReviewResponses;
 import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.domain.review.ReviewRepository;
 import com.carffeine.carffeine.station.exception.review.ReviewException;
@@ -8,7 +8,9 @@ import com.carffeine.carffeine.station.exception.review.ReviewExceptionType;
 import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Service
 public class ReviewService {
+
+    public static final int PAGE_ELEMENT_SIZE = 10;
 
     private final ReviewRepository reviewRepository;
 
@@ -31,7 +35,14 @@ public class ReviewService {
         return reviewRepository.save(review);
     }
 
-    public Page<Review> findAllReviews(String stationId, Pageable pageable) {
+    public ReviewResponses findAllReviews(String stationId, Pageable pageable) {
+        pageable = PageRequest.of(pageable.getPageNumber(), PAGE_ELEMENT_SIZE, Sort.by(Sort.Direction.DESC, "updatedAt"));
+        Page<Review> reviews = findPageReviews(stationId, pageable);
+
+        return ReviewResponses.from(reviews);
+    }
+
+    public Page<Review> findPageReviews(String stationId, Pageable pageable) {
         return reviewRepository.findAllByStationId(stationId, pageable);
     }
 

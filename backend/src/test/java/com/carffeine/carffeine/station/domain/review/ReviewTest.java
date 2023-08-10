@@ -18,7 +18,7 @@ class ReviewTest {
 
     @Test
     void 리뷰를_등록한다() {
-        Review review = 선릉역_충전소_리뷰_별4_15글자();
+        Review review = 선릉역_충전소_리뷰_별4_15글자.get();
 
         assertSoftly(softly -> {
             softly.assertThat(review.getId()).isEqualTo(2L);
@@ -34,7 +34,7 @@ class ReviewTest {
     @Test
     void 리뷰를_수정한다() {
         // given
-        Review review = 선릉역_충전소_리뷰_별4_15글자();
+        Review review = 선릉역_충전소_리뷰_별4_15글자.get();
 
         // when
         review.updateReview(4, "리뷰를 수정하고자 합니다");
@@ -49,7 +49,7 @@ class ReviewTest {
     @Test
     void 리뷰를_삭제처리한다() {
         // given
-        Review review = 선릉역_충전소_리뷰_별4_15글자();
+        Review review = 선릉역_충전소_리뷰_별4_15글자.get();
 
         // when
         review.delete();

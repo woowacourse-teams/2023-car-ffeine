@@ -53,15 +53,16 @@ class ReviewServiceTest extends IntegrationTest {
         // given
         String stationId = "ME101010";
         Long memberId = 1L;
-        Pageable pageable = Pageable.ofSize(2).withPage(0);
+        Pageable pageable = Pageable.ofSize(10).withPage(0);
         CreateReviewRequest request = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
         reviewService.saveReview(request, stationId, memberId);
 
         // when
-        Page<Review> reviews = reviewService.findAllReviews(stationId, pageable);
+        Page<Review> reviews = reviewService.findPageReviews(stationId, pageable);
 
         // then
         assertThat(reviews).hasSize(1);
+
     }
 
     @Test
@@ -76,10 +77,10 @@ class ReviewServiceTest extends IntegrationTest {
         }
 
         // when
-        Page<Review> reviews = reviewService.findAllReviews(stationId, pageable);
+        Page<Review> reviews = reviewService.findPageReviews(stationId, pageable);
 
         // then
-        assertThat(reviews).hasSize(10);
+        assertThat(reviews.getNumberOfElements()).isEqualTo(10);
     }
 
     @Test
@@ -94,11 +95,10 @@ class ReviewServiceTest extends IntegrationTest {
         }
 
         // when
-        Page<Review> reviews = reviewService.findAllReviews(stationId, pageable);
+        Page<Review> reviews = reviewService.findPageReviews(stationId, pageable);
 
         // then
-        assertThat(reviews.get().count()).isEqualTo(3);
-
+        assertThat(reviews.getNumberOfElements()).isEqualTo(3);
     }
 
     @Test
@@ -113,7 +113,7 @@ class ReviewServiceTest extends IntegrationTest {
         }
 
         // when
-        Page<Review> reviews = reviewService.findAllReviews(stationId, pageable);
+        Page<Review> reviews = reviewService.findPageReviews(stationId, pageable);
 
         // then
         assertThat(reviews.get().count()).isEqualTo(0);
@@ -133,6 +133,7 @@ class ReviewServiceTest extends IntegrationTest {
         CreateReviewRequest updateRequest = new CreateReviewRequest(2, "생각해보니 별로인 듯 합니다");
         Review updatedReview = reviewService.updateReview(updateRequest, reviewId, memberId);
 
+        // then
         assertSoftly(softly -> {
             softly.assertThat(updatedReview.getRatings()).isEqualTo(updateRequest.ratings());
             softly.assertThat(updatedReview.getContent()).isEqualTo(updateRequest.content());
