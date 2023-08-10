@@ -11,7 +11,6 @@ import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { toastActions } from '@stores/layout/toastStore';
 
 import { useUserFilters } from '@hooks/tanstack-query/station-filters/useUserFilters';
-import { useUpdateStations } from '@hooks/tanstack-query/station-markers/useUpdateStations';
 
 import ToastContainer from '@common/Toast/ToastContainer';
 
@@ -38,25 +37,19 @@ const CarFfeineMap = () => {
 };
 
 const CarFfeineMapListener = () => {
-  const { updateStations } = useUpdateStations();
   const googleMap = useExternalValue(getGoogleMapStore());
 
   const queryClient = useQueryClient();
 
   useEffect(() => {
     googleMap.addListener('idle', () => {
-      console.log('idle');
+      console.log('idle (테스트용: 제거 예정)');
+
       queryClient.invalidateQueries({ queryKey: ['stations'] });
       setLocalStorage<google.maps.LatLngLiteral>(LOCAL_KEY_LAST_POSITION, {
         lat: googleMap.getCenter().lat(),
         lng: googleMap.getCenter().lng(),
       });
-    });
-
-    const initMarkersEvent = googleMap.addListener('bounds_changed', async () => {
-      updateStations();
-
-      google.maps.event.removeListener(initMarkersEvent);
     });
   }, []);
 
