@@ -21,6 +21,7 @@ import javax.persistence.Id;
 @Entity
 public class Member extends BaseEntity {
 
+    private static final int EMAIL_MASKING_LENGTH = 2;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -35,12 +36,11 @@ public class Member extends BaseEntity {
         this.memberRole = MemberRole.USER;
     }
 
-    public Member update(String email) {
-        this.email = email;
-        return this;
-    }
-
     public boolean isAdmin() {
         return memberRole == MemberRole.ADMIN;
+    }
+
+    public String maskEmail() {
+        return this.email.charAt(0) + "*".repeat(EMAIL_MASKING_LENGTH) + this.email.substring(EMAIL_MASKING_LENGTH + 1);
     }
 }
