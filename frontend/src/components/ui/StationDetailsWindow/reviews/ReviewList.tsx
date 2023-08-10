@@ -24,7 +24,7 @@ export default function ReviewList({ stationId }: ReviewListProps) {
         충전소 후기 보기
       </Text>
       {status === 'loading' ? (
-        <ReviewCardsLoading />
+        <ReviewCardsLoading count={10} />
       ) : status === 'error' ? (
         <Text variant="caption" align="center">
           Error: {JSON.stringify(error)}
@@ -50,7 +50,7 @@ export default function ReviewList({ stationId }: ReviewListProps) {
               ))}
             </div>
           ))}
-          {isFetchingNextPage && <ReviewCardsLoading />}
+          {isFetchingNextPage && <ReviewCardsLoading count={10} />}
           <ButtonNext
             variant="contained"
             onClick={() => fetchNextPage()}

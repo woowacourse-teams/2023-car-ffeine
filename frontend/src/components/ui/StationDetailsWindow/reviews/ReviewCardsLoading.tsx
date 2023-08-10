@@ -1,13 +1,15 @@
 import ReviewCardSkeleton from '@ui/StationDetailsWindow/reviews/ReviewCardSkeleton';
 
-const ReviewCardsLoading = () => {
+export interface ReviewCardsLoadingProps {
+  count: number;
+}
+
+const ReviewCardsLoading = ({ count }: ReviewCardsLoadingProps) => {
   return (
     <>
-      {Array(10)
-        .fill({ length: 10 })
-        .map((_, i) => (
-          <ReviewCardSkeleton key={i} />
-        ))}
+      {Array.from({ length: count }).map((_, i) => (
+        <ReviewCardSkeleton key={i} />
+      ))}
     </>
   );
 };

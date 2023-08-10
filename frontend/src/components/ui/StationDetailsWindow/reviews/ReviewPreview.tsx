@@ -9,6 +9,7 @@ import FlexBox from '@common/FlexBox';
 
 import ReviewCard from '@ui/StationDetailsWindow/reviews/ReviewCard';
 import ReviewList from '@ui/StationDetailsWindow/reviews/ReviewList';
+import ReviewPreviewSkeleton from '@ui/StationDetailsWindow/reviews/ReviewPreviewSkeleton';
 import UserRatings from '@ui/StationDetailsWindow/reviews/UserRatings';
 
 export interface ReviewPreviewProps {
@@ -24,7 +25,7 @@ const ReviewPreview = ({ stationId }: ReviewPreviewProps) => {
   };
 
   if (isReviewRatingsLoading || isReviewsLoading) {
-    return <></>;
+    return <ReviewPreviewSkeleton />;
   }
 
   const aliveReviews = reviews.filter((review) => !review.isDeleted);
