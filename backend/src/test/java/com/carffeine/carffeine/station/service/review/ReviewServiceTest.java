@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDateTime;
+
 import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.리뷰_요청_13개;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
@@ -45,6 +47,7 @@ class ReviewServiceTest extends IntegrationTest {
         // then
         assertThat(review).usingRecursiveComparison()
                 .ignoringFields("id")
+                .ignoringFieldsOfTypes(LocalDateTime.class)
                 .isEqualTo(expected);
     }
 

@@ -86,13 +86,14 @@ class StationRepositoryTest {
     void 충전소_id_값으로_충전소를_조회한다() {
         // given
         Station station = StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
-        stationRepository.save(station);
+        Station save = stationRepository.save(station);
 
         //when
         Station stationById = stationRepository.findChargeStationByStationId(station.getStationId()).get();
 
         //then
-        assertThat(stationById).usingRecursiveComparison().isEqualTo(station);
+        assertThat(stationById).usingRecursiveComparison()
+                .isEqualTo(save);
     }
 
     @Test
