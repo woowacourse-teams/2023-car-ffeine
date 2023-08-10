@@ -125,8 +125,8 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
                 </Box>
               </Box>
             </Box>
-            {index + 1 !== replies.length && (
-              <Box ml={16} my={2} css={{ borderBottom: '1px solid #66666666' }} />
+            {index !== replies.length - 1 && (
+              <Box ml={16} mr={6} my={2} css={{ borderBottom: '1px solid #66666666' }} />
             )}
           </>
         ))}
