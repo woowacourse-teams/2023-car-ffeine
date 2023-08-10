@@ -43,4 +43,8 @@ public class Member extends BaseEntity {
     public String maskEmail() {
         return this.email.charAt(0) + "*".repeat(EMAIL_MASKING_LENGTH) + this.email.substring(EMAIL_MASKING_LENGTH + 1);
     }
+
+    public void updateRole(MemberRole role) {
+        this.memberRole = role;
+    }
 }

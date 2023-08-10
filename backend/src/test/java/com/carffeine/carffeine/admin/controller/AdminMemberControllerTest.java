@@ -1,7 +1,9 @@
 package com.carffeine.carffeine.admin.controller;
 
+import com.carffeine.carffeine.admin.service.dto.MemberRoleUpdateRequest;
 import com.carffeine.carffeine.helper.MockBeanInjection;
 import com.carffeine.carffeine.member.fixture.MemberFixture;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
@@ -11,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -22,10 +25,13 @@ import static org.springframework.restdocs.headers.HeaderDocumentation.headerWit
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -37,6 +43,9 @@ public class AdminMemberControllerTest extends MockBeanInjection {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Test
     void 회원_목록을_요청한다() throws Exception {
@@ -66,6 +75,26 @@ public class AdminMemberControllerTest extends MockBeanInjection {
                                 subsectionWithPath("elements[].id").description("멤버 ID"),
                                 subsectionWithPath("elements[].email").description("이메일"),
                                 subsectionWithPath("elements[].role").description("권한")
+                        )
+                ));
+    }
+
+    @Test
+    void testUpdateRole() throws Exception {
+        // given
+        MemberRoleUpdateRequest updateRequest = new MemberRoleUpdateRequest("admin");
+
+        // when & then
+        mockMvc.perform(patch("/admin/members/{memberId}", 123L)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(updateRequest))
+                        .header(HttpHeaders.AUTHORIZATION, "token~~"))
+                .andExpect(status().isNoContent())
+                .andDo(document("update-member-role",
+                        pathParameters(parameterWithName("memberId").description("멤버 ID")),
+                        requestHeaders(headerWithName(HttpHeaders.AUTHORIZATION).description("인증 토큰")),
+                        requestFields(
+                                fieldWithPath("role").description("회원 권한")
                         )
                 ));
     }
