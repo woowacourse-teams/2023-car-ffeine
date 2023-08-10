@@ -1,6 +1,6 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { getSessionStorage } from '@utils/storage';
+import { useExternalValue } from '@utils/external-state';
 
 import { serverStore } from '@stores/config/serverStore';
 import {
@@ -8,10 +8,10 @@ import {
   selectedChargerTypesFilterStore,
   selectedCompanyNamesFilterStore,
 } from '@stores/station-filters/serverStationFiltersStore';
+import { userTokenStore } from '@stores/userTokenStore';
 
 import { SERVERS } from '@constants';
 import { QUERY_KEY_STATIONS, QUERY_KEY_USER_SELECTED_FILTERS } from '@constants/queryKeys';
-import { SESSION_KEY_USER_TOKEN } from '@constants/storageKeys';
 
 import type { ServerStationFilters } from './useServerStationFilters';
 
@@ -21,11 +21,12 @@ interface UserFilters {
 
 const fetchUserFilters = async () => {
   const mode = serverStore.getState();
+  const userToken = userTokenStore.getState();
 
   const userFilters = await fetch(`${SERVERS[mode]}/members/filters`, {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${getSessionStorage(SESSION_KEY_USER_TOKEN, '')}`,
+      Authorization: `Bearer ${userToken}`,
     },
   }).then<UserFilters>((response) => response.json());
 

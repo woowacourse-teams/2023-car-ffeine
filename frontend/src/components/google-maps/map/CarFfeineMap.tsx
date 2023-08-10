@@ -23,10 +23,17 @@ import NavigationBar from '@ui/NavigationBar';
 import { LOCAL_KEY_LAST_POSITION, SESSION_KEY_USER_TOKEN } from '@constants/storageKeys';
 
 const CarFfeineMap = () => {
+  const { setUserToken } = userTokenActions;
+  const userToken = getSessionStorage(SESSION_KEY_USER_TOKEN, '');
+
+  if (userToken !== '') {
+    setUserToken(getSessionStorage(SESSION_KEY_USER_TOKEN, ''));
+  }
+
   return (
     <>
       <CarFfeineMapListener />
-      <UserLoginListener />
+      <UserFilterListener />
       <NavigationBar />
       <ClientStationFilters />
       <MapController />
@@ -40,7 +47,6 @@ const CarFfeineMap = () => {
 const CarFfeineMapListener = () => {
   const { updateStations } = useUpdateStations();
   const googleMap = useExternalValue(getGoogleMapStore());
-
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -63,18 +69,8 @@ const CarFfeineMapListener = () => {
   return <></>;
 };
 
-const UserLoginListener = () => {
-  // 이 부분 리뷰 부탁드립니다
+const UserFilterListener = () => {
   useUserFilters();
-
-  useEffect(() => {
-    const { setUserToken } = userTokenActions;
-    const userToken = getSessionStorage(SESSION_KEY_USER_TOKEN, '');
-
-    if (userToken !== '') {
-      setUserToken(userToken);
-    }
-  }, []);
 
   return <></>;
 };
