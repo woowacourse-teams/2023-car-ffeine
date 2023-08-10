@@ -4,6 +4,7 @@ import Box from '@common/Box';
 
 import type { ReviewCardProps } from '@ui/StationDetailsWindow/reviews/ReviewCard';
 import ReviewCard from '@ui/StationDetailsWindow/reviews/ReviewCard';
+import ReviewCardSkeleton from '@ui/StationDetailsWindow/reviews/ReviewCardSkeleton';
 
 import type { Reply } from '@type';
 
@@ -56,6 +57,15 @@ export const Default = (args: ReviewCardProps) => {
       <ReviewCard {...args} />
       <ReviewCard {...args} />
       <ReviewCard {...args} />
+    </Box>
+  );
+};
+
+export const Skeleton = (args: ReviewCardProps) => {
+  return (
+    <Box width={80}>
+      <ReviewCard {...args} />
+      <ReviewCardSkeleton />
     </Box>
   );
 };
