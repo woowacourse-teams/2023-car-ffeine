@@ -29,7 +29,6 @@ const ServerStationFilters = () => {
   const queryClient = useQueryClient();
   const { showToast } = toastActions;
   const { data: serverStationFilters, isLoading } = useServerStationFilters();
-  const { data: userFilters, isLoading: isUserFilterLoading } = useUserFilters();
 
   const {
     toggleSelectCapacityFilter,
@@ -45,17 +44,7 @@ const ServerStationFilters = () => {
     showToast('필터가 적용되었습니다');
   };
 
-  useEffect(() => {
-    if (userFilters) {
-      const { connectorTypes, capacities, companyNames } = userFilters;
-
-      selectedCapacitiesFilterStore.setState(capacities.map(({ capacity }) => capacity));
-      selectedChargerTypesFilterStore.setState(connectorTypes.map(({ key }) => key));
-      selectedCompanyNamesFilterStore.setState(companyNames.map(({ key }) => key));
-    }
-  }, [userFilters]);
-
-  if (isLoading || isUserFilterLoading) {
+  if (isLoading) {
     return <></>;
   }
 
