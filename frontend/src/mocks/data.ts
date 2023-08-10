@@ -49,7 +49,7 @@ const generateRandomStationId = () => {
   return `${randomLetter1}${randomLetter2}${randomNumber}`;
 };
 
-export const stations: Station[] = Array.from({ length: 3000 }).map((_, index) => {
+export const stations: Station[] = Array.from({ length: 3000 }, (_, index) => {
   const randomStationId = generateRandomStationId();
   return {
     stationId: randomStationId,
@@ -110,7 +110,7 @@ const getCongestions = (): Record<EnglishDaysType, Congestion[]> => {
   return getTypedObjectFromEntries(
     ENGLISH_DAYS,
     ENGLISH_DAYS.map(() =>
-      Array.from({ length: 24 }).map((_, i) => {
+      Array.from({ length: 24 }, (_, i) => {
         return {
           hour: i,
           ratio: Math.floor(Math.random() * 102 - 1),
