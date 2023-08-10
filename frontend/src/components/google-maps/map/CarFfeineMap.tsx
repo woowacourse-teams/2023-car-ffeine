@@ -23,25 +23,15 @@ import NavigationBar from '@ui/NavigationBar';
 import { LOCAL_KEY_LAST_POSITION, SESSION_KEY_USER_TOKEN } from '@constants/storageKeys';
 
 const CarFfeineMap = () => {
-  // 이 부분 리뷰 부탁드립니다
-  useUserFilters();
-
-  useEffect(() => {
-    const userToken = getSessionStorage(SESSION_KEY_USER_TOKEN, '');
-
-    if (userToken !== '') {
-      toastActions.showToast('로그인 되었습니다!');
-    }
-  }, []);
-
   return (
     <>
       <CarFfeineMapListener />
-      <StationMarkersContainer />
+      <UserLoginListener />
       <NavigationBar />
       <ClientStationFilters />
-      <ModalContainer />
       <MapController />
+      <StationMarkersContainer />
+      <ModalContainer />
       <ToastContainer />
     </>
   );
@@ -68,6 +58,21 @@ const CarFfeineMapListener = () => {
 
       google.maps.event.removeListener(initMarkersEvent);
     });
+  }, []);
+
+  return <></>;
+};
+
+const UserLoginListener = () => {
+  // 이 부분 리뷰 부탁드립니다
+  useUserFilters();
+
+  useEffect(() => {
+    const userToken = getSessionStorage(SESSION_KEY_USER_TOKEN, '');
+
+    if (userToken !== '') {
+      toastActions.showToast('로그인 되었습니다!');
+    }
   }, []);
 
   return <></>;
