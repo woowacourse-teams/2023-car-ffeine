@@ -265,8 +265,17 @@ export const handlers = [
     );
   }),
 
-  rest.get(`${SERVERS.localhost}/stations/:stationId/reviews/?page=:page`, (req, res, ctx) => {
+  rest.get(`${SERVERS.localhost}/stations/:stationId/reviews`, (req, res, ctx) => {
     const reviews = generateReviewsWithReplies();
-    return res(ctx.json({ reviews }), ctx.delay(1000), ctx.status(200));
+
+    const { searchParams } = req.url;
+    const page = Number(searchParams.get('page'));
+    if (page === 3) {
+      return res(ctx.json({ reviews: reviews.slice(0, 3) }), ctx.delay(1000), ctx.status(200));
+    } else if (page > 3) {
+      return res(ctx.json({ reviews: [] }), ctx.delay(1000), ctx.status(200));
+    } else {
+      return res(ctx.json({ reviews }), ctx.delay(1000), ctx.status(200));
+    }
   }),
 ];

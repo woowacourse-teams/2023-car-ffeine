@@ -107,7 +107,7 @@ const getCongestions = (): Record<EnglishDaysType, Congestion[]> => {
 };
 
 export const generateReviewsWithReplies = (): Review[] => {
-  return Array.from({ length: generateRandomCommentsLength(0, 15) }, (_, i) => {
+  return Array.from({ length: 10 }, (_, i) => {
     return {
       reviewId: i,
       userId: generateRandomToken(),
