@@ -1,29 +1,41 @@
 package com.carffeine.carffeine.station.service.review;
 
-import com.carffeine.carffeine.helper.integration.IntegrationTest;
+import com.carffeine.carffeine.station.controller.review.dto.ReviewResponses;
+import com.carffeine.carffeine.station.domain.review.FakeReviewRepository;
 import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.exception.review.ReviewException;
 import com.carffeine.carffeine.station.fixture.review.ReviewFixture;
+import com.carffeine.carffeine.station.domain.station.FakeStationRepository;
+import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
 
 import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.리뷰_요청_13개;
+import static com.carffeine.carffeine.station.fixture.station.StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
-class ReviewServiceTest extends IntegrationTest {
+class ReviewServiceTest {
 
-    @Autowired
     private ReviewService reviewService;
+    private FakeReviewRepository fakeReviewRepository;
+    private FakeStationRepository fakeStationRepository;
+
+    @BeforeEach
+    void before() {
+        fakeReviewRepository = new FakeReviewRepository();
+        fakeStationRepository = new FakeStationRepository();
+        reviewService = new ReviewService(fakeReviewRepository, fakeStationRepository);
+    }
 
     @Test
     void 리뷰를_등록한다() {
@@ -31,9 +43,11 @@ class ReviewServiceTest extends IntegrationTest {
         String stationId = "ME101010";
         Long memberId = 1L;
         CreateReviewRequest request = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
+        Station station = 선릉역_충전소_충전기_2개_사용가능_1개;
+        Station save = fakeStationRepository.save(station);
 
         Review expected = Review.builder()
-                .stationId(stationId)
+                .station(save)
                 .memberId(memberId)
                 .ratings(request.ratings())
                 .content(request.content())
@@ -58,6 +72,9 @@ class ReviewServiceTest extends IntegrationTest {
         Long memberId = 1L;
         Pageable pageable = Pageable.ofSize(10).withPage(0);
         CreateReviewRequest request = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
+        Station station = 선릉역_충전소_충전기_2개_사용가능_1개;
+        fakeStationRepository.save(station);
+
         reviewService.saveReview(request, stationId, memberId);
 
         // when
@@ -74,6 +91,8 @@ class ReviewServiceTest extends IntegrationTest {
         String stationId = "ME101010";
         Long memberId = 1L;
         Pageable pageable = Pageable.ofSize(10).withPage(0);
+        Station station = 선릉역_충전소_충전기_2개_사용가능_1개;
+        fakeStationRepository.save(station);
 
         for (CreateReviewRequest request : 리뷰_요청_13개()) {
             reviewService.saveReview(request, stationId, memberId);
@@ -92,6 +111,8 @@ class ReviewServiceTest extends IntegrationTest {
         String stationId = "ME101010";
         Long memberId = 1L;
         Pageable pageable = Pageable.ofSize(10).withPage(1);
+        Station station = 선릉역_충전소_충전기_2개_사용가능_1개;
+        fakeStationRepository.save(station);
 
         for (CreateReviewRequest request : 리뷰_요청_13개()) {
             reviewService.saveReview(request, stationId, memberId);
@@ -110,16 +131,18 @@ class ReviewServiceTest extends IntegrationTest {
         String stationId = "ME101010";
         Long memberId = 1L;
         Pageable pageable = Pageable.ofSize(10).withPage(2);
+        Station station = 선릉역_충전소_충전기_2개_사용가능_1개;
+        fakeStationRepository.save(station);
 
         for (CreateReviewRequest request : 리뷰_요청_13개()) {
             reviewService.saveReview(request, stationId, memberId);
         }
 
         // when
-        Page<Review> reviews = reviewService.findPageReviews(stationId, pageable);
+        ReviewResponses reviews1 = reviewService.findAllReviews(stationId, pageable);
 
         // then
-        assertThat(reviews.get().count()).isEqualTo(0);
+        assertThat(reviews1.reviews().size()).isEqualTo(0);
     }
 
     @Test
@@ -128,6 +151,8 @@ class ReviewServiceTest extends IntegrationTest {
         String stationId = "ME101010";
         Long memberId = 1L;
         CreateReviewRequest request = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
+        Station station = 선릉역_충전소_충전기_2개_사용가능_1개;
+        fakeStationRepository.save(station);
 
         Review review = reviewService.saveReview(request, stationId, memberId);
 
@@ -149,6 +174,8 @@ class ReviewServiceTest extends IntegrationTest {
         String stationId = "ME101010";
         Long memberId = 1L;
         CreateReviewRequest request = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
+        Station station = 선릉역_충전소_충전기_2개_사용가능_1개;
+        fakeStationRepository.save(station);
 
         Review review = reviewService.saveReview(request, stationId, memberId);
 

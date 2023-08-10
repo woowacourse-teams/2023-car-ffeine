@@ -1,19 +1,23 @@
 package com.carffeine.carffeine.station.domain.review;
 
 import com.carffeine.carffeine.common.domain.BaseEntity;
+import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.exception.review.ReviewException;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.Objects;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.INVALID_CONTENT_MAX_LENGTH;
 import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.INVALID_CONTENT_MIN_LENGTH;
@@ -23,6 +27,7 @@ import static com.carffeine.carffeine.station.exception.review.ReviewExceptionTy
 
 @Getter
 @Builder
+@EqualsAndHashCode(of = "id", callSuper = false)
 @SQLDelete(sql = "UPDATE review SET is_deleted = true WHERE id = ?")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -38,8 +43,9 @@ public class Review extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "station_id")
-    private String stationId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "station_id")
+    private Station station;
 
     @Column(name = "member_id")
     private Long memberId;
@@ -52,10 +58,10 @@ public class Review extends BaseEntity {
 
     private boolean isDeleted;
 
-    public Review(Long id, String stationId, Long memberId, int ratings, String content, boolean isUpdated, boolean isDeleted) {
+    public Review(Long id, Station station, Long memberId, int ratings, String content, boolean isUpdated, boolean isDeleted) {
         validateRequest(ratings, content);
         this.id = id;
-        this.stationId = stationId;
+        this.station = station;
         this.memberId = memberId;
         this.ratings = ratings;
         this.content = content;
@@ -93,18 +99,5 @@ public class Review extends BaseEntity {
 
     public void delete() {
         this.isDeleted = true;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Review review = (Review) o;
-        return id == review.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 }

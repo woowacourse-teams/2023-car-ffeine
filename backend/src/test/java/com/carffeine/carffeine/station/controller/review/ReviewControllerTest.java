@@ -1,8 +1,12 @@
 package com.carffeine.carffeine.station.controller.review;
 
 import com.carffeine.carffeine.helper.MockBeanInjection;
+import com.carffeine.carffeine.member.domain.Member;
+import com.carffeine.carffeine.member.fixture.MemberFixture;
 import com.carffeine.carffeine.station.controller.review.dto.ReviewResponses;
 import com.carffeine.carffeine.station.domain.review.Review;
+import com.carffeine.carffeine.station.domain.station.Station;
+import com.carffeine.carffeine.station.fixture.station.StationFixture;
 import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayNameGeneration;
@@ -56,16 +60,18 @@ public class ReviewControllerTest extends MockBeanInjection {
     @Test
     void 충전소에_리뷰를_등록한다() throws Exception {
         // given
+        Station station = StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
+        Member member = MemberFixture.일반_회원;
         CreateReviewRequest request = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
         Review review = 선릉역_충전소_리뷰_별4_15글자.get();
 
         // when
-        when(reviewService.saveReview(request, review.getStationId(), review.getId())).thenReturn(review);
+        when(reviewService.saveReview(request, station.getStationId(), member.getId())).thenReturn(review);
         String jsonData = objectMapper.writeValueAsString(request);
 
         // then
-        mockMvc.perform(post("/stations/{stationId}/review", review.getStationId())
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + review.getMemberId())
+        mockMvc.perform(post("/stations/{stationId}/review", station.getStationId())
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + member.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(jsonData)

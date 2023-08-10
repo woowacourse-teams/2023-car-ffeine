@@ -1,5 +1,6 @@
 package com.carffeine.carffeine.station.domain.review;
 
+import com.carffeine.carffeine.station.domain.station.Station;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.리뷰_13개;
+import static com.carffeine.carffeine.station.fixture.station.StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -25,7 +27,7 @@ class ReviewRepositoryTest {
     void 리뷰를_등록한다() {
         // given
         Review review = Review.builder()
-                .stationId("ME101010")
+                .station(선릉역_충전소_충전기_2개_사용가능_1개)
                 .memberId(1L)
                 .ratings(4)
                 .content("덕분에 빠르게 충전했습니다")
@@ -50,11 +52,11 @@ class ReviewRepositoryTest {
             reviewRepository.save(review);
         }
 
-        String stationId = "ME101010";
+        Station station = 선릉역_충전소_충전기_2개_사용가능_1개;
         Pageable pageable = PageRequest.of(0, 10);
 
         // when
-        Page<Review> foundReviews = reviewRepository.findAllByStationId(stationId, pageable);
+        Page<Review> foundReviews = reviewRepository.findAllByStation(station, pageable);
 
         // then
         SoftAssertions.assertSoftly(softly -> {

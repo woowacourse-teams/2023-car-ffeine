@@ -3,6 +3,9 @@ package com.carffeine.carffeine.station.service.review;
 import com.carffeine.carffeine.station.controller.review.dto.ReviewResponses;
 import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.domain.review.ReviewRepository;
+import com.carffeine.carffeine.station.domain.station.Station;
+import com.carffeine.carffeine.station.domain.station.StationRepository;
+import com.carffeine.carffeine.station.exception.StationException;
 import com.carffeine.carffeine.station.exception.review.ReviewException;
 import com.carffeine.carffeine.station.exception.review.ReviewExceptionType;
 import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;
@@ -14,6 +17,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.carffeine.carffeine.station.exception.StationExceptionType.NOT_FOUND_ID;
+
 @RequiredArgsConstructor
 @Transactional
 @Service
@@ -22,10 +27,13 @@ public class ReviewService {
     public static final int PAGE_ELEMENT_SIZE = 10;
 
     private final ReviewRepository reviewRepository;
+    private final StationRepository stationRepository;
 
     public Review saveReview(CreateReviewRequest request, String stationId, Long memberId) {
+        Station station = stationRepository.findChargeStationByStationId(stationId)
+                .orElseThrow(() -> new StationException(NOT_FOUND_ID));
         Review review = Review.builder()
-                .stationId(stationId)
+                .station(station)
                 .memberId(memberId)
                 .ratings(request.ratings())
                 .content(request.content())
@@ -43,7 +51,9 @@ public class ReviewService {
     }
 
     public Page<Review> findPageReviews(String stationId, Pageable pageable) {
-        return reviewRepository.findAllByStationId(stationId, pageable);
+        Station station = stationRepository.findChargeStationByStationId(stationId)
+                .orElseThrow(() -> new StationException(NOT_FOUND_ID));
+        return reviewRepository.findAllByStation(station, pageable);
     }
 
     public Review updateReview(CreateReviewRequest request, Long reviewId, Long memberId) {
