@@ -27,7 +27,7 @@ export const getGoogleMapStore = (() => {
         disableDefaultUI: true,
         mapId: '92cb7201b7d43b21',
         minZoom: 8,
-        maxZoom: 15,
+        maxZoom: 20,
         gestureHandling: 'greedy',
       });
     }

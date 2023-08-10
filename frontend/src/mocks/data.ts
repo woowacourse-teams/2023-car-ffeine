@@ -36,10 +36,24 @@ export const generateRandomChargers = () => {
   return chargers;
 };
 
+const generateRandomStationId = () => {
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const numbers = '0123456789';
+
+  const randomChar = (source: string) => source[Math.floor(Math.random() * source.length)];
+
+  const randomLetter1 = randomChar(letters);
+  const randomLetter2 = randomChar(letters);
+  const randomNumber = Array.from({ length: 6 }, () => randomChar(numbers)).join('');
+
+  return `${randomLetter1}${randomLetter2}${randomNumber}`;
+};
+
 export const stations: Station[] = Array.from({ length: 3000 }).map((_, index) => {
+  const randomStationId = generateRandomStationId();
   return {
-    stationId: String(index),
-    stationName: `잠실의 충전소 ${index}`,
+    stationId: randomStationId,
+    stationName: `충전소 ${randomStationId}`,
     companyName: generateRandomData<CompanyName>(Object.values(COMPANY_NAME)),
     contact: generateRandomData(['', '010-1234-5678', '02-000-0000']),
     chargers: generateRandomChargers(),
@@ -56,8 +70,8 @@ export const stations: Station[] = Array.from({ length: 3000 }).map((_, index) =
       'null',
     ]),
     detailLocation: generateRandomData<string>(['지상 1층', '지하 1층', '지하 2층', '']),
-    latitude: 37 + 9999 * Math.random() * 0.0001,
-    longitude: 127 + 9999 * Math.random() * 0.0001,
+    latitude: 37 + 0.25 + 9999 * Math.random() * 0.00005,
+    longitude: 127 - 0.25 + 9999 * Math.random() * 0.00005,
     isPrivate: generateRandomData<boolean>([true, false]),
     totalCount: generateRandomData<number>([3, 4, 5]),
     availableCount: generateRandomData<number>([0, 1, 2, 3]),

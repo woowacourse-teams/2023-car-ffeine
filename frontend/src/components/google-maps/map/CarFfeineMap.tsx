@@ -46,6 +46,8 @@ const CarFfeineMapListener = () => {
     googleMap.addListener('idle', () => {
       console.log('idle (테스트용: 제거 예정)');
 
+      console.log(googleMap.getZoom());
+
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
       setLocalStorage<google.maps.LatLngLiteral>(LOCAL_KEY_LAST_POSITION, {
         lat: googleMap.getCenter().lat(),
