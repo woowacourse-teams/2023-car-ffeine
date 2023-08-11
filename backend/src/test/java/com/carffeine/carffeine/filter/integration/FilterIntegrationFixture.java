@@ -31,9 +31,8 @@ public class FilterIntegrationFixture extends IntegrationTest {
                 .extract();
     }
 
-    protected <T> ExtractableResponse 모든_필터를_조회한다(String url, String accessToken) {
+    protected <T> ExtractableResponse 모든_필터를_조회한다(String url) {
         return RestAssured.given().log().all()
-                .header(HttpHeaders.AUTHORIZATION, accessToken)
                 .accept(ContentType.JSON)
                 .when()
                 .get(url)

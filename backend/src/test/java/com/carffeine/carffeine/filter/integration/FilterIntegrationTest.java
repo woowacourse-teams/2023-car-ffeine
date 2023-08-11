@@ -58,7 +58,7 @@ public class FilterIntegrationTest extends FilterIntegrationFixture {
     @Test
     void 모든_필터를_조회한다() {
         // when
-        var 필터_조회_응답 = 모든_필터를_조회한다("/filters", 관리자_토큰);
+        var 필터_조회_응답 = 모든_필터를_조회한다("/filters");
         var 필터_조회_결과 = 필터_조회_응답.body().as(FiltersResponse.class);
 
         // then
@@ -82,7 +82,7 @@ public class FilterIntegrationTest extends FilterIntegrationFixture {
         제거요청("/filters/2.00", 관리자_토큰);
 
         // then
-        var 필터_조회_응답 = 모든_필터를_조회한다("/filters", 관리자_토큰);
+        var 필터_조회_응답 = 모든_필터를_조회한다("/filters");
         var 필터_조회_결과 = 필터_조회_응답.body().as(FiltersResponse.class);
 
         단일_검증(필터_조회_결과.capacities(), Collections.emptyList());

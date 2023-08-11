@@ -23,8 +23,7 @@ public class FilterService {
     private final MemberRepository memberRepository;
 
     @Transactional(readOnly = true)
-    public List<Filter> findAllFilters(Long memberId) {
-        validateRole(memberId);
+    public List<Filter> findAllFilters() {
         return filterRepository.findAll();
     }
 

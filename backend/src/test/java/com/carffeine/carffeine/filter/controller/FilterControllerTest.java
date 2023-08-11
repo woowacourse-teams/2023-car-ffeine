@@ -61,14 +61,12 @@ public class FilterControllerTest extends MockBeanInjection {
         );
 
         // when
-        when(filterService.findAllFilters(any())).thenReturn(filters);
+        when(filterService.findAllFilters()).thenReturn(filters);
 
         // then
-        mockMvc.perform(get("/filters")
-                        .header(HttpHeaders.AUTHORIZATION, "token"))
+        mockMvc.perform(get("/filters"))
                 .andExpect(status().isOk())
                 .andDo(customDocument("find_all_filters",
-                        requestHeaders(headerWithName(HttpHeaders.AUTHORIZATION).description("인증 토큰")),
                         responseFields(
                                 fieldWithPath("companies[0]").type(JsonFieldType.ARRAY).description("충전기 회사"),
                                 fieldWithPath("capacities[0]").type(JsonFieldType.ARRAY).description("충전 용량"),

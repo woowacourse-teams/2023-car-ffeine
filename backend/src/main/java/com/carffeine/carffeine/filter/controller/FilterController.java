@@ -23,8 +23,8 @@ public class FilterController {
     private final FilterService filterService;
 
     @GetMapping
-    public ResponseEntity<FiltersResponse> findAllFilters(@AuthMember Long memberId) {
-        return ResponseEntity.ok(FiltersResponse.from(filterService.findAllFilters(memberId)));
+    public ResponseEntity<FiltersResponse> findAllFilters() {
+        return ResponseEntity.ok(FiltersResponse.from(filterService.findAllFilters()));
     }
 
     @PostMapping

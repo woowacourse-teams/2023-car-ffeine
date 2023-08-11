@@ -48,7 +48,7 @@ class FilterServiceTest {
 
         // when
         filterRepository.saveAll(List.of(Filter.of(filterName, FilterType.COMPANY.getName())));
-        List<Filter> filters = filterService.findAllFilters(admin.getId());
+        List<Filter> filters = filterService.findAllFilters();
 
         // then
         assertSoftly(softly -> {
@@ -72,7 +72,7 @@ class FilterServiceTest {
         filterService.addFilters(admin.getId(), filtersRequest);
 
         // then
-        List<Filter> filters = filterService.findAllFilters(admin.getId());
+        List<Filter> filters = filterService.findAllFilters();
         assertThat(filters.size()).isEqualTo(3);
     }
 
@@ -93,7 +93,7 @@ class FilterServiceTest {
         filterService.deleteFilterByName(admin.getId(), "충전소 회사");
 
         // then
-        List<Filter> filters = filterService.findAllFilters(admin.getId());
+        List<Filter> filters = filterService.findAllFilters();
         assertThat(filters.size()).isEqualTo(2);
     }
 }

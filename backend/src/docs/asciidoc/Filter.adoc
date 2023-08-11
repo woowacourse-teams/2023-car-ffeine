@@ -9,7 +9,6 @@
 
 === Request
 
-include::{snippets}/filter-controller-test/find_all_filters/request-headers.adoc[]
 include::{snippets}/filter-controller-test/find_all_filters/http-request.adoc[]
 
 === Response
