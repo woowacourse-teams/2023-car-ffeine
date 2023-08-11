@@ -110,9 +110,9 @@ const getCongestions = (): Record<EnglishDaysType, Congestion[]> => {
   return getTypedObjectFromEntries(
     ENGLISH_DAYS,
     ENGLISH_DAYS.map(() =>
-      Array.from({ length: 24 }, (_, i) => {
+      Array.from({ length: 24 }, (_, index) => {
         return {
-          hour: i,
+          hour: index,
           ratio: Math.floor(Math.random() * 102 - 1),
         };
       })
@@ -121,9 +121,9 @@ const getCongestions = (): Record<EnglishDaysType, Congestion[]> => {
 };
 
 export const generateReviewsWithReplies = (): Review[] => {
-  return Array.from({ length: 10 }, (_, i) => {
+  return Array.from({ length: 10 }, (_, index) => {
     return {
-      reviewId: i,
+      reviewId: index,
       userId: generateRandomToken(),
       latestUpdateDate: getRandomTime(),
       ratings: parseFloat((Math.random() * 5).toFixed(2)),
@@ -139,7 +139,7 @@ export const generateReviewsWithReplies = (): Review[] => {
       ]),
       isUpdated: generateRandomData([true, false]),
       isDeleted: generateRandomData([true, false]),
-      replies: Array.from({ length: generateRandomCommentsLength(0, 4) }, (_, i) => {
+      replies: Array.from({ length: generateRandomCommentsLength(0, 4) }, (_, index) => {
         return {
           replyId: generateRandomToken(),
           userId: generateRandomToken(),
