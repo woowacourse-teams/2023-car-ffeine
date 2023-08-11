@@ -1,8 +1,8 @@
 package com.carffeine.carffeine.auth.controller;
 
+import com.carffeine.carffeine.auth.domain.TokenProvider;
 import com.carffeine.carffeine.common.exception.ExceptionResponse;
 import com.carffeine.carffeine.member.domain.MemberRepository;
-import com.carffeine.carffeine.auth.domain.TokenProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -42,13 +42,18 @@ public class AuthFilter extends OncePerRequestFilter {
 
         String token = authorization.substring(BEARER_PREFIX.length());
 
-        if (tokenProvider.isExpired(token)) {
-            sendUnauthorizedError(response, "이미 만료된 토큰입니다");
-            return;
-        }
+        try {
+            if (tokenProvider.isExpired(token)) {
+                sendUnauthorizedError(response, "이미 만료된 토큰입니다");
+                return;
+            }
 
-        if (!isMemberExists(token)) {
-            sendUnauthorizedError(response, "등록되지 않은 회원입니다");
+            if (!isMemberExists(token)) {
+                sendUnauthorizedError(response, "등록되지 않은 회원입니다");
+                return;
+            }
+        } catch (Exception e) {
+            sendUnauthorizedError(response, "유효하지 않은 토큰입니다");
             return;
         }
         filterChain.doFilter(request, response);

@@ -24,13 +24,8 @@ public class ReviewFixture {
             .isDeleted(false)
             .build();
 
-    public static List<CreateReviewRequest> 리뷰_요청_13개() {
-        List<CreateReviewRequest> createReviewRequests = new ArrayList<>();
-        for (int i = 0; i < 13; i++) {
-            createReviewRequests.add(new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다"));
-        }
-        return createReviewRequests;
-    }
+    public static final Supplier<CreateReviewRequest> 리뷰_요청_1개 = () ->
+            new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
 
     public static List<Review> 리뷰_13개(Member member) {
         List<Review> reviews = new ArrayList<>();
@@ -46,5 +41,13 @@ public class ReviewFixture {
             reviews.add(review);
         }
         return reviews;
+    }
+
+    public static List<CreateReviewRequest> 리뷰_요청_13개() {
+        List<CreateReviewRequest> createReviewRequests = new ArrayList<>();
+        for (int i = 0; i < 13; i++) {
+            createReviewRequests.add(리뷰_요청_1개.get());
+        }
+        return createReviewRequests;
     }
 }
