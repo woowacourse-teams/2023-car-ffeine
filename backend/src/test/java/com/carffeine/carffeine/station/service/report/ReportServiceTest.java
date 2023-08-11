@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.station.service.report;
 
-import com.carffeine.carffeine.fake.member.FakeMemberRepository;
+import com.carffeine.carffeine.member.domain.FakeMemberRepository;
 import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.member.domain.MemberRepository;
 import com.carffeine.carffeine.member.fixture.MemberFixture;

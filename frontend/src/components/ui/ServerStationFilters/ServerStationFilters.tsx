@@ -56,17 +56,21 @@ const ServerStationFilters = () => {
       alignItems={'center'}
       direction={'column'}
       background={'white'}
-      css={`
-        ${overFlowCss}${borderCss}${paddingCss}
-      `}
+      css={[overFlowCss, borderCss]}
       nowrap={true}
       noRadius={'all'}
-      gap={8}
     >
-      <FlexBox width={30} justifyContent="between">
+      <FlexBox
+        width={34}
+        height={8}
+        justifyContent="between"
+        alignItems="center"
+        css={filterHeaderCss}
+      >
         <ButtonNext onClick={closeBasePanel} noTheme aria-label="필터 선택창 닫기">
           <ArrowLeftIcon width="2.8rem" stroke="#333" />
         </ButtonNext>
+        <Text variant="h5">필터</Text>
         <ButtonNext onClick={resetAllFilter} noTheme aria-label="모든 필터 지우기 버튼">
           <ArrowPathIcon width="2.8rem" stroke="#333" />
         </ButtonNext>
@@ -105,10 +109,6 @@ const ServerStationFilters = () => {
   );
 };
 
-const paddingCss = css`
-  padding-top: 3rem;
-`;
-
 const overFlowCss = css`
   overflow-y: scroll;
   overflow-x: hidden;
@@ -132,6 +132,14 @@ const buttonCss = css`
   flex-shrink: 0;
 
   color: \#fff;
+`;
+
+const filterHeaderCss = css`
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  flex-shrink: 0;
+  padding: 0 2rem;
 `;
 
 export default ServerStationFilters;

@@ -1,7 +1,7 @@
 import type { CSSProp } from 'styled-components';
 import styled, { css } from 'styled-components';
 
-import type { ReactNode, MouseEventHandler } from 'react';
+import { type ReactNode, type MouseEventHandler, forwardRef } from 'react';
 
 import { getColor, getHoverColor } from '@style';
 
@@ -117,4 +117,4 @@ const S = {
   `,
 };
 
-export default ButtonNext;
+export default forwardRef(ButtonNext);
