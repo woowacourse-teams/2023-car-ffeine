@@ -15,6 +15,7 @@ import Modal from '@common/Modal';
 import Text from '@common/Text';
 
 import ReviewCard from '@ui/StationDetailsWindow/reviews/ReviewCard';
+import ReviewCreate from '@ui/StationDetailsWindow/reviews/ReviewCreate';
 import ReviewList from '@ui/StationDetailsWindow/reviews/ReviewList';
 import ReviewPreviewSkeleton from '@ui/StationDetailsWindow/reviews/ReviewPreviewSkeleton';
 import UserRatings from '@ui/StationDetailsWindow/reviews/UserRatings';
@@ -42,18 +43,14 @@ const ReviewPreview = ({ stationId }: ReviewPreviewProps) => {
     modalActions.closeModal();
   };
   const handleOpenCreateReviewButton = () => {
-    modalSecondaryActions.openModal(
-      <>
-        <Text>하이</Text>
-      </>
-    );
+    modalSecondaryActions.openModal(<ReviewCreate />);
   };
 
   const handleClickMoreReviewButton = () => {
     modalActions.openModal(
       <>
         <ReviewList stationId={stationId} />
-        <FlexBox nowrap p={2} justifyContent="between" css={modalButtonCss}>
+        <FlexBox nowrap p={4} justifyContent="between" css={modalButtonCss}>
           <ButtonNext
             variant="outlined"
             color="error"
