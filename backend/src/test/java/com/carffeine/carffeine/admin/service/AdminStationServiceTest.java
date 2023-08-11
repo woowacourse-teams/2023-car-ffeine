@@ -2,7 +2,7 @@ package com.carffeine.carffeine.admin.service;
 
 import com.carffeine.carffeine.admin.exception.AdminException;
 import com.carffeine.carffeine.admin.exception.AdminExceptionType;
-import com.carffeine.carffeine.fake.member.FakeMemberRepository;
+import com.carffeine.carffeine.member.domain.FakeMemberRepository;
 import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.member.domain.MemberRepository;
 import com.carffeine.carffeine.member.domain.MemberRole;
