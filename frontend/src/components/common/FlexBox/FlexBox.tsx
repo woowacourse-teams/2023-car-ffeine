@@ -4,6 +4,9 @@ import styled from 'styled-components';
 import type { ForwardedRef } from 'react';
 import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
 
+import type { SpacingProps } from '@common/systems';
+import { spacing } from '@common/systems';
+
 import { borderRadius, getSize } from '@style';
 
 import type { AxisType, BorderRadiusDirectionType } from '@type/style';
@@ -15,7 +18,7 @@ export const FLEX_BOX_ITEM_POSITION = {
   between: 'space-between',
 } as const;
 
-export interface FlexBoxProps extends HTMLAttributes<HTMLDivElement> {
+export interface FlexBoxProps extends HTMLAttributes<HTMLDivElement>, SpacingProps {
   tag?: string;
   width?: string | number;
   height?: string | number;
@@ -58,6 +61,8 @@ const getGap = ({ gap, rowGap, columnGap }: Pick<FlexBoxProps, 'gap' | 'rowGap' 
 
 const S = {
   FlexBox: styled.div<FlexBoxProps>`
+    ${spacing};
+
     width: ${({ width }) => getSize(width)};
     height: ${({ height }) => getSize(height)};
     flex-wrap: ${({ nowrap }) => (nowrap ? 'nowrap' : 'wrap')};

@@ -36,15 +36,24 @@ const ReviewPreview = ({ stationId }: ReviewPreviewProps) => {
     error: reviewsError,
   } = useReviews(stationId);
 
+  const handleCloseModalButton = () => {
+    modalActions.closeModal();
+  };
+
   const handleClickMoreReviewButton = () => {
     modalActions.openModal(
       <>
         <ReviewList stationId={stationId} />
-        <FlexBox nowrap justifyContent="between" css={modalButtonCss}>
-          <ButtonNext variant="text" fullWidth>
+        <FlexBox nowrap p={2} justifyContent="between" css={modalButtonCss}>
+          <ButtonNext
+            variant="outlined"
+            color="error"
+            fullWidth
+            onClick={() => handleCloseModalButton()}
+          >
             닫기
           </ButtonNext>
-          <ButtonNext variant="text" fullWidth>
+          <ButtonNext variant="outlined" fullWidth>
             후기 작성
           </ButtonNext>
         </FlexBox>
