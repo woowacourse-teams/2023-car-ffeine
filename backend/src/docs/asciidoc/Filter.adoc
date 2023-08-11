@@ -1,0 +1,41 @@
+= Filter API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+
+== 등록된 필터를 모두 조회한다. (/filters)
+
+=== Request
+
+include::{snippets}/filter-controller-test/find_all_filters/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/filter-controller-test/find_all_filters/response-fields.adoc[]
+include::{snippets}/filter-controller-test/find_all_filters/http-response.adoc[]
+
+== 필터를 등록한다. (/filters)
+
+=== Request
+
+include::{snippets}/filter-controller-test/add_filters/request-fields.adoc[]
+include::{snippets}/filter-controller-test/add_filters/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/filter-controller-test/add_filters/response-fields.adoc[]
+include::{snippets}/filter-controller-test/add_filters/http-response.adoc[]
+
+
+== 필터를 제거한다. (/filters/{filterName})
+
+=== Request
+
+include::{snippets}/filter-controller-test/delete_filter/path-parameters.adoc[]
+include::{snippets}/filter-controller-test/delete_filter/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/filter-controller-test/delete_filter/http-response.adoc[]
