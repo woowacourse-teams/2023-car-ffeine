@@ -3,8 +3,9 @@ package com.carffeine.carffeine.filter.service;
 import com.carffeine.carffeine.filter.domain.Filter;
 import com.carffeine.carffeine.filter.domain.FilterRepository;
 import com.carffeine.carffeine.filter.domain.FilterType;
-import com.carffeine.carffeine.filter.dto.FiltersRequest;
 import com.carffeine.carffeine.filter.fake.FakeFilterRepository;
+import com.carffeine.carffeine.filter.service.dto.FilterRequest;
+import com.carffeine.carffeine.filter.service.dto.FiltersRequest;
 import com.carffeine.carffeine.member.domain.FakeMemberRepository;
 import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.member.domain.MemberRepository;
@@ -46,7 +47,7 @@ class FilterServiceTest {
         String filterName = "충전소명";
 
         // when
-        filterRepository.saveAll(List.of(Filter.of(filterName, FilterType.COMPANIES.getName())));
+        filterRepository.saveAll(List.of(Filter.of(filterName, FilterType.COMPANY.getName())));
         List<Filter> filters = filterService.findAllFilters(admin.getId());
 
         // then
@@ -60,9 +61,11 @@ class FilterServiceTest {
     void 필터를_저장한다() {
         // given
         FiltersRequest filtersRequest = new FiltersRequest(
-                List.of("충전소 회사"),
-                List.of("2"),
-                List.of("DC_COMBO")
+                List.of(
+                        new FilterRequest(FilterType.COMPANY.getName(), "충전소 회사"),
+                        new FilterRequest(FilterType.CAPACITY.getName(), "2"),
+                        new FilterRequest(FilterType.CONNECTOR_TYPE.getName(), "DC_COMBO")
+                )
         );
 
         // when
@@ -77,14 +80,17 @@ class FilterServiceTest {
     void 필터를_제거한다() {
         // given
         FiltersRequest filtersRequest = new FiltersRequest(
-                List.of("충전소 회사"),
-                List.of("2"),
-                List.of("DC_COMBO")
+                List.of(
+                        new FilterRequest(FilterType.COMPANY.getName(), "충전소 회사"),
+                        new FilterRequest(FilterType.CAPACITY.getName(), "2"),
+                        new FilterRequest(FilterType.CONNECTOR_TYPE.getName(), "DC_COMBO")
+                )
         );
+
         filterService.addFilters(admin.getId(), filtersRequest);
 
         // when
-        filterRepository.deleteByName("충전소 회사");
+        filterService.deleteFilterByName(admin.getId(), "충전소 회사");
 
         // then
         List<Filter> filters = filterService.findAllFilters(admin.getId());

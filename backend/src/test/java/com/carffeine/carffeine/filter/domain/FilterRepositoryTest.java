@@ -20,7 +20,7 @@ class FilterRepositoryTest extends IntegrationTest {
     @Test
     void 필터를_모두_저장한다() {
         // given
-        List<Filter> filters = List.of(Filter.of("회사명", FilterType.COMPANIES.getName()));
+        List<Filter> filters = List.of(Filter.of("회사명", FilterType.COMPANY.getName()));
 
         // when
         filterRepository.saveAll(filters);
@@ -33,7 +33,7 @@ class FilterRepositoryTest extends IntegrationTest {
     @Test
     void 필터를_모두_조회한다() {
         // given
-        List<Filter> filters = List.of(Filter.of("회사명", FilterType.COMPANIES.getName()));
+        List<Filter> filters = List.of(Filter.of("회사명", FilterType.COMPANY.getName()));
         filterRepository.saveAll(filters);
 
         // when
@@ -46,7 +46,7 @@ class FilterRepositoryTest extends IntegrationTest {
     @Test
     void 필터를_이름으로_찾는다() {
         // given
-        List<Filter> filters = List.of(Filter.of("회사명", FilterType.COMPANIES.getName()));
+        List<Filter> filters = List.of(Filter.of("회사명", FilterType.COMPANY.getName()));
         filterRepository.saveAll(filters);
 
         // when

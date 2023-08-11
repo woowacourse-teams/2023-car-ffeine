@@ -1,9 +1,9 @@
 package com.carffeine.carffeine.filter.controller;
 
 import com.carffeine.carffeine.auth.controller.AuthMember;
-import com.carffeine.carffeine.filter.dto.FiltersRequest;
-import com.carffeine.carffeine.filter.dto.FiltersResponse;
+import com.carffeine.carffeine.filter.controller.dto.FiltersResponse;
 import com.carffeine.carffeine.filter.service.FilterService;
+import com.carffeine.carffeine.filter.service.dto.FiltersRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,13 +31,13 @@ public class FilterController {
     public ResponseEntity<FiltersResponse> addFilters(@AuthMember Long memberId,
                                                       @RequestBody FiltersRequest filtersRequest) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(filterService.addFilters(memberId, filtersRequest));
+                .body(FiltersResponse.from(filterService.addFilters(memberId, filtersRequest)));
     }
 
     @DeleteMapping("/{filterName}")
     public ResponseEntity<Void> deleteFilter(@AuthMember Long memberId,
                                              @PathVariable String filterName) {
-        filterService.deleteFilter(memberId, filterName);
+        filterService.deleteFilterByName(memberId, filterName);
         return ResponseEntity.noContent().build();
     }
 }

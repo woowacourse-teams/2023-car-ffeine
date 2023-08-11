@@ -1,9 +1,10 @@
 package com.carffeine.carffeine.filter.integration;
 
 import com.carffeine.carffeine.auth.domain.TokenProvider;
+import com.carffeine.carffeine.filter.controller.dto.FiltersResponse;
 import com.carffeine.carffeine.filter.domain.FilterType;
-import com.carffeine.carffeine.filter.dto.FiltersRequest;
-import com.carffeine.carffeine.filter.dto.FiltersResponse;
+import com.carffeine.carffeine.filter.service.dto.FilterRequest;
+import com.carffeine.carffeine.filter.service.dto.FiltersRequest;
 import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.member.domain.MemberRepository;
 import com.carffeine.carffeine.member.domain.MemberRole;
@@ -39,15 +40,16 @@ public class FilterIntegrationTest extends FilterIntegrationFixture {
         관리자_토큰 = "Bearer " + provider.create(관리자.getId());
 
         필터_리스트 = new FiltersRequest(
-                List.of("광주시", FilterType.COMPANIES.getName()),
-                List.of(),
-                List.of("DC_COMBO", FilterType.CONNECTOR_TYPES.getName())
+                List.of(
+                        new FilterRequest(FilterType.COMPANY.getName(), "광주시"),
+                        new FilterRequest(FilterType.CONNECTOR_TYPE.getName(), "DC_COMBO")
+                )
         );
 
         충전_속도_필터_리스트 = new FiltersRequest(
-                List.of(),
-                List.of("2.00"),
-                List.of()
+                List.of(
+                        new FilterRequest(FilterType.CAPACITY.getName(), "2.00")
+                )
         );
 
         생성요청("/filters", 필터_리스트, 관리자_토큰);

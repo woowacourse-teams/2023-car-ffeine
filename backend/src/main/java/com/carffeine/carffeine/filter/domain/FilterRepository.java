@@ -13,5 +13,5 @@ public interface FilterRepository extends Repository<Filter, Long> {
 
     Optional<Filter> findByName(String name);
 
-    void deleteByName(String name);
+    void deleteById(Long id);
 }

@@ -2,6 +2,7 @@ package com.carffeine.carffeine.filter.fake;
 
 import com.carffeine.carffeine.filter.domain.Filter;
 import com.carffeine.carffeine.filter.domain.FilterRepository;
+import com.carffeine.carffeine.filter.domain.FilterType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,8 +28,15 @@ public class FakeFilterRepository implements FilterRepository {
 
         for (S filter : filters) {
             id++;
-            addedFilters.add(filter);
-            map.put(id, filter);
+
+            Filter newFilter = Filter.builder()
+                    .id(id)
+                    .name(filter.getName())
+                    .filterType(FilterType.from(filter.getFilterType().getName()))
+                    .build();
+
+            addedFilters.add((S) newFilter);
+            map.put(id, newFilter);
         }
 
         return addedFilters;
@@ -43,13 +51,8 @@ public class FakeFilterRepository implements FilterRepository {
     }
 
     @Override
-    public void deleteByName(String name) {
-        Long key = map.keySet()
-                .stream()
-                .filter(it -> map.get(it).getName().equals(name))
-                .findAny()
-                .get();
-
-        map.remove(key);
+    public void deleteById(final Long id) {
+        map.remove(id);
+        this.id--;
     }
 }

@@ -1,9 +1,8 @@
-package com.carffeine.carffeine.filter.dto;
+package com.carffeine.carffeine.filter.controller.dto;
 
 import com.carffeine.carffeine.filter.domain.Filter;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public record FiltersResponse(
         List<String> companies,
@@ -26,26 +25,6 @@ public record FiltersResponse(
                 .filter(it -> it.getFilterType().isConnectorTypes())
                 .map(Filter::getName)
                 .toList();
-
-        return new FiltersResponse(
-                companies,
-                capacities,
-                connectorTypes
-        );
-    }
-
-    public static FiltersResponse from(List<Filter> companiesFilter, List<Filter> capacitiesFilter, List<Filter> connectorTypesFilter) {
-        List<String> companies = companiesFilter.stream()
-                .map(Filter::getName)
-                .collect(Collectors.toList());
-
-        List<String> capacities = capacitiesFilter.stream()
-                .map(Filter::getName)
-                .collect(Collectors.toList());
-
-        List<String> connectorTypes = connectorTypesFilter.stream()
-                .map(Filter::getName)
-                .collect(Collectors.toList());
 
         return new FiltersResponse(
                 companies,

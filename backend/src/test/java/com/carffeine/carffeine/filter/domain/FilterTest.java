@@ -16,18 +16,18 @@ class FilterTest {
     @Test
     void 충전_용량_필터를_생성한다() {
         // when
-        Filter filter = Filter.of("100.00", "capacities");
+        Filter filter = Filter.of("100.00", "capacity");
 
         // then
         assertSoftly(softly -> {
             softly.assertThat(filter.getName()).isEqualTo("100.00");
-            softly.assertThat(filter.getFilterType()).isEqualTo(FilterType.CAPACITIES);
+            softly.assertThat(filter.getFilterType()).isEqualTo(FilterType.CAPACITY);
         });
 
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"companies", "connectorTypes"})
+    @ValueSource(strings = {"company", "connectorType"})
     void 필터_타입에_해당하는_필터를_생성한다(String filterType) {
         // when
         Filter filter = Filter.of("name", filterType);

@@ -2,8 +2,8 @@ package com.carffeine.carffeine.filter.controller;
 
 import com.carffeine.carffeine.filter.domain.Filter;
 import com.carffeine.carffeine.filter.domain.FilterType;
-import com.carffeine.carffeine.filter.dto.FiltersRequest;
-import com.carffeine.carffeine.filter.dto.FiltersResponse;
+import com.carffeine.carffeine.filter.service.dto.FilterRequest;
+import com.carffeine.carffeine.filter.service.dto.FiltersRequest;
 import com.carffeine.carffeine.helper.MockBeanInjection;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayNameGeneration;
@@ -52,9 +52,11 @@ public class FilterControllerTest extends MockBeanInjection {
     void 등록된_필터를_모두_조회한다() throws Exception {
         // given
         List<Filter> filters = new ArrayList<>(
-                List.of(Filter.of("충전소 회사", FilterType.COMPANIES.getName()),
-                        Filter.of("2", FilterType.CAPACITIES.getName()),
-                        Filter.of("DC_COMBO", FilterType.CONNECTOR_TYPES.getName())
+                List.of(
+                        Filter.of("충전소 회사", FilterType.COMPANY.getName()),
+                        Filter.of("충전소 회사2", FilterType.COMPANY.getName()),
+                        Filter.of("2", FilterType.CAPACITY.getName()),
+                        Filter.of("DC_COMBO", FilterType.CONNECTOR_TYPE.getName())
                 )
         );
 
@@ -63,7 +65,7 @@ public class FilterControllerTest extends MockBeanInjection {
 
         // then
         mockMvc.perform(get("/filters")
-                .header(HttpHeaders.AUTHORIZATION, "token"))
+                        .header(HttpHeaders.AUTHORIZATION, "token"))
                 .andExpect(status().isOk())
                 .andDo(customDocument("find_all_filters",
                         requestHeaders(headerWithName(HttpHeaders.AUTHORIZATION).description("인증 토큰")),
@@ -79,20 +81,21 @@ public class FilterControllerTest extends MockBeanInjection {
     void 필터를_등록한다() throws Exception {
         // given
         FiltersRequest filtersRequest = new FiltersRequest(
-                List.of("충전소 회사", FilterType.COMPANIES.getName()),
-                List.of("2", FilterType.CAPACITIES.getName()),
-                List.of("DC_COMBO", FilterType.CONNECTOR_TYPES.getName())
-        );
-
-        FiltersResponse filtersResponse = FiltersResponse.from(
-                List.of(Filter.of("충전소 회사", FilterType.COMPANIES.getName())),
-                List.of(Filter.of("2.00", FilterType.CAPACITIES.getName())),
-                List.of(Filter.of("DC_COMBO", FilterType.CONNECTOR_TYPES.getName())
+                List.of(
+                        new FilterRequest(FilterType.COMPANY.getName(), "충전소 회사"),
+                        new FilterRequest(FilterType.CAPACITY.getName(), "2"),
+                        new FilterRequest(FilterType.CONNECTOR_TYPE.getName(), "DC_COMBO")
                 )
         );
 
+        List<Filter> filters = List.of(
+                Filter.of("충전소 회사", FilterType.COMPANY.getName()),
+                Filter.of("2.00", FilterType.CAPACITY.getName()),
+                Filter.of("DC_COMBO", FilterType.CONNECTOR_TYPE.getName())
+        );
+
         // when
-        when(filterService.addFilters(any(), eq(filtersRequest))).thenReturn(filtersResponse);
+        when(filterService.addFilters(any(), eq(filtersRequest))).thenReturn(filters);
 
         // then
         mockMvc.perform(post("/filters")
@@ -103,9 +106,12 @@ public class FilterControllerTest extends MockBeanInjection {
                 .andDo(customDocument("add_filters",
                         requestHeaders(headerWithName(HttpHeaders.AUTHORIZATION).description("인증 토큰")),
                         requestFields(
-                                fieldWithPath("companies[0]").type(JsonFieldType.ARRAY).description("충전기 회사"),
-                                fieldWithPath("capacities[0]").type(JsonFieldType.ARRAY).description("충전 용량"),
-                                fieldWithPath("connectorTypes[0]").type(JsonFieldType.ARRAY).description("충전기 타입")
+                                fieldWithPath("filters[0].type").type(JsonFieldType.STRING).description("필터 종류"),
+                                fieldWithPath("filters[0].name").type(JsonFieldType.STRING).description("필터 이름"),
+                                fieldWithPath("filters[1].type").type(JsonFieldType.STRING).description("필터 종류"),
+                                fieldWithPath("filters[1].name").type(JsonFieldType.STRING).description("필터 이름"),
+                                fieldWithPath("filters[2].type").type(JsonFieldType.STRING).description("필터 종류"),
+                                fieldWithPath("filters[2].name").type(JsonFieldType.STRING).description("필터 이름")
                         ),
                         responseFields(
                                 fieldWithPath("companies[0]").type(JsonFieldType.ARRAY).description("충전기 회사"),
@@ -119,7 +125,7 @@ public class FilterControllerTest extends MockBeanInjection {
     void 필터를_제거한다() throws Exception {
         // then
         mockMvc.perform(RestDocumentationRequestBuilders.delete("/filters/{filterName}", "filterName")
-                .header(HttpHeaders.AUTHORIZATION, "token"))
+                        .header(HttpHeaders.AUTHORIZATION, "token"))
                 .andExpect(status().isNoContent())
                 .andDo(customDocument("delete_filter",
                         requestHeaders(headerWithName(HttpHeaders.AUTHORIZATION).description("인증 토큰")),

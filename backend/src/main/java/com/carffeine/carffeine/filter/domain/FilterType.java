@@ -7,9 +7,9 @@ import java.util.Arrays;
 
 public enum FilterType {
 
-    COMPANIES("companies"),
-    CAPACITIES("capacities"),
-    CONNECTOR_TYPES("connectorTypes");
+    COMPANY("company"),
+    CAPACITY("capacity"),
+    CONNECTOR_TYPE("connectorType");
 
     private final String name;
 
@@ -25,15 +25,15 @@ public enum FilterType {
     }
 
     public boolean isCompanies() {
-        return this.name.equals(COMPANIES.name);
+        return this.name.equals(COMPANY.name);
     }
 
     public boolean isConnectorTypes() {
-        return this.name.equals(CONNECTOR_TYPES.name);
+        return this.name.equals(CONNECTOR_TYPE.name);
     }
 
     public boolean isCapacities() {
-        return this.name.equals(CAPACITIES.name);
+        return this.name.equals(CAPACITY.name);
     }
 
     public String getName() {
