@@ -65,8 +65,9 @@ export const stationHandlers = [
             .map((companyId) => COMPANY_NAME[companyId as keyof typeof COMPANY_NAME])
             .includes(station.companyName as (typeof COMPANY_NAME)[keyof typeof COMPANY_NAME]);
 
-        if (isChargerTypeFilterInvalid || isCapacityFilterInvalid || isCompanyNameFilterInvalid)
+        if (isChargerTypeFilterInvalid || isCapacityFilterInvalid || isCompanyNameFilterInvalid) {
           return false;
+        }
         return true;
       });
 
@@ -79,5 +80,8 @@ export const stationHandlers = [
         stations: foundStations,
       })
     );
+  }),
+  rest.post(`${SERVERS.localhost}/stations/:stationId/reviews`, async (req, res, ctx) => {
+    return res(ctx.delay(200), ctx.status(204));
   }),
 ];

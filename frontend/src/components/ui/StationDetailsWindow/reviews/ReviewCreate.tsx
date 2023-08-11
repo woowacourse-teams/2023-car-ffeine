@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { modalSecondaryActions } from '@stores/layout/modalSecondaryStore';
+
 import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
@@ -11,6 +13,11 @@ import StarRatings from '@ui/StarRatings';
 const ReviewCreate = () => {
   const [stars, setStars] = useState(5);
   const [review, setReview] = useState('');
+
+  const handleCloseReviewCreate = () => {
+    modalSecondaryActions.closeModal();
+  };
+
   return (
     <Box p={4}>
       <Text variant="title" mb={4}>
@@ -28,7 +35,7 @@ const ReviewCreate = () => {
         }}
       />
       <FlexBox nowrap>
-        <ButtonNext variant="outlined" color="error" fullWidth>
+        <ButtonNext variant="outlined" color="error" fullWidth onClick={handleCloseReviewCreate}>
           닫기
         </ButtonNext>
         <ButtonNext variant="contained" fullWidth>
