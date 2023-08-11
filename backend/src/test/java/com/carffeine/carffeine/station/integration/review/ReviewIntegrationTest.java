@@ -71,7 +71,7 @@ public class ReviewIntegrationTest extends IntegrationTest {
             var post응답 = 댓글을_등록한다(요청, 토큰, 충전소);
 
             // then
-            상태_코드를_검증한다(post응답, OK);
+            상태_코드를_검증한다(post응답, NO_CONTENT);
         }
 
         @Test
@@ -110,7 +110,7 @@ public class ReviewIntegrationTest extends IntegrationTest {
             var patch응답 = 댓글을_수정한다(요청, 토큰, 리뷰);
 
             // then
-            상태_코드를_검증한다(patch응답, OK);
+            상태_코드를_검증한다(patch응답, NO_CONTENT);
         }
 
         @Test

@@ -29,7 +29,7 @@ public class ReviewController {
             @PathVariable String stationId,
             @Valid @RequestBody CreateReviewRequest createReviewRequest) {
         reviewService.saveReview(createReviewRequest, stationId, memberId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/stations/{stationId}/reviews")
@@ -46,7 +46,7 @@ public class ReviewController {
             @PathVariable Long reviewId,
             @RequestBody CreateReviewRequest createReviewRequest) {
         reviewService.updateReview(createReviewRequest, reviewId, memberId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/reviews/{reviewId}")

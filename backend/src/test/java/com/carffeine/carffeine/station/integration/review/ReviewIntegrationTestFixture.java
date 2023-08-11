@@ -20,7 +20,7 @@ public class ReviewIntegrationTestFixture {
                 .body(getParams(request))
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when()
-                .post("/stations/{stationId}/review", station.getStationId())
+                .post("/stations/{stationId}/reviews", station.getStationId())
                 .then().log().all()
                 .extract();
     }

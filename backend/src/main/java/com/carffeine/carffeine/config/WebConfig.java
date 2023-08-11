@@ -34,7 +34,7 @@ public class WebConfig implements WebMvcConfigurer {
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
         filterRegistrationBean.setFilter(authFilter);
         filterRegistrationBean.setOrder(2);
-        filterRegistrationBean.addUrlPatterns("/stations/{stationId}/review");
+        filterRegistrationBean.addUrlPatterns("/stations/{stationId}/reviews");
         filterRegistrationBean.addUrlPatterns("/reviews/{reviewId}");
         return filterRegistrationBean;
     }
