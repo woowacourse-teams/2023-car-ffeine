@@ -58,7 +58,6 @@ const ServerStationFilters = () => {
       css={[overFlowCss, borderCss]}
       nowrap={true}
       noRadius={'all'}
-      gap={12}
     >
       <FlexBox
         width={34}

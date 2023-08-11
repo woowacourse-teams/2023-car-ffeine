@@ -1,3 +1,5 @@
+import { css } from 'styled-components';
+
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
@@ -31,17 +33,18 @@ const FilterSection = ({
   getIsFilterSelected,
 }: FilterSectionProps) => {
   return (
-    <FlexBox width={30} direction={'column'}>
+    <FlexBox
+      width={30}
+      direction={'column'}
+      css={css`
+        margin-bottom: 4.8rem;
+      `}
+    >
       <FlexBox justifyContent="between">
         <Text variant={'h6'} mb={1}>
           {title}
         </Text>
-        <Text variant="caption">
-          <Text tag="span" variant="caption" color="#ff4733">
-            *
-          </Text>
-          중복선택 가능
-        </Text>
+        <Text variant="caption">중복선택 가능</Text>
       </FlexBox>
       <FlexBox gap={2}>
         {filterOptionNames.map((filterOption, index) => (

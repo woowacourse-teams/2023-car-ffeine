@@ -1,7 +1,5 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { useExternalValue } from '@utils/external-state';
-
 import { serverStore } from '@stores/config/serverStore';
 import {
   selectedCapacitiesFilterStore,
