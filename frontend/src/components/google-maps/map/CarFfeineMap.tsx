@@ -5,11 +5,10 @@ import { useQueryClient } from '@tanstack/react-query';
 import StationMarkersContainer from '@marker/StationMarkersContainer';
 
 import { useExternalValue } from '@utils/external-state';
-import { getSessionStorage, setLocalStorage } from '@utils/storage';
+import { setLocalStorage } from '@utils/storage';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { toastActions } from '@stores/layout/toastStore';
-import { userTokenActions } from '@stores/userTokenStore';
 
 import { useUserFilters } from '@hooks/tanstack-query/station-filters/useUserFilters';
 
@@ -22,16 +21,9 @@ import NavigationBar from '@ui/NavigationBar';
 
 import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
 import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
-import { LOCAL_KEY_LAST_POSITION, SESSION_KEY_USER_TOKEN } from '@constants/storageKeys';
+import { LOCAL_KEY_LAST_POSITION } from '@constants/storageKeys';
 
 const CarFfeineMap = () => {
-  const { setUserToken } = userTokenActions;
-  const userToken = getSessionStorage(SESSION_KEY_USER_TOKEN, '');
-
-  if (userToken !== '') {
-    setUserToken(userToken);
-  }
-
   return (
     <>
       <CarFfeineMapListener />
