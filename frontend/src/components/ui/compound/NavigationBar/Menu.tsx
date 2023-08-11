@@ -62,13 +62,13 @@ const Menu = () => {
         </>
       ),
       onClick: () => {
+        logout();
+
         selectedCapacitiesFilterStore.setState([]);
         selectedChargerTypesFilterStore.setState([]);
         selectedCompanyNamesFilterStore.setState([]);
 
         queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
-
-        logout();
       },
     },
   ];

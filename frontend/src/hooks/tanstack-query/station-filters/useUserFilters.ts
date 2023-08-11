@@ -42,11 +42,23 @@ export const useUserFilters = () => {
     select: (data) => {
       const { connectorTypes, capacities, companyNames } = data;
 
-      selectedCapacitiesFilterStore.setState(capacities.map(({ capacity }) => capacity));
-      selectedChargerTypesFilterStore.setState(connectorTypes.map(({ key }) => key));
-      selectedCompanyNamesFilterStore.setState(companyNames.map(({ key }) => key));
-
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
+      if (userTokenStore.getState() !== '') {
+        if (userTokenStore.getState() !== '') {
+          selectedCapacitiesFilterStore.setState((prev) => [
+            ...prev,
+            ...capacities.map(({ capacity }) => capacity),
+          ]);
+          selectedChargerTypesFilterStore.setState((prev) => [
+            ...prev,
+            ...connectorTypes.map(({ key }) => key),
+          ]);
+          selectedCompanyNamesFilterStore.setState((prev) => [
+            ...prev,
+            ...companyNames.map(({ key }) => key),
+          ]);
+        }
+      }
+      queryClient.invalidateQueries([{ queryKey: [QUERY_KEY_STATIONS] }]);
 
       return data;
     },
