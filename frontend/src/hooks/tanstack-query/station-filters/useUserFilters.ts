@@ -1,17 +1,15 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { getSessionStorage } from '@utils/storage';
-
 import { serverStore } from '@stores/config/serverStore';
 import {
   selectedCapacitiesFilterStore,
   selectedChargerTypesFilterStore,
   selectedCompanyNamesFilterStore,
 } from '@stores/station-filters/serverStationFiltersStore';
+import { userTokenStore } from '@stores/userTokenStore';
 
 import { SERVERS } from '@constants';
 import { QUERY_KEY_STATIONS, QUERY_KEY_USER_SELECTED_FILTERS } from '@constants/queryKeys';
-import { SESSION_KEY_USER_TOKEN } from '@constants/storageKeys';
 
 import type { ServerStationFilters } from './useServerStationFilters';
 
@@ -21,11 +19,12 @@ interface UserFilters {
 
 const fetchUserFilters = async () => {
   const mode = serverStore.getState();
+  const userToken = userTokenStore.getState();
 
   const userFilters = await fetch(`${SERVERS[mode]}/members/filters`, {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${getSessionStorage(SESSION_KEY_USER_TOKEN, '')}`,
+      Authorization: `Bearer ${userToken}`,
     },
   }).then<UserFilters>((response) => response.json());
 
@@ -41,11 +40,23 @@ export const useUserFilters = () => {
     select: (data) => {
       const { connectorTypes, capacities, companyNames } = data;
 
-      selectedCapacitiesFilterStore.setState(capacities.map(({ capacity }) => capacity));
-      selectedChargerTypesFilterStore.setState(connectorTypes.map(({ key }) => key));
-      selectedCompanyNamesFilterStore.setState(companyNames.map(({ key }) => key));
-
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
+      if (userTokenStore.getState() !== '') {
+        if (userTokenStore.getState() !== '') {
+          selectedCapacitiesFilterStore.setState((prev) => [
+            ...prev,
+            ...capacities.map(({ capacity }) => capacity),
+          ]);
+          selectedChargerTypesFilterStore.setState((prev) => [
+            ...prev,
+            ...connectorTypes.map(({ key }) => key),
+          ]);
+          selectedCompanyNamesFilterStore.setState((prev) => [
+            ...prev,
+            ...companyNames.map(({ key }) => key),
+          ]);
+        }
+      }
+      queryClient.invalidateQueries([{ queryKey: [QUERY_KEY_STATIONS] }]);
 
       return data;
     },
