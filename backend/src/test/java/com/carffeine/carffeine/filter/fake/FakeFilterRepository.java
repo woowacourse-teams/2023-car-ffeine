@@ -22,7 +22,7 @@ public class FakeFilterRepository implements FilterRepository {
     }
 
     @Override
-    public <S extends Filter> List<S> saveAll(final Iterable<S> filters) {
+    public <S extends Filter> List<S> saveAll(Iterable<S> filters) {
         List<S> addedFilters = new ArrayList<>();
 
         for (S filter : filters) {
@@ -35,7 +35,7 @@ public class FakeFilterRepository implements FilterRepository {
     }
 
     @Override
-    public Optional<Filter> findByName(final String name) {
+    public Optional<Filter> findByName(String name) {
         return map.values()
                 .stream()
                 .filter(it -> it.getName().equals(name))
@@ -43,7 +43,7 @@ public class FakeFilterRepository implements FilterRepository {
     }
 
     @Override
-    public void deleteByName(final String name) {
+    public void deleteByName(String name) {
         Long key = map.keySet()
                 .stream()
                 .filter(it -> map.get(it).getName().equals(name))
