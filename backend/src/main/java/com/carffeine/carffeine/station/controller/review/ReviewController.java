@@ -23,7 +23,7 @@ public class ReviewController {
 
     private final ReviewService reviewService;
 
-    @PostMapping("/stations/{stationId}/review")
+    @PostMapping("/stations/{stationId}/reviews")
     public ResponseEntity<Void> saveReview(
             @AuthMember Long memberId,
             @PathVariable String stationId,
