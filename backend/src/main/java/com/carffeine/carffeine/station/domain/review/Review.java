@@ -1,6 +1,7 @@
 package com.carffeine.carffeine.station.domain.review;
 
 import com.carffeine.carffeine.common.domain.BaseEntity;
+import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.exception.review.ReviewException;
 import lombok.AccessLevel;
@@ -11,7 +12,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -47,8 +47,9 @@ public class Review extends BaseEntity {
     @JoinColumn(name = "station_id")
     private Station station;
 
-    @Column(name = "member_id")
-    private Long memberId;
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     private int ratings;
 
@@ -58,11 +59,11 @@ public class Review extends BaseEntity {
 
     private boolean isDeleted;
 
-    public Review(Long id, Station station, Long memberId, int ratings, String content, boolean isUpdated, boolean isDeleted) {
+    public Review(Long id, Station station, Member member, int ratings, String content, boolean isUpdated, boolean isDeleted) {
         validateRequest(ratings, content);
         this.id = id;
         this.station = station;
-        this.memberId = memberId;
+        this.member = member;
         this.ratings = ratings;
         this.content = content;
         this.isUpdated = isUpdated;

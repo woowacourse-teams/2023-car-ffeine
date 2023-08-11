@@ -22,7 +22,7 @@ public class FakeReviewRepository implements ReviewRepository {
         Review savedReview = Review.builder()
                 .id(id)
                 .station(review.getStation())
-                .memberId(review.getMemberId())
+                .member(review.getMember())
                 .ratings(review.getRatings())
                 .content(review.getContent())
                 .isUpdated(review.isUpdated())

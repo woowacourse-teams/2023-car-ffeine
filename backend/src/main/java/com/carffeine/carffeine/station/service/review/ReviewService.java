@@ -1,5 +1,8 @@
 package com.carffeine.carffeine.station.service.review;
 
+import com.carffeine.carffeine.member.domain.Member;
+import com.carffeine.carffeine.member.domain.MemberRepository;
+import com.carffeine.carffeine.member.exception.MemberException;
 import com.carffeine.carffeine.station.controller.review.dto.ReviewResponses;
 import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.domain.review.ReviewRepository;
@@ -17,6 +20,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.carffeine.carffeine.member.exception.MemberExceptionType.NOT_FOUND;
 import static com.carffeine.carffeine.station.exception.StationExceptionType.NOT_FOUND_ID;
 
 @RequiredArgsConstructor
@@ -28,18 +32,22 @@ public class ReviewService {
 
     private final ReviewRepository reviewRepository;
     private final StationRepository stationRepository;
+    private final MemberRepository memberRepository;
 
     public Review saveReview(CreateReviewRequest request, String stationId, Long memberId) {
         Station station = stationRepository.findChargeStationByStationId(stationId)
                 .orElseThrow(() -> new StationException(NOT_FOUND_ID));
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberException(NOT_FOUND));
         Review review = Review.builder()
                 .station(station)
-                .memberId(memberId)
+                .member(member)
                 .ratings(request.ratings())
                 .content(request.content())
                 .isUpdated(false)
                 .isDeleted(false)
                 .build();
+
         return reviewRepository.save(review);
     }
 
@@ -65,7 +73,7 @@ public class ReviewService {
     }
 
     private void validateMember(Review review, Long memberId) {
-        if (!review.getMemberId().equals(memberId)) {
+        if (!review.getMember().getId().equals(memberId)) {
             throw new ReviewException(ReviewExceptionType.UNAUTHORIZED_MEMBER);
         }
     }

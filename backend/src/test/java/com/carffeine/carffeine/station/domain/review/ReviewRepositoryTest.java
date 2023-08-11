@@ -1,5 +1,7 @@
 package com.carffeine.carffeine.station.domain.review;
 
+import com.carffeine.carffeine.member.domain.Member;
+import com.carffeine.carffeine.member.domain.MemberRepository;
 import com.carffeine.carffeine.station.domain.station.Station;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayNameGeneration;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import static com.carffeine.carffeine.member.fixture.MemberFixture.일반_회원;
 import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.리뷰_13개;
 import static com.carffeine.carffeine.station.fixture.station.StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,12 +26,16 @@ class ReviewRepositoryTest {
     @Autowired
     private ReviewRepository reviewRepository;
 
+    @Autowired
+    private MemberRepository memberRepository;
+
     @Test
     void 리뷰를_등록한다() {
         // given
+        Member member = memberRepository.save(일반_회원);
         Review review = Review.builder()
                 .station(선릉역_충전소_충전기_2개_사용가능_1개)
-                .memberId(1L)
+                .member(member)
                 .ratings(4)
                 .content("덕분에 빠르게 충전했습니다")
                 .isUpdated(false)
@@ -48,7 +55,8 @@ class ReviewRepositoryTest {
     @Test
     void 전체_리뷰를_조회한다() {
         // given
-        for (Review review : 리뷰_13개()) {
+        Member member = memberRepository.save(일반_회원);
+        for (Review review : 리뷰_13개(member)) {
             reviewRepository.save(review);
         }
 

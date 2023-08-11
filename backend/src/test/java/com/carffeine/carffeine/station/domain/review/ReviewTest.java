@@ -7,7 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import static com.carffeine.carffeine.member.fixture.MemberFixture.일반_회원;
 import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.선릉역_충전소_리뷰_별4_15글자;
+import static com.carffeine.carffeine.station.fixture.station.StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
@@ -15,21 +17,6 @@ import static org.assertj.core.api.SoftAssertions.assertSoftly;
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
 class ReviewTest {
-
-    @Test
-    void 리뷰를_등록한다() {
-        Review review = 선릉역_충전소_리뷰_별4_15글자.get();
-
-        assertSoftly(softly -> {
-            softly.assertThat(review.getId()).isEqualTo(2L);
-            softly.assertThat(review.getStationId()).isEqualTo("ME101010");
-            softly.assertThat(review.getRatings()).isEqualTo(4);
-            softly.assertThat(review.getContent()).isEqualTo("덕분에 빠르게 충전했습니다");
-            softly.assertThat(review.isUpdated()).isFalse();
-            softly.assertThat(review.isDeleted()).isFalse();
-        });
-
-    }
 
     @Test
     void 리뷰를_수정한다() {
@@ -64,8 +51,8 @@ class ReviewTest {
         // when & then
         assertThatThrownBy(() -> Review.builder()
                 .id(2L)
-                .stationId("ME101010")
-                .memberId(1L)
+                .station(선릉역_충전소_충전기_2개_사용가능_1개)
+                .member(일반_회원)
                 .ratings(ratings)
                 .content("덕분에 빠르게 충전했습니다")
                 .isUpdated(false)
@@ -81,8 +68,8 @@ class ReviewTest {
         // when & then
         assertThatThrownBy(() -> Review.builder()
                 .id(2L)
-                .stationId("ME101010")
-                .memberId(1L)
+                .station(선릉역_충전소_충전기_2개_사용가능_1개)
+                .member(일반_회원)
                 .ratings(ratings)
                 .content("덕분에 빠르게 충전했습니다")
                 .isUpdated(false)
@@ -98,8 +85,8 @@ class ReviewTest {
         // when & then
         assertThatThrownBy(() -> Review.builder()
                 .id(2L)
-                .stationId("ME101010")
-                .memberId(1L)
+                .station(선릉역_충전소_충전기_2개_사용가능_1개)
+                .member(일반_회원)
                 .ratings(4)
                 .content(content)
                 .isUpdated(false)
@@ -115,8 +102,8 @@ class ReviewTest {
         // when & then
         assertThatThrownBy(() -> Review.builder()
                 .id(2L)
-                .stationId("ME101010")
-                .memberId(1L)
+                .station(선릉역_충전소_충전기_2개_사용가능_1개)
+                .member(일반_회원)
                 .ratings(4)
                 .content(content)
                 .isUpdated(false)

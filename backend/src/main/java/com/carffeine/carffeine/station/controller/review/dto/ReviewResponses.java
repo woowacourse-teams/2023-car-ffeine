@@ -15,7 +15,7 @@ public record ReviewResponses(List<ReviewResponse> reviews, int nextPage) {
         List<ReviewResponse> reviewResponses = reviews.stream()
                 .map(it -> new ReviewResponse(
                         it.getId(),
-                        it.getMemberId(),
+                        it.getMember().getId(),
                         it.getUpdatedAt(),
                         it.getRatings(),
                         it.getContent(),
