@@ -12,17 +12,17 @@ public record FiltersResponse(
 
     public static FiltersResponse from(List<Filter> filters) {
         List<String> companies = filters.stream()
-                .filter(it -> it.getFilterType().isCompanies())
+                .filter(it -> it.getFilterType().isCompanyType())
                 .map(Filter::getName)
                 .toList();
 
         List<String> capacities = filters.stream()
-                .filter(it -> it.getFilterType().isCapacities())
+                .filter(it -> it.getFilterType().isCapacityType())
                 .map(Filter::getName)
                 .toList();
 
         List<String> connectorTypes = filters.stream()
-                .filter(it -> it.getFilterType().isConnectorTypes())
+                .filter(it -> it.getFilterType().isConnectorType())
                 .map(Filter::getName)
                 .toList();
 

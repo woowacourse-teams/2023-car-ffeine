@@ -24,15 +24,15 @@ public enum FilterType {
                 .orElseThrow(() -> new FilterException(FilterExceptionType.FILTER_NOT_FOUND));
     }
 
-    public boolean isCompanies() {
+    public boolean isCompanyType() {
         return this.name.equals(COMPANY.name);
     }
 
-    public boolean isConnectorTypes() {
+    public boolean isConnectorType() {
         return this.name.equals(CONNECTOR_TYPE.name);
     }
 
-    public boolean isCapacities() {
+    public boolean isCapacityType() {
         return this.name.equals(CAPACITY.name);
     }
 

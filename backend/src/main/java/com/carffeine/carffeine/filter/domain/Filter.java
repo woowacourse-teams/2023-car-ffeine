@@ -46,7 +46,7 @@ public class Filter extends BaseEntity {
     public static Filter of(String name, String filterType) {
         FilterType type = FilterType.from(filterType);
 
-        if (type.isCapacities()) {
+        if (type.isCapacityType()) {
             String capacity = makeCapacity(name);
             return new Filter(capacity, type);
         }
