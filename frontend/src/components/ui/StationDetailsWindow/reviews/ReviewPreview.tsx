@@ -1,3 +1,7 @@
+import { css } from 'styled-components';
+
+import React from 'react';
+
 import { modalActions } from '@stores/layout/modalStore';
 
 import { useReviewRatings } from '@hooks/tanstack-query/station-details/reviews/useReviewRatings';
@@ -24,6 +28,7 @@ const ReviewPreview = ({ stationId }: ReviewPreviewProps) => {
     isError: isReviewRatingsError,
     error: reviewRatingsError,
   } = useReviewRatings(stationId);
+
   const {
     data: reviews,
     isLoading: isReviewsLoading,
@@ -32,7 +37,19 @@ const ReviewPreview = ({ stationId }: ReviewPreviewProps) => {
   } = useReviews(stationId);
 
   const handleClickMoreReviewButton = () => {
-    modalActions.openModal(<ReviewList stationId={stationId} />);
+    modalActions.openModal(
+      <>
+        <ReviewList stationId={stationId} />
+        <FlexBox nowrap justifyContent="between" css={modalButtonCss}>
+          <ButtonNext variant="text" fullWidth>
+            닫기
+          </ButtonNext>
+          <ButtonNext variant="text" fullWidth>
+            후기 작성
+          </ButtonNext>
+        </FlexBox>
+      </>
+    );
   };
 
   if (isReviewRatingsLoading || isReviewsLoading) {
@@ -89,3 +106,9 @@ const ReviewPreview = ({ stationId }: ReviewPreviewProps) => {
 };
 
 export default ReviewPreview;
+
+const modalButtonCss = css`
+  position: sticky;
+  bottom: 0;
+  background: white;
+`;

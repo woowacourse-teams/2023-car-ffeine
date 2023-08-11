@@ -2,6 +2,7 @@ import React from 'react';
 
 import { useInfiniteReviews } from '@hooks/tanstack-query/station-details/reviews/useInfiniteReviews';
 
+import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import Text from '@common/Text';
 
@@ -19,7 +20,7 @@ export default function ReviewList({ stationId }: ReviewListProps) {
     useInfiniteReviews(stationId);
 
   return (
-    <div>
+    <Box p={4}>
       <Text variant="title" mb={5}>
         충전소 후기 보기
       </Text>
@@ -65,6 +66,6 @@ export default function ReviewList({ stationId }: ReviewListProps) {
           </ButtonNext>
         </>
       )}
-    </div>
+    </Box>
   );
 }
