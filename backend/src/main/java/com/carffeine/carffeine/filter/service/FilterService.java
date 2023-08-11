@@ -27,12 +27,6 @@ public class FilterService {
         return filterRepository.findAll();
     }
 
-    private void validateRole(Long memberId) {
-        memberRepository.findById(memberId)
-                .filter(Member::isAdmin)
-                .orElseThrow(() -> new AdminException(AdminExceptionType.NOT_ADMIN));
-    }
-
     @Transactional
     public List<Filter> addFilters(Long memberId, FiltersRequest filtersRequest) {
         validateRole(memberId);
@@ -52,6 +46,12 @@ public class FilterService {
     public void deleteFilterByName(Long memberId, String filterName) {
         validateRole(memberId);
         deleteFilter(filterName);
+    }
+
+    private void validateRole(Long memberId) {
+        memberRepository.findById(memberId)
+                .filter(Member::isAdmin)
+                .orElseThrow(() -> new AdminException(AdminExceptionType.NOT_ADMIN));
     }
 
     private void deleteFilter(String filterName) {

@@ -38,15 +38,20 @@ public class Filter extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private FilterType filterType;
 
+    public Filter(final String name, final FilterType filterType) {
+        this.name = name;
+        this.filterType = filterType;
+    }
+
     public static Filter of(String name, String filterType) {
         FilterType type = FilterType.from(filterType);
 
         if (type.isCapacities()) {
             String capacity = makeCapacity(name);
-            return new Filter(null, capacity, type);
+            return new Filter(capacity, type);
         }
 
-        return new Filter(null, name, type);
+        return new Filter(name, type);
     }
 
     private static String makeCapacity(String capacity) {
