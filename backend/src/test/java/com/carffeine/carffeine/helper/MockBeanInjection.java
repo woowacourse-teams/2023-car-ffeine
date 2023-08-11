@@ -1,5 +1,6 @@
 package com.carffeine.carffeine.helper;
 
+import com.carffeine.carffeine.admin.service.AdminMemberService;
 import com.carffeine.carffeine.admin.service.AdminReportService;
 import com.carffeine.carffeine.admin.service.AdminStationService;
 import com.carffeine.carffeine.auth.controller.AuthMemberResolver;
@@ -37,6 +38,8 @@ public class MockBeanInjection {
     protected AdminStationService adminStationService;
     @MockBean
     protected AdminReportService adminReportService;
+    @MockBean
+    protected AdminMemberService adminMemberService;
     @MockBean
     protected FilterService filterService;
 }

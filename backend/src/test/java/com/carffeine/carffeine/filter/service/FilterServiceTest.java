@@ -1,11 +1,11 @@
 package com.carffeine.carffeine.filter.service;
 
-import com.carffeine.carffeine.fake.member.FakeMemberRepository;
 import com.carffeine.carffeine.filter.domain.Filter;
 import com.carffeine.carffeine.filter.domain.FilterRepository;
 import com.carffeine.carffeine.filter.domain.FilterType;
 import com.carffeine.carffeine.filter.dto.FiltersRequest;
 import com.carffeine.carffeine.filter.fake.FakeFilterRepository;
+import com.carffeine.carffeine.member.domain.FakeMemberRepository;
 import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.member.domain.MemberRepository;
 import com.carffeine.carffeine.member.domain.MemberRole;
