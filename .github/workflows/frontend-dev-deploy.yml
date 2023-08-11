@@ -52,8 +52,7 @@ jobs:
 
           script: |
             sudo docker stop frontend-dev || true
-            sudo docker container prune
-            sudo docker rm frontend-dev
+            sudo docker container prune -f
             
             sudo docker pull woowacarffeine/frontend-dev:latest
             
@@ -61,7 +60,7 @@ jobs:
             --name frontend-dev \
             woowacarffeine/frontend-dev:latest
             
-            sudo docker image prune -f
+            sudo docker image prune -a -f
       - name: clean overlay
         run: |
           sudo docker image prune -f
