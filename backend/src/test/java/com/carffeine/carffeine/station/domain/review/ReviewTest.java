@@ -8,6 +8,10 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static com.carffeine.carffeine.member.fixture.MemberFixture.일반_회원;
+import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.INVALID_CONTENT_MAX_LENGTH;
+import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.INVALID_CONTENT_MIN_LENGTH;
+import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.INVALID_RATINGS_MAX_LENGTH;
+import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.INVALID_RATINGS_MIN_LENGTH;
 import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.선릉역_충전소_리뷰_별4_15글자;
 import static com.carffeine.carffeine.station.fixture.station.StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -59,7 +63,7 @@ class ReviewTest {
                 .isDeleted(false)
                 .build())
                 .isInstanceOf(ReviewException.class)
-                .hasMessage("별점은 최소 1점입니다");
+                .hasMessage(INVALID_RATINGS_MIN_LENGTH.message());
     }
 
     @ParameterizedTest
@@ -76,7 +80,7 @@ class ReviewTest {
                 .isDeleted(false)
                 .build())
                 .isInstanceOf(ReviewException.class)
-                .hasMessage("별점은 최대 5점입니다");
+                .hasMessage(INVALID_RATINGS_MAX_LENGTH.message());
     }
 
     @ParameterizedTest
@@ -93,23 +97,25 @@ class ReviewTest {
                 .isDeleted(false)
                 .build())
                 .isInstanceOf(ReviewException.class)
-                .hasMessage("리뷰 내용은 최소 10자 입니다");
+                .hasMessage(INVALID_CONTENT_MIN_LENGTH.message());
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = {"방황하여도, 용감하고 품고 뿐이다. 이는 불어 인생을 가지에 위하여서, 운다. 바이며, 날카로우나 가치를 작고 칼이다. 튼튼하며, 뭇 굳세게 열락의 그들은 쓸쓸하랴? 인도하겠다는 인생을 열매를 부패를 가지에 크고 붙잡아 설산에서 하는 말이다. 용기가 설레는 청춘은 보내는 온갖 같은 뿐이다. 그들에게 긴지라 전인 천고에 무엇을 것이다. 못할 청춘의 청춘 청춘아", "방황하여도, 용감하고 품고 뿐이다. 이는 불어 인생을 가지에 위하여서, 운다. 바이며, 날카로우나 가치를 작고 칼이다. 튼튼하며, 뭇 굳세게 열락의 그들은 쓸쓸하랴? 인도하겠다는 인생을 열매를 부패를 가지에 크고 붙잡아 설산에서 하는 말이다. 용기가 설레는 청춘은 보내는 온갖 같은 뿐이다. 그들에게 긴지라 전인 천고에 무엇을 것이다. 못할 청춘의 청춘 청춘 예찬"})
-    void 리뷰_등록시_내용이_200자보다_크면_예외가_발생한다(String content) {
+    @Test
+    void 리뷰_등록시_내용이_200자보다_크면_예외가_발생한다() {
+        // given
+        String content201 = "방황하여도, 용감하고 품고 뿐이다. 이는 불어 인생을 가지에 위하여서, 운다. 바이며, 날카로우나 가치를 작고 칼이다. 튼튼하며, 뭇 굳세게 열락의 그들은 쓸쓸하랴? 인도하겠다는 인생을 열매를 부패를 가지에 크고 붙잡아 설산에서 하는 말이다. 용기가 설레는 청춘은 보내는 온갖 같은 뿐이다. 그들에게 긴지라 전인 천고에 무엇을 것이다. 못할 청춘의 청춘 청춘아";
+
         // when & then
         assertThatThrownBy(() -> Review.builder()
                 .id(2L)
                 .station(선릉역_충전소_충전기_2개_사용가능_1개)
                 .member(일반_회원)
                 .ratings(4)
-                .content(content)
+                .content(content201)
                 .isUpdated(false)
                 .isDeleted(false)
                 .build())
                 .isInstanceOf(ReviewException.class)
-                .hasMessage("리뷰 내용은 최대 200자 입니다");
+                .hasMessage(INVALID_CONTENT_MAX_LENGTH.message());
     }
 }
