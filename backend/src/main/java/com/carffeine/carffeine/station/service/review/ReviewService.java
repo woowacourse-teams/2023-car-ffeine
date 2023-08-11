@@ -9,8 +9,6 @@ import com.carffeine.carffeine.station.domain.review.ReviewRepository;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.domain.station.StationRepository;
 import com.carffeine.carffeine.station.exception.StationException;
-import com.carffeine.carffeine.station.exception.review.ReviewException;
-import com.carffeine.carffeine.station.exception.review.ReviewExceptionType;
 import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -66,21 +64,15 @@ public class ReviewService {
 
     public Review updateReview(CreateReviewRequest request, Long reviewId, Long memberId) {
         Review review = reviewRepository.findById(reviewId).get();
-        validateMember(review, memberId);
+        review.validateSameMember(memberId);
         review.updateReview(request.ratings(), request.content());
 
         return review;
     }
 
-    private void validateMember(Review review, Long memberId) {
-        if (!review.getMember().getId().equals(memberId)) {
-            throw new ReviewException(ReviewExceptionType.UNAUTHORIZED_MEMBER);
-        }
-    }
-
     public Review deleteReview(Long memberId, long reviewId) {
         Review review = reviewRepository.findById(reviewId).get();
-        validateMember(review, memberId);
+        review.validateSameMember(memberId);
         review.delete();
 
         return review;
