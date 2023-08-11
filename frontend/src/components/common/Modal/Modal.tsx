@@ -1,3 +1,4 @@
+import type { CSSProp } from 'styled-components';
 import styled, { keyframes } from 'styled-components';
 
 import type { MouseEvent, ReactNode } from 'react';
@@ -7,9 +8,10 @@ export interface ModalProps {
   onClose: () => void;
   children: ReactNode;
   staticBackdrop?: boolean;
+  css?: CSSProp;
 }
 
-const Modal = ({ isOpen, onClose, children, staticBackdrop = false }: ModalProps) => {
+const Modal = ({ isOpen, onClose, children, staticBackdrop = false, css }: ModalProps) => {
   const handleClickModalContent = (event: MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
   };
@@ -25,8 +27,10 @@ const Modal = ({ isOpen, onClose, children, staticBackdrop = false }: ModalProps
   }
 
   return (
-    <ModalWrapper className="modal-open" onClick={handleBackdropClick}>
-      <ModalContent onClick={handleClickModalContent}>{children}</ModalContent>
+    <ModalWrapper className="modal-open" onClick={handleBackdropClick} css={css}>
+      <ModalContent onClick={handleClickModalContent} css={css}>
+        {children}
+      </ModalContent>
     </ModalWrapper>
   );
 };
@@ -42,7 +46,7 @@ const fadeIn = keyframes`
   }
 `;
 
-const ModalWrapper = styled.div`
+const ModalWrapper = styled.div<{ css: CSSProp }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -59,9 +63,10 @@ const ModalWrapper = styled.div`
   animation: ${fadeIn} 0.2s ease-in-out;
 
   z-index: 99999;
+  ${({ css }) => css};
 `;
 
-const ModalContent = styled.div`
+const ModalContent = styled.div<{ css: CSSProp }>`
   background: #fff;
   margin: 1rem;
   border-radius: 1rem;
@@ -69,4 +74,5 @@ const ModalContent = styled.div`
   max-width: 50rem;
   max-height: calc(100% - 4rem);
   overflow-y: auto;
+  ${({ css }) => css};
 `;

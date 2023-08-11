@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import { modalActions } from '@stores/layout/modalStore';
 
@@ -10,6 +10,7 @@ import { useReviews } from '@hooks/tanstack-query/station-details/reviews/useRev
 import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
+import Modal from '@common/Modal';
 import Text from '@common/Text';
 
 import ReviewCard from '@ui/StationDetailsWindow/reviews/ReviewCard';
@@ -36,8 +37,13 @@ const ReviewPreview = ({ stationId }: ReviewPreviewProps) => {
     error: reviewsError,
   } = useReviews(stationId);
 
+  const [isCreateReviewOpen, setIsCreateReviewOpen] = useState(false);
+
   const handleCloseModalButton = () => {
     modalActions.closeModal();
+  };
+  const handleOpenCreateReviewButton = () => {
+    setIsCreateReviewOpen(true);
   };
 
   const handleClickMoreReviewButton = () => {
@@ -53,7 +59,7 @@ const ReviewPreview = ({ stationId }: ReviewPreviewProps) => {
           >
             닫기
           </ButtonNext>
-          <ButtonNext variant="outlined" fullWidth>
+          <ButtonNext variant="outlined" fullWidth onClick={() => handleOpenCreateReviewButton()}>
             후기 작성
           </ButtonNext>
         </FlexBox>
@@ -80,37 +86,46 @@ const ReviewPreview = ({ stationId }: ReviewPreviewProps) => {
   const aliveReviews = reviews.filter((review) => !review.isDeleted);
 
   return (
-    <Box my={5}>
-      <UserRatings counts={reviews.length} ratings={totalRatings} />
-      {aliveReviews.length === 0 ? (
-        <Box p={5}>등록된 리뷰가 없습니다.</Box>
-      ) : (
-        <>
-          {aliveReviews.slice(0, 3).map((review, i) => {
-            return (
-              <ReviewCard
-                key={i}
-                review={{
-                  content: review.content,
-                  isDeleted: review.isDeleted,
-                  isUpdated: review.isUpdated,
-                  latestUpdateDate: review.latestUpdateDate,
-                  ratings: review.ratings,
-                  replies: review.replies,
-                  reviewId: review.reviewId,
-                  userId: review.userId,
-                }}
-              />
-            );
-          })}
-          <FlexBox justifyContent="end">
-            <ButtonNext variant="text" size="sm" onClick={() => handleClickMoreReviewButton()}>
-              후기 더 보기
-            </ButtonNext>
-          </FlexBox>
-        </>
-      )}
-    </Box>
+    <>
+      <Box my={5}>
+        <UserRatings counts={reviews.length} ratings={totalRatings} />
+        {aliveReviews.length === 0 ? (
+          <Box p={5}>등록된 리뷰가 없습니다.</Box>
+        ) : (
+          <>
+            {aliveReviews.slice(0, 3).map((review, i) => {
+              return (
+                <ReviewCard
+                  key={i}
+                  review={{
+                    content: review.content,
+                    isDeleted: review.isDeleted,
+                    isUpdated: review.isUpdated,
+                    latestUpdateDate: review.latestUpdateDate,
+                    ratings: review.ratings,
+                    replies: review.replies,
+                    reviewId: review.reviewId,
+                    userId: review.userId,
+                  }}
+                />
+              );
+            })}
+            <FlexBox justifyContent="end">
+              <ButtonNext variant="text" size="sm" onClick={() => handleClickMoreReviewButton()}>
+                후기 더 보기
+              </ButtonNext>
+            </FlexBox>
+          </>
+        )}
+      </Box>
+      <Modal
+        isOpen={isCreateReviewOpen}
+        onClose={() => setIsCreateReviewOpen(false)}
+        css={{ zIndex: 999999 }}
+      >
+        <div>후기 작성하기</div>
+      </Modal>
+    </>
   );
 };
 
