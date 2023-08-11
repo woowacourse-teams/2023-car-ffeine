@@ -9,5 +9,6 @@ public record ReviewResponse(
         long ratings,
         String content,
         boolean isUpdated,
-        boolean isDeleted) {
+        boolean isDeleted
+) {
 }

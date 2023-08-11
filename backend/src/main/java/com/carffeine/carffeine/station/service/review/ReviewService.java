@@ -27,6 +27,8 @@ import static com.carffeine.carffeine.station.exception.StationExceptionType.NOT
 public class ReviewService {
 
     public static final int PAGE_ELEMENT_SIZE = 10;
+    public static final int INVALID_PAGE = -1;
+    public static final int NEXT_PAGE = 1;
 
     private final ReviewRepository reviewRepository;
     private final StationRepository stationRepository;
@@ -45,15 +47,20 @@ public class ReviewService {
                 .isUpdated(false)
                 .isDeleted(false)
                 .build();
-
         return reviewRepository.save(review);
     }
 
     public ReviewResponses findAllReviews(String stationId, Pageable pageable) {
         pageable = PageRequest.of(pageable.getPageNumber(), PAGE_ELEMENT_SIZE, Sort.by(Sort.Direction.DESC, "createdAt"));
         Page<Review> reviews = findPageReviews(stationId, pageable);
+        return ReviewResponses.of(reviews, getNextPage(reviews));
+    }
 
-        return ReviewResponses.from(reviews);
+    private int getNextPage(Page<Review> reviews) {
+        if (reviews.isLast()) {
+            return INVALID_PAGE;
+        }
+        return reviews.getNumber() + NEXT_PAGE;
     }
 
     public Page<Review> findPageReviews(String stationId, Pageable pageable) {
@@ -66,7 +73,6 @@ public class ReviewService {
         Review review = reviewRepository.findById(reviewId).get();
         review.validateSameMember(memberId);
         review.updateReview(request.ratings(), request.content());
-
         return review;
     }
 
@@ -74,7 +80,6 @@ public class ReviewService {
         Review review = reviewRepository.findById(reviewId).get();
         review.validateSameMember(memberId);
         review.delete();
-
         return review;
     }
 }
