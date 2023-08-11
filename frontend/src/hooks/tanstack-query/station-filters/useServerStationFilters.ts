@@ -10,9 +10,9 @@ type CompanyNameKeys = keyof typeof COMPANY_NAME;
 type ConnectorTypeKeys = keyof typeof CHARGER_TYPES;
 
 export interface ServerStationFilters {
-  companyNames: { key: CompanyNameKeys; value: (typeof COMPANY_NAME)[CompanyNameKeys] }[];
-  capacities: { ['capacity']: `${(typeof CAPACITIES)[number]}.00` }[];
-  connectorTypes: { key: ConnectorTypeKeys; value: (typeof CHARGER_TYPES)[ConnectorTypeKeys] }[];
+  companies: CompanyNameKeys[];
+  capacities: `${(typeof CAPACITIES)[number]}.00`[];
+  connectorTypes: ConnectorTypeKeys[];
 }
 
 const fetchServerStationFilters = async () => {

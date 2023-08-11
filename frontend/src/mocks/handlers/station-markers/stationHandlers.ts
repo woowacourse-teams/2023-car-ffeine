@@ -17,11 +17,13 @@ export const stationHandlers = [
 
     const isChargerTypeFilterSelected = searchParams.get('chargerTypes') !== null;
     const isCapacityFilterSelected = searchParams.get('capacities') !== null;
-    const isCompanyNameFilterSelected = searchParams.get('companyNames') !== null;
+    const isCompanyNameFilterSelected = searchParams.get('companies') !== null;
 
     const selectedChargerTypes = searchParams.get('chargerTypes')?.split(',');
     const selectedCapacities = searchParams.get('capacities')?.split(',')?.map(Number);
-    const selectedCompanyNames = searchParams.get('companyNames')?.split(',');
+    const selectedCompanies = searchParams.get('companies')?.split(',');
+
+    console.log(selectedChargerTypes, selectedCapacities, selectedCompanies);
 
     const northEastBoundary = {
       latitude: latitude + latitudeDelta,
@@ -61,12 +63,13 @@ export const stationHandlers = [
           !station.chargers.some((charger) => selectedCapacities.includes(charger.capacity));
         const isCompanyNameFilterInvalid =
           isCompanyNameFilterSelected &&
-          !selectedCompanyNames
+          !selectedCompanies
             .map((companyId) => COMPANY_NAME[companyId as keyof typeof COMPANY_NAME])
             .includes(station.companyName as (typeof COMPANY_NAME)[keyof typeof COMPANY_NAME]);
 
-        if (isChargerTypeFilterInvalid || isCapacityFilterInvalid || isCompanyNameFilterInvalid)
+        if (isChargerTypeFilterInvalid || isCapacityFilterInvalid || isCompanyNameFilterInvalid) {
           return false;
+        }
         return true;
       });
 

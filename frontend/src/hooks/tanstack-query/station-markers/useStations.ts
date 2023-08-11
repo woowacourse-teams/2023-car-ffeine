@@ -7,14 +7,13 @@ import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 import { getDisplayPosition } from '@utils/google-maps';
 import { getQueryFormattedUrl } from '@utils/request-query-params';
 
-import { mswModeStore } from '@stores/config/mswModeStore';
 import { serverStore } from '@stores/config/serverStore';
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { clientStationFiltersStore } from '@stores/station-filters/clientStationFiltersStore';
 import {
   selectedCapacitiesFilterStore,
   selectedChargerTypesFilterStore,
-  selectedCompanyNamesFilterStore,
+  selectedCompaniesFilterStore,
 } from '@stores/station-filters/serverStationFiltersStore';
 
 import { SERVERS } from '@constants';
@@ -32,15 +31,19 @@ export const fetchStation = async () => {
     return new Promise<StationSummary[]>((resolve) => resolve([]));
   }
 
+  console.log('useStations: ', getStoreSnapshot(selectedCompaniesFilterStore));
+  console.log('useStations: ', getStoreSnapshot(selectedCapacitiesFilterStore));
+  console.log('useStations: ', getStoreSnapshot(selectedChargerTypesFilterStore));
+
   const displayPositionKey = getTypedObjectKeys<DisplayPosition>(displayPosition);
   const displayPositionValue = Object.values(displayPosition).map(String);
   const displayPositionString = getTypedObjectFromEntries(displayPositionKey, displayPositionValue);
 
   const requestQueryParams = getQueryFormattedUrl({
     ...displayPositionString,
-    companyNames: getStoreSnapshot(selectedCompanyNamesFilterStore).join(','),
-    capacities: getStoreSnapshot(selectedCapacitiesFilterStore).join(','),
-    chargerTypes: getStoreSnapshot(selectedChargerTypesFilterStore).join(','),
+    companies: [...getStoreSnapshot(selectedCompaniesFilterStore)].join(','),
+    capacities: [...getStoreSnapshot(selectedCapacitiesFilterStore)].join(','),
+    chargerTypes: [...getStoreSnapshot(selectedChargerTypesFilterStore)].join(','),
   });
 
   const mode = serverStore.getState();

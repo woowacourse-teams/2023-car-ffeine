@@ -4,7 +4,7 @@ import { serverStore } from '@stores/config/serverStore';
 import {
   selectedCapacitiesFilterStore,
   selectedChargerTypesFilterStore,
-  selectedCompanyNamesFilterStore,
+  selectedCompaniesFilterStore,
 } from '@stores/station-filters/serverStationFiltersStore';
 import { userTokenStore } from '@stores/userTokenStore';
 
@@ -38,24 +38,14 @@ export const useUserFilters = () => {
     queryKey: [QUERY_KEY_USER_SELECTED_FILTERS],
     queryFn: fetchUserFilters,
     select: (data) => {
-      const { connectorTypes, capacities, companyNames } = data;
+      const { connectorTypes, capacities, companies } = data;
 
       if (userTokenStore.getState() !== '') {
-        if (userTokenStore.getState() !== '') {
-          selectedCapacitiesFilterStore.setState((prev) => [
-            ...prev,
-            ...capacities.map(({ capacity }) => capacity),
-          ]);
-          selectedChargerTypesFilterStore.setState((prev) => [
-            ...prev,
-            ...connectorTypes.map(({ key }) => key),
-          ]);
-          selectedCompanyNamesFilterStore.setState((prev) => [
-            ...prev,
-            ...companyNames.map(({ key }) => key),
-          ]);
-        }
+        selectedCapacitiesFilterStore.setState((prev) => new Set([...prev, ...capacities]));
+        selectedChargerTypesFilterStore.setState((prev) => new Set([...prev, ...connectorTypes]));
+        selectedCompaniesFilterStore.setState((prev) => new Set([...prev, ...companies]));
       }
+
       queryClient.invalidateQueries([{ queryKey: [QUERY_KEY_STATIONS] }]);
 
       return data;
