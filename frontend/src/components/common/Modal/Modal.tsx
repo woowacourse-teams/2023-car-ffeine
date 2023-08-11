@@ -62,9 +62,8 @@ const ModalWrapper = styled.div`
 `;
 
 const ModalContent = styled.div`
-  background-color: #fff;
+  background: #fff;
   margin: 1rem;
-  padding: 2rem;
   border-radius: 1rem;
   width: 100%;
   max-width: 50rem;
