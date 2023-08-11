@@ -21,7 +21,7 @@ export default function ReviewList({ stationId }: ReviewListProps) {
 
   return (
     <Box p={4}>
-      <Text variant="title" mb={5}>
+      <Text variant="title" mt={2} mb={5} px={4}>
         충전소 후기 보기
       </Text>
       {status === 'loading' ? (
