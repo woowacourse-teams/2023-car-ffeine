@@ -4,11 +4,22 @@ import {
   MagnifyingGlassIcon,
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
+import { ArrowRightOnRectangleIcon, PencilSquareIcon } from '@heroicons/react/24/solid';
 import { css } from 'styled-components';
 
+import type { PropsWithChildren } from 'react';
+
+import { useQueryClient } from '@tanstack/react-query';
+
 import { useExternalValue } from '@utils/external-state';
+import { logout } from '@utils/login';
 
 import { modalActions } from '@stores/layout/modalStore';
+import {
+  selectedCapacitiesFilterStore,
+  selectedChargerTypesFilterStore,
+  selectedCompanyNamesFilterStore,
+} from '@stores/station-filters/serverStationFiltersStore';
 import { userTokenStore } from '@stores/userTokenStore';
 
 import Button from '@common/Button';
@@ -21,17 +32,46 @@ import StationListWindow from '@ui/StationList/StationListWindow';
 import StationSearchWindow from '@ui/StationSearchWindow';
 import LogoIcon from '@ui/Svg/LogoIcon';
 
+import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
+
 import PopupMenu from '../PopupMenu';
 import { useNavigationBar } from './hooks/useNavigationBar';
-import { loginMenus } from './loginMenus';
 
 const Menu = () => {
   const { openBasePanel } = useNavigationBar();
   const userToken = useExternalValue(userTokenStore);
+  const queryClient = useQueryClient();
 
   const handleClickLoginIcon = () => {
     modalActions.openModal(<LoginModal />);
   };
+
+  const loginMenus: PropsWithChildren<{ onClick: () => void }>[] = [
+    {
+      children: (
+        <>
+          <PencilSquareIcon width="1.8rem" color="#333" /> 차량등록
+        </>
+      ),
+      onClick: () => alert('차량등록'),
+    },
+    {
+      children: (
+        <>
+          <ArrowRightOnRectangleIcon width="1.8rem" color="#333" /> 로그아웃
+        </>
+      ),
+      onClick: () => {
+        selectedCapacitiesFilterStore.setState([]);
+        selectedChargerTypesFilterStore.setState([]);
+        selectedCompanyNamesFilterStore.setState([]);
+
+        queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
+
+        logout();
+      },
+    },
+  ];
 
   return (
     <FlexBox
