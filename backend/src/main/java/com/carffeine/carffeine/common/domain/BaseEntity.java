@@ -1,7 +1,6 @@
 package com.carffeine.carffeine.common.domain;
 
 import lombok.Getter;
-import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -17,7 +16,6 @@ public abstract class BaseEntity {
     @CreatedDate
     private LocalDateTime createdAt;
     @Column
-    @Setter
     @LastModifiedDate
     private LocalDateTime updatedAt;
 }

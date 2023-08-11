@@ -3,6 +3,7 @@ package com.carffeine.carffeine.station.controller.review;
 import com.carffeine.carffeine.helper.MockBeanInjection;
 import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.member.fixture.MemberFixture;
+import com.carffeine.carffeine.station.controller.review.dto.ReviewResponse;
 import com.carffeine.carffeine.station.controller.review.dto.ReviewResponses;
 import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.domain.station.Station;
@@ -15,8 +16,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -93,14 +92,11 @@ public class ReviewControllerTest extends MockBeanInjection {
     void 충전소의_리뷰를_조회한다() throws Exception {
         // given
         String stationId = "ME101010";
-        Pageable pageable = Pageable.ofSize(10).withPage(0);
-        Review review = 선릉역_충전소_리뷰_별4_15글자.get();
-        review.setUpdatedAt(LocalDateTime.of(23, 2, 7, 9, 30, 0));
-        List<Review> reviews = List.of(review);
-        Page<Review> pageReviews = new PageImpl<>(reviews, pageable, reviews.size());
 
         // when
-        when(reviewService.findAllReviews(eq(stationId), any(Pageable.class))).thenReturn(ReviewResponses.from(pageReviews));
+        when(reviewService.findAllReviews(eq(stationId), any(Pageable.class))).thenReturn(new ReviewResponses(
+                List.of(new ReviewResponse(1L, 1L, LocalDateTime.now(), 1L, "덕분에 빠르게 충전했습니다", false, false)), 1
+        ));
 
         // then
         mockMvc.perform(get("/stations/{stationId}/reviews", stationId)

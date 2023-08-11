@@ -26,7 +26,6 @@ import static com.carffeine.carffeine.station.exception.review.ReviewExceptionTy
 import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.INVALID_RATINGS_MIN_LENGTH;
 import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.UNAUTHORIZED_MEMBER;
 
-
 @Getter
 @Builder
 @EqualsAndHashCode(of = "id", callSuper = false)
