@@ -5,7 +5,9 @@ import org.springframework.data.domain.Page;
 
 import java.util.List;
 
-public record ReviewResponses(List<ReviewResponse> reviews, int nextPage) {
+public record ReviewResponses(
+        List<ReviewResponse> reviews,
+        int nextPage) {
 
     public static final int MAX_PAGE_INDEX = 1;
     public static final int NON_EXISTENT_PAGE = 0;
