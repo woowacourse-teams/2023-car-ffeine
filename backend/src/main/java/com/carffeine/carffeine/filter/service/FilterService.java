@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class FilterService {
-
     private final FilterRepository filterRepository;
 
     private final MemberRepository memberRepository;
