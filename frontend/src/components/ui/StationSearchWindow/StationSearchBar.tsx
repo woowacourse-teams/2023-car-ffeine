@@ -18,6 +18,7 @@ import { useDebounce } from '@hooks/useDebounce';
 import Button from '@common/Button';
 
 import StationDetailsWindow from '@ui/StationDetailsWindow';
+import SearchResultSkeleton from '@ui/StationSearchWindow/SearchResultSkeleton';
 import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
 import { pillStyle } from '@style';
@@ -27,7 +28,7 @@ import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
 
 import type { StationPosition } from '@type/stations';
 
-import SearchResult from './SearchResult';
+import SearchResult, { foundStationList, searchResultList } from './SearchResult';
 
 const StationSearchBar = () => {
   const [isFocused, setIsFocused] = useState(false);
@@ -48,7 +49,7 @@ const StationSearchBar = () => {
     400
   );
 
-  const { data: stations, isLoading, isError } = useSearchedStations();
+  const { data: stations, isLoading, isError, isFetching } = useSearchedStations();
 
   const handleSubmitSearchWord = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -92,6 +93,7 @@ const StationSearchBar = () => {
           <MagnifyingGlassIcon width="2.4rem" stroke="#767676" />
         </Button>
       </S.Form>
+      {isFetching && <SearchResultSkeleton />}
       {isFocused && stations && (
         <SearchResult
           stations={stations}
