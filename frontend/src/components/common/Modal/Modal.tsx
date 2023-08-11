@@ -6,11 +6,18 @@ export interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   children: ReactNode;
+  staticBackdrop?: boolean;
 }
 
-const Modal = ({ isOpen, onClose, children }: ModalProps) => {
+const Modal = ({ isOpen, onClose, children, staticBackdrop = false }: ModalProps) => {
   const handleClickModalContent = (event: MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
+  };
+
+  const handleBackdropClick = () => {
+    if (!staticBackdrop) {
+      onClose();
+    }
   };
 
   if (!isOpen) {
@@ -18,7 +25,7 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
   }
 
   return (
-    <ModalWrapper className="modal-open" onClick={onClose}>
+    <ModalWrapper className="modal-open" onClick={handleBackdropClick}>
       <ModalContent onClick={handleClickModalContent}>{children}</ModalContent>
     </ModalWrapper>
   );

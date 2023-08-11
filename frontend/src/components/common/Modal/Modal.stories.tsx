@@ -29,6 +29,20 @@ export const Default = () => {
   );
 };
 
+export const StaticBackdropModal = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  return (
+    <>
+      <Button outlined size="md" onClick={() => setIsModalOpen(true)}>
+        모달 열기
+      </Button>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} staticBackdrop>
+        <Text>백 드롭을 눌러도 꺼지지 않아요.</Text>
+      </Modal>
+    </>
+  );
+};
+
 export const LongModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
