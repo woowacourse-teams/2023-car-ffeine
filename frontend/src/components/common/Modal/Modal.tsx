@@ -62,7 +62,7 @@ const ModalWrapper = styled.div<{ css: CSSProp }>`
 
   animation: ${fadeIn} 0.2s ease-in-out;
 
-  z-index: 99999;
+  z-index: 9999;
   ${({ css }) => css};
 `;
 
@@ -74,5 +74,4 @@ const ModalContent = styled.div<{ css: CSSProp }>`
   max-width: 50rem;
   max-height: calc(100% - 4rem);
   overflow-y: auto;
-  ${({ css }) => css};
 `;

@@ -2,6 +2,7 @@ import { css } from 'styled-components';
 
 import React, { useState } from 'react';
 
+import { modalSecondaryActions } from '@stores/layout/modalSecondaryStore';
 import { modalActions } from '@stores/layout/modalStore';
 
 import { useReviewRatings } from '@hooks/tanstack-query/station-details/reviews/useReviewRatings';
@@ -37,13 +38,15 @@ const ReviewPreview = ({ stationId }: ReviewPreviewProps) => {
     error: reviewsError,
   } = useReviews(stationId);
 
-  const [isCreateReviewOpen, setIsCreateReviewOpen] = useState(false);
-
   const handleCloseModalButton = () => {
     modalActions.closeModal();
   };
   const handleOpenCreateReviewButton = () => {
-    setIsCreateReviewOpen(true);
+    modalSecondaryActions.openModal(
+      <>
+        <Text>하이</Text>
+      </>
+    );
   };
 
   const handleClickMoreReviewButton = () => {
@@ -118,13 +121,6 @@ const ReviewPreview = ({ stationId }: ReviewPreviewProps) => {
           </>
         )}
       </Box>
-      <Modal
-        isOpen={isCreateReviewOpen}
-        onClose={() => setIsCreateReviewOpen(false)}
-        css={{ zIndex: 999999 }}
-      >
-        <div>후기 작성하기</div>
-      </Modal>
     </>
   );
 };
