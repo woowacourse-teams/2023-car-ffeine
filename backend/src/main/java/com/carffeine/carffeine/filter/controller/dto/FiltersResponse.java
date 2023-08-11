@@ -1,6 +1,7 @@
 package com.carffeine.carffeine.filter.controller.dto;
 
 import com.carffeine.carffeine.filter.domain.Filter;
+import com.carffeine.carffeine.member.domain.MemberFilter;
 
 import java.util.List;
 
@@ -11,6 +12,10 @@ public record FiltersResponse(
 ) {
 
     public static FiltersResponse from(List<Filter> filters) {
+        return getFiltersResponse(filters);
+    }
+
+    private static FiltersResponse getFiltersResponse(List<Filter> filters) {
         List<String> companies = filters.stream()
                 .filter(it -> it.getFilterType().isCompanyType())
                 .map(Filter::getName)
@@ -31,5 +36,13 @@ public record FiltersResponse(
                 capacities,
                 connectorTypes
         );
+    }
+
+    public static FiltersResponse fromMemberFilters(List<MemberFilter> memberFilters) {
+        List<Filter> filters = memberFilters.stream()
+                .map(MemberFilter::getFilter)
+                .toList();
+
+        return getFiltersResponse(filters);
     }
 }
