@@ -9,6 +9,7 @@
 
 === Request
 
+include::{snippets}/filter-controller-test/find_all_filters/request-headers.adoc[]
 include::{snippets}/filter-controller-test/find_all_filters/http-request.adoc[]
 
 === Response
@@ -20,6 +21,7 @@ include::{snippets}/filter-controller-test/find_all_filters/http-response.adoc[]
 
 === Request
 
+include::{snippets}/filter-controller-test/add_filters/request-headers.adoc[]
 include::{snippets}/filter-controller-test/add_filters/request-fields.adoc[]
 include::{snippets}/filter-controller-test/add_filters/http-request.adoc[]
 
@@ -33,6 +35,7 @@ include::{snippets}/filter-controller-test/add_filters/http-response.adoc[]
 
 === Request
 
+include::{snippets}/filter-controller-test/delete_filter/request-headers.adoc[]
 include::{snippets}/filter-controller-test/delete_filter/path-parameters.adoc[]
 include::{snippets}/filter-controller-test/delete_filter/http-request.adoc[]
 

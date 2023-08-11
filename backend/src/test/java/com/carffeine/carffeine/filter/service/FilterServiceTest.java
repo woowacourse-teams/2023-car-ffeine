@@ -1,10 +1,14 @@
 package com.carffeine.carffeine.filter.service;
 
+import com.carffeine.carffeine.fake.member.FakeMemberRepository;
 import com.carffeine.carffeine.filter.domain.Filter;
 import com.carffeine.carffeine.filter.domain.FilterRepository;
 import com.carffeine.carffeine.filter.domain.FilterType;
 import com.carffeine.carffeine.filter.dto.FiltersRequest;
 import com.carffeine.carffeine.filter.fake.FakeFilterRepository;
+import com.carffeine.carffeine.member.domain.Member;
+import com.carffeine.carffeine.member.domain.MemberRepository;
+import com.carffeine.carffeine.member.domain.MemberRole;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -21,11 +25,19 @@ class FilterServiceTest {
 
     private FilterService filterService;
     private FilterRepository filterRepository;
+    private MemberRepository memberRepository;
+
+    private Member admin;
 
     @BeforeEach
     void setup() {
         filterRepository = new FakeFilterRepository();
-        filterService = new FilterService(filterRepository);
+        memberRepository = new FakeMemberRepository();
+        filterService = new FilterService(filterRepository, memberRepository);
+
+        admin = memberRepository.save(Member.builder()
+                .memberRole(MemberRole.ADMIN)
+                .build());
     }
 
     @Test
@@ -35,7 +47,7 @@ class FilterServiceTest {
 
         // when
         filterRepository.saveAll(List.of(Filter.of(filterName, FilterType.COMPANIES.getName())));
-        List<Filter> filters = filterService.findAllFilters();
+        List<Filter> filters = filterService.findAllFilters(admin.getId());
 
         // then
         assertSoftly(softly -> {
@@ -54,10 +66,10 @@ class FilterServiceTest {
         );
 
         // when
-        filterService.addFilters(filtersRequest);
+        filterService.addFilters(admin.getId(), filtersRequest);
 
         // then
-        List<Filter> filters = filterService.findAllFilters();
+        List<Filter> filters = filterService.findAllFilters(admin.getId());
         assertThat(filters.size()).isEqualTo(3);
     }
 
@@ -69,13 +81,13 @@ class FilterServiceTest {
                 List.of("2"),
                 List.of("DC_COMBO")
         );
-        filterService.addFilters(filtersRequest);
+        filterService.addFilters(admin.getId(), filtersRequest);
 
         // when
         filterRepository.deleteByName("충전소 회사");
 
         // then
-        List<Filter> filters = filterService.findAllFilters();
+        List<Filter> filters = filterService.findAllFilters(admin.getId());
         assertThat(filters.size()).isEqualTo(2);
     }
 }

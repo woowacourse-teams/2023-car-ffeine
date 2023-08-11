@@ -1,5 +1,6 @@
 package com.carffeine.carffeine.filter.controller;
 
+import com.carffeine.carffeine.auth.controller.AuthMember;
 import com.carffeine.carffeine.filter.dto.FiltersRequest;
 import com.carffeine.carffeine.filter.dto.FiltersResponse;
 import com.carffeine.carffeine.filter.service.FilterService;
@@ -22,19 +23,21 @@ public class FilterController {
     private final FilterService filterService;
 
     @GetMapping
-    public ResponseEntity<FiltersResponse> findAllFilters() {
-        return ResponseEntity.ok(FiltersResponse.from(filterService.findAllFilters()));
+    public ResponseEntity<FiltersResponse> findAllFilters(@AuthMember Long memberId) {
+        return ResponseEntity.ok(FiltersResponse.from(filterService.findAllFilters(memberId)));
     }
 
     @PostMapping
-    public ResponseEntity<FiltersResponse> addFilters(@RequestBody FiltersRequest filtersRequest) {
+    public ResponseEntity<FiltersResponse> addFilters(@AuthMember Long memberId,
+                                                      @RequestBody FiltersRequest filtersRequest) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(filterService.addFilters(filtersRequest));
+                .body(filterService.addFilters(memberId, filtersRequest));
     }
 
     @DeleteMapping("/{filterName}")
-    public ResponseEntity<Void> deleteFilter(@PathVariable String filterName) {
-        filterService.deleteFilter(filterName);
+    public ResponseEntity<Void> deleteFilter(@AuthMember Long memberId,
+                                             @PathVariable String filterName) {
+        filterService.deleteFilter(memberId, filterName);
         return ResponseEntity.noContent().build();
     }
 }

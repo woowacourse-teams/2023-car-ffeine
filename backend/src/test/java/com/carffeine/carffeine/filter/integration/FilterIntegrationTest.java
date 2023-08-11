@@ -1,12 +1,17 @@
 package com.carffeine.carffeine.filter.integration;
 
+import com.carffeine.carffeine.auth.domain.TokenProvider;
 import com.carffeine.carffeine.filter.domain.FilterType;
 import com.carffeine.carffeine.filter.dto.FiltersRequest;
 import com.carffeine.carffeine.filter.dto.FiltersResponse;
+import com.carffeine.carffeine.member.domain.Member;
+import com.carffeine.carffeine.member.domain.MemberRepository;
+import com.carffeine.carffeine.member.domain.MemberRole;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collections;
 import java.util.List;
@@ -15,11 +20,24 @@ import java.util.List;
 @SuppressWarnings("NonAsciiCharacters")
 public class FilterIntegrationTest extends FilterIntegrationFixture {
 
+    @Autowired
+    private MemberRepository memberRepository;
+
+    @Autowired
+    private TokenProvider provider;
+
     private FiltersRequest 필터_리스트;
     private FiltersRequest 충전_속도_필터_리스트;
+    private Member 관리자;
+    private String 관리자_토큰;
 
     @BeforeEach
     void setup() {
+        관리자 = memberRepository.save(Member.builder()
+                .memberRole(MemberRole.ADMIN)
+                .build());
+        관리자_토큰 = "Bearer " + provider.create(관리자.getId());
+
         필터_리스트 = new FiltersRequest(
                 List.of("광주시", FilterType.COMPANIES.getName()),
                 List.of(),
@@ -32,13 +50,13 @@ public class FilterIntegrationTest extends FilterIntegrationFixture {
                 List.of()
         );
 
-        생성요청("/filters", 필터_리스트);
+        생성요청("/filters", 필터_리스트, 관리자_토큰);
     }
 
     @Test
     void 모든_필터를_조회한다() {
         // when
-        var 필터_조회_응답 = 모든_필터를_조회한다("/filters");
+        var 필터_조회_응답 = 모든_필터를_조회한다("/filters", 관리자_토큰);
         var 필터_조회_결과 = 필터_조회_응답.body().as(FiltersResponse.class);
 
         // then
@@ -49,7 +67,7 @@ public class FilterIntegrationTest extends FilterIntegrationFixture {
     @Test
     void 필터를_등록한다() {
         // when
-        var 필터_생성_응답 = 생성요청("/filters", 충전_속도_필터_리스트);
+        var 필터_생성_응답 = 생성요청("/filters", 충전_속도_필터_리스트, 관리자_토큰);
         var 필터_생성_결과 = 필터_생성_응답.body().as(FiltersResponse.class);
 
         // then
@@ -59,10 +77,10 @@ public class FilterIntegrationTest extends FilterIntegrationFixture {
     @Test
     void 필터를_제거한다() {
         // when
-        제거요청("/filters/2.00");
+        제거요청("/filters/2.00", 관리자_토큰);
 
         // then
-        var 필터_조회_응답 = 모든_필터를_조회한다("/filters");
+        var 필터_조회_응답 = 모든_필터를_조회한다("/filters", 관리자_토큰);
         var 필터_조회_결과 = 필터_조회_응답.body().as(FiltersResponse.class);
 
         단일_검증(필터_조회_결과.capacities(), Collections.emptyList());
