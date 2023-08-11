@@ -46,7 +46,7 @@ public class ReviewController {
             @PathVariable Long reviewId,
             @RequestBody CreateReviewRequest createReviewRequest) {
         reviewService.updateReview(createReviewRequest, reviewId, memberId);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/reviews/{reviewId}")

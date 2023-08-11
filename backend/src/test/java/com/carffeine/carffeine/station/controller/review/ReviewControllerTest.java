@@ -34,7 +34,9 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
@@ -124,5 +126,65 @@ public class ReviewControllerTest extends MockBeanInjection {
                                 fieldWithPath("nextPage").type(JsonFieldType.NUMBER).description("다음 페이지")
                         )
                 ));
+    }
+
+    @Test
+    void 충전소의_리뷰를_수정한다() throws Exception {
+        // given
+        Station station = StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
+        Member member = MemberFixture.일반_회원;
+        CreateReviewRequest request = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
+        Review review = 선릉역_충전소_리뷰_별4_15글자.get();
+
+        // when
+        when(reviewService.saveReview(request, station.getStationId(), member.getId())).thenReturn(review);
+        String jsonData = objectMapper.writeValueAsString(request);
+
+        // then
+        mockMvc.perform(patch("/reviews/{reviewId}", review.getId())
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + member.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(jsonData)
+                )
+                .andExpect(status().isOk())
+                .andDo(customDocument("update-review",
+                        requestHeaders(headerWithName("Authorization").description("회원 id")),
+                        pathParameters(parameterWithName("reviewId").description("충전소 id")),
+                        requestFields(
+                                fieldWithPath("ratings").type(JsonFieldType.NUMBER).description("별점"),
+                                fieldWithPath("content").type(JsonFieldType.STRING).description("내용")
+                        ))
+                );
+    }
+
+    @Test
+    void 충전소의_리뷰를_삭제한다() throws Exception {
+        // given
+        Station station = StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
+        Member member = MemberFixture.일반_회원;
+        CreateReviewRequest request = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
+        Review review = 선릉역_충전소_리뷰_별4_15글자.get();
+
+        // when
+        when(reviewService.saveReview(request, station.getStationId(), member.getId())).thenReturn(review);
+        String jsonData = objectMapper.writeValueAsString(request);
+
+        // then
+        mockMvc.perform(delete("/reviews/{reviewId}", review.getId())
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + member.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(jsonData)
+                )
+                .andExpect(status().isNoContent())
+                .andDo(customDocument("delete-review",
+                        requestHeaders(headerWithName("Authorization").description("회원 id")),
+                        pathParameters(parameterWithName("reviewId").description("충전소 id")),
+                        requestFields(
+                                fieldWithPath("ratings").type(JsonFieldType.NUMBER).description("별점"),
+                                fieldWithPath("content").type(JsonFieldType.STRING).description("내용")
+                        ))
+                );
     }
 }
