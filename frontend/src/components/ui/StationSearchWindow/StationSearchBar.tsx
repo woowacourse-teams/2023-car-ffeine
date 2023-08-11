@@ -28,7 +28,7 @@ import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
 
 import type { StationPosition } from '@type/stations';
 
-import SearchResult, { foundStationList, searchResultList } from './SearchResult';
+import SearchResult from './SearchResult';
 
 const StationSearchBar = () => {
   const [isFocused, setIsFocused] = useState(false);
