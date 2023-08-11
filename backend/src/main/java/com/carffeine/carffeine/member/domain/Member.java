@@ -4,6 +4,7 @@ import com.carffeine.carffeine.common.domain.BaseEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,6 +17,7 @@ import javax.persistence.Id;
 
 @Getter
 @Builder
+@EqualsAndHashCode(of = "id", callSuper = false)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity

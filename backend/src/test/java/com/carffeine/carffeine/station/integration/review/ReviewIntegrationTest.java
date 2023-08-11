@@ -29,7 +29,6 @@ import static com.carffeine.carffeine.station.integration.review.ReviewIntegrati
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 import static org.springframework.http.HttpStatus.OK;
-import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
@@ -114,7 +113,7 @@ public class ReviewIntegrationTest extends IntegrationTest {
         }
 
         @Test
-        void 인증되지_않은_멤버일_경우_예외가_발생한다() {
+        void 등록되지_않은_멤버일_경우_예외가_발생한다() {
             //given
             댓글을_등록한다(요청, 토큰, 충전소);
 
@@ -122,7 +121,7 @@ public class ReviewIntegrationTest extends IntegrationTest {
             var patch응답 = 댓글을_수정한다(요청, 잘못된_토큰, 리뷰);
 
             // then
-            상태_코드를_검증한다(patch응답, UNAUTHORIZED);
+            상태_코드를_검증한다(patch응답, NOT_FOUND);
         }
     }
 
@@ -142,7 +141,7 @@ public class ReviewIntegrationTest extends IntegrationTest {
         }
 
         @Test
-        void 인증되지_않은_멤버일_경우_예외가_발생한다() {
+        void 등록되지_않은_멤버일_경우_예외가_발생한다() {
             //given
             댓글을_등록한다(요청, 토큰, 충전소);
 
@@ -150,7 +149,7 @@ public class ReviewIntegrationTest extends IntegrationTest {
             var delete응답 = 댓글을_삭제한다(잘못된_토큰, 리뷰);
 
             // then
-            상태_코드를_검증한다(delete응답, UNAUTHORIZED);
+            상태_코드를_검증한다(delete응답, NOT_FOUND);
         }
     }
 }

@@ -9,6 +9,7 @@ import com.carffeine.carffeine.station.domain.review.ReviewRepository;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.domain.station.StationRepository;
 import com.carffeine.carffeine.station.exception.StationException;
+import com.carffeine.carffeine.station.exception.review.ReviewException;
 import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static com.carffeine.carffeine.member.exception.MemberExceptionType.NOT_FOUND;
 import static com.carffeine.carffeine.station.exception.StationExceptionType.NOT_FOUND_ID;
+import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.REVIEW_NOT_FOUND;
 
 @RequiredArgsConstructor
 @Transactional
@@ -70,15 +72,21 @@ public class ReviewService {
     }
 
     public Review updateReview(CreateReviewRequest request, Long reviewId, Long memberId) {
-        Review review = reviewRepository.findById(reviewId).get();
-        review.validateSameMember(memberId);
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new ReviewException(REVIEW_NOT_FOUND));
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberException(NOT_FOUND));
+        review.validateSameMember(member);
         review.updateReview(request.ratings(), request.content());
         return review;
     }
 
     public Review deleteReview(Long memberId, long reviewId) {
-        Review review = reviewRepository.findById(reviewId).get();
-        review.validateSameMember(memberId);
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new ReviewException(REVIEW_NOT_FOUND));
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberException(NOT_FOUND));
+        review.validateSameMember(member);
         review.delete();
         return review;
     }
