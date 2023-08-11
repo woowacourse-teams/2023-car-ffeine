@@ -53,6 +53,7 @@ jobs:
           script: |
             sudo docker stop frontend-dev || true
             sudo docker container prune
+            sudo docker rm frontend-dev
             
             sudo docker pull woowacarffeine/frontend-dev:latest
             

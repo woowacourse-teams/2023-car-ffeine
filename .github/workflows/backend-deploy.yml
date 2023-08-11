@@ -79,6 +79,7 @@ jobs:
             sudo docker pull woowacarffeine/backend:latest
             sudo docker stop backend || true
             sudo docker container prune
+            sudo docker rm backend
             
             sudo docker run -d -p 8080:8080 \
             -e "SPRING_PROFILE=prod" \

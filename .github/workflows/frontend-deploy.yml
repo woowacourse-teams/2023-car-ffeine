@@ -48,6 +48,7 @@ jobs:
           script: |
             sudo docker stop frontend || true
             sudo docker container prune
+            sudo docker rm frontend
             
             sudo docker pull woowacarffeine/frontend:latest
             
