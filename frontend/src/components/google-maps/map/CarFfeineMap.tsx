@@ -29,7 +29,7 @@ const CarFfeineMap = () => {
   const userToken = getSessionStorage(SESSION_KEY_USER_TOKEN, '');
 
   if (userToken !== '') {
-    setUserToken(getSessionStorage(SESSION_KEY_USER_TOKEN, ''));
+    setUserToken(userToken);
   }
 
   return (
