@@ -28,15 +28,12 @@ export const fetchStation = async () => {
   const googleMap = getStoreSnapshot(getGoogleMapStore());
   const displayPosition = getDisplayPosition(googleMap);
 
-  const mswMode = getStoreSnapshot(mswModeStore);
-
-  if (!mswMode && displayPosition.zoom < INITIAL_ZOOM_SIZE) {
+  if (displayPosition.zoom < INITIAL_ZOOM_SIZE) {
     return new Promise<StationSummary[]>((resolve) => resolve([]));
   }
 
   const displayPositionKey = getTypedObjectKeys<DisplayPosition>(displayPosition);
   const displayPositionValue = Object.values(displayPosition).map(String);
-
   const displayPositionString = getTypedObjectFromEntries(displayPositionKey, displayPositionValue);
 
   const requestQueryParams = getQueryFormattedUrl({
@@ -79,7 +76,9 @@ export const useStations = () => {
         const isNoFreeParking = isParkingFreeStationFilterSelected && !isParkingFree;
         const isNoPublic = isPrivateStationFilterSelected && isPrivate;
 
-        if (isNoAvailable || isNoFastCharge || isNoFreeParking || isNoPublic) return false;
+        if (isNoAvailable || isNoFastCharge || isNoFreeParking || isNoPublic) {
+          return false;
+        }
         return true;
       });
     },

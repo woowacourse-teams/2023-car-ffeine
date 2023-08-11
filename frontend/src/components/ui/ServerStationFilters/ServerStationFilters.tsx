@@ -16,6 +16,7 @@ import Text from '@common/Text';
 import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
 import type { COMPANY_NAME } from '@constants/chargers';
+import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
 
 import type { Capacity } from '@type';
 
@@ -44,7 +45,7 @@ const ServerStationFilters = () => {
   const { connectorTypes, capacities, companyNames } = serverStationFilters;
 
   const handleApplySelectedFilters = () => {
-    queryClient.invalidateQueries({ queryKey: ['stations'] });
+    queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
     showToast('필터가 적용되었습니다');
   };
 

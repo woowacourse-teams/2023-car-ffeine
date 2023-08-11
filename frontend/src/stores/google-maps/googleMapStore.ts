@@ -26,6 +26,18 @@ export const getGoogleMapStore = (() => {
         zoom: INITIAL_ZOOM_SIZE,
         disableDefaultUI: true,
         mapId: '92cb7201b7d43b21',
+        minZoom: 8,
+        maxZoom: 20,
+        gestureHandling: 'greedy',
+        restriction: {
+          latLngBounds: {
+            north: 39,
+            south: 33,
+            east: 132,
+            west: 124,
+          },
+          strictBounds: true,
+        },
       });
     }
 

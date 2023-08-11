@@ -36,10 +36,24 @@ export const generateRandomChargers = () => {
   return chargers;
 };
 
-export const stations: Station[] = Array.from({ length: 3000 }).map((_, index) => {
+const generateRandomStationId = () => {
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const numbers = '0123456789';
+
+  const randomChar = (source: string) => source[Math.floor(Math.random() * source.length)];
+
+  const randomLetter1 = randomChar(letters);
+  const randomLetter2 = randomChar(letters);
+  const randomNumber = Array.from({ length: 6 }, () => randomChar(numbers)).join('');
+
+  return `${randomLetter1}${randomLetter2}${randomNumber}`;
+};
+
+export const stations: Station[] = Array.from({ length: 3000 }, (_, index) => {
+  const randomStationId = generateRandomStationId();
   return {
-    stationId: String(index),
-    stationName: `잠실의 충전소 ${index}`,
+    stationId: randomStationId,
+    stationName: `충전소 ${randomStationId}`,
     companyName: generateRandomData<CompanyName>(Object.values(COMPANY_NAME)),
     contact: generateRandomData(['', '010-1234-5678', '02-000-0000']),
     chargers: generateRandomChargers(),
@@ -56,8 +70,8 @@ export const stations: Station[] = Array.from({ length: 3000 }).map((_, index) =
       'null',
     ]),
     detailLocation: generateRandomData<string>(['지상 1층', '지하 1층', '지하 2층', '']),
-    latitude: 37 + 9999 * Math.random() * 0.0001,
-    longitude: 127 + 9999 * Math.random() * 0.0001,
+    latitude: 37 + 0.25 + 9999 * Math.random() * 0.00005,
+    longitude: 127 - 0.25 + 9999 * Math.random() * 0.00005,
     isPrivate: generateRandomData<boolean>([true, false]),
     totalCount: generateRandomData<number>([3, 4, 5]),
     availableCount: generateRandomData<number>([0, 1, 2, 3]),
@@ -96,9 +110,9 @@ const getCongestions = (): Record<EnglishDaysType, Congestion[]> => {
   return getTypedObjectFromEntries(
     ENGLISH_DAYS,
     ENGLISH_DAYS.map(() =>
-      Array.from({ length: 24 }).map((_, i) => {
+      Array.from({ length: 24 }, (_, index) => {
         return {
-          hour: i,
+          hour: index,
           ratio: Math.floor(Math.random() * 102 - 1),
         };
       })
@@ -107,9 +121,9 @@ const getCongestions = (): Record<EnglishDaysType, Congestion[]> => {
 };
 
 export const generateReviewsWithReplies = (): Review[] => {
-  return Array.from({ length: 10 }, (_, i) => {
+  return Array.from({ length: 10 }, (_, index) => {
     return {
-      reviewId: i,
+      reviewId: index,
       userId: generateRandomToken(),
       latestUpdateDate: getRandomTime(),
       ratings: parseFloat((Math.random() * 5).toFixed(2)),
@@ -125,7 +139,7 @@ export const generateReviewsWithReplies = (): Review[] => {
       ]),
       isUpdated: generateRandomData([true, false]),
       isDeleted: generateRandomData([true, false]),
-      replies: Array.from({ length: generateRandomCommentsLength(0, 4) }, (_, i) => {
+      replies: Array.from({ length: generateRandomCommentsLength(0, 4) }, (_, index) => {
         return {
           replyId: generateRandomToken(),
           userId: generateRandomToken(),
