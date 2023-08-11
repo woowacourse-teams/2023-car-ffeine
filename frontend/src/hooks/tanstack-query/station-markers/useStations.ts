@@ -31,19 +31,24 @@ export const fetchStation = async () => {
     return new Promise<StationSummary[]>((resolve) => resolve([]));
   }
 
-  console.log('useStations: ', getStoreSnapshot(selectedCompaniesFilterStore));
-  console.log('useStations: ', getStoreSnapshot(selectedCapacitiesFilterStore));
-  console.log('useStations: ', getStoreSnapshot(selectedChargerTypesFilterStore));
-
   const displayPositionKey = getTypedObjectKeys<DisplayPosition>(displayPosition);
   const displayPositionValue = Object.values(displayPosition).map(String);
   const displayPositionString = getTypedObjectFromEntries(displayPositionKey, displayPositionValue);
 
   const requestQueryParams = getQueryFormattedUrl({
     ...displayPositionString,
-    companies: [...getStoreSnapshot(selectedCompaniesFilterStore)].join(','),
-    capacities: [...getStoreSnapshot(selectedCapacitiesFilterStore)].join(','),
-    chargerTypes: [...getStoreSnapshot(selectedChargerTypesFilterStore)].join(','),
+    companies:
+      getStoreSnapshot(selectedCompaniesFilterStore).size > 0
+        ? [...getStoreSnapshot(selectedCompaniesFilterStore)].join(',')
+        : '',
+    capacities:
+      getStoreSnapshot(selectedCapacitiesFilterStore).size > 0
+        ? [...getStoreSnapshot(selectedCapacitiesFilterStore)].join(',')
+        : '',
+    chargerTypes:
+      getStoreSnapshot(selectedChargerTypesFilterStore).size > 0
+        ? [...getStoreSnapshot(selectedChargerTypesFilterStore)].join(',')
+        : '',
   });
 
   const mode = serverStore.getState();

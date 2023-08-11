@@ -9,7 +9,7 @@ import {
 import { userTokenStore } from '@stores/userTokenStore';
 
 import { SERVERS } from '@constants';
-import { QUERY_KEY_STATIONS, QUERY_KEY_USER_SELECTED_FILTERS } from '@constants/queryKeys';
+import { QUERY_KEY_USER_SELECTED_FILTERS } from '@constants/queryKeys';
 
 import type { ServerStationFilters } from './useServerStationFilters';
 
@@ -32,23 +32,8 @@ const fetchUserFilters = async () => {
 };
 
 export const useUserFilters = () => {
-  const queryClient = useQueryClient();
-
   return useQuery({
     queryKey: [QUERY_KEY_USER_SELECTED_FILTERS],
     queryFn: fetchUserFilters,
-    select: (data) => {
-      const { connectorTypes, capacities, companies } = data;
-
-      if (userTokenStore.getState() !== '') {
-        selectedCapacitiesFilterStore.setState((prev) => new Set([...prev, ...capacities]));
-        selectedChargerTypesFilterStore.setState((prev) => new Set([...prev, ...connectorTypes]));
-        selectedCompaniesFilterStore.setState((prev) => new Set([...prev, ...companies]));
-      }
-
-      queryClient.invalidateQueries([{ queryKey: [QUERY_KEY_STATIONS] }]);
-
-      return data;
-    },
   });
 };
