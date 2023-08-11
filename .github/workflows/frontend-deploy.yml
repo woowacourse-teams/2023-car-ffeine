@@ -58,4 +58,5 @@ jobs:
             sudo docker image prune -f
       - name: clean overlay
         run: |
+          sudo docker image prune -f
           sudo docker system prune -a -f
