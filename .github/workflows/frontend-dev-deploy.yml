@@ -61,6 +61,6 @@ jobs:
             woowacarffeine/frontend-dev:latest
             
             sudo docker image prune -f
-      - name: clean images
+      - name: clean overlay
         run: |
-          docker image prune -f
+          sudo docker system prune -a -f
