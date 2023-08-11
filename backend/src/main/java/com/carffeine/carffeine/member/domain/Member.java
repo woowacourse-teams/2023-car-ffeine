@@ -22,6 +22,7 @@ import javax.persistence.Id;
 public class Member extends BaseEntity {
 
     private static final int EMAIL_MASKING_LENGTH = 2;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
