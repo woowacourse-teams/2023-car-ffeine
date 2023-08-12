@@ -26,6 +26,11 @@ import type { DisplayPosition } from '@type/stations';
 export const fetchStation = async () => {
   const googleMap = getStoreSnapshot(getGoogleMapStore());
   const displayPosition = getDisplayPosition(googleMap);
+  const { latitudeDelta, longitudeDelta } = displayPosition;
+
+  if (latitudeDelta === 0 && longitudeDelta === 0) {
+    throw new Error('지도가 로드되지 않았습니다');
+  }
 
   if (displayPosition.zoom < INITIAL_ZOOM_SIZE) {
     return new Promise<StationSummary[]>((resolve) => resolve([]));
