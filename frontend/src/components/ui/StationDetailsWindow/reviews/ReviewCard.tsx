@@ -5,6 +5,8 @@ import { useState } from 'react';
 
 import { calculateLatestUpdateTime } from '@utils/index';
 
+import { useRemoveReview } from '@hooks/tanstack-query/station-details/reviews/useRemoveReview';
+
 import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
@@ -22,8 +24,14 @@ export interface ReviewCardProps {
 
 const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
   const { replies, content, isUpdated, latestUpdateDate, userId, ratings, isDeleted } = review;
+  const { isRemoveReviewLoading, removeReview } = useRemoveReview(stationId);
   const [isRepliesOpen, setIsRepliesOpen] = useState(false);
   const [isModifyMode, setIsModifyMode] = useState(false);
+
+  const handleClickRemoveReviewButton = () => {
+    removeReview({ reviewId: review.reviewId });
+  };
+
   return (
     <>
       {isModifyMode ? (
@@ -63,12 +71,17 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
                         <PencilIcon width={15} display="inline-block" />
                       </ButtonNext>
                       <ButtonNext
+                        disabled={isRemoveReviewLoading}
                         size="xs"
                         variant="text"
                         color="secondary"
-                        onClick={() => alert('삭제')}
+                        onClick={() => handleClickRemoveReviewButton()}
                       >
-                        <TrashIcon width={15} display="inline-block" />
+                        {isRemoveReviewLoading ? (
+                          '삭제중'
+                        ) : (
+                          <TrashIcon width={15} display="inline-block" />
+                        )}
                       </ButtonNext>
                     </>
                   )}
