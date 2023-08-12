@@ -1,7 +1,7 @@
 import { PencilIcon, TrashIcon } from '@heroicons/react/20/solid';
 import { StarIcon } from '@heroicons/react/24/solid';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { calculateLatestUpdateTime } from '@utils/index';
 
@@ -31,6 +31,10 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
   const handleClickRemoveReviewButton = () => {
     removeReview({ reviewId: review.reviewId });
   };
+
+  useEffect(() => {
+    setIsRepliesOpen(false);
+  }, [review]);
 
   return (
     <>
