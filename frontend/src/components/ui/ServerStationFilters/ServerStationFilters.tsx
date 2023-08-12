@@ -15,7 +15,7 @@ import Text from '@common/Text';
 
 import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
-import type { COMPANY_NAME } from '@constants/chargers';
+import { CHARGER_TYPES, COMPANY_NAME } from '@constants/chargers';
 import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
 
 import type { Capacity } from '@type';
@@ -31,10 +31,10 @@ const ServerStationFilters = () => {
   const {
     toggleSelectCapacityFilter,
     toggleSelectChargerTypesFilter,
-    toggleSelectCompanyNamesFilter,
+    toggleSelectCompaniesFilter,
     getIsCapacitySelected,
     getIsChargerTypeSelected,
-    getIsCompanyNameSelected,
+    getIsCompanySelected,
     resetAllFilter,
   } = useServerStationFilterActions();
 
@@ -42,7 +42,7 @@ const ServerStationFilters = () => {
     return <></>;
   }
 
-  const { connectorTypes, capacities, companyNames } = serverStationFilters;
+  const { connectorTypes, capacities, companies } = serverStationFilters;
 
   const handleApplySelectedFilters = () => {
     queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
@@ -77,25 +77,25 @@ const ServerStationFilters = () => {
       </FlexBox>
       <FilterSection
         title={'커넥터 타입'}
-        filterOptionNames={connectorTypes.map((connectorType) => connectorType.value)}
-        filterOptionValues={connectorTypes.map((connectorType) => connectorType.key)}
+        filterOptionNames={connectorTypes.map((connectorType) => CHARGER_TYPES[connectorType])}
+        filterOptionValues={connectorTypes}
         toggleSelectFilter={toggleSelectChargerTypesFilter}
         getIsFilterSelected={getIsChargerTypeSelected}
       />
       <FilterSection
         title={'충전 속도(kW)'}
-        filterOptionNames={[...capacities.map(({ capacity }) => Number(capacity))] as Capacity[]}
-        filterOptionValues={[...capacities.map(({ capacity }) => capacity)]}
+        filterOptionNames={[...capacities.map((capacity) => Number(capacity))] as Capacity[]}
+        filterOptionValues={[...capacities]}
         filterButtonVariant={'sm'}
         toggleSelectFilter={toggleSelectCapacityFilter}
         getIsFilterSelected={getIsCapacitySelected}
       />
       <FilterSection
         title={'충전 사업자'}
-        filterOptionNames={companyNames.map(({ value }) => value)}
-        filterOptionValues={companyNames.map(({ key }) => key) as (keyof typeof COMPANY_NAME)[]}
-        toggleSelectFilter={toggleSelectCompanyNamesFilter}
-        getIsFilterSelected={getIsCompanyNameSelected}
+        filterOptionNames={companies.map((companyKey) => COMPANY_NAME[companyKey])}
+        filterOptionValues={[...companies]}
+        toggleSelectFilter={toggleSelectCompaniesFilter}
+        getIsFilterSelected={getIsCompanySelected}
       />
       <Button
         background={'#0064FF'}

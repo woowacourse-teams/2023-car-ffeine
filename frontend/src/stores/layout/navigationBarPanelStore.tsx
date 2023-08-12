@@ -2,7 +2,7 @@ import type { ReactElement } from 'react';
 
 import { store } from '@utils/external-state';
 
-import StationSearchWindow from '@ui/StationSearchWindow/StationSearchWindow';
+import StationSearchWindow from '@ui/StationSearchWindow';
 
 interface Panels {
   basePanel: ReactElement | null;

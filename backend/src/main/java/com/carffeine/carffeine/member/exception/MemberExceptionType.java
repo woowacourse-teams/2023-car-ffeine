@@ -6,7 +6,8 @@ import com.carffeine.carffeine.common.exception.Status;
 public enum MemberExceptionType implements ExceptionType {
 
     NOT_FOUND(Status.NOT_FOUND, 3001, "회원이 없습니다"),
-    NOT_FOUND_ROLE(Status.NOT_FOUND, 3002, "일치하는 권한이 없습니다");
+    NOT_FOUND_ROLE(Status.NOT_FOUND, 3002, "일치하는 권한이 없습니다"),
+    INVALID_ACCESS(Status.INVALID, 3003, "본인의 계정이 아닙니다");
 
     private final Status status;
     private final int exceptionCode;
