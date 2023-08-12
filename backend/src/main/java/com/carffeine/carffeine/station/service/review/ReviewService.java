@@ -37,18 +37,9 @@ public class ReviewService {
     private final MemberRepository memberRepository;
 
     public Review saveReview(CreateReviewRequest request, String stationId, Long memberId) {
-        Station station = stationRepository.findChargeStationByStationId(stationId)
-                .orElseThrow(() -> new StationException(NOT_FOUND_ID));
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new MemberException(NOT_FOUND));
-        Review review = Review.builder()
-                .station(station)
-                .member(member)
-                .ratings(request.ratings())
-                .content(request.content())
-                .isUpdated(false)
-                .isDeleted(false)
-                .build();
+        Station station = findStation(stationId);
+        Member member = findMember(memberId);
+        Review review = getReview(request, station, member);
         return reviewRepository.save(review);
     }
 
@@ -58,6 +49,27 @@ public class ReviewService {
         return ReviewResponses.of(reviews, getNextPage(reviews));
     }
 
+    public Page<Review> findPageReviews(String stationId, Pageable pageable) {
+        Station station = findStation(stationId);
+        return reviewRepository.findAllByStation(station, pageable);
+    }
+
+    public Review updateReview(CreateReviewRequest request, Long reviewId, Long memberId) {
+        Review review = findReview(reviewId);
+        Member member = findMember(memberId);
+        review.validateSameMember(member);
+        review.updateReview(request.ratings(), request.content());
+        return review;
+    }
+
+    public Review deleteReview(Long memberId, long reviewId) {
+        Review review = findReview(reviewId);
+        Member member = findMember(memberId);
+        review.validateSameMember(member);
+        review.delete();
+        return review;
+    }
+
     private int getNextPage(Page<Review> reviews) {
         if (reviews.isLast()) {
             return INVALID_PAGE;
@@ -65,29 +77,27 @@ public class ReviewService {
         return reviews.getNumber() + NEXT_PAGE;
     }
 
-    public Page<Review> findPageReviews(String stationId, Pageable pageable) {
-        Station station = stationRepository.findChargeStationByStationId(stationId)
+    private Station findStation(String stationId) {
+        return stationRepository.findChargeStationByStationId(stationId)
                 .orElseThrow(() -> new StationException(NOT_FOUND_ID));
-        return reviewRepository.findAllByStation(station, pageable);
     }
 
-    public Review updateReview(CreateReviewRequest request, Long reviewId, Long memberId) {
-        Review review = reviewRepository.findById(reviewId)
-                .orElseThrow(() -> new ReviewException(REVIEW_NOT_FOUND));
-        Member member = memberRepository.findById(memberId)
+    private Member findMember(Long memberId) {
+        return memberRepository.findById(memberId)
                 .orElseThrow(() -> new MemberException(NOT_FOUND));
-        review.validateSameMember(member);
-        review.updateReview(request.ratings(), request.content());
-        return review;
     }
 
-    public Review deleteReview(Long memberId, long reviewId) {
-        Review review = reviewRepository.findById(reviewId)
+    private Review getReview(CreateReviewRequest request, Station station, Member member) {
+        return Review.builder()
+                .station(station)
+                .member(member)
+                .ratings(request.ratings())
+                .content(request.content())
+                .build();
+    }
+
+    public Review findReview(Long reviewId) {
+        return reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new ReviewException(REVIEW_NOT_FOUND));
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new MemberException(NOT_FOUND));
-        review.validateSameMember(member);
-        review.delete();
-        return review;
     }
 }
