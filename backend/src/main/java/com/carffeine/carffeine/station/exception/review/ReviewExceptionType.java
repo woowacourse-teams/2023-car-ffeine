@@ -10,7 +10,8 @@ public enum ReviewExceptionType implements ExceptionType {
     INVALID_CONTENT_MIN_LENGTH(Status.INVALID, 4003, "리뷰 내용은 최소 10자 입니다"),
     INVALID_CONTENT_MAX_LENGTH(Status.INVALID, 4004, "리뷰 내용은 최대 200자 입니다"),
     UNAUTHORIZED_MEMBER(Status.UNAUTHORIZED, 4005, "글을 편집할 권한이 없습니다"),
-    REVIEW_NOT_FOUND(Status.NOT_FOUND, 4006, "해당 리뷰를 찾을 수 없습니다");
+    REVIEW_NOT_FOUND(Status.NOT_FOUND, 4006, "해당 리뷰를 찾을 수 없습니다"),
+    DELETED_REVIEW(Status.NOT_FOUND, 4007, "이미 삭제된 리뷰입니다");
 
     private final Status status;
     private final int exceptionCode;

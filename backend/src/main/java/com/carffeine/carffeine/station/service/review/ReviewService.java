@@ -57,7 +57,7 @@ public class ReviewService {
     public Review updateReview(CreateReviewRequest request, Long reviewId, Long memberId) {
         Review review = findReview(reviewId);
         Member member = findMember(memberId);
-        review.validateSameMember(member);
+        review.validate(member);
         review.updateReview(request.ratings(), request.content());
         return review;
     }
@@ -65,7 +65,7 @@ public class ReviewService {
     public Review deleteReview(Long memberId, long reviewId) {
         Review review = findReview(reviewId);
         Member member = findMember(memberId);
-        review.validateSameMember(member);
+        review.validate(member);
         review.delete();
         return review;
     }

@@ -19,6 +19,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.DELETED_REVIEW;
 import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.INVALID_CONTENT_MAX_LENGTH;
 import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.INVALID_CONTENT_MIN_LENGTH;
 import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.INVALID_RATINGS_MAX_LENGTH;
@@ -96,15 +97,28 @@ public class Review extends BaseEntity {
     public void updateReview(int ratings, String content) {
         this.ratings = ratings;
         this.content = content;
+        isUpdated = true;
     }
 
     public void delete() {
         this.isDeleted = true;
     }
 
-    public void validateSameMember(Member member) {
+    public void validate(Member member) {
+        validateMember(member);
+        validateDeletion();
+    }
+
+    private void validateMember(Member member) {
         if (!this.member.equals(member)) {
             throw new ReviewException(UNAUTHORIZED_MEMBER);
         }
+    }
+
+    private void validateDeletion() {
+        if (isDeleted) {
+            throw new ReviewException(DELETED_REVIEW);
+        }
+
     }
 }
