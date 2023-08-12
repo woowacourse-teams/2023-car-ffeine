@@ -71,7 +71,7 @@ class MemberServiceTest {
     @Test
     void 다른_회원의_필터를_조회하면_예외를_반환한다() {
         // when & then
-        assertThatThrownBy(() -> memberService.findMemberFilters(member.getId(), member.getId() + 1))
+        assertThatThrownBy(() -> memberService.findMemberFilters(member.getId() + 1, member.getId()))
                 .isInstanceOf(MemberException.class)
                 .hasMessage(MemberExceptionType.INVALID_ACCESS.message());
     }
@@ -104,7 +104,7 @@ class MemberServiceTest {
     @Test
     void 다른_회원의_필터를_등록하면_예외를_반환한다() {
         // when & then
-        assertThatThrownBy(() -> memberService.addMemberFilters(member.getId(), member.getId() + 1, null))
+        assertThatThrownBy(() -> memberService.addMemberFilters(member.getId() + 1, member.getId(), null))
                 .isInstanceOf(MemberException.class)
                 .hasMessage(MemberExceptionType.INVALID_ACCESS.message());
     }
