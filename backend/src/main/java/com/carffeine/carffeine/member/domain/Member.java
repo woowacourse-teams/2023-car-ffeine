@@ -20,7 +20,6 @@ import javax.persistence.Id;
 @EqualsAndHashCode(of = "id", callSuper = false)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@EqualsAndHashCode(of = {"id"}, callSuper = false)
 @Entity
 public class Member extends BaseEntity {
 
