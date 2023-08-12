@@ -11,6 +11,7 @@ import { CONNECTOR_TYPES, COMPANIES } from '@constants/chargers';
 import { ENGLISH_DAYS } from '@constants/congestion';
 import { MAX_SEARCH_RESULTS } from '@constants/stationSearch';
 
+import type { Car } from '@type/cars';
 import type { Capacity, ChargerDetails } from '@type/chargers';
 import type { Congestion, CongestionStatistics, EnglishDaysType } from '@type/congestion';
 import type { ConnectorTypeKey } from '@type/serverStationFilter';
@@ -161,4 +162,24 @@ export const generateReviewsWithReplies = (): Review[] => {
       }),
     };
   });
+};
+
+export const generateCars = (): Car[] => {
+  const name = Array.from({ length: 6 }).map((_, i) => `아이오닉${i + 1}`);
+  const year = Array.from({ length: 5 }).map((_, i) => `${2019 + i}`);
+
+  const car = name
+    .map((n) => {
+      const randomLength = Math.floor(Math.random() * 4) + 1;
+
+      const randomYear = year.slice(0, randomLength);
+      return randomYear.map((rY) => ({
+        carId: Math.random(),
+        name: n,
+        year: rY,
+      }));
+    })
+    .reduce((acc, curr) => [...acc, ...curr], []);
+
+  return car;
 };

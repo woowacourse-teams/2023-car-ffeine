@@ -1,3 +1,4 @@
+import { carHandler } from './car/carHandler';
 import { loginHandlers } from './login/loginHandlers';
 import { memberHandlers } from './memberHandlers';
 import { stationReportHandlers } from './station-details/reports/stationReportHandlers';
@@ -20,4 +21,5 @@ export const handlers = [
   ...stationReportHandlers,
   ...stationReviewHandlers,
   ...loginHandlers,
+  ...carHandler,
 ];
