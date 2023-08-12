@@ -3,9 +3,14 @@ import { css } from 'styled-components';
 
 import { useQueryClient } from '@tanstack/react-query';
 
-import { toastActions } from '@stores/layout/toastStore';
+import { getAPIEndPoint } from '@utils/login';
 
-import { useServerStationFilters } from '@hooks/tanstack-query/station-filters/useServerStationFilters';
+import { toastActions } from '@stores/layout/toastStore';
+import { memberInfoStore } from '@stores/login/memberInfoStore';
+import { memberTokenStore } from '@stores/login/memberTokenStore';
+import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
+
+import { ServerStationFilters, useServerStationFilters } from '@hooks/tanstack-query/station-filters/useServerStationFilters';
 import { useServerStationFilterActions } from '@hooks/useServerStationFilterActions';
 
 import Button from '@common/Button';
@@ -16,9 +21,9 @@ import Text from '@common/Text';
 import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
 import { CHARGER_TYPES, COMPANY_NAME } from '@constants/chargers';
-import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
+import { QUERY_KEY_STATIONS, QUERY_KEY_MEMBER_SELECTED_FILTERS } from '@constants/queryKeys';
 
-import type { Capacity } from '@type';
+import type { Capacity, StationFilters } from '@type';
 
 import FilterSection from './FilterOption';
 
@@ -44,9 +49,41 @@ const ServerStationFilters = () => {
 
   const { connectorTypes, capacities, companies } = serverStationFilters;
 
-  const handleApplySelectedFilters = () => {
-    queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
-    showToast('필터가 적용되었습니다');
+  const handleApplySelectedFilters = async () => {
+    const APIEndPoint = getAPIEndPoint();
+    const memberId = memberInfoStore.getState()?.memberId;
+    const memberToken = memberTokenStore.getState();
+
+    const { getServerStationFilters, setServerStationFilters } = serverStationFilterAction;
+    const selectedFilters = getServerStationFilters();
+
+    if(memberId === undefined) {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
+      showToast('필터가 적용되었습니다');
+      return;
+    }
+
+    try {
+      const stationFilters = await fetch(`${APIEndPoint}/members/${memberId}/filters`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${memberToken}`,
+        },
+        body: JSON.stringify(selectedFilters),
+      }).then<StationFilters>((response) => response.json());
+
+      setServerStationFilters(stationFilters);
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
+
+      showToast('필터가 적용되었습니다');
+    } catch {
+      const stationFilters = queryClient.getQueryData<ServerStationFilters>([QUERY_KEY_MEMBER_SELECTED_FILTERS]);
+      setServerStationFilters(stationFilters);
+      
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
+
+      showToast('필터 적용에 실패했습니다', 'error');
+    }
   };
 
   return (

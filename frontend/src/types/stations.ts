@@ -1,4 +1,4 @@
-import type { CHARGING_SPEED, COMPANY_NAME } from '@constants/chargers';
+import type { CAPACITIES, CHARGING_SPEED, COMPANY_NAME } from '@constants/chargers';
 import type { CHARGER_TYPES } from '@constants/chargers';
 
 import type { Capacity, ChargerMethodType, ChargerStateType } from '@type/chargers';
@@ -102,4 +102,10 @@ export interface Reply {
   content: string;
   isUpdated: boolean;
   isDeleted: boolean;
+}
+
+export interface StationFilters {
+  companies: (keyof typeof COMPANY_NAME)[];
+  connectorTypes: (keyof typeof CHARGER_TYPES)[];
+  capacities: `${(typeof CAPACITIES)[number]}.00`[];
 }
