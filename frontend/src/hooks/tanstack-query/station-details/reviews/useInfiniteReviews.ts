@@ -17,6 +17,7 @@ export const useInfiniteReviews = (stationId: string) => {
       getNextPageParam: (lastPage) => {
         return lastPage.nextPage > 0 ? lastPage.nextPage : undefined;
       },
+      refetchOnWindowFocus: false,
     }
   );
 };
