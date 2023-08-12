@@ -12,6 +12,7 @@ import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
+import ReplyCard from '@ui/StationDetailsWindow/reviews/ReplyCard';
 import ReviewModify from '@ui/StationDetailsWindow/reviews/crud/ReviewModify';
 
 import type { Review } from '@type';
@@ -112,51 +113,12 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
           </Box>
           {isRepliesOpen &&
             replies.map((reply, index) => (
-              <>
-                <Box key={reply.replyId} p={3} pl={8}>
-                  <Box pl={4} py={3} css={{ borderLeft: '1px solid #66666666' }}>
-                    <FlexBox justifyContent="between">
-                      <Box>
-                        <Text variant="label" mb={2}>
-                          {reply.userId}님
-                        </Text>
-                        <Text variant="caption">
-                          {calculateLatestUpdateTime(reply.latestUpdateDate)}{' '}
-                          {reply.isUpdated && '(수정됨)'}
-                        </Text>
-                      </Box>
-                      {Math.random() < 0.5 || isDeleted ? (
-                        <></>
-                      ) : (
-                        <div>
-                          <ButtonNext
-                            size="xs"
-                            variant="text"
-                            color="secondary"
-                            onClick={() => alert('수정')}
-                          >
-                            <PencilIcon width={15} display="inline-block" />
-                          </ButtonNext>
-                          <ButtonNext
-                            size="xs"
-                            variant="text"
-                            color="secondary"
-                            onClick={() => alert('삭제')}
-                          >
-                            <TrashIcon width={15} display="inline-block" />
-                          </ButtonNext>
-                        </div>
-                      )}
-                    </FlexBox>
-                    <Box mt={3}>
-                      <Text variant="body">{reply.content}</Text>
-                    </Box>
-                  </Box>
-                </Box>
-                {index !== replies.length - 1 && (
-                  <Box ml={16} mr={6} my={2} css={{ borderBottom: '1px solid #66666666' }} />
-                )}
-              </>
+              <ReplyCard
+                key={index}
+                reply={reply}
+                previewMode={previewMode}
+                isLastReply={index !== replies.length - 1}
+              />
             ))}
         </>
       )}
