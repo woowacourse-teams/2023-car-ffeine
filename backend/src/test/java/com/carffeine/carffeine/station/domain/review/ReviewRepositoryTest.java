@@ -38,7 +38,6 @@ class ReviewRepositoryTest {
                 .member(member)
                 .ratings(4)
                 .content("덕분에 빠르게 충전했습니다")
-                .isUpdated(false)
                 .isDeleted(false)
                 .build();
         Review savedReview = reviewRepository.save(review);

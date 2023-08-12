@@ -56,8 +56,6 @@ public class Review extends BaseEntity {
 
     private String content;
 
-    private boolean isUpdated;
-
     private boolean isDeleted;
 
     public Review(Long id, Station station, Member member, int ratings, String content, boolean isUpdated, boolean isDeleted) {
@@ -67,7 +65,6 @@ public class Review extends BaseEntity {
         this.member = member;
         this.ratings = ratings;
         this.content = content;
-        this.isUpdated = isUpdated;
         this.isDeleted = isDeleted;
     }
 
@@ -97,7 +94,6 @@ public class Review extends BaseEntity {
     public void updateReview(int ratings, String content) {
         this.ratings = ratings;
         this.content = content;
-        isUpdated = true;
     }
 
     public void delete() {
@@ -119,6 +115,5 @@ public class Review extends BaseEntity {
         if (isDeleted) {
             throw new ReviewException(DELETED_REVIEW);
         }
-
     }
 }

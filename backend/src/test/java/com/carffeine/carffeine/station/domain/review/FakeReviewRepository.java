@@ -25,7 +25,6 @@ public class FakeReviewRepository implements ReviewRepository {
                 .member(review.getMember())
                 .ratings(review.getRatings())
                 .content(review.getContent())
-                .isUpdated(review.isUpdated())
                 .isDeleted(review.isDeleted())
                 .build();
 

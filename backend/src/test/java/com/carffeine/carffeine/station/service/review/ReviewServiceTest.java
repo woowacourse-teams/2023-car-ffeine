@@ -58,7 +58,6 @@ class ReviewServiceTest {
                 .member(member)
                 .ratings(request.ratings())
                 .content(request.content())
-                .isUpdated(false)
                 .isDeleted(false)
                 .build();
 

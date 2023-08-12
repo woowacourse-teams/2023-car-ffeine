@@ -37,7 +37,6 @@ public class ReviewFixture {
                     .member(member)
                     .ratings(2)
                     .content("감사합니다 감사합니다")
-                    .isUpdated(false)
                     .isDeleted(false)
                     .build();
             reviews.add(review);
