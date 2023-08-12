@@ -39,19 +39,7 @@ export default function ReviewList({ stationId }: ReviewListProps) {
             {data.pages.map((page) => (
               <div key={page.currentPage}>
                 {(page.reviews as Review[]).map((review) => (
-                  <ReviewCard
-                    key={review.reviewId}
-                    review={{
-                      content: review.content,
-                      isDeleted: review.isDeleted,
-                      isUpdated: review.isUpdated,
-                      latestUpdateDate: review.latestUpdateDate,
-                      ratings: review.ratings,
-                      replies: review.replies,
-                      reviewId: review.reviewId,
-                      userId: review.userId,
-                    }}
-                  />
+                  <ReviewCard key={review.reviewId} review={review} previewMode />
                 ))}
               </div>
             ))}

@@ -14,9 +14,10 @@ import type { Review } from '@type';
 
 export interface ReviewCardProps {
   review: Review;
+  previewMode?: boolean;
 }
 
-const ReviewCard = ({ review }: ReviewCardProps) => {
+const ReviewCard = ({ review, previewMode }: ReviewCardProps) => {
   const { replies, content, isUpdated, latestUpdateDate, userId, ratings, isDeleted } = review;
   const [isRepliesOpen, setIsRepliesOpen] = useState(false);
 
@@ -42,7 +43,7 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
               </Text>
             </Box>
             <FlexBox>
-              {Math.random() < 0.5 || isDeleted ? (
+              {Math.random() < 0.5 || isDeleted || !previewMode ? (
                 <></>
               ) : (
                 <>
