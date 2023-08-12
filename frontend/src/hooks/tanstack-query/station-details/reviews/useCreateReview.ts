@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { getLocalStorage } from '@utils/storage';
 
 import { serverStore } from '@stores/config/serverStore';
-import { modalSecondaryActions } from '@stores/layout/modalSecondaryStore';
+import { toastActions } from '@stores/layout/toastStore';
 
 import { DEFAULT_TOKEN, SERVERS } from '@constants';
 import { QUERY_KEY_STATION_PREVIEWS, QUERY_KEY_STATION_REVIEWS } from '@constants/queryKeys';
@@ -35,8 +35,7 @@ export const useCreateReview = (stationId: string) => {
   const { mutate, isLoading } = useMutation({
     mutationFn: fetchCreateReview,
     onSuccess: () => {
-      alert('리뷰가 등록됐습니다.');
-      modalSecondaryActions.closeModal();
+      toastActions.showToast('리뷰가 등록됐습니다.', 'success', 'bottom-center');
     },
     onSettled: () => {
       queryClient.invalidateQueries({

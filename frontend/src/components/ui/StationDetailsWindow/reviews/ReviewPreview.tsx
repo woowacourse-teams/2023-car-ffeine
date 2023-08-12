@@ -1,8 +1,3 @@
-import { css } from 'styled-components';
-
-import React, { useState } from 'react';
-
-import { modalSecondaryActions } from '@stores/layout/modalSecondaryStore';
 import { modalActions } from '@stores/layout/modalStore';
 
 import { useReviewRatings } from '@hooks/tanstack-query/station-details/reviews/useReviewRatings';
@@ -11,11 +6,9 @@ import { useReviews } from '@hooks/tanstack-query/station-details/reviews/useRev
 import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
-import Modal from '@common/Modal';
 import Text from '@common/Text';
 
 import ReviewCard from '@ui/StationDetailsWindow/reviews/ReviewCard';
-import ReviewCreate from '@ui/StationDetailsWindow/reviews/ReviewCreate';
 import ReviewList from '@ui/StationDetailsWindow/reviews/ReviewList';
 import ReviewPreviewSkeleton from '@ui/StationDetailsWindow/reviews/ReviewPreviewSkeleton';
 import UserRatings from '@ui/StationDetailsWindow/reviews/UserRatings';
@@ -39,30 +32,10 @@ const ReviewPreview = ({ stationId }: ReviewPreviewProps) => {
     error: reviewsError,
   } = useReviews(stationId);
 
-  const handleCloseModalButton = () => {
-    modalActions.closeModal();
-  };
-  const handleOpenCreateReviewButton = () => {
-    modalSecondaryActions.openModal(<ReviewCreate stationId={stationId} />);
-  };
-
   const handleClickMoreReviewButton = () => {
     modalActions.openModal(
       <>
         <ReviewList stationId={stationId} />
-        <FlexBox nowrap p={4} justifyContent="between" css={modalButtonCss}>
-          <ButtonNext
-            variant="outlined"
-            color="error"
-            fullWidth
-            onClick={() => handleCloseModalButton()}
-          >
-            닫기
-          </ButtonNext>
-          <ButtonNext variant="outlined" fullWidth onClick={() => handleOpenCreateReviewButton()}>
-            후기 작성
-          </ButtonNext>
-        </FlexBox>
       </>
     );
   };
@@ -123,9 +96,3 @@ const ReviewPreview = ({ stationId }: ReviewPreviewProps) => {
 };
 
 export default ReviewPreview;
-
-const modalButtonCss = css`
-  position: sticky;
-  bottom: 0;
-  background: white;
-`;
