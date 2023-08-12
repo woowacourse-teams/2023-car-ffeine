@@ -103,7 +103,7 @@ class ReviewTest {
     @Test
     void 리뷰_등록시_내용이_200자보다_크면_예외가_발생한다() {
         // given
-        거 String content201 = "*".repeat(201);
+        String content201 = "*".repeat(201);
 
         // when & then
         assertThatThrownBy(() -> Review.builder()
