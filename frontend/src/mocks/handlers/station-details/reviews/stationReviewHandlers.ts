@@ -53,4 +53,24 @@ export const stationReviewHandlers = [
       );
     }
   }),
+
+  rest.post(`${SERVERS.localhost}/stations/:stationId/reviews`, async (req, res, ctx) => {
+    return res(ctx.delay(200), ctx.status(204));
+  }),
+  rest.patch(`${SERVERS.localhost}/reviews/:reviewId`, (req, res, ctx) => {
+    return res(ctx.delay(200), ctx.status(204));
+  }),
+  rest.delete(`${SERVERS.localhost}/reviews/:reviewId`, (req, res, ctx) => {
+    return res(ctx.delay(200), ctx.status(204));
+  }),
+
+  rest.post(`${SERVERS.localhost}/stations/:stationId/review/:reviewId/replys`, (req, res, ctx) => {
+    return res(ctx.delay(200), ctx.status(204));
+  }),
+  rest.patch(`${SERVERS.localhost}/reviews/:reviewId/replies/:replyId`, (req, res, ctx) => {
+    return res(ctx.delay(200), ctx.status(204));
+  }),
+  rest.delete(`${SERVERS.localhost}/replys/:replyId`, (req, res, ctx) => {
+    return res(ctx.delay(200), ctx.status(204));
+  }),
 ];

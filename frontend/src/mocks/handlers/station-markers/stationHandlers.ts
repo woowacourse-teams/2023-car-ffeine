@@ -81,7 +81,4 @@ export const stationHandlers = [
       })
     );
   }),
-  rest.post(`${SERVERS.localhost}/stations/:stationId/reviews`, async (req, res, ctx) => {
-    return res(ctx.delay(200), ctx.status(204));
-  }),
 ];
