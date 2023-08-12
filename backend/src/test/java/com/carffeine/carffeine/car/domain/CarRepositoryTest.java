@@ -35,6 +35,15 @@ class CarRepositoryTest extends IntegrationTest {
     }
 
     @Test
+    void 차량의_이름과_연식으로_찾는다() {
+        // when
+        Car foundCar = carRepository.findByNameAndVintage("아이오닉5", "2022-A").get();
+
+        // then
+        assertThat(foundCar).usingRecursiveComparison().isEqualTo(car);
+    }
+
+    @Test
     void 차량을_모두_찾는다() {
         // when
         carRepository.save(Car.from("아이오닉5", "2022-B"));
@@ -45,7 +54,7 @@ class CarRepositoryTest extends IntegrationTest {
     }
 
     @Test
-    void 차량의_이름과_연식으로_찾는다() {
+    void 차량의_이름과_연식으로_존재하는지_찾는다() {
         // when
         boolean isExistedCar = carRepository.existsByNameAndVintage("아이오닉5", "2022-A");
 

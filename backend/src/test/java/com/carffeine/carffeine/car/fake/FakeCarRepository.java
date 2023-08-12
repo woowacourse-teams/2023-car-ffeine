@@ -19,6 +19,14 @@ public class FakeCarRepository implements CarRepository {
     }
 
     @Override
+    public Optional<Car> findByNameAndVintage(final String name, final String vintage) {
+        return map.values()
+                .stream()
+                .filter(it -> it.getName().equals(name) && it.getVintage().equals(vintage))
+                .findAny();
+    }
+
+    @Override
     public List<Car> findAll() {
         return map.values()
                 .stream()

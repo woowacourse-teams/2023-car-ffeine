@@ -22,7 +22,7 @@ public class MemberFilterIntegrationFixture extends IntegrationTest {
                 .extract();
     }
 
-    protected <T> ExtractableResponse 모든_필터_조회_요청(String url, String accessToken) {
+    protected <T> ExtractableResponse 조회_요청(String url, String accessToken) {
         return RestAssured.given().log().all()
                 .accept(ContentType.JSON)
                 .header(HttpHeaders.AUTHORIZATION, accessToken)
