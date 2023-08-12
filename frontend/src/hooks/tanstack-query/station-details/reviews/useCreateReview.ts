@@ -19,7 +19,7 @@ const fetchCreateReview = async (fetchCreateReviewRequestParams: FetchCreateRevi
   const { stationId, ratings, content } = fetchCreateReviewRequestParams;
   const token = getLocalStorage<number>(LOCAL_KEY_TOKEN, DEFAULT_TOKEN);
   const mode = serverStore.getState();
-  return fetch(`${SERVERS[mode]}/stations/${stationId}/misinformation-reports`, {
+  return fetch(`${SERVERS[mode]}/stations/${stationId}/reviews`, {
     method: 'POST',
     headers: {
       Authorization: `${token}`,
@@ -32,7 +32,7 @@ const fetchCreateReview = async (fetchCreateReviewRequestParams: FetchCreateRevi
 export const useCreateReview = (stationId: string) => {
   const queryClient = useQueryClient();
 
-  const { mutate, isLoading } = useMutation({
+  const { mutate, isLoading: isCreateReviewLoading } = useMutation({
     mutationFn: fetchCreateReview,
     onSuccess: () => {
       toastActions.showToast('리뷰가 등록됐습니다.', 'success', 'bottom-center');
@@ -51,5 +51,5 @@ export const useCreateReview = (stationId: string) => {
     mutate(fetchCreateReviewRequestParams);
   };
 
-  return { createReview, isLoading };
+  return { createReview, isCreateReviewLoading };
 };

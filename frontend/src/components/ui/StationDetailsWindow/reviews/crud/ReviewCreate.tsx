@@ -7,7 +7,6 @@ import { useCreateReview } from '@hooks/tanstack-query/station-details/reviews/u
 import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
-import TextField from '@common/TextField';
 
 import ContentField from '@ui/StationDetailsWindow/reviews/crud/ContentField';
 import HeaderWithRating from '@ui/StationDetailsWindow/reviews/crud/HeaderWithRating';
@@ -20,13 +19,13 @@ const ReviewCreate = ({ stationId }: ReviewCreateProps) => {
   const [isReviewCreateOpen, setIsReviewCreateOpen] = useState(false);
   const [stars, setStars] = useState(5);
   const [content, setContent] = useState('');
-  const { createReview, isLoading } = useCreateReview(stationId);
+  const { createReview, isCreateReviewLoading } = useCreateReview(stationId);
 
   useEffect(() => {
-    if (!isLoading && isReviewCreateOpen) {
+    if (!isCreateReviewLoading && isReviewCreateOpen) {
       setIsReviewCreateOpen(false);
     }
-  }, [isLoading]);
+  }, [isCreateReviewLoading]);
 
   const handleClickReviewCreateCloseButton = () => {
     modalActions.closeModal();
@@ -62,13 +61,13 @@ const ReviewCreate = ({ stationId }: ReviewCreateProps) => {
               리뷰 그만작성하기
             </ButtonNext>
             <ButtonNext
-              disabled={isLoading || content.length < 5 || content.length > 100}
+              disabled={isCreateReviewLoading || content.length < 5 || content.length > 100}
               variant="contained"
               color="success"
               fullWidth
               onClick={handleClickReviewCreateButton}
             >
-              {isLoading ? '처리중...' : '등록'}
+              {isCreateReviewLoading ? '처리중...' : '등록'}
             </ButtonNext>
           </>
         ) : (
