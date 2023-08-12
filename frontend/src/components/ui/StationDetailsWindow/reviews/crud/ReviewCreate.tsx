@@ -9,6 +9,7 @@ import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import TextField from '@common/TextField';
 
+import ContentField from '@ui/StationDetailsWindow/reviews/crud/ContentField';
 import HeaderWithRating from '@ui/StationDetailsWindow/reviews/crud/HeaderWithRating';
 
 interface ReviewCreateProps {
@@ -46,18 +47,7 @@ const ReviewCreate = ({ stationId }: ReviewCreateProps) => {
       {isReviewCreateOpen && (
         <>
           <HeaderWithRating stars={stars} setStars={setStars} title="후기 등록하기" />
-          <TextField
-            label="리뷰를 남겨주세요"
-            value={content}
-            fullWidth
-            supportingText={
-              (content.length < 5 || content.length > 100) &&
-              '리뷰는 5자 이상 100자 이하로 작성해주세요.'
-            }
-            onChange={(e) => {
-              setContent(e.target.value);
-            }}
-          />
+          <ContentField content={content} setContent={setContent} />
         </>
       )}
       <FlexBox nowrap>

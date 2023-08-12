@@ -13,7 +13,9 @@ const HeaderWithRating = ({ title, setStars, stars }: HeaderWithRatingProps) => 
   return (
     <>
       <FlexBox justifyContent="between" alignItems="center">
-        <Text>{title}</Text>
+        <Text variant="subtitle" px={1}>
+          {title}
+        </Text>
         <FlexBox justifyContent="center" alignItems="center">
           <Text variant="subtitle">별점 </Text>
           <StarRatings stars={stars} setStars={setStars} size="md" />
