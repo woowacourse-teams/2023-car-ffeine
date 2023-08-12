@@ -9,9 +9,11 @@ import com.carffeine.carffeine.auth.service.AuthService;
 import com.carffeine.carffeine.auth.service.OAuthRequester;
 import com.carffeine.carffeine.filter.service.FilterService;
 import com.carffeine.carffeine.member.domain.MemberRepository;
+import com.carffeine.carffeine.station.domain.review.ReviewRepository;
 import com.carffeine.carffeine.member.service.MemberService;
 import com.carffeine.carffeine.station.service.congestion.CongestionService;
 import com.carffeine.carffeine.station.service.report.ReportService;
+import com.carffeine.carffeine.station.service.review.ReviewService;
 import com.carffeine.carffeine.station.service.station.StationService;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
@@ -39,6 +41,10 @@ public class MockBeanInjection {
     protected AdminStationService adminStationService;
     @MockBean
     protected AdminReportService adminReportService;
+    @MockBean
+    protected ReviewService reviewService;
+    @MockBean
+    protected ReviewRepository reviewRepository;
     @MockBean
     protected AdminMemberService adminMemberService;
     @MockBean
