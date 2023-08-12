@@ -6,7 +6,6 @@ import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 
 import static com.carffeine.carffeine.member.fixture.MemberFixture.일반_회원;
 import static com.carffeine.carffeine.station.fixture.station.StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
@@ -14,7 +13,7 @@ import static com.carffeine.carffeine.station.fixture.station.StationFixture.선
 @SuppressWarnings("NonAsciiCharacters")
 public class ReviewFixture {
 
-    public static final Supplier<Review> 선릉역_충전소_리뷰_별4_15글자 = () -> Review.builder()
+    public static final Review 선릉역_충전소_리뷰_별4_15글자 = Review.builder()
             .id(2L)
             .station(선릉역_충전소_충전기_2개_사용가능_1개)
             .member(일반_회원)
@@ -24,7 +23,7 @@ public class ReviewFixture {
             .isDeleted(false)
             .build();
 
-    public static final Supplier<CreateReviewRequest> 리뷰_요청_1개 = () ->
+    public static final CreateReviewRequest 리뷰_요청_1개 =
             new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
 
     public static List<Review> 리뷰_13개(Member member) {
@@ -46,7 +45,7 @@ public class ReviewFixture {
     public static List<CreateReviewRequest> 리뷰_요청_13개() {
         List<CreateReviewRequest> createReviewRequests = new ArrayList<>();
         for (int i = 0; i < 13; i++) {
-            createReviewRequests.add(리뷰_요청_1개.get());
+            createReviewRequests.add(리뷰_요청_1개);
         }
         return createReviewRequests;
     }

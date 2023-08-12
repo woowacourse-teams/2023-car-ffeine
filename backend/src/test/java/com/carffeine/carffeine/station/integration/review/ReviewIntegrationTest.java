@@ -55,10 +55,10 @@ public class ReviewIntegrationTest extends IntegrationTest {
     void setUp() {
         충전소 = stationRepository.save(선릉역_충전소_충전기_2개_사용가능_1개);
         멤버 = memberRepository.save(일반_회원);
-        요청 = 리뷰_요청_1개.get();
+        요청 = 리뷰_요청_1개;
         토큰 = jwtProvider.create(멤버.getId());
         잘못된_토큰 = jwtProvider.create(123L);
-        리뷰 = reviewRepository.save(선릉역_충전소_리뷰_별4_15글자.get());
+        리뷰 = reviewRepository.save(선릉역_충전소_리뷰_별4_15글자);
     }
 
     @Nested

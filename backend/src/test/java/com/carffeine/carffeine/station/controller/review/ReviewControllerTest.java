@@ -64,7 +64,7 @@ public class ReviewControllerTest extends MockBeanInjection {
         Station station = 선릉역_충전소_충전기_2개_사용가능_1개;
         Member member = 일반_회원;
         CreateReviewRequest request = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
-        Review review = 선릉역_충전소_리뷰_별4_15글자.get();
+        Review review = 선릉역_충전소_리뷰_별4_15글자;
 
         // when
         when(reviewService.saveReview(request, station.getStationId(), member.getId())).thenReturn(review);
@@ -130,7 +130,7 @@ public class ReviewControllerTest extends MockBeanInjection {
         Station station = 선릉역_충전소_충전기_2개_사용가능_1개;
         Member member = 일반_회원;
         CreateReviewRequest request = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
-        Review review = 선릉역_충전소_리뷰_별4_15글자.get();
+        Review review = 선릉역_충전소_리뷰_별4_15글자;
 
         // when
         when(reviewService.saveReview(request, station.getStationId(), member.getId())).thenReturn(review);
@@ -160,7 +160,7 @@ public class ReviewControllerTest extends MockBeanInjection {
         Station station = 선릉역_충전소_충전기_2개_사용가능_1개;
         Member member = 일반_회원;
         CreateReviewRequest request = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
-        Review review = 선릉역_충전소_리뷰_별4_15글자.get();
+        Review review = 선릉역_충전소_리뷰_별4_15글자;
 
         // when
         when(reviewService.saveReview(request, station.getStationId(), member.getId())).thenReturn(review);
