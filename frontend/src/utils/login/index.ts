@@ -2,16 +2,16 @@ import { setSessionStorage } from '@utils/storage';
 
 import { serverStore } from '@stores/config/serverStore';
 import { toastActions } from '@stores/layout/toastStore';
-import { userTokenActions } from '@stores/userTokenStore';
+import { memberTokenActions } from '@stores/login/memberTokenStore';
 
 import { SERVERS } from '@constants';
-import { SESSION_KEY_USER_TOKEN } from '@constants/storageKeys';
+import { SESSION_KEY_MEMBER_TOKEN } from '@constants/storageKeys';
 
 interface TokenResponse {
   token: string;
 }
 
-export const getUserToken = async (code: string, provider: string) => {
+export const getMemberToken = async (code: string, provider: string) => {
   const APIEndPoint = getAPIEndPoint();
   const redirectUri = getRedirectUri();
 
@@ -26,9 +26,9 @@ export const getUserToken = async (code: string, provider: string) => {
     }),
   }).then<TokenResponse>((response) => response.json());
 
-  const userToken = tokenResponse.token;
+  const memberToken = tokenResponse.token;
 
-  return userToken;
+  return memberToken;
 };
 
 interface LoginUriResponse {
@@ -55,10 +55,10 @@ export const redirectToLoginPage = (provider: string) => {
 };
 
 export const logout = () => {
-  const { setUserToken } = userTokenActions;
+  const { setMemberToken } = memberTokenActions;
 
-  setUserToken('');
-  setSessionStorage(SESSION_KEY_USER_TOKEN, '');
+  setMemberToken('');
+  setSessionStorage(SESSION_KEY_MEMBER_TOKEN, '');
 };
 
 export const getRedirectUri = () => {

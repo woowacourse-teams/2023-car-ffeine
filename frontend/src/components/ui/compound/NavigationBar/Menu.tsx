@@ -15,12 +15,12 @@ import { useExternalValue } from '@utils/external-state';
 import { logout } from '@utils/login';
 
 import { modalActions } from '@stores/layout/modalStore';
+import { memberTokenStore } from '@stores/login/memberTokenStore';
 import {
   selectedCapacitiesFilterStore,
   selectedChargerTypesFilterStore,
   selectedCompaniesFilterStore,
 } from '@stores/station-filters/serverStationFiltersStore';
-import { userTokenStore } from '@stores/userTokenStore';
 
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
@@ -39,7 +39,7 @@ import { useNavigationBar } from './hooks/useNavigationBar';
 
 const Menu = () => {
   const { openBasePanel } = useNavigationBar();
-  const userToken = useExternalValue(userTokenStore);
+  const memberToken = useExternalValue(memberTokenStore);
   const queryClient = useQueryClient();
 
   const handleClickLoginIcon = () => {
@@ -97,7 +97,7 @@ const Menu = () => {
       <Button aria-label="충전소 목록 보기" onClick={() => openBasePanel(<StationListWindow />)}>
         <Bars3Icon width="2.8rem" stroke="#333" />
       </Button>
-      {userToken !== '' ? (
+      {memberToken !== '' ? (
         <PopupMenu trigger={<UserCircleIcon width="2.8rem" stroke="#333" />} menus={loginMenus} />
       ) : (
         <Button aria-label="로그인 하기" onClick={handleClickLoginIcon}>

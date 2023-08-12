@@ -1,12 +1,8 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { serverStore } from '@stores/config/serverStore';
-import {
-  selectedCapacitiesFilterStore,
-  selectedChargerTypesFilterStore,
-  selectedCompaniesFilterStore,
-} from '@stores/station-filters/serverStationFiltersStore';
-import { userTokenStore } from '@stores/userTokenStore';
+import { memberInfoStore } from '@stores/login/memberInfoStore';
+import { memberTokenStore } from '@stores/login/memberTokenStore';
 
 import { SERVERS } from '@constants';
 import { QUERY_KEY_USER_SELECTED_FILTERS } from '@constants/queryKeys';
@@ -17,23 +13,24 @@ interface UserFilters {
   selectedFilters: ServerStationFilters;
 }
 
-const fetchUserFilters = async () => {
+const fetchMemberFilters = async () => {
   const mode = serverStore.getState();
-  const userToken = userTokenStore.getState();
+  const memberToken = memberTokenStore.getState();
+  const memberId = memberInfoStore.getState().memberId;
 
-  const userFilters = await fetch(`${SERVERS[mode]}/members/filters`, {
+  const userFilters = await fetch(`${SERVERS[mode]}/members/${memberId}/filters`, {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${userToken}`,
+      Authorization: `Bearer ${memberToken}`,
     },
   }).then<UserFilters>((response) => response.json());
 
   return userFilters.selectedFilters;
 };
 
-export const useUserFilters = () => {
+export const useMemberFilters = () => {
   return useQuery({
     queryKey: [QUERY_KEY_USER_SELECTED_FILTERS],
-    queryFn: fetchUserFilters,
+    queryFn: fetchMemberFilters,
   });
 };
