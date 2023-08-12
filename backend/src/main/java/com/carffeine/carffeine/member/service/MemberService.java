@@ -64,7 +64,7 @@ public class MemberService {
                 .toList();
 
         return filters.stream()
-                .map(it -> new MemberFilter(member, Filter.of(it.getName(), it.getFilterType().getName())))
+                .map(it -> new MemberFilter(member, it))
                 .toList();
     }
 }
