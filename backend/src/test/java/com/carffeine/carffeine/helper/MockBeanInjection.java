@@ -1,11 +1,13 @@
 package com.carffeine.carffeine.helper;
 
+import com.carffeine.carffeine.admin.service.AdminMemberService;
 import com.carffeine.carffeine.admin.service.AdminReportService;
 import com.carffeine.carffeine.admin.service.AdminStationService;
 import com.carffeine.carffeine.auth.controller.AuthMemberResolver;
 import com.carffeine.carffeine.auth.domain.TokenProvider;
 import com.carffeine.carffeine.auth.service.AuthService;
 import com.carffeine.carffeine.auth.service.OAuthRequester;
+import com.carffeine.carffeine.filter.service.FilterService;
 import com.carffeine.carffeine.member.domain.MemberRepository;
 import com.carffeine.carffeine.station.domain.review.ReviewRepository;
 import com.carffeine.carffeine.station.service.congestion.CongestionService;
@@ -42,4 +44,8 @@ public class MockBeanInjection {
     protected ReviewService reviewService;
     @MockBean
     protected ReviewRepository reviewRepository;
+    @MockBean
+    protected AdminMemberService adminMemberService;
+    @MockBean
+    protected FilterService filterService;
 }

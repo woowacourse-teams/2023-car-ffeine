@@ -87,3 +87,26 @@ include::{snippets}/admin-report-controller-test/update-misinformation-checked/p
 === Response
 
 include::{snippets}/admin-report-controller-test/update-misinformation-checked/http-response.adoc[]
+
+== 회원 목록을 조회한다(/admin/members)
+
+=== Request
+
+include::{snippets}/admin-member-controller-test/get-members/http-request.adoc[]
+
+include::{snippets}/admin-member-controller-test/get-members/request-parameters.adoc[]
+
+=== Response
+
+include::{snippets}/admin-member-controller-test/get-members/http-response.adoc[]
+
+== 회원 권한을 수정한다 (/admin/members/{memberId})
+
+=== Request
+
+include::{snippets}/admin-member-controller-test/update-member-role/http-request.adoc[]
+include::{snippets}/admin-member-controller-test/update-member-role/request-fields.adoc[]
+
+=== Response
+
+include::{snippets}/admin-member-controller-test/update-member-role/http-response.adoc[]

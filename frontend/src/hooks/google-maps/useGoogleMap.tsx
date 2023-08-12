@@ -7,19 +7,21 @@ import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
+import StationDetailsWindow from '@ui/StationDetailsWindow';
+import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
+
 import type { StationSummary } from '@type';
 
 import BlueMarker from '@assets/blue-marker.svg';
 
 import { useStationSummary } from './useStationSummary';
-import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
-import StationDetailsWindow from '@ui/StationDetailsWindow';
 
 export const useGoogleMap = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
   const setMarkerInstanceState = useSetExternalState(markerInstanceStore);
   const setSelectedStationId = useSetExternalState(selectedStationIdStore);
-  
+  const selectedStationId = getStoreSnapshot(selectedStationIdStore);
+
   const { openLastPanel } = useNavigationBar();
   const { openStationSummary } = useStationSummary();
 
@@ -49,6 +51,10 @@ export const useGoogleMap = () => {
         markerInstance,
       },
     ]);
+
+    if (selectedStationId === stationId) {
+      openStationSummary(station, markerInstance);
+    }
 
     return () => {
       const selectedStationId = getStoreSnapshot(selectedStationIdStore);

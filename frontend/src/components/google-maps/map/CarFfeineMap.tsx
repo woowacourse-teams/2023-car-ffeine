@@ -9,6 +9,7 @@ import { getSessionStorage, setLocalStorage } from '@utils/storage';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { toastActions } from '@stores/layout/toastStore';
+import { userTokenActions } from '@stores/userTokenStore';
 
 import { useUserFilters } from '@hooks/tanstack-query/station-filters/useUserFilters';
 
@@ -24,10 +25,17 @@ import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
 import { LOCAL_KEY_LAST_POSITION, SESSION_KEY_USER_TOKEN } from '@constants/storageKeys';
 
 const CarFfeineMap = () => {
+  const { setUserToken } = userTokenActions;
+  const userToken = getSessionStorage(SESSION_KEY_USER_TOKEN, '');
+
+  if (userToken !== '') {
+    setUserToken(getSessionStorage(SESSION_KEY_USER_TOKEN, ''));
+  }
+
   return (
     <>
       <CarFfeineMapListener />
-      <UserLoginListener />
+      <UserFilterListener />
       <NavigationBar />
       <ClientStationFilters />
       <MapController />
@@ -40,7 +48,6 @@ const CarFfeineMap = () => {
 
 const CarFfeineMapListener = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
-
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -62,17 +69,8 @@ const CarFfeineMapListener = () => {
   return <></>;
 };
 
-const UserLoginListener = () => {
-  // 이 부분 리뷰 부탁드립니다
+const UserFilterListener = () => {
   useUserFilters();
-
-  useEffect(() => {
-    const userToken = getSessionStorage(SESSION_KEY_USER_TOKEN, '');
-
-    if (userToken !== '') {
-      toastActions.showToast('로그인 되었습니다!');
-    }
-  }, []);
 
   return <></>;
 };

@@ -47,7 +47,7 @@ jobs:
 
           script: |
             sudo docker stop frontend || true
-            sudo docker container prune
+            sudo docker container prune -f
             
             sudo docker pull woowacarffeine/frontend:latest
             
@@ -55,7 +55,8 @@ jobs:
             --name frontend \
             woowacarffeine/frontend:latest
             
-            sudo docker image prune -f
-      - name: clean images
+            sudo docker image prune -a -f
+      - name: clean overlay
         run: |
-          docker image prune -f
+          sudo docker image prune -f
+          sudo docker system prune -a -f
