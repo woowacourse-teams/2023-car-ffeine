@@ -27,8 +27,8 @@ import static com.carffeine.carffeine.helper.integration.AcceptanceTestFixture.t
 import static com.carffeine.carffeine.helper.integration.AcceptanceTestFixture.값이_같은지_비교한다;
 import static com.carffeine.carffeine.helper.integration.AcceptanceTestFixture.상태_코드를_검증한다;
 import static com.carffeine.carffeine.member.fixture.MemberFixture.일반_회원;
+import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.리뷰_별4_15글자;
 import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.리뷰_요청_1개;
-import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.선릉역_충전소_리뷰_별4_15글자;
 import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.수정_요청_1개;
 import static com.carffeine.carffeine.station.fixture.station.StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
 import static com.carffeine.carffeine.station.integration.review.ReviewIntegrationTestFixture.댓글을_등록한다;
@@ -65,7 +65,7 @@ public class ReviewIntegrationTest extends IntegrationTest {
         요청 = 리뷰_요청_1개;
         토큰 = jwtProvider.create(멤버.getId());
         잘못된_토큰 = jwtProvider.create(123L);
-        리뷰 = reviewRepository.save(선릉역_충전소_리뷰_별4_15글자);
+        리뷰 = reviewRepository.save(리뷰_별4_15글자);
     }
 
     private ReviewResponse 해당_댓글을_가져온다() {

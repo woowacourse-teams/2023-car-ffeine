@@ -13,7 +13,7 @@ import static com.carffeine.carffeine.station.fixture.station.StationFixture.선
 @SuppressWarnings("NonAsciiCharacters")
 public class ReviewFixture {
 
-    public static final Review 선릉역_충전소_리뷰_별4_15글자 = Review.builder()
+    public static final Review 리뷰_별4_15글자 = Review.builder()
             .id(2L)
             .station(선릉역_충전소_충전기_2개_사용가능_1개)
             .member(일반_회원)
