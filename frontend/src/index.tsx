@@ -12,12 +12,20 @@ import { getSessionStorage, setSessionStorage } from '@utils/storage';
 
 import { mswModeActions } from '@stores/config/mswModeStore';
 import { serverActions } from '@stores/config/serverStore';
+import { userTokenActions } from '@stores/userTokenStore';
 
 import { GlobalStyle } from 'style/GlobalStyle';
 
-import { SESSION_KEY_SERVER_MODE } from '@constants/storageKeys';
+import { SESSION_KEY_SERVER_MODE, SESSION_KEY_USER_TOKEN } from '@constants/storageKeys';
 
 const queryClient = new QueryClient();
+
+const { setUserToken } = userTokenActions;
+const userToken = getSessionStorage(SESSION_KEY_USER_TOKEN, '');
+
+if (userToken !== '') {
+  setUserToken(userToken);
+}
 
 const main = async () => {
   if (process.env.NODE_ENV === 'development') {

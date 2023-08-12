@@ -2,6 +2,8 @@ import { store } from '@utils/external-state';
 
 import type { CAPACITIES, CHARGER_TYPES, COMPANY_NAME } from '@constants/chargers';
 
-export const selectedCompanyNamesFilterStore = store<(keyof typeof COMPANY_NAME)[]>([]);
-export const selectedChargerTypesFilterStore = store<(keyof typeof CHARGER_TYPES)[]>([]);
-export const selectedCapacitiesFilterStore = store<`${(typeof CAPACITIES)[number]}.00`[]>([]);
+export const selectedCompaniesFilterStore = store<Set<keyof typeof COMPANY_NAME>>(new Set([]));
+export const selectedChargerTypesFilterStore = store<Set<keyof typeof CHARGER_TYPES>>(new Set([]));
+export const selectedCapacitiesFilterStore = store<Set<`${(typeof CAPACITIES)[number]}.00`>>(
+  new Set([])
+);

@@ -7,13 +7,14 @@ import { SESSION_KEY_USER_TOKEN } from '@constants/storageKeys';
 
 const GoogleLogin = () => {
   useEffect(() => {
-    const url = window.location.search.split('&')[0].replace('?code=', '');
+    const code = window.location.search.split('&')[0].replace('?code=', '');
+    const homePageUrl = window.location.href.split('google')[0];
 
     // TODO: 에러 처리하기
-    getUserToken(url).then((token) => {
+    getUserToken(code, homePageUrl).then((token) => {
       setSessionStorage(SESSION_KEY_USER_TOKEN, token);
 
-      window.location.href = 'http://localhost:3000/';
+      window.location.href = homePageUrl;
     });
   }, []);
 

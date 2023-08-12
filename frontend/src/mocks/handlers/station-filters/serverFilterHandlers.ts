@@ -1,7 +1,5 @@
 import { rest } from 'msw';
 
-import { getTypedObjectEntries } from '@utils/getTypedObjectEntries';
-
 import { SERVERS } from '@constants';
 import { CAPACITIES, CHARGER_TYPES, COMPANY_NAME } from '@constants/chargers';
 
@@ -14,15 +12,9 @@ export const serverFilterHandlers = [
     return res(
       ctx.status(200),
       ctx.json({
-        connectorTypes: getTypedObjectEntries(CHARGER_TYPES).map(([key, value]) => ({
-          key,
-          value,
-        })),
-        capacities: CAPACITIES.map((capacity) => ({ capacity })),
-        companyNames: getTypedObjectEntries(COMPANY_NAME).map(([key, value]) => ({
-          key,
-          value,
-        })),
+        connectorTypes: Object.keys(CHARGER_TYPES),
+        capacities: CAPACITIES.map((capacity) => `${capacity}.00`),
+        companies: Object.keys(COMPANY_NAME),
       }),
       ctx.delay(1000)
     );

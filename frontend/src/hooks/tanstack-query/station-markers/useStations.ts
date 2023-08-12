@@ -7,14 +7,13 @@ import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 import { getDisplayPosition } from '@utils/google-maps';
 import { getQueryFormattedUrl } from '@utils/request-query-params';
 
-import { mswModeStore } from '@stores/config/mswModeStore';
 import { serverStore } from '@stores/config/serverStore';
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { clientStationFiltersStore } from '@stores/station-filters/clientStationFiltersStore';
 import {
   selectedCapacitiesFilterStore,
   selectedChargerTypesFilterStore,
-  selectedCompanyNamesFilterStore,
+  selectedCompaniesFilterStore,
 } from '@stores/station-filters/serverStationFiltersStore';
 
 import { SERVERS } from '@constants';
@@ -27,6 +26,11 @@ import type { DisplayPosition } from '@type/stations';
 export const fetchStation = async () => {
   const googleMap = getStoreSnapshot(getGoogleMapStore());
   const displayPosition = getDisplayPosition(googleMap);
+  const { latitudeDelta, longitudeDelta } = displayPosition;
+
+  if (latitudeDelta === 0 && longitudeDelta === 0) {
+    throw new Error('지도가 로드되지 않았습니다');
+  }
 
   if (displayPosition.zoom < INITIAL_ZOOM_SIZE) {
     return new Promise<StationSummary[]>((resolve) => resolve([]));
@@ -38,9 +42,18 @@ export const fetchStation = async () => {
 
   const requestQueryParams = getQueryFormattedUrl({
     ...displayPositionString,
-    companyNames: getStoreSnapshot(selectedCompanyNamesFilterStore).join(','),
-    capacities: getStoreSnapshot(selectedCapacitiesFilterStore).join(','),
-    chargerTypes: getStoreSnapshot(selectedChargerTypesFilterStore).join(','),
+    companies:
+      getStoreSnapshot(selectedCompaniesFilterStore).size > 0
+        ? [...getStoreSnapshot(selectedCompaniesFilterStore)].join(',')
+        : '',
+    capacities:
+      getStoreSnapshot(selectedCapacitiesFilterStore).size > 0
+        ? [...getStoreSnapshot(selectedCapacitiesFilterStore)].join(',')
+        : '',
+    chargerTypes:
+      getStoreSnapshot(selectedChargerTypesFilterStore).size > 0
+        ? [...getStoreSnapshot(selectedChargerTypesFilterStore)].join(',')
+        : '',
   });
 
   const mode = serverStore.getState();

@@ -1,3 +1,4 @@
+import { loginHandlers } from './login/loginHandlers';
 import { memberHandlers } from './memberHandlers';
 import { stationReportHandlers } from './station-details/reports/stationReportHandlers';
 import { stationReviewHandlers } from './station-details/reviews/stationReviewHandlers';
@@ -18,4 +19,5 @@ export const handlers = [
   ...serverFilterHandlers,
   ...stationReportHandlers,
   ...stationReviewHandlers,
+  ...loginHandlers,
 ];
