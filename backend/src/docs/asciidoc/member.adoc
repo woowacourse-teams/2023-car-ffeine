@@ -1,0 +1,35 @@
+= ADMIN API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+
+== 회원이 등록한 모든 필터를 조회한다.
+
+=== Request
+
+include::{snippets}/member-controller-test/find_all_filters/request-headers.adoc[]
+include::{snippets}/member-controller-test/find_all_filters/path-parameters.adoc[]
+include::{snippets}/member-controller-test/find_all_filters/request-body.adoc[]
+include::{snippets}/member-controller-test/find_all_filters/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/member-controller-test/find_all_filters/response-fields.adoc[]
+include::{snippets}/member-controller-test/find_all_filters/http-response.adoc[]
+
+== 회원의 선호 필터를 등록한다
+
+=== Request
+
+include::{snippets}/member-controller-test/add_member_filters/request-headers.adoc[]
+include::{snippets}/member-controller-test/add_member_filters/path-parameters.adoc[]
+include::{snippets}/member-controller-test/add_member_filters/request-fields.adoc[]
+include::{snippets}/member-controller-test/add_member_filters/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/member-controller-test/add_member_filters/response-fields.adoc[]
+include::{snippets}/member-controller-test/add_member_filters/http-response.adoc[]
+

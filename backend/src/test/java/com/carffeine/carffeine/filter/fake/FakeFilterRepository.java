@@ -51,7 +51,7 @@ public class FakeFilterRepository implements FilterRepository {
     }
 
     @Override
-    public void deleteById(final Long id) {
+    public void deleteById(Long id) {
         map.remove(id);
     }
 }

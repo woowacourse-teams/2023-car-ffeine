@@ -20,11 +20,12 @@ import javax.persistence.Id;
 @EqualsAndHashCode(of = "id", callSuper = false)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode(of = {"id"}, callSuper = false)
 @Entity
 public class Member extends BaseEntity {
 
     private static final int EMAIL_MASKING_LENGTH = 2;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -41,6 +42,10 @@ public class Member extends BaseEntity {
 
     public boolean isAdmin() {
         return memberRole == MemberRole.ADMIN;
+    }
+
+    public boolean isSame(Long id) {
+        return this.id.equals(id);
     }
 
     public String maskEmail() {
