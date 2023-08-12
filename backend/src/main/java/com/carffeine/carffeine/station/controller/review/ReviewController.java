@@ -6,6 +6,7 @@ import com.carffeine.carffeine.station.service.review.ReviewService;
 import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+
+import static org.springframework.data.domain.Sort.Direction.DESC;
 
 @RequiredArgsConstructor
 @RestController
@@ -35,7 +38,7 @@ public class ReviewController {
     @GetMapping("/stations/{stationId}/reviews")
     public ResponseEntity<ReviewResponses> findReviews(
             @PathVariable String stationId,
-            Pageable pageable) {
+            @PageableDefault(sort = "id", direction = DESC) Pageable pageable) {
         ReviewResponses responses = reviewService.findAllReviews(stationId, pageable);
         return ResponseEntity.ok(responses);
     }

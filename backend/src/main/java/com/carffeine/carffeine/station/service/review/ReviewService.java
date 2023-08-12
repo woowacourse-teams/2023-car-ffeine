@@ -13,9 +13,7 @@ import com.carffeine.carffeine.station.exception.review.ReviewException;
 import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +26,6 @@ import static com.carffeine.carffeine.station.exception.review.ReviewExceptionTy
 @Service
 public class ReviewService {
 
-    public static final int PAGE_ELEMENT_SIZE = 10;
     public static final int INVALID_PAGE = -1;
     public static final int NEXT_PAGE = 1;
 
@@ -44,7 +41,6 @@ public class ReviewService {
     }
 
     public ReviewResponses findAllReviews(String stationId, Pageable pageable) {
-        pageable = PageRequest.of(pageable.getPageNumber(), PAGE_ELEMENT_SIZE, Sort.by(Sort.Direction.DESC, "createdAt"));
         Page<Review> reviews = findPageReviews(stationId, pageable);
         return ReviewResponses.of(reviews, getNextPage(reviews));
     }
