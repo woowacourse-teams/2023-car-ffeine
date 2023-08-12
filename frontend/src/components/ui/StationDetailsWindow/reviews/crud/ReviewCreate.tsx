@@ -7,10 +7,9 @@ import { useCreateReview } from '@hooks/tanstack-query/station-details/reviews/u
 import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
-import Text from '@common/Text';
 import TextField from '@common/TextField';
 
-import StarRatings from '@ui/StarRatings';
+import HeaderWithRating from '@ui/StationDetailsWindow/reviews/crud/HeaderWithRating';
 
 interface ReviewCreateProps {
   stationId: string;
@@ -46,10 +45,7 @@ const ReviewCreate = ({ stationId }: ReviewCreateProps) => {
     <Box p={4} border>
       {isReviewCreateOpen && (
         <>
-          <FlexBox justifyContent="center" alignItems="center">
-            <Text variant="subtitle">별점 </Text>
-            <StarRatings stars={stars} setStars={setStars} size="md" />
-          </FlexBox>
+          <HeaderWithRating stars={stars} setStars={setStars} title="후기 등록하기" />
           <TextField
             label="리뷰를 남겨주세요"
             value={content}
