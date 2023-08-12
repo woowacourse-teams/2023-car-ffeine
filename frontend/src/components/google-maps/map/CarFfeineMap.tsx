@@ -12,7 +12,7 @@ import { toastActions } from '@stores/layout/toastStore';
 import { memberTokenStore } from '@stores/login/memberTokenStore';
 import {
   selectedCapacitiesFilterStore,
-  selectedChargerTypesFilterStore,
+  selectedConnectorTypesFilterStore,
   selectedCompaniesFilterStore,
 } from '@stores/station-filters/serverStationFiltersStore';
 
@@ -85,7 +85,7 @@ const UserFilterListener = () => {
       const { connectorTypes, capacities, companies } = userFilters;
 
       selectedCapacitiesFilterStore.setState((prev) => new Set([...prev, ...capacities]));
-      selectedChargerTypesFilterStore.setState((prev) => new Set([...prev, ...connectorTypes]));
+      selectedConnectorTypesFilterStore.setState((prev) => new Set([...prev, ...connectorTypes]));
       selectedCompaniesFilterStore.setState((prev) => new Set([...prev, ...companies]));
     }
 

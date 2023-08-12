@@ -1,28 +1,25 @@
 import { store } from '@utils/external-state';
 
-import type { CAPACITIES, CHARGER_TYPES, COMPANY_NAME } from '@constants/chargers';
-
 import type { StationFilters } from '@type';
+import type { CapaCityBigDecimal, CompanyKey, ConnectorTypeKey } from '@type/serverStationFilter';
 
-export const selectedCompaniesFilterStore = store<Set<keyof typeof COMPANY_NAME>>(new Set([]));
-export const selectedChargerTypesFilterStore = store<Set<keyof typeof CHARGER_TYPES>>(new Set([]));
-export const selectedCapacitiesFilterStore = store<Set<`${(typeof CAPACITIES)[number]}.00`>>(
-  new Set([])
-);
+export const selectedCompaniesFilterStore = store<Set<CompanyKey>>(new Set([]));
+export const selectedConnectorTypesFilterStore = store<Set<ConnectorTypeKey>>(new Set([]));
+export const selectedCapacitiesFilterStore = store<Set<CapaCityBigDecimal>>(new Set([]));
 
 export const serverStationFilterAction = {
-  getServerStationFilters(): StationFilters {
+  getAllServerStationFilters(): StationFilters {
     return {
       companies: [...selectedCompaniesFilterStore.getState()],
-      connectorTypes: [...selectedChargerTypesFilterStore.getState()],
+      connectorTypes: [...selectedConnectorTypesFilterStore.getState()],
       capacities: [...selectedCapacitiesFilterStore.getState()],
     };
   },
-  setServerStationFilters(stationFilters: StationFilters) {
+  setAllServerStationFilters(stationFilters: StationFilters) {
     const { companies, capacities, connectorTypes } = stationFilters;
 
     selectedCompaniesFilterStore.setState(new Set([...companies]));
-    selectedChargerTypesFilterStore.setState(new Set([...connectorTypes]));
+    selectedConnectorTypesFilterStore.setState(new Set([...connectorTypes]));
     selectedCapacitiesFilterStore.setState(new Set([...capacities]));
   },
 };

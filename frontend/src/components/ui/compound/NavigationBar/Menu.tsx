@@ -18,7 +18,7 @@ import { modalActions } from '@stores/layout/modalStore';
 import { memberTokenStore } from '@stores/login/memberTokenStore';
 import {
   selectedCapacitiesFilterStore,
-  selectedChargerTypesFilterStore,
+  selectedConnectorTypesFilterStore,
   selectedCompaniesFilterStore,
 } from '@stores/station-filters/serverStationFiltersStore';
 
@@ -65,7 +65,7 @@ const Menu = () => {
         logout();
 
         selectedCapacitiesFilterStore.setState(new Set([]));
-        selectedChargerTypesFilterStore.setState(new Set([]));
+        selectedConnectorTypesFilterStore.setState(new Set([]));
         selectedCompaniesFilterStore.setState(new Set([]));
 
         queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });

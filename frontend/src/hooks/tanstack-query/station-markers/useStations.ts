@@ -12,7 +12,7 @@ import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { clientStationFiltersStore } from '@stores/station-filters/clientStationFiltersStore';
 import {
   selectedCapacitiesFilterStore,
-  selectedChargerTypesFilterStore,
+  selectedConnectorTypesFilterStore,
   selectedCompaniesFilterStore,
 } from '@stores/station-filters/serverStationFiltersStore';
 
@@ -51,8 +51,8 @@ export const fetchStation = async () => {
         ? [...getStoreSnapshot(selectedCapacitiesFilterStore)].join(',')
         : '',
     chargerTypes:
-      getStoreSnapshot(selectedChargerTypesFilterStore).size > 0
-        ? [...getStoreSnapshot(selectedChargerTypesFilterStore)].join(',')
+      getStoreSnapshot(selectedConnectorTypesFilterStore).size > 0
+        ? [...getStoreSnapshot(selectedConnectorTypesFilterStore)].join(',')
         : '',
   });
 

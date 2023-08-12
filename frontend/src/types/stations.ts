@@ -1,7 +1,9 @@
-import type { CAPACITIES, CHARGING_SPEED, COMPANY_NAME } from '@constants/chargers';
-import type { CHARGER_TYPES } from '@constants/chargers';
+import type { CHARGING_SPEED, COMPANIES } from '@constants/chargers';
+import type { CONNECTOR_TYPES } from '@constants/chargers';
 
 import type { Capacity, ChargerMethodType, ChargerStateType } from '@type/chargers';
+
+import type { CapaCityBigDecimal, CompanyKey, ConnectorTypeKey } from './serverStationFilter';
 
 export interface Charger {
   capacity: Capacity;
@@ -9,7 +11,7 @@ export interface Charger {
   method: ChargerMethodType;
   price: number;
   state: ChargerStateType;
-  type: keyof typeof CHARGER_TYPES;
+  type: keyof typeof CONNECTOR_TYPES;
 }
 
 export interface Station {
@@ -73,7 +75,7 @@ export interface DisplayPosition extends Pick<Station, 'latitude' | 'longitude'>
   latitudeDelta: number;
 }
 
-export type CompanyName = (typeof COMPANY_NAME)[keyof typeof COMPANY_NAME];
+export type CompanyName = (typeof COMPANIES)[CompanyKey];
 
 export interface SearchedStation
   extends Pick<Station, 'stationId' | 'stationName' | 'address' | 'latitude' | 'longitude'> {
@@ -105,7 +107,7 @@ export interface Reply {
 }
 
 export interface StationFilters {
-  companies: (keyof typeof COMPANY_NAME)[];
-  connectorTypes: (keyof typeof CHARGER_TYPES)[];
-  capacities: `${(typeof CAPACITIES)[number]}.00`[];
+  companies: CompanyKey[];
+  connectorTypes: ConnectorTypeKey[];
+  capacities: CapaCityBigDecimal[];
 }
