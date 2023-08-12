@@ -33,11 +33,7 @@ const ReviewPreview = ({ stationId }: ReviewPreviewProps) => {
   } = useReviews(stationId);
 
   const handleClickMoreReviewButton = () => {
-    modalActions.openModal(
-      <>
-        <ReviewList stationId={stationId} />
-      </>
-    );
+    modalActions.openModal(<ReviewList stationId={stationId} />);
   };
 
   if (isReviewRatingsLoading || isReviewsLoading) {
