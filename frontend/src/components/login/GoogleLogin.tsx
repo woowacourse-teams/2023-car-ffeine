@@ -11,7 +11,7 @@ const GoogleLogin = () => {
     const homePageUrl = window.location.href.split('google')[0];
 
     // TODO: 에러 처리하기
-    getUserToken(code, homePageUrl).then((token) => {
+    getUserToken(code, 'google').then((token) => {
       setSessionStorage(SESSION_KEY_USER_TOKEN, token);
 
       window.location.href = homePageUrl;

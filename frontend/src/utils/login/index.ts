@@ -11,17 +11,18 @@ interface TokenResponse {
   token: string;
 }
 
-export const getUserToken = async (code: string, homePageUrl: string) => {
-  const mode = serverStore.getState();
+export const getUserToken = async (code: string, provider: string) => {
+  const APIEndPoint = getAPIEndPoint();
+  const redirectUri = getRedirectUri();
 
-  const tokenResponse = await fetch(`${SERVERS[mode]}/oauth/google/login`, {
+  const tokenResponse = await fetch(`${APIEndPoint}/oauth/google/login`, {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',
     },
     body: JSON.stringify({
       code,
-      redirectUri: `${homePageUrl}/google`,
+      redirectUri: `${redirectUri}/${provider}`,
     }),
   }).then<TokenResponse>((response) => response.json());
 
@@ -35,10 +36,13 @@ interface LoginUriResponse {
 }
 
 export const redirectToLoginPage = (provider: string) => {
-  const mode = serverStore.getState();
   const { showToast } = toastActions;
+  const APIEndPoint = getAPIEndPoint();
+  const redirectUri = getRedirectUri();
 
-  fetch(`${SERVERS[mode]}/oauth/${provider}/login-uri?redirect-uri=${SERVERS[mode]}/${provider}`)
+  alert(`${APIEndPoint}/oauth/${provider}/login-uri?redirect-uri=${redirectUri}/${provider}`);
+
+  fetch(`${APIEndPoint}/oauth/${provider}/login-uri?redirect-uri=${redirectUri}/${provider}`)
     .then<LoginUriResponse>((response) => response.json())
     .then((data) => {
       const loginUri = data.loginUri;
@@ -57,4 +61,27 @@ export const logout = () => {
 
   setUserToken('');
   setSessionStorage(SESSION_KEY_USER_TOKEN, '');
+};
+
+export const getRedirectUri = () => {
+  const isDevServer = window.location.href.match(/dev.carffe.in/) !== null;
+
+  const redirectUri =
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:3000'
+      : isDevServer
+      ? `https://dev.carffe.in`
+      : `https://carffe.in`;
+
+  return redirectUri;
+};
+
+export const getAPIEndPoint = () => {
+  const mode = serverStore.getState();
+
+  if (process.env.NODE_ENV === 'production') {
+    return SERVERS['production'];
+  }
+
+  return SERVERS[mode];
 };
