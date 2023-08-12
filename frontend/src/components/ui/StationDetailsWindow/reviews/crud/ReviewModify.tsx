@@ -28,6 +28,7 @@ const ReviewModify = ({ stationId, review, setIsModifyMode }: ReviewModifyProps)
 
   const handleClickModifyReview = () => {
     modifyReview({ reviewId: review.reviewId, ratings: stars, content: content });
+    setIsModifyMode(false);
   };
 
   return (
