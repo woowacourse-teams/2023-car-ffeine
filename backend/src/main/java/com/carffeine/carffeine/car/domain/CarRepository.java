@@ -9,6 +9,8 @@ public interface CarRepository extends Repository<Car, Long> {
 
     Optional<Car> findById(Long carId);
 
+    Optional<Car> findByNameAndVintage(String name, String vintage);
+
     List<Car> findAll();
 
     boolean existsByNameAndVintage(String name, String vintage);
