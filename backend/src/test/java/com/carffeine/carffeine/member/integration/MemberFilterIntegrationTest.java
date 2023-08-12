@@ -2,12 +2,12 @@ package com.carffeine.carffeine.member.integration;
 
 import com.carffeine.carffeine.auth.domain.TokenProvider;
 import com.carffeine.carffeine.filter.controller.dto.FiltersResponse;
+import com.carffeine.carffeine.filter.domain.Filter;
 import com.carffeine.carffeine.filter.domain.FilterRepository;
 import com.carffeine.carffeine.filter.domain.FilterType;
 import com.carffeine.carffeine.filter.service.dto.FilterRequest;
 import com.carffeine.carffeine.filter.service.dto.FiltersRequest;
 import com.carffeine.carffeine.member.domain.Member;
-import com.carffeine.carffeine.member.domain.MemberFilterRepository;
 import com.carffeine.carffeine.member.domain.MemberRepository;
 import com.carffeine.carffeine.member.domain.MemberRole;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,15 +29,9 @@ public class MemberFilterIntegrationTest extends MemberFilterIntegrationFixture 
     private FilterRepository filterRepository;
 
     @Autowired
-    private MemberFilterRepository memberFilterRepository;
-
-    @Autowired
     private TokenProvider provider;
 
-    private FiltersRequest 필터_리스트;
     private FiltersRequest 충전_속도_필터_리스트;
-    private Member 관리자;
-    private String 관리자_토큰;
     private Member 일반_유저;
     private String 유저_토큰;
 
@@ -49,21 +43,11 @@ public class MemberFilterIntegrationTest extends MemberFilterIntegrationFixture 
                 .build());
         유저_토큰 = "Bearer " + provider.create(일반_유저.getId());
 
-        관리자 = memberRepository.save(Member.builder()
-                .id(2L)
-                .memberRole(MemberRole.ADMIN)
-                .build());
-        관리자_토큰 = "Bearer " + provider.create(관리자.getId());
-
-        필터_리스트 = new FiltersRequest(
-                List.of(
-                        new FilterRequest(FilterType.COMPANY.getName(), "광주시"),
-                        new FilterRequest(FilterType.CAPACITY.getName(), "2.00"),
-                        new FilterRequest(FilterType.CONNECTOR_TYPE.getName(), "DC_COMBO")
-                )
-        );
-
-        생성_요청("/filters", 필터_리스트, 관리자_토큰);
+        filterRepository.saveAll(List.of(
+                Filter.of("광주시", FilterType.COMPANY.getName()),
+                Filter.of("2.00", FilterType.CAPACITY.getName()),
+                Filter.of("DC_COMBO", FilterType.CONNECTOR_TYPE.getName())
+        ));
 
         충전_속도_필터_리스트 = new FiltersRequest(
                 List.of(

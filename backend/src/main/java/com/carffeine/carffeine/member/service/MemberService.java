@@ -28,31 +28,31 @@ public class MemberService {
 
     @Transactional(readOnly = true)
     public List<Filter> findMemberFilters(Long memberId, Long loginMember) {
-        validateMember(memberId, loginMember);
-        Member member = findMember(loginMember);
+        Member member = findMember(memberId, loginMember);
+
         return memberFilterRepository.findAllByMember(member).stream()
                 .map(MemberFilter::getFilter)
                 .collect(Collectors.toList());
     }
 
-    private Member findMember(Long loginMember) {
-        return memberRepository.findById(loginMember)
+    private Member findMember(Long memberId, Long loginMember) {
+        Member member = memberRepository.findById(loginMember)
                 .orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND));
+
+        validateMember(memberId, member);
+        return member;
     }
 
-    private void validateMember(Long memberId, Long loginMember) {
-        if (!memberId.equals(loginMember)) {
+    private static void validateMember(Long memberId, Member member) {
+        if (!member.isSame(memberId)) {
             throw new MemberException(MemberExceptionType.INVALID_ACCESS);
         }
     }
 
     @Transactional
     public List<MemberFilter> addMemberFilters(Long memberId, Long loginMember, FiltersRequest filtersRequest) {
-        validateMember(memberId, loginMember);
-
-        Member member = findMember(loginMember);
+        Member member = findMember(memberId, loginMember);
         memberFilterRepository.deleteAllByMember(member);
-
         return memberFilterRepository.saveAll(makeMemberFilters(filtersRequest, member));
     }
 

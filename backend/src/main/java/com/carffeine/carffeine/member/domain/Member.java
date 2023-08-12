@@ -43,6 +43,10 @@ public class Member extends BaseEntity {
         return memberRole == MemberRole.ADMIN;
     }
 
+    public boolean isSame(Long id) {
+        return this.id.equals(id);
+    }
+
     public String maskEmail() {
         return this.email.charAt(0) + "*".repeat(EMAIL_MASKING_LENGTH) + this.email.substring(EMAIL_MASKING_LENGTH + 1);
     }
