@@ -19,7 +19,7 @@ interface ReviewCreateProps {
 const ReviewCreate = ({ stationId }: ReviewCreateProps) => {
   const [isReviewCreateOpen, setIsReviewCreateOpen] = useState(false);
   const [stars, setStars] = useState(5);
-  const [review, setReview] = useState('');
+  const [content, setContent] = useState('');
   const { createReview, isLoading } = useCreateReview(stationId);
 
   useEffect(() => {
@@ -33,8 +33,8 @@ const ReviewCreate = ({ stationId }: ReviewCreateProps) => {
   };
 
   const handleClickReviewCreateButton = () => {
-    if (review.length > 5 && review.length <= 100) {
-      createReview({ stationId, ratings: stars, content: review });
+    if (content.length > 5 && content.length <= 100) {
+      createReview({ stationId, ratings: stars, content });
     }
   };
 
@@ -52,14 +52,14 @@ const ReviewCreate = ({ stationId }: ReviewCreateProps) => {
           </FlexBox>
           <TextField
             label="리뷰를 남겨주세요"
-            value={review}
+            value={content}
             fullWidth
             supportingText={
-              (review.length < 5 || review.length > 100) &&
+              (content.length < 5 || content.length > 100) &&
               '리뷰는 5자 이상 100자 이하로 작성해주세요.'
             }
             onChange={(e) => {
-              setReview(e.target.value);
+              setContent(e.target.value);
             }}
           />
         </>
@@ -76,7 +76,7 @@ const ReviewCreate = ({ stationId }: ReviewCreateProps) => {
               리뷰 그만작성하기
             </ButtonNext>
             <ButtonNext
-              disabled={isLoading || review.length < 5 || review.length > 100}
+              disabled={isLoading || content.length < 5 || content.length > 100}
               variant="contained"
               color="success"
               fullWidth
