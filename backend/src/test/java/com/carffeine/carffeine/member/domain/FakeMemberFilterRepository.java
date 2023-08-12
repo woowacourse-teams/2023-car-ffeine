@@ -11,14 +11,14 @@ public class FakeMemberFilterRepository implements MemberFilterRepository {
     private Long id = 0L;
 
     @Override
-    public List<MemberFilter> findAllByMember(final Member member) {
+    public List<MemberFilter> findAllByMember(Member member) {
         return map.values()
                 .stream()
                 .toList();
     }
 
     @Override
-    public void deleteAllByMember(final Member member) {
+    public void deleteAllByMember(Member member) {
         List<Long> keys = map.keySet()
                 .stream()
                 .filter(it -> map.get(it).getMember().equals(member))
@@ -28,7 +28,7 @@ public class FakeMemberFilterRepository implements MemberFilterRepository {
     }
 
     @Override
-    public <S extends MemberFilter> List<S> saveAll(final Iterable<S> memberFilters) {
+    public <S extends MemberFilter> List<S> saveAll(Iterable<S> memberFilters) {
         List<S> savedMemberFilters = new ArrayList<>();
 
         for (S memberFilter : memberFilters) {

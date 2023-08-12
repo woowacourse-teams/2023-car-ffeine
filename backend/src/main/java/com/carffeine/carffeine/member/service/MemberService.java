@@ -29,8 +29,8 @@ public class MemberService {
     @Transactional(readOnly = true)
     public List<Filter> findMemberFilters(Long memberId, Long loginMember) {
         validateMember(memberId, loginMember);
-
-        return memberFilterRepository.findAllByMember(findMember(loginMember)).stream()
+        Member member = findMember(loginMember);
+        return memberFilterRepository.findAllByMember(member).stream()
                 .map(MemberFilter::getFilter)
                 .collect(Collectors.toList());
     }

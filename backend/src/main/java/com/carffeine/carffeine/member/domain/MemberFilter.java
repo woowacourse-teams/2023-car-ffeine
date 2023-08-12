@@ -42,7 +42,7 @@ public class MemberFilter extends BaseEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Filter filter;
 
-    public MemberFilter(final Member member, final Filter filter) {
+    public MemberFilter(Member member, Filter filter) {
         this.member = member;
         this.filter = filter;
     }

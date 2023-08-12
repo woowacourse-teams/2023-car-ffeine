@@ -17,7 +17,6 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -28,6 +27,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
@@ -61,7 +62,7 @@ class MemberControllerTest extends MockBeanInjection {
         when(memberService.findMemberFilters(any(), any())).thenReturn(filters);
 
         // then
-        mockMvc.perform(RestDocumentationRequestBuilders.get("/members/{memberId}/filters", 1L)
+        mockMvc.perform(get("/members/{memberId}/filters", 1L)
                         .header(HttpHeaders.AUTHORIZATION, "token")
                 ).andExpect(status().isOk())
                 .andDo(customDocument("find_member_filters",
@@ -101,7 +102,7 @@ class MemberControllerTest extends MockBeanInjection {
         when(memberService.addMemberFilters(any(), any(), any())).thenReturn(memberFilters);
 
         // then
-        mockMvc.perform(RestDocumentationRequestBuilders.post("/members/{memberId}/filters", 1L)
+        mockMvc.perform(post("/members/{memberId}/filters", 1L)
                         .header(HttpHeaders.AUTHORIZATION, "token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(filtersRequest))

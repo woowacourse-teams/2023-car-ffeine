@@ -13,6 +13,8 @@ import com.carffeine.carffeine.member.domain.MemberFilter;
 import com.carffeine.carffeine.member.domain.MemberFilterRepository;
 import com.carffeine.carffeine.member.domain.MemberRepository;
 import com.carffeine.carffeine.member.domain.MemberRole;
+import com.carffeine.carffeine.member.exception.MemberException;
+import com.carffeine.carffeine.member.exception.MemberExceptionType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -21,7 +23,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.SoftAssertions.assertSoftly;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
@@ -63,7 +65,15 @@ class MemberServiceTest {
         List<Filter> result = memberService.findMemberFilters(member.getId(), member.getId());
 
         // then
-        assertThat(memberFilters.get(0).getFilter().getName()).isEqualTo(result.get(0).getName());
+        assertThat(memberFilters.get(0).getFilter().equals(result.get(0))).isTrue();
+    }
+
+    @Test
+    void 다른_회원의_필터를_조회하면_예외를_반환한다() {
+        // when & then
+        assertThatThrownBy(() -> memberService.findMemberFilters(member.getId(), member.getId() + 1))
+                .isInstanceOf(MemberException.class)
+                .hasMessage(MemberExceptionType.INVALID_ACCESS.message());
     }
 
     @Test
@@ -74,7 +84,6 @@ class MemberServiceTest {
                 Filter.of("2.00", FilterType.CAPACITY.getName()),
                 Filter.of("DC_COMBO", FilterType.CONNECTOR_TYPE.getName())
         ));
-
 
         FiltersRequest filtersRequest = new FiltersRequest(
                 List.of(
@@ -89,9 +98,14 @@ class MemberServiceTest {
 
         // then
         List<MemberFilter> memberFilters = memberFilterRepository.findAllByMember(member);
+        assertThat(result.size()).isEqualTo(memberFilters.size());
+    }
 
-        assertSoftly(softly -> {
-            softly.assertThat(result.size()).isEqualTo(memberFilters.size());
-        });
+    @Test
+    void 다른_회원의_필터를_등록하면_예외를_반환한다() {
+        // when & then
+        assertThatThrownBy(() -> memberService.addMemberFilters(member.getId(), member.getId() + 1, null))
+                .isInstanceOf(MemberException.class)
+                .hasMessage(MemberExceptionType.INVALID_ACCESS.message());
     }
 }
