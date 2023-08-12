@@ -1,7 +1,9 @@
 import { useState } from 'react';
 
+import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
+import Text from '@common/Text';
 import TextField from '@common/TextField';
 
 import StarRatings from '@ui/StarRatings';
@@ -18,8 +20,11 @@ const ReviewModify = ({ review, setIsModifyMode }: ReviewModifyProps) => {
   const [content, setContent] = useState(review.content);
 
   return (
-    <>
-      <StarRatings stars={stars} setStars={setStars} />
+    <Box border>
+      <FlexBox justifyContent="center" alignItems="center">
+        <Text variant="subtitle">별점 </Text>
+        <StarRatings stars={stars} setStars={setStars} size="md" />
+      </FlexBox>
       <TextField value={content} onChange={(e) => setContent(e.target.value)} fullWidth />
       <FlexBox nowrap>
         <ButtonNext
@@ -39,7 +44,7 @@ const ReviewModify = ({ review, setIsModifyMode }: ReviewModifyProps) => {
           수정
         </ButtonNext>
       </FlexBox>
-    </>
+    </Box>
   );
 };
 
