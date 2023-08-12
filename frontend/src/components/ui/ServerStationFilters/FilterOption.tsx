@@ -4,24 +4,17 @@ import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-import type { CHARGER_TYPES } from '@constants/chargers';
-import type { COMPANY_NAME } from '@constants/chargers';
-
-import type { Capacity, ChargerType } from '@type/chargers';
+import type { Capacity, ConnectorTypeName } from '@type/chargers';
+import type { CapaCityBigDecimal, CompanyKey, ConnectorTypeKey } from '@type/serverStationFilter';
 import type { CompanyName } from '@type/stations';
 
 interface FilterSectionProps {
   title: string;
   filterButtonVariant?: 'xs' | 'sm';
-  filterOptionNames:
-    | (typeof CHARGER_TYPES)[keyof typeof CHARGER_TYPES][]
-    | Capacity[]
-    | CompanyName[];
-  filterOptionValues: ChargerType[] | `${Capacity}.00`[] | (keyof typeof COMPANY_NAME)[];
-  toggleSelectFilter: (filter: ChargerType | `${Capacity}.00` | keyof typeof COMPANY_NAME) => void;
-  getIsFilterSelected: (
-    filter: ChargerType | `${Capacity}.00` | keyof typeof COMPANY_NAME
-  ) => boolean;
+  filterOptionNames: ConnectorTypeName[] | Capacity[] | CompanyName[];
+  filterOptionValues: ConnectorTypeKey[] | CapaCityBigDecimal[] | CompanyKey[];
+  toggleSelectFilter: (filter: ConnectorTypeKey | CapaCityBigDecimal | CompanyKey) => void;
+  getIsFilterSelected: (filter: ConnectorTypeKey | CapaCityBigDecimal | CompanyKey) => boolean;
 }
 
 const FilterSection = ({

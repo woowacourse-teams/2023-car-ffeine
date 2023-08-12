@@ -7,18 +7,19 @@ import {
   getRandomTime,
 } from '@utils/randomDataGenerator';
 
-import { CHARGER_TYPES, COMPANY_NAME } from '@constants/chargers';
+import { CONNECTOR_TYPES, COMPANIES } from '@constants/chargers';
 import { ENGLISH_DAYS } from '@constants/congestion';
 import { MAX_SEARCH_RESULTS } from '@constants/stationSearch';
 
-import type { Capacity, ChargerDetails, ChargerType } from '@type/chargers';
+import type { Capacity, ChargerDetails } from '@type/chargers';
 import type { Congestion, CongestionStatistics, EnglishDaysType } from '@type/congestion';
+import type { ConnectorTypeKey } from '@type/serverStationFilter';
 import type { CompanyName, Review, Station } from '@type/stations';
 
 export const generateRandomChargers = () => {
   const length = Math.floor(Math.random() * 10) + 1;
   const chargers: ChargerDetails[] = Array.from({ length }, () => ({
-    type: generateRandomData<ChargerType>(getTypedObjectKeys(CHARGER_TYPES)),
+    type: generateRandomData<ConnectorTypeKey>(getTypedObjectKeys(CONNECTOR_TYPES)),
     price: generateRandomData([200, 250, 300, 350, 400]),
     capacity: generateRandomData<Capacity>([3, 7, 50, 100, 200]),
     latestUpdateTime: getRandomTime(),
@@ -54,7 +55,7 @@ export const stations: Station[] = Array.from({ length: 3000 }, (_, index) => {
   return {
     stationId: randomStationId,
     stationName: `충전소 ${randomStationId}`,
-    companyName: generateRandomData<CompanyName>(Object.values(COMPANY_NAME)),
+    companyName: generateRandomData<CompanyName>(Object.values(COMPANIES)),
     contact: generateRandomData(['', '010-1234-5678', '02-000-0000']),
     chargers: generateRandomChargers(),
     isParkingFree: generateRandomData<boolean>([true, false]),

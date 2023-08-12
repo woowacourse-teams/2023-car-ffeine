@@ -9,14 +9,14 @@ import { setLocalStorage } from '@utils/storage';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { toastActions } from '@stores/layout/toastStore';
+import { memberTokenStore } from '@stores/login/memberTokenStore';
 import {
   selectedCapacitiesFilterStore,
-  selectedChargerTypesFilterStore,
+  selectedConnectorTypesFilterStore,
   selectedCompaniesFilterStore,
 } from '@stores/station-filters/serverStationFiltersStore';
-import { userTokenStore } from '@stores/userTokenStore';
 
-import { useUserFilters } from '@hooks/tanstack-query/station-filters/useUserFilters';
+import { useMemberFilters } from '@hooks/tanstack-query/station-filters/useMemberFilters';
 import { useUpdateStations } from '@hooks/tanstack-query/station-markers/useUpdateStations';
 
 import ToastContainer from '@common/Toast/ToastContainer';
@@ -78,14 +78,14 @@ const CarFfeineMapListener = () => {
 
 const UserFilterListener = () => {
   const queryClient = useQueryClient();
-  const { data: userFilters } = useUserFilters();
+  const { data: userFilters } = useMemberFilters();
 
   useEffect(() => {
-    if (userTokenStore.getState() !== '' && userFilters) {
+    if (memberTokenStore.getState() !== '' && userFilters) {
       const { connectorTypes, capacities, companies } = userFilters;
 
       selectedCapacitiesFilterStore.setState((prev) => new Set([...prev, ...capacities]));
-      selectedChargerTypesFilterStore.setState((prev) => new Set([...prev, ...connectorTypes]));
+      selectedConnectorTypesFilterStore.setState((prev) => new Set([...prev, ...connectorTypes]));
       selectedCompaniesFilterStore.setState((prev) => new Set([...prev, ...companies]));
     }
 

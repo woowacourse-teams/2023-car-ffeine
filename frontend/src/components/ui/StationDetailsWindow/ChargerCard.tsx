@@ -7,7 +7,7 @@ import Box from '@common/Box';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-import { CHARGER_STATES, CHARGER_TYPES } from '@constants/chargers';
+import { CHARGER_STATES, CONNECTOR_TYPES } from '@constants/chargers';
 
 import type { ChargerDetails } from '@type/chargers';
 
@@ -24,7 +24,7 @@ const ChargerCard = ({ charger }: ChargerCardProps) => {
         <Text>{CHARGER_STATES[state]}</Text>
       </FlexBox>
       <article>
-        <Text>{CHARGER_TYPES[type]}</Text>
+        <Text>{CONNECTOR_TYPES[type]}</Text>
         <Text>{price}원/kWh</Text>
         <Text>
           {capacity >= 50 ? '급속' : '완속'}({capacity}kW)
