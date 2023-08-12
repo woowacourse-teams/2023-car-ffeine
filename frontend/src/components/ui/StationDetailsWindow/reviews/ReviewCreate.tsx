@@ -2,6 +2,8 @@ import { useState } from 'react';
 
 import { modalSecondaryActions } from '@stores/layout/modalSecondaryStore';
 
+import { useCreateReview } from '@hooks/tanstack-query/station-details/reviews/useCreateReview';
+
 import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
@@ -10,12 +12,21 @@ import TextField from '@common/TextField';
 
 import StarRatings from '@ui/StarRatings';
 
-const ReviewCreate = () => {
+interface ReviewCreateProps {
+  stationId: string;
+}
+
+const ReviewCreate = ({ stationId }: ReviewCreateProps) => {
   const [stars, setStars] = useState(5);
   const [review, setReview] = useState('');
+  const { createReview, isLoading } = useCreateReview(stationId);
 
-  const handleCloseReviewCreate = () => {
+  const handleClickReviewCreateCloseButton = () => {
     modalSecondaryActions.closeModal();
+  };
+
+  const handleClickReviewCreateButton = () => {
+    createReview({ stationId, ratings: stars, content: review });
   };
 
   return (
@@ -35,11 +46,21 @@ const ReviewCreate = () => {
         }}
       />
       <FlexBox nowrap>
-        <ButtonNext variant="outlined" color="error" fullWidth onClick={handleCloseReviewCreate}>
+        <ButtonNext
+          variant="outlined"
+          color="error"
+          fullWidth
+          onClick={handleClickReviewCreateCloseButton}
+        >
           닫기
         </ButtonNext>
-        <ButtonNext variant="contained" fullWidth>
-          등록
+        <ButtonNext
+          disabled={isLoading}
+          variant="contained"
+          fullWidth
+          onClick={handleClickReviewCreateButton}
+        >
+          {isLoading ? '처리중...' : '등록'}
         </ButtonNext>
       </FlexBox>
     </Box>

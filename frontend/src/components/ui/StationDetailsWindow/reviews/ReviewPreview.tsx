@@ -43,7 +43,7 @@ const ReviewPreview = ({ stationId }: ReviewPreviewProps) => {
     modalActions.closeModal();
   };
   const handleOpenCreateReviewButton = () => {
-    modalSecondaryActions.openModal(<ReviewCreate />);
+    modalSecondaryActions.openModal(<ReviewCreate stationId={stationId} />);
   };
 
   const handleClickMoreReviewButton = () => {

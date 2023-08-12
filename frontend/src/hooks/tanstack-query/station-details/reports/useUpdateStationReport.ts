@@ -10,12 +10,12 @@ import type { Differences } from '@ui/StationDetailsWindow/reports/StationReport
 import { DEFAULT_TOKEN, SERVERS } from '@constants';
 import { LOCAL_KEY_TOKEN } from '@constants/storageKeys';
 
-interface fetchReportStationRequest {
+interface FetchReportStationRequest {
   stationId: string;
   differences: Differences[];
 }
 
-const fetchReportStation = async (fetchReportStationRequestParams: fetchReportStationRequest) => {
+const fetchReportStation = async (fetchReportStationRequestParams: FetchReportStationRequest) => {
   const { stationId, differences } = fetchReportStationRequestParams;
   const token = getLocalStorage<number>(LOCAL_KEY_TOKEN, DEFAULT_TOKEN);
   const mode = serverStore.getState();
@@ -37,7 +37,7 @@ export const useUpdateStationReport = () => {
     },
   });
 
-  const updateStationReport = (fetchReportStationRequestParams: fetchReportStationRequest) => {
+  const updateStationReport = (fetchReportStationRequestParams: FetchReportStationRequest) => {
     mutate(fetchReportStationRequestParams);
   };
 
