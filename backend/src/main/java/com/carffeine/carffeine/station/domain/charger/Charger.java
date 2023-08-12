@@ -87,7 +87,7 @@ public class Charger extends BaseEntity {
         return capacity;
     }
 
-    public boolean isUpdated(final Charger charger) {
+    public boolean isUpdated(Charger charger) {
         if (!this.type.equals(charger.type)) {
             return true;
         }

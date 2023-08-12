@@ -38,7 +38,7 @@ public class Filter extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private FilterType filterType;
 
-    public Filter(final String name, final FilterType filterType) {
+    public Filter(String name, FilterType filterType) {
         this.name = name;
         this.filterType = filterType;
     }
