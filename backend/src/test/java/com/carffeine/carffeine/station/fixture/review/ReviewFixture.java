@@ -26,6 +26,9 @@ public class ReviewFixture {
     public static final CreateReviewRequest 리뷰_요청_1개 =
             new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
 
+    public static final CreateReviewRequest 수정_요청_1개 =
+            new CreateReviewRequest(4, "리뷰를 수정하고자 합니다");
+
     public static List<Review> 리뷰_13개(Member member) {
         List<Review> reviews = new ArrayList<>();
         for (int i = 0; i < 13; i++) {

@@ -29,6 +29,7 @@ import static com.carffeine.carffeine.helper.integration.AcceptanceTestFixture.�
 import static com.carffeine.carffeine.member.fixture.MemberFixture.일반_회원;
 import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.리뷰_요청_1개;
 import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.선릉역_충전소_리뷰_별4_15글자;
+import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.수정_요청_1개;
 import static com.carffeine.carffeine.station.fixture.station.StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
 import static com.carffeine.carffeine.station.integration.review.ReviewIntegrationTestFixture.댓글을_등록한다;
 import static com.carffeine.carffeine.station.integration.review.ReviewIntegrationTestFixture.댓글을_삭제한다;
@@ -97,7 +98,8 @@ public class ReviewIntegrationTest extends IntegrationTest {
         void 인증된_멤버일_경우_정상_응답한다() {
             // when
             var post응답 = 댓글을_등록한다(요청, 토큰, 충전소);
-            var 최근_댓글 = 최근_댓글을_가져온다();
+            var 응답 = 댓글을_조회한다(충전소).as(ReviewResponses.class);
+            var 최근_댓글 = 응답.reviews().get(0);
 
             // then
             SoftAssertions.assertSoftly(softly -> {
@@ -105,12 +107,6 @@ public class ReviewIntegrationTest extends IntegrationTest {
                 값이_같은지_비교한다(최근_댓글.ratings(), 요청.ratings());
                 값이_같은지_비교한다(최근_댓글.content(), 요청.content());
             });
-        }
-
-        private ReviewResponse 최근_댓글을_가져온다() {
-            var get응답 = 댓글을_조회한다(충전소);
-            var 응답 = get응답.as(ReviewResponses.class);
-            return 응답.reviews().get(응답.reviews().size() - 1);
         }
 
         @Test
@@ -132,13 +128,13 @@ public class ReviewIntegrationTest extends IntegrationTest {
             댓글을_등록한다(요청, 토큰, 충전소);
 
             // when
-            var patch응답 = 댓글을_수정한다(요청, 토큰, 리뷰);
+            var patch응답 = 댓글을_수정한다(수정_요청_1개, 토큰, 리뷰);
             var 해당_댓글 = 해당_댓글을_가져온다();
             // then
             SoftAssertions.assertSoftly(softly -> {
                 상태_코드를_검증한다(patch응답, NO_CONTENT);
-                값이_같은지_비교한다(해당_댓글.ratings(), 요청.ratings());
-                값이_같은지_비교한다(해당_댓글.content(), 요청.content());
+                값이_같은지_비교한다(해당_댓글.ratings(), 수정_요청_1개.ratings());
+                값이_같은지_비교한다(해당_댓글.content(), 수정_요청_1개.content());
             });
         }
 
@@ -148,7 +144,7 @@ public class ReviewIntegrationTest extends IntegrationTest {
             댓글을_등록한다(요청, 토큰, 충전소);
 
             // when
-            var patch응답 = 댓글을_수정한다(요청, 잘못된_토큰, 리뷰);
+            var patch응답 = 댓글을_수정한다(수정_요청_1개, 잘못된_토큰, 리뷰);
 
             // then
             상태_코드를_검증한다(patch응답, NOT_FOUND);

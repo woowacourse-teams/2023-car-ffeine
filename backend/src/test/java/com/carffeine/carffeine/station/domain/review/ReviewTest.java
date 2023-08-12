@@ -1,6 +1,7 @@
 package com.carffeine.carffeine.station.domain.review;
 
 import com.carffeine.carffeine.station.exception.review.ReviewException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,6 @@ import static com.carffeine.carffeine.station.exception.review.ReviewExceptionTy
 import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.INVALID_CONTENT_MIN_LENGTH;
 import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.INVALID_RATINGS_MAX_LENGTH;
 import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.INVALID_RATINGS_MIN_LENGTH;
-import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.선릉역_충전소_리뷰_별4_15글자;
 import static com.carffeine.carffeine.station.fixture.station.StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -22,11 +22,23 @@ import static org.assertj.core.api.SoftAssertions.assertSoftly;
 @SuppressWarnings("NonAsciiCharacters")
 class ReviewTest {
 
+    private Review review;
+
+    @BeforeEach
+    void setUp() {
+        review = Review.builder()
+                .id(2L)
+                .station(선릉역_충전소_충전기_2개_사용가능_1개)
+                .member(일반_회원)
+                .ratings(4)
+                .content("덕분에 빠르게 충전했습니다")
+                .isUpdated(false)
+                .isDeleted(false)
+                .build();
+    }
+
     @Test
     void 리뷰를_수정한다() {
-        // given
-        Review review = 선릉역_충전소_리뷰_별4_15글자;
-
         // when
         review.updateReview(4, "리뷰를 수정하고자 합니다");
 
@@ -39,9 +51,6 @@ class ReviewTest {
 
     @Test
     void 리뷰를_삭제처리한다() {
-        // given
-        Review review = 선릉역_충전소_리뷰_별4_15글자;
-
         // when
         review.delete();
 
