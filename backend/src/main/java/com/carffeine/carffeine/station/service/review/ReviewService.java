@@ -40,11 +40,13 @@ public class ReviewService {
         return reviewRepository.save(review);
     }
 
+    @Transactional(readOnly = true)
     public ReviewResponses findAllReviews(String stationId, Pageable pageable) {
         Page<Review> reviews = findPageReviews(stationId, pageable);
         return ReviewResponses.of(reviews, getNextPage(reviews));
     }
 
+    @Transactional(readOnly = true)
     public Page<Review> findPageReviews(String stationId, Pageable pageable) {
         Station station = findStation(stationId);
         return reviewRepository.findAllByStation(station, pageable);
