@@ -10,7 +10,7 @@ import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-import ReviewModify from '@ui/StationDetailsWindow/reviews/ReviewModify';
+import ReviewModify from '@ui/StationDetailsWindow/reviews/crud/ReviewModify';
 
 import type { Review } from '@type';
 

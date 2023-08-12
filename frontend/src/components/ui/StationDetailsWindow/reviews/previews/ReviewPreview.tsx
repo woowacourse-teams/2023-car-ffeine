@@ -10,8 +10,8 @@ import Text from '@common/Text';
 
 import ReviewCard from '@ui/StationDetailsWindow/reviews/ReviewCard';
 import ReviewList from '@ui/StationDetailsWindow/reviews/ReviewList';
-import ReviewPreviewSkeleton from '@ui/StationDetailsWindow/reviews/ReviewPreviewSkeleton';
-import UserRatings from '@ui/StationDetailsWindow/reviews/UserRatings';
+import ReviewPreviewSkeleton from '@ui/StationDetailsWindow/reviews/previews/ReviewPreviewSkeleton';
+import UserRatings from '@ui/StationDetailsWindow/reviews/previews/UserRatings';
 
 export interface ReviewPreviewProps {
   stationId: string;

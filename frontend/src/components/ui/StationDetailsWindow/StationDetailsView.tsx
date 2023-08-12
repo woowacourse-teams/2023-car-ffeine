@@ -15,7 +15,7 @@ import ChargerCard from '@ui/StationDetailsWindow/ChargerCard';
 import StationInformation from '@ui/StationDetailsWindow/StationInformation';
 import ChargerReportConfirmation from '@ui/StationDetailsWindow/reports/ChargerReportConfirmation';
 import StationReportPreConfirmation from '@ui/StationDetailsWindow/reports/StationReportPreConfirmation';
-import ReviewPreview from '@ui/StationDetailsWindow/reviews/ReviewPreview';
+import ReviewPreview from '@ui/StationDetailsWindow/reviews/previews/ReviewPreview';
 
 import type { StationDetails } from '@type';
 
