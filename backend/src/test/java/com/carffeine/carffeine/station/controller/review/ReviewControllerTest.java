@@ -95,7 +95,7 @@ public class ReviewControllerTest extends MockBeanInjection {
 
         // when
         when(reviewService.findAllReviews(eq(stationId), any(Pageable.class))).thenReturn(new ReviewResponses(
-                List.of(new ReviewResponse(1L, 1L, LocalDateTime.now(), 1L, "덕분에 빠르게 충전했습니다", false, false)), 1
+                List.of(new ReviewResponse(1L, 1L, LocalDateTime.now(), 1, "덕분에 빠르게 충전했습니다", false, false)), 1
         ));
 
         // then

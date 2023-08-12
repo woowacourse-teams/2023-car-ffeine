@@ -6,7 +6,7 @@ public record ReviewResponse(
         Long reviewId,
         Long memberId,
         LocalDateTime latestUpdateDate,
-        long ratings,
+        int ratings,
         String content,
         boolean isUpdated,
         boolean isDeleted
