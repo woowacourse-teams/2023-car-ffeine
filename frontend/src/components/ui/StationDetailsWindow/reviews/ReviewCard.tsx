@@ -15,18 +15,19 @@ import ReviewModify from '@ui/StationDetailsWindow/reviews/crud/ReviewModify';
 import type { Review } from '@type';
 
 export interface ReviewCardProps {
+  stationId: string;
   review: Review;
   previewMode?: boolean;
 }
 
-const ReviewCard = ({ review, previewMode }: ReviewCardProps) => {
+const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
   const { replies, content, isUpdated, latestUpdateDate, userId, ratings, isDeleted } = review;
   const [isRepliesOpen, setIsRepliesOpen] = useState(false);
   const [isModifyMode, setIsModifyMode] = useState(false);
   return (
     <>
       {isModifyMode ? (
-        <ReviewModify review={review} setIsModifyMode={setIsModifyMode} />
+        <ReviewModify stationId={stationId} review={review} setIsModifyMode={setIsModifyMode} />
       ) : (
         <>
           <Box p={2} mb={4}>

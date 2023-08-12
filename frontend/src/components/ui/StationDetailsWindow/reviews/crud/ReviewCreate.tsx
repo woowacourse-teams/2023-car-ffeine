@@ -32,7 +32,7 @@ const ReviewCreate = ({ stationId }: ReviewCreateProps) => {
   };
 
   const handleClickReviewCreateButton = () => {
-    if (content.length > 5 && content.length <= 100) {
+    if (content.length >= 5 && content.length <= 100) {
       createReview({ stationId, ratings: stars, content });
     }
   };
