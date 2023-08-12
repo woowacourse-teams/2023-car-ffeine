@@ -40,8 +40,6 @@ export const redirectToLoginPage = (provider: string) => {
   const APIEndPoint = getAPIEndPoint();
   const redirectUri = getRedirectUri();
 
-  alert(`${APIEndPoint}/oauth/${provider}/login-uri?redirect-uri=${redirectUri}/${provider}`);
-
   fetch(`${APIEndPoint}/oauth/${provider}/login-uri?redirect-uri=${redirectUri}/${provider}`)
     .then<LoginUriResponse>((response) => response.json())
     .then((data) => {
