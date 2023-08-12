@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -22,6 +22,7 @@ import { SERVERS } from '@constants';
 import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
 
 import type { StationFilters } from '@type';
+import type { Car } from '@type/cars';
 
 const CarModal = () => {
   const queryClient = useQueryClient();
@@ -37,7 +38,6 @@ const CarModal = () => {
 
   const [carName, setCarName] = useState('');
   const [vintage, setVintage] = useState('');
-  const [carId, setCarId] = useState<number>();
 
   const handleSelectCarName = (name: string) => {
     setCarName(name);
@@ -45,12 +45,6 @@ const CarModal = () => {
 
   const handleSelectVintage = (vintage: string) => {
     setVintage(vintage);
-  };
-
-  const getCarId = () => {
-    const selectedCar = cars.find((car) => car.name === carName && car.vintage === vintage);
-
-    return selectedCar.carId;
   };
 
   const handleFetchCarFilters = async () => {
@@ -65,7 +59,16 @@ const CarModal = () => {
     }
 
     const mode = serverStore.getState();
-    const carFilters = await fetch(`${SERVERS[mode]}/cars/${carId}/filters`).then<
+
+    const memberCarInfo = await fetch(`${SERVERS[mode]}/members/${memberId}/cars`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${memberToken}`,
+      },
+      body: JSON.stringify({ name: carName, vintage }),
+    }).then<Car>((response) => response.json());
+
+    const carFilters = await fetch(`${SERVERS[mode]}/cars/${memberCarInfo.carId}/filters`).then<
       Omit<ServerStationFilters, 'companies'>
     >((response) => response.json());
 
@@ -91,16 +94,6 @@ const CarModal = () => {
 
     closeModal();
   };
-
-  useEffect(() => {
-    if (carName !== '' && vintage !== '') {
-      const carId = getCarId();
-
-      console.log(carId);
-
-      setCarId(carId);
-    }
-  }, [carName, vintage]);
 
   if (isLoading || cars === undefined) {
     return (

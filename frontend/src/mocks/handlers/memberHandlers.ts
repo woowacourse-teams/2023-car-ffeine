@@ -21,4 +21,26 @@ export const memberHandlers = [
       })
     );
   }),
+
+  rest.post(`${SERVERS.localhost}/members/:memberId/cars`, async (req, res, ctx) => {
+    const memberToken = req.headers.get('Authorization');
+
+    if (memberToken === undefined || memberToken.replace('Bearer', '') === '') {
+      return res(ctx.status(401), ctx.json('unauthorized error'));
+    }
+
+    const carInfo = await req.json();
+    const name = carInfo.name;
+    const vintage = carInfo.vintage;
+
+    return res(
+      ctx.status(200),
+      ctx.delay(200),
+      ctx.json({
+        carId: 1,
+        name,
+        vintage,
+      })
+    );
+  }),
 ];
