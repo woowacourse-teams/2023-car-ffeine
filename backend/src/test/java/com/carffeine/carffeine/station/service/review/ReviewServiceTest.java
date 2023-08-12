@@ -3,7 +3,6 @@ package com.carffeine.carffeine.station.service.review;
 import com.carffeine.carffeine.member.domain.FakeMemberRepository;
 import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.member.domain.MemberRepository;
-import com.carffeine.carffeine.station.controller.review.dto.ReviewResponses;
 import com.carffeine.carffeine.station.domain.review.FakeReviewRepository;
 import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.domain.review.ReviewRepository;
@@ -149,10 +148,10 @@ class ReviewServiceTest {
         }
 
         // when
-        ReviewResponses reviews1 = reviewService.findAllReviews(stationId, pageable);
+        Page<Review> reviews = reviewService.findAllReviews(stationId, pageable);
 
         // then
-        assertThat(reviews1.reviews()).hasSize(0);
+        assertThat(reviews).hasSize(0);
     }
 
     @Test

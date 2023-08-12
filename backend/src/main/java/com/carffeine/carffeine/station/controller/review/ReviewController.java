@@ -2,9 +2,11 @@ package com.carffeine.carffeine.station.controller.review;
 
 import com.carffeine.carffeine.auth.controller.AuthMember;
 import com.carffeine.carffeine.station.controller.review.dto.ReviewResponses;
+import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.service.review.ReviewService;
 import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -39,8 +41,8 @@ public class ReviewController {
     public ResponseEntity<ReviewResponses> findReviews(
             @PathVariable String stationId,
             @PageableDefault(sort = "id", direction = DESC) Pageable pageable) {
-        ReviewResponses responses = reviewService.findAllReviews(stationId, pageable);
-        return ResponseEntity.ok(responses);
+        Page<Review> reviews = reviewService.findAllReviews(stationId, pageable);
+        return ResponseEntity.ok(ReviewResponses.from(reviews));
     }
 
     @PatchMapping("/reviews/{reviewId}")

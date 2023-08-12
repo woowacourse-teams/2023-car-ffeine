@@ -10,7 +10,10 @@ public record ReviewResponses(
         int nextPage
 ) {
 
-    public static ReviewResponses of(Page<Review> reviews, int nextPage) {
+    public static final int INVALID_PAGE = -1;
+    public static final int NEXT_PAGE = 1;
+
+    public static ReviewResponses from(Page<Review> reviews) {
         List<ReviewResponse> reviewResponses = reviews.stream()
                 .map(it -> new ReviewResponse(
                         it.getId(),
@@ -18,10 +21,18 @@ public record ReviewResponses(
                         it.getUpdatedAt(),
                         it.getRatings(),
                         it.getContent(),
-                        it.isUpdated(),
+                        it.getUpdatedAt().isAfter(it.getCreatedAt()),
                         it.isDeleted()
                 )).toList();
+        int nextPage = getNextPage(reviews);
 
         return new ReviewResponses(reviewResponses, nextPage);
+    }
+
+    private static int getNextPage(Page<Review> reviews) {
+        if (reviews.isLast()) {
+            return INVALID_PAGE;
+        }
+        return reviews.getNumber() + NEXT_PAGE;
     }
 }

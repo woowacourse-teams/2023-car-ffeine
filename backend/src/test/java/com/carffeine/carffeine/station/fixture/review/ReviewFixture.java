@@ -4,6 +4,7 @@ import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,8 @@ public class ReviewFixture {
             .member(일반_회원)
             .ratings(4)
             .content("덕분에 빠르게 충전했습니다")
-            .isUpdated(false)
+            .createdAt(LocalDateTime.now())
+            .updatedAt(LocalDateTime.now())
             .isDeleted(false)
             .build();
 

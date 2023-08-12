@@ -3,7 +3,6 @@ package com.carffeine.carffeine.station.service.review;
 import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.member.domain.MemberRepository;
 import com.carffeine.carffeine.member.exception.MemberException;
-import com.carffeine.carffeine.station.controller.review.dto.ReviewResponses;
 import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.domain.review.ReviewRepository;
 import com.carffeine.carffeine.station.domain.station.Station;
@@ -26,9 +25,6 @@ import static com.carffeine.carffeine.station.exception.review.ReviewExceptionTy
 @Service
 public class ReviewService {
 
-    public static final int INVALID_PAGE = -1;
-    public static final int NEXT_PAGE = 1;
-
     private final ReviewRepository reviewRepository;
     private final StationRepository stationRepository;
     private final MemberRepository memberRepository;
@@ -41,9 +37,8 @@ public class ReviewService {
     }
 
     @Transactional(readOnly = true)
-    public ReviewResponses findAllReviews(String stationId, Pageable pageable) {
-        Page<Review> reviews = findPageReviews(stationId, pageable);
-        return ReviewResponses.of(reviews, getNextPage(reviews));
+    public Page<Review> findAllReviews(String stationId, Pageable pageable) {
+        return findPageReviews(stationId, pageable);
     }
 
     @Transactional(readOnly = true)
@@ -66,13 +61,6 @@ public class ReviewService {
         review.validate(member);
         review.delete();
         return review;
-    }
-
-    private int getNextPage(Page<Review> reviews) {
-        if (reviews.isLast()) {
-            return INVALID_PAGE;
-        }
-        return reviews.getNumber() + NEXT_PAGE;
     }
 
     private Station findStation(String stationId) {

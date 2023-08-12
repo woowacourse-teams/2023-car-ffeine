@@ -1,9 +1,8 @@
 package com.carffeine.carffeine.station.controller.review;
 
+import com.carffeine.carffeine.common.domain.BaseEntity;
 import com.carffeine.carffeine.helper.MockBeanInjection;
 import com.carffeine.carffeine.member.domain.Member;
-import com.carffeine.carffeine.station.controller.review.dto.ReviewResponse;
-import com.carffeine.carffeine.station.controller.review.dto.ReviewResponses;
 import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;
@@ -14,10 +13,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
@@ -58,6 +60,16 @@ public class ReviewControllerTest extends MockBeanInjection {
     @Autowired
     private ObjectMapper objectMapper;
 
+    private static void setReflection(Page<Review> reviews, String date) {
+        ReflectionTestUtils.setField(
+                reviews.get().toList().get(0),
+                BaseEntity.class,
+                date,
+                LocalDateTime.of(23, 8, 12, 19, 30, 18),
+                LocalDateTime.class
+        );
+    }
+
     @Test
     void 충전소에_리뷰를_등록한다() throws Exception {
         // given
@@ -93,10 +105,13 @@ public class ReviewControllerTest extends MockBeanInjection {
         // given
         String stationId = "ME101010";
 
+        Page<Review> reviews = new PageImpl<>(List.of(리뷰_별4_15글자));
+
+        setReflection(reviews, "createdAt");
+        setReflection(reviews, "updatedAt");
+
         // when
-        when(reviewService.findAllReviews(eq(stationId), any(Pageable.class))).thenReturn(new ReviewResponses(
-                List.of(new ReviewResponse(1L, 1L, LocalDateTime.now(), 1, "덕분에 빠르게 충전했습니다", false, false)), 1
-        ));
+        when(reviewService.findAllReviews(eq(stationId), any(Pageable.class))).thenReturn(reviews);
 
         // then
         mockMvc.perform(get("/stations/{stationId}/reviews", stationId)

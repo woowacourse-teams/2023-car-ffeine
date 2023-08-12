@@ -18,6 +18,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.time.LocalDateTime;
 
 import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.DELETED_REVIEW;
 import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.INVALID_CONTENT_MAX_LENGTH;
@@ -27,7 +28,6 @@ import static com.carffeine.carffeine.station.exception.review.ReviewExceptionTy
 import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.UNAUTHORIZED_MEMBER;
 
 @Getter
-@Builder
 @EqualsAndHashCode(of = "id", callSuper = false)
 @SQLDelete(sql = "UPDATE review SET is_deleted = true WHERE id = ?")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -58,7 +58,9 @@ public class Review extends BaseEntity {
 
     private boolean isDeleted;
 
-    public Review(Long id, Station station, Member member, int ratings, String content, boolean isUpdated, boolean isDeleted) {
+    @Builder
+    public Review(Long id, Station station, Member member, int ratings, String content, boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        super(createdAt, updatedAt);
         validateRequest(ratings, content);
         this.id = id;
         this.station = station;
