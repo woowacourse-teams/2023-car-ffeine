@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 
-import { getUserToken } from '@utils/login';
+import { getMemberToken } from '@utils/login';
+import { getAPIEndPoint } from '@utils/login/index';
 import { setSessionStorage } from '@utils/storage';
+
+import type { MemberInfo } from '@stores/login/memberInfoStore';
 
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
@@ -9,7 +12,7 @@ import Text from '@common/Text';
 
 import LogoIcon from '@ui/Svg/LogoIcon';
 
-import { SESSION_KEY_USER_TOKEN } from '@constants/storageKeys';
+import { SESSION_KEY_MEMBER_INFO, SESSION_KEY_MEMBER_TOKEN } from '@constants/storageKeys';
 
 const GoogleLogin = () => {
   const [loginError, setLoginError] = useState<Error>(null);
@@ -17,10 +20,19 @@ const GoogleLogin = () => {
 
   useEffect(() => {
     const code = window.location.search.split('&')[0].replace('?code=', '');
+    const APIEndPoint = getAPIEndPoint();
 
-    getUserToken(code, 'google')
-      .then((token) => {
-        setSessionStorage(SESSION_KEY_USER_TOKEN, token);
+    getMemberToken(code, 'google')
+      .then(async (token) => {
+        const memberInfo = await fetch(`${APIEndPoint}/members/me`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }).then<MemberInfo>((response) => response.json());
+
+        setSessionStorage(SESSION_KEY_MEMBER_TOKEN, token);
+        setSessionStorage(SESSION_KEY_MEMBER_INFO, JSON.stringify(memberInfo));
 
         window.location.href = homePageUrl;
       })

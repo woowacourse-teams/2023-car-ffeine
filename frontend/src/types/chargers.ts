@@ -1,4 +1,6 @@
-import type { CAPACITIES, CHARGER_TYPES } from '@constants/chargers';
+import type { CAPACITIES, CONNECTOR_TYPES } from '@constants/chargers';
+
+import type { ConnectorTypeKey } from './serverStationFilter';
 
 export type ChargerStateType =
   | 'COMMUNICATION_ERROR'
@@ -9,11 +11,11 @@ export type ChargerStateType =
   | 'STATUS_UNKNOWN';
 
 export type ChargerMethodType = '단독' | '동시' | null;
-export type ChargerType = keyof typeof CHARGER_TYPES;
+export type ConnectorTypeName = (typeof CONNECTOR_TYPES)[ConnectorTypeKey];
 export type Capacity = (typeof CAPACITIES)[number];
 
 export interface ChargerSummary {
-  type: ChargerType;
+  type: ConnectorTypeKey;
   price: number;
   capacity: Capacity;
 }

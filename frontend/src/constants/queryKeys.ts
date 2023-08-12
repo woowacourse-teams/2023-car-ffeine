@@ -7,3 +7,4 @@ export const QUERY_KEY_SERVER_STATION_FILTERS = 'serverStationFilters';
 export const QUERY_KEY_USER_SELECTED_FILTERS = 'userSelectedFilters';
 export const QUERY_KEY_STATION_PREVIEWS = 'previews';
 export const QUERY_KEY_STATION_REVIEWS = 'reviews';
+export const QUERY_KEY_MEMBER_SELECTED_FILTERS = 'userSelectedFilters';

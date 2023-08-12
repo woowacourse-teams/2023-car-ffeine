@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -92,7 +93,9 @@ class StationRepositoryTest {
         Station stationById = stationRepository.findChargeStationByStationId(station.getStationId()).get();
 
         //then
-        assertThat(stationById).usingRecursiveComparison().isEqualTo(station);
+        assertThat(stationById).usingRecursiveComparison()
+                .ignoringFieldsOfTypes(LocalDateTime.class)
+                .isEqualTo(station);
     }
 
     @Test

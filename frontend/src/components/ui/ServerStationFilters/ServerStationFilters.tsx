@@ -3,10 +3,14 @@ import { css } from 'styled-components';
 
 import { useQueryClient } from '@tanstack/react-query';
 
-import { toastActions } from '@stores/layout/toastStore';
+import { getAPIEndPoint } from '@utils/login';
 
-import { useServerStationFilters } from '@hooks/tanstack-query/station-filters/useServerStationFilters';
-import { useServerStationFilterActions } from '@hooks/useServerStationFilterActions';
+import { toastActions } from '@stores/layout/toastStore';
+import { memberInfoStore } from '@stores/login/memberInfoStore';
+import { memberTokenStore } from '@stores/login/memberTokenStore';
+import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
+
+import { ServerStationFilters, useServerStationFilters } from '@hooks/tanstack-query/station-filters/useServerStationFilters';
 
 import Button from '@common/Button';
 import ButtonNext from '@common/ButtonNext';
@@ -15,12 +19,13 @@ import Text from '@common/Text';
 
 import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
-import { CHARGER_TYPES, COMPANY_NAME } from '@constants/chargers';
-import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
+import { CONNECTOR_TYPES, COMPANIES } from '@constants/chargers';
+import { QUERY_KEY_STATIONS, QUERY_KEY_MEMBER_SELECTED_FILTERS } from '@constants/queryKeys';
 
-import type { Capacity } from '@type';
+import type { Capacity, StationFilters } from '@type';
 
 import FilterSection from './FilterOption';
+import { useServerStationFilterActions } from '@hooks/useServerStationFilterActions';
 
 const ServerStationFilters = () => {
   const queryClient = useQueryClient();
@@ -29,13 +34,13 @@ const ServerStationFilters = () => {
   const { closeBasePanel } = useNavigationBar();
 
   const {
-    toggleSelectCapacityFilter,
-    toggleSelectChargerTypesFilter,
-    toggleSelectCompaniesFilter,
+    toggleCapacityFilter,
+    toggleConnectorTypeFilter,
+    toggleCompanyFilter,
     getIsCapacitySelected,
-    getIsChargerTypeSelected,
+    getIsConnectorTypeSelected,
     getIsCompanySelected,
-    resetAllFilter,
+    resetAllFilters,
   } = useServerStationFilterActions();
 
   if (isLoading) {
@@ -44,9 +49,41 @@ const ServerStationFilters = () => {
 
   const { connectorTypes, capacities, companies } = serverStationFilters;
 
-  const handleApplySelectedFilters = () => {
-    queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
-    showToast('필터가 적용되었습니다');
+  const handleApplySelectedFilters = async () => {
+    const APIEndPoint = getAPIEndPoint();
+    const memberId = memberInfoStore.getState()?.memberId;
+    const memberToken = memberTokenStore.getState();
+
+    const { getAllServerStationFilters: getServerStationFilters, setAllServerStationFilters: setServerStationFilters } = serverStationFilterAction;
+    const selectedFilters = getServerStationFilters();
+
+    if(memberId === undefined) {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
+      showToast('필터가 적용되었습니다');
+      return;
+    }
+
+    try {
+      const stationFilters = await fetch(`${APIEndPoint}/members/${memberId}/filters`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${memberToken}`,
+        },
+        body: JSON.stringify(selectedFilters),
+      }).then<StationFilters>((response) => response.json());
+
+      setServerStationFilters(stationFilters);
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
+
+      showToast('필터가 적용되었습니다');
+    } catch {
+      const stationFilters = queryClient.getQueryData<ServerStationFilters>([QUERY_KEY_MEMBER_SELECTED_FILTERS]);
+      setServerStationFilters(stationFilters);
+      
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
+
+      showToast('필터 적용에 실패했습니다', 'error');
+    }
   };
 
   return (
@@ -71,30 +108,30 @@ const ServerStationFilters = () => {
           <ArrowLeftIcon width="2.8rem" stroke="#333" />
         </ButtonNext>
         <Text variant="h5">필터</Text>
-        <ButtonNext onClick={resetAllFilter} noTheme aria-label="모든 필터 지우기 버튼">
+        <ButtonNext onClick={resetAllFilters} noTheme aria-label="모든 필터 지우기 버튼">
           <ArrowPathIcon width="2.8rem" stroke="#333" />
         </ButtonNext>
       </FlexBox>
       <FilterSection
         title={'커넥터 타입'}
-        filterOptionNames={connectorTypes.map((connectorType) => CHARGER_TYPES[connectorType])}
+        filterOptionNames={connectorTypes.map((connectorType) => CONNECTOR_TYPES[connectorType])}
         filterOptionValues={connectorTypes}
-        toggleSelectFilter={toggleSelectChargerTypesFilter}
-        getIsFilterSelected={getIsChargerTypeSelected}
+        toggleSelectFilter={toggleConnectorTypeFilter}
+        getIsFilterSelected={getIsConnectorTypeSelected}
       />
       <FilterSection
         title={'충전 속도(kW)'}
         filterOptionNames={[...capacities.map((capacity) => Number(capacity))] as Capacity[]}
         filterOptionValues={[...capacities]}
         filterButtonVariant={'sm'}
-        toggleSelectFilter={toggleSelectCapacityFilter}
+        toggleSelectFilter={toggleCapacityFilter}
         getIsFilterSelected={getIsCapacitySelected}
       />
       <FilterSection
         title={'충전 사업자'}
-        filterOptionNames={companies.map((companyKey) => COMPANY_NAME[companyKey])}
+        filterOptionNames={companies.map((companyKey) => COMPANIES[companyKey])}
         filterOptionValues={[...companies]}
-        toggleSelectFilter={toggleSelectCompaniesFilter}
+        toggleSelectFilter={toggleCompanyFilter}
         getIsFilterSelected={getIsCompanySelected}
       />
       <Button

@@ -4,7 +4,7 @@ public interface TokenProvider {
 
     String create(Long id);
 
-    boolean isExpired(String token);
-
     Long extract(String token);
+
+    void validate(String token);
 }

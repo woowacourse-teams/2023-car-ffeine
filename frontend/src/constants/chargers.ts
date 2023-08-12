@@ -1,5 +1,5 @@
 // 충전기
-export const CHARGER_TYPES = {
+export const CONNECTOR_TYPES = {
   DC_FAST: 'DC 차데모',
   AC_SLOW: 'AC 완속',
   DC_AC_3PHASE: 'DC 차데모+AC 3상',
@@ -21,7 +21,7 @@ export const CHARGER_STATES = {
   STATUS_UNKNOWN: '상태미확인',
 } as const;
 
-export const COMPANY_NAME = {
+export const COMPANIES = {
   AM: '아마노코리아',
   BA: '부안군',
   BG: '비긴스',

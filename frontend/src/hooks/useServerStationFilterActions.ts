@@ -2,63 +2,63 @@ import { useExternalState } from '@utils/external-state';
 
 import {
   selectedCapacitiesFilterStore,
-  selectedChargerTypesFilterStore,
+  selectedConnectorTypesFilterStore,
   selectedCompaniesFilterStore,
 } from '@stores/station-filters/serverStationFiltersStore';
 
-import type { CAPACITIES, CHARGER_TYPES, COMPANY_NAME } from '@constants/chargers';
+import type { CapaCityBigDecimal, CompanyKey, ConnectorTypeKey } from '@type/serverStationFilter';
 
 export const useServerStationFilterActions = () => {
   const [selectedCompaniesFilters, setSelectedCompaniesFilter] = useExternalState(
     selectedCompaniesFilterStore
   );
   const [selectChargerTypesFilters, setSelectedChargerTypesFilter] = useExternalState(
-    selectedChargerTypesFilterStore
+    selectedConnectorTypesFilterStore
   );
   const [selectedCapacityFilters, setSelectedChargeSpeedsFilter] = useExternalState(
     selectedCapacitiesFilterStore
   );
 
-  const toggleSelectCompaniesFilter = (filter: keyof typeof COMPANY_NAME) => {
+  const toggleCompanyFilter = (company: CompanyKey) => {
     setSelectedCompaniesFilter((prev) => {
-      if (prev.has(filter)) {
-        return new Set([...prev].filter((companyName) => companyName !== filter));
+      if (prev.has(company)) {
+        return new Set([...prev].filter((companyName) => companyName !== company));
       }
-      return new Set([...prev, filter]);
+      return new Set([...prev, company]);
     });
   };
 
-  const toggleSelectChargerTypesFilter = (filter: keyof typeof CHARGER_TYPES) => {
+  const toggleConnectorTypeFilter = (connectorType: ConnectorTypeKey) => {
     setSelectedChargerTypesFilter((prev) => {
-      if (prev.has(filter)) {
-        return new Set([...prev].filter((companyName) => companyName !== filter));
+      if (prev.has(connectorType)) {
+        return new Set([...prev].filter((connector) => connector !== connectorType));
       }
-      return new Set([...prev, filter]);
+      return new Set([...prev, connectorType]);
     });
   };
 
-  const toggleSelectCapacityFilter = (filter: `${(typeof CAPACITIES)[number]}.00`) => {
+  const toggleCapacityFilter = (capacity: CapaCityBigDecimal) => {
     setSelectedChargeSpeedsFilter((prev) => {
-      if (prev.has(filter)) {
-        return new Set([...prev].filter((companyName) => companyName !== filter));
+      if (prev.has(capacity)) {
+        return new Set([...prev].filter((prevCapacity) => prevCapacity !== capacity));
       }
-      return new Set([...prev, filter]);
+      return new Set([...prev, capacity]);
     });
   };
 
-  const getIsCompanySelected = (companyName: keyof typeof COMPANY_NAME) => {
-    return selectedCompaniesFilters.has(companyName);
+  const getIsCompanySelected = (company: CompanyKey) => {
+    return selectedCompaniesFilters.has(company);
   };
 
-  const getIsChargerTypeSelected = (chargerType: keyof typeof CHARGER_TYPES) => {
-    return selectChargerTypesFilters.has(chargerType);
+  const getIsConnectorTypeSelected = (connectorType: ConnectorTypeKey) => {
+    return selectChargerTypesFilters.has(connectorType);
   };
 
-  const getIsCapacitySelected = (capacity: `${(typeof CAPACITIES)[number]}.00`) => {
+  const getIsCapacitySelected = (capacity: CapaCityBigDecimal) => {
     return selectedCapacityFilters.has(capacity);
   };
 
-  const resetAllFilter = () => {
+  const resetAllFilters = () => {
     setSelectedCompaniesFilter(new Set([]));
     setSelectedChargeSpeedsFilter(new Set([]));
     setSelectedChargerTypesFilter(new Set([]));
@@ -68,12 +68,12 @@ export const useServerStationFilterActions = () => {
     selectedCompaniesFilters,
     selectChargerTypesFilters,
     selectedCapacityFilters,
-    toggleSelectCompaniesFilter,
-    toggleSelectChargerTypesFilter,
-    toggleSelectCapacityFilter,
+    toggleCompanyFilter,
+    toggleConnectorTypeFilter,
+    toggleCapacityFilter,
     getIsCompanySelected,
-    getIsChargerTypeSelected,
+    getIsConnectorTypeSelected,
     getIsCapacitySelected,
-    resetAllFilter,
+    resetAllFilters,
   };
 };

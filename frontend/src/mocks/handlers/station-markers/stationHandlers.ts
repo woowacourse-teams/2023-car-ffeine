@@ -2,9 +2,10 @@ import { stations } from '@mocks/data';
 import { rest } from 'msw';
 
 import { SERVERS } from '@constants';
-import { COMPANY_NAME } from '@constants/chargers';
+import { COMPANIES } from '@constants/chargers';
 
 import type { StationSummary } from '@type';
+import type { CompanyKey } from '@type/serverStationFilter';
 
 export const stationHandlers = [
   rest.get(`${SERVERS.localhost}/stations`, async (req, res, ctx) => {
@@ -62,8 +63,8 @@ export const stationHandlers = [
         const isCompanyNameFilterInvalid =
           isCompanyNameFilterSelected &&
           !selectedCompanies
-            .map((companyId) => COMPANY_NAME[companyId as keyof typeof COMPANY_NAME])
-            .includes(station.companyName as (typeof COMPANY_NAME)[keyof typeof COMPANY_NAME]);
+            .map((companyId) => COMPANIES[companyId as CompanyKey])
+            .includes(station.companyName as (typeof COMPANIES)[CompanyKey]);
 
         if (isChargerTypeFilterInvalid || isCapacityFilterInvalid || isCompanyNameFilterInvalid) {
           return false;

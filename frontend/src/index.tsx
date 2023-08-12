@@ -12,19 +12,28 @@ import { getSessionStorage, setSessionStorage } from '@utils/storage';
 
 import { mswModeActions } from '@stores/config/mswModeStore';
 import { serverActions } from '@stores/config/serverStore';
-import { userTokenActions } from '@stores/userTokenStore';
+import type { MemberInfo } from '@stores/login/memberInfoStore';
+import { memberInfoAction } from '@stores/login/memberInfoStore';
+import { memberTokenActions } from '@stores/login/memberTokenStore';
 
 import { GlobalStyle } from 'style/GlobalStyle';
 
-import { SESSION_KEY_SERVER_MODE, SESSION_KEY_USER_TOKEN } from '@constants/storageKeys';
+import {
+  SESSION_KEY_SERVER_MODE,
+  SESSION_KEY_MEMBER_TOKEN,
+  SESSION_KEY_MEMBER_INFO,
+} from '@constants/storageKeys';
 
 const queryClient = new QueryClient();
 
-const { setUserToken } = userTokenActions;
-const userToken = getSessionStorage(SESSION_KEY_USER_TOKEN, '');
+const { setMemberToken } = memberTokenActions;
+const { setMemberInfo } = memberInfoAction;
+const memberToken = getSessionStorage(SESSION_KEY_MEMBER_TOKEN, '');
+const memberInfo = getSessionStorage(SESSION_KEY_MEMBER_INFO, '');
 
-if (userToken !== '') {
-  setUserToken(userToken);
+if (memberToken !== '' && memberInfo !== '') {
+  setMemberToken(memberToken);
+  setMemberInfo(JSON.parse(memberInfo));
 }
 
 const main = async () => {
