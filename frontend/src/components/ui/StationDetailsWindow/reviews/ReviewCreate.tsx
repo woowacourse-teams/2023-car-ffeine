@@ -33,7 +33,9 @@ const ReviewCreate = ({ stationId }: ReviewCreateProps) => {
   };
 
   const handleClickReviewCreateButton = () => {
-    createReview({ stationId, ratings: stars, content: review });
+    if (review.length > 5 && review.length <= 100) {
+      createReview({ stationId, ratings: stars, content: review });
+    }
   };
 
   const handleClickReviewCreateOpenButton = () => {
@@ -52,6 +54,10 @@ const ReviewCreate = ({ stationId }: ReviewCreateProps) => {
             label="리뷰를 남겨주세요"
             value={review}
             fullWidth
+            supportingText={
+              (review.length < 5 || review.length > 100) &&
+              '리뷰는 5자 이상 100자 이하로 작성해주세요.'
+            }
             onChange={(e) => {
               setReview(e.target.value);
             }}
@@ -70,7 +76,7 @@ const ReviewCreate = ({ stationId }: ReviewCreateProps) => {
               리뷰 그만작성하기
             </ButtonNext>
             <ButtonNext
-              disabled={isLoading}
+              disabled={isLoading || review.length < 5 || review.length > 100}
               variant="contained"
               color="success"
               fullWidth
