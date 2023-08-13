@@ -10,8 +10,7 @@ const meta = {
   component: UserRatings,
   tags: ['autodocs'],
   args: {
-    ratings: 4.8,
-    counts: 325,
+    stationId: '',
   },
   argTypes: {},
 } satisfies Meta<typeof UserRatings>;
