@@ -35,6 +35,8 @@ public class FilterIntegrationTest extends FilterIntegrationFixture {
     @BeforeEach
     void setup() {
         관리자 = memberRepository.save(Member.builder()
+                .name("user")
+                .email("user@email.com")
                 .memberRole(MemberRole.ADMIN)
                 .build());
         관리자_토큰 = "Bearer " + provider.create(관리자.getId());

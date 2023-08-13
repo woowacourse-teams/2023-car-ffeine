@@ -37,12 +37,12 @@ class CustomStationRepositoryTest extends IntegrationTest {
             softly.assertThat(result.get(0).getStationId()).isEqualTo(stations.get(0).getStationId());
             softly.assertThat(result.get(0).getCompanyName()).isEqualTo(stations.get(0).getCompanyName());
             softly.assertThat(result.get(0).getContact()).isEqualTo(stations.get(0).getContact());
-            softly.assertThat(result.get(0).getIsPrivate()).isEqualTo(stations.get(0).getIsPrivate());
+            softly.assertThat(result.get(0).isPrivate()).isEqualTo(stations.get(0).isPrivate());
             softly.assertThat(result.get(0).getStationName()).isEqualTo(stations.get(0).getStationName());
             softly.assertThat(result.get(0).getLatitude()).isEqualTo(stations.get(0).getLatitude());
             softly.assertThat(result.get(0).getLongitude()).isEqualTo(stations.get(0).getLongitude());
             softly.assertThat(result.get(0).getOperatingTime()).isEqualTo(stations.get(0).getOperatingTime());
-            softly.assertThat(result.get(0).getIsParkingFree()).isEqualTo(stations.get(0).getIsParkingFree());
+            softly.assertThat(result.get(0).isParkingFree()).isEqualTo(stations.get(0).isParkingFree());
             softly.assertThat(result.get(0).getDetailLocation()).isEqualTo(stations.get(0).getDetailLocation());
         });
     }
