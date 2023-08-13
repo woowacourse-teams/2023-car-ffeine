@@ -35,7 +35,7 @@ export const useCreateReply = (stationId: string) => {
   const { mutate, isLoading: isCreateReplyLoading } = useMutation({
     mutationFn: fetchCreateReply,
     onSuccess: () => {
-      toastActions.showToast('리뷰가 등록됐습니다.', 'success', 'bottom-center');
+      toastActions.showToast('답글이 등록됐습니다.', 'success', 'bottom-center');
     },
     onSettled: () => {
       queryClient.invalidateQueries({
