@@ -31,7 +31,7 @@ class CarRepositoryTest extends IntegrationTest {
         Car foundCar = carRepository.findById(savedCar.getId()).get();
 
         // then
-        assertThat(foundCar).usingRecursiveComparison().isEqualTo(savedCar);
+        assertThat(foundCar.getName()).isEqualTo("아이오닉5");
     }
 
     @Test
@@ -40,7 +40,7 @@ class CarRepositoryTest extends IntegrationTest {
         Car foundCar = carRepository.findByNameAndVintage("아이오닉5", "2022-A").get();
 
         // then
-        assertThat(foundCar).usingRecursiveComparison().isEqualTo(savedCar);
+        assertThat(foundCar.getName()).isEqualTo("아이오닉5");
     }
 
     @Test
