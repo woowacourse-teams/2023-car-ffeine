@@ -4,6 +4,8 @@ import { useState } from 'react';
 
 import { calculateLatestUpdateTime } from '@utils/index';
 
+import { useRemoveReply } from '@hooks/tanstack-query/station-details/reviews/useRemoveReply';
+
 import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
@@ -23,6 +25,11 @@ interface ReplyCardProps {
 
 const ReplyCard = ({ stationId, reply, reviewId, previewMode, isLastReply }: ReplyCardProps) => {
   const [isModifyMode, setIsModifyMode] = useState(false);
+  const { removeReply, isRemoveReplyLoading } = useRemoveReply(stationId);
+
+  const handleClickRemoveReplyButton = () => {
+    removeReply({ replyId: reply.replyId, reviewId });
+  };
 
   if (isModifyMode) {
     return (
@@ -61,12 +68,17 @@ const ReplyCard = ({ stationId, reply, reviewId, previewMode, isLastReply }: Rep
                   <PencilIcon width={15} display="inline-block" />
                 </ButtonNext>
                 <ButtonNext
+                  disabled={isRemoveReplyLoading}
                   size="xs"
                   variant="text"
                   color="secondary"
-                  onClick={() => alert('삭제')}
+                  onClick={() => handleClickRemoveReplyButton()}
                 >
-                  <TrashIcon width={15} display="inline-block" />
+                  {isRemoveReplyLoading ? (
+                    '삭제중'
+                  ) : (
+                    <TrashIcon width={15} display="inline-block" />
+                  )}
                 </ButtonNext>
               </div>
             )}
