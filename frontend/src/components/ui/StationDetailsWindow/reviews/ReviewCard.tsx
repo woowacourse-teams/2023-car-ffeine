@@ -12,8 +12,8 @@ import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-import ReplyCard from '@ui/StationDetailsWindow/reviews/ReplyCard';
 import ReviewModify from '@ui/StationDetailsWindow/reviews/crud/ReviewModify';
+import ReplyCard from '@ui/StationDetailsWindow/reviews/replies/ReplyCard';
 
 import type { Review } from '@type';
 
@@ -97,19 +97,11 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
               </Box>
             </Box>
 
-            {replies.length > 0 && (
-              <FlexBox justifyContent="between">
-                <ButtonNext
-                  size="xs"
-                  variant="text"
-                  onClick={() => setIsRepliesOpen(!isRepliesOpen)}
-                >
-                  {isRepliesOpen
-                    ? `답글 닫기`
-                    : `답글 ${replies.length > 0 ? replies.length : '달기'}`}
-                </ButtonNext>
-              </FlexBox>
-            )}
+            <FlexBox justifyContent="between">
+              <ButtonNext size="xs" variant="text" onClick={() => setIsRepliesOpen(!isRepliesOpen)}>
+                {isRepliesOpen ? `닫기` : `답글 ${replies.length > 0 ? replies.length : '달기'}`}
+              </ButtonNext>
+            </FlexBox>
           </Box>
           {isRepliesOpen &&
             replies.map((reply, index) => (
@@ -120,6 +112,8 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
                 isLastReply={index !== replies.length - 1}
               />
             ))}
+
+          {isRepliesOpen && <>답글 달기</>}
         </>
       )}
     </>
