@@ -32,5 +32,6 @@ export const useMemberFilters = () => {
   return useQuery({
     queryKey: [QUERY_KEY_MEMBER_SELECTED_FILTERS],
     queryFn: fetchMemberFilters,
+    refetchOnWindowFocus: false,
   });
 };

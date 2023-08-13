@@ -46,7 +46,7 @@ export const redirectToLoginPage = (provider: string) => {
       const loginUri = data.loginUri;
 
       if (loginUri !== undefined) {
-        window.location.href = loginUri.replace(/;/, '');
+        window.location.href = loginUri;
       }
     })
     .catch(() => {

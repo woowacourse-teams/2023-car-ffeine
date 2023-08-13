@@ -15,8 +15,6 @@ export const memberFilterHandlers = [
       return res(ctx.status(401), ctx.json('unauthorized error'));
     }
 
-    return res.networkError('실패');
-
     return res(ctx.status(200), ctx.json({ connectorTypes, capacities, companies }));
   }),
 
