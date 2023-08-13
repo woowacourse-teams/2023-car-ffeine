@@ -15,6 +15,7 @@ export const memberHandlers = [
       ctx.json({
         memberId: Math.random(),
         car: {
+          carId: Math.random(),
           name: '포르쉐 타이칸',
           year: '2022',
         },

@@ -9,7 +9,7 @@ import { memberInfoStore } from '@stores/login/memberInfoStore';
 import { memberTokenStore } from '@stores/login/memberTokenStore';
 import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
 
-import { useCars } from '@hooks/tanstack-query/car/useCarInfo';
+import { useCars } from '@hooks/tanstack-query/car/useCars';
 import type { ServerStationFilters } from '@hooks/tanstack-query/station-filters/useServerStationFilters';
 
 import ButtonNext from '@common/ButtonNext';
@@ -124,7 +124,7 @@ const CarModal = () => {
         <ButtonNext onClick={handleFetchCarFilters} variant="outlined" color="success">
           등록
         </ButtonNext>
-        <ButtonNext variant="outlined" color="error">
+        <ButtonNext onClick={closeModal} variant="outlined" color="error">
           취소
         </ButtonNext>
       </FlexBox>

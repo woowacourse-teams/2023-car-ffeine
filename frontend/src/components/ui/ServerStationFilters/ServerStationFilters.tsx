@@ -55,11 +55,9 @@ const ServerStationFiltersComponent = () => {
     const memberId = memberInfoStore.getState()?.memberId;
     const memberToken = memberTokenStore.getState();
 
-    const {
-      getAllServerStationFilters: getServerStationFilters,
-      setAllServerStationFilters: setServerStationFilters,
-    } = serverStationFilterAction;
-    const selectedFilters = getServerStationFilters();
+    const { getAllServerStationFilters, setAllServerStationFilters, resetAllServerStationFilters } =
+      serverStationFilterAction;
+    const selectedFilters = getAllServerStationFilters();
 
     if (memberId === undefined) {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
@@ -76,7 +74,7 @@ const ServerStationFiltersComponent = () => {
         body: JSON.stringify(selectedFilters),
       }).then<StationFilters>((response) => response.json());
 
-      setServerStationFilters(stationFilters);
+      setAllServerStationFilters(stationFilters);
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
 
       showToast('필터가 적용되었습니다');
@@ -84,7 +82,7 @@ const ServerStationFiltersComponent = () => {
       const stationFilters = queryClient.getQueryData<ServerStationFilters>([
         QUERY_KEY_MEMBER_SELECTED_FILTERS,
       ]);
-      setServerStationFilters(stationFilters);
+      resetAllServerStationFilters(stationFilters);
 
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
 
