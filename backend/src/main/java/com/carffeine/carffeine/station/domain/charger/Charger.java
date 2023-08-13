@@ -45,13 +45,14 @@ public class Charger extends BaseEntity {
     private String chargerId;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
     private ChargerType type;
 
     private BigDecimal price;
 
     @Column(scale = 2)
     private BigDecimal capacity;
-
+    @Column(length = 15)
     private String method;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

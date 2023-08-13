@@ -36,6 +36,7 @@ public class Filter extends BaseEntity {
     private String name;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private FilterType filterType;
 
     public Filter(String name, FilterType filterType) {

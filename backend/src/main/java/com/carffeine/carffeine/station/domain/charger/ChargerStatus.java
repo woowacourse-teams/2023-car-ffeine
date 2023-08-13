@@ -33,9 +33,11 @@ public class ChargerStatus extends BaseEntity {
     @Column(name = "charger_id")
     private String chargerId;
 
+    @Column(length = 30)
     private LocalDateTime latestUpdateTime;
 
     @Enumerated(EnumType.STRING)
+    @Column(length = 20)
     private ChargerCondition chargerCondition;
 
     public boolean isAvailable() {
