@@ -80,13 +80,14 @@ const ReviewPreview = ({ stationId }: ReviewPreviewProps) => {
                 />
               );
             })}
-            <FlexBox justifyContent="end">
-              <ButtonNext variant="text" size="sm" onClick={() => handleClickMoreReviewButton()}>
-                후기 더 보기
-              </ButtonNext>
-            </FlexBox>
           </>
         )}
+
+        <FlexBox justifyContent="end">
+          <ButtonNext variant="text" size="sm" onClick={() => handleClickMoreReviewButton()}>
+            {aliveReviews.length === 0 ? '후기 작성하기' : '후기 더 보기'}
+          </ButtonNext>
+        </FlexBox>
       </Box>
     </>
   );

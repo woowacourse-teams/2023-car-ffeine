@@ -42,6 +42,11 @@ export default function ReviewList({ stationId }: ReviewListProps) {
           <>
             {data.pages.map((page) => (
               <div key={page.currentPage}>
+                {page.reviews.length === 0 && (
+                  <Text m={10} align="center">
+                    등록 된 후기가 없습니다.
+                  </Text>
+                )}
                 {(page.reviews as Review[]).map((review) => (
                   <ReviewCard
                     key={review.reviewId}
@@ -62,8 +67,9 @@ export default function ReviewList({ stationId }: ReviewListProps) {
               {isFetchingNextPage
                 ? '로딩중...'
                 : hasNextPage
-                ? '후기 더 보기 (무한스크롤로 수정 예정)'
+                ? '후기 더 보기'
                 : '더 이상 후기가 없습니다.'}
+              (무한스크롤로 제거 예정)
             </ButtonNext>
           </>
         )}
