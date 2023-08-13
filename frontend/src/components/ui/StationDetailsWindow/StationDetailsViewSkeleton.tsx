@@ -10,11 +10,9 @@ const StationDetailsViewSkeleton = () => {
   return (
     <Box px={2} py={10} css={stationDetailsViewContainerCss}>
       <StationInformationSkeleton />
-      <Box my={3}>
-        <FlexBox justifyContent="center">
-          <Skeleton width="90%" height="3rem" />
-        </FlexBox>
-      </Box>
+      <FlexBox justifyContent="center" my={3}>
+        <Skeleton width="90%" height="3rem" />
+      </FlexBox>
       <FlexBox>
         {Array.from({ length: 10 }, (_, index) => (
           <ChargerCardSkeleton key={index} />
