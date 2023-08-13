@@ -18,20 +18,20 @@ class CarRepositoryTest extends IntegrationTest {
     @Autowired
     private CarRepository carRepository;
 
-    private Car car;
+    private Car savedCar;
 
     @BeforeEach
     void setup() {
-        car = carRepository.save(Car.from("아이오닉5", "2022-A"));
+        savedCar = carRepository.save(Car.from("아이오닉5", "2022-A"));
     }
 
     @Test
     void 차량을_id_찾는다() {
         // when
-        Car foundCar = carRepository.findById(car.getId()).get();
+        Car foundCar = carRepository.findById(savedCar.getId()).get();
 
         // then
-        assertThat(foundCar).usingRecursiveComparison().isEqualTo(car);
+        assertThat(foundCar).usingRecursiveComparison().isEqualTo(savedCar);
     }
 
     @Test
@@ -40,7 +40,7 @@ class CarRepositoryTest extends IntegrationTest {
         Car foundCar = carRepository.findByNameAndVintage("아이오닉5", "2022-A").get();
 
         // then
-        assertThat(foundCar).usingRecursiveComparison().isEqualTo(car);
+        assertThat(foundCar).usingRecursiveComparison().isEqualTo(savedCar);
     }
 
     @Test
