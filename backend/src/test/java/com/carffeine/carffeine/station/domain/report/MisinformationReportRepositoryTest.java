@@ -37,6 +37,8 @@ public class MisinformationReportRepositoryTest {
     @BeforeEach
     void setUp() {
         member = memberRepository.save(Member.builder()
+                .name("user")
+                .email("user@email.com")
                 .memberRole(MemberRole.USER)
                 .build());
         stationRepository.save(StationFixture.선릉역_충전소_충전기_2개_사용가능_1개_완속);

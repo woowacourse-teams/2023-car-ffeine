@@ -40,9 +40,13 @@ class FaultReportRepositoryTest {
     void setUp() {
         station = stationRepository.save(StationFixture.선릉역_충전소_충전기_2개_사용가능_1개);
         member = memberRepository.save(Member.builder()
+                .name("user")
+                .email("user@email.com")
                 .memberRole(MemberRole.USER)
                 .build());
         otherMember = memberRepository.save(Member.builder()
+                .name("user1")
+                .email("user@email.com1")
                 .memberRole(MemberRole.USER)
                 .build());
     }

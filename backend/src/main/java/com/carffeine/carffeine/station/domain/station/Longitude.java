@@ -18,7 +18,7 @@ public class Longitude {
     private static final BigDecimal KOREA_MIN_LONGITUDE = BigDecimal.valueOf(125);
     private static final BigDecimal KOREA_MAX_LONGITUDE = BigDecimal.valueOf(132);
 
-    @Column(name = "longitude", scale = 7, precision = 13)
+    @Column(name = "longitude", scale = 7, precision = 13, nullable = false)
     private BigDecimal value;
 
     private Longitude(BigDecimal value) {

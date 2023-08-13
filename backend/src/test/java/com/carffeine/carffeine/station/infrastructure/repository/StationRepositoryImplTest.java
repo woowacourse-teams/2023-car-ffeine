@@ -38,12 +38,12 @@ class StationRepositoryImplTest {
             softly.assertThat(savedStation.getStationId()).isEqualTo(station.getStationId());
             softly.assertThat(savedStation.getCompanyName()).isEqualTo(station.getCompanyName());
             softly.assertThat(savedStation.getContact()).isEqualTo(station.getContact());
-            softly.assertThat(savedStation.getIsPrivate()).isEqualTo(station.getIsPrivate());
+            softly.assertThat(savedStation.isPrivate()).isEqualTo(station.isPrivate());
             softly.assertThat(savedStation.getStationName()).isEqualTo(station.getStationName());
             softly.assertThat(savedStation.getLatitude()).isEqualTo(station.getLatitude());
             softly.assertThat(savedStation.getLongitude()).isEqualTo(station.getLongitude());
             softly.assertThat(savedStation.getOperatingTime()).isEqualTo(station.getOperatingTime());
-            softly.assertThat(savedStation.getIsParkingFree()).isEqualTo(station.getIsParkingFree());
+            softly.assertThat(savedStation.isParkingFree()).isEqualTo(station.isParkingFree());
             softly.assertThat(savedStation.getDetailLocation()).isEqualTo(station.getDetailLocation());
         });
     }
