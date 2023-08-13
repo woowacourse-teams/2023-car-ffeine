@@ -2,9 +2,9 @@ import Box from '@common/Box';
 import FlexBox from '@common/FlexBox';
 import Skeleton from '@common/Skeleton';
 
-import ChargerCardSkeleton from '@ui/StationDetailsWindow/ChargerCardSkeleton';
 import { stationDetailsViewContainerCss } from '@ui/StationDetailsWindow/StationDetailsView';
-import StationInformationSkeleton from '@ui/StationDetailsWindow/StationInformationSkeleton';
+import ChargerCardSkeleton from '@ui/StationDetailsWindow/chargers/ChargerCardSkeleton';
+import StationInformationSkeleton from '@ui/StationDetailsWindow/station/StationInformationSkeleton';
 
 const StationDetailsViewSkeleton = () => {
   return (

@@ -127,7 +127,7 @@ export const generateReviewsWithReplies = (): Review[] => {
       reviewId: index,
       userId: generateRandomToken(),
       latestUpdateDate: getRandomTime(),
-      ratings: parseFloat((Math.random() * 5).toFixed(2)),
+      ratings: Math.floor(Math.random() * 5) + 1,
       content: generateRandomData([
         '정말 멋진 충전소네요.',
         '고장이 잘나요',

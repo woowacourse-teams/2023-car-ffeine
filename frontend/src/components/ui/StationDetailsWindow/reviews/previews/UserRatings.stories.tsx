@@ -2,8 +2,8 @@ import type { Meta } from '@storybook/react';
 
 import Box from '@common/Box';
 
-import type { UserRatingsProps } from '@ui/StationDetailsWindow/reviews/UserRatings';
-import UserRatings from '@ui/StationDetailsWindow/reviews/UserRatings';
+import type { UserRatingsProps } from '@ui/StationDetailsWindow/reviews/previews/UserRatings';
+import UserRatings from '@ui/StationDetailsWindow/reviews/previews/UserRatings';
 
 const meta = {
   title: 'UI/UserRatings',

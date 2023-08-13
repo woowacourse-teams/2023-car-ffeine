@@ -1,5 +1,5 @@
-import type { Differences } from '@ui/StationDetailsWindow/reports/StationReportConfirmation';
-import { findDifferentKeys } from '@ui/StationDetailsWindow/reports/domain';
+import type { Differences } from '@ui/StationDetailsWindow/reports/station/StationReportConfirmation';
+import { findDifferentKeys } from '@ui/StationDetailsWindow/reports/station/domain';
 
 describe('findDifferentKeys()를 테스트한다.', () => {
   test.each([

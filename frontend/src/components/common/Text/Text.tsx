@@ -3,6 +3,9 @@ import type { CSSProp } from 'styled-components';
 
 import type { HTMLAttributes } from 'react';
 
+import type { SpacingProps } from '@common/systems';
+import { spacing } from '@common/systems';
+
 const variantList = [
   'h1',
   'h2',
@@ -19,7 +22,7 @@ const variantList = [
 
 type VariantType = (typeof variantList)[number];
 
-interface TextProps extends HTMLAttributes<HTMLElement> {
+interface TextProps extends HTMLAttributes<HTMLElement>, SpacingProps {
   tag?: string;
   variant?: VariantType;
   mb?: number;
@@ -43,7 +46,7 @@ const Text = ({ children, tag, ...props }: TextProps) => {
 
 const S = {
   Text: styled.p<TextProps>`
-    margin-bottom: ${({ mb }) => (mb ? `${mb * 0.4}rem` : 0)};
+    ${spacing};
 
     ${({ align }) => {
       switch (align) {
