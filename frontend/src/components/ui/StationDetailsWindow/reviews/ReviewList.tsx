@@ -8,8 +8,8 @@ import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import Text from '@common/Text';
 
-import ReviewCard from '@ui/StationDetailsWindow/reviews/ReviewCard';
-import ReviewCardsLoading from '@ui/StationDetailsWindow/reviews/ReviewCardsLoading';
+import ReviewCard from '@ui/StationDetailsWindow/reviews/cards/ReviewCard';
+import ReviewCardsLoading from '@ui/StationDetailsWindow/reviews/cards/ReviewCardsLoading';
 import ReviewCreate from '@ui/StationDetailsWindow/reviews/crud/ReviewCreate';
 
 import type { Review } from '@type';

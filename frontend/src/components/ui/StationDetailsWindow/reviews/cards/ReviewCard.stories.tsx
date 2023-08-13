@@ -2,9 +2,9 @@ import type { Meta } from '@storybook/react';
 
 import Box from '@common/Box';
 
-import type { ReviewCardProps } from '@ui/StationDetailsWindow/reviews/ReviewCard';
-import ReviewCard from '@ui/StationDetailsWindow/reviews/ReviewCard';
-import ReviewCardSkeleton from '@ui/StationDetailsWindow/reviews/ReviewCardSkeleton';
+import type { ReviewCardProps } from '@ui/StationDetailsWindow/reviews/cards/ReviewCard';
+import ReviewCard from '@ui/StationDetailsWindow/reviews/cards/ReviewCard';
+import ReviewCardSkeleton from '@ui/StationDetailsWindow/reviews/cards/ReviewCardSkeleton';
 
 import type { Reply } from '@type';
 
