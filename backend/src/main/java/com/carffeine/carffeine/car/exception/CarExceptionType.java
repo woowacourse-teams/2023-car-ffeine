@@ -1,20 +1,17 @@
-package com.carffeine.carffeine.member.exception;
+package com.carffeine.carffeine.car.exception;
 
 import com.carffeine.carffeine.common.exception.ExceptionType;
 import com.carffeine.carffeine.common.exception.Status;
 
-public enum MemberExceptionType implements ExceptionType {
+public enum CarExceptionType implements ExceptionType {
 
-    NOT_FOUND(Status.NOT_FOUND, 3001, "회원이 없습니다"),
-    NOT_FOUND_ROLE(Status.NOT_FOUND, 3002, "일치하는 권한이 없습니다"),
-    INVALID_ACCESS(Status.INVALID, 3003, "본인의 계정이 아닙니다"),
-    CAR_NOT_FOUND(Status.NOT_FOUND, 3004, "해당 유저의 차량을 찾을 수 없습니다");
+    NOT_FOUND_EXCEPTION(Status.NOT_FOUND, 5001, "해당 차량을 찾을 수 없습니다.");
 
     private final Status status;
     private final int exceptionCode;
     private final String message;
 
-    MemberExceptionType(Status status, int exceptionCode, String message) {
+    CarExceptionType(Status status, int exceptionCode, String message) {
         this.status = status;
         this.exceptionCode = exceptionCode;
         this.message = message;

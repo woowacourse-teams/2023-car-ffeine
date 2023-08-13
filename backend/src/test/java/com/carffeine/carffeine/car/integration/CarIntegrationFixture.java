@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.member.integration;
+package com.carffeine.carffeine.car.integration;
 
 import com.carffeine.carffeine.helper.integration.IntegrationTest;
 import io.restassured.RestAssured;
@@ -9,7 +9,7 @@ import org.springframework.http.HttpHeaders;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class MemberFilterIntegrationFixture extends IntegrationTest {
+public class CarIntegrationFixture extends IntegrationTest {
 
     protected <T> ExtractableResponse 생성_요청(String url, T request, String accessToken) {
         return RestAssured.given().log().all()
@@ -22,10 +22,18 @@ public class MemberFilterIntegrationFixture extends IntegrationTest {
                 .extract();
     }
 
-    protected <T> ExtractableResponse 조회_요청(String url, String accessToken) {
+    protected <T> ExtractableResponse 제거_요청(String url, String accessToken) {
+        return RestAssured.given().log().all()
+                .header(HttpHeaders.AUTHORIZATION, accessToken)
+                .when()
+                .delete(url)
+                .then().log().all()
+                .extract();
+    }
+
+    protected <T> ExtractableResponse 조회_요청(String url) {
         return RestAssured.given().log().all()
                 .accept(ContentType.JSON)
-                .header(HttpHeaders.AUTHORIZATION, accessToken)
                 .when()
                 .get(url)
                 .then().log().all()
