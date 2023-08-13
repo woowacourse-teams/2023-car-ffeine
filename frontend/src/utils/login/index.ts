@@ -15,6 +15,8 @@ export const getMemberToken = async (code: string, provider: string) => {
   const APIEndPoint = getAPIEndPoint();
   const redirectUri = getRedirectUri();
 
+  alert(redirectUri);
+
   const tokenResponse = await fetch(`${APIEndPoint}/oauth/google/login`, {
     method: 'POST',
     headers: {
@@ -64,12 +66,11 @@ export const logout = () => {
 export const getRedirectUri = () => {
   const isDevServer = window.location.href.match(/dev.carffe.in/) !== null;
 
-  const redirectUri =
-    process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3000'
-      : isDevServer
-      ? `https://dev.carffe.in`
-      : `https://carffe.in`;
+  const redirectUri = isDevServer
+    ? `https://dev.carffe.in`
+    : process.env.NODE_ENV === 'production'
+    ? `https://carffe.in`
+    : 'http://localhost:3000';
 
   return redirectUri;
 };
