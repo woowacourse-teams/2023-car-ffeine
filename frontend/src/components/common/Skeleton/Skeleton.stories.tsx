@@ -43,12 +43,8 @@ export const Default = (args: SkeletonProps) => {
 export const Example = () => {
   return (
     <>
-      <Box mb={2}>
-        <Skeleton />
-      </Box>
-      <Box mb={2}>
-        <Skeleton width="40rem" height="30rem" />
-      </Box>
+      <Skeleton mb={2} />
+      <Skeleton width="40rem" height="30rem" mb={2} />
       <Skeleton width="10rem" height="10rem" borderRadius="50%" />
     </>
   );
