@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useCreateReply } from '@hooks/tanstack-query/station-details/reviews/useCreateReply';
 
@@ -15,13 +15,24 @@ interface ReplyCreateProps {
 }
 
 const ReplyCreate = ({ stationId, reviewId }: ReplyCreateProps) => {
-  const [content, setContent] = useState('');
   const { isCreateReplyLoading, createReply } = useCreateReply(stationId);
+  const [content, setContent] = useState('');
+  const [isReplyCreateOpen, setIsReplyCreateOpen] = useState(true);
+
+  useEffect(() => {
+    if (isCreateReplyLoading && isReplyCreateOpen) {
+      setIsReplyCreateOpen(false);
+    }
+  }, [isCreateReplyLoading]);
 
   const handleClickCreate = () => {
     createReply({ content, stationId, reviewId: reviewId });
     setContent('');
   };
+
+  if (!isReplyCreateOpen) {
+    return <></>;
+  }
 
   return (
     <>
