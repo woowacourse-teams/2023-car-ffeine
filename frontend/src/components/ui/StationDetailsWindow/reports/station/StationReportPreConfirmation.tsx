@@ -7,7 +7,7 @@ import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-import StationReportConfirmation from '@ui/StationDetailsWindow/reports/StationReportConfirmation';
+import StationReportConfirmation from '@ui/StationDetailsWindow/reports/station/StationReportConfirmation';
 import StationInformation from '@ui/StationDetailsWindow/station/StationInformation';
 
 import type { StationDetails } from '@type';

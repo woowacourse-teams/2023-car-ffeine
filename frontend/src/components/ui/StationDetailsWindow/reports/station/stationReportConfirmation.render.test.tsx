@@ -2,7 +2,7 @@ import { render } from '@testing-library/react';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-import StationReportConfirmation from '@ui/StationDetailsWindow/reports/StationReportConfirmation';
+import StationReportConfirmation from '@ui/StationDetailsWindow/reports/station/StationReportConfirmation';
 
 const queryClient = new QueryClient();
 

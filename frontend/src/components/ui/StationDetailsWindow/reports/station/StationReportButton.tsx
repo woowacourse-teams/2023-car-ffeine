@@ -3,7 +3,7 @@ import { modalActions } from '@stores/layout/modalStore';
 import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 
-import StationReportPreConfirmation from '@ui/StationDetailsWindow/reports/StationReportPreConfirmation';
+import StationReportPreConfirmation from '@ui/StationDetailsWindow/reports/station/StationReportPreConfirmation';
 
 import type { StationDetails } from '@type';
 

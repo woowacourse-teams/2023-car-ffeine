@@ -5,8 +5,8 @@ import Box from '@common/Box';
 import Text from '@common/Text';
 
 import ChargerList from '@ui/StationDetailsWindow/chargers/ChargerList';
-import ChargerReportButton from '@ui/StationDetailsWindow/reports/ChargerReportButton';
-import StationReportButton from '@ui/StationDetailsWindow/reports/StationReportButton';
+import ChargerReportButton from '@ui/StationDetailsWindow/reports/charger/ChargerReportButton';
+import StationReportButton from '@ui/StationDetailsWindow/reports/station/StationReportButton';
 import ReviewPreview from '@ui/StationDetailsWindow/reviews/previews/ReviewPreview';
 import StationInformation from '@ui/StationDetailsWindow/station/StationInformation';
 

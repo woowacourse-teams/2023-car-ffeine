@@ -6,7 +6,7 @@ import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import Skeleton from '@common/Skeleton';
 
-import ChargerReportConfirmation from '@ui/StationDetailsWindow/reports/ChargerReportConfirmation';
+import ChargerReportConfirmation from '@ui/StationDetailsWindow/reports/charger/ChargerReportConfirmation';
 
 interface ChargerReportButtonProps {
   stationId: string;

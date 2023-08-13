@@ -5,7 +5,7 @@ import { getLocalStorage } from '@utils/storage';
 import { serverStore } from '@stores/config/serverStore';
 import { modalActions } from '@stores/layout/modalStore';
 
-import type { Differences } from '@ui/StationDetailsWindow/reports/StationReportConfirmation';
+import type { Differences } from '@ui/StationDetailsWindow/reports/station/StationReportConfirmation';
 
 import { DEFAULT_TOKEN, SERVERS } from '@constants';
 import { LOCAL_KEY_TOKEN } from '@constants/storageKeys';
