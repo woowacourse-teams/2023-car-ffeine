@@ -50,11 +50,15 @@ public class AdminStationIntegrationTest extends IntegrationTest {
         잠실_충전소 = StationFixture.잠실역_충전소_충전기_2개_사용가능_1개;
 
         관리자 = memberRepository.save(Member.builder()
+                .name("admin")
+                .email("admin@email.com")
                 .memberRole(MemberRole.ADMIN)
                 .build());
         관리자_토큰 = "Bearer " + provider.create(관리자.getId());
 
         일반_회원 = memberRepository.save(Member.builder()
+                .name("user")
+                .email("user@email.com")
                 .memberRole(MemberRole.USER)
                 .build());
         일반_회원_토큰 = "Bearer " + provider.create(일반_회원.getId());

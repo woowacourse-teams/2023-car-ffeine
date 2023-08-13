@@ -39,6 +39,8 @@ public class MemberFilterIntegrationTest extends MemberFilterIntegrationFixture 
     void setup() {
         일반_유저 = memberRepository.save(Member.builder()
                 .id(1L)
+                .name("user")
+                .email("user@email.com")
                 .memberRole(MemberRole.USER)
                 .build());
         유저_토큰 = "Bearer " + provider.create(일반_유저.getId());
