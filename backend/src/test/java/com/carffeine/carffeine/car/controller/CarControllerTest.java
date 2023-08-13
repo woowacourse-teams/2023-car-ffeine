@@ -122,6 +122,7 @@ class CarControllerTest extends MockBeanInjection {
 
     @Test
     void 차량을_제거한다() throws Exception {
+        // when
         doNothing().when(carService).deleteCar(1L, 2L);
 
         // then

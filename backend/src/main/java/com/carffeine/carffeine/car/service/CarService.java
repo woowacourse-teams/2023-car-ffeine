@@ -21,9 +21,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.carffeine.carffeine.car.exception.CarExceptionType.NOT_FOUND_EXCEPTION;
+import static java.util.stream.Collectors.toList;
 
 @RequiredArgsConstructor
 @Service
@@ -56,7 +56,7 @@ public class CarService {
                 .stream()
                 .filter(it -> !isAlreadyExisted(it))
                 .map(it -> carRepository.save(Car.from(it.name(), it.vintage())))
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     private boolean isAlreadyExisted(CarRequest carRequest) {
@@ -85,7 +85,7 @@ public class CarService {
         return carFilterRepository.findAllByCar(car)
                 .stream()
                 .map(CarFilter::getFilter)
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     @Transactional
