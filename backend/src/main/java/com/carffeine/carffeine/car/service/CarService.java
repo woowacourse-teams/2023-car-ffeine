@@ -66,8 +66,7 @@ public class CarService {
     @Transactional
     public void deleteCar(Long memberId, Long carId) {
         validateIsMemberAdmin(memberId);
-        Car car = findCar(carId);
-        carRepository.deleteById(car.getId());
+        carRepository.deleteById(carId);
     }
 
     @Transactional(readOnly = true)
@@ -107,8 +106,7 @@ public class CarService {
     private List<Filter> makeCarFilters(FiltersRequest filtersRequest, Car car) {
         List<Filter> filters = filtersRequest.filters()
                 .stream()
-                .map(it -> filterRepository.findByName(it.name())
-                        .orElseThrow(() -> new FilterException(FilterExceptionType.FILTER_NOT_FOUND)))
+                .map(it -> findFilter(it.name()))
                 .toList();
 
         List<CarFilter> carFilters = filters.stream()
@@ -119,5 +117,10 @@ public class CarService {
                 .stream()
                 .map(CarFilter::getFilter)
                 .toList();
+    }
+
+    private Filter findFilter(String filterName) {
+        return filterRepository.findByName(filterName)
+                .orElseThrow(() -> new FilterException(FilterExceptionType.FILTER_NOT_FOUND));
     }
 }

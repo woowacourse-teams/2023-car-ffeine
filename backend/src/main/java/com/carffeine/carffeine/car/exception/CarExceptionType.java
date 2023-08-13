@@ -5,7 +5,7 @@ import com.carffeine.carffeine.common.exception.Status;
 
 public enum CarExceptionType implements ExceptionType {
 
-    NOT_FOUND_EXCEPTION(Status.NOT_FOUND, 1001, "해당 차량을 찾을 수 없습니다.");
+    NOT_FOUND_EXCEPTION(Status.NOT_FOUND, 5001, "해당 차량을 찾을 수 없습니다.");
 
     private final Status status;
     private final int exceptionCode;

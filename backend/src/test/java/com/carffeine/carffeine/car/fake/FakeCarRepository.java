@@ -63,7 +63,6 @@ public class FakeCarRepository implements CarRepository {
 
         if (isExistedCar) {
             map.remove(id);
-            this.id--;
         }
     }
 }
