@@ -59,6 +59,8 @@ public class CarIntegrationTest extends CarIntegrationFixture {
     @BeforeEach
     void setup() {
         관리자 = memberRepository.save(Member.builder()
+                .name("admin")
+                .email("admin@email.com")
                 .memberRole(MemberRole.ADMIN)
                 .build());
 
