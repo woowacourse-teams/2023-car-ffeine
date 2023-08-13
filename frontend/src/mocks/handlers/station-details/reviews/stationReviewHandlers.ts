@@ -6,9 +6,11 @@ import { SERVERS } from '@constants';
 export const stationReviewHandlers = [
   rest.get(`${SERVERS.localhost}/stations/:stationId/total-ratings`, (req, res, ctx) => {
     const reviews = generateReviewsWithReplies();
+    const validReviews = reviews.filter((review) => !review.isDeleted);
     return res(
       ctx.json({
-        totalRatings: (reviews.reduce((a, b) => a + b.ratings, 0) / reviews.length).toFixed(2),
+        totalRatings: (validReviews.reduce((a, b) => a + b.ratings, 0) / reviews.length).toFixed(2),
+        totalCount: validReviews.length,
       }),
       ctx.delay(1000),
       ctx.status(200)
