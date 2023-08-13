@@ -1,0 +1,68 @@
+= Filter API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+
+== 차량을 모두 조회한다 (/cars)
+
+=== Request
+
+include::{snippets}/car-controller-test/find_all_cars/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/car-controller-test/find_all_cars/response-fields.adoc[]
+include::{snippets}/car-controller-test/find_all_cars/http-response.adoc[]
+
+== 차량을 등록한다 (/cars)
+
+=== Request
+
+include::{snippets}/car-controller-test/save_all_cars/request-headers.adoc[]
+include::{snippets}/car-controller-test/save_all_cars/request-fields.adoc[]
+include::{snippets}/car-controller-test/save_all_cars/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/car-controller-test/save_all_cars/response-fields.adoc[]
+include::{snippets}/car-controller-test/save_all_cars/http-response.adoc[]
+
+== 차량을 제거한다 (/cars/{carId})
+
+=== Request
+
+include::{snippets}/car-controller-test/delete_car/request-headers.adoc[]
+include::{snippets}/car-controller-test/delete_car/path-parameters.adoc[]
+include::{snippets}/car-controller-test/delete_car/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/car-controller-test/delete_car/http-response.adoc[]
+
+== 차량에 등록된 필터를 조회한다 (/cars/{carId}/filters)
+
+=== Request
+
+include::{snippets}/car-controller-test/find_car_filters/path-parameters.adoc[]
+include::{snippets}/car-controller-test/find_car_filters/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/car-controller-test/find_car_filters/response-fields.adoc[]
+include::{snippets}/car-controller-test/find_car_filters/http-response.adoc[]
+
+== 차량에 필터를 등록한다 (/cars/{carId}/filters)
+
+=== Request
+
+include::{snippets}/car-controller-test/add_car_filters/request-headers.adoc[]
+include::{snippets}/car-controller-test/add_car_filters/path-parameters.adoc[]
+include::{snippets}/car-controller-test/add_car_filters/request-body.adoc[]
+include::{snippets}/car-controller-test/add_car_filters/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/car-controller-test/add_car_filters/response-fields.adoc[]
+include::{snippets}/car-controller-test/add_car_filters/http-response.adoc[]

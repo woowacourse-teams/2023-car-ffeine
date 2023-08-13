@@ -36,6 +36,7 @@ class MemberFilterRepositoryTest {
         member = memberRepository.save(Member.builder()
                 .id(1L)
                 .email("sosow0212@naver.com")
+                .name("so")
                 .memberRole(MemberRole.USER)
                 .build());
 

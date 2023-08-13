@@ -57,7 +57,7 @@ const ReviewPreview = ({ stationId }: ReviewPreviewProps) => {
   return (
     <>
       <Box my={5}>
-        <UserRatings counts={reviews.length} ratings={totalRatings} />
+        <UserRatings stationId={stationId} />
         {aliveReviews.length === 0 ? (
           <Box p={5}>등록된 리뷰가 없습니다.</Box>
         ) : (

@@ -36,12 +36,14 @@ public class AdminMemberIntegrationTest extends IntegrationTest {
     @BeforeEach
     void setUp() {
         관리자 = memberRepository.save(Member.builder()
+                .name("admin")
                 .email("admin@email.com")
                 .memberRole(MemberRole.ADMIN)
                 .build());
         관리자_토큰 = "Bearer " + provider.create(관리자.getId());
 
         일반_회원 = memberRepository.save(Member.builder()
+                .name("user")
                 .email("user@email.com")
                 .memberRole(MemberRole.USER)
                 .build());
@@ -55,7 +57,8 @@ public class AdminMemberIntegrationTest extends IntegrationTest {
         void 정상_응답한다() {
             //given
             memberRepository.save(Member.builder()
-                    .email("email.com")
+                    .name("user")
+                    .email("user@email.com1")
                     .memberRole(MemberRole.USER)
                     .build());
 

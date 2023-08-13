@@ -25,12 +25,13 @@ import {
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 
-import LoginModal from '@ui/LoginModal/LoginModal';
 import MswControlButton from '@ui/MswControlButton';
-import ServerStationFilters from '@ui/ServerStationFilters';
+import ServerStationFiltersComponent from '@ui/ServerStationFilters';
 import StationListWindow from '@ui/StationList/StationListWindow';
 import StationSearchWindow from '@ui/StationSearchWindow';
 import LogoIcon from '@ui/Svg/LogoIcon';
+import CarModal from '@ui/modal/CarModal/CarModal';
+import LoginModal from '@ui/modal/LoginModal/LoginModal';
 
 import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
 
@@ -39,8 +40,11 @@ import { useNavigationBar } from './hooks/useNavigationBar';
 
 const Menu = () => {
   const { openBasePanel } = useNavigationBar();
+
   const memberToken = useExternalValue(memberTokenStore);
   const queryClient = useQueryClient();
+
+  const { openModal } = modalActions;
 
   const handleClickLoginIcon = () => {
     modalActions.openModal(<LoginModal />);
@@ -53,7 +57,9 @@ const Menu = () => {
           <PencilSquareIcon width="1.8rem" color="#333" /> 차량등록
         </>
       ),
-      onClick: () => alert('차량등록'),
+      onClick: () => {
+        openModal(<CarModal />);
+      },
     },
     {
       children: (
@@ -91,7 +97,10 @@ const Menu = () => {
       <Button aria-label="검색창 열기" onClick={() => openBasePanel(<StationSearchWindow />)}>
         <MagnifyingGlassIcon width="2.8rem" stroke="#333" />
       </Button>
-      <Button aria-label="필터링 메뉴 열기" onClick={() => openBasePanel(<ServerStationFilters />)}>
+      <Button
+        aria-label="필터링 메뉴 열기"
+        onClick={() => openBasePanel(<ServerStationFiltersComponent />)}
+      >
         <AdjustmentsHorizontalIcon width="2.8rem" stroke="#333" />
       </Button>
       <Button aria-label="충전소 목록 보기" onClick={() => openBasePanel(<StationListWindow />)}>

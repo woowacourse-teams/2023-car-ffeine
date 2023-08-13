@@ -20,7 +20,7 @@ public class Latitude {
     private static final BigDecimal KOREA_MIN_LATITUDE = BigDecimal.valueOf(33);
     private static final BigDecimal KOREA_MAX_LATITUDE = BigDecimal.valueOf(39);
 
-    @Column(name = "latitude", scale = 7, precision = 13)
+    @Column(name = "latitude", scale = 7, precision = 13, nullable = false)
     private BigDecimal value;
 
     private Latitude(BigDecimal value) {

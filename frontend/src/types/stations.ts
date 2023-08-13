@@ -86,6 +86,11 @@ export type StationPosition = Pick<Station, 'stationId' | 'longitude' | 'latitud
 
 export type StationDetailsWithoutChargers = Omit<StationDetails, 'chargers'>;
 
+export interface StationRatings {
+  totalRatings: number;
+  totalCount: number;
+}
+
 export interface Review {
   reviewId: number;
   userId: number;
