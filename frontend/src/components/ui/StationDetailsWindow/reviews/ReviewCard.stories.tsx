@@ -41,10 +41,14 @@ const meta = {
       reviewId: 0,
       userId: 23884823,
     },
+    previewMode: false,
   },
   argTypes: {
     review: {
-      description: 'ㅇㅇ',
+      description: 'Review 객체를 전달하면 카드를 만듭니다.',
+    },
+    previewMode: {
+      description: '수정 및 삭제 컨트롤러를 제거할 수 있습니다.',
     },
   },
 } satisfies Meta<typeof ReviewCard>;

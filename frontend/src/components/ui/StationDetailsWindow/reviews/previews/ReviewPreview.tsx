@@ -10,8 +10,8 @@ import Text from '@common/Text';
 
 import ReviewCard from '@ui/StationDetailsWindow/reviews/ReviewCard';
 import ReviewList from '@ui/StationDetailsWindow/reviews/ReviewList';
-import ReviewPreviewSkeleton from '@ui/StationDetailsWindow/reviews/ReviewPreviewSkeleton';
-import UserRatings from '@ui/StationDetailsWindow/reviews/UserRatings';
+import ReviewPreviewSkeleton from '@ui/StationDetailsWindow/reviews/previews/ReviewPreviewSkeleton';
+import UserRatings from '@ui/StationDetailsWindow/reviews/previews/UserRatings';
 
 export interface ReviewPreviewProps {
   stationId: string;
@@ -24,6 +24,7 @@ const ReviewPreview = ({ stationId }: ReviewPreviewProps) => {
     isError: isReviewRatingsError,
     error: reviewRatingsError,
   } = useReviewRatings(stationId);
+
   const {
     data: reviews,
     isLoading: isReviewsLoading,
@@ -54,37 +55,40 @@ const ReviewPreview = ({ stationId }: ReviewPreviewProps) => {
   const aliveReviews = reviews.filter((review) => !review.isDeleted);
 
   return (
-    <Box my={5}>
-      <UserRatings counts={reviews.length} ratings={totalRatings} />
-      {aliveReviews.length === 0 ? (
-        <Box p={5}>등록된 리뷰가 없습니다.</Box>
-      ) : (
-        <>
-          {aliveReviews.slice(0, 3).map((review, i) => {
-            return (
-              <ReviewCard
-                key={i}
-                review={{
-                  content: review.content,
-                  isDeleted: review.isDeleted,
-                  isUpdated: review.isUpdated,
-                  latestUpdateDate: review.latestUpdateDate,
-                  ratings: review.ratings,
-                  replies: review.replies,
-                  reviewId: review.reviewId,
-                  userId: review.userId,
-                }}
-              />
-            );
-          })}
-          <FlexBox justifyContent="end">
-            <ButtonNext variant="text" size="sm" onClick={() => handleClickMoreReviewButton()}>
-              후기 더 보기
-            </ButtonNext>
-          </FlexBox>
-        </>
-      )}
-    </Box>
+    <>
+      <Box my={5}>
+        <UserRatings counts={reviews.length} ratings={totalRatings} />
+        {aliveReviews.length === 0 ? (
+          <Box p={5}>등록된 리뷰가 없습니다.</Box>
+        ) : (
+          <>
+            {aliveReviews.slice(0, 3).map((review, i) => {
+              return (
+                <ReviewCard
+                  key={i}
+                  stationId={''}
+                  review={{
+                    content: review.content,
+                    isDeleted: review.isDeleted,
+                    isUpdated: review.isUpdated,
+                    latestUpdateDate: review.latestUpdateDate,
+                    ratings: review.ratings,
+                    replies: review.replies,
+                    reviewId: review.reviewId,
+                    userId: review.userId,
+                  }}
+                />
+              );
+            })}
+            <FlexBox justifyContent="end">
+              <ButtonNext variant="text" size="sm" onClick={() => handleClickMoreReviewButton()}>
+                후기 더 보기
+              </ButtonNext>
+            </FlexBox>
+          </>
+        )}
+      </Box>
+    </>
   );
 };
 

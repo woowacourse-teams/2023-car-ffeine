@@ -53,3 +53,13 @@ export const Example = () => {
     </>
   );
 };
+
+export const Spacing = () => {
+  return (
+    <>
+      <Skeleton width="10rem" height="10rem" />
+      <Skeleton width="10rem" height="10rem" my={10} />
+      <Skeleton width="10rem" height="10rem" />
+    </>
+  );
+};

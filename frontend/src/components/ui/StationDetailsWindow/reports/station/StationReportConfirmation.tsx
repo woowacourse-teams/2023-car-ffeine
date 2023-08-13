@@ -11,8 +11,8 @@ import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 import TextField from '@common/TextField';
 
-import StationInformation from '@ui/StationDetailsWindow/StationInformation';
-import { findDifferentKeys } from '@ui/StationDetailsWindow/reports/domain';
+import { findDifferentKeys } from '@ui/StationDetailsWindow/reports/station/domain';
+import StationInformation from '@ui/StationDetailsWindow/station/StationInformation';
 
 import {
   FORM_ADDRESS_LENGTH_LIMIT,
