@@ -17,10 +17,10 @@ export const stationReviewHandlers = [
 
   rest.get(`${SERVERS.localhost}/stations/:stationId/reviews`, (req, res, ctx) => {
     const reviews = generateReviewsWithReplies();
-
     const { searchParams } = req.url;
     const page = Number(searchParams.get('page'));
     console.log(`page=${page}`);
+
     if (page === 3) {
       return res(
         ctx.json({
@@ -52,5 +52,28 @@ export const stationReviewHandlers = [
         ctx.status(200)
       );
     }
+  }),
+
+  rest.post(`${SERVERS.localhost}/stations/:stationId/reviews`, async (req, res, ctx) => {
+    return res(ctx.delay(200), ctx.status(204));
+  }),
+  rest.patch(`${SERVERS.localhost}/reviews/:reviewId`, (req, res, ctx) => {
+    return res(ctx.delay(200), ctx.status(204));
+  }),
+  rest.delete(`${SERVERS.localhost}/reviews/:reviewId`, (req, res, ctx) => {
+    return res(ctx.delay(200), ctx.status(204));
+  }),
+
+  rest.post(
+    `${SERVERS.localhost}/stations/:stationId/reviews/:reviewId/replies`,
+    (req, res, ctx) => {
+      return res(ctx.delay(200), ctx.status(204));
+    }
+  ),
+  rest.patch(`${SERVERS.localhost}/reviews/:reviewId/replies/:replyId`, (req, res, ctx) => {
+    return res(ctx.delay(200), ctx.status(204));
+  }),
+  rest.delete(`${SERVERS.localhost}/reviews/:reviewId/replies/:replyId`, (req, res, ctx) => {
+    return res(ctx.delay(200), ctx.status(204));
   }),
 ];

@@ -11,12 +11,8 @@ const SearchResultSkeleton = () => {
       {Array.from({ length: 10 }, (_, index) => (
         <ListItem divider NoLastDivider key={index} css={foundStationList}>
           <Box p={2}>
-            <Box mb={2}>
-              <Skeleton width="12rem" height="1.2rem" />
-            </Box>
-            <Box>
-              <Skeleton width="24rem" />
-            </Box>
+            <Skeleton width="12rem" height="1.2rem" mb={2} />
+            <Skeleton width="24rem" />
           </Box>
         </ListItem>
       ))}

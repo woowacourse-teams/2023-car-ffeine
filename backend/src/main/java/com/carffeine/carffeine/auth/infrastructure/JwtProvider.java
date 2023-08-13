@@ -2,8 +2,12 @@ package com.carffeine.carffeine.auth.infrastructure;
 
 import com.carffeine.carffeine.auth.domain.TokenProvider;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.Keys;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +19,12 @@ import java.security.Key;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+
+import static com.carffeine.carffeine.auth.exception.AuthExceptionType.EXPIRED_TOKEN;
+import static com.carffeine.carffeine.auth.exception.AuthExceptionType.INVALID_TOKEN;
+import static com.carffeine.carffeine.auth.exception.AuthExceptionType.MALFORMED_TOKEN;
+import static com.carffeine.carffeine.auth.exception.AuthExceptionType.SIGNITURE_NOT_FOUND;
+import static com.carffeine.carffeine.auth.exception.AuthExceptionType.UNSUPPORTED_TOKEN;
 
 @Getter
 @Component
@@ -59,21 +69,28 @@ public class JwtProvider implements TokenProvider {
     }
 
     @Override
-    public boolean isExpired(String token) {
-        return Jwts.parser()
-                .setSigningKey(secret.getBytes())
-                .parseClaimsJws(token)
-                .getBody()
-                .getExpiration()
-                .before(new Date());
+    public Long extract(String token) {
+        try {
+            return Jwts.parser()
+                    .setSigningKey(secret.getBytes())
+                    .parseClaimsJws(token)
+                    .getBody()
+                    .get("id", Long.class);
+        } catch (SecurityException e) {
+            throw new JwtException(SIGNITURE_NOT_FOUND.message());
+        } catch (MalformedJwtException e) {
+            throw new JwtException(MALFORMED_TOKEN.message());
+        } catch (ExpiredJwtException e) {
+            throw new JwtException(EXPIRED_TOKEN.message());
+        } catch (UnsupportedJwtException e) {
+            throw new JwtException(UNSUPPORTED_TOKEN.message());
+        } catch (IllegalArgumentException e) {
+            throw new JwtException(INVALID_TOKEN.message());
+        }
     }
 
     @Override
-    public Long extract(String token) {
-        return Jwts.parser()
-                .setSigningKey(secret.getBytes())
-                .parseClaimsJws(token)
-                .getBody()
-                .get("id", Long.class);
+    public void validate(String token) {
+        extract(token);
     }
 }

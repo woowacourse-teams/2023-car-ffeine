@@ -20,5 +20,6 @@ export const useReviews = (stationId: string) => {
   return useQuery({
     queryKey: ['previews', stationId],
     queryFn: () => fetchReviews(stationId),
+    refetchOnWindowFocus: false,
   });
 };

@@ -11,6 +11,12 @@ public class MemberFixture {
             .memberRole(MemberRole.USER)
             .build();
 
+    public static final Member 일반_회원2 = Member.builder()
+            .id(2L)
+            .email("kiara@email.com")
+            .memberRole(MemberRole.USER)
+            .build();
+
     public static final Member 관리자_회원 = Member.builder()
             .id(2L)
             .email("admin@email.com")

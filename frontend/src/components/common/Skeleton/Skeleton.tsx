@@ -1,6 +1,9 @@
 import styled, { keyframes } from 'styled-components';
 
-export interface SkeletonProps {
+import type { SpacingProps } from '@common/systems';
+import { spacing } from '@common/systems';
+
+export interface SkeletonProps extends SpacingProps {
   width?: string;
   height?: string;
   borderRadius?: string;
@@ -19,6 +22,8 @@ const skeletonAnimation = keyframes`
 `;
 
 const SkeletonWrapper = styled.div<SkeletonProps>`
+  ${spacing};
+
   width: ${({ width }) => width || '100%'};
   height: ${({ height }) => height || '1rem'};
   background: linear-gradient(-90deg, #aaa, #f0f0f0, #aaa, #f0f0f0);
