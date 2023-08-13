@@ -14,6 +14,7 @@ import Text from '@common/Text';
 
 import ReviewModify from '@ui/StationDetailsWindow/reviews/crud/ReviewModify';
 import ReplyCard from '@ui/StationDetailsWindow/reviews/replies/ReplyCard';
+import ReplyCreate from '@ui/StationDetailsWindow/reviews/replies/ReplyCreate';
 
 import type { Review } from '@type';
 
@@ -113,7 +114,7 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
               />
             ))}
 
-          {isRepliesOpen && <>답글 달기</>}
+          {isRepliesOpen && <ReplyCreate stationId={stationId} reviewId={review.reviewId} />}
         </>
       )}
     </>
