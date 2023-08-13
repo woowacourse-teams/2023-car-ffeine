@@ -26,8 +26,8 @@ create table if not exists  charger
 (
     charger_id varchar(255)   not null,
     station_id varchar(255)   not null,
-    created_at datetime       null,
-    updated_at datetime       null,
+    created_at timestamp       null,
+    updated_at timestamp       null,
     capacity   decimal(19, 2) null,
     method     varchar(255)   null,
     price      decimal(19, 2) null,
@@ -39,8 +39,8 @@ create table if not exists  charger_status
 (
     charger_id         varchar(255) not null,
     station_id         varchar(255) not null,
-    created_at         datetime     null,
-    updated_at         datetime     null,
+    created_at         timestamp     null,
+    updated_at         timestamp     null,
     charger_condition  varchar(255) null,
     latest_update_time datetime     null,
     primary key (charger_id, station_id)
@@ -50,8 +50,8 @@ create table if not exists fault_report
 (
     id         bigint auto_increment
     primary key,
-    created_at datetime     null,
-    updated_at datetime     null,
+    created_at timestamp     null,
+    updated_at timestamp     null,
     member_id  bigint       null,
     station_id varchar(255) null,
     constraint FKyeyh5c6glrdyqft2pql2xfvm
@@ -62,8 +62,8 @@ create table if not exists member
 (
     id         bigint auto_increment
     primary key,
-    created_at datetime     null,
-    updated_at datetime     null,
+    created_at timestamp     null,
+    updated_at timestamp     null,
     email      varchar(255) null,
     member_role      varchar(255) null
     );
@@ -72,8 +72,8 @@ create table if not exists  misinformation_report
 (
     id         bigint auto_increment
     primary key,
-    created_at datetime     null,
-    updated_at datetime     null,
+    created_at timestamp     null,
+    updated_at timestamp     null,
     is_checked bit          not null,
     member_id  bigint       null,
     station_id varchar(255) null,
@@ -85,8 +85,8 @@ create table if not exists  misinformation_detail_report
 (
     id                       bigint auto_increment
     primary key,
-    created_at               datetime     null,
-    updated_at               datetime     null,
+    created_at               timestamp     null,
+    updated_at               timestamp     null,
     category                 varchar(255) not null,
     content                  varchar(255) not null,
     misinformation_report_id bigint       not null,
@@ -98,8 +98,8 @@ create table if not exists  periodic_congestion
 (
     id          varchar(255) not null
     primary key,
-    created_at  datetime     null,
-    updated_at  datetime     null,
+    created_at  timestamp     null,
+    updated_at  timestamp     null,
     charger_id  varchar(255) null,
     congestion  double       not null,
     day_of_week varchar(255) null,

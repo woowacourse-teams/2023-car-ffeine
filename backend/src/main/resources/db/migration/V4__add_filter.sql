@@ -1,8 +1,8 @@
 create table filter
 (
     id          bigint       not null auto_increment,
-    created_at  datetime not null ,
-    updated_at  datetime not null ,
+    created_at  timestamp not null ,
+    updated_at  timestamp not null ,
     filter_type varchar(255) not null,
     name        varchar(255) not null,
     primary key (id)
@@ -11,8 +11,8 @@ create table filter
 create table member_filter
 (
     id         bigint not null auto_increment,
-    created_at datetime not null ,
-    updated_at datetime not null ,
+    created_at timestamp not null ,
+    updated_at timestamp not null ,
     filter_id  bigint not null,
     member_id  bigint not null,
     primary key (id)
