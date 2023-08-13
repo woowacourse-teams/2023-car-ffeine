@@ -28,7 +28,7 @@ const ReplyCard = ({ stationId, reply, reviewId, previewMode, isLastReply }: Rep
     return (
       <ReplyModify
         stationId={stationId}
-        replyId={reply.replyId}
+        reply={reply}
         reviewId={reviewId}
         setIsModifyMode={setIsModifyMode}
       />

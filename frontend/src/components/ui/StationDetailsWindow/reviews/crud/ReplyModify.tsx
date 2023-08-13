@@ -9,19 +9,21 @@ import Text from '@common/Text';
 
 import ContentField from '@ui/StationDetailsWindow/reviews/crud/ContentField';
 
+import type { Reply } from '@type';
+
 interface ReplyModifyProps {
   stationId: string;
   reviewId: number;
-  replyId: number;
+  reply: Reply;
   setIsModifyMode: (newMode: boolean) => void;
 }
 
-const ReplyModify = ({ stationId, reviewId, replyId, setIsModifyMode }: ReplyModifyProps) => {
-  const [content, setContent] = useState('');
+const ReplyModify = ({ stationId, reviewId, reply, setIsModifyMode }: ReplyModifyProps) => {
+  const [content, setContent] = useState(reply.content);
   const { modifyReply, isModifyReplyLoading } = useModifyReply(stationId);
 
   const handleClickModifyReply = () => {
-    modifyReply({ replyId, content, reviewId });
+    modifyReply({ replyId: reply.replyId, content, reviewId });
     setIsModifyMode(false);
   };
 
