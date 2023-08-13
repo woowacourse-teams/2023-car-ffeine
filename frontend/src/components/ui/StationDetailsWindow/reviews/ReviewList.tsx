@@ -19,8 +19,12 @@ export interface ReviewListProps {
 }
 
 export default function ReviewList({ stationId }: ReviewListProps) {
-  const { status, data, error, isFetchingNextPage, fetchNextPage, hasNextPage } =
+  const { status, data, error, isFetchingNextPage, fetchNextPage, hasNextPage, isFetching } =
     useInfiniteReviews(stationId);
+
+  if (isFetching) {
+    return <ReviewCardsLoading count={10} />;
+  }
 
   return (
     <>
