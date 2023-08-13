@@ -11,7 +11,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class CarIntegrationFixture extends IntegrationTest {
 
-    protected <T> ExtractableResponse 차량_생성_요청(String url, T request, String accessToken) {
+    protected <T> ExtractableResponse 생성_요청(String url, T request, String accessToken) {
         return RestAssured.given().log().all()
                 .body(request)
                 .contentType(ContentType.JSON)
@@ -22,7 +22,7 @@ public class CarIntegrationFixture extends IntegrationTest {
                 .extract();
     }
 
-    protected <T> ExtractableResponse 차량_제거_요청(String url, String accessToken) {
+    protected <T> ExtractableResponse 제거_요청(String url, String accessToken) {
         return RestAssured.given().log().all()
                 .header(HttpHeaders.AUTHORIZATION, accessToken)
                 .when()
@@ -31,7 +31,7 @@ public class CarIntegrationFixture extends IntegrationTest {
                 .extract();
     }
 
-    protected <T> ExtractableResponse 차량_조회_요청(String url) {
+    protected <T> ExtractableResponse 조회_요청(String url) {
         return RestAssured.given().log().all()
                 .accept(ContentType.JSON)
                 .when()
