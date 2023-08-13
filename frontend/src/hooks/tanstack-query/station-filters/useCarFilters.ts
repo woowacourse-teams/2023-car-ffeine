@@ -21,5 +21,6 @@ export const useCarFilters = () => {
   return useQuery({
     queryKey: [QUERY_KEY_MEMBER_CAR_FILTERS],
     queryFn: fetchCarFilters,
+    refetchOnWindowFocus: false,
   });
 };
