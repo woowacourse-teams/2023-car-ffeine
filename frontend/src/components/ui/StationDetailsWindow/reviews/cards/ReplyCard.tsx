@@ -28,7 +28,9 @@ const ReplyCard = ({ stationId, reply, reviewId, previewMode, isLastReply }: Rep
   const { removeReply, isRemoveReplyLoading } = useRemoveReply(stationId);
 
   const handleClickRemoveReplyButton = () => {
-    removeReply({ replyId: reply.replyId, reviewId });
+    if (confirm('정말로 삭제하시겠습니까?')) {
+      removeReply({ replyId: reply.replyId, reviewId });
+    }
   };
 
   if (isModifyMode) {
