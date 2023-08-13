@@ -1,5 +1,6 @@
 import { PencilIcon, TrashIcon } from '@heroicons/react/20/solid';
 import { StarIcon } from '@heroicons/react/24/solid';
+import { stat } from 'copy-webpack-plugin/types/utils';
 
 import { useEffect, useState } from 'react';
 
@@ -108,7 +109,9 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
             replies.map((reply, index) => (
               <ReplyCard
                 key={index}
+                stationId={stationId}
                 reply={reply}
+                reviewId={review.reviewId}
                 previewMode={previewMode}
                 isLastReply={index !== replies.length - 1}
               />
