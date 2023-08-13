@@ -36,8 +36,8 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-api:0.10.5'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.10.5'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.10.5'
-//    implementation 'org.flywaydb:flyway-core'
-//    implementation 'org.flywaydb:flyway-mysql'
+    implementation 'org.flywaydb:flyway-core'
+    implementation 'org.flywaydb:flyway-mysql'
     implementation "com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3"
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
