@@ -22,6 +22,7 @@ const ReplyModify = ({ stationId, reviewId, replyId, setIsModifyMode }: ReplyMod
 
   const handleClickModifyReply = () => {
     modifyReply({ replyId, content, reviewId });
+    setIsModifyMode(false);
   };
 
   return (
@@ -31,6 +32,15 @@ const ReplyModify = ({ stationId, reviewId, replyId, setIsModifyMode }: ReplyMod
         <ContentField content={content} setContent={setContent} />
         <FlexBox justifyContent="end">
           <ButtonNext
+            size="xs"
+            variant="outlined"
+            color="error"
+            onClick={() => setIsModifyMode(false)}
+          >
+            닫기
+          </ButtonNext>
+          <ButtonNext
+            size="xs"
             variant="contained"
             disabled={isModifyReplyLoading || content.length < 5 || content.length > 100}
             onClick={() => handleClickModifyReply()}

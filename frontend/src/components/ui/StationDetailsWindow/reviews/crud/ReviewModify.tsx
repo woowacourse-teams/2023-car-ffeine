@@ -36,20 +36,20 @@ const ReviewModify = ({ stationId, review, setIsModifyMode }: ReviewModifyProps)
       <HeaderWithRating stars={stars} setStars={setStars} title="후기 수정하기" />
       <ContentField content={content} setContent={setContent} />
 
-      <FlexBox nowrap>
+      <FlexBox nowrap justifyContent="end">
         <ButtonNext
+          size="xs"
           variant="outlined"
           color="error"
-          fullWidth
           onClick={() => handleClickCloseModifyMode()}
         >
           취소
         </ButtonNext>
         <ButtonNext
+          size="xs"
           disabled={isModifyReviewLoading || content.length < 5 || content.length > 100}
-          variant="outlined"
+          variant="contained"
           color="success"
-          fullWidth
           onClick={() => handleClickModifyReview()}
         >
           {isModifyReviewLoading ? '처리중...' : '등록'}

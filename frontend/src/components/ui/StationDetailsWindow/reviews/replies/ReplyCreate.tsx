@@ -48,6 +48,7 @@ const ReplyCreate = ({ stationId, reviewId }: ReplyCreateProps) => {
           <ContentField content={content} setContent={setContent} />
           <FlexBox justifyContent="end">
             <ButtonNext
+              size="xs"
               variant="contained"
               disabled={isCreateReplyLoading || content.length < 5 || content.length > 100}
               onClick={() => handleClickCreate()}
