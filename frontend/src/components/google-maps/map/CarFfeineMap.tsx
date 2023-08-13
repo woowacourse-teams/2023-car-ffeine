@@ -10,14 +10,10 @@ import { setLocalStorage } from '@utils/storage';
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { toastActions } from '@stores/layout/toastStore';
 import { memberTokenStore } from '@stores/login/memberTokenStore';
-import {
-  selectedCapacitiesFilterStore,
-  selectedConnectorTypesFilterStore,
-  selectedCompaniesFilterStore,
-} from '@stores/station-filters/serverStationFiltersStore';
+import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
 
+import { useCarFilters } from '@hooks/tanstack-query/station-filters/useCarFilters';
 import { useMemberFilters } from '@hooks/tanstack-query/station-filters/useMemberFilters';
-import { useUpdateStations } from '@hooks/tanstack-query/station-markers/useUpdateStations';
 
 import ToastContainer from '@common/Toast/ToastContainer';
 
@@ -50,7 +46,6 @@ const CarFfeineMap = () => {
 const CarFfeineMapListener = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
   const queryClient = useQueryClient();
-  const { updateStations } = useUpdateStations();
 
   useEffect(() => {
     googleMap.addListener('idle', () => {
@@ -69,7 +64,7 @@ const CarFfeineMapListener = () => {
     });
 
     const initMarkersEvent = googleMap.addListener('bounds_changed', async () => {
-      updateStations();
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
 
       google.maps.event.removeListener(initMarkersEvent);
     });
@@ -80,19 +75,21 @@ const CarFfeineMapListener = () => {
 
 const UserFilterListener = () => {
   const queryClient = useQueryClient();
-  const { data: userFilters } = useMemberFilters();
+  const { data: memberFilters } = useMemberFilters();
+  const { data: carFilters } = useCarFilters();
+  const { setCarFilters, setAllServerStationFilters } = serverStationFilterAction;
 
   useEffect(() => {
-    if (memberTokenStore.getState() !== '' && userFilters) {
-      const { connectorTypes, capacities, companies } = userFilters;
+    if (memberTokenStore.getState() !== '' && memberFilters !== undefined) {
+      setAllServerStationFilters(memberFilters);
+    }
 
-      selectedCapacitiesFilterStore.setState((prev) => new Set([...prev, ...capacities]));
-      selectedConnectorTypesFilterStore.setState((prev) => new Set([...prev, ...connectorTypes]));
-      selectedCompaniesFilterStore.setState((prev) => new Set([...prev, ...companies]));
+    if (carFilters !== undefined) {
+      setCarFilters(carFilters);
     }
 
     queryClient.invalidateQueries([{ queryKey: [QUERY_KEY_STATIONS] }]);
-  }, [userFilters]);
+  }, [memberFilters, carFilters]);
 
   return <></>;
 };

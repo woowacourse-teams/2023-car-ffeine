@@ -7,13 +7,16 @@ import {
   getRandomTime,
 } from '@utils/randomDataGenerator';
 
-import { CONNECTOR_TYPES, COMPANIES } from '@constants/chargers';
+import type { ServerStationFilters } from '@hooks/tanstack-query/station-filters/useServerStationFilters';
+
+import { CONNECTOR_TYPES, COMPANIES, CAPACITIES } from '@constants/chargers';
 import { ENGLISH_DAYS } from '@constants/congestion';
 import { MAX_SEARCH_RESULTS } from '@constants/stationSearch';
 
+import type { Car } from '@type/cars';
 import type { Capacity, ChargerDetails } from '@type/chargers';
 import type { Congestion, CongestionStatistics, EnglishDaysType } from '@type/congestion';
-import type { ConnectorTypeKey } from '@type/serverStationFilter';
+import type { CapaCityBigDecimal, ConnectorTypeKey } from '@type/serverStationFilter';
 import type { CompanyName, Review, Station } from '@type/stations';
 
 export const generateRandomChargers = () => {
@@ -161,4 +164,44 @@ export const generateReviewsWithReplies = (): Review[] => {
       }),
     };
   });
+};
+
+export const generateCars = (): Car[] => {
+  const name = Array.from({ length: 6 }).map((_, i) => `아이오닉${i + 1}`);
+  const vintage = Array.from({ length: 5 }).map((_, i) => `${2019 + i}`);
+
+  const car = name
+    .map((n) => {
+      const randomLength = Math.floor(Math.random() * 4) + 1;
+
+      const randomYear = vintage.slice(0, randomLength);
+      return randomYear.map((rV) => ({
+        carId: Math.random(),
+        name: n,
+        vintage: rV,
+      }));
+    })
+    .reduce((acc, curr) => [...acc, ...curr], []);
+
+  return car;
+};
+
+export const generateCarFilters = (): Omit<ServerStationFilters, 'companies'> => {
+  const randomSortedCapacities = (
+    [...CAPACITIES.map((capacity) => `${capacity}.00`)] as CapaCityBigDecimal[]
+  ).sort(() => (Math.random() - 0.5 > 0 ? 1 : -1));
+  const randomSortedConnectorTypes = [...getTypedObjectKeys(CONNECTOR_TYPES)].sort(() =>
+    Math.random() - 0.5 > 0 ? 1 : -1
+  );
+
+  const capacities = randomSortedCapacities.slice(
+    0,
+    Math.floor(Math.random() * (randomSortedCapacities.length - 1) + 1)
+  );
+  const connectorTypes = randomSortedConnectorTypes.slice(0, 3);
+
+  return {
+    capacities,
+    connectorTypes,
+  };
 };

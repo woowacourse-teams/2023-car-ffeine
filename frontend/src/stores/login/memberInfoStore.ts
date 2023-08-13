@@ -1,6 +1,7 @@
 import { store } from '@utils/external-state';
 
 export interface MemberCar {
+  carId: number;
   name: string;
   year: string;
 }

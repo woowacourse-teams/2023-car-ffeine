@@ -1,3 +1,3 @@
-import ServerStationFilters from './ServerStationFilters';
+import ServerStationFiltersComponent from './ServerStationFilters';
 
-export default ServerStationFilters;
+export default ServerStationFiltersComponent;

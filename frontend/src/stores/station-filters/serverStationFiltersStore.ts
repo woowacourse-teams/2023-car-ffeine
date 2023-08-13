@@ -18,6 +18,19 @@ export const serverStationFilterAction = {
   setAllServerStationFilters(stationFilters: StationFilters) {
     const { companies, capacities, connectorTypes } = stationFilters;
 
+    selectedCompaniesFilterStore.setState((prev) => new Set([...prev, ...companies]));
+    selectedConnectorTypesFilterStore.setState((prev) => new Set([...prev, ...connectorTypes]));
+    selectedCapacitiesFilterStore.setState((prev) => new Set([...prev, ...capacities]));
+  },
+  setCarFilters(carFilter: Omit<StationFilters, 'companies'>) {
+    const { capacities, connectorTypes } = carFilter;
+
+    selectedConnectorTypesFilterStore.setState((prev) => new Set([...prev, ...connectorTypes]));
+    selectedCapacitiesFilterStore.setState((prev) => new Set([...prev, ...capacities]));
+  },
+  resetAllServerStationFilters(stationFilters: StationFilters) {
+    const { companies, capacities, connectorTypes } = stationFilters;
+
     selectedCompaniesFilterStore.setState(new Set([...companies]));
     selectedConnectorTypesFilterStore.setState(new Set([...connectorTypes]));
     selectedCapacitiesFilterStore.setState(new Set([...capacities]));
