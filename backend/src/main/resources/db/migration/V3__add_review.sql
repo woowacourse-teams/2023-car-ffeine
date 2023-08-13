@@ -1,8 +1,8 @@
 create table review
 (
     id         bigint       not null auto_increment,
-    created_at datetime,
-    updated_at datetime,
+    created_at timestamp,
+    updated_at timestamp,
     content    varchar(255) not null,
     is_deleted bit          not null,
     ratings    integer      not null,
