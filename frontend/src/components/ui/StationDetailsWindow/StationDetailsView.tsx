@@ -7,15 +7,14 @@ import { useStationChargerReport } from '@hooks/tanstack-query/station-details/r
 import Alert from '@common/Alert';
 import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
-import FlexBox from '@common/FlexBox';
 import Skeleton from '@common/Skeleton';
 import Text from '@common/Text';
 
-import ChargerCard from '@ui/StationDetailsWindow/ChargerCard';
-import StationInformation from '@ui/StationDetailsWindow/StationInformation';
+import ChargerList from '@ui/StationDetailsWindow/chargers/ChargerList';
 import ChargerReportConfirmation from '@ui/StationDetailsWindow/reports/ChargerReportConfirmation';
 import StationReportPreConfirmation from '@ui/StationDetailsWindow/reports/StationReportPreConfirmation';
 import ReviewPreview from '@ui/StationDetailsWindow/reviews/previews/ReviewPreview';
+import StationInformation from '@ui/StationDetailsWindow/station/StationInformation';
 
 import type { StationDetails } from '@type';
 
@@ -48,11 +47,7 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
         </ButtonNext>
       </Box>
 
-      <FlexBox>
-        {chargers.map((charger, index) => (
-          <ChargerCard key={index} charger={charger} />
-        ))}
-      </FlexBox>
+      <ChargerList chargers={chargers} />
 
       <Box my={3}>
         {isStationChargerReportedLoading ? (
