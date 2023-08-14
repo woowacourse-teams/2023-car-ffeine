@@ -186,4 +186,31 @@ public class ReviewControllerTest extends MockBeanInjection {
                         ))
                 );
     }
+
+    @Test
+    void 충전소의_통합_별점을_구한다() throws Exception {
+        // given
+        String stationId = "ME101010";
+        Double averageRatings = 4.0;
+        long totalCount = 1;
+
+        // when
+        when(reviewService.findAverageRatings(stationId)).thenReturn(averageRatings);
+        when(reviewService.findTotalCount(stationId)).thenReturn(totalCount);
+
+        // then
+        mockMvc.perform(get("/stations/{stationId}/total-ratings", stationId)
+                        .param("page", "0")
+                        .param("scope", "10")
+                )
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andDo(customDocument("find-total-ratings",
+                        pathParameters(parameterWithName("stationId").description("충전소 ID")),
+                        responseFields(
+                                fieldWithPath("totalRatings").type(JsonFieldType.NUMBER).description("통합 별점"),
+                                fieldWithPath("totalCount").type(JsonFieldType.NUMBER).description("리뷰 개수")
+                        )
+                ));
+    }
 }
