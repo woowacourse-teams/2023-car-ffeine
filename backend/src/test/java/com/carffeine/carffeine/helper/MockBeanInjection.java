@@ -9,10 +9,12 @@ import com.carffeine.carffeine.auth.service.AuthService;
 import com.carffeine.carffeine.auth.service.OAuthRequester;
 import com.carffeine.carffeine.filter.service.FilterService;
 import com.carffeine.carffeine.member.domain.MemberRepository;
-import com.carffeine.carffeine.station.domain.review.ReviewRepository;
 import com.carffeine.carffeine.member.service.MemberService;
+import com.carffeine.carffeine.station.domain.review.ReplyRepository;
+import com.carffeine.carffeine.station.domain.review.ReviewRepository;
 import com.carffeine.carffeine.station.service.congestion.CongestionService;
 import com.carffeine.carffeine.station.service.report.ReportService;
+import com.carffeine.carffeine.station.service.review.ReplyService;
 import com.carffeine.carffeine.station.service.review.ReviewService;
 import com.carffeine.carffeine.station.service.station.StationService;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -51,4 +53,8 @@ public class MockBeanInjection {
     protected FilterService filterService;
     @MockBean
     protected MemberService memberService;
+    @MockBean
+    protected ReplyService replyService;
+    @MockBean
+    protected ReplyRepository replyRepository;
 }
