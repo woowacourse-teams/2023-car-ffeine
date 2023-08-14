@@ -12,7 +12,6 @@ import { getSessionStorage, setSessionStorage } from '@utils/storage';
 
 import { mswModeActions } from '@stores/config/mswModeStore';
 import { serverActions } from '@stores/config/serverStore';
-import type { MemberInfo } from '@stores/login/memberInfoStore';
 import { memberInfoAction } from '@stores/login/memberInfoStore';
 import { memberTokenActions } from '@stores/login/memberTokenStore';
 

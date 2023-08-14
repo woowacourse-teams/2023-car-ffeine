@@ -12,7 +12,11 @@ import Text from '@common/Text';
 
 import LogoIcon from '@ui/Svg/LogoIcon';
 
-import { SESSION_KEY_MEMBER_INFO, SESSION_KEY_MEMBER_TOKEN } from '@constants/storageKeys';
+import {
+  SESSION_KEY_MEMBER_INFO,
+  SESSION_KEY_MEMBER_TOKEN,
+  SESSION_KEY_SERVER_MODE,
+} from '@constants/storageKeys';
 
 const GoogleLogin = () => {
   const [loginError, setLoginError] = useState<Error>(null);
@@ -33,6 +37,12 @@ const GoogleLogin = () => {
 
         setSessionStorage(SESSION_KEY_MEMBER_TOKEN, token);
         setSessionStorage(SESSION_KEY_MEMBER_INFO, JSON.stringify(memberInfo));
+
+        const isLocal = homePageUrl.match(/localhost:3000/) !== null;
+
+        if (!isLocal) {
+          setSessionStorage(SESSION_KEY_SERVER_MODE, 'mswOff');
+        }
 
         window.location.href = homePageUrl;
       })

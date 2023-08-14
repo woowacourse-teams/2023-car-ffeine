@@ -5,11 +5,19 @@ import { SERVERS } from '@constants';
 export const memberFilterHandlers = [
   rest.post(`${SERVERS.localhost}/members/:memberId/filters`, async (req, res, ctx) => {
     const memberToken = req.headers.get('Authorization');
-    const filters = await req.json();
+    const requestBody = await req.json();
 
-    const connectorTypes = filters.connectorTypes;
-    const capacities = filters.capacities;
-    const companies = filters.companies;
+    const connectorTypes = requestBody.filters
+      .filter(
+        (filterOption: { type: string; name: string }) => filterOption.type === 'connectorType'
+      )
+      .map((filterOption: { type: string; name: string }) => filterOption.name);
+    const capacities = requestBody.filters
+      .filter((filterOption: { type: string; name: string }) => filterOption.type === 'capacity')
+      .map((filterOption: { type: string; name: string }) => filterOption.name);
+    const companies = requestBody.filters
+      .filter((filterOption: { type: string; name: string }) => filterOption.type === 'company')
+      .map((filterOption: { type: string; name: string }) => filterOption.name);
 
     if (memberToken === undefined || memberToken.replace('Bearer', '') === '') {
       return res(ctx.status(401), ctx.json('unauthorized error'));
