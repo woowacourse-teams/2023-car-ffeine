@@ -7,7 +7,7 @@ import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-import ContentField from '@ui/StationDetailsWindow/reviews/crud/ContentField';
+import ContentField from '@ui/StationDetailsWindow/reviews/common/ContentField';
 
 interface ReplyCreateProps {
   stationId: string;

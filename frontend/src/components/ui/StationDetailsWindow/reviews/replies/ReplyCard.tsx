@@ -11,7 +11,7 @@ import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-import ReplyModify from '@ui/StationDetailsWindow/reviews/crud/ReplyModify';
+import ReplyModify from '@ui/StationDetailsWindow/reviews/replies/ReplyModify';
 
 import type { Reply } from '@type';
 

@@ -6,8 +6,8 @@ import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 
-import ContentField from '@ui/StationDetailsWindow/reviews/crud/ContentField';
-import HeaderWithRating from '@ui/StationDetailsWindow/reviews/crud/HeaderWithRating';
+import ContentField from '@ui/StationDetailsWindow/reviews/common/ContentField';
+import HeaderWithRating from '@ui/StationDetailsWindow/reviews/common/HeaderWithRating';
 
 import type { Review } from '@type';
 

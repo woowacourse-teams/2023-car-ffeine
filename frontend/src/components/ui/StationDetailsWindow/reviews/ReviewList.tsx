@@ -10,7 +10,7 @@ import Text from '@common/Text';
 
 import ReviewCard from '@ui/StationDetailsWindow/reviews/cards/ReviewCard';
 import ReviewCardsLoading from '@ui/StationDetailsWindow/reviews/cards/ReviewCardsLoading';
-import ReviewCreate from '@ui/StationDetailsWindow/reviews/crud/ReviewCreate';
+import ReviewCreate from '@ui/StationDetailsWindow/reviews/cards/ReviewCreate';
 
 import type { Review } from '@type';
 
