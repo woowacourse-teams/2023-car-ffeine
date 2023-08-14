@@ -2,6 +2,8 @@ package com.carffeine.carffeine.auth.infrastructure;
 
 import com.carffeine.carffeine.auth.domain.OAuthMember;
 import com.carffeine.carffeine.auth.domain.Provider;
+import com.carffeine.carffeine.auth.exception.AuthException;
+import com.carffeine.carffeine.auth.exception.AuthExceptionType;
 import com.carffeine.carffeine.auth.infrastructure.dto.OAuthTokenResponse;
 import com.carffeine.carffeine.auth.service.OAuthProviderProperties;
 import com.carffeine.carffeine.auth.service.OAuthRequester;
@@ -45,7 +47,7 @@ public class RestTemplateOAuthRequester implements OAuthRequester {
     public OAuthMember login(OAuthLoginRequest request, String requestProvider) {
         Provider provider = Provider.from(requestProvider);
         OAuthProviderProperty property = oAuthProviderProperties.getProviderProperties(provider);
-        OAuthTokenResponse token = requestAccessToken(property, request);
+        OAuthTokenResponse token = getAccessToken(property, request);
         return provider.getOAuthProvider(getUserAttributes(property, token));
     }
 
@@ -61,12 +63,20 @@ public class RestTemplateOAuthRequester implements OAuthRequester {
                 .toString();
     }
 
-    private OAuthTokenResponse requestAccessToken(OAuthProviderProperty property, OAuthLoginRequest loginRequest) {
+    private OAuthTokenResponse getAccessToken(OAuthProviderProperty property, OAuthLoginRequest loginRequest) {
         HttpHeaders headers = headerWithProviderSecret(property);
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(headers);
         URI tokenUri = getTokenUri(property, loginRequest);
-        return restTemplate.postForEntity(tokenUri, request, OAuthTokenResponse.class).getBody();
+        return requestAccessToken(tokenUri, request);
+    }
+
+    private OAuthTokenResponse requestAccessToken(URI tokenUri, HttpEntity<MultiValueMap<String, String>> request) {
+        try {
+            return restTemplate.postForEntity(tokenUri, request, OAuthTokenResponse.class).getBody();
+        } catch (Exception e) {
+            throw new AuthException(AuthExceptionType.BAD_REQUEST_TO_PROVIDER);
+        }
     }
 
     private HttpHeaders headerWithProviderSecret(OAuthProviderProperty property) {
@@ -89,9 +99,17 @@ public class RestTemplateOAuthRequester implements OAuthRequester {
         HttpHeaders headers = headerWithToken(tokenResponse);
         URI uri = URI.create(property.getInfoUrl());
         RequestEntity<?> requestEntity = new RequestEntity<>(headers, HttpMethod.GET, uri);
-        ResponseEntity<Map<String, Object>> responseEntity = restTemplate.exchange(requestEntity, new ParameterizedTypeReference<>() {
-        });
-        return responseEntity.getBody();
+        return requestUserAttributes(requestEntity);
+    }
+
+    private Map<String, Object> requestUserAttributes(RequestEntity<?> requestEntity) {
+        try {
+            ResponseEntity<Map<String, Object>> responseEntity = restTemplate.exchange(requestEntity, new ParameterizedTypeReference<>() {
+            });
+            return responseEntity.getBody();
+        } catch (Exception e) {
+            throw new AuthException(AuthExceptionType.BAD_REQUEST_TO_PROVIDER);
+        }
     }
 
     private HttpHeaders headerWithToken(OAuthTokenResponse tokenResponse) {

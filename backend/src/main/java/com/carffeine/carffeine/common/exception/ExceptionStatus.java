@@ -10,7 +10,9 @@ public enum ExceptionStatus {
     INTERNAL_SERVER_ERROR(Status.SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR),
     NOT_FOUND(Status.NOT_FOUND, HttpStatus.NOT_FOUND),
     UNAUTHORIZED(Status.UNAUTHORIZED, HttpStatus.UNAUTHORIZED),
-    FORBIDDEN(Status.FORBIDDEN, HttpStatus.FORBIDDEN);
+    FORBIDDEN(Status.FORBIDDEN, HttpStatus.FORBIDDEN),
+    BAD_REQUEST(Status.BAD_REQUEST, HttpStatus.BAD_REQUEST),
+    ;
 
     private final Status status;
     private final HttpStatus httpStatus;
