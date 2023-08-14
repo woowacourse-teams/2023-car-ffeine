@@ -64,21 +64,25 @@ export const logout = () => {
 };
 
 export const getRedirectUri = () => {
+  const isProductionServer = process.env.NODE_ENV === 'production';
   const isDevServer = window.location.href.match(/dev.carffe.in/) !== null;
 
-  const redirectUri = isDevServer
-    ? `https://dev.carffe.in`
-    : process.env.NODE_ENV === 'production'
-    ? `https://carffe.in`
-    : 'http://localhost:3000';
+  if (isProductionServer) {
+    return `https://carffe.in`;
+  }
 
-  return redirectUri;
+  if (isDevServer) {
+    return `https://dev.carffe.in`;
+  }
+
+  return 'http://localhost:3000';
 };
 
 export const getAPIEndPoint = () => {
+  const isProductionServer = process.env.NODE_ENV === 'production';
   const isDevServer = window.location.href.match(/dev.carffe.in/) !== null;
 
-  if (process.env.NODE_ENV === 'production') {
+  if (isProductionServer) {
     return SERVERS['production'];
   }
 
