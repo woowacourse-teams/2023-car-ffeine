@@ -16,7 +16,7 @@ const fetchStationChargerReport = (stationId: string) => {
       Authorization: `Bearer ${memberToken}`,
       'Content-Type': 'application/json',
     },
-  }).then(async (response) => {
+  }).then<boolean>(async (response) => {
     const data = await response.json();
     return data.isReported;
   });
@@ -26,5 +26,6 @@ export const useStationChargerReport = (stationId: string) => {
   return useQuery({
     queryKey: [QUERY_KEY_STATION_CHARGER_REPORT, stationId],
     queryFn: () => fetchStationChargerReport(stationId),
+    refetchOnWindowFocus: false,
   });
 };
