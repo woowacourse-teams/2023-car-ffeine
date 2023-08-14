@@ -16,8 +16,6 @@ const fetchReportCharger = async (stationId: string) => {
       Authorization: `Bearer ${memberToken}`,
       'Content-Type': 'application/json',
     },
-  }).then(async (response) => {
-    alert(JSON.stringify(response));
   });
 };
 export const useUpdateStationChargerReport = (stationId: string) => {
