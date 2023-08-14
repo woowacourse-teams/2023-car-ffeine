@@ -76,11 +76,15 @@ export const getRedirectUri = () => {
 };
 
 export const getAPIEndPoint = () => {
-  const mode = serverStore.getState();
+  const isDevServer = window.location.href.match(/dev.carffe.in/) !== null;
 
   if (process.env.NODE_ENV === 'production') {
     return SERVERS['production'];
   }
 
-  return SERVERS[mode];
+  if (isDevServer) {
+    return SERVERS['dain'];
+  }
+
+  return SERVERS['localhost'];
 };
