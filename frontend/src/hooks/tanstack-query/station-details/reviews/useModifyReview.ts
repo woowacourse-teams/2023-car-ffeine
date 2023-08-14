@@ -4,6 +4,7 @@ import { getLocalStorage } from '@utils/storage';
 
 import { serverStore } from '@stores/config/serverStore';
 import { toastActions } from '@stores/layout/toastStore';
+import { memberTokenStore } from '@stores/login/memberTokenStore';
 
 import { DEFAULT_TOKEN, SERVERS } from '@constants';
 import { QUERY_KEY_STATION_PREVIEWS, QUERY_KEY_STATION_REVIEWS } from '@constants/queryKeys';
@@ -17,12 +18,12 @@ export interface FetchModifyReviewRequest {
 
 const fetchModifyReview = async (fetchModifyReviewRequestParams: FetchModifyReviewRequest) => {
   const { reviewId, ratings, content } = fetchModifyReviewRequestParams;
-  const token = getLocalStorage<number>(LOCAL_KEY_TOKEN, DEFAULT_TOKEN);
+  const memberToken = memberTokenStore.getState();
   const mode = serverStore.getState();
   return fetch(`${SERVERS[mode]}/reviews/${reviewId}`, {
     method: 'PATCH',
     headers: {
-      Authorization: `${token}`,
+      Authorization: `Bearer ${memberToken}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ ratings, content }),

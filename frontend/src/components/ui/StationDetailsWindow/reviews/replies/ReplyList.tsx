@@ -42,7 +42,7 @@ const ReplyList = ({ stationId, reviewId }: ReplyListProps) => {
                   stationId={stationId}
                   reply={reply}
                   reviewId={reply.reviewId}
-                  previewMode={false}
+                  previewMode={true}
                 />
               ))}
             </div>

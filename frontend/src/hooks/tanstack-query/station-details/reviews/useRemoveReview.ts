@@ -4,6 +4,7 @@ import { getLocalStorage } from '@utils/storage';
 
 import { serverStore } from '@stores/config/serverStore';
 import { toastActions } from '@stores/layout/toastStore';
+import { memberTokenStore } from '@stores/login/memberTokenStore';
 
 import { DEFAULT_TOKEN, SERVERS } from '@constants';
 import { QUERY_KEY_STATION_PREVIEWS, QUERY_KEY_STATION_REVIEWS } from '@constants/queryKeys';
@@ -15,12 +16,12 @@ export interface FetchRemoveReviewRequest {
 
 const fetchRemoveReview = async (fetchRemoveReviewRequestParams: FetchRemoveReviewRequest) => {
   const { reviewId } = fetchRemoveReviewRequestParams;
-  const token = getLocalStorage<number>(LOCAL_KEY_TOKEN, DEFAULT_TOKEN);
+  const memberToken = memberTokenStore.getState();
   const mode = serverStore.getState();
   return fetch(`${SERVERS[mode]}/reviews/${reviewId}`, {
     method: 'DELETE',
     headers: {
-      Authorization: `${token}`,
+      Authorization: `Bearer ${memberToken}`,
       'Content-Type': 'application/json',
     },
   });
