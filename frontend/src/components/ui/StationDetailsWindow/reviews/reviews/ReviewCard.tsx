@@ -50,7 +50,7 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
       {isModifyMode ? (
         <ReviewModify stationId={stationId} review={review} setIsModifyMode={setIsModifyMode} />
       ) : (
-        <Box my={4}>
+        <Box my={6}>
           <Box mb={3}>
             <Box px={2}>
               <FlexBox justifyContent="between">
