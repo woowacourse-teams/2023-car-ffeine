@@ -36,7 +36,7 @@ export const useGoogleMap = () => {
     });
 
     const markerRoot = createRoot(container);
-    markerRoot.render(CarFfeineMarker(station));
+    markerRoot.render(<CarFfeineMarker {...station} />);
 
     markerInstance.addListener('click', () => {
       openStationSummary(station, markerInstance);
