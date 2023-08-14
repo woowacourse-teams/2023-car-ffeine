@@ -24,7 +24,7 @@ const StationInformation = ({ station }: StationInformationProps) => {
   } = station;
 
   return (
-    <Box mt={15}>
+    <Box>
       <Box>
         <Text variant="label" mb={1}>
           {companyName}

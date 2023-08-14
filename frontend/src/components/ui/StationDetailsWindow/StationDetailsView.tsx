@@ -23,7 +23,9 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
 
   return (
     <Box p={5} css={stationDetailsViewContainerCss}>
-      <StationInformation station={station} />
+      <Box mt={15}>
+        <StationInformation station={station} />
+      </Box>
       <StationReportButton station={station} />
 
       <ChargerList chargers={chargers} />

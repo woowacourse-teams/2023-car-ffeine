@@ -1,3 +1,5 @@
+import { css } from 'styled-components';
+
 import { modalActions } from '@stores/layout/modalStore';
 
 import { useUpdateStationReport } from '@hooks/tanstack-query/station-details/reports/useUpdateStationReport';
@@ -30,24 +32,23 @@ const StationReportPreConfirmation = ({ station }: StationReportPreConfirmationP
   const handleCloseModalButton = () => modalActions.closeModal();
 
   return (
-    <>
-      <Text variant="title" mb={3}>
+    <Box p={4} css={stationReportPreConfirmationCss}>
+      <Text variant="title" mb={5}>
         개선할 충전소 정보가 있나요?
       </Text>
-      <Box border>
+      <Box border p={4}>
         <StationInformation station={station} />
       </Box>
-      <Box my={3}>
-        <ButtonNext
-          fullWidth
-          variant="contained"
-          size="md"
-          color="primary"
-          onClick={handleReportMoreButton}
-        >
-          데이터를 직접 수정/제안하고 싶어요
-        </ButtonNext>
-      </Box>
+      <ButtonNext
+        my={6}
+        fullWidth
+        variant="contained"
+        size="md"
+        color="primary"
+        onClick={handleReportMoreButton}
+      >
+        데이터를 직접 수정/제안하고 싶어요
+      </ButtonNext>
       <FlexBox nowrap>
         <ButtonNext
           fullWidth
@@ -66,11 +67,15 @@ const StationReportPreConfirmation = ({ station }: StationReportPreConfirmationP
           color="success"
           onClick={reportCharger}
         >
-          {isLoading ? '처리중...' : '바쁘니깐 알아서 확인해주세요'}
+          {isLoading ? '처리중...' : '그냥 제보하기'}
         </ButtonNext>
       </FlexBox>
-    </>
+    </Box>
   );
 };
+
+const stationReportPreConfirmationCss = css`
+  width: 40rem;
+`;
 
 export default StationReportPreConfirmation;
