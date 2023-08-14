@@ -8,16 +8,15 @@ import { SERVERS } from '@constants';
 import { QUERY_KEY_STATION_PREVIEWS, QUERY_KEY_STATION_REVIEWS } from '@constants/queryKeys';
 
 export interface FetchCreateReplyRequest {
-  stationId: string;
   reviewId: number;
   content: string;
 }
 
 const fetchCreateReply = async (fetchCreateReplyRequestParams: FetchCreateReplyRequest) => {
-  const { stationId, reviewId, content } = fetchCreateReplyRequestParams;
+  const { reviewId, content } = fetchCreateReplyRequestParams;
   const memberToken = memberTokenStore.getState();
   const mode = serverStore.getState();
-  return fetch(`${SERVERS[mode]}/stations/${stationId}/reviews/${reviewId}/replies`, {
+  return fetch(`${SERVERS[mode]}/reviews/${reviewId}/replies`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${memberToken}`,

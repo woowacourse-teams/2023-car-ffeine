@@ -110,14 +110,11 @@ export const stationReviewHandlers = [
     }
   }),
 
-  rest.post(
-    `${SERVERS.localhost}/stations/:stationId/reviews/:reviewId/replies`,
-    async (req, res, ctx) => {
-      const body = await req.json();
-      console.log(`충전소 후기 답글 작성 :${JSON.stringify(body)}`);
-      return res(ctx.delay(200), ctx.status(204));
-    }
-  ),
+  rest.post(`${SERVERS.localhost}/reviews/:reviewId/replies`, async (req, res, ctx) => {
+    const body = await req.json();
+    console.log(`충전소 후기 답글 작성 :${JSON.stringify(body)}`);
+    return res(ctx.delay(200), ctx.status(204));
+  }),
   rest.patch(`${SERVERS.localhost}/reviews/:reviewId/replies/:replyId`, async (req, res, ctx) => {
     const body = await req.json();
     console.log(`충전소 후기 답글 수정 :${JSON.stringify(body)}`);

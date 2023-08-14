@@ -28,7 +28,7 @@ const ReplyCreate = ({ stationId, reviewId }: ReplyCreateProps) => {
   }, [isCreateReplyLoading]);
 
   const handleClickCreate = () => {
-    createReply({ content, stationId, reviewId: reviewId });
+    createReply({ content, reviewId: reviewId });
     setContent('');
   };
 
