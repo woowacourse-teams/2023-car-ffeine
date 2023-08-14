@@ -6,7 +6,6 @@ import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.member.domain.MemberRepository;
 import com.carffeine.carffeine.member.exception.MemberException;
 import com.carffeine.carffeine.member.exception.MemberExceptionType;
-import com.carffeine.carffeine.station.controller.review.dto.ReviewResponse;
 import com.carffeine.carffeine.station.controller.review.dto.ReviewResponses;
 import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.domain.review.ReviewRepository;
@@ -67,15 +66,6 @@ public class ReviewIntegrationTest extends IntegrationTest {
         리뷰 = reviewRepository.save(리뷰_별4_15글자);
     }
 
-    private ReviewResponse 해당_댓글을_가져온다() {
-        var get응답 = 댓글을_조회한다(충전소);
-        var 응답 = get응답.as(ReviewResponses.class);
-        return 응답.reviews().stream()
-                .filter(it -> Objects.equals(it.reviewId(), 멤버.getId()))
-                .findAny()
-                .orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND));
-    }
-
     @Nested
     class 충전소의_리뷰를_조회할_때 {
 
@@ -83,10 +73,10 @@ public class ReviewIntegrationTest extends IntegrationTest {
         void 정상_응답한다() {
             // when
             댓글을_등록한다(요청, 토큰, 충전소);
-            var get응답 = 댓글을_조회한다(충전소);
+            var 조회_응답 = 댓글을_조회한다(충전소);
 
             // then
-            상태_코드를_검증한다(get응답, OK);
+            상태_코드를_검증한다(조회_응답, OK);
         }
     }
 
@@ -96,13 +86,13 @@ public class ReviewIntegrationTest extends IntegrationTest {
         @Test
         void 인증된_멤버일_경우_정상_응답한다() {
             // when
-            var post응답 = 댓글을_등록한다(요청, 토큰, 충전소);
+            var 등록_응답 = 댓글을_등록한다(요청, 토큰, 충전소);
             var 응답 = 댓글을_조회한다(충전소).as(ReviewResponses.class);
             var 최근_댓글 = 응답.reviews().get(0);
 
             // then
             SoftAssertions.assertSoftly(softly -> {
-                상태_코드를_검증한다(post응답, NO_CONTENT);
+                상태_코드를_검증한다(등록_응답, NO_CONTENT);
                 값이_같은지_비교한다(최근_댓글.ratings(), 요청.ratings());
                 값이_같은지_비교한다(최근_댓글.content(), 요청.content());
             });
@@ -111,10 +101,10 @@ public class ReviewIntegrationTest extends IntegrationTest {
         @Test
         void 인증되지_않은_멤버일_경우_예외가_발생한다() {
             // when
-            var post응답 = 댓글을_등록한다(요청, 잘못된_토큰, 충전소);
+            var 등록_응답 = 댓글을_등록한다(요청, 잘못된_토큰, 충전소);
 
             // then
-            상태_코드를_검증한다(post응답, NOT_FOUND);
+            상태_코드를_검증한다(등록_응답, NOT_FOUND);
         }
     }
 
@@ -127,11 +117,16 @@ public class ReviewIntegrationTest extends IntegrationTest {
             댓글을_등록한다(요청, 토큰, 충전소);
 
             // when
-            var patch응답 = 댓글을_수정한다(수정_요청_1개, 토큰, 리뷰);
-            var 해당_댓글 = 해당_댓글을_가져온다();
+            var 수정_응답 = 댓글을_수정한다(수정_요청_1개, 토큰, 리뷰);
+            var 응답 = 댓글을_조회한다(충전소).as(ReviewResponses.class);
+            var 해당_댓글 = 응답.reviews().stream()
+                    .filter(it -> Objects.equals(it.reviewId(), 멤버.getId()))
+                    .findAny()
+                    .orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND));
+
             // then
             SoftAssertions.assertSoftly(softly -> {
-                상태_코드를_검증한다(patch응답, NO_CONTENT);
+                상태_코드를_검증한다(수정_응답, NO_CONTENT);
                 값이_같은지_비교한다(해당_댓글.ratings(), 수정_요청_1개.ratings());
                 값이_같은지_비교한다(해당_댓글.content(), 수정_요청_1개.content());
             });
@@ -143,10 +138,10 @@ public class ReviewIntegrationTest extends IntegrationTest {
             댓글을_등록한다(요청, 토큰, 충전소);
 
             // when
-            var patch응답 = 댓글을_수정한다(수정_요청_1개, 잘못된_토큰, 리뷰);
+            var 수정_응답 = 댓글을_수정한다(수정_요청_1개, 잘못된_토큰, 리뷰);
 
             // then
-            상태_코드를_검증한다(patch응답, NOT_FOUND);
+            상태_코드를_검증한다(수정_응답, NOT_FOUND);
         }
     }
 
@@ -159,11 +154,10 @@ public class ReviewIntegrationTest extends IntegrationTest {
             댓글을_등록한다(요청, 토큰, 충전소);
 
             // when
-            var delete응답 = 댓글을_삭제한다(토큰, 리뷰);
-            var 해당_댓글 = 해당_댓글을_가져온다();
+            var 삭제_응답 = 댓글을_삭제한다(토큰, 리뷰);
 
             // then
-            상태_코드를_검증한다(delete응답, NO_CONTENT);
+            상태_코드를_검증한다(삭제_응답, NO_CONTENT);
         }
 
         @Test
@@ -172,10 +166,10 @@ public class ReviewIntegrationTest extends IntegrationTest {
             댓글을_등록한다(요청, 토큰, 충전소);
 
             // when
-            var delete응답 = 댓글을_삭제한다(잘못된_토큰, 리뷰);
+            var 삭제_응답 = 댓글을_삭제한다(잘못된_토큰, 리뷰);
 
             // then
-            상태_코드를_검증한다(delete응답, NOT_FOUND);
+            상태_코드를_검증한다(삭제_응답, NOT_FOUND);
         }
     }
 }

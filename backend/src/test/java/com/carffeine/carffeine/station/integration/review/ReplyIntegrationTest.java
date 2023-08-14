@@ -6,7 +6,6 @@ import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.member.domain.MemberRepository;
 import com.carffeine.carffeine.member.exception.MemberException;
 import com.carffeine.carffeine.member.exception.MemberExceptionType;
-import com.carffeine.carffeine.station.controller.review.dto.ReplyResponse;
 import com.carffeine.carffeine.station.controller.review.dto.ReplyResponses;
 import com.carffeine.carffeine.station.domain.review.Reply;
 import com.carffeine.carffeine.station.domain.review.ReplyRepository;
@@ -69,28 +68,19 @@ public class ReplyIntegrationTest extends IntegrationTest {
         답글 = replyRepository.save(답글_1개);
     }
 
-    private ReplyResponse 해당_답글을_가져온다() {
-        var get응답 = 답글을_조회한다(리뷰);
-        var 응답 = get응답.as(ReplyResponses.class);
-        return 응답.replies().stream()
-                .filter(it -> Objects.equals(it.replyId(), 멤버.getId()))
-                .findAny()
-                .orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND));
-    }
-
     @Nested
     class 댓글에_답글을_등록할_때 {
 
         @Test
         void 인증된_멤버일_경우_정상_응답한다() {
             // when
-            var post응답 = 답글을_등록한다(요청, 토큰, 리뷰);
+            var 등록_응답 = 답글을_등록한다(요청, 토큰, 리뷰);
             var 응답 = 답글을_조회한다(리뷰).as(ReplyResponses.class);
             var recentReply = 응답.replies().get(0);
 
             // then
             assertSoftly(softly -> {
-                상태_코드를_검증한다(post응답, NO_CONTENT);
+                상태_코드를_검증한다(등록_응답, NO_CONTENT);
                 값이_같은지_비교한다(recentReply.content(), 요청.content());
             });
         }
@@ -98,10 +88,10 @@ public class ReplyIntegrationTest extends IntegrationTest {
         @Test
         void 인증되지_않은_멤버일_경우_예외가_발생한다() {
             // when
-            var post응답 = 답글을_등록한다(요청, 잘못된_토큰, 리뷰);
+            var 등록_응답 = 답글을_등록한다(요청, 잘못된_토큰, 리뷰);
 
             // then
-            상태_코드를_검증한다(post응답, NOT_FOUND);
+            상태_코드를_검증한다(등록_응답, NOT_FOUND);
         }
     }
 
@@ -112,10 +102,10 @@ public class ReplyIntegrationTest extends IntegrationTest {
         void 정상_응답한다() {
             // when
             답글을_등록한다(요청, 토큰, 리뷰);
-            var get응답 = 답글을_조회한다(리뷰);
+            var 조회_응답 = 답글을_조회한다(리뷰);
 
             // then
-            상태_코드를_검증한다(get응답, OK);
+            상태_코드를_검증한다(조회_응답, OK);
         }
     }
 
@@ -128,12 +118,16 @@ public class ReplyIntegrationTest extends IntegrationTest {
             답글을_등록한다(요청, 토큰, 리뷰);
 
             // when
-            var patch응답 = 답글을_수정한다(답글_수정_요청_1개, 토큰, 리뷰, 답글);
-            var 해당_댓글 = 해당_답글을_가져온다();
+            var 수정_응답 = 답글을_수정한다(답글_수정_요청_1개, 토큰, 리뷰, 답글);
+            var 응답 = 답글을_조회한다(리뷰).as(ReplyResponses.class);
+            var 해당_댓글 = 응답.replies().stream()
+                    .filter(it -> Objects.equals(it.replyId(), 멤버.getId()))
+                    .findAny()
+                    .orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND));
 
             // then
             SoftAssertions.assertSoftly(softly -> {
-                상태_코드를_검증한다(patch응답, NO_CONTENT);
+                상태_코드를_검증한다(수정_응답, NO_CONTENT);
                 값이_같은지_비교한다(해당_댓글.content(), 답글_수정_요청_1개.content());
             });
         }
@@ -144,10 +138,10 @@ public class ReplyIntegrationTest extends IntegrationTest {
             답글을_등록한다(요청, 토큰, 리뷰);
 
             // when
-            var patch응답 = 답글을_수정한다(답글_수정_요청_1개, 잘못된_토큰, 리뷰, 답글);
+            var 수정_응답 = 답글을_수정한다(답글_수정_요청_1개, 잘못된_토큰, 리뷰, 답글);
 
             // then
-            상태_코드를_검증한다(patch응답, NOT_FOUND);
+            상태_코드를_검증한다(수정_응답, NOT_FOUND);
         }
     }
 
@@ -160,10 +154,10 @@ public class ReplyIntegrationTest extends IntegrationTest {
             답글을_등록한다(요청, 토큰, 리뷰);
 
             // when
-            var delete응답 = 답글을_삭제한다(토큰, 리뷰, 답글);
+            var 삭제_응답 = 답글을_삭제한다(토큰, 리뷰, 답글);
 
             // then
-            상태_코드를_검증한다(delete응답, NO_CONTENT);
+            상태_코드를_검증한다(삭제_응답, NO_CONTENT);
         }
 
         @Test
@@ -172,10 +166,10 @@ public class ReplyIntegrationTest extends IntegrationTest {
             답글을_등록한다(요청, 토큰, 리뷰);
 
             // when
-            var delete응답 = 답글을_삭제한다(잘못된_토큰, 리뷰, 답글);
+            var 삭제_응답 = 답글을_삭제한다(잘못된_토큰, 리뷰, 답글);
 
             // then
-            상태_코드를_검증한다(delete응답, NOT_FOUND);
+            상태_코드를_검증한다(삭제_응답, NOT_FOUND);
         }
     }
 }
