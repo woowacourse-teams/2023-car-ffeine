@@ -9,6 +9,8 @@ import FlexBox from '@common/FlexBox';
 import ContentField from '@ui/StationDetailsWindow/reviews/common/ContentField';
 import HeaderWithRating from '@ui/StationDetailsWindow/reviews/common/HeaderWithRating';
 
+import { MAX_REVIEW_CONTENT_LENGTH, MIN_REVIEW_CONTENT_LENGTH } from '@constants';
+
 import type { Review } from '@type';
 
 export interface ReviewModifyButtonProps {
@@ -48,7 +50,11 @@ const ReviewModifyButton = ({
       </ButtonNext>
       <ButtonNext
         size="xs"
-        disabled={isModifyReviewLoading || content.length < 5 || content.length > 100}
+        disabled={
+          isModifyReviewLoading ||
+          content.length < MIN_REVIEW_CONTENT_LENGTH ||
+          content.length > MAX_REVIEW_CONTENT_LENGTH
+        }
         variant="contained"
         color="success"
         onClick={() => handleClickModifyReview()}

@@ -4,6 +4,8 @@ import { useCreateReview } from '@hooks/tanstack-query/station-details/reviews/u
 
 import ButtonNext from '@common/ButtonNext';
 
+import { MAX_REVIEW_CONTENT_LENGTH, MIN_REVIEW_CONTENT_LENGTH } from '@constants';
+
 interface ReviewCreateButtonProps {
   stars: number;
   content: string;
@@ -20,7 +22,10 @@ const ReviewCreateButton = ({
   const { createReview, isCreateReviewLoading } = useCreateReview(stationId);
 
   const handleClickReviewCreateButton = () => {
-    if (content.length >= 5 && content.length <= 100) {
+    if (
+      content.length >= MIN_REVIEW_CONTENT_LENGTH &&
+      content.length <= MAX_REVIEW_CONTENT_LENGTH
+    ) {
       createReview({ stationId, ratings: stars, content });
     }
   };
@@ -36,7 +41,11 @@ const ReviewCreateButton = ({
         리뷰 그만작성하기
       </ButtonNext>
       <ButtonNext
-        disabled={isCreateReviewLoading || content.length < 5 || content.length > 100}
+        disabled={
+          isCreateReviewLoading ||
+          content.length < MIN_REVIEW_CONTENT_LENGTH ||
+          content.length > MAX_REVIEW_CONTENT_LENGTH
+        }
         variant="contained"
         color="success"
         fullWidth

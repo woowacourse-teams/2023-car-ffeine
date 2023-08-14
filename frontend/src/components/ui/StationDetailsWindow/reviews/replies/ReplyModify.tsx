@@ -9,6 +9,8 @@ import Text from '@common/Text';
 
 import ContentField from '@ui/StationDetailsWindow/reviews/common/ContentField';
 
+import { MAX_REVIEW_CONTENT_LENGTH, MIN_REVIEW_CONTENT_LENGTH } from '@constants';
+
 import type { Reply } from '@type';
 
 interface ReplyModifyProps {
@@ -44,7 +46,11 @@ const ReplyModify = ({ stationId, reviewId, reply, setIsModifyMode }: ReplyModif
           <ButtonNext
             size="xs"
             variant="contained"
-            disabled={isModifyReplyLoading || content.length < 5 || content.length > 100}
+            disabled={
+              isModifyReplyLoading ||
+              content.length < MIN_REVIEW_CONTENT_LENGTH ||
+              content.length > MAX_REVIEW_CONTENT_LENGTH
+            }
             onClick={() => handleClickModifyReply()}
           >
             등록
