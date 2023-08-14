@@ -1,4 +1,4 @@
-import { generateReviews } from '@mocks/data';
+import { generateReplies, generateReviews } from '@mocks/data';
 import { rest } from 'msw';
 
 import { SERVERS } from '@constants';
@@ -72,26 +72,25 @@ export const stationReviewHandlers = [
   }),
 
   rest.get(`${SERVERS.localhost}/reviews/:reviewId/replies?page=:pageParam`, (req, res, ctx) => {
-    // 수정필요
-    const reviews = generateReviews();
+    const replies = generateReplies();
     const { searchParams } = req.url;
     const page = Number(searchParams.get('page'));
-    console.log(`충전소 후기 조회 page=${page}`);
+    console.log(`충전소 답글 조회 page=${page}`);
 
-    if (page === 3) {
+    if (page === 2) {
       return res(
         ctx.json({
-          reviews: reviews.slice(0, 3),
+          replies: replies.slice(0, 3),
           currentPage: page,
           nextPage: -1,
         }),
         ctx.delay(1000),
         ctx.status(200)
       );
-    } else if (page > 3) {
+    } else if (page > 2) {
       return res(
         ctx.json({
-          reviews: [],
+          replies: [],
           currentPage: page,
           nextPage: -1,
         }),
@@ -101,7 +100,7 @@ export const stationReviewHandlers = [
     } else {
       return res(
         ctx.json({
-          reviews,
+          replies,
           currentPage: page,
           nextPage: page + 1,
         }),
