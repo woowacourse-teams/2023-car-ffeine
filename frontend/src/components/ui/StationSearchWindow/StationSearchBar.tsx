@@ -83,6 +83,7 @@ const StationSearchBar = () => {
         <S.Search
           type="search"
           role="searchbox"
+          placeholder="충전소명 또는 지역명을 입력해 주세요"
           // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus
           onChange={handleRequestSearchResult}
@@ -120,7 +121,7 @@ const S = {
 
     width: 100%;
     padding: 1.9rem 4.6rem 2rem 1.8rem;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
 
     & + button {
       position: absolute;

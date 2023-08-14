@@ -33,11 +33,20 @@ public class PeriodicCongestion extends BaseEntity {
     private String id;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 10)
     private DayOfWeek dayOfWeek;
+
     @Convert(converter = RequestPeriodConverter.class)
+    @Column(nullable = false, length = 10)
     private RequestPeriod startTime;
+
+    @Column(nullable = false)
     private int useCount;
+
+    @Column(nullable = false)
     private int totalCount;
+
+    @Column(nullable = false)
     private double congestion;
 
     @ManyToOne
@@ -47,10 +56,10 @@ public class PeriodicCongestion extends BaseEntity {
     }, foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     private Charger charger;
 
-    @Column(name = "station_id")
+    @Column(name = "station_id", nullable = false)
     private String stationId;
 
-    @Column(name = "charger_id")
+    @Column(name = "charger_id", nullable = false)
     private String chargerId;
 
     public PeriodicCongestion(String id, DayOfWeek dayOfWeek, RequestPeriod startTime, int useCount, int totalCount, double congestion, String stationId, String chargerId) {

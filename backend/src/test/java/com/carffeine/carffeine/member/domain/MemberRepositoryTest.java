@@ -22,11 +22,13 @@ public class MemberRepositoryTest {
     void 회원_목록을_페이지로_조회한다() {
         // given
         Member member = Member.builder()
-                .email("email@email.com")
+                .name("user")
+                .email("user@email.com")
                 .memberRole(MemberRole.USER)
                 .build();
         memberRepository.save(member);
         memberRepository.save(Member.builder()
+                .name("asd")
                 .email("email2@email.com")
                 .memberRole(MemberRole.ADMIN)
                 .build());

@@ -10,7 +10,9 @@ import { memberInfoStore } from '@stores/login/memberInfoStore';
 import { memberTokenStore } from '@stores/login/memberTokenStore';
 import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
 
-import { ServerStationFilters, useServerStationFilters } from '@hooks/tanstack-query/station-filters/useServerStationFilters';
+import type { ServerStationFilters } from '@hooks/tanstack-query/station-filters/useServerStationFilters';
+import { useServerStationFilters } from '@hooks/tanstack-query/station-filters/useServerStationFilters';
+import { useServerStationFilterActions } from '@hooks/useServerStationFilterActions';
 
 import Button from '@common/Button';
 import ButtonNext from '@common/ButtonNext';
@@ -25,9 +27,8 @@ import { QUERY_KEY_STATIONS, QUERY_KEY_MEMBER_SELECTED_FILTERS } from '@constant
 import type { Capacity, StationFilters } from '@type';
 
 import FilterSection from './FilterOption';
-import { useServerStationFilterActions } from '@hooks/useServerStationFilterActions';
 
-const ServerStationFilters = () => {
+const ServerStationFiltersComponent = () => {
   const queryClient = useQueryClient();
   const { showToast } = toastActions;
   const { data: serverStationFilters, isLoading } = useServerStationFilters();
@@ -54,10 +55,12 @@ const ServerStationFilters = () => {
     const memberId = memberInfoStore.getState()?.memberId;
     const memberToken = memberTokenStore.getState();
 
-    const { getAllServerStationFilters: getServerStationFilters, setAllServerStationFilters: setServerStationFilters } = serverStationFilterAction;
-    const selectedFilters = getServerStationFilters();
+    const { getAllServerStationFilters, setAllServerStationFilters, resetAllServerStationFilters } =
+      serverStationFilterAction;
+    const selectedFilters = getAllServerStationFilters();
+    const { capacities, companies, connectorTypes } = selectedFilters;
 
-    if(memberId === undefined) {
+    if (memberId === undefined) {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
       showToast('필터가 적용되었습니다');
       return;
@@ -69,17 +72,34 @@ const ServerStationFilters = () => {
         headers: {
           Authorization: `Bearer ${memberToken}`,
         },
-        body: JSON.stringify(selectedFilters),
+        body: JSON.stringify({
+          filters: [
+            ...capacities.map((capacity) => ({
+              type: 'capacity',
+              name: capacity,
+            })),
+            ...companies.map((company) => ({
+              type: 'company',
+              name: company,
+            })),
+            ...connectorTypes.map((connectorType) => ({
+              type: 'connectorType',
+              name: connectorType,
+            })),
+          ],
+        }),
       }).then<StationFilters>((response) => response.json());
 
-      setServerStationFilters(stationFilters);
+      setAllServerStationFilters(stationFilters);
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
 
       showToast('필터가 적용되었습니다');
     } catch {
-      const stationFilters = queryClient.getQueryData<ServerStationFilters>([QUERY_KEY_MEMBER_SELECTED_FILTERS]);
-      setServerStationFilters(stationFilters);
-      
+      const stationFilters = queryClient.getQueryData<ServerStationFilters>([
+        QUERY_KEY_MEMBER_SELECTED_FILTERS,
+      ]);
+      resetAllServerStationFilters(stationFilters);
+
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
 
       showToast('필터 적용에 실패했습니다', 'error');
@@ -179,4 +199,4 @@ const filterHeaderCss = css`
   padding: 0 2rem;
 `;
 
-export default ServerStationFilters;
+export default ServerStationFiltersComponent;

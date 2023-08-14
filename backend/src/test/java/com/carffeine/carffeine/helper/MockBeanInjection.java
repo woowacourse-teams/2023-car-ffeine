@@ -7,6 +7,7 @@ import com.carffeine.carffeine.auth.controller.AuthMemberResolver;
 import com.carffeine.carffeine.auth.domain.TokenProvider;
 import com.carffeine.carffeine.auth.service.AuthService;
 import com.carffeine.carffeine.auth.service.OAuthRequester;
+import com.carffeine.carffeine.car.service.CarService;
 import com.carffeine.carffeine.filter.service.FilterService;
 import com.carffeine.carffeine.member.domain.MemberRepository;
 import com.carffeine.carffeine.member.service.MemberService;
@@ -57,4 +58,6 @@ public class MockBeanInjection {
     protected ReplyService replyService;
     @MockBean
     protected ReplyRepository replyRepository;
+    @MockBean
+    protected CarService carService;
 }

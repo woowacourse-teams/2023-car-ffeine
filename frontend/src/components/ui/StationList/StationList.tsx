@@ -38,15 +38,12 @@ const StationList = () => {
 };
 
 const searchResultList = css`
-  position: fixed;
-  left: 7rem;
-  bottom: 0;
   width: 34rem;
-  height: calc(100vh - 16rem);
-  border-top: 1.8rem solid var(--lighter-color);
-  border-bottom: 4rem solid var(--lighter-color);
-  border-top-left-radius: 30px;
-  border-top-right-radius: 30px;
+  height: calc(100vh - 15rem);
+  border-top: 1.2rem solid var(--lighter-color);
+  border-bottom: 3.6rem solid var(--lighter-color);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
   background: var(--lighter-color);
   overflow: auto;
 `;

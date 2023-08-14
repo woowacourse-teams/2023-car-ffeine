@@ -11,6 +11,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -34,28 +36,40 @@ public class Station extends BaseEntity {
     @Id
     private String stationId;
 
+    @Column(nullable = false, length = 120)
     private String stationName;
 
+    @Column(nullable = false, length = 70)
     private String companyName;
 
+    @Column(nullable = false, length = 200)
     private String address;
 
-    private Boolean isParkingFree;
+    @Column(nullable = false, length = 5)
+    private boolean isParkingFree;
 
+    @Column(nullable = false, length = 70)
     private String operatingTime;
 
+    @Column(nullable = false, length = 200)
     private String detailLocation;
 
+    @Embedded
     private Latitude latitude;
 
+    @Embedded
     private Longitude longitude;
 
-    private Boolean isPrivate;
+    @Column(nullable = false, length = 5)
+    private boolean isPrivate;
 
+    @Column(nullable = false, length = 50)
     private String contact;
 
+    @Column(length = 200)
     private String stationState;
 
+    @Column(length = 100)
     private String privateReason;
 
     @Builder.Default
@@ -89,7 +103,7 @@ public class Station extends BaseEntity {
             return true;
         }
 
-        if (!isParkingFree.equals(station.isParkingFree)) {
+        if (isParkingFree != station.isParkingFree) {
             return true;
         }
 
@@ -109,7 +123,7 @@ public class Station extends BaseEntity {
             return true;
         }
 
-        if (!isPrivate.equals(station.isPrivate)) {
+        if (isPrivate != station.isPrivate) {
             return true;
         }
 

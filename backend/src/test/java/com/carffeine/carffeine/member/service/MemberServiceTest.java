@@ -1,14 +1,23 @@
 package com.carffeine.carffeine.member.service;
 
+import com.carffeine.carffeine.car.domain.Car;
+import com.carffeine.carffeine.car.domain.CarRepository;
+import com.carffeine.carffeine.car.exception.CarException;
+import com.carffeine.carffeine.car.exception.CarExceptionType;
+import com.carffeine.carffeine.car.fake.FakeCarRepository;
+import com.carffeine.carffeine.car.service.dto.CarRequest;
 import com.carffeine.carffeine.filter.domain.Filter;
 import com.carffeine.carffeine.filter.domain.FilterRepository;
 import com.carffeine.carffeine.filter.domain.FilterType;
 import com.carffeine.carffeine.filter.fake.FakeFilterRepository;
 import com.carffeine.carffeine.filter.service.dto.FilterRequest;
 import com.carffeine.carffeine.filter.service.dto.FiltersRequest;
+import com.carffeine.carffeine.member.domain.FakeMemberCarRepository;
 import com.carffeine.carffeine.member.domain.FakeMemberFilterRepository;
 import com.carffeine.carffeine.member.domain.FakeMemberRepository;
 import com.carffeine.carffeine.member.domain.Member;
+import com.carffeine.carffeine.member.domain.MemberCar;
+import com.carffeine.carffeine.member.domain.MemberCarRepository;
 import com.carffeine.carffeine.member.domain.MemberFilter;
 import com.carffeine.carffeine.member.domain.MemberFilterRepository;
 import com.carffeine.carffeine.member.domain.MemberRepository;
@@ -22,6 +31,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static com.carffeine.carffeine.car.fixture.CarFixture.createCar;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
@@ -33,6 +43,8 @@ class MemberServiceTest {
     private MemberRepository memberRepository;
     private MemberFilterRepository memberFilterRepository;
     private FilterRepository filterRepository;
+    private MemberCarRepository memberCarRepository;
+    private CarRepository carRepository;
 
     private Member member;
 
@@ -41,10 +53,14 @@ class MemberServiceTest {
         memberRepository = new FakeMemberRepository();
         memberFilterRepository = new FakeMemberFilterRepository();
         filterRepository = new FakeFilterRepository();
+        memberCarRepository = new FakeMemberCarRepository();
+        carRepository = new FakeCarRepository();
         memberService = new MemberService(
                 memberRepository,
                 memberFilterRepository,
-                filterRepository
+                filterRepository,
+                memberCarRepository,
+                carRepository
         );
 
         member = memberRepository.save(Member.builder()
@@ -107,5 +123,38 @@ class MemberServiceTest {
         assertThatThrownBy(() -> memberService.addMemberFilters(member.getId() + 1, member.getId(), null))
                 .isInstanceOf(MemberException.class)
                 .hasMessage(MemberExceptionType.INVALID_ACCESS.message());
+    }
+
+    @Test
+    void 회원이_등록한_차량을_조회한다() {
+        // given
+        Car car = createCar();
+        memberCarRepository.save(new MemberCar(member, car));
+
+        // when
+        MemberCar memberCar = memberService.findMemberCar(member.getId());
+
+        // then
+        assertThat(memberCar.getCar()).usingRecursiveComparison().isEqualTo(car);
+    }
+
+    @Test
+    void 회원이_차량을_등록한다() {
+        // given
+        Car car = carRepository.save(createCar());
+
+        // when
+        Car savedCar = memberService.addMemberCar(member.getId(), member.getId(), new CarRequest(car.getName(), car.getVintage()));
+
+        // then
+        assertThat(savedCar.getName()).isEqualTo("아이오닉5");
+    }
+
+    @Test
+    void 회원이_없는_차량을_등록하면_예외를_발생한다() {
+        // when & then
+        assertThatThrownBy(() -> memberService.addMemberCar(member.getId(), member.getId(), new CarRequest("G바겐", "2022")))
+                .isInstanceOf(CarException.class)
+                .hasMessage(CarExceptionType.NOT_FOUND_EXCEPTION.message());
     }
 }

@@ -14,7 +14,7 @@ import { ENGLISH_DAYS } from '@constants/congestion';
 
 const CongestionStatistics = () => {
   const { data: congestionStatistics, isLoading } = useStationCongestionStatistics();
-  const [chargingSpeed, setChargingSpeed] = useState<keyof typeof CHARGING_SPEED>('quick');
+  const [chargingSpeed, setChargingSpeed] = useState<keyof typeof CHARGING_SPEED>('standard');
 
   if (isLoading) {
     return <CongestionStatisticsSkeleton />;
@@ -29,7 +29,7 @@ const CongestionStatistics = () => {
           onClick={() => setChargingSpeed('quick')}
           fullWidth
         >
-          급속 보기
+          급속 충전기 그룹
         </ButtonNext>
         <ButtonNext
           variant={chargingSpeed === 'standard' ? 'contained' : 'outlined'}
@@ -37,7 +37,7 @@ const CongestionStatistics = () => {
           onClick={() => setChargingSpeed('standard')}
           fullWidth
         >
-          완속 보기
+          완속 충전기 그룹
         </ButtonNext>
       </FlexBox>
       <StatisticsGraph

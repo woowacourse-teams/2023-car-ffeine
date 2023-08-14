@@ -75,7 +75,7 @@ export const stationHandlers = [
     console.log('찾은 충전소 갯수: ' + foundStations.length);
 
     return res(
-      ctx.delay(200),
+      ctx.delay(1000),
       ctx.status(200),
       ctx.json({
         stations: foundStations,

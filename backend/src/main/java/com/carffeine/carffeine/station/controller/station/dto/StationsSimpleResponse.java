@@ -14,12 +14,12 @@ public record StationsSimpleResponse(List<StationSimpleResponse> stations) {
                         it.getCompanyName(),
                         it.getAddress(),
                         ChargerSimpleResponse.from(it),
-                        it.getIsParkingFree(),
+                        it.isParkingFree(),
                         it.getOperatingTime(),
                         it.getDetailLocation(),
                         it.getLatitude().getValue(),
                         it.getLongitude().getValue(),
-                        it.getIsPrivate(),
+                        it.isPrivate(),
                         it.getTotalCount(),
                         it.getAvailableCount()
                 ))
