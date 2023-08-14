@@ -7,12 +7,11 @@ import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
+import CarFfeineMarker from '@ui/CarFfeineMarker';
 import StationDetailsWindow from '@ui/StationDetailsWindow';
 import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
 import type { StationSummary } from '@type';
-
-import BlueMarker from '@assets/blue-marker.svg';
 
 import { useStationSummary } from './useStationSummary';
 
@@ -37,7 +36,7 @@ export const useGoogleMap = () => {
     });
 
     const markerRoot = createRoot(container);
-    markerRoot.render(<img src={BlueMarker} alt={stationName} />);
+    markerRoot.render(CarFfeineMarker(station));
 
     markerInstance.addListener('click', () => {
       openStationSummary(station, markerInstance);
