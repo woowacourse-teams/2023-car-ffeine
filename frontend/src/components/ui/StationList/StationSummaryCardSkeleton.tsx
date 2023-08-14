@@ -21,7 +21,7 @@ const StationSummaryCardSkeleton = () => {
               <Skeleton width="8rem" height="2.2rem" />
             </FlexBox>
           </Box>
-          <Skeleton width="4rem" height="4rem" borderRadius="50%" />
+          <Skeleton width="3.2rem" height="3.2rem" borderRadius="1rem" />
         </FlexBox>
       </Button>
     </ListItem>
