@@ -28,8 +28,9 @@ interface ReplyCardProps {
 const ReplyCard = ({ stationId, reply, reviewId, previewMode }: ReplyCardProps) => {
   const [isModifyMode, setIsModifyMode] = useState(false);
   const { removeReply, isRemoveReplyLoading } = useRemoveReply(stationId);
-  const memberToken = memberTokenStore.getState();
   const memberId = memberInfoStore.getState()?.memberId;
+  const isReplyOwner = memberId !== reply.memberId;
+  const isEditable = isReplyOwner || reply.isDeleted || !previewMode;
 
   const handleClickRemoveReplyButton = () => {
     if (confirm('정말로 삭제하시겠습니까?')) {
@@ -61,10 +62,7 @@ const ReplyCard = ({ stationId, reply, reviewId, previewMode }: ReplyCardProps) 
                 {calculateLatestUpdateTime(reply.latestUpdateDate)} {reply.isUpdated && '(수정됨)'}
               </Text>
             </Box>
-            {memberToken === '' ||
-            memberId !== reply.memberId ||
-            reply.isDeleted ||
-            !previewMode ? (
+            {isEditable ? (
               <></>
             ) : (
               <div>
