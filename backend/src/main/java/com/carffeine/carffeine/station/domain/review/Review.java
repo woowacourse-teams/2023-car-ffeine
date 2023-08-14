@@ -58,8 +58,10 @@ public class Review extends BaseEntity {
 
     private boolean isDeleted;
 
+    private Long replySize;
+
     @Builder
-    public Review(Long id, Station station, Member member, int ratings, String content, boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Review(Long id, Station station, Member member, int ratings, String content, boolean isDeleted, Long replySize, LocalDateTime createdAt, LocalDateTime updatedAt) {
         super(createdAt, updatedAt);
         validateRequest(ratings, content);
         this.id = id;
@@ -68,6 +70,7 @@ public class Review extends BaseEntity {
         this.ratings = ratings;
         this.content = content;
         this.isDeleted = isDeleted;
+        this.replySize = replySize;
     }
 
     private void validateRequest(int ratings, String content) {
@@ -100,6 +103,10 @@ public class Review extends BaseEntity {
 
     public void delete() {
         this.isDeleted = true;
+    }
+
+    public void setReplySize(Long replySize) {
+        this.replySize = replySize;
     }
 
     public void validate(Member member) {

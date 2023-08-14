@@ -118,6 +118,7 @@ public class ReviewControllerTest extends MockBeanInjection {
                                 fieldWithPath("reviews[].content").type(JsonFieldType.STRING).description("내용"),
                                 fieldWithPath("reviews[].isUpdated").type(JsonFieldType.BOOLEAN).description("수정 여부"),
                                 fieldWithPath("reviews[].isDeleted").type(JsonFieldType.BOOLEAN).description("삭제 여부"),
+                                fieldWithPath("reviews[].replySize").type(JsonFieldType.NUMBER).description("답글 개수"),
                                 fieldWithPath("nextPage").type(JsonFieldType.NUMBER).description("다음 페이지")
                         )
                 ));

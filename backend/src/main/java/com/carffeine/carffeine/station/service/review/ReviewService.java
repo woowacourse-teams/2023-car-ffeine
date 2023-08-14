@@ -3,6 +3,7 @@ package com.carffeine.carffeine.station.service.review;
 import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.member.domain.MemberRepository;
 import com.carffeine.carffeine.member.exception.MemberException;
+import com.carffeine.carffeine.station.domain.review.ReplyRepository;
 import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.domain.review.ReviewRepository;
 import com.carffeine.carffeine.station.domain.station.Station;
@@ -26,6 +27,7 @@ import static com.carffeine.carffeine.station.exception.review.ReviewExceptionTy
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
+    private final ReplyRepository replyRepository;
     private final StationRepository stationRepository;
     private final MemberRepository memberRepository;
 
@@ -44,7 +46,16 @@ public class ReviewService {
     @Transactional(readOnly = true)
     public Page<Review> findPageReviews(String stationId, Pageable pageable) {
         Station station = findStation(stationId);
-        return reviewRepository.findAllByStation(station, pageable);
+        Page<Review> reviews = reviewRepository.findAllByStation(station, pageable);
+        return setReplySize(reviews);
+    }
+
+    private Page<Review> setReplySize(Page<Review> reviews) {
+        for (Review review : reviews) {
+            Long replySize = replyRepository.countByReview(review);
+            review.setReplySize(replySize);
+        }
+        return reviews;
     }
 
     public Review updateReview(CreateReviewRequest request, Long reviewId, Long memberId) {
@@ -55,7 +66,7 @@ public class ReviewService {
         return review;
     }
 
-    public Review deleteReview(Long memberId, long reviewId) {
+    public Review deleteReview(Long memberId, Long reviewId) {
         Review review = findReview(reviewId);
         Member member = findMember(memberId);
         review.validate(member);

@@ -32,15 +32,17 @@ class ReviewServiceTest {
 
     private ReviewService reviewService;
     private ReviewRepository reviewRepository;
+    private ReplyRepository replyRepository;
     private StationRepository stationRepository;
     private MemberRepository memberRepository;
 
     @BeforeEach
     void before() {
         reviewRepository = new FakeReviewRepository();
+        replyRepository = new FakeReplyRepository();
         stationRepository = new FakeStationRepository();
         memberRepository = new FakeMemberRepository();
-        reviewService = new ReviewService(reviewRepository, stationRepository, memberRepository);
+        reviewService = new ReviewService(reviewRepository, replyRepository, stationRepository, memberRepository);
     }
 
     @Test

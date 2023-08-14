@@ -12,18 +12,23 @@ public record ReviewResponses(
 
     public static final int INVALID_PAGE = -1;
     public static final int NEXT_PAGE = 1;
+    public static final String CONTENT_DELETED = "삭제된 글입니다";
 
     public static ReviewResponses from(Page<Review> reviews) {
         List<ReviewResponse> reviewResponses = reviews.stream()
-                .map(it -> new ReviewResponse(
-                        it.getId(),
-                        it.getMember().getId(),
-                        it.getUpdatedAt(),
-                        it.getRatings(),
-                        it.getContent(),
-                        it.getUpdatedAt().isAfter(it.getCreatedAt()),
-                        it.isDeleted()
-                )).toList();
+                .map(it -> {
+                    String content = it.isDeleted() ? CONTENT_DELETED : it.getContent();
+                    return new ReviewResponse(
+                            it.getId(),
+                            it.getMember().getId(),
+                            it.getUpdatedAt(),
+                            it.getRatings(),
+                            content,
+                            it.getUpdatedAt().isAfter(it.getCreatedAt()),
+                            it.isDeleted(),
+                            it.getReplySize()
+                    );
+                }).toList();
         int nextPage = getNextPage(reviews);
 
         return new ReviewResponses(reviewResponses, nextPage);
