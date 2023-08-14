@@ -6,6 +6,7 @@ import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 
+import ReviewModifyButton from '@ui/StationDetailsWindow/reviews/cards/ReviewModifyButton';
 import ContentField from '@ui/StationDetailsWindow/reviews/common/ContentField';
 import HeaderWithRating from '@ui/StationDetailsWindow/reviews/common/HeaderWithRating';
 
@@ -20,41 +21,19 @@ export interface ReviewModifyProps {
 const ReviewModify = ({ stationId, review, setIsModifyMode }: ReviewModifyProps) => {
   const [stars, setStars] = useState(review.ratings);
   const [content, setContent] = useState(review.content);
-  const { modifyReview, isModifyReviewLoading } = useModifyReview(stationId);
-
-  const handleClickCloseModifyMode = () => {
-    setIsModifyMode(false);
-  };
-
-  const handleClickModifyReview = () => {
-    modifyReview({ reviewId: review.reviewId, ratings: stars, content: content });
-    setIsModifyMode(false);
-  };
 
   return (
     <Box border p={2}>
       <HeaderWithRating stars={stars} setStars={setStars} title="후기 수정하기" />
       <ContentField content={content} setContent={setContent} />
 
-      <FlexBox nowrap justifyContent="end">
-        <ButtonNext
-          size="xs"
-          variant="outlined"
-          color="error"
-          onClick={() => handleClickCloseModifyMode()}
-        >
-          취소
-        </ButtonNext>
-        <ButtonNext
-          size="xs"
-          disabled={isModifyReviewLoading || content.length < 5 || content.length > 100}
-          variant="contained"
-          color="success"
-          onClick={() => handleClickModifyReview()}
-        >
-          {isModifyReviewLoading ? '처리중...' : '등록'}
-        </ButtonNext>
-      </FlexBox>
+      <ReviewModifyButton
+        stationId={stationId}
+        review={review}
+        setIsModifyMode={setIsModifyMode}
+        stars={stars}
+        content={content}
+      />
     </Box>
   );
 };
