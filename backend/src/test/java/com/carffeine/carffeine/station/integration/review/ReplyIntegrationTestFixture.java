@@ -38,23 +38,23 @@ public class ReplyIntegrationTestFixture {
                 .extract();
     }
 
-    public static ExtractableResponse<Response> 답글을_수정한다(CreateReplyRequest request, String token, Reply reply) {
+    public static ExtractableResponse<Response> 답글을_수정한다(CreateReplyRequest request, String token, Review review, Reply reply) {
         return RestAssured.given().log().all()
                 .header("Authorization", "Bearer " + token)
                 .body(getParams(request))
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when()
-                .patch("/replies/{replyId}", reply.getId())
+                .patch("/reviews/{reviewId}/replies/{replyId}", review.getId(), reply.getId())
                 .then().log().all()
                 .extract();
     }
 
-    public static ExtractableResponse<Response> 답글을_삭제한다(String token, Reply reply) {
+    public static ExtractableResponse<Response> 답글을_삭제한다(String token, Review review, Reply reply) {
         return RestAssured.given().log().all()
                 .header("Authorization", "Bearer " + token)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when()
-                .delete("/replies/{replyId}", reply.getId())
+                .delete("/reviews/{reviewId}/replies/{replyId}", review.getId(), reply.getId())
                 .then().log().all()
                 .extract();
     }

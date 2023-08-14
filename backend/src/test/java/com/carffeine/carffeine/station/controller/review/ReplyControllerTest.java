@@ -136,7 +136,7 @@ public class ReplyControllerTest extends MockBeanInjection {
         String jsonData = objectMapper.writeValueAsString(request);
 
         // then
-        mockMvc.perform(patch("/replies/{replyId}", reply.getId())
+        mockMvc.perform(patch("/reviews/{reviewId}/replies/{replyId}", review.getId(), reply.getId())
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + member.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -145,7 +145,9 @@ public class ReplyControllerTest extends MockBeanInjection {
                 .andExpect(status().isNoContent())
                 .andDo(customDocument("update-reply",
                         requestHeaders(headerWithName("Authorization").description("회원 ID")),
-                        pathParameters(parameterWithName("replyId").description("댓글 ID")),
+                        pathParameters(
+                                parameterWithName("reviewId").description("댓글 ID"),
+                                parameterWithName("replyId").description("답글 ID")),
                         requestFields(
                                 fieldWithPath("content").type(JsonFieldType.STRING).description("내용")
                         ))
@@ -156,13 +158,14 @@ public class ReplyControllerTest extends MockBeanInjection {
     void 댓글의_답글을_삭제한다() throws Exception {
         // given
         Member member = 일반_회원;
+        Review review = 리뷰_별4_15글자;
         Reply reply = 답글_1개;
 
         // when
         when(replyService.deleteReply(member.getId(), reply.getId())).thenReturn(reply);
 
         // then
-        mockMvc.perform(delete("/replies/{replyId}", reply.getId())
+        mockMvc.perform(delete("/reviews/{reviewId}/replies/{replyId}", review.getId(), reply.getId())
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + member.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -170,7 +173,9 @@ public class ReplyControllerTest extends MockBeanInjection {
                 .andExpect(status().isNoContent())
                 .andDo(customDocument("delete-reply",
                         requestHeaders(headerWithName("Authorization").description("회원 ID")),
-                        pathParameters(parameterWithName("replyId").description("댓글 ID")))
+                        pathParameters(
+                                parameterWithName("reviewId").description("댓글 ID"),
+                                parameterWithName("replyId").description("답글 ID")))
                 );
     }
 }

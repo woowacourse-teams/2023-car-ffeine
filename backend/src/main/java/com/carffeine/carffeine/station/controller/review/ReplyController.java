@@ -45,7 +45,7 @@ public class ReplyController {
         return ResponseEntity.ok(ReplyResponses.from(replies));
     }
 
-    @PatchMapping("/replies/{replyId}")
+    @PatchMapping("/reviews/{reviewId}/replies/{replyId}")
     public ResponseEntity<Void> updateReply(
             @AuthMember Long memberId,
             @PathVariable Long replyId,
@@ -54,7 +54,7 @@ public class ReplyController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/replies/{replyId}")
+    @DeleteMapping("/reviews/{reviewId}/replies/{replyId}")
     public ResponseEntity<Void> deleteReview(
             @AuthMember Long memberId,
             @PathVariable Long replyId) {

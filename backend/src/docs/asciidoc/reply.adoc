@@ -27,7 +27,7 @@ include::{snippets}/reply-controller-test/find-replies/http-request.adoc[]
 include::{snippets}/reply-controller-test/find-replies/http-response.adoc[]
 include::{snippets}/reply-controller-test/find-replies/response-fields.adoc[]
 
-== 답글을 수정한다 (/replies/{replyId})
+== 답글을 수정한다 (/reviews/{reviewId}/replies/{replyId})
 
 === Request
 
@@ -38,7 +38,7 @@ include::{snippets}/reply-controller-test/update-reply/request-fields.adoc[]
 
 include::{snippets}/reply-controller-test/update-reply/http-response.adoc[]
 
-== 답글을 삭제한다 (/replies/{replyId})
+== 답글을 삭제한다 (/reviews/{reviewId}/replies/{replyId})
 
 === Request
 

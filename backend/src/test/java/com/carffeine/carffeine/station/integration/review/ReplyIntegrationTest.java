@@ -128,8 +128,9 @@ public class ReplyIntegrationTest extends IntegrationTest {
             답글을_등록한다(요청, 토큰, 리뷰);
 
             // when
-            var patch응답 = 답글을_수정한다(답글_수정_요청_1개, 토큰, 답글);
+            var patch응답 = 답글을_수정한다(답글_수정_요청_1개, 토큰, 리뷰, 답글);
             var 해당_댓글 = 해당_답글을_가져온다();
+
             // then
             SoftAssertions.assertSoftly(softly -> {
                 상태_코드를_검증한다(patch응답, NO_CONTENT);
@@ -143,7 +144,7 @@ public class ReplyIntegrationTest extends IntegrationTest {
             답글을_등록한다(요청, 토큰, 리뷰);
 
             // when
-            var patch응답 = 답글을_수정한다(답글_수정_요청_1개, 잘못된_토큰, 답글);
+            var patch응답 = 답글을_수정한다(답글_수정_요청_1개, 잘못된_토큰, 리뷰, 답글);
 
             // then
             상태_코드를_검증한다(patch응답, NOT_FOUND);
@@ -159,8 +160,7 @@ public class ReplyIntegrationTest extends IntegrationTest {
             답글을_등록한다(요청, 토큰, 리뷰);
 
             // when
-            var delete응답 = 답글을_삭제한다(토큰, 답글);
-            var 해당_댓글 = 해당_답글을_가져온다();
+            var delete응답 = 답글을_삭제한다(토큰, 리뷰, 답글);
 
             // then
             상태_코드를_검증한다(delete응답, NO_CONTENT);
@@ -172,7 +172,7 @@ public class ReplyIntegrationTest extends IntegrationTest {
             답글을_등록한다(요청, 토큰, 리뷰);
 
             // when
-            var delete응답 = 답글을_삭제한다(잘못된_토큰, 답글);
+            var delete응답 = 답글을_삭제한다(잘못된_토큰, 리뷰, 답글);
 
             // then
             상태_코드를_검증한다(delete응답, NOT_FOUND);
