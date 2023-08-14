@@ -1,6 +1,5 @@
 import { PencilIcon, TrashIcon } from '@heroicons/react/20/solid';
 import { StarIcon } from '@heroicons/react/24/solid';
-import { stat } from 'copy-webpack-plugin/types/utils';
 
 import { useEffect, useState } from 'react';
 
@@ -13,8 +12,8 @@ import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-import ReplyCard from '@ui/StationDetailsWindow/reviews/replies/ReplyCard';
 import ReplyCreate from '@ui/StationDetailsWindow/reviews/replies/ReplyCreate';
+import ReplyList from '@ui/StationDetailsWindow/reviews/replies/ReplyList';
 import ReviewModify from '@ui/StationDetailsWindow/reviews/reviews/ReviewModify';
 
 import type { Review } from '@type';
@@ -107,19 +106,13 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
               </ButtonNext>
             </FlexBox>
           </Box>
-          {/*{isRepliesOpen &&*/}
-          {/*  replies.map((reply, index) => (*/}
-          {/*    <ReplyCard*/}
-          {/*      key={index}*/}
-          {/*      stationId={stationId}*/}
-          {/*      reply={reply}*/}
-          {/*      reviewId={review.reviewId}*/}
-          {/*      previewMode={previewMode}*/}
-          {/*      isLastReply={index !== replies.length - 1}*/}
-          {/*    />*/}
-          {/*  ))}*/}
 
-          {isRepliesOpen && <ReplyCreate stationId={stationId} reviewId={review.reviewId} />}
+          {isRepliesOpen && (
+            <>
+              <ReplyList />
+              <ReplyCreate stationId={stationId} reviewId={review.reviewId} />
+            </>
+          )}
         </>
       )}
     </>
