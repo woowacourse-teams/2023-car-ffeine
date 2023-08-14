@@ -51,7 +51,7 @@ const ReviewPreviewList = ({ stationId }: ReviewPreviewListProps) => {
                   isUpdated: review.isUpdated,
                   latestUpdateDate: review.latestUpdateDate,
                   ratings: review.ratings,
-                  replies: review.replies,
+                  replySize: review.replySize,
                   reviewId: review.reviewId,
                   memberId: review.memberId,
                 }}

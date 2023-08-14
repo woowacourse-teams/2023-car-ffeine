@@ -99,7 +99,7 @@ export interface Review {
   content: string;
   isUpdated: boolean;
   isDeleted: boolean;
-  replies: Reply[];
+  replySize: number;
 }
 
 export interface Reply {

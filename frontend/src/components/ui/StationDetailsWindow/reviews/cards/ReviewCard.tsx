@@ -26,7 +26,7 @@ export interface ReviewCardProps {
 }
 
 const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
-  const { replies, content, isUpdated, latestUpdateDate, memberId, ratings, isDeleted } = review;
+  const { replySize, content, isUpdated, latestUpdateDate, memberId, ratings, isDeleted } = review;
   const { isRemoveReviewLoading, removeReview } = useRemoveReview(stationId);
   const [isRepliesOpen, setIsRepliesOpen] = useState(false);
   const [isModifyMode, setIsModifyMode] = useState(false);
@@ -103,21 +103,21 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
 
             <FlexBox justifyContent="between">
               <ButtonNext size="xs" variant="text" onClick={() => setIsRepliesOpen(!isRepliesOpen)}>
-                {isRepliesOpen ? `닫기` : `답글 ${replies.length > 0 ? replies.length : '달기'}`}
+                {isRepliesOpen ? `닫기` : `답글 ${replySize > 0 ? replySize : '달기'}`}
               </ButtonNext>
             </FlexBox>
           </Box>
-          {isRepliesOpen &&
-            replies.map((reply, index) => (
-              <ReplyCard
-                key={index}
-                stationId={stationId}
-                reply={reply}
-                reviewId={review.reviewId}
-                previewMode={previewMode}
-                isLastReply={index !== replies.length - 1}
-              />
-            ))}
+          {/*{isRepliesOpen &&*/}
+          {/*  replies.map((reply, index) => (*/}
+          {/*    <ReplyCard*/}
+          {/*      key={index}*/}
+          {/*      stationId={stationId}*/}
+          {/*      reply={reply}*/}
+          {/*      reviewId={review.reviewId}*/}
+          {/*      previewMode={previewMode}*/}
+          {/*      isLastReply={index !== replies.length - 1}*/}
+          {/*    />*/}
+          {/*  ))}*/}
 
           {isRepliesOpen && <ReplyCreate stationId={stationId} reviewId={review.reviewId} />}
         </>
