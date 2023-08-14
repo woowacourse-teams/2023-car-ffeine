@@ -39,14 +39,7 @@ const ReplyCard = ({ stationId, reply, reviewId, previewMode }: ReplyCardProps) 
   };
 
   if (isModifyMode) {
-    return (
-      <ReplyModify
-        stationId={stationId}
-        reply={reply}
-        reviewId={reviewId}
-        setIsModifyMode={setIsModifyMode}
-      />
-    );
+    return <ReplyModify stationId={stationId} reply={reply} setIsModifyMode={setIsModifyMode} />;
   }
 
   return (

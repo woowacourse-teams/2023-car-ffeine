@@ -15,17 +15,16 @@ import type { Reply } from '@type';
 
 interface ReplyModifyProps {
   stationId: string;
-  reviewId: number;
   reply: Reply;
   setIsModifyMode: (newMode: boolean) => void;
 }
 
-const ReplyModify = ({ stationId, reviewId, reply, setIsModifyMode }: ReplyModifyProps) => {
+const ReplyModify = ({ stationId, reply, setIsModifyMode }: ReplyModifyProps) => {
   const [content, setContent] = useState(reply.content);
   const { modifyReply, isModifyReplyLoading } = useModifyReply(stationId);
 
   const handleClickModifyReply = () => {
-    modifyReply({ replyId: reply.replyId, content, reviewId });
+    modifyReply({ replyId: reply.replyId, content });
     setIsModifyMode(false);
   };
 

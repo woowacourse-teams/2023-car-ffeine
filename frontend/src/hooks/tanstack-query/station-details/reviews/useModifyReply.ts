@@ -9,15 +9,14 @@ import { QUERY_KEY_STATION_PREVIEWS, QUERY_KEY_STATION_REVIEWS } from '@constant
 
 export interface FetchModifyReplyRequest {
   replyId: number;
-  reviewId: number;
   content: string;
 }
 
 const fetchModifyReply = async (fetchModifyReplyRequestParams: FetchModifyReplyRequest) => {
-  const { replyId, reviewId, content } = fetchModifyReplyRequestParams;
+  const { replyId, content } = fetchModifyReplyRequestParams;
   const memberToken = memberTokenStore.getState();
   const mode = serverStore.getState();
-  return fetch(`${SERVERS[mode]}/reviews/${reviewId}/replies/${replyId}`, {
+  return fetch(`${SERVERS[mode]}/replies/${replyId}`, {
     method: 'PATCH',
     headers: {
       Authorization: `Bearer ${memberToken}`,
