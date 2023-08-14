@@ -18,7 +18,7 @@ export interface ChargerCardProps {
 const ChargerCard = ({ charger }: ChargerCardProps) => {
   const { type, price, capacity, latestUpdateTime, state, method } = charger;
   return (
-    <Box border px={2} py={5} width={39}>
+    <Box border width={36.5} p={2}>
       <FlexBox justifyContent="center" alignItems="center" css={square}>
         <BoltIcon width={24} fill="#5c68d6" />
         <Text>{CHARGER_STATES[state]}</Text>
