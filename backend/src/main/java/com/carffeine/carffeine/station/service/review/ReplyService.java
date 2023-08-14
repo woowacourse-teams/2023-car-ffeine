@@ -35,6 +35,7 @@ public class ReplyService {
         return replyRepository.save(reply);
     }
 
+    @Transactional(readOnly = true)
     public Review findReview(Long reviewId) {
         return reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new ReviewException(REVIEW_NOT_FOUND));
@@ -75,7 +76,7 @@ public class ReplyService {
         return reply;
     }
 
-    public Reply findReply(Long replyId) {
+    private Reply findReply(Long replyId) {
         return replyRepository.findById(replyId)
                 .orElseThrow(() -> new ReviewException(DELETED_REVIEW));
     }
