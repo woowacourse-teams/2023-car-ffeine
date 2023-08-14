@@ -1,9 +1,9 @@
 package com.carffeine.carffeine.auth.infrastructure;
 
 import com.carffeine.carffeine.auth.domain.TokenProvider;
+import com.carffeine.carffeine.auth.exception.AuthException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -77,15 +77,15 @@ public class JwtProvider implements TokenProvider {
                     .getBody()
                     .get("id", Long.class);
         } catch (SecurityException e) {
-            throw new JwtException(SIGNITURE_NOT_FOUND.message());
+            throw new AuthException(SIGNITURE_NOT_FOUND);
         } catch (MalformedJwtException e) {
-            throw new JwtException(MALFORMED_TOKEN.message());
+            throw new AuthException(MALFORMED_TOKEN);
         } catch (ExpiredJwtException e) {
-            throw new JwtException(EXPIRED_TOKEN.message());
+            throw new AuthException(EXPIRED_TOKEN);
         } catch (UnsupportedJwtException e) {
-            throw new JwtException(UNSUPPORTED_TOKEN.message());
+            throw new AuthException(UNSUPPORTED_TOKEN);
         } catch (IllegalArgumentException e) {
-            throw new JwtException(INVALID_TOKEN.message());
+            throw new AuthException(INVALID_TOKEN);
         }
     }
 
