@@ -31,7 +31,9 @@ const ChargerReportButton = ({ stationId }: ChargerReportButtonProps) => {
             }}
             disabled={isStationChargerReported}
           >
-            {isStationChargerReported ? '이미 신고한 충전소입니다.' : '🚨 충전기 고장 신고 '}
+            {isStationChargerReported
+              ? '이미 신고한 충전소입니다.'
+              : '🚨 충전기 고장 신고 ' + JSON.stringify(isStationChargerReported)}
           </ButtonNext>
         )}
       </Box>

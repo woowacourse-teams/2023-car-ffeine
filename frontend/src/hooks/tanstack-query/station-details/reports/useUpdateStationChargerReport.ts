@@ -1,26 +1,26 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { getLocalStorage } from '@utils/storage';
-
 import { serverStore } from '@stores/config/serverStore';
 import { modalActions } from '@stores/layout/modalStore';
+import { memberTokenStore } from '@stores/login/memberTokenStore';
 
-import { DEFAULT_TOKEN, SERVERS } from '@constants';
-import { QUERY_KEY_STATION_CHARGER_REPORT } from '@constants/queryKeys';
-import { LOCAL_KEY_TOKEN } from '@constants/storageKeys';
+import { SERVERS } from '@constants';
+import { QUERY_KEY_STATION_CHARGER_REPORT, QUERY_KEY_STATION_DETAILS } from '@constants/queryKeys';
 
 const fetchReportCharger = async (stationId: string) => {
-  const token = getLocalStorage<number>(LOCAL_KEY_TOKEN, DEFAULT_TOKEN);
+  const memberToken = memberTokenStore.getState();
   const mode = serverStore.getState();
   return fetch(`${SERVERS[mode]}/stations/${stationId}/reports`, {
     method: 'POST',
     headers: {
-      Authorization: `${token}`,
+      Authorization: `Bearer ${memberToken}`,
       'Content-Type': 'application/json',
     },
+  }).then(async (response) => {
+    alert(JSON.stringify(response));
   });
 };
-export const useUpdateStationChargerReport = () => {
+export const useUpdateStationChargerReport = (stationId: string) => {
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
@@ -30,6 +30,7 @@ export const useUpdateStationChargerReport = () => {
       modalActions.closeModal();
     },
     onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_DETAILS, stationId] });
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_CHARGER_REPORT] });
     },
   });

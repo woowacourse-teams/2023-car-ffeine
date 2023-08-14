@@ -70,7 +70,7 @@ const StationInformation = ({ station }: StationInformationProps) => {
           </Text>
           <Text variant="label">
             {isPrivate || privateReason
-              ? `사용 제한됨 (사유: ${privateReason.length > 0 ? privateReason : '없음'})`
+              ? `사용 제한됨 (사유: ${privateReason?.length > 0 ? privateReason : '없음'})`
               : '누구나 사용가능'}
           </Text>
         </Box>
