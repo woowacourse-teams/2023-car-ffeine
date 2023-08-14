@@ -3,7 +3,9 @@ package com.carffeine.carffeine.station.service.review;
 import com.carffeine.carffeine.member.domain.FakeMemberRepository;
 import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.member.domain.MemberRepository;
+import com.carffeine.carffeine.station.domain.review.FakeReplyRepository;
 import com.carffeine.carffeine.station.domain.review.FakeReviewRepository;
+import com.carffeine.carffeine.station.domain.review.ReplyRepository;
 import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.domain.review.ReviewRepository;
 import com.carffeine.carffeine.station.domain.station.FakeStationRepository;
@@ -85,7 +87,7 @@ class ReviewServiceTest {
         reviewService.saveReview(request, stationId, memberId);
 
         // when
-        Page<Review> reviews = reviewService.findPageReviews(stationId, pageable);
+        Page<Review> reviews = reviewService.findAllReviews(stationId, pageable);
 
         // then
         assertThat(reviews).hasSize(1);
@@ -107,7 +109,7 @@ class ReviewServiceTest {
         }
 
         // when
-        Page<Review> reviews = reviewService.findPageReviews(stationId, pageable);
+        Page<Review> reviews = reviewService.findAllReviews(stationId, pageable);
 
         // then
         SoftAssertions.assertSoftly(softly -> {
@@ -130,7 +132,7 @@ class ReviewServiceTest {
         }
 
         // when
-        Page<Review> reviews = reviewService.findPageReviews(stationId, pageable);
+        Page<Review> reviews = reviewService.findAllReviews(stationId, pageable);
 
         // then
         assertThat(reviews.getNumberOfElements()).isEqualTo(3);

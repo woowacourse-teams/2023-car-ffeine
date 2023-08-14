@@ -40,11 +40,6 @@ public class ReviewService {
 
     @Transactional(readOnly = true)
     public Page<Review> findAllReviews(String stationId, Pageable pageable) {
-        return findPageReviews(stationId, pageable);
-    }
-
-    @Transactional(readOnly = true)
-    public Page<Review> findPageReviews(String stationId, Pageable pageable) {
         Station station = findStation(stationId);
         Page<Review> reviews = reviewRepository.findAllByStation(station, pageable);
         return setReplySize(reviews);
