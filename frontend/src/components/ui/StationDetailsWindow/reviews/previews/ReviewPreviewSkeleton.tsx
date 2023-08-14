@@ -6,11 +6,11 @@ import ReviewCardsLoading from '@ui/StationDetailsWindow/reviews/reviews/ReviewC
 
 const ReviewPreviewSkeleton = () => {
   return (
-    <Box my={5}>
-      <Box px={4}>
+    <Box>
+      <Box my={5}>
         <FlexBox justifyContent="between">
-          <Skeleton width="7rem" height="2rem" />
-          <Skeleton width="5rem" height="2rem" />
+          <Skeleton width="10rem" height="2.2rem" />
+          <Skeleton width="8rem" height="2.2rem" />
         </FlexBox>
       </Box>
       <ReviewCardsLoading count={3} />

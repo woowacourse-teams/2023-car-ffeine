@@ -22,7 +22,7 @@ export default function ReviewList({ stationId }: ReviewListProps) {
 
   return (
     <>
-      <Box p={4}>
+      <Box p={4} css={reviewListCss}>
         <Text variant="title" mt={2} mb={5} px={4}>
           충전소 후기 보기
         </Text>
@@ -53,8 +53,10 @@ export default function ReviewList({ stationId }: ReviewListProps) {
             ))}
             {isFetchingNextPage && <ReviewCardsLoading count={10} />}
             <ButtonNext
+              size="xs"
               variant="contained"
               onClick={() => fetchNextPage()}
+              color="secondary"
               disabled={!hasNextPage || isFetchingNextPage}
               fullWidth
             >
@@ -79,4 +81,8 @@ const modalButtonCss = css`
   position: sticky;
   bottom: 0;
   background: white;
+`;
+
+const reviewListCss = css`
+  width: 40rem;
 `;

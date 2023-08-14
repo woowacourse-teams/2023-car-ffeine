@@ -1,4 +1,4 @@
-import { PencilIcon, TrashIcon } from '@heroicons/react/20/solid';
+import { TrashIcon } from '@heroicons/react/20/solid';
 import { PencilSquareIcon, StarIcon } from '@heroicons/react/24/solid';
 
 import { useEffect, useState } from 'react';
@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import { calculateLatestUpdateTime } from '@utils/index';
 
 import { memberInfoStore } from '@stores/login/memberInfoStore';
-import { memberTokenStore } from '@stores/login/memberTokenStore';
 
 import { useRemoveReview } from '@hooks/tanstack-query/station-details/reviews/useRemoveReview';
 
