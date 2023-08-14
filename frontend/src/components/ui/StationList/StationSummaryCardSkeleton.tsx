@@ -29,9 +29,9 @@ const StationSummaryCardSkeleton = () => {
 };
 
 const foundStationButton = css`
-  padding: 1.8rem 1.4rem 2rem;
+  padding: 1.6rem 1.4rem 1.8rem;
   box-shadow: 0 0.3rem 0.8rem 0 var(--gray-200-color);
-  border-radius: 20px;
+  border-radius: 10px;
 `;
 
 export default StationSummaryCardSkeleton;

@@ -68,7 +68,7 @@ const StationSummaryWindow = ({ station }: Props) => {
             </Text>
             <FlexBox columnGap={3}>
               <Text variant="label" align="left" color="#4b4b4b" css={labelStyle}>
-                {isPrivate ? '이용제한구역' : '공공 충전소'}
+                {isPrivate ? '이용 제한' : '외부인 개방'}
               </Text>
               <Text variant="label" align="left" color="#4b4b4b" css={labelStyle}>
                 {isParkingFree ? '무료 주차' : '유료 주차'}
