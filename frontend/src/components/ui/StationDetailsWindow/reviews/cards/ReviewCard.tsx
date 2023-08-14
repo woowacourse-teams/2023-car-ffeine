@@ -1,5 +1,6 @@
 import { PencilIcon, TrashIcon } from '@heroicons/react/20/solid';
 import { StarIcon } from '@heroicons/react/24/solid';
+import { stat } from 'copy-webpack-plugin/types/utils';
 
 import { useEffect, useState } from 'react';
 
@@ -12,7 +13,8 @@ import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-import ReplyCard from '@ui/StationDetailsWindow/reviews/ReplyCard';
+import ReplyCard from '@ui/StationDetailsWindow/reviews/cards/ReplyCard';
+import ReplyCreate from '@ui/StationDetailsWindow/reviews/crud/ReplyCreate';
 import ReviewModify from '@ui/StationDetailsWindow/reviews/crud/ReviewModify';
 
 import type { Review } from '@type';
@@ -30,7 +32,9 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
   const [isModifyMode, setIsModifyMode] = useState(false);
 
   const handleClickRemoveReviewButton = () => {
-    removeReview({ reviewId: review.reviewId });
+    if (confirm('정말로 삭제하시겠습니까?')) {
+      removeReview({ reviewId: review.reviewId });
+    }
   };
 
   useEffect(() => {
@@ -97,29 +101,25 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
               </Box>
             </Box>
 
-            {replies.length > 0 && (
-              <FlexBox justifyContent="between">
-                <ButtonNext
-                  size="xs"
-                  variant="text"
-                  onClick={() => setIsRepliesOpen(!isRepliesOpen)}
-                >
-                  {isRepliesOpen
-                    ? `답글 닫기`
-                    : `답글 ${replies.length > 0 ? replies.length : '달기'}`}
-                </ButtonNext>
-              </FlexBox>
-            )}
+            <FlexBox justifyContent="between">
+              <ButtonNext size="xs" variant="text" onClick={() => setIsRepliesOpen(!isRepliesOpen)}>
+                {isRepliesOpen ? `닫기` : `답글 ${replies.length > 0 ? replies.length : '달기'}`}
+              </ButtonNext>
+            </FlexBox>
           </Box>
           {isRepliesOpen &&
             replies.map((reply, index) => (
               <ReplyCard
                 key={index}
+                stationId={stationId}
                 reply={reply}
+                reviewId={review.reviewId}
                 previewMode={previewMode}
                 isLastReply={index !== replies.length - 1}
               />
             ))}
+
+          {isRepliesOpen && <ReplyCreate stationId={stationId} reviewId={review.reviewId} />}
         </>
       )}
     </>

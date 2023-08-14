@@ -21,7 +21,7 @@ export const stationReviewHandlers = [
     const reviews = generateReviewsWithReplies();
     const { searchParams } = req.url;
     const page = Number(searchParams.get('page'));
-    console.log(`page=${page}`);
+    console.log(`충전소 후기 및 답글 요청 page=${page}`);
 
     if (page === 3) {
       return res(
@@ -57,25 +57,35 @@ export const stationReviewHandlers = [
   }),
 
   rest.post(`${SERVERS.localhost}/stations/:stationId/reviews`, async (req, res, ctx) => {
+    const body = await req.json();
+    console.log(`충전소 후기 작성 :${JSON.stringify(body)}`);
     return res(ctx.delay(200), ctx.status(204));
   }),
-  rest.patch(`${SERVERS.localhost}/reviews/:reviewId`, (req, res, ctx) => {
+  rest.patch(`${SERVERS.localhost}/reviews/:reviewId`, async (req, res, ctx) => {
+    const body = await req.json();
+    console.log(`충전소 후기 수정 :${JSON.stringify(body)}`);
     return res(ctx.delay(200), ctx.status(204));
   }),
-  rest.delete(`${SERVERS.localhost}/reviews/:reviewId`, (req, res, ctx) => {
+  rest.delete(`${SERVERS.localhost}/reviews/:reviewId`, async (req, res, ctx) => {
+    console.log(`충전소 후기 삭제`);
     return res(ctx.delay(200), ctx.status(204));
   }),
 
   rest.post(
     `${SERVERS.localhost}/stations/:stationId/reviews/:reviewId/replies`,
-    (req, res, ctx) => {
+    async (req, res, ctx) => {
+      const body = await req.json();
+      console.log(`충전소 후기 답글 작성 :${JSON.stringify(body)}`);
       return res(ctx.delay(200), ctx.status(204));
     }
   ),
-  rest.patch(`${SERVERS.localhost}/reviews/:reviewId/replies/:replyId`, (req, res, ctx) => {
+  rest.patch(`${SERVERS.localhost}/reviews/:reviewId/replies/:replyId`, async (req, res, ctx) => {
+    const body = await req.json();
+    console.log(`충전소 후기 답글 수정 :${JSON.stringify(body)}`);
     return res(ctx.delay(200), ctx.status(204));
   }),
   rest.delete(`${SERVERS.localhost}/reviews/:reviewId/replies/:replyId`, (req, res, ctx) => {
+    console.log(`충전소 후기 답글 삭제`);
     return res(ctx.delay(200), ctx.status(204));
   }),
 ];

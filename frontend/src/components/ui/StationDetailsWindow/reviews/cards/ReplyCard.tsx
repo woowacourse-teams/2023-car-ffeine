@@ -1,21 +1,49 @@
 import { PencilIcon, TrashIcon } from '@heroicons/react/20/solid';
 
+import { useState } from 'react';
+
 import { calculateLatestUpdateTime } from '@utils/index';
+
+import { useRemoveReply } from '@hooks/tanstack-query/station-details/reviews/useRemoveReply';
 
 import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
+import ReplyModify from '@ui/StationDetailsWindow/reviews/crud/ReplyModify';
+
 import type { Reply } from '@type';
 
 interface ReplyCardProps {
+  stationId: string;
   reply: Reply;
+  reviewId: number;
   previewMode: boolean;
   isLastReply: boolean;
 }
 
-const ReplyCard = ({ reply, previewMode, isLastReply }: ReplyCardProps) => {
+const ReplyCard = ({ stationId, reply, reviewId, previewMode, isLastReply }: ReplyCardProps) => {
+  const [isModifyMode, setIsModifyMode] = useState(false);
+  const { removeReply, isRemoveReplyLoading } = useRemoveReply(stationId);
+
+  const handleClickRemoveReplyButton = () => {
+    if (confirm('정말로 삭제하시겠습니까?')) {
+      removeReply({ replyId: reply.replyId, reviewId });
+    }
+  };
+
+  if (isModifyMode) {
+    return (
+      <ReplyModify
+        stationId={stationId}
+        reply={reply}
+        reviewId={reviewId}
+        setIsModifyMode={setIsModifyMode}
+      />
+    );
+  }
+
   return (
     <>
       <Box key={reply.replyId} p={3} pl={8}>
@@ -37,17 +65,22 @@ const ReplyCard = ({ reply, previewMode, isLastReply }: ReplyCardProps) => {
                   size="xs"
                   variant="text"
                   color="secondary"
-                  onClick={() => alert('수정')}
+                  onClick={() => setIsModifyMode(true)}
                 >
                   <PencilIcon width={15} display="inline-block" />
                 </ButtonNext>
                 <ButtonNext
+                  disabled={isRemoveReplyLoading}
                   size="xs"
                   variant="text"
                   color="secondary"
-                  onClick={() => alert('삭제')}
+                  onClick={() => handleClickRemoveReplyButton()}
                 >
-                  <TrashIcon width={15} display="inline-block" />
+                  {isRemoveReplyLoading ? (
+                    '삭제중'
+                  ) : (
+                    <TrashIcon width={15} display="inline-block" />
+                  )}
                 </ButtonNext>
               </div>
             )}
