@@ -33,7 +33,7 @@ const StationInformation = ({ station }: StationInformationProps) => {
           {stationName}
         </Text>
         <Text variant="subtitle" mb={2}>
-          {address}
+          {address?.length > 0 ? address : '도로명주소 없음'}
         </Text>
         <Text variant="caption" mb={1}>
           {detailLocation?.length > 0 ? detailLocation : '상세주소 없음'}
@@ -70,7 +70,7 @@ const StationInformation = ({ station }: StationInformationProps) => {
           </Text>
           <Text variant="label">
             {isPrivate || privateReason
-              ? `사용 제한됨 (사유: ${privateReason})`
+              ? `사용 제한됨 (사유: ${privateReason.length > 0 ? privateReason : '없음'})`
               : '누구나 사용가능'}
           </Text>
         </Box>
