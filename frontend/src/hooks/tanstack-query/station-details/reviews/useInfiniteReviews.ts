@@ -4,8 +4,15 @@ import { serverStore } from '@stores/config/serverStore';
 
 import { SERVERS } from '@constants';
 
+import type { Review } from '@type';
+
+interface InfiniteRepliesResponse {
+  reviews: Review[];
+  nextPage: number;
+}
+
 export const useInfiniteReviews = (stationId: string) => {
-  return useInfiniteQuery(
+  return useInfiniteQuery<InfiniteRepliesResponse>(
     ['reviews', stationId],
     async ({ pageParam = 1 }) => {
       const mode = serverStore.getState();

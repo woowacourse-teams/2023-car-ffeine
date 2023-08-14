@@ -37,13 +37,13 @@ export default function ReviewList({ stationId }: ReviewListProps) {
         ) : (
           <>
             {data.pages.map((page) => (
-              <div key={page.currentPage}>
+              <div key={page.nextPage}>
                 {page.reviews.length === 0 && (
                   <Text m={10} align="center">
                     등록 된 후기가 없습니다.
                   </Text>
                 )}
-                {(page.reviews as Review[]).map((review) => (
+                {page.reviews.map((review) => (
                   <ReviewCard
                     key={review.reviewId}
                     stationId={stationId}
