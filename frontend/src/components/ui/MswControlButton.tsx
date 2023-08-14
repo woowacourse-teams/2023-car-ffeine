@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { useExternalState, useSetExternalState } from '@utils/external-state';
+import { getAPIEndPoint } from '@utils/login';
 
 import { mswModeActions, mswModeStore } from '@stores/config/mswModeStore';
 import { serverStore } from '@stores/config/serverStore';
@@ -18,7 +19,7 @@ const MswControlButton = () => {
     if (isMswMode) {
       await mswModeActions.stopMsw();
     } else {
-      setDevelopmentServer('localhost');
+      setDevelopmentServer(getAPIEndPoint() === 'http://localhost:8080/api' ? 'localhost' : 'dain');
       await mswModeActions.startMsw();
     }
   };
