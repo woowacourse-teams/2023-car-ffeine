@@ -1,3 +1,5 @@
+import { css } from 'styled-components';
+
 import { useEffect, useState } from 'react';
 
 import { useCreateReply } from '@hooks/tanstack-query/station-details/reviews/useCreateReply';
@@ -45,27 +47,33 @@ const ReplyCreate = ({ stationId, reviewId }: ReplyCreateProps) => {
           </ButtonNext>
         </>
       ) : (
-        <Box mt={2} ml={8} mr={4} p={2} border>
-          <Text variant="subtitle">답글 작성하기</Text>
-          <ContentField content={content} setContent={setContent} />
-          <FlexBox justifyContent="end">
-            <ButtonNext
-              size="xs"
-              variant="contained"
-              disabled={
-                isCreateReplyLoading ||
-                content.length < MIN_REVIEW_CONTENT_LENGTH ||
-                content.length > MAX_REVIEW_CONTENT_LENGTH
-              }
-              onClick={() => handleClickCreate()}
-            >
-              등록
-            </ButtonNext>
-          </FlexBox>
-        </Box>
+        <>
+          <Box mt={2} ml={8} mr={4} p={2} pl={4} css={replyCreateCss}>
+            <ContentField content={content} setContent={setContent} />
+            <FlexBox justifyContent="end">
+              <ButtonNext
+                size="xs"
+                variant="contained"
+                disabled={
+                  isCreateReplyLoading ||
+                  content.length < MIN_REVIEW_CONTENT_LENGTH ||
+                  content.length > MAX_REVIEW_CONTENT_LENGTH
+                }
+                onClick={() => handleClickCreate()}
+              >
+                등록
+              </ButtonNext>
+            </FlexBox>
+          </Box>
+          <Box ml={16} mr={6} my={2} css={{ borderBottom: '1px solid #66666666' }} />
+        </>
       )}
     </>
   );
 };
+
+const replyCreateCss = css`
+  border-left: 1px solid #66666666;
+`;
 
 export default ReplyCreate;
