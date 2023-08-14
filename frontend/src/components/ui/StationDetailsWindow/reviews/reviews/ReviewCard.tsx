@@ -5,6 +5,9 @@ import { useEffect, useState } from 'react';
 
 import { calculateLatestUpdateTime } from '@utils/index';
 
+import { memberInfoStore } from '@stores/login/memberInfoStore';
+import { memberTokenStore } from '@stores/login/memberTokenStore';
+
 import { useRemoveReview } from '@hooks/tanstack-query/station-details/reviews/useRemoveReview';
 
 import Box from '@common/Box';
@@ -25,10 +28,11 @@ export interface ReviewCardProps {
 }
 
 const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
-  const { replySize, content, isUpdated, latestUpdateDate, memberId, ratings, isDeleted } = review;
   const { isRemoveReviewLoading, removeReview } = useRemoveReview(stationId);
   const [isRepliesOpen, setIsRepliesOpen] = useState(false);
   const [isModifyMode, setIsModifyMode] = useState(false);
+  const memberToken = memberTokenStore.getState();
+  const memberId = memberInfoStore.getState()?.memberId;
 
   const handleClickRemoveReviewButton = () => {
     if (confirm('정말로 삭제하시겠습니까?')) {
@@ -52,21 +56,24 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
                 <Box>
                   <Text variant="label" mb={2}>
                     {memberId}님
-                    {!isDeleted && (
+                    {!review.isDeleted && (
                       <>
                         ( <StarIcon width={10} display="inline-block" />
-                        {ratings})
+                        {review.ratings})
                       </>
                     )}
                   </Text>
 
                   <Text variant="caption">
-                    {calculateLatestUpdateTime(latestUpdateDate)}
-                    {isDeleted ? '(삭제됨)' : isUpdated ? '(수정됨)' : ''}
+                    {calculateLatestUpdateTime(review.latestUpdateDate)}
+                    {review.isDeleted ? '(삭제됨)' : review.isUpdated ? '(수정됨)' : ''}
                   </Text>
                 </Box>
                 <FlexBox>
-                  {isDeleted || !previewMode ? (
+                  {memberToken === '' ||
+                  memberId !== review.memberId ||
+                  review.isDeleted ||
+                  !previewMode ? (
                     <></>
                   ) : (
                     <>
@@ -96,13 +103,17 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
                 </FlexBox>
               </FlexBox>
               <Box my={3}>
-                <Text variant="body">{isDeleted ? '(삭제된 리뷰입니다.)' : content}</Text>
+                <Text variant="body">
+                  {review.isDeleted ? '(삭제된 리뷰입니다.)' : review.content}
+                </Text>
               </Box>
             </Box>
 
             <FlexBox justifyContent="between">
               <ButtonNext size="xs" variant="text" onClick={() => setIsRepliesOpen(!isRepliesOpen)}>
-                {isRepliesOpen ? `닫기` : `답글 ${replySize > 0 ? replySize : '달기'}`}
+                {isRepliesOpen
+                  ? `닫기`
+                  : `답글 ${review.replySize > 0 ? review.replySize : '달기'}`}
               </ButtonNext>
             </FlexBox>
           </Box>

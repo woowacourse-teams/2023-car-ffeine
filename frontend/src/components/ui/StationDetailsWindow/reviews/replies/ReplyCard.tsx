@@ -4,6 +4,9 @@ import { useState } from 'react';
 
 import { calculateLatestUpdateTime } from '@utils/index';
 
+import { memberInfoStore } from '@stores/login/memberInfoStore';
+import { memberTokenStore } from '@stores/login/memberTokenStore';
+
 import { useRemoveReply } from '@hooks/tanstack-query/station-details/reviews/useRemoveReply';
 
 import Box from '@common/Box';
@@ -25,6 +28,8 @@ interface ReplyCardProps {
 const ReplyCard = ({ stationId, reply, reviewId, previewMode }: ReplyCardProps) => {
   const [isModifyMode, setIsModifyMode] = useState(false);
   const { removeReply, isRemoveReplyLoading } = useRemoveReply(stationId);
+  const memberToken = memberTokenStore.getState();
+  const memberId = memberInfoStore.getState()?.memberId;
 
   const handleClickRemoveReplyButton = () => {
     if (confirm('정말로 삭제하시겠습니까?')) {
@@ -56,7 +61,10 @@ const ReplyCard = ({ stationId, reply, reviewId, previewMode }: ReplyCardProps) 
                 {calculateLatestUpdateTime(reply.latestUpdateDate)} {reply.isUpdated && '(수정됨)'}
               </Text>
             </Box>
-            {reply.isDeleted || !previewMode ? (
+            {memberToken === '' ||
+            memberId !== reply.memberId ||
+            reply.isDeleted ||
+            !previewMode ? (
               <></>
             ) : (
               <div>
