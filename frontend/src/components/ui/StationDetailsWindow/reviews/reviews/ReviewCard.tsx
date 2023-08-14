@@ -109,7 +109,7 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
 
           {isRepliesOpen && (
             <>
-              <ReplyList reviewId={review.reviewId} />
+              <ReplyList reviewId={review.reviewId} stationId={stationId} />
               <ReplyCreate stationId={stationId} reviewId={review.reviewId} />
             </>
           )}

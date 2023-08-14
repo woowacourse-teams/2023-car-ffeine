@@ -11,10 +11,11 @@ import ReplyListLoading from '@ui/StationDetailsWindow/reviews/replies/ReplyList
 import type { Reply } from '@type';
 
 interface ReplyListProps {
+  stationId: string;
   reviewId: number;
 }
 
-const ReplyList = ({ reviewId }: ReplyListProps) => {
+const ReplyList = ({ stationId, reviewId }: ReplyListProps) => {
   const { status, data, error, isFetchingNextPage, fetchNextPage, hasNextPage } =
     useInfiniteReplies(reviewId);
 
@@ -38,7 +39,7 @@ const ReplyList = ({ reviewId }: ReplyListProps) => {
               {(page.replies as Reply[]).map((reply, index) => (
                 <ReplyCard
                   key={index}
-                  stationId=""
+                  stationId={stationId}
                   reply={reply}
                   reviewId={reply.reviewId}
                   previewMode={false}
