@@ -58,6 +58,7 @@ const ServerStationFiltersComponent = () => {
     const { getAllServerStationFilters, setAllServerStationFilters, resetAllServerStationFilters } =
       serverStationFilterAction;
     const selectedFilters = getAllServerStationFilters();
+    const { capacities, companies, connectorTypes } = selectedFilters;
 
     if (memberId === undefined) {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
@@ -71,7 +72,22 @@ const ServerStationFiltersComponent = () => {
         headers: {
           Authorization: `Bearer ${memberToken}`,
         },
-        body: JSON.stringify(selectedFilters),
+        body: JSON.stringify({
+          filters: [
+            ...capacities.map((capacity) => ({
+              type: 'capacity',
+              name: capacity,
+            })),
+            ...companies.map((company) => ({
+              type: 'company',
+              name: company,
+            })),
+            ...connectorTypes.map((connectorType) => ({
+              type: 'connectorType',
+              name: connectorType,
+            })),
+          ],
+        }),
       }).then<StationFilters>((response) => response.json());
 
       setAllServerStationFilters(stationFilters);
