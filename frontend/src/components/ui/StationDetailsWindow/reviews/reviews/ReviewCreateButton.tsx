@@ -8,26 +8,16 @@ interface ReviewCreateButtonProps {
   stars: number;
   content: string;
   stationId: string;
-  isReviewCreateOpen: boolean;
-  setIsReviewCreateOpen: (newIsReviewCreateOpen: boolean) => void;
   handleClickReviewCreateOpenButton: () => void;
 }
 
 const ReviewCreateButton = ({
   stationId,
-  setIsReviewCreateOpen,
-  isReviewCreateOpen,
   stars,
   content,
   handleClickReviewCreateOpenButton,
 }: ReviewCreateButtonProps) => {
   const { createReview, isCreateReviewLoading } = useCreateReview(stationId);
-
-  useEffect(() => {
-    if (!isCreateReviewLoading && isReviewCreateOpen) {
-      setIsReviewCreateOpen(false);
-    }
-  }, [isCreateReviewLoading]);
 
   const handleClickReviewCreateButton = () => {
     if (content.length >= 5 && content.length <= 100) {

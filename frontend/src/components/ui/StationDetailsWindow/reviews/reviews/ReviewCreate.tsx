@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { modalActions } from '@stores/layout/modalStore';
+
+import { useCreateReview } from '@hooks/tanstack-query/station-details/reviews/useCreateReview';
 
 import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
@@ -15,6 +17,14 @@ interface ReviewCreateProps {
 }
 
 const ReviewCreate = ({ stationId }: ReviewCreateProps) => {
+  const { isCreateReviewLoading } = useCreateReview(stationId);
+
+  useEffect(() => {
+    if (!isCreateReviewLoading && isReviewCreateOpen) {
+      setIsReviewCreateOpen(false);
+    }
+  }, [isCreateReviewLoading]);
+
   const [isReviewCreateOpen, setIsReviewCreateOpen] = useState(false);
   const [stars, setStars] = useState(5);
   const [content, setContent] = useState('');
@@ -41,8 +51,6 @@ const ReviewCreate = ({ stationId }: ReviewCreateProps) => {
             content={content}
             stars={stars}
             stationId={stationId}
-            isReviewCreateOpen={isReviewCreateOpen}
-            setIsReviewCreateOpen={setIsReviewCreateOpen}
             handleClickReviewCreateOpenButton={handleClickReviewCreateOpenButton}
           />
         ) : (
