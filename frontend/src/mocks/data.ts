@@ -17,7 +17,7 @@ import type { Car } from '@type/cars';
 import type { Capacity, ChargerDetails } from '@type/chargers';
 import type { Congestion, CongestionStatistics, EnglishDaysType } from '@type/congestion';
 import type { CapaCityBigDecimal, ConnectorTypeKey } from '@type/serverStationFilter';
-import type { CompanyName, Review, Station } from '@type/stations';
+import type { CompanyName, Reply, Review, Station } from '@type/stations';
 
 export const generateRandomChargers = () => {
   const length = Math.floor(Math.random() * 10) + 1;
@@ -124,7 +124,7 @@ const getCongestions = (): Record<EnglishDaysType, Congestion[]> => {
   );
 };
 
-export const generateReviewsWithReplies = (): Review[] => {
+export const generateReviews = (): Review[] => {
   return Array.from({ length: 10 }, (_, index) => {
     return {
       reviewId: index,
@@ -146,6 +146,10 @@ export const generateReviewsWithReplies = (): Review[] => {
       replySize: generateRandomData([0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7]),
     };
   });
+};
+
+export const generateReplies = (): Reply[] => {
+  return [];
 };
 
 export const generateCars = (): Car[] => {
