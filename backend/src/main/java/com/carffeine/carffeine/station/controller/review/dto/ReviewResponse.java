@@ -1,5 +1,7 @@
 package com.carffeine.carffeine.station.controller.review.dto;
 
+import com.carffeine.carffeine.station.domain.review.Review;
+
 import java.time.LocalDateTime;
 
 public record ReviewResponse(
@@ -12,4 +14,8 @@ public record ReviewResponse(
         boolean isDeleted,
         long replySize
 ) {
+
+    public static ReviewResponse deleted(Review review) {
+        return new ReviewResponse(review.getId(), null, null, 0, null, true, true, review.getReplySize());
+    }
 }
