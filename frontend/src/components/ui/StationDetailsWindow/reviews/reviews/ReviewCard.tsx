@@ -72,7 +72,7 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
                   </Text>
                 </Box>
                 <FlexBox>
-                  {isEditable ? (
+                  {!isEditable ? (
                     <></>
                   ) : (
                     <>

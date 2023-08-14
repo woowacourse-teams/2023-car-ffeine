@@ -8,15 +8,14 @@ import { SERVERS } from '@constants';
 import { QUERY_KEY_STATION_PREVIEWS, QUERY_KEY_STATION_REVIEWS } from '@constants/queryKeys';
 
 export interface FetchRemoveReplyRequest {
-  reviewId: number;
   replyId: number;
 }
 
 const fetchRemoveReply = async (fetchRemoveReplyRequestParams: FetchRemoveReplyRequest) => {
-  const { reviewId, replyId } = fetchRemoveReplyRequestParams;
+  const { replyId } = fetchRemoveReplyRequestParams;
   const memberToken = memberTokenStore.getState();
   const mode = serverStore.getState();
-  return fetch(`${SERVERS[mode]}/reviews/${reviewId}/replies/${replyId}`, {
+  return fetch(`${SERVERS[mode]}/replies/${replyId}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${memberToken}`,

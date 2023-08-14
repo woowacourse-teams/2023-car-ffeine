@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { calculateLatestUpdateTime } from '@utils/index';
 
 import { memberInfoStore } from '@stores/login/memberInfoStore';
-import { memberTokenStore } from '@stores/login/memberTokenStore';
 
 import { useRemoveReply } from '@hooks/tanstack-query/station-details/reviews/useRemoveReply';
 
@@ -21,20 +20,20 @@ import type { Reply } from '@type';
 interface ReplyCardProps {
   stationId: string;
   reply: Reply;
-  reviewId: number;
   previewMode: boolean;
 }
 
-const ReplyCard = ({ stationId, reply, reviewId, previewMode }: ReplyCardProps) => {
+const ReplyCard = ({ stationId, reply, previewMode }: ReplyCardProps) => {
   const [isModifyMode, setIsModifyMode] = useState(false);
   const { removeReply, isRemoveReplyLoading } = useRemoveReply(stationId);
   const memberId = memberInfoStore.getState()?.memberId;
   const isReplyOwner = memberId !== reply.memberId;
-  const isEditable = isReplyOwner || reply.isDeleted || !previewMode;
+  // const isEditable = isReplyOwner || reply.isDeleted || !previewMode;
+  const isEditable = true;
 
   const handleClickRemoveReplyButton = () => {
     if (confirm('정말로 삭제하시겠습니까?')) {
-      removeReply({ replyId: reply.replyId, reviewId });
+      removeReply({ replyId: reply.replyId });
     }
   };
 
@@ -55,7 +54,7 @@ const ReplyCard = ({ stationId, reply, reviewId, previewMode }: ReplyCardProps) 
                 {calculateLatestUpdateTime(reply.latestUpdateDate)} {reply.isUpdated && '(수정됨)'}
               </Text>
             </Box>
-            {isEditable ? (
+            {!isEditable ? (
               <></>
             ) : (
               <div>

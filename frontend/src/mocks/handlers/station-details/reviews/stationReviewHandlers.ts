@@ -120,7 +120,7 @@ export const stationReviewHandlers = [
     console.log(`충전소 후기 답글 수정 :${JSON.stringify(body)}`);
     return res(ctx.delay(200), ctx.status(204));
   }),
-  rest.delete(`${SERVERS.localhost}/reviews/:reviewId/replies/:replyId`, (req, res, ctx) => {
+  rest.delete(`${SERVERS.localhost}/replies/:replyId`, (req, res, ctx) => {
     console.log(`충전소 후기 답글 삭제`);
     return res(ctx.delay(200), ctx.status(204));
   }),
