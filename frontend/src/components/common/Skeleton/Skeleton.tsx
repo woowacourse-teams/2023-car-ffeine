@@ -26,7 +26,7 @@ const SkeletonWrapper = styled.div<SkeletonProps>`
 
   width: ${({ width }) => width || '100%'};
   height: ${({ height }) => height || '1rem'};
-  background: linear-gradient(-90deg, #aaa, #f0f0f0, #aaa, #f0f0f0);
+  background: linear-gradient(-90deg, var(--lighter-color), #fafafa, var(--lighter-color), #fafafa);
   background-size: 400%;
   animation: ${skeletonAnimation} 5s infinite ease-out;
   border-radius: ${({ borderRadius }) => borderRadius || '6px'};

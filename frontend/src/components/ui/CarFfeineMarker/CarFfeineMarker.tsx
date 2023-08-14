@@ -27,6 +27,7 @@ const Marker = styled.div<{ color: MarkerColors }>`
   align-items: center;
   width: 4rem;
   height: 4rem;
+  padding-bottom: 1px;
   background: ${({ color }) => color};
   color: #fff;
   font-size: 1.3rem;

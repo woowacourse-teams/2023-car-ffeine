@@ -69,7 +69,7 @@ const StationSummaryCard = ({ station, tag, $noPadding }: Props) => {
             </Text>
             <FlexBox columnGap={3}>
               <Text variant="label" align="left" color="#4b4b4b" css={labelStyle}>
-                {isPrivate ? '이용제한구역' : '공공 충전소'}
+                {isPrivate ? '이용 제한' : '외부인 개방'}
               </Text>
               <Text variant="label" align="left" color="#4b4b4b" css={labelStyle}>
                 {isParkingFree ? '무료 주차' : '유료 주차'}
@@ -92,9 +92,9 @@ const companyNameText = css`
 `;
 
 const foundStationButton = css`
-  padding: 1.8rem 1.4rem 2rem;
+  padding: 1.6rem 1.4rem 1.8rem;
   box-shadow: 0 0.3rem 0.8rem 0 var(--gray-200-color);
-  border-radius: 20px;
+  border-radius: 10px;
 `;
 
 const labelStyle = css`
