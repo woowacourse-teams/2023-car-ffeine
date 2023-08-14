@@ -61,8 +61,8 @@ const StationSummaryCard = ({ station, tag, $noPadding }: Props) => {
             <Text tag="h3" align="left" variant="h5" title={stationName} lineClamp={1}>
               {stationName}
             </Text>
-            <Text variant="body" align="left" lineClamp={1} mb={1} color="#585858">
-              {address || '주소를 직접 알아내자'}
+            <Text variant="label" align="left" lineClamp={1} mb={1} color="#585858">
+              {address === 'null' || !address ? '주소 미확인' : address}
             </Text>
             <Text variant="caption" align="left" lineClamp={1} mb={3} color="#585858">
               {operatingTime}
@@ -92,9 +92,9 @@ const companyNameText = css`
 `;
 
 const foundStationButton = css`
-  padding: 1.4rem 1.2rem 2rem;
+  padding: 1.8rem 1.4rem 2rem;
   box-shadow: 0 0.3rem 0.8rem 0 var(--gray-200-color);
-  border-radius: 1.2rem;
+  border-radius: 20px;
 `;
 
 const labelStyle = css`

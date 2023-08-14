@@ -21,7 +21,7 @@ const StationSummaryCardSkeleton = () => {
               <Skeleton width="8rem" height="2.2rem" />
             </FlexBox>
           </Box>
-          <Skeleton width="4rem" height="4rem" borderRadius="50%" />
+          <Skeleton width="3.2rem" height="3.2rem" borderRadius="1rem" />
         </FlexBox>
       </Button>
     </ListItem>
@@ -29,9 +29,9 @@ const StationSummaryCardSkeleton = () => {
 };
 
 const foundStationButton = css`
-  padding: 1.4rem 1.2rem 2rem;
+  padding: 1.8rem 1.4rem 2rem;
   box-shadow: 0 0.3rem 0.8rem 0 var(--gray-200-color);
-  border-radius: 1.2rem;
+  border-radius: 20px;
 `;
 
 export default StationSummaryCardSkeleton;
