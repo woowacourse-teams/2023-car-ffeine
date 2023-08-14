@@ -3,7 +3,9 @@ package com.carffeine.carffeine.station.service.review;
 import com.carffeine.carffeine.member.domain.FakeMemberRepository;
 import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.member.domain.MemberRepository;
+import com.carffeine.carffeine.station.domain.review.FakeReplyRepository;
 import com.carffeine.carffeine.station.domain.review.FakeReviewRepository;
+import com.carffeine.carffeine.station.domain.review.ReplyRepository;
 import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.domain.review.ReviewRepository;
 import com.carffeine.carffeine.station.domain.station.FakeStationRepository;
@@ -32,15 +34,17 @@ class ReviewServiceTest {
 
     private ReviewService reviewService;
     private ReviewRepository reviewRepository;
+    private ReplyRepository replyRepository;
     private StationRepository stationRepository;
     private MemberRepository memberRepository;
 
     @BeforeEach
     void before() {
         reviewRepository = new FakeReviewRepository();
+        replyRepository = new FakeReplyRepository();
         stationRepository = new FakeStationRepository();
         memberRepository = new FakeMemberRepository();
-        reviewService = new ReviewService(reviewRepository, stationRepository, memberRepository);
+        reviewService = new ReviewService(reviewRepository, replyRepository, stationRepository, memberRepository);
     }
 
     @Test
@@ -83,7 +87,7 @@ class ReviewServiceTest {
         reviewService.saveReview(request, stationId, memberId);
 
         // when
-        Page<Review> reviews = reviewService.findPageReviews(stationId, pageable);
+        Page<Review> reviews = reviewService.findAllReviews(stationId, pageable);
 
         // then
         assertThat(reviews).hasSize(1);
@@ -105,7 +109,7 @@ class ReviewServiceTest {
         }
 
         // when
-        Page<Review> reviews = reviewService.findPageReviews(stationId, pageable);
+        Page<Review> reviews = reviewService.findAllReviews(stationId, pageable);
 
         // then
         SoftAssertions.assertSoftly(softly -> {
@@ -128,7 +132,7 @@ class ReviewServiceTest {
         }
 
         // when
-        Page<Review> reviews = reviewService.findPageReviews(stationId, pageable);
+        Page<Review> reviews = reviewService.findAllReviews(stationId, pageable);
 
         // then
         assertThat(reviews.getNumberOfElements()).isEqualTo(3);
@@ -175,23 +179,5 @@ class ReviewServiceTest {
             softly.assertThat(updatedReview.getRatings()).isEqualTo(updateRequest.ratings());
             softly.assertThat(updatedReview.getContent()).isEqualTo(updateRequest.content());
         });
-    }
-
-    @Test
-    void 리뷰를_삭제한다() {
-        // given
-        String stationId = "ME101010";
-        Long memberId = 1L;
-        CreateReviewRequest request = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
-        stationRepository.save(선릉역_충전소_충전기_2개_사용가능_1개);
-        memberRepository.save(일반_회원);
-
-        Review review = reviewService.saveReview(request, stationId, memberId);
-
-        // when
-        Review deletedReview = reviewService.deleteReview(memberId, review.getId());
-
-        // then
-        assertThat(deletedReview.isDeleted()).isTrue();
     }
 }

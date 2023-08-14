@@ -2,9 +2,9 @@ package com.carffeine.carffeine.station.controller.review;
 
 import com.carffeine.carffeine.helper.MockBeanInjection;
 import com.carffeine.carffeine.member.domain.Member;
+import com.carffeine.carffeine.station.domain.review.Reply;
 import com.carffeine.carffeine.station.domain.review.Review;
-import com.carffeine.carffeine.station.domain.station.Station;
-import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;
+import com.carffeine.carffeine.station.service.review.dto.CreateReplyRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -21,12 +21,12 @@ import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
-import java.util.Map;
 
 import static com.carffeine.carffeine.helper.RestDocsHelper.customDocument;
 import static com.carffeine.carffeine.member.fixture.MemberFixture.일반_회원;
+import static com.carffeine.carffeine.station.fixture.review.ReplyFixture.답글_1개;
+import static com.carffeine.carffeine.station.fixture.review.ReplyFixture.바뀐_답글_1개;
 import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.리뷰_별4_15글자;
-import static com.carffeine.carffeine.station.fixture.station.StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -48,9 +48,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
-@WebMvcTest(ReviewController.class)
+@WebMvcTest(ReplyController.class)
 @AutoConfigureRestDocs
-public class ReviewControllerTest extends MockBeanInjection {
+public class ReplyControllerTest extends MockBeanInjection {
 
     @Autowired
     private MockMvc mockMvc;
@@ -59,131 +59,123 @@ public class ReviewControllerTest extends MockBeanInjection {
     private ObjectMapper objectMapper;
 
     @Test
-    void 충전소에_리뷰를_등록한다() throws Exception {
+    void 댓글에_답글을_등록한다() throws Exception {
         // given
-        Station station = 선릉역_충전소_충전기_2개_사용가능_1개;
         Member member = 일반_회원;
-        CreateReviewRequest request = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
         Review review = 리뷰_별4_15글자;
+        CreateReplyRequest replyRequest = new CreateReplyRequest("저도 그렇게 생각합니다");
+        Reply reply = 답글_1개;
 
         // when
-        when(reviewService.saveReview(request, station.getStationId(), member.getId())).thenReturn(review);
-        String jsonData = objectMapper.writeValueAsString(request);
+        when(replyService.saveReply(replyRequest, review.getId(), member.getId())).thenReturn(reply);
+        String jsonData = objectMapper.writeValueAsString(replyRequest);
 
         // then
-        mockMvc.perform(post("/stations/{stationId}/reviews", station.getStationId())
+        mockMvc.perform(post("/reviews/{reviewId}/replies", review.getId())
                         .header(HttpHeaders.AUTHORIZATION, "token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(jsonData)
                 )
                 .andExpect(status().isNoContent())
-                .andDo(customDocument("save-review",
+                .andDo(customDocument("save-reply",
                         requestHeaders(headerWithName("Authorization").description("회원 ID")),
-                        pathParameters(parameterWithName("stationId").description("충전소 ID")),
+                        pathParameters(parameterWithName("reviewId").description("댓글 ID")),
                         requestFields(
-                                fieldWithPath("ratings").type(JsonFieldType.NUMBER).description("별점"),
                                 fieldWithPath("content").type(JsonFieldType.STRING).description("내용")
                         ))
                 );
     }
 
     @Test
-    void 충전소의_리뷰를_조회한다() throws Exception {
+    void 댓글의_답글을_조회한다() throws Exception {
         // given
-        String stationId = "ME101010";
-
-        Page<Review> reviews = new PageImpl<>(List.of(리뷰_별4_15글자));
-        Map<Long, Long> replySize = Map.of(1L, 1L);
+        Long reviewId = 1L;
+        Page<Reply> replies = new PageImpl<>(List.of(답글_1개));
 
         // when
-        when(reviewService.findAllReviews(eq(stationId), any(Pageable.class))).thenReturn(reviews);
-        when(reviewService.countReplies(reviews)).thenReturn(replySize);
+        when(replyService.findAllReplies(eq(reviewId), any(Pageable.class))).thenReturn(replies);
 
         // then
-        mockMvc.perform(get("/stations/{stationId}/reviews", stationId)
+        mockMvc.perform(get("/reviews/{reviewId}/replies", reviewId)
                         .param("page", "0")
                         .param("scope", "10")
                 )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.reviews", hasSize(1)))
-                .andDo(customDocument("find-reviews",
+                .andExpect(jsonPath("$.replies", hasSize(1)))
+                .andDo(customDocument("find-replies",
                         pathParameters(
-                                parameterWithName("stationId").description("충전소 ID")
+                                parameterWithName("reviewId").description("댓글 ID")
                         ),
                         responseFields(
-                                fieldWithPath("reviews").type(JsonFieldType.ARRAY).description("리뷰들"),
-                                fieldWithPath("reviews[].reviewId").type(JsonFieldType.NUMBER).description("리뷰 ID"),
-                                fieldWithPath("reviews[].memberId").type(JsonFieldType.NUMBER).description("작성자 ID"),
-                                fieldWithPath("reviews[].latestUpdateDate").type(JsonFieldType.STRING).description("최신 업데이트 날짜"),
-                                fieldWithPath("reviews[].ratings").type(JsonFieldType.NUMBER).description("별점"),
-                                fieldWithPath("reviews[].content").type(JsonFieldType.STRING).description("내용"),
-                                fieldWithPath("reviews[].isUpdated").type(JsonFieldType.BOOLEAN).description("수정 여부"),
-                                fieldWithPath("reviews[].isDeleted").type(JsonFieldType.BOOLEAN).description("삭제 여부"),
-                                fieldWithPath("reviews[].replySize").type(JsonFieldType.NUMBER).description("답글 개수"),
+                                fieldWithPath("replies").type(JsonFieldType.ARRAY).description("리뷰들"),
+                                fieldWithPath("replies[].replyId").type(JsonFieldType.NUMBER).description("답글 ID"),
+                                fieldWithPath("replies[].reviewId").type(JsonFieldType.NUMBER).description("댓글 ID"),
+                                fieldWithPath("replies[].memberId").type(JsonFieldType.NUMBER).description("작성자 ID"),
+                                fieldWithPath("replies[].latestUpdateDate").type(JsonFieldType.STRING).description("최신 업데이트 날짜"),
+                                fieldWithPath("replies[].content").type(JsonFieldType.STRING).description("내용"),
+                                fieldWithPath("replies[].isUpdated").type(JsonFieldType.BOOLEAN).description("수정 여부"),
+                                fieldWithPath("replies[].isDeleted").type(JsonFieldType.BOOLEAN).description("삭제 여부"),
                                 fieldWithPath("nextPage").type(JsonFieldType.NUMBER).description("다음 페이지")
                         )
                 ));
     }
 
     @Test
-    void 충전소의_리뷰를_수정한다() throws Exception {
+    void 댓글의_답글을_수정한다() throws Exception {
         // given
-        Station station = 선릉역_충전소_충전기_2개_사용가능_1개;
         Member member = 일반_회원;
-        CreateReviewRequest request = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
+        CreateReplyRequest request = new CreateReplyRequest("저는 그렇게 생각 안해요");
         Review review = 리뷰_별4_15글자;
+        Reply reply = 바뀐_답글_1개;
 
         // when
-        when(reviewService.saveReview(request, station.getStationId(), member.getId())).thenReturn(review);
+        when(replyService.updateReply(request, review.getId(), member.getId())).thenReturn(reply);
+
         String jsonData = objectMapper.writeValueAsString(request);
 
         // then
-        mockMvc.perform(patch("/reviews/{reviewId}", review.getId())
+        mockMvc.perform(patch("/reviews/{reviewId}/replies/{replyId}", review.getId(), reply.getId())
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + member.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(jsonData)
                 )
                 .andExpect(status().isNoContent())
-                .andDo(customDocument("update-review",
+                .andDo(customDocument("update-reply",
                         requestHeaders(headerWithName("Authorization").description("회원 ID")),
-                        pathParameters(parameterWithName("reviewId").description("충전소 ID")),
+                        pathParameters(
+                                parameterWithName("reviewId").description("댓글 ID"),
+                                parameterWithName("replyId").description("답글 ID")),
                         requestFields(
-                                fieldWithPath("ratings").type(JsonFieldType.NUMBER).description("별점"),
                                 fieldWithPath("content").type(JsonFieldType.STRING).description("내용")
                         ))
                 );
     }
 
     @Test
-    void 충전소의_리뷰를_삭제한다() throws Exception {
+    void 댓글의_답글을_삭제한다() throws Exception {
         // given
-        Station station = 선릉역_충전소_충전기_2개_사용가능_1개;
         Member member = 일반_회원;
-        CreateReviewRequest request = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
         Review review = 리뷰_별4_15글자;
+        Reply reply = 답글_1개;
 
         // when
-        when(reviewService.saveReview(request, station.getStationId(), member.getId())).thenReturn(review);
-        String jsonData = objectMapper.writeValueAsString(request);
+        when(replyService.deleteReply(member.getId(), reply.getId())).thenReturn(reply);
 
         // then
-        mockMvc.perform(delete("/reviews/{reviewId}", review.getId())
+        mockMvc.perform(delete("/reviews/{reviewId}/replies/{replyId}", review.getId(), reply.getId())
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + member.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(jsonData)
                 )
                 .andExpect(status().isNoContent())
-                .andDo(customDocument("delete-review",
+                .andDo(customDocument("delete-reply",
                         requestHeaders(headerWithName("Authorization").description("회원 ID")),
-                        pathParameters(parameterWithName("reviewId").description("충전소 ID")),
-                        requestFields(
-                                fieldWithPath("ratings").type(JsonFieldType.NUMBER).description("별점"),
-                                fieldWithPath("content").type(JsonFieldType.STRING).description("내용")
-                        ))
+                        pathParameters(
+                                parameterWithName("reviewId").description("댓글 ID"),
+                                parameterWithName("replyId").description("답글 ID")))
                 );
     }
 }

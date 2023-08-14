@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 import static org.springframework.data.domain.Sort.Direction.DESC;
 
@@ -42,7 +43,8 @@ public class ReviewController {
             @PathVariable String stationId,
             @PageableDefault(sort = "id", direction = DESC) Pageable pageable) {
         Page<Review> reviews = reviewService.findAllReviews(stationId, pageable);
-        return ResponseEntity.ok(ReviewResponses.from(reviews));
+        Map<Long, Long> replyCounts = reviewService.countReplies(reviews);
+        return ResponseEntity.ok(ReviewResponses.of(reviews, replyCounts));
     }
 
     @PatchMapping("/reviews/{reviewId}")
@@ -57,7 +59,7 @@ public class ReviewController {
     @DeleteMapping("/reviews/{reviewId}")
     public ResponseEntity<Void> deleteReview(
             @AuthMember Long memberId,
-            @PathVariable long reviewId) {
+            @PathVariable Long reviewId) {
         reviewService.deleteReview(memberId, reviewId);
         return ResponseEntity.noContent().build();
     }

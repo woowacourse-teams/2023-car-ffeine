@@ -1,0 +1,49 @@
+= REVIEW API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+
+== 답글을 등록한다 (/reviews/{reviewId}/replies)
+
+=== Request
+
+include::{snippets}/reply-controller-test/save-reply/http-request.adoc[]
+include::{snippets}/reply-controller-test/save-reply/request-fields.adoc[]
+
+=== Response
+
+include::{snippets}/reply-controller-test/save-reply/http-response.adoc[]
+
+== 답글을 조회한다 (/reviews/{reviewId}/replies)
+
+=== Request
+
+include::{snippets}/reply-controller-test/find-replies/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/reply-controller-test/find-replies/http-response.adoc[]
+include::{snippets}/reply-controller-test/find-replies/response-fields.adoc[]
+
+== 답글을 수정한다 (/reviews/{reviewId}/replies/{replyId})
+
+=== Request
+
+include::{snippets}/reply-controller-test/update-reply/http-request.adoc[]
+include::{snippets}/reply-controller-test/update-reply/request-fields.adoc[]
+
+=== Response
+
+include::{snippets}/reply-controller-test/update-reply/http-response.adoc[]
+
+== 답글을 삭제한다 (/reviews/{reviewId}/replies/{replyId})
+
+=== Request
+
+include::{snippets}/reply-controller-test/delete-reply/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/reply-controller-test/delete-reply/http-response.adoc[]

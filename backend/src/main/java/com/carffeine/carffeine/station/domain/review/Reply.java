@@ -2,7 +2,6 @@ package com.carffeine.carffeine.station.domain.review;
 
 import com.carffeine.carffeine.common.domain.BaseEntity;
 import com.carffeine.carffeine.member.domain.Member;
-import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.exception.review.ReviewException;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -11,8 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,68 +21,43 @@ import java.time.LocalDateTime;
 import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.DELETED_REVIEW;
 import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.INVALID_CONTENT_MAX_LENGTH;
 import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.INVALID_CONTENT_MIN_LENGTH;
-import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.INVALID_RATINGS_MAX_LENGTH;
-import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.INVALID_RATINGS_MIN_LENGTH;
 import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.UNAUTHORIZED_MEMBER;
 
 @Getter
 @EqualsAndHashCode(of = "id", callSuper = false)
-@SQLDelete(sql = "UPDATE review SET is_deleted = true WHERE id = ?")
+@SQLDelete(sql = "UPDATE reply SET is_deleted = true WHERE id = ?")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Review extends BaseEntity {
+public class Reply extends BaseEntity {
 
-    public static final int MIN_RATINGS = 1;
-    public static final int MAX_RATINGS = 5;
     public static final int MIN_CONTENT = 10;
     public static final int MAX_CONTENT = 200;
-    public static final int REVIEW_LIMIT = 10;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "station_id", nullable = false)
-    private Station station;
+    @ManyToOne
+    @JoinColumn(name = "review_id")
+    private Review review;
 
     @ManyToOne
-    @JoinColumn(name = "member_id", nullable = false)
+    @JoinColumn(name = "member_id")
     private Member member;
 
-    @Column(nullable = false, length = 10)
-    private int ratings;
-
-    @Column(nullable = false)
     private String content;
 
-    @Column(nullable = false, length = 5)
     private boolean isDeleted;
 
     @Builder
-    public Review(Long id, Station station, Member member, int ratings, String content, boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Reply(Long id, Review review, Member member, String content, boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt) {
         super(createdAt, updatedAt);
-        validateRequest(ratings, content);
+        validateContent(content);
         this.id = id;
-        this.station = station;
+        this.review = review;
         this.member = member;
-        this.ratings = ratings;
         this.content = content;
         this.isDeleted = isDeleted;
-    }
-
-    private void validateRequest(int ratings, String content) {
-        validateRatings(ratings);
-        validateContent(content);
-    }
-
-    private void validateRatings(int ratings) {
-        if (ratings < MIN_RATINGS) {
-            throw new ReviewException(INVALID_RATINGS_MIN_LENGTH);
-        }
-        if (ratings > MAX_RATINGS) {
-            throw new ReviewException(INVALID_RATINGS_MAX_LENGTH);
-        }
     }
 
     private void validateContent(String content) {
@@ -97,8 +69,7 @@ public class Review extends BaseEntity {
         }
     }
 
-    public void updateReview(int ratings, String content) {
-        this.ratings = ratings;
+    public void updateContent(String content) {
         this.content = content;
     }
 

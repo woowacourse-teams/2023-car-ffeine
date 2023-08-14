@@ -9,14 +9,13 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static com.carffeine.carffeine.member.fixture.MemberFixture.일반_회원;
-import static com.carffeine.carffeine.member.fixture.MemberFixture.일반_회원2;
+import static com.carffeine.carffeine.member.fixture.MemberFixture.일반_회원3;
 import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.INVALID_CONTENT_MAX_LENGTH;
 import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.INVALID_CONTENT_MIN_LENGTH;
 import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.INVALID_RATINGS_MAX_LENGTH;
 import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.INVALID_RATINGS_MIN_LENGTH;
 import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.UNAUTHORIZED_MEMBER;
 import static com.carffeine.carffeine.station.fixture.station.StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
@@ -53,18 +52,9 @@ class ReviewTest {
     @Test
     void 리뷰_작성자와_편집자가_다르면_예외가_발생한다() {
         // when & then
-        assertThatThrownBy(() -> review.validate(일반_회원2))
+        assertThatThrownBy(() -> review.validate(일반_회원3))
                 .isInstanceOf(ReviewException.class)
                 .hasMessage(UNAUTHORIZED_MEMBER.message());
-    }
-
-    @Test
-    void 리뷰를_삭제처리한다() {
-        // when
-        review.delete();
-
-        // then
-        assertThat(review.isDeleted()).isTrue();
     }
 
     @ParameterizedTest

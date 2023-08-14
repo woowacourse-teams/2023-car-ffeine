@@ -15,7 +15,7 @@ import static com.carffeine.carffeine.station.fixture.station.StationFixture.선
 public class ReviewFixture {
 
     public static final Review 리뷰_별4_15글자 = Review.builder()
-            .id(2L)
+            .id(1L)
             .station(선릉역_충전소_충전기_2개_사용가능_1개)
             .member(일반_회원)
             .ratings(4)
@@ -24,6 +24,16 @@ public class ReviewFixture {
             .updatedAt(LocalDateTime.now())
             .isDeleted(false)
             .build();
+
+    public static final Review 저장안된_리뷰(Member member) {
+        return Review.builder()
+                .station(선릉역_충전소_충전기_2개_사용가능_1개)
+                .member(member)
+                .ratings(4)
+                .content("덕분에 빠르게 충전했습니다")
+                .isDeleted(false)
+                .build();
+    }
 
     public static final CreateReviewRequest 리뷰_요청_1개 =
             new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");

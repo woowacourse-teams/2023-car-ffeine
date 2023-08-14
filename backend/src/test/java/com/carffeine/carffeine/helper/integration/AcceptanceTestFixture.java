@@ -13,16 +13,7 @@ public abstract class AcceptanceTestFixture {
         assertThat(response.statusCode()).isEqualTo(status.value());
     }
 
-    public static void 값이_같은지_비교한다(int actual, int expected) {
+    public static void 값이_같은지_비교한다(Object actual, Object expected) {
         assertThat(actual).isEqualTo(expected);
     }
-
-    public static void 값이_같은지_비교한다(String actual, String expected) {
-        assertThat(actual).isEqualTo(expected);
-    }
-
-    public static void true_인지_확인한다(Boolean updated) {
-        assertThat(updated).isTrue();
-    }
-
 }
