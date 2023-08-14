@@ -3,8 +3,8 @@ import { useReviews } from '@hooks/tanstack-query/station-details/reviews/useRev
 import Box from '@common/Box';
 import Text from '@common/Text';
 
-import ReviewCard from '@ui/StationDetailsWindow/reviews/cards/ReviewCard';
 import ReviewPreviewSkeleton from '@ui/StationDetailsWindow/reviews/previews/ReviewPreviewSkeleton';
+import ReviewCard from '@ui/StationDetailsWindow/reviews/reviews/ReviewCard';
 
 interface ReviewPreviewListProps {
   stationId: string;
@@ -51,9 +51,9 @@ const ReviewPreviewList = ({ stationId }: ReviewPreviewListProps) => {
                   isUpdated: review.isUpdated,
                   latestUpdateDate: review.latestUpdateDate,
                   ratings: review.ratings,
-                  replies: review.replies,
+                  replySize: review.replySize,
                   reviewId: review.reviewId,
-                  userId: review.userId,
+                  memberId: review.memberId,
                 }}
               />
             );

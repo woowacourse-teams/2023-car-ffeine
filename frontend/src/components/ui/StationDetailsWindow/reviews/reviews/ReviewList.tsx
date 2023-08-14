@@ -8,9 +8,9 @@ import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import Text from '@common/Text';
 
-import ReviewCard from '@ui/StationDetailsWindow/reviews/cards/ReviewCard';
-import ReviewCardsLoading from '@ui/StationDetailsWindow/reviews/cards/ReviewCardsLoading';
-import ReviewCreate from '@ui/StationDetailsWindow/reviews/crud/ReviewCreate';
+import ReviewCard from '@ui/StationDetailsWindow/reviews/reviews/ReviewCard';
+import ReviewCardsLoading from '@ui/StationDetailsWindow/reviews/reviews/ReviewCardsLoading';
+import ReviewCreate from '@ui/StationDetailsWindow/reviews/reviews/ReviewCreate';
 
 import type { Review } from '@type';
 
@@ -37,13 +37,13 @@ export default function ReviewList({ stationId }: ReviewListProps) {
         ) : (
           <>
             {data.pages.map((page) => (
-              <div key={page.currentPage}>
+              <div key={page.nextPage}>
                 {page.reviews.length === 0 && (
                   <Text m={10} align="center">
                     등록 된 후기가 없습니다.
                   </Text>
                 )}
-                {(page.reviews as Review[]).map((review) => (
+                {page.reviews.map((review) => (
                   <ReviewCard
                     key={review.reviewId}
                     stationId={stationId}

@@ -1,28 +1,25 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { getLocalStorage } from '@utils/storage';
-
 import { serverStore } from '@stores/config/serverStore';
 import { toastActions } from '@stores/layout/toastStore';
+import { memberTokenStore } from '@stores/login/memberTokenStore';
 
-import { DEFAULT_TOKEN, SERVERS } from '@constants';
+import { SERVERS } from '@constants';
 import { QUERY_KEY_STATION_PREVIEWS, QUERY_KEY_STATION_REVIEWS } from '@constants/queryKeys';
-import { LOCAL_KEY_TOKEN } from '@constants/storageKeys';
 
 export interface FetchModifyReplyRequest {
   replyId: number;
-  reviewId: number;
   content: string;
 }
 
 const fetchModifyReply = async (fetchModifyReplyRequestParams: FetchModifyReplyRequest) => {
-  const { replyId, reviewId, content } = fetchModifyReplyRequestParams;
-  const token = getLocalStorage<number>(LOCAL_KEY_TOKEN, DEFAULT_TOKEN);
+  const { replyId, content } = fetchModifyReplyRequestParams;
+  const memberToken = memberTokenStore.getState();
   const mode = serverStore.getState();
-  return fetch(`${SERVERS[mode]}/reviews/${reviewId}/replies/${replyId}`, {
+  return fetch(`${SERVERS[mode]}/replies/${replyId}`, {
     method: 'PATCH',
     headers: {
-      Authorization: `${token}`,
+      Authorization: `Bearer ${memberToken}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ content }),

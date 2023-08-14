@@ -1,4 +1,4 @@
-import ReviewCardSkeleton from '@ui/StationDetailsWindow/reviews/cards/ReviewCardSkeleton';
+import ReviewCardSkeleton from '@ui/StationDetailsWindow/reviews/reviews/ReviewCardSkeleton';
 
 export interface ReviewCardsLoadingProps {
   count: number;
@@ -7,8 +7,8 @@ export interface ReviewCardsLoadingProps {
 const ReviewCardsLoading = ({ count }: ReviewCardsLoadingProps) => {
   return (
     <>
-      {Array.from({ length: count }, (_, i) => (
-        <ReviewCardSkeleton key={i} />
+      {Array.from({ length: count }, (_, index) => (
+        <ReviewCardSkeleton key={index} />
       ))}
     </>
   );

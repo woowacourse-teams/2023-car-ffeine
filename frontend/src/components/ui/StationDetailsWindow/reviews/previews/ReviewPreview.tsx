@@ -8,10 +8,10 @@ import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-import ReviewList from '@ui/StationDetailsWindow/reviews/ReviewList';
-import ReviewCard from '@ui/StationDetailsWindow/reviews/cards/ReviewCard';
 import ReviewPreviewSkeleton from '@ui/StationDetailsWindow/reviews/previews/ReviewPreviewSkeleton';
 import UserRatings from '@ui/StationDetailsWindow/reviews/previews/UserRatings';
+import ReviewCard from '@ui/StationDetailsWindow/reviews/reviews/ReviewCard';
+import ReviewList from '@ui/StationDetailsWindow/reviews/reviews/ReviewList';
 
 export interface ReviewPreviewProps {
   stationId: string;
@@ -73,9 +73,9 @@ const ReviewPreview = ({ stationId }: ReviewPreviewProps) => {
                     isUpdated: review.isUpdated,
                     latestUpdateDate: review.latestUpdateDate,
                     ratings: review.ratings,
-                    replies: review.replies,
+                    replySize: review.replySize,
                     reviewId: review.reviewId,
-                    userId: review.userId,
+                    memberId: review.memberId,
                   }}
                 />
               );

@@ -7,7 +7,9 @@ import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-import ContentField from '@ui/StationDetailsWindow/reviews/crud/ContentField';
+import ContentField from '@ui/StationDetailsWindow/reviews/common/ContentField';
+
+import { MAX_REVIEW_CONTENT_LENGTH, MIN_REVIEW_CONTENT_LENGTH } from '@constants';
 
 interface ReplyCreateProps {
   stationId: string;
@@ -26,7 +28,7 @@ const ReplyCreate = ({ stationId, reviewId }: ReplyCreateProps) => {
   }, [isCreateReplyLoading]);
 
   const handleClickCreate = () => {
-    createReply({ content, stationId, reviewId: reviewId });
+    createReply({ content, reviewId: reviewId });
     setContent('');
   };
 
@@ -50,7 +52,11 @@ const ReplyCreate = ({ stationId, reviewId }: ReplyCreateProps) => {
             <ButtonNext
               size="xs"
               variant="contained"
-              disabled={isCreateReplyLoading || content.length < 5 || content.length > 100}
+              disabled={
+                isCreateReplyLoading ||
+                content.length < MIN_REVIEW_CONTENT_LENGTH ||
+                content.length > MAX_REVIEW_CONTENT_LENGTH
+              }
               onClick={() => handleClickCreate()}
             >
               등록

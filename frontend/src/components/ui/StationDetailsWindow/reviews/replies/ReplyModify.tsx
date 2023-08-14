@@ -7,23 +7,24 @@ import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-import ContentField from '@ui/StationDetailsWindow/reviews/crud/ContentField';
+import ContentField from '@ui/StationDetailsWindow/reviews/common/ContentField';
+
+import { MAX_REVIEW_CONTENT_LENGTH, MIN_REVIEW_CONTENT_LENGTH } from '@constants';
 
 import type { Reply } from '@type';
 
 interface ReplyModifyProps {
   stationId: string;
-  reviewId: number;
   reply: Reply;
   setIsModifyMode: (newMode: boolean) => void;
 }
 
-const ReplyModify = ({ stationId, reviewId, reply, setIsModifyMode }: ReplyModifyProps) => {
+const ReplyModify = ({ stationId, reply, setIsModifyMode }: ReplyModifyProps) => {
   const [content, setContent] = useState(reply.content);
   const { modifyReply, isModifyReplyLoading } = useModifyReply(stationId);
 
   const handleClickModifyReply = () => {
-    modifyReply({ replyId: reply.replyId, content, reviewId });
+    modifyReply({ replyId: reply.replyId, content });
     setIsModifyMode(false);
   };
 
@@ -44,7 +45,11 @@ const ReplyModify = ({ stationId, reviewId, reply, setIsModifyMode }: ReplyModif
           <ButtonNext
             size="xs"
             variant="contained"
-            disabled={isModifyReplyLoading || content.length < 5 || content.length > 100}
+            disabled={
+              isModifyReplyLoading ||
+              content.length < MIN_REVIEW_CONTENT_LENGTH ||
+              content.length > MAX_REVIEW_CONTENT_LENGTH
+            }
             onClick={() => handleClickModifyReply()}
           >
             등록

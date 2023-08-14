@@ -8,18 +8,16 @@ import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 
-import ContentField from '@ui/StationDetailsWindow/reviews/crud/ContentField';
-import HeaderWithRating from '@ui/StationDetailsWindow/reviews/crud/HeaderWithRating';
+import ContentField from '@ui/StationDetailsWindow/reviews/common/ContentField';
+import HeaderWithRating from '@ui/StationDetailsWindow/reviews/common/HeaderWithRating';
+import ReviewCreateButton from '@ui/StationDetailsWindow/reviews/reviews/ReviewCreateButton';
 
 interface ReviewCreateProps {
   stationId: string;
 }
 
 const ReviewCreate = ({ stationId }: ReviewCreateProps) => {
-  const [isReviewCreateOpen, setIsReviewCreateOpen] = useState(false);
-  const [stars, setStars] = useState(5);
-  const [content, setContent] = useState('');
-  const { createReview, isCreateReviewLoading } = useCreateReview(stationId);
+  const { isCreateReviewLoading } = useCreateReview(stationId);
 
   useEffect(() => {
     if (!isCreateReviewLoading && isReviewCreateOpen) {
@@ -27,14 +25,12 @@ const ReviewCreate = ({ stationId }: ReviewCreateProps) => {
     }
   }, [isCreateReviewLoading]);
 
+  const [isReviewCreateOpen, setIsReviewCreateOpen] = useState(false);
+  const [stars, setStars] = useState(5);
+  const [content, setContent] = useState('');
+
   const handleClickReviewCreateCloseButton = () => {
     modalActions.closeModal();
-  };
-
-  const handleClickReviewCreateButton = () => {
-    if (content.length >= 5 && content.length <= 100) {
-      createReview({ stationId, ratings: stars, content });
-    }
   };
 
   const handleClickReviewCreateOpenButton = () => {
@@ -51,25 +47,12 @@ const ReviewCreate = ({ stationId }: ReviewCreateProps) => {
       )}
       <FlexBox nowrap>
         {isReviewCreateOpen ? (
-          <>
-            <ButtonNext
-              variant="outlined"
-              color="error"
-              fullWidth
-              onClick={handleClickReviewCreateOpenButton}
-            >
-              리뷰 그만작성하기
-            </ButtonNext>
-            <ButtonNext
-              disabled={isCreateReviewLoading || content.length < 5 || content.length > 100}
-              variant="contained"
-              color="success"
-              fullWidth
-              onClick={handleClickReviewCreateButton}
-            >
-              {isCreateReviewLoading ? '처리중...' : '등록'}
-            </ButtonNext>
-          </>
+          <ReviewCreateButton
+            content={content}
+            stars={stars}
+            stationId={stationId}
+            handleClickReviewCreateOpenButton={handleClickReviewCreateOpenButton}
+          />
         ) : (
           <>
             <ButtonNext

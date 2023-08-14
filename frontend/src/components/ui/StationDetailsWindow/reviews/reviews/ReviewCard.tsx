@@ -1,10 +1,12 @@
 import { PencilIcon, TrashIcon } from '@heroicons/react/20/solid';
 import { StarIcon } from '@heroicons/react/24/solid';
-import { stat } from 'copy-webpack-plugin/types/utils';
 
 import { useEffect, useState } from 'react';
 
 import { calculateLatestUpdateTime } from '@utils/index';
+
+import { memberInfoStore } from '@stores/login/memberInfoStore';
+import { memberTokenStore } from '@stores/login/memberTokenStore';
 
 import { useRemoveReview } from '@hooks/tanstack-query/station-details/reviews/useRemoveReview';
 
@@ -13,9 +15,9 @@ import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-import ReplyCard from '@ui/StationDetailsWindow/reviews/cards/ReplyCard';
-import ReplyCreate from '@ui/StationDetailsWindow/reviews/crud/ReplyCreate';
-import ReviewModify from '@ui/StationDetailsWindow/reviews/crud/ReviewModify';
+import ReplyCreate from '@ui/StationDetailsWindow/reviews/replies/ReplyCreate';
+import ReplyList from '@ui/StationDetailsWindow/reviews/replies/ReplyList';
+import ReviewModify from '@ui/StationDetailsWindow/reviews/reviews/ReviewModify';
 
 import type { Review } from '@type';
 
@@ -26,10 +28,13 @@ export interface ReviewCardProps {
 }
 
 const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
-  const { replies, content, isUpdated, latestUpdateDate, userId, ratings, isDeleted } = review;
   const { isRemoveReviewLoading, removeReview } = useRemoveReview(stationId);
   const [isRepliesOpen, setIsRepliesOpen] = useState(false);
   const [isModifyMode, setIsModifyMode] = useState(false);
+  const memberId = memberInfoStore.getState()?.memberId;
+
+  const isReviewOwner = memberId !== review.memberId;
+  const isEditable = isReviewOwner || review.isDeleted || !previewMode;
 
   const handleClickRemoveReviewButton = () => {
     if (confirm('정말로 삭제하시겠습니까?')) {
@@ -52,22 +57,22 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
               <FlexBox justifyContent="between">
                 <Box>
                   <Text variant="label" mb={2}>
-                    {userId}님
-                    {!isDeleted && (
+                    {memberId}님
+                    {!review.isDeleted && (
                       <>
                         ( <StarIcon width={10} display="inline-block" />
-                        {ratings})
+                        {review.ratings})
                       </>
                     )}
                   </Text>
 
                   <Text variant="caption">
-                    {calculateLatestUpdateTime(latestUpdateDate)}
-                    {isDeleted ? '(삭제됨)' : isUpdated ? '(수정됨)' : ''}
+                    {calculateLatestUpdateTime(review.latestUpdateDate)}
+                    {review.isDeleted ? '(삭제됨)' : review.isUpdated ? '(수정됨)' : ''}
                   </Text>
                 </Box>
                 <FlexBox>
-                  {isDeleted || !previewMode ? (
+                  {!isEditable ? (
                     <></>
                   ) : (
                     <>
@@ -97,29 +102,27 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
                 </FlexBox>
               </FlexBox>
               <Box my={3}>
-                <Text variant="body">{isDeleted ? '(삭제된 리뷰입니다.)' : content}</Text>
+                <Text variant="body">
+                  {review.isDeleted ? '(삭제된 리뷰입니다.)' : review.content}
+                </Text>
               </Box>
             </Box>
 
             <FlexBox justifyContent="between">
               <ButtonNext size="xs" variant="text" onClick={() => setIsRepliesOpen(!isRepliesOpen)}>
-                {isRepliesOpen ? `닫기` : `답글 ${replies.length > 0 ? replies.length : '달기'}`}
+                {isRepliesOpen
+                  ? `닫기`
+                  : `답글 ${review.replySize > 0 ? review.replySize : '달기'}`}
               </ButtonNext>
             </FlexBox>
           </Box>
-          {isRepliesOpen &&
-            replies.map((reply, index) => (
-              <ReplyCard
-                key={index}
-                stationId={stationId}
-                reply={reply}
-                reviewId={review.reviewId}
-                previewMode={previewMode}
-                isLastReply={index !== replies.length - 1}
-              />
-            ))}
 
-          {isRepliesOpen && <ReplyCreate stationId={stationId} reviewId={review.reviewId} />}
+          {isRepliesOpen && (
+            <>
+              <ReplyList reviewId={review.reviewId} stationId={stationId} />
+              <ReplyCreate stationId={stationId} reviewId={review.reviewId} />
+            </>
+          )}
         </>
       )}
     </>

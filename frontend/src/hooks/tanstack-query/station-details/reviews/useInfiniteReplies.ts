@@ -4,19 +4,19 @@ import { serverStore } from '@stores/config/serverStore';
 
 import { SERVERS } from '@constants';
 
-import type { Review } from '@type';
+import type { Reply } from '@type';
 
 interface InfiniteRepliesResponse {
-  reviews: Review[];
+  replies: Reply[];
   nextPage: number;
 }
 
-export const useInfiniteReviews = (stationId: string) => {
+export const useInfiniteReplies = (reviewId: number) => {
   return useInfiniteQuery<InfiniteRepliesResponse>(
-    ['reviews', stationId],
+    ['replies', reviewId],
     async ({ pageParam = 1 }) => {
       const mode = serverStore.getState();
-      const res = await fetch(`${SERVERS[mode]}/stations/${stationId}/reviews/?page=${pageParam}`);
+      const res = await fetch(`${SERVERS[mode]}/reviews/${reviewId}/replies?page=${pageParam}`);
       const data = await res.json();
       return data;
     },
