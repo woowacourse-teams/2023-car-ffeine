@@ -62,7 +62,7 @@ const StationSummaryCard = ({ station, tag, $noPadding }: Props) => {
               {stationName}
             </Text>
             <Text variant="label" align="left" lineClamp={1} mb={1} color="#585858">
-              {address === 'null' || !address ? '주소를 직접 알아내자' : address}
+              {address === 'null' || !address ? '주소 미확인' : address}
             </Text>
             <Text variant="caption" align="left" lineClamp={1} mb={3} color="#585858">
               {operatingTime}
