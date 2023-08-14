@@ -2,7 +2,7 @@ import Box from '@common/Box';
 import FlexBox from '@common/FlexBox';
 import Skeleton from '@common/Skeleton';
 
-import ReviewCardsLoading from '@ui/StationDetailsWindow/reviews/cards/ReviewCardsLoading';
+import ReviewCardsLoading from '@ui/StationDetailsWindow/reviews/reviews/ReviewCardsLoading';
 
 const ReviewPreviewSkeleton = () => {
   return (

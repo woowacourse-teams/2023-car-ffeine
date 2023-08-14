@@ -13,9 +13,9 @@ import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-import ReviewModify from '@ui/StationDetailsWindow/reviews/cards/ReviewModify';
 import ReplyCard from '@ui/StationDetailsWindow/reviews/replies/ReplyCard';
 import ReplyCreate from '@ui/StationDetailsWindow/reviews/replies/ReplyCreate';
+import ReviewModify from '@ui/StationDetailsWindow/reviews/reviews/ReviewModify';
 
 import type { Review } from '@type';
 

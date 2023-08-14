@@ -9,9 +9,9 @@ import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
 import ReviewList from '@ui/StationDetailsWindow/reviews/ReviewList';
-import ReviewCard from '@ui/StationDetailsWindow/reviews/cards/ReviewCard';
 import ReviewPreviewSkeleton from '@ui/StationDetailsWindow/reviews/previews/ReviewPreviewSkeleton';
 import UserRatings from '@ui/StationDetailsWindow/reviews/previews/UserRatings';
+import ReviewCard from '@ui/StationDetailsWindow/reviews/reviews/ReviewCard';
 
 export interface ReviewPreviewProps {
   stationId: string;

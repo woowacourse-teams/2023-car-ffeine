@@ -8,9 +8,9 @@ import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import Text from '@common/Text';
 
-import ReviewCard from '@ui/StationDetailsWindow/reviews/cards/ReviewCard';
-import ReviewCardsLoading from '@ui/StationDetailsWindow/reviews/cards/ReviewCardsLoading';
-import ReviewCreate from '@ui/StationDetailsWindow/reviews/cards/ReviewCreate';
+import ReviewCard from '@ui/StationDetailsWindow/reviews/reviews/ReviewCard';
+import ReviewCardsLoading from '@ui/StationDetailsWindow/reviews/reviews/ReviewCardsLoading';
+import ReviewCreate from '@ui/StationDetailsWindow/reviews/reviews/ReviewCreate';
 
 import type { Review } from '@type';
 

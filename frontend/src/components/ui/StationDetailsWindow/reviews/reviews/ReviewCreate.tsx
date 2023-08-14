@@ -6,9 +6,9 @@ import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 
-import ReviewCreateButton from '@ui/StationDetailsWindow/reviews/cards/ReviewCreateButton';
 import ContentField from '@ui/StationDetailsWindow/reviews/common/ContentField';
 import HeaderWithRating from '@ui/StationDetailsWindow/reviews/common/HeaderWithRating';
+import ReviewCreateButton from '@ui/StationDetailsWindow/reviews/reviews/ReviewCreateButton';
 
 interface ReviewCreateProps {
   stationId: string;

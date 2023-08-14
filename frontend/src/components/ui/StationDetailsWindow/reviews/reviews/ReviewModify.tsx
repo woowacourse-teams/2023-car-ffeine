@@ -6,9 +6,9 @@ import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 
-import ReviewModifyButton from '@ui/StationDetailsWindow/reviews/cards/ReviewModifyButton';
 import ContentField from '@ui/StationDetailsWindow/reviews/common/ContentField';
 import HeaderWithRating from '@ui/StationDetailsWindow/reviews/common/HeaderWithRating';
+import ReviewModifyButton from '@ui/StationDetailsWindow/reviews/reviews/ReviewModifyButton';
 
 import type { Review } from '@type';
 

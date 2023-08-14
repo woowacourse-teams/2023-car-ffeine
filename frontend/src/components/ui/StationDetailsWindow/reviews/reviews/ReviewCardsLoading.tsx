@@ -1,4 +1,4 @@
-import ReviewCardSkeleton from '@ui/StationDetailsWindow/reviews/cards/ReviewCardSkeleton';
+import ReviewCardSkeleton from '@ui/StationDetailsWindow/reviews/reviews/ReviewCardSkeleton';
 
 export interface ReviewCardsLoadingProps {
   count: number;
