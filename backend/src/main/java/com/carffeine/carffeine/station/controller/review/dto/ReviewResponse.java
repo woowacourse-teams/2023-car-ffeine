@@ -12,10 +12,17 @@ public record ReviewResponse(
         String content,
         boolean isUpdated,
         boolean isDeleted,
-        long replySize
-) {
+        long replySize) {
 
-    public static ReviewResponse deleted(Review review) {
-        return new ReviewResponse(review.getId(), null, null, 0, null, true, true, review.getReplySize());
+    public static ReviewResponse deleted(Review review, long replySize) {
+        return new ReviewResponse(
+                review.getId(),
+                null,
+                null,
+                0,
+                null,
+                true,
+                true,
+                replySize);
     }
 }

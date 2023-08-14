@@ -17,6 +17,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static com.carffeine.carffeine.member.exception.MemberExceptionType.NOT_FOUND;
 import static com.carffeine.carffeine.station.exception.StationExceptionType.NOT_FOUND_ID;
 import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.REVIEW_NOT_FOUND;
@@ -41,16 +44,15 @@ public class ReviewService {
     @Transactional(readOnly = true)
     public Page<Review> findAllReviews(String stationId, Pageable pageable) {
         Station station = findStation(stationId);
-        Page<Review> reviews = reviewRepository.findAllByStation(station, pageable);
-        return setReplySize(reviews);
+        return reviewRepository.findAllByStation(station, pageable);
     }
 
-    private Page<Review> setReplySize(Page<Review> reviews) {
+    public Map<Long, Long> countReplies(Page<Review> reviews) {
+        Map<Long, Long> replyCounts = new HashMap<>();
         for (Review review : reviews) {
-            Long replySize = replyRepository.countByReview(review);
-            review.setReplySize(replySize);
+            replyCounts.put(review.getId(), replyRepository.countByReview(review));
         }
-        return reviews;
+        return replyCounts;
     }
 
     public Review updateReview(CreateReviewRequest request, Long reviewId, Long memberId) {

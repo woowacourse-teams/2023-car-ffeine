@@ -21,6 +21,7 @@ import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
+import java.util.Map;
 
 import static com.carffeine.carffeine.helper.RestDocsHelper.customDocument;
 import static com.carffeine.carffeine.member.fixture.MemberFixture.일반_회원;
@@ -93,9 +94,11 @@ public class ReviewControllerTest extends MockBeanInjection {
         String stationId = "ME101010";
 
         Page<Review> reviews = new PageImpl<>(List.of(리뷰_별4_15글자));
+        Map<Long, Long> replySize = Map.of(1L, 1L);
 
         // when
         when(reviewService.findAllReviews(eq(stationId), any(Pageable.class))).thenReturn(reviews);
+        when(reviewService.countReplies(reviews)).thenReturn(replySize);
 
         // then
         mockMvc.perform(get("/stations/{stationId}/reviews", stationId)

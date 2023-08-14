@@ -4,6 +4,7 @@ import com.carffeine.carffeine.station.domain.review.Review;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
+import java.util.Map;
 
 public record ReviewResponses(
         List<ReviewResponse> reviews,
@@ -13,11 +14,11 @@ public record ReviewResponses(
     public static final int INVALID_PAGE = -1;
     public static final int NEXT_PAGE = 1;
 
-    public static ReviewResponses from(Page<Review> reviews) {
+    public static ReviewResponses of(Page<Review> reviews, Map<Long, Long> replyCounts) {
         List<ReviewResponse> reviewResponses = reviews.stream()
                 .map(it -> {
                     if (it.isDeleted()) {
-                        return ReviewResponse.deleted(it);
+                        return ReviewResponse.deleted(it, replyCounts.get(it.getId()));
                     }
                     return new ReviewResponse(
                             it.getId(),
@@ -26,8 +27,8 @@ public record ReviewResponses(
                             it.getRatings(),
                             it.getContent(),
                             it.getUpdatedAt().isAfter(it.getCreatedAt()),
-                            it.isDeleted(),
-                            it.getReplySize());
+                            false,
+                            replyCounts.get(it.getId()));
                 }).toList();
         int nextPage = getNextPage(reviews);
 

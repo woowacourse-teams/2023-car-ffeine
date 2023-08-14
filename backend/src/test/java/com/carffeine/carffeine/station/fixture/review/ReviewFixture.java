@@ -23,7 +23,6 @@ public class ReviewFixture {
             .createdAt(LocalDateTime.now())
             .updatedAt(LocalDateTime.now())
             .isDeleted(false)
-            .replySize(3L)
             .build();
 
     public static final Review 저장안된_리뷰(Member member) {
@@ -51,7 +50,6 @@ public class ReviewFixture {
                     .ratings(2)
                     .content("감사합니다 감사합니다")
                     .isDeleted(false)
-                    .replySize(3L)
                     .build();
             reviews.add(review);
         }
