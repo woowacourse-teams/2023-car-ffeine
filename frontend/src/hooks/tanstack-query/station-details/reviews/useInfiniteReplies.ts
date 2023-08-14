@@ -4,8 +4,15 @@ import { serverStore } from '@stores/config/serverStore';
 
 import { SERVERS } from '@constants';
 
+import type { Reply } from '@type';
+
+interface InfiniteRepliesResponse {
+  replies: Reply[];
+  nextPage: number;
+}
+
 export const useInfiniteReplies = (reviewId: number) => {
-  return useInfiniteQuery(
+  return useInfiniteQuery<InfiniteRepliesResponse>(
     ['replies', reviewId],
     async ({ pageParam = 1 }) => {
       const mode = serverStore.getState();

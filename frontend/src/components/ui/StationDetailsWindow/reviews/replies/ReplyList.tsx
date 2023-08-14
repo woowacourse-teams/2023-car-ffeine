@@ -8,8 +8,6 @@ import Text from '@common/Text';
 import ReplyCard from '@ui/StationDetailsWindow/reviews/replies/ReplyCard';
 import ReplyListLoading from '@ui/StationDetailsWindow/reviews/replies/ReplyListLoading';
 
-import type { Reply } from '@type';
-
 interface ReplyListProps {
   stationId: string;
   reviewId: number;
@@ -30,13 +28,13 @@ const ReplyList = ({ stationId, reviewId }: ReplyListProps) => {
       ) : (
         <>
           {data.pages.map((page) => (
-            <div key={page.currentPage}>
+            <div key={page.nextPage}>
               {page.replies.length === 0 && (
                 <Text m={10} align="center">
                   등록 된 답글이 없습니다.
                 </Text>
               )}
-              {(page.replies as Reply[]).map((reply, index) => (
+              {page.replies.map((reply, index) => (
                 <ReplyCard
                   key={index}
                   stationId={stationId}
