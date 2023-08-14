@@ -78,8 +78,8 @@ public class ReviewControllerTest extends MockBeanInjection {
                 )
                 .andExpect(status().isNoContent())
                 .andDo(customDocument("save-review",
-                        requestHeaders(headerWithName("Authorization").description("회원 id")),
-                        pathParameters(parameterWithName("stationId").description("충전소 id")),
+                        requestHeaders(headerWithName("Authorization").description("회원 ID")),
+                        pathParameters(parameterWithName("stationId").description("충전소 ID")),
                         requestFields(
                                 fieldWithPath("ratings").type(JsonFieldType.NUMBER).description("별점"),
                                 fieldWithPath("content").type(JsonFieldType.STRING).description("내용")
@@ -145,8 +145,8 @@ public class ReviewControllerTest extends MockBeanInjection {
                 )
                 .andExpect(status().isNoContent())
                 .andDo(customDocument("update-review",
-                        requestHeaders(headerWithName("Authorization").description("회원 id")),
-                        pathParameters(parameterWithName("reviewId").description("충전소 id")),
+                        requestHeaders(headerWithName("Authorization").description("회원 ID")),
+                        pathParameters(parameterWithName("reviewId").description("충전소 ID")),
                         requestFields(
                                 fieldWithPath("ratings").type(JsonFieldType.NUMBER).description("별점"),
                                 fieldWithPath("content").type(JsonFieldType.STRING).description("내용")
@@ -175,8 +175,8 @@ public class ReviewControllerTest extends MockBeanInjection {
                 )
                 .andExpect(status().isNoContent())
                 .andDo(customDocument("delete-review",
-                        requestHeaders(headerWithName("Authorization").description("회원 id")),
-                        pathParameters(parameterWithName("reviewId").description("충전소 id")),
+                        requestHeaders(headerWithName("Authorization").description("회원 ID")),
+                        pathParameters(parameterWithName("reviewId").description("충전소 ID")),
                         requestFields(
                                 fieldWithPath("ratings").type(JsonFieldType.NUMBER).description("별점"),
                                 fieldWithPath("content").type(JsonFieldType.STRING).description("내용")
