@@ -1,4 +1,5 @@
-import Alert from '@common/Alert';
+import styled from 'styled-components';
+
 import Box from '@common/Box';
 import Text from '@common/Text';
 
@@ -23,33 +24,51 @@ const StationInformation = ({ station }: StationInformationProps) => {
   } = station;
 
   return (
-    <Box>
+    <Box mt={15}>
       <Box>
-        <Text variant="label">{companyName}</Text>
-        <Text variant="title">{stationName}</Text>
-        <Text variant="subtitle" mb={1}>
+        <Text variant="label" mb={1}>
+          {companyName}
+        </Text>
+        <Text variant="title" mb={1}>
+          {stationName}
+        </Text>
+        <Text variant="subtitle" mb={2}>
           {address}
         </Text>
-        {detailLocation && <Text variant="caption">{detailLocation}</Text>}
+        <Text variant="caption" mb={1}>
+          {detailLocation?.length > 0 ? detailLocation : '상세주소 없음'}
+        </Text>
       </Box>
-      <hr />
-      {stationState && <Alert color="warning" text={`[공지] ${stationState}`} />}
-      <Box px={1}>
+      <Divider />
+      <Box>
         <Box my={2}>
-          <Text variant="h6">운영시간</Text>
-          <Text variant="body">{operatingTime ?? '운영시간 미확인'}</Text>
+          <Text variant="subtitle" mb={1}>
+            운영시간
+          </Text>
+          <Text variant="label">
+            {operatingTime?.length > 0 ? operatingTime : '운영시간 미확인'}
+          </Text>
         </Box>
+
         <Box my={2}>
-          <Text variant="h6">연락처</Text>
-          <Text variant="body">{contact ?? '연락처 없음'}</Text>
+          <Text variant="subtitle" mb={1}>
+            연락처
+          </Text>
+          <Text variant="label">{contact?.length > 0 ? contact : '연락처 없음'}</Text>
         </Box>
+
         <Box my={2}>
-          <Text variant="h6">주차비</Text>
-          <Text variant="body">{isParkingFree ? '무료' : '유료'}</Text>
+          <Text variant="subtitle" mb={1}>
+            주차비
+          </Text>
+          <Text variant="label">{isParkingFree ? '무료' : '유료'}</Text>
         </Box>
+
         <Box my={2}>
-          <Text variant="h6">사용 제한 여부</Text>
-          <Text variant="body">
+          <Text variant="subtitle" mb={1}>
+            사용 제한 여부
+          </Text>
+          <Text variant="label">
             {isPrivate || privateReason
               ? `사용 제한됨 (사유: ${privateReason})`
               : '누구나 사용가능'}
@@ -59,5 +78,9 @@ const StationInformation = ({ station }: StationInformationProps) => {
     </Box>
   );
 };
+
+const Divider = styled.hr`
+  margin: 1.5rem 0 1.5rem 0;
+`;
 
 export default StationInformation;
