@@ -74,6 +74,8 @@ const CarModal = () => {
 
     setCarFilters(carFilters);
 
+    const { capacities, companies, connectorTypes } = getAllServerStationFilters();
+
     if (memberId === undefined) {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
       return;
@@ -84,7 +86,22 @@ const CarModal = () => {
       headers: {
         Authorization: `Bearer ${memberToken}`,
       },
-      body: JSON.stringify(getAllServerStationFilters()),
+      body: JSON.stringify({
+        filters: [
+          ...capacities.map((capacity) => ({
+            type: 'capacity',
+            name: capacity,
+          })),
+          ...companies.map((company) => ({
+            type: 'company',
+            name: company,
+          })),
+          ...connectorTypes.map((connectorType) => ({
+            type: 'connectorType',
+            name: connectorType,
+          })),
+        ],
+      }),
     }).then<StationFilters>((response) => response.json());
 
     setAllServerStationFilters(memberFilters);
