@@ -16,9 +16,4 @@ public abstract class AcceptanceTestFixture {
     public static void 값이_같은지_비교한다(Object actual, Object expected) {
         assertThat(actual).isEqualTo(expected);
     }
-
-    public static void true_인지_확인한다(Boolean updated) {
-        assertThat(updated).isTrue();
-    }
-
 }

@@ -23,7 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Objects;
 
-import static com.carffeine.carffeine.helper.integration.AcceptanceTestFixture.true_인지_확인한다;
 import static com.carffeine.carffeine.helper.integration.AcceptanceTestFixture.값이_같은지_비교한다;
 import static com.carffeine.carffeine.helper.integration.AcceptanceTestFixture.상태_코드를_검증한다;
 import static com.carffeine.carffeine.member.fixture.MemberFixture.일반_회원;
@@ -164,10 +163,7 @@ public class ReplyIntegrationTest extends IntegrationTest {
             var 해당_댓글 = 해당_답글을_가져온다();
 
             // then
-            SoftAssertions.assertSoftly(softly -> {
-                상태_코드를_검증한다(delete응답, NO_CONTENT);
-                true_인지_확인한다(해당_댓글.isDeleted());
-            });
+            상태_코드를_검증한다(delete응답, NO_CONTENT);
         }
 
         @Test

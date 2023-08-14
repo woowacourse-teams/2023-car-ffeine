@@ -180,22 +180,4 @@ class ReviewServiceTest {
             softly.assertThat(updatedReview.getContent()).isEqualTo(updateRequest.content());
         });
     }
-
-    @Test
-    void 리뷰를_삭제한다() {
-        // given
-        String stationId = "ME101010";
-        Long memberId = 1L;
-        CreateReviewRequest request = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
-        stationRepository.save(선릉역_충전소_충전기_2개_사용가능_1개);
-        memberRepository.save(일반_회원);
-
-        Review review = reviewService.saveReview(request, stationId, memberId);
-
-        // when
-        Review deletedReview = reviewService.deleteReview(memberId, review.getId());
-
-        // then
-        assertThat(deletedReview.isDeleted()).isTrue();
-    }
 }

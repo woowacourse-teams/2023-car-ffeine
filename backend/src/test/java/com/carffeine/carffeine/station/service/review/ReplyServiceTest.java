@@ -9,6 +9,7 @@ import com.carffeine.carffeine.station.domain.review.Reply;
 import com.carffeine.carffeine.station.domain.review.ReplyRepository;
 import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.domain.review.ReviewRepository;
+import com.carffeine.carffeine.station.exception.review.ReviewException;
 import com.carffeine.carffeine.station.service.review.dto.CreateReplyRequest;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,9 +22,12 @@ import org.springframework.data.domain.Pageable;
 import java.time.LocalDateTime;
 
 import static com.carffeine.carffeine.member.fixture.MemberFixture.일반_회원;
+import static com.carffeine.carffeine.member.fixture.MemberFixture.일반_회원3;
+import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.UNAUTHORIZED_MEMBER;
 import static com.carffeine.carffeine.station.fixture.review.ReplyFixture.답글_요청_13개;
 import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.저장안된_리뷰;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
@@ -157,17 +161,36 @@ public class ReplyServiceTest {
         assertThat(updatedReply.getContent()).isEqualTo(updateRequest.content());
     }
 
-    void 답글을_삭제한다() {
+    @Test
+    void 작성자가_아니면_수정할_수_없다() {
         // given
         CreateReplyRequest request = new CreateReplyRequest("저도 그렇게 생각합니다");
         Member member = memberRepository.save(일반_회원);
+        Member member1 = memberRepository.save(일반_회원3);
         Review review = reviewRepository.save(저장안된_리뷰(member));
         Reply reply = replyService.saveReply(request, review.getId(), member.getId());
 
         // when
-        Reply deletedReply = replyService.deleteReply(member.getId(), reply.getId());
+        CreateReplyRequest updateRequest = new CreateReplyRequest("정말 그런가요? 저는 아닌데");
 
         // then
-        assertThat(deletedReply.isDeleted()).isTrue();
+        assertThatThrownBy(() -> replyService.updateReply(updateRequest, reply.getId(), member1.getId()))
+                .isInstanceOf(ReviewException.class)
+                .hasMessage(UNAUTHORIZED_MEMBER.message());
+    }
+
+    @Test
+    void 작성자가_아니면_삭제할_수_없다() {
+        // given
+        CreateReplyRequest request = new CreateReplyRequest("저도 그렇게 생각합니다");
+        Member member = memberRepository.save(일반_회원);
+        Member member1 = memberRepository.save(일반_회원3);
+        Review review = reviewRepository.save(저장안된_리뷰(member));
+        Reply reply = replyService.saveReply(request, review.getId(), member.getId());
+
+        // when & then
+        assertThatThrownBy(() -> replyService.deleteReply(member1.getId(), reply.getId()))
+                .isInstanceOf(ReviewException.class)
+                .hasMessage(UNAUTHORIZED_MEMBER.message());
     }
 }
