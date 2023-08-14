@@ -1,4 +1,5 @@
-import { PencilIcon, TrashIcon } from '@heroicons/react/20/solid';
+import { TrashIcon } from '@heroicons/react/20/solid';
+import { PencilSquareIcon } from '@heroicons/react/24/solid';
 
 import { useState } from 'react';
 
@@ -63,7 +64,7 @@ const ReplyCard = ({ stationId, reply, previewMode }: ReplyCardProps) => {
                   color="secondary"
                   onClick={() => setIsModifyMode(true)}
                 >
-                  <PencilIcon width={15} display="inline-block" />
+                  <PencilSquareIcon width={15} display="inline-block" />
                 </ButtonNext>
                 <ButtonNext
                   disabled={isRemoveReplyLoading}

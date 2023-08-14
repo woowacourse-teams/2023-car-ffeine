@@ -35,7 +35,7 @@ const UserRatings = ({ stationId }: UserRatingsProps) => {
   }
 
   return (
-    <Box>
+    <Box mb={4}>
       <FlexBox justifyContent="between" alignItems="center">
         <Text variant="title">충전소 후기 </Text>
         <Text variant="subtitle">

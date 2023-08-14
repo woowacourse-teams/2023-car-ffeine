@@ -77,6 +77,7 @@ const ReviewPreview = ({ stationId }: ReviewPreviewProps) => {
                     reviewId: review.reviewId,
                     memberId: review.memberId,
                   }}
+                  previewMode
                 />
               );
             })}
