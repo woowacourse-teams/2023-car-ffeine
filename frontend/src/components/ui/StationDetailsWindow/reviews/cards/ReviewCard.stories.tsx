@@ -39,7 +39,7 @@ const meta = {
         },
       ] as Reply[],
       reviewId: 0,
-      userId: 23884823,
+      memberId: 23884823,
     },
     previewMode: false,
   },

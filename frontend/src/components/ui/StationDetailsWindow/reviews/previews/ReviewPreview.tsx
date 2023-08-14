@@ -75,7 +75,7 @@ const ReviewPreview = ({ stationId }: ReviewPreviewProps) => {
                     ratings: review.ratings,
                     replies: review.replies,
                     reviewId: review.reviewId,
-                    userId: review.userId,
+                    memberId: review.memberId,
                   }}
                 />
               );

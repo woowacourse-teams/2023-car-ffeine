@@ -128,7 +128,7 @@ export const generateReviewsWithReplies = (): Review[] => {
   return Array.from({ length: 10 }, (_, index) => {
     return {
       reviewId: index,
-      userId: generateRandomToken(),
+      memberId: generateRandomToken(),
       latestUpdateDate: getRandomTime(),
       ratings: Math.floor(Math.random() * 5) + 1,
       content: generateRandomData([

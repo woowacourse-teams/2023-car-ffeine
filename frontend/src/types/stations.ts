@@ -93,7 +93,7 @@ export interface StationRatings {
 
 export interface Review {
   reviewId: number;
-  userId: number;
+  memberId: number;
   latestUpdateDate: string;
   ratings: number;
   content: string;

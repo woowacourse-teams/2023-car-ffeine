@@ -26,7 +26,7 @@ export interface ReviewCardProps {
 }
 
 const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
-  const { replies, content, isUpdated, latestUpdateDate, userId, ratings, isDeleted } = review;
+  const { replies, content, isUpdated, latestUpdateDate, memberId, ratings, isDeleted } = review;
   const { isRemoveReviewLoading, removeReview } = useRemoveReview(stationId);
   const [isRepliesOpen, setIsRepliesOpen] = useState(false);
   const [isModifyMode, setIsModifyMode] = useState(false);
@@ -52,7 +52,7 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
               <FlexBox justifyContent="between">
                 <Box>
                   <Text variant="label" mb={2}>
-                    {userId}님
+                    {memberId}님
                     {!isDeleted && (
                       <>
                         ( <StarIcon width={10} display="inline-block" />
