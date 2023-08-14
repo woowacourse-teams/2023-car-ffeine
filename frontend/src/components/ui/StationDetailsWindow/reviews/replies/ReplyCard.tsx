@@ -51,7 +51,7 @@ const ReplyCard = ({ stationId, reply, reviewId, previewMode, isLastReply }: Rep
           <FlexBox justifyContent="between">
             <Box>
               <Text variant="label" mb={2}>
-                {reply.userId}님
+                {reply.memberId}님
               </Text>
               <Text variant="caption">
                 {calculateLatestUpdateTime(reply.latestUpdateDate)} {reply.isUpdated && '(수정됨)'}

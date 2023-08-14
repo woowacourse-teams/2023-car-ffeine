@@ -104,7 +104,8 @@ export interface Review {
 
 export interface Reply {
   replyId: number;
-  userId: number;
+  reviewId: number;
+  memberId: number;
   latestUpdateDate: string;
   content: string;
   isUpdated: boolean;
