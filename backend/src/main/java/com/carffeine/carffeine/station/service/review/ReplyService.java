@@ -72,7 +72,6 @@ public class ReplyService {
         Reply reply = findReply(replyId);
         Member member = findMember(memberId);
         reply.validate(member);
-        reply.delete();
         return reply;
     }
 

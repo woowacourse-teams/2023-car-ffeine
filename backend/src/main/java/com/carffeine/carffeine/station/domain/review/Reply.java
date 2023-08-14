@@ -73,10 +73,6 @@ public class Reply extends BaseEntity {
         this.content = content;
     }
 
-    public void delete() {
-        this.isDeleted = true;
-    }
-
     public void validate(Member member) {
         validateMember(member);
         validateDeletion();

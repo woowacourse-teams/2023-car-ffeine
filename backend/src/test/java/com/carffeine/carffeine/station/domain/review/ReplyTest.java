@@ -51,15 +51,6 @@ public class ReplyTest {
                 .hasMessage(UNAUTHORIZED_MEMBER.message());
     }
 
-    @Test
-    void 리뷰를_삭제처리한다() {
-        // when
-        reply.delete();
-
-        // then
-        assertThat(reply.isDeleted()).isTrue();
-    }
-
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "아닌데요"})
     void 답글_등록시_내용이_10자보다_작으면_예외가_발생한다(String content) {

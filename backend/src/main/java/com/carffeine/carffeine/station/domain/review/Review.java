@@ -101,10 +101,6 @@ public class Review extends BaseEntity {
         this.content = content;
     }
 
-    public void delete() {
-        this.isDeleted = true;
-    }
-
     public void setReplySize(Long replySize) {
         this.replySize = replySize;
     }

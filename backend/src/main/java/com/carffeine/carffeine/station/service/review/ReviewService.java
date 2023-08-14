@@ -65,7 +65,6 @@ public class ReviewService {
         Review review = findReview(reviewId);
         Member member = findMember(memberId);
         review.validate(member);
-        review.delete();
         return review;
     }
 
