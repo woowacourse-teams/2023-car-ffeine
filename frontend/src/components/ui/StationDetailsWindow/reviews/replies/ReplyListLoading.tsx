@@ -7,8 +7,8 @@ export interface ReplyListLoadingProps {
 const ReplyListLoading = ({ count }: ReplyListLoadingProps) => {
   return (
     <>
-      {Array.from({ length: count }, (_, i) => (
-        <ReplyCardSkeleton key={i} />
+      {Array.from({ length: count }, (_, index) => (
+        <ReplyCardSkeleton key={index} />
       ))}
     </>
   );

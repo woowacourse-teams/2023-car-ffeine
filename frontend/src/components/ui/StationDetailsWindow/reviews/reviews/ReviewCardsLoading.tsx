@@ -7,8 +7,8 @@ export interface ReviewCardsLoadingProps {
 const ReviewCardsLoading = ({ count }: ReviewCardsLoadingProps) => {
   return (
     <>
-      {Array.from({ length: count }, (_, i) => (
-        <ReviewCardSkeleton key={i} />
+      {Array.from({ length: count }, (_, index) => (
+        <ReviewCardSkeleton key={index} />
       ))}
     </>
   );
