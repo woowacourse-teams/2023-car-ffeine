@@ -12,8 +12,8 @@ import Text from '@common/Text';
 import type { StationSummary } from '@type';
 
 import ChargingSpeedIcon from './ChargingSpeedIcon';
-import { useNavigationBar } from './compound/NavigationBar/hooks/useNavigationBar';
 import StationDetailsWindow from './StationDetailsWindow';
+import { useNavigationBar } from './compound/NavigationBar/hooks/useNavigationBar';
 
 interface Props {
   station: StationSummary;
@@ -21,7 +21,7 @@ interface Props {
 
 const StationSummaryWindow = ({ station }: Props) => {
   const setSelectedStationId = useSetExternalState(selectedStationIdStore);
-  const {openLastPanel} = useNavigationBar();
+  const { openLastPanel } = useNavigationBar();
 
   const {
     stationId,
@@ -39,7 +39,7 @@ const StationSummaryWindow = ({ station }: Props) => {
 
   const handleOpenStationDetail = () => {
     setSelectedStationId(stationId);
-    openLastPanel(<StationDetailsWindow />)
+    openLastPanel(<StationDetailsWindow />);
   };
 
   return (
@@ -61,7 +61,7 @@ const StationSummaryWindow = ({ station }: Props) => {
               {stationName}
             </Text>
             <Text variant="body" align="left" lineClamp={1} mb={1} color="#585858">
-              {address || '주소를 직접 알아내자'}
+              {address || '주소 미확인'}
             </Text>
             <Text variant="caption" align="left" lineClamp={1} mb={3} color="#585858">
               {operatingTime}
