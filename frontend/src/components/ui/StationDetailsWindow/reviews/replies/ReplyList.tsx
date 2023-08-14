@@ -6,9 +6,9 @@ import ButtonNext from '@common/ButtonNext';
 import Text from '@common/Text';
 
 import ReplyCard from '@ui/StationDetailsWindow/reviews/replies/ReplyCard';
-import ReviewCardsLoading from '@ui/StationDetailsWindow/reviews/reviews/ReviewCardsLoading';
+import ReplyListLoading from '@ui/StationDetailsWindow/reviews/replies/ReplyListLoading';
 
-import type { Reply, Review } from '@type';
+import type { Reply } from '@type';
 
 interface ReplyListProps {
   reviewId: number;
@@ -21,7 +21,7 @@ const ReplyList = ({ reviewId }: ReplyListProps) => {
   return (
     <>
       {status === 'loading' ? (
-        <>답글로딩딩...</>
+        <ReplyListLoading count={10} />
       ) : status === 'error' ? (
         <Text variant="caption" align="center">
           Error: {JSON.stringify(error)}
@@ -42,12 +42,11 @@ const ReplyList = ({ reviewId }: ReplyListProps) => {
                   reply={reply}
                   reviewId={reply.reviewId}
                   previewMode={false}
-                  isLastReply={index !== page.replies.length - 1}
                 />
               ))}
             </div>
           ))}
-          {isFetchingNextPage && <ReviewCardsLoading count={10} />}
+          {isFetchingNextPage && <ReplyListLoading count={5} />}
           <ButtonNext
             size="xs"
             variant="contained"

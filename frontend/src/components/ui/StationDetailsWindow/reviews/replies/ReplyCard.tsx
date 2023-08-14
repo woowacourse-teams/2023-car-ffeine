@@ -20,10 +20,9 @@ interface ReplyCardProps {
   reply: Reply;
   reviewId: number;
   previewMode: boolean;
-  isLastReply: boolean;
 }
 
-const ReplyCard = ({ stationId, reply, reviewId, previewMode, isLastReply }: ReplyCardProps) => {
+const ReplyCard = ({ stationId, reply, reviewId, previewMode }: ReplyCardProps) => {
   const [isModifyMode, setIsModifyMode] = useState(false);
   const { removeReply, isRemoveReplyLoading } = useRemoveReply(stationId);
 
@@ -90,7 +89,7 @@ const ReplyCard = ({ stationId, reply, reviewId, previewMode, isLastReply }: Rep
           </Box>
         </Box>
       </Box>
-      {isLastReply && <Box ml={16} mr={6} my={2} css={{ borderBottom: '1px solid #66666666' }} />}
+      <Box ml={16} mr={6} my={2} css={{ borderBottom: '1px solid #66666666' }} />
     </>
   );
 };
