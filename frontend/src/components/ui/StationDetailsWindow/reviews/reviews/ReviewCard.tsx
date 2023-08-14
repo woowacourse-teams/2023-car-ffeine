@@ -52,12 +52,12 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
         <ReviewModify stationId={stationId} review={review} setIsModifyMode={setIsModifyMode} />
       ) : (
         <>
-          <Box p={2} mb={4}>
-            <Box p={2}>
+          <Box>
+            <Box>
               <FlexBox justifyContent="between">
                 <Box>
-                  <Text variant="label" mb={2}>
-                    {memberId}님
+                  <Text variant="label">
+                    {review.memberId}님
                     {!review.isDeleted && (
                       <>
                         ( <StarIcon width={10} display="inline-block" />
@@ -101,7 +101,7 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
                   )}
                 </FlexBox>
               </FlexBox>
-              <Box my={3}>
+              <Box>
                 <Text variant="body">
                   {review.isDeleted ? '(삭제된 리뷰입니다.)' : review.content}
                 </Text>

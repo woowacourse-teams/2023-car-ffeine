@@ -22,7 +22,7 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
   const { stationId, chargers, reportCount } = station;
 
   return (
-    <Box px={2} py={10} css={stationDetailsViewContainerCss}>
+    <Box css={stationDetailsViewContainerCss}>
       <StationInformation station={station} />
       <StationReportButton station={station} />
 

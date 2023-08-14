@@ -23,12 +23,10 @@ const StationInformation = ({ station }: StationInformationProps) => {
   } = station;
 
   return (
-    <Box p={3}>
-      <Box px={1}>
+    <Box>
+      <Box>
         <Text variant="label">{companyName}</Text>
-        <Box my={1}>
-          <Text variant="title">{stationName}</Text>
-        </Box>
+        <Text variant="title">{stationName}</Text>
         <Text variant="subtitle" mb={1}>
           {address}
         </Text>
