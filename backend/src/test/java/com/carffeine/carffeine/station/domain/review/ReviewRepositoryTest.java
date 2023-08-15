@@ -82,7 +82,7 @@ class ReviewRepositoryTest {
         Station station = 선릉역_충전소_충전기_2개_사용가능_1개;
 
         // when
-        Double averageRatings = reviewRepository.findAverageRatingsByStation(station);
+        Double averageRatings = reviewRepository.findAverageRatingsByStation(station).get();
 
         // then
         assertThat(averageRatings).isEqualTo(2.0);

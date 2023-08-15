@@ -50,12 +50,12 @@ public class FakeReviewRepository implements ReviewRepository {
     }
 
     @Override
-    public Double findAverageRatingsByStation(Station station) {
-        return map.values().stream()
+    public Optional<Double> findAverageRatingsByStation(Station station) {
+        return Optional.of(map.values().stream()
                 .filter(it -> it.getStation().getStationId().equals(station.getStationId()))
                 .mapToDouble(Review::getRatings)
                 .average()
-                .orElse(0.0);
+                .orElse(0.0));
     }
 
     @Override
