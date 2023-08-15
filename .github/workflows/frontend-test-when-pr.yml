@@ -1,0 +1,17 @@
+name: workflow-example
+
+on: pull_request
+
+jobs:
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout PR
+        uses: actions/checkout@master
+      - name: yarn install
+        run: yarn
+      - name: Test
+        uses: skx/github-action-tester@master
+        with:
+          script: yarn test
