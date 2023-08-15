@@ -9,7 +9,7 @@ import type { StationDetails } from '@type';
 
 const queryClient = new QueryClient();
 
-describe('StationReportPreConfirmation', () => {
+describe('StationReportPreConfirmation 테스트', () => {
   const mockStation: StationDetails = {
     address: '',
     chargers: [],
