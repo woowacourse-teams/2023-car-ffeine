@@ -72,7 +72,6 @@ const ReviewCreate = ({ stationId }: ReviewCreateProps) => {
                 content.length > MAX_REVIEW_CONTENT_LENGTH
               }
               variant="contained"
-              color="success"
               fullWidth
               onClick={handleClickReviewCreateButton}
             >
