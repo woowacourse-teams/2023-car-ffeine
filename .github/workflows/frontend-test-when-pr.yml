@@ -1,0 +1,29 @@
+name: frontend-test
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+    paths:
+      - frontend/**
+      - .github/**
+        
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: test-when-pull-request
+    runs-on: ubuntu-latest
+    environment: test
+    defaults:
+      run:
+        working-directory: ./frontend
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: yarn install
+      - name: Test
+        run: yarn test

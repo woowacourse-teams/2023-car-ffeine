@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watch",
+    "test": "jest",
+    "test-auto": "jest --watch",
     "dev": "webpack-dev-server --open --mode development --hot --port 3000",
     "start": "webpack-dev-server --open --mode production --hot --port 3000",
     "build": "webpack --mode production",
