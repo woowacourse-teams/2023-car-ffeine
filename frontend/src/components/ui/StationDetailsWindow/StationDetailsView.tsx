@@ -2,7 +2,6 @@ import { css } from 'styled-components';
 
 import Alert from '@common/Alert';
 import Box from '@common/Box';
-import Text from '@common/Text';
 
 import ChargerList from '@ui/StationDetailsWindow/chargers/ChargerList';
 import ChargerReportButton from '@ui/StationDetailsWindow/reports/charger/ChargerReportButton';
@@ -22,8 +21,10 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
   const { stationId, chargers, reportCount } = station;
 
   return (
-    <Box px={2} py={10} css={stationDetailsViewContainerCss}>
-      <StationInformation station={station} />
+    <Box p={5} css={stationDetailsViewContainerCss}>
+      <Box mt={15}>
+        <StationInformation station={station} />
+      </Box>
       <StationReportButton station={station} />
 
       <ChargerList chargers={chargers} />
@@ -35,12 +36,7 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
         </Box>
       )}
 
-      <Box my={5}>
-        <Text variant="title">충전소 사용통계</Text>
-      </Box>
-      <Box my={3}>
-        <CongestionStatistics />
-      </Box>
+      <CongestionStatistics stationId={stationId} />
       <ReviewPreview stationId={stationId} />
     </Box>
   );

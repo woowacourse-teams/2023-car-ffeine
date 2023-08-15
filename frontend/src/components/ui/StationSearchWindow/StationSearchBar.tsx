@@ -65,7 +65,7 @@ const StationSearchBar = () => {
 
   const showStationDetails = ({ stationId, latitude, longitude }: StationPosition) => {
     googleMap.panTo({ lat: latitude, lng: longitude });
-    googleMap.setZoom(INITIAL_ZOOM_SIZE);
+    googleMap.setZoom(INITIAL_ZOOM_SIZE + 2);
 
     queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
     setSelectedStationId(stationId);

@@ -40,12 +40,7 @@ const ReviewModifyButton = ({
 
   return (
     <FlexBox nowrap justifyContent="end">
-      <ButtonNext
-        size="xs"
-        variant="outlined"
-        color="error"
-        onClick={() => handleClickCloseModifyMode()}
-      >
+      <ButtonNext size="xs" variant="outlined" onClick={() => handleClickCloseModifyMode()}>
         취소
       </ButtonNext>
       <ButtonNext
@@ -56,7 +51,6 @@ const ReviewModifyButton = ({
           content.length > MAX_REVIEW_CONTENT_LENGTH
         }
         variant="contained"
-        color="success"
         onClick={() => handleClickModifyReview()}
       >
         {isModifyReviewLoading ? '처리중...' : '등록'}

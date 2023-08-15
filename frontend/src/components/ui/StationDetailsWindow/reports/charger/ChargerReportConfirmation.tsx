@@ -1,3 +1,5 @@
+import { css } from 'styled-components';
+
 import { modalActions } from '@stores/layout/modalStore';
 
 import { useUpdateStationChargerReport } from '@hooks/tanstack-query/station-details/reports/useUpdateStationChargerReport';
@@ -13,39 +15,36 @@ interface ChargerReportConfirmationProps {
 }
 
 const ChargerReportConfirmation = ({ stationId }: ChargerReportConfirmationProps) => {
-  const { updateStationChargerReport } = useUpdateStationChargerReport();
-  const reportCharger = async () => {
+  const { updateStationChargerReport } = useUpdateStationChargerReport(stationId);
+  const reportCharger = () => {
     updateStationChargerReport(stationId);
   };
 
   return (
-    <Box p={2}>
+    <Box p={4} css={chargerReportConfirmationCss}>
       <Text variant="title" mb={3}>
-        표시된 정보가 실제 충전기 상태와 다를 수 있습니다.
+        충전기가 고장나있다면 신고해주세요.
       </Text>
-      <Alert color="primary" text="충전기가 고장나있다면 신고해주세요." />
+      <Text my={4}> 표시된 정보가 실제 충전기 상태와 다를 수 있습니다.</Text>
       <FlexBox justifyContent="between" nowrap>
         <ButtonNext
           variant="outlined"
-          color="error"
-          size="md"
+          size="sm"
           fullWidth
           onClick={() => modalActions.closeModal()}
         >
-          생각해보니 문제가 없는 것 같아요
+          돌아가기
         </ButtonNext>
-        <ButtonNext
-          variant="contained"
-          color="success"
-          size="md"
-          fullWidth
-          onClick={() => reportCharger()}
-        >
+        <ButtonNext variant="contained" size="sm" fullWidth onClick={() => reportCharger()}>
           제보하기
         </ButtonNext>
       </FlexBox>
     </Box>
   );
 };
+
+const chargerReportConfirmationCss = css`
+  width: 40rem;
+`;
 
 export default ChargerReportConfirmation;

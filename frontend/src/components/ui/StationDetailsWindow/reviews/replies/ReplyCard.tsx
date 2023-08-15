@@ -1,4 +1,5 @@
-import { PencilIcon, TrashIcon } from '@heroicons/react/20/solid';
+import { TrashIcon } from '@heroicons/react/20/solid';
+import { PencilSquareIcon } from '@heroicons/react/24/solid';
 
 import { useState } from 'react';
 
@@ -20,24 +21,32 @@ import type { Reply } from '@type';
 interface ReplyCardProps {
   stationId: string;
   reply: Reply;
+  reviewId: number;
   previewMode: boolean;
 }
 
-const ReplyCard = ({ stationId, reply, previewMode }: ReplyCardProps) => {
+const ReplyCard = ({ stationId, reply, reviewId, previewMode }: ReplyCardProps) => {
   const [isModifyMode, setIsModifyMode] = useState(false);
   const { removeReply, isRemoveReplyLoading } = useRemoveReply(stationId);
   const memberId = memberInfoStore.getState()?.memberId;
   const isReplyOwner = memberId !== reply.memberId;
-  const isEditable = isReplyOwner || reply.isDeleted || !previewMode;
+  const isEditable = (isReplyOwner || reply.isDeleted) && !previewMode;
 
   const handleClickRemoveReplyButton = () => {
     if (confirm('정말로 삭제하시겠습니까?')) {
-      removeReply({ replyId: reply.replyId });
+      removeReply({ replyId: reply.replyId, reviewId });
     }
   };
 
   if (isModifyMode) {
-    return <ReplyModify stationId={stationId} reply={reply} setIsModifyMode={setIsModifyMode} />;
+    return (
+      <ReplyModify
+        stationId={stationId}
+        reply={reply}
+        reviewId={reviewId}
+        setIsModifyMode={setIsModifyMode}
+      />
+    );
   }
 
   return (
@@ -63,7 +72,7 @@ const ReplyCard = ({ stationId, reply, previewMode }: ReplyCardProps) => {
                   color="secondary"
                   onClick={() => setIsModifyMode(true)}
                 >
-                  <PencilIcon width={15} display="inline-block" />
+                  <PencilSquareIcon width={15} display="inline-block" />
                 </ButtonNext>
                 <ButtonNext
                   disabled={isRemoveReplyLoading}
@@ -86,7 +95,6 @@ const ReplyCard = ({ stationId, reply, previewMode }: ReplyCardProps) => {
           </Box>
         </Box>
       </Box>
-      <Box ml={16} mr={6} my={2} css={{ borderBottom: '1px solid #66666666' }} />
     </>
   );
 };

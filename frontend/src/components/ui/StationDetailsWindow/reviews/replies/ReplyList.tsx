@@ -2,6 +2,7 @@ import React from 'react';
 
 import { useInfiniteReplies } from '@hooks/tanstack-query/station-details/reviews/useInfiniteReplies';
 
+import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import Text from '@common/Text';
 
@@ -20,7 +21,7 @@ const ReplyList = ({ stationId, reviewId }: ReplyListProps) => {
   return (
     <>
       {status === 'loading' ? (
-        <ReplyListLoading count={10} />
+        <ReplyListLoading count={5} />
       ) : status === 'error' ? (
         <Text variant="caption" align="center">
           Error: {JSON.stringify(error)}
@@ -35,24 +36,34 @@ const ReplyList = ({ stationId, reviewId }: ReplyListProps) => {
                 </Text>
               )}
               {page.replies.map((reply, index) => (
-                <ReplyCard key={index} stationId={stationId} reply={reply} previewMode={true} />
+                <ReplyCard
+                  key={index}
+                  stationId={stationId}
+                  reply={reply}
+                  reviewId={reviewId}
+                  previewMode={true}
+                />
               ))}
             </div>
           ))}
           {isFetchingNextPage && <ReplyListLoading count={5} />}
-          <ButtonNext
-            size="xs"
-            variant="contained"
-            onClick={() => fetchNextPage()}
-            disabled={!hasNextPage || isFetchingNextPage}
-            fullWidth
-          >
-            {isFetchingNextPage
-              ? '로딩중...'
-              : hasNextPage
-              ? '답글 더 보기'
-              : '더 이상 답글이 없습니다.'}
-          </ButtonNext>
+          <Box pl={8} pr={4} my={3}>
+            <ButtonNext
+              size="xs"
+              py={2}
+              color="secondary"
+              variant="contained"
+              onClick={() => fetchNextPage()}
+              disabled={!hasNextPage || isFetchingNextPage}
+              fullWidth
+            >
+              {isFetchingNextPage
+                ? '로딩중...'
+                : hasNextPage
+                ? '답글 더 보기'
+                : '더 이상 답글이 없습니다.'}
+            </ButtonNext>
+          </Box>
         </>
       )}
     </>

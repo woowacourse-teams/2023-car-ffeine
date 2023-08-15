@@ -1,12 +1,11 @@
-import { PencilIcon, TrashIcon } from '@heroicons/react/20/solid';
-import { StarIcon } from '@heroicons/react/24/solid';
+import { TrashIcon } from '@heroicons/react/20/solid';
+import { PencilSquareIcon, StarIcon } from '@heroicons/react/24/solid';
 
 import { useEffect, useState } from 'react';
 
 import { calculateLatestUpdateTime } from '@utils/index';
 
 import { memberInfoStore } from '@stores/login/memberInfoStore';
-import { memberTokenStore } from '@stores/login/memberTokenStore';
 
 import { useRemoveReview } from '@hooks/tanstack-query/station-details/reviews/useRemoveReview';
 
@@ -34,7 +33,7 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
   const memberId = memberInfoStore.getState()?.memberId;
 
   const isReviewOwner = memberId !== review.memberId;
-  const isEditable = isReviewOwner || review.isDeleted || !previewMode;
+  const isEditable = (isReviewOwner || review.isDeleted) && !previewMode;
 
   const handleClickRemoveReviewButton = () => {
     if (confirm('정말로 삭제하시겠습니까?')) {
@@ -51,22 +50,22 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
       {isModifyMode ? (
         <ReviewModify stationId={stationId} review={review} setIsModifyMode={setIsModifyMode} />
       ) : (
-        <>
-          <Box p={2} mb={4}>
-            <Box p={2}>
+        <Box my={6}>
+          <Box mb={3}>
+            <Box px={2}>
               <FlexBox justifyContent="between">
                 <Box>
                   <Text variant="label" mb={2}>
-                    {memberId}님
+                    {review.memberId}님
                     {!review.isDeleted && (
                       <>
-                        ( <StarIcon width={10} display="inline-block" />
+                        (<StarIcon width={10} display="inline-block" />
                         {review.ratings})
                       </>
                     )}
                   </Text>
 
-                  <Text variant="caption">
+                  <Text variant="caption" mb={3}>
                     {calculateLatestUpdateTime(review.latestUpdateDate)}
                     {review.isDeleted ? '(삭제됨)' : review.isUpdated ? '(수정됨)' : ''}
                   </Text>
@@ -82,7 +81,7 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
                         color="secondary"
                         onClick={() => setIsModifyMode(true)}
                       >
-                        <PencilIcon width={15} display="inline-block" />
+                        <PencilSquareIcon width={15} display="inline-block" />
                       </ButtonNext>
                       <ButtonNext
                         disabled={isRemoveReviewLoading}
@@ -101,20 +100,14 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
                   )}
                 </FlexBox>
               </FlexBox>
-              <Box my={3}>
-                <Text variant="body">
-                  {review.isDeleted ? '(삭제된 리뷰입니다.)' : review.content}
-                </Text>
-              </Box>
+              <Text variant="body" mb={3}>
+                {review.isDeleted ? '(삭제된 리뷰입니다.)' : review.content}
+              </Text>
             </Box>
 
-            <FlexBox justifyContent="between">
-              <ButtonNext size="xs" variant="text" onClick={() => setIsRepliesOpen(!isRepliesOpen)}>
-                {isRepliesOpen
-                  ? `닫기`
-                  : `답글 ${review.replySize > 0 ? review.replySize : '달기'}`}
-              </ButtonNext>
-            </FlexBox>
+            <ButtonNext size="xs" variant="text" onClick={() => setIsRepliesOpen(!isRepliesOpen)}>
+              {isRepliesOpen ? `닫기` : `답글 ${review.replySize > 0 ? review.replySize : '달기'}`}
+            </ButtonNext>
           </Box>
 
           {isRepliesOpen && (
@@ -123,7 +116,7 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
               <ReplyCreate stationId={stationId} reviewId={review.reviewId} />
             </>
           )}
-        </>
+        </Box>
       )}
     </>
   );

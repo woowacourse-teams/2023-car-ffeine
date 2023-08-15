@@ -10,7 +10,7 @@ export interface ChargerListProps {
 
 const ChargerList = ({ chargers }: ChargerListProps) => {
   return (
-    <FlexBox>
+    <FlexBox my={3}>
       {chargers.map((charger, index) => (
         <ChargerCard key={index} charger={charger} />
       ))}

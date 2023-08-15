@@ -22,6 +22,7 @@ const Bar = ({ ratio, hour, align }: BarProps) => {
         {hour}
       </Text>
       <StyledBar ratio={ratio} align={align} />
+      <BackgroundBar ratio={ratio} align={align} />
     </FlexBox>
   );
 };
@@ -41,8 +42,33 @@ const StyledBar = styled.div<Omit<BarProps, 'hour'>>`
 
   text-align: center;
 
-  border-radius: 1rem;
-  background-color: ${({ ratio }) => (ratio === -1 ? '#afafaf' : '#0064ff')};
+  border-top-left-radius: 0.4rem;
+  border-bottom-left-radius: 0.4rem;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  background-color: ${({ ratio }) => (ratio === -1 ? '#afafaf42' : '#0064ff')};
+`;
+
+const BackgroundBar = styled.div<Omit<BarProps, 'hour'>>`
+  ${({ align, ratio }) =>
+    align === 'column'
+      ? `
+        width: ${ratio === -1 ? '0' : `calc(26rem * ${100 - ratio} / 100)`};
+        height: 1.2rem;
+      `
+      : `
+        height: ${ratio === -1 ? '0' : `calc(26rem * ${100 - ratio} / 100)`};
+        width: 1.2rem;
+
+      `}
+
+  text-align: center;
+
+  border-top-left-radius: 0.4rem;
+  border-bottom-left-radius: 0.4rem;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  background-color: #e9edf8;
 `;
 
 const rowAlignCss = css`

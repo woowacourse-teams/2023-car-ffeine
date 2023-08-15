@@ -8,14 +8,11 @@ import Text from '@common/Text';
 const CongestionStatisticsSkeleton = () => {
   return (
     <FlexBox direction="column" gap={4}>
-      <FlexBox nowrap>
-        <Skeleton width="100%" height="2.8rem" />
-        <Skeleton width="100%" height="2.8rem" />
-      </FlexBox>
-      <Box mb={4}>
+      <Skeleton width="16rem" height="2.6rem" mb={1} />
+      <Box mb={2}>
         <FlexBox justifyContent="center">
           {Array.from({ length: 7 }, (_, index) => (
-            <Skeleton key={index} width="4.2rem" height="4.2rem" borderRadius="50%" />
+            <Skeleton key={index} width="3.8rem" height="3.8rem" borderRadius="50%" />
           ))}
         </FlexBox>
       </Box>
@@ -23,9 +20,13 @@ const CongestionStatisticsSkeleton = () => {
         {Array.from({ length: 24 }, (_, index) => (
           <Box key={index} css={graphCss}>
             <Text variant="caption">{index}</Text>
-            <Skeleton width="90%" />
+            <Skeleton width="90%" height="1.2rem" />
           </Box>
         ))}
+      </FlexBox>
+      <FlexBox nowrap>
+        <Skeleton width="100%" height="2.8rem" />
+        <Skeleton width="100%" height="2.8rem" />
       </FlexBox>
     </FlexBox>
   );
