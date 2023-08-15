@@ -16,6 +16,7 @@ import { useSearchedStations } from '@hooks/tanstack-query/useSearchedStations';
 import { useDebounce } from '@hooks/useDebounce';
 
 import Button from '@common/Button';
+import Loader from '@common/Loader';
 
 import StationDetailsWindow from '@ui/StationDetailsWindow';
 import SearchResultSkeleton from '@ui/StationSearchWindow/SearchResultSkeleton';
@@ -91,10 +92,14 @@ const StationSearchBar = () => {
           onBlur={() => setIsFocused(false)}
         />
         <Button type="submit" aria-label="검색하기">
-          <MagnifyingGlassIcon width="2.4rem" stroke="#767676" />
+          {isFetching ? (
+            <Loader size="md" />
+          ) : (
+            <MagnifyingGlassIcon width="2.4rem" stroke="#767676" />
+          )}
         </Button>
       </S.Form>
-      {isFetching && <SearchResultSkeleton />}
+      {/*{isFetching && <SearchResultSkeleton />}*/}
       {isFocused && stations && (
         <SearchResult
           stations={stations}
