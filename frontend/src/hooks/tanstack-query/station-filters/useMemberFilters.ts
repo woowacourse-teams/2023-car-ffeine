@@ -13,17 +13,44 @@ interface MemberFilters {
   selectedFilters: ServerStationFilters;
 }
 
-const fetchMemberFilters = async () => {
+const fetchMemberFilters = async (): Promise<ServerStationFilters> => {
   const mode = serverStore.getState();
   const memberToken = memberTokenStore.getState();
   const memberId = memberInfoStore.getState().memberId;
+
+  if (memberId === undefined || memberToken === '') {
+    return new Promise((resolve) => {
+      resolve({
+        companies: [],
+        capacities: [],
+        connectorTypes: [],
+      });
+    });
+  }
 
   const memberFilters = await fetch(`${SERVERS[mode]}/members/${memberId}/filters`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${memberToken}`,
     },
-  }).then<MemberFilters>((response) => response.json());
+  })
+    .then<MemberFilters>((response) => {
+      console.log(response);
+      if (!response.ok) {
+        throw new Error('유저의 필터 정보를 불러오는데 실패했습니다.');
+      }
+
+      return response.json();
+    })
+    .catch<MemberFilters>(() => {
+      return {
+        selectedFilters: {
+          companies: [],
+          capacities: [],
+          connectorTypes: [],
+        },
+      };
+    });
 
   return memberFilters.selectedFilters;
 };
