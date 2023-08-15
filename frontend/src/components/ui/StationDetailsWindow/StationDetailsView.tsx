@@ -39,12 +39,7 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
         </Box>
       )}
 
-      <Box my={5}>
-        <Text variant="title">충전소 사용통계</Text>
-      </Box>
-      <Box my={3}>
-        <CongestionStatistics />
-      </Box>
+      <CongestionStatistics stationId={stationId} />
       <ReviewPreview stationId={stationId} />
     </Box>
   );

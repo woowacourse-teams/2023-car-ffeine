@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { useStationCongestionStatistics } from '@hooks/tanstack-query/station-details/useStationCongestionStatistics';
 
+import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
@@ -11,9 +12,14 @@ import StatisticsGraph from '@ui/StatisticsGraph';
 
 import type { CHARGING_SPEED } from '@constants/chargers';
 import { ENGLISH_DAYS } from '@constants/congestion';
+import { CongestionStatistics } from '@type';
 
-const CongestionStatistics = () => {
-  const { data: congestionStatistics, isLoading } = useStationCongestionStatistics();
+interface CongestionStatisticsProps {
+  stationId: string;
+}
+
+const CongestionStatistics = ({ stationId }: CongestionStatisticsProps) => {
+  const { data: congestionStatistics, isLoading } = useStationCongestionStatistics(stationId);
   const [chargingSpeed, setChargingSpeed] = useState<keyof typeof CHARGING_SPEED>('standard');
 
   if (isLoading) {
@@ -21,31 +27,36 @@ const CongestionStatistics = () => {
   }
 
   return (
-    <FlexBox direction="column" gap={4}>
-      <FlexBox nowrap>
-        <ButtonNext
-          variant={chargingSpeed === 'quick' ? 'contained' : 'outlined'}
-          size="xs"
-          onClick={() => setChargingSpeed('quick')}
-          fullWidth
-        >
-          급속 충전기 그룹
-        </ButtonNext>
-        <ButtonNext
-          variant={chargingSpeed === 'standard' ? 'contained' : 'outlined'}
-          size="xs"
-          onClick={() => setChargingSpeed('standard')}
-          fullWidth
-        >
-          완속 충전기 그룹
-        </ButtonNext>
+    <Box my={3}>
+      <Text variant='title' my={5}>
+        충전소 사용통계
+      </Text>
+      <FlexBox direction='column' gap={4}>
+        <FlexBox nowrap>
+          <ButtonNext
+            variant={chargingSpeed === 'quick' ? 'contained' : 'outlined'}
+            size='xs'
+            onClick={() => setChargingSpeed('quick')}
+            fullWidth
+          >
+            급속 충전기 그룹
+          </ButtonNext>
+          <ButtonNext
+            variant={chargingSpeed === 'standard' ? 'contained' : 'outlined'}
+            size='xs'
+            onClick={() => setChargingSpeed('standard')}
+            fullWidth
+          >
+            완속 충전기 그룹
+          </ButtonNext>
+        </FlexBox>
+        <StatisticsGraph
+          statistics={congestionStatistics.congestion[chargingSpeed]}
+          menus={[...ENGLISH_DAYS]}
+          align='column'
+        />
       </FlexBox>
-      <StatisticsGraph
-        statistics={congestionStatistics.congestion[chargingSpeed]}
-        menus={[...ENGLISH_DAYS]}
-        align="column"
-      />
-    </FlexBox>
+    </Box>
   );
 };
 
