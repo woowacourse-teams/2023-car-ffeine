@@ -31,6 +31,7 @@ public record StationUpdateRequest(
                 .isPrivate(isPrivate)
                 .operatingTime(operationTime)
                 .stationState(stationState)
+                .privateReason(privateReason)
                 .address(address)
                 .latitude(Latitude.from(latitude))
                 .longitude(Longitude.from(longitude))

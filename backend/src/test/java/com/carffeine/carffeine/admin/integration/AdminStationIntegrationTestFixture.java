@@ -98,7 +98,7 @@ public class AdminStationIntegrationTestFixture {
 
         assertThat(response).usingRecursiveComparison()
                 .ignoringFields("chargers")
-                .ignoringExpectedNullFields()
+                .ignoringFields("stationId")
                 .withEqualsForType((i, i2) -> i.compareTo(i2) == 0, BigDecimal.class)
                 .withEqualsForType(LocalDateTime::isEqual, LocalDateTime.class)
                 .isEqualTo(StationResponse.from(변경할_충전소_정보.toDomain()));
