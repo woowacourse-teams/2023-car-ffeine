@@ -65,7 +65,7 @@ public class ReviewController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("stations/{stationId}/total-ratings")
+    @GetMapping("/stations/{stationId}/total-ratings")
     public ResponseEntity<TotalRatingsResponse> findTotalRatings(
             @PathVariable String stationId) {
         double totalRatings = reviewService.findAverageRatings(stationId);

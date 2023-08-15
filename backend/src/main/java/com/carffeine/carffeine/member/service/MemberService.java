@@ -108,6 +108,6 @@ public class MemberService {
 
     private MemberCar getMemberCar(Member member) {
         return memberCarRepository.findByMember(member)
-                .orElseThrow(() -> null);
+                .orElseGet(() -> new MemberCar(member, null));
     }
 }

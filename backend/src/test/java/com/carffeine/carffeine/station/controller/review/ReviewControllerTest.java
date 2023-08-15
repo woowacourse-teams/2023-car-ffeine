@@ -72,7 +72,7 @@ public class ReviewControllerTest extends MockBeanInjection {
 
         // then
         mockMvc.perform(post("/stations/{stationId}/reviews", station.getStationId())
-                        .header(HttpHeaders.AUTHORIZATION, "token")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(jsonData)

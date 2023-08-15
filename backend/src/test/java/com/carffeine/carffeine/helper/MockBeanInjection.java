@@ -3,7 +3,7 @@ package com.carffeine.carffeine.helper;
 import com.carffeine.carffeine.admin.service.AdminMemberService;
 import com.carffeine.carffeine.admin.service.AdminReportService;
 import com.carffeine.carffeine.admin.service.AdminStationService;
-import com.carffeine.carffeine.auth.controller.AuthMemberResolver;
+import com.carffeine.carffeine.auth.controller.AuthArgumentResolver;
 import com.carffeine.carffeine.auth.domain.TokenProvider;
 import com.carffeine.carffeine.auth.service.AuthService;
 import com.carffeine.carffeine.auth.service.OAuthRequester;
@@ -27,7 +27,7 @@ public class MockBeanInjection {
     @MockBean
     protected ReportService reportService;
     @MockBean
-    protected AuthMemberResolver authMemberResolver;
+    protected AuthArgumentResolver authArgumentResolver;
     @MockBean
     protected TokenProvider tokenProvider;
     @MockBean

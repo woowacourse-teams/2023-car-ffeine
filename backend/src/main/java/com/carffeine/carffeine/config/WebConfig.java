@@ -1,7 +1,7 @@
 package com.carffeine.carffeine.config;
 
+import com.carffeine.carffeine.auth.controller.AuthArgumentResolver;
 import com.carffeine.carffeine.auth.controller.AuthFilter;
-import com.carffeine.carffeine.auth.controller.AuthMemberResolver;
 import com.carffeine.carffeine.web.CorsFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -17,7 +17,7 @@ import java.util.List;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    private final AuthMemberResolver authMemberResolver;
+    private final AuthArgumentResolver authArgumentResolver;
     private final AuthFilter authFilter;
 
     @Bean
@@ -34,13 +34,17 @@ public class WebConfig implements WebMvcConfigurer {
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
         filterRegistrationBean.setFilter(authFilter);
         filterRegistrationBean.setOrder(2);
-        filterRegistrationBean.addUrlPatterns("/stations/{stationId}/reviews");
-        filterRegistrationBean.addUrlPatterns("/reviews/{reviewId}");
+        filterRegistrationBean.addUrlPatterns("/reviews/*");
+        filterRegistrationBean.addUrlPatterns("/admin/*");
+        filterRegistrationBean.addUrlPatterns("/members/*");
+        filterRegistrationBean.addUrlPatterns("/filters/*");
+        filterRegistrationBean.addUrlPatterns("/cars/*");
+        filterRegistrationBean.addUrlPatterns("/stations/*");
         return filterRegistrationBean;
     }
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-        resolvers.add(authMemberResolver);
+        resolvers.add(authArgumentResolver);
     }
 }

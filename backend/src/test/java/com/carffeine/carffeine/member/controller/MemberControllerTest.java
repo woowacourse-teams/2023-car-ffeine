@@ -67,7 +67,7 @@ class MemberControllerTest extends MockBeanInjection {
 
         // then
         mockMvc.perform(get("/members/{memberId}/filters", 1L)
-                        .header(HttpHeaders.AUTHORIZATION, "token")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer token~~")
                 ).andExpect(status().isOk())
                 .andDo(customDocument("find_member_filters",
                                 requestHeaders(headerWithName(HttpHeaders.AUTHORIZATION).description("인증 토큰")),
@@ -105,7 +105,7 @@ class MemberControllerTest extends MockBeanInjection {
 
         // then
         mockMvc.perform(post("/members/{memberId}/filters", 1L)
-                        .header(HttpHeaders.AUTHORIZATION, "token")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer token~~")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(filtersRequest))
                 ).andExpect(status().isOk())
@@ -139,7 +139,7 @@ class MemberControllerTest extends MockBeanInjection {
 
         // then
         mockMvc.perform(get("/members/me")
-                        .header(HttpHeaders.AUTHORIZATION, "token")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer token~~")
                 ).andExpect(status().isOk())
                 .andDo(customDocument("find_member_car",
                                 requestHeaders(headerWithName(HttpHeaders.AUTHORIZATION).description("인증 토큰")),
@@ -164,7 +164,7 @@ class MemberControllerTest extends MockBeanInjection {
 
         // then
         mockMvc.perform(post("/members/{memberId}/cars", 1L)
-                        .header(HttpHeaders.AUTHORIZATION, "token")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer token~~")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(carRequest))
                 ).andExpect(status().isCreated())

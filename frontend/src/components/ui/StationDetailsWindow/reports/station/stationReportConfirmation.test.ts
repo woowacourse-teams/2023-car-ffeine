@@ -1,4 +1,9 @@
+import { render } from '@testing-library/react';
+
+import { QueryClientProvider } from '@tanstack/react-query';
+
 import type { Differences } from '@ui/StationDetailsWindow/reports/station/StationReportConfirmation';
+import StationReportConfirmation from '@ui/StationDetailsWindow/reports/station/StationReportConfirmation';
 import { findDifferentKeys } from '@ui/StationDetailsWindow/reports/station/domain';
 
 describe('findDifferentKeys()를 테스트한다.', () => {

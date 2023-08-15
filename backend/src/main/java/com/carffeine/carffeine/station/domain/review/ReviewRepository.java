@@ -20,5 +20,5 @@ public interface ReviewRepository extends Repository<Review, Long> {
     Long countByStation(Station station);
 
     @Query("SELECT AVG(r.ratings) FROM Review r WHERE r.station = :station")
-    Double findAverageRatingsByStation(@Param("station") Station station);
+    Optional<Double> findAverageRatingsByStation(@Param("station") Station station);
 }
