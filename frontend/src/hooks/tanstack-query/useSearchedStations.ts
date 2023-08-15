@@ -43,5 +43,6 @@ export const useSearchedStations = () => {
     queryKey: [QUERY_KEY_SEARCHED_STATION, searchWord],
     queryFn: () => fetchSearchedStations(searchWord),
     enabled: !!searchWord,
+    keepPreviousData: true,
   });
 };
