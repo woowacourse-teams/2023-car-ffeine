@@ -71,4 +71,36 @@ class ReviewRepositoryTest {
             softly.assertThat(foundReviews.getTotalElements()).isEqualTo(13);
         });
     }
+
+    @Test
+    void 평균_별점을_구한다() {
+        // given
+        Member member = memberRepository.save(일반_회원);
+        for (Review review : 리뷰_13개(member)) {
+            reviewRepository.save(review);
+        }
+        Station station = 선릉역_충전소_충전기_2개_사용가능_1개;
+
+        // when
+        Double averageRatings = reviewRepository.findAverageRatingsByStation(station);
+
+        // then
+        assertThat(averageRatings).isEqualTo(2.0);
+    }
+
+    @Test
+    void 리뷰의_총_개수를_구한다() {
+        // given
+        Member member = memberRepository.save(일반_회원);
+        for (Review review : 리뷰_13개(member)) {
+            reviewRepository.save(review);
+        }
+        Station station = 선릉역_충전소_충전기_2개_사용가능_1개;
+
+        // when
+        long count = reviewRepository.countByStation(station);
+
+        // then
+        assertThat(count).isEqualTo(13);
+    }
 }

@@ -7,12 +7,12 @@ import com.carffeine.carffeine.member.domain.MemberRepository;
 import com.carffeine.carffeine.member.exception.MemberException;
 import com.carffeine.carffeine.member.exception.MemberExceptionType;
 import com.carffeine.carffeine.station.controller.review.dto.ReviewResponses;
+import com.carffeine.carffeine.station.controller.review.dto.TotalRatingsResponse;
 import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.domain.review.ReviewRepository;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.domain.station.StationRepository;
 import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;
-import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -33,6 +33,9 @@ import static com.carffeine.carffeine.station.integration.review.ReviewIntegrati
 import static com.carffeine.carffeine.station.integration.review.ReviewIntegrationTestFixture.댓글을_삭제한다;
 import static com.carffeine.carffeine.station.integration.review.ReviewIntegrationTestFixture.댓글을_수정한다;
 import static com.carffeine.carffeine.station.integration.review.ReviewIntegrationTestFixture.댓글을_조회한다;
+import static com.carffeine.carffeine.station.integration.review.ReviewIntegrationTestFixture.통합_별점을_조회한다;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.SoftAssertions.assertSoftly;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 import static org.springframework.http.HttpStatus.OK;
@@ -91,7 +94,7 @@ public class ReviewIntegrationTest extends IntegrationTest {
             var 최근_댓글 = 응답.reviews().get(0);
 
             // then
-            SoftAssertions.assertSoftly(softly -> {
+            assertSoftly(softly -> {
                 상태_코드를_검증한다(등록_응답, NO_CONTENT);
                 값이_같은지_비교한다(최근_댓글.ratings(), 요청.ratings());
                 값이_같은지_비교한다(최근_댓글.content(), 요청.content());
@@ -125,7 +128,7 @@ public class ReviewIntegrationTest extends IntegrationTest {
                     .orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND));
 
             // then
-            SoftAssertions.assertSoftly(softly -> {
+            assertSoftly(softly -> {
                 상태_코드를_검증한다(수정_응답, NO_CONTENT);
                 값이_같은지_비교한다(해당_댓글.ratings(), 수정_요청_1개.ratings());
                 값이_같은지_비교한다(해당_댓글.content(), 수정_요청_1개.content());
@@ -170,6 +173,25 @@ public class ReviewIntegrationTest extends IntegrationTest {
 
             // then
             상태_코드를_검증한다(삭제_응답, NOT_FOUND);
+        }
+    }
+
+    @Nested
+    class 충전소의_통합_별점을_조회할_때 {
+
+        @Test
+        void 정상_응답한다() {
+            // when
+            댓글을_등록한다(요청, 토큰, 충전소);
+            var 통합_별점_조회_응답 = 통합_별점을_조회한다(충전소);
+            var 응답 = 통합_별점_조회_응답.as(TotalRatingsResponse.class);
+
+            // then
+            assertSoftly(softly -> {
+                상태_코드를_검증한다(통합_별점_조회_응답, OK);
+                assertThat(응답.totalRatings()).isEqualTo(4.0);
+                assertThat(응답.totalCount()).isEqualTo(2);
+            });
         }
     }
 }

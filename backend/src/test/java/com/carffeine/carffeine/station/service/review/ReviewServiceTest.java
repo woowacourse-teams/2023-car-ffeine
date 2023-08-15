@@ -180,4 +180,38 @@ class ReviewServiceTest {
             softly.assertThat(updatedReview.getContent()).isEqualTo(updateRequest.content());
         });
     }
+
+    @Test
+    void 평균_별점을_구할_수_있다() {
+        // given
+        CreateReviewRequest request1 = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
+        CreateReviewRequest request2 = new CreateReviewRequest(5, "빠르게 덕분에 충전했습니다");
+        Station station = stationRepository.save(선릉역_충전소_충전기_2개_사용가능_1개);
+        Member member = memberRepository.save(일반_회원);
+        reviewService.saveReview(request1, station.getStationId(), member.getId());
+        reviewService.saveReview(request2, station.getStationId(), member.getId());
+
+        // when
+        double averageRatings = reviewService.findAverageRatings(station.getStationId());
+
+        // then
+        assertThat(averageRatings).isEqualTo(4.5);
+    }
+
+    @Test
+    void 총_리뷰_개수를_구할_수_있다() {
+        // given
+        CreateReviewRequest request1 = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
+        CreateReviewRequest request2 = new CreateReviewRequest(5, "빠르게 덕분에 충전했습니다");
+        Station station = stationRepository.save(선릉역_충전소_충전기_2개_사용가능_1개);
+        Member member = memberRepository.save(일반_회원);
+        reviewService.saveReview(request1, station.getStationId(), member.getId());
+        reviewService.saveReview(request2, station.getStationId(), member.getId());
+
+        // when
+        long totalCount = reviewService.findTotalCount(station.getStationId());
+
+        // then
+        assertThat(totalCount).isEqualTo(2);
+    }
 }

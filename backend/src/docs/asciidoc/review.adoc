@@ -48,3 +48,14 @@ include::{snippets}/review-controller-test/delete-review/request-fields.adoc[]
 === Response
 
 include::{snippets}/review-controller-test/delete-review/http-response.adoc[]
+
+== 충전소의 통합 별점을 구한다 (/stations/{stationId}/total-ratings)
+
+=== Request
+
+include::{snippets}/review-controller-test/find-total-ratings/http-request.adoc[]
+
+== Response
+
+include::{snippets}/review-controller-test/find-total-ratings/http-response.adoc[]
+include::{snippets}/review-controller-test/find-total-ratings/response-fields.adoc[]

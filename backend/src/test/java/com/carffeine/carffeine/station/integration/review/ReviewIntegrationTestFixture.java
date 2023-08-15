@@ -59,4 +59,11 @@ public class ReviewIntegrationTestFixture {
                 .then().log().all()
                 .extract();
     }
+
+    public static ExtractableResponse<Response> 통합_별점을_조회한다(Station station) {
+        return RestAssured.given().log().all()
+                .get("/stations/{stationId}/total-ratings", station.getStationId())
+                .then().log().all()
+                .extract();
+    }
 }

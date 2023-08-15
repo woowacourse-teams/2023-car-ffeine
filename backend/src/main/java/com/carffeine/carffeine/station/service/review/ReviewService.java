@@ -93,4 +93,14 @@ public class ReviewService {
         return reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new ReviewException(REVIEW_NOT_FOUND));
     }
+
+    public double findAverageRatings(String stationId) {
+        Station station = findStation(stationId);
+        return reviewRepository.findAverageRatingsByStation(station);
+    }
+
+    public long findTotalCount(String stationId) {
+        Station station = findStation(stationId);
+        return reviewRepository.countByStation(station);
+    }
 }
