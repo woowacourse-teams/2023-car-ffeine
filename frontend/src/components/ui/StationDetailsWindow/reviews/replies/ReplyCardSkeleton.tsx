@@ -11,7 +11,6 @@ const ReplyCardSkeleton = () => {
           <Skeleton width="100%" height="1.2rem" mb={2} />
         </Box>
       </Box>
-      <Box ml={16} mr={6} my={2} css={{ borderBottom: '1px solid #66666666' }} />
     </>
   );
 };

@@ -1,4 +1,5 @@
 import { modalActions } from '@stores/layout/modalStore';
+import { memberTokenStore } from '@stores/login/memberTokenStore';
 
 import { useStationChargerReport } from '@hooks/tanstack-query/station-details/reports/useStationChargerReport';
 
@@ -15,9 +16,11 @@ interface ChargerReportButtonProps {
 const ChargerReportButton = ({ stationId }: ChargerReportButtonProps) => {
   const { data: isStationChargerReported, isLoading: isStationChargerReportedLoading } =
     useStationChargerReport(stationId);
+  const memberToken = memberTokenStore.getState();
+
   return (
     <>
-      <Box my={3}>
+      <Box my={5}>
         {isStationChargerReportedLoading ? (
           <Skeleton height="3rem" />
         ) : (
@@ -25,9 +28,13 @@ const ChargerReportButton = ({ stationId }: ChargerReportButtonProps) => {
             fullWidth
             variant="outlined"
             size="sm"
-            color="dark"
+            color="secondary"
             onClick={() => {
-              modalActions.openModal(<ChargerReportConfirmation stationId={stationId} />);
+              if (memberToken === '') {
+                alert('로그인이 필요한 메뉴입니다.');
+              } else {
+                modalActions.openModal(<ChargerReportConfirmation stationId={stationId} />);
+              }
             }}
             disabled={isStationChargerReported}
           >

@@ -7,10 +7,10 @@ import { SESSION_KEY_REPORTED_STATIONS } from '@constants/storageKeys';
 
 export const stationReportHandlers = [
   rest.post(`${SERVERS.localhost}/stations/:stationId/reports`, (req, res, ctx) => {
-    const stationId = Number(req.params.stationId);
-    const prevReportedStations = getSessionStorage<number[]>(SESSION_KEY_REPORTED_STATIONS, []);
+    const stationId = req.params.stationId as string;
+    const prevReportedStations = getSessionStorage<string[]>(SESSION_KEY_REPORTED_STATIONS, []);
 
-    setSessionStorage<number[]>(SESSION_KEY_REPORTED_STATIONS, [
+    setSessionStorage<string[]>(SESSION_KEY_REPORTED_STATIONS, [
       ...new Set([...prevReportedStations, stationId]),
     ]);
 
@@ -19,8 +19,8 @@ export const stationReportHandlers = [
 
   rest.get(`${SERVERS.localhost}/stations/:stationId/reports/me`, (req, res, ctx) => {
     console.log(req.headers.get('Authorization')); // TODO: 이후에 비로그인 기능도 구현할 때 활용해야함
-    const stationId = Number(req.params.stationId);
-    const reportedStations = getSessionStorage<number[]>(SESSION_KEY_REPORTED_STATIONS, []);
+    const stationId = req.params.stationId as string;
+    const reportedStations = getSessionStorage<string[]>(SESSION_KEY_REPORTED_STATIONS, []);
 
     return res(
       ctx.delay(200),

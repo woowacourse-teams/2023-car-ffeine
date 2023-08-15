@@ -1,10 +1,6 @@
 import { useState } from 'react';
 
-import { useModifyReview } from '@hooks/tanstack-query/station-details/reviews/useModifyReview';
-
 import Box from '@common/Box';
-import ButtonNext from '@common/ButtonNext';
-import FlexBox from '@common/FlexBox';
 
 import ContentField from '@ui/StationDetailsWindow/reviews/common/ContentField';
 import HeaderWithRating from '@ui/StationDetailsWindow/reviews/common/HeaderWithRating';

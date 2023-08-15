@@ -1,3 +1,5 @@
+import { css } from 'styled-components';
+
 import type { ChangeEvent } from 'react';
 import { useState } from 'react';
 
@@ -77,12 +79,14 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
   const handleCloseModalButton = () => modalActions.closeModal();
 
   return (
-    <Box p={2}>
-      <Text variant="title" mb={3}>
+    <Box p={4} css={stationReportConfirmationCss}>
+      <Text variant="title" mb={6}>
         개선할 충전소 정보가 있나요?
       </Text>
-      <Text variant="subtitle">변경사항 미리보기</Text>
-      <Box border mt={2} mb={3}>
+      <Text variant="subtitle" mb={2}>
+        변경사항 미리보기
+      </Text>
+      <Box border p={4}>
         <StationInformation station={{ chargers: [], ...form }} />
       </Box>
       <TextField
@@ -158,20 +162,13 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
       />
 
       <FlexBox justifyContent="between" nowrap>
-        <ButtonNext
-          variant="outlined"
-          color="error"
-          size="md"
-          fullWidth
-          onClick={handleCloseModalButton}
-        >
-          저장하지 않고 닫을래요
+        <ButtonNext variant="outlined" size="md" fullWidth onClick={handleCloseModalButton}>
+          돌아가기
         </ButtonNext>
         {isFormValid ? (
           <ButtonNext
             disabled={isLoading}
             variant="contained"
-            color="success"
             size="md"
             fullWidth
             onClick={reportCharger}
@@ -187,5 +184,9 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
     </Box>
   );
 };
+
+const stationReportConfirmationCss = css`
+  width: 40rem;
+`;
 
 export default StationReportConfirmation;

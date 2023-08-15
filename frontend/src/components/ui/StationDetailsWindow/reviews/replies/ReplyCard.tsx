@@ -1,4 +1,5 @@
-import { PencilIcon, TrashIcon } from '@heroicons/react/20/solid';
+import { TrashIcon } from '@heroicons/react/20/solid';
+import { PencilSquareIcon } from '@heroicons/react/24/solid';
 
 import { useState } from 'react';
 
@@ -28,7 +29,7 @@ const ReplyCard = ({ stationId, reply, previewMode }: ReplyCardProps) => {
   const { removeReply, isRemoveReplyLoading } = useRemoveReply(stationId);
   const memberId = memberInfoStore.getState()?.memberId;
   const isReplyOwner = memberId !== reply.memberId;
-  const isEditable = isReplyOwner || reply.isDeleted || !previewMode;
+  const isEditable = (isReplyOwner || reply.isDeleted) && !previewMode;
 
   const handleClickRemoveReplyButton = () => {
     if (confirm('정말로 삭제하시겠습니까?')) {
@@ -63,7 +64,7 @@ const ReplyCard = ({ stationId, reply, previewMode }: ReplyCardProps) => {
                   color="secondary"
                   onClick={() => setIsModifyMode(true)}
                 >
-                  <PencilIcon width={15} display="inline-block" />
+                  <PencilSquareIcon width={15} display="inline-block" />
                 </ButtonNext>
                 <ButtonNext
                   disabled={isRemoveReplyLoading}
@@ -86,7 +87,6 @@ const ReplyCard = ({ stationId, reply, previewMode }: ReplyCardProps) => {
           </Box>
         </Box>
       </Box>
-      <Box ml={16} mr={6} my={2} css={{ borderBottom: '1px solid #66666666' }} />
     </>
   );
 };

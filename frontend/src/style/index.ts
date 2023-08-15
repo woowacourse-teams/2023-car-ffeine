@@ -33,7 +33,7 @@ export const getColor = (color?: Color) => {
     case 'primary':
       return '#0d6efd';
     case 'secondary':
-      return '#1a1d21';
+      return '#212529BF';
     case 'success':
       return '#198754';
     case 'error':
@@ -56,7 +56,7 @@ export const getHoverColor = (color?: Color) => {
     case 'primary':
       return '#0b5ed7';
     case 'secondary':
-      return '#1a1d21';
+      return '#495057';
     case 'success':
       return '#147a3d';
     case 'error':

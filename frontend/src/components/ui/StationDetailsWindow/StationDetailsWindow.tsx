@@ -1,3 +1,5 @@
+import { css } from 'styled-components';
+
 import { useStationDetails } from '@hooks/tanstack-query/station-details/useStationDetails';
 
 import Box from '@common/Box';
@@ -21,33 +23,24 @@ const StationDetailsWindow = () => {
 
   if (isSelectedStationError || isSelectedStationLoading) {
     return (
-      <Box
-        css={{
-          width: '34rem',
-          height: '100vh',
-          zIndex: '999',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
+      <Box css={stationDetailsWindowCss}>
         <StationDetailsViewSkeleton />
       </Box>
     );
   }
 
   return (
-    <Box
-      css={{
-        width: '34rem',
-        height: '100vh',
-        zIndex: '999',
-        overflow: 'scroll',
-      }}
-    >
+    <Box css={stationDetailsWindowCss}>
       <StationDetailsView station={selectedStation} />
     </Box>
   );
 };
+
+const stationDetailsWindowCss = css`
+  width: 34rem;
+  height: 100vh;
+  z-index: 999;
+  overflow: scroll;
+`;
 
 export default StationDetailsWindow;

@@ -3,11 +3,14 @@ import styled, { css } from 'styled-components';
 
 import { type ReactNode, type MouseEventHandler, forwardRef } from 'react';
 
+import type { SpacingProps } from '@common/systems';
+import { spacing } from '@common/systems';
+
 import { getColor, getHoverColor } from '@style';
 
 import type { Color, Size } from '@type/style';
 
-export interface ButtonNextProps {
+export interface ButtonNextProps extends SpacingProps {
   noTheme?: boolean;
   variant?: 'text' | 'outlined' | 'contained';
   size?: Size;
@@ -30,10 +33,11 @@ const ButtonNext = ({ children, noTheme, ...props }: ButtonNextProps) => {
 
 const S = {
   Button: styled.button<ButtonNextProps>`
+    margin: 1px;
+
     border-radius: 6px;
     ${({ pill }) => pill && 'border-radius: 20px;'}
 
-    margin: 1px;
     ${({ fullWidth }) => fullWidth && 'width: 100%;'}
     ${({ disabled }) => disabled && `cursor: unset;`}
     ${({ variant, color, disabled }) => {
@@ -109,6 +113,8 @@ const S = {
           return '18px';
       }
     }};
+
+    ${spacing};
 
     ${({ css }) => css};
   `,

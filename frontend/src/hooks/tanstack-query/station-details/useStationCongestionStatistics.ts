@@ -1,9 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { useExternalValue } from '@utils/external-state';
-
 import { serverStore } from '@stores/config/serverStore';
-import { selectedStationIdStore } from '@stores/selectedStationStore';
 
 import { SERVERS } from '@constants';
 import { ERROR_MESSAGES } from '@constants/errorMessages';
@@ -29,12 +26,11 @@ export const fetchStationDetails = async (selectedStationId: string) => {
   return stationDetails;
 };
 
-export const useStationCongestionStatistics = () => {
-  const selectedStationId = useExternalValue(selectedStationIdStore);
-
+export const useStationCongestionStatistics = (stationId: string) => {
   return useQuery({
-    queryKey: [QUERY_KEY_STATION_CONGESTION_STATISTICS, selectedStationId],
-    queryFn: () => fetchStationDetails(selectedStationId),
-    enabled: !!selectedStationId,
+    queryKey: [QUERY_KEY_STATION_CONGESTION_STATISTICS, stationId],
+    queryFn: () => fetchStationDetails(stationId),
+    enabled: !!stationId,
+    refetchOnWindowFocus: false,
   });
 };

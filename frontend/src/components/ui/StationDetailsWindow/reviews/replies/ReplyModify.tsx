@@ -31,15 +31,9 @@ const ReplyModify = ({ stationId, reply, setIsModifyMode }: ReplyModifyProps) =>
   return (
     <>
       <Box mt={2} ml={8} mr={4} p={2} border>
-        <Text variant="subtitle">답글 수정하기</Text>
         <ContentField content={content} setContent={setContent} />
         <FlexBox justifyContent="end">
-          <ButtonNext
-            size="xs"
-            variant="outlined"
-            color="error"
-            onClick={() => setIsModifyMode(false)}
-          >
+          <ButtonNext size="xs" variant="outlined" onClick={() => setIsModifyMode(false)}>
             닫기
           </ButtonNext>
           <ButtonNext

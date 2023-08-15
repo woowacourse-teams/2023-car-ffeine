@@ -1,6 +1,6 @@
 import { modalActions } from '@stores/layout/modalStore';
+import { memberTokenStore } from '@stores/login/memberTokenStore';
 
-import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 
 import StationReportPreConfirmation from '@ui/StationDetailsWindow/reports/station/StationReportPreConfirmation';
@@ -12,20 +12,25 @@ interface StationReportButtonProps {
 }
 
 const StationReportButton = ({ station }: StationReportButtonProps) => {
+  const memberToken = memberTokenStore.getState();
+
   return (
-    <Box my={2}>
-      <ButtonNext
-        fullWidth
-        variant="outlined"
-        size="sm"
-        color="dark"
-        onClick={() => {
+    <ButtonNext
+      fullWidth
+      variant="outlined"
+      size="sm"
+      color="secondary"
+      my={3}
+      onClick={() => {
+        if (memberToken === '') {
+          alert('로그인이 필요한 메뉴입니다.');
+        } else {
           modalActions.openModal(<StationReportPreConfirmation station={station} />);
-        }}
-      >
-        📝 충전소 정보 수정 제안하기
-      </ButtonNext>
-    </Box>
+        }
+      }}
+    >
+      📝 충전소 정보 수정 제안하기
+    </ButtonNext>
   );
 };
 
