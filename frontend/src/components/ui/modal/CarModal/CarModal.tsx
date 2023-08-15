@@ -2,11 +2,8 @@ import { useState } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 
-import { serverStore } from '@stores/config/serverStore';
 import { modalActions } from '@stores/layout/modalStore';
 import { toastActions } from '@stores/layout/toastStore';
-import { memberInfoStore } from '@stores/login/memberInfoStore';
-import { memberTokenStore } from '@stores/login/memberTokenStore';
 import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
 
 import { useCars } from '@hooks/tanstack-query/car/useCars';
@@ -17,11 +14,7 @@ import Text from '@common/Text';
 
 import LogoIcon from '@ui/Svg/LogoIcon';
 
-import { SERVERS } from '@constants';
 import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
-
-import type { StationFilters } from '@type';
-import type { Car } from '@type/cars';
 
 import { getCarFilters, submitMemberCar, submitMemberFilters } from './fetch';
 
@@ -80,20 +73,30 @@ const CarModal = () => {
   const carNames = [...new Set([...(cars ?? []).map((car) => car.name)])];
 
   return (
-    <FlexBox direction="column" alignItems="center">
-      <FlexBox>
-        <SelectBox options={['모델명', ...carNames]} onChange={handleSelectCarName} />
-        <SelectBox
-          options={[
-            '연식',
-            ...cars
-              .filter((car) => car.name === (carName !== '' ? carName : carNames[0]))
-              .map((car) => car.vintage),
-          ]}
-          onChange={handleSelectVintage}
-        />
+    <FlexBox width={34} direction="column" alignItems="center" css={{ padding: '1rem' }}>
+      <Text variant="h5" mb={3}>
+        차량 선택
+      </Text>
+      <FlexBox width="100%">
+        <FlexBox css={{ flex: 1, height: '4rem' }}>
+          <SelectBox options={['모델명', ...carNames]} onChange={handleSelectCarName} />
+        </FlexBox>
+        <FlexBox css={{ flex: 1, height: '4rem' }}>
+          <SelectBox
+            options={[
+              '연식',
+              ...cars
+                .filter((car) => car.name === (carName !== '' ? carName : carNames[0]))
+                .map((car) => car.vintage),
+            ]}
+            onChange={handleSelectVintage}
+          />
+        </FlexBox>
       </FlexBox>
-      <FlexBox>
+      <FlexBox width="100%">
+        <ButtonNext onClick={modalActions.closeModal} variant="outlined" css={{ flex: 1 }}>
+          취소
+        </ButtonNext>
         <ButtonNext
           onClick={() => {
             try {
@@ -103,13 +106,10 @@ const CarModal = () => {
               toastActions.showToast(error.message, 'error');
             }
           }}
-          variant="outlined"
-          color="success"
+          variant="contained"
+          css={{ flex: 1 }}
         >
           등록
-        </ButtonNext>
-        <ButtonNext onClick={modalActions.closeModal} variant="outlined" color="error">
-          취소
         </ButtonNext>
       </FlexBox>
     </FlexBox>
@@ -127,6 +127,9 @@ const SelectBox = ({
     <select
       onChange={(e) => {
         onChange(e.target.value);
+      }}
+      style={{
+        flex: 1,
       }}
     >
       {options.map((option, i) => (
