@@ -85,7 +85,7 @@ const ReviewCreate = ({ stationId }: ReviewCreateProps) => {
               닫기
             </ButtonNext>
             <ButtonNext variant="contained" fullWidth onClick={handleClickReviewCreateOpenButton}>
-              리뷰 작성하기
+              후기 작성하기
             </ButtonNext>
           </>
         )}

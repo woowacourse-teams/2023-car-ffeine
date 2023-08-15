@@ -23,9 +23,9 @@ const ChargerReportConfirmation = ({ stationId }: ChargerReportConfirmationProps
   return (
     <Box p={4} css={chargerReportConfirmationCss}>
       <Text variant="title" mb={3}>
-        표시된 정보가 실제 충전기 상태와 다를 수 있습니다.
+        충전기가 고장나있다면 신고해주세요.
       </Text>
-      <Text my={4}>충전기가 고장나있다면 신고해주세요.</Text>
+      <Text my={4}> 표시된 정보가 실제 충전기 상태와 다를 수 있습니다.</Text>
       <FlexBox justifyContent="between" nowrap>
         <ButtonNext
           variant="outlined"
