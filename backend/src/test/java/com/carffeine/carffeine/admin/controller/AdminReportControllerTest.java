@@ -53,7 +53,7 @@ public class AdminReportControllerTest extends MockBeanInjection {
         mockMvc.perform(get("/admin/misinformation-reports")
                         .param("page", "0")
                         .param("size", "2")
-                        .header(HttpHeaders.AUTHORIZATION, "token~~"))
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer token~~"))
                 .andExpect(status().isOk())
                 .andDo(customDocument("get-misinformation-reports",
                         requestParameters(
@@ -80,7 +80,7 @@ public class AdminReportControllerTest extends MockBeanInjection {
 
         // when & then
         mockMvc.perform(get("/admin/misinformation-reports/{misinformationId}", 123L)
-                        .header(HttpHeaders.AUTHORIZATION, "token~~"))
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer token~~"))
                 .andExpect(status().isOk())
                 .andDo(customDocument("get-misinformation-detail",
                         pathParameters(parameterWithName("misinformationId").description("제보 ID")),
@@ -102,7 +102,7 @@ public class AdminReportControllerTest extends MockBeanInjection {
     @Test
     void 충전소_제보_확인으로_변경한다() throws Exception {
         mockMvc.perform(patch("/admin/misinformation-reports/{misinformationId}", 123L)
-                        .header(HttpHeaders.AUTHORIZATION, "token~~"))
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer token~~"))
                 .andExpect(status().isNoContent())
                 .andDo(customDocument("update-misinformation-checked",
                         pathParameters(parameterWithName("misinformationId").description("미스인포메이션 리포트 ID")),
@@ -124,7 +124,7 @@ public class AdminReportControllerTest extends MockBeanInjection {
         mockMvc.perform(get("/admin/fault-reports")
                         .param("page", "0")
                         .param("size", "2")
-                        .header(HttpHeaders.AUTHORIZATION, "token~~"))
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer token~~"))
                 .andExpect(status().isOk())
                 .andDo(customDocument("get-fault-reports",
                         requestParameters(

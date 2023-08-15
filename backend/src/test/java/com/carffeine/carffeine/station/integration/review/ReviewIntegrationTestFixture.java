@@ -6,6 +6,7 @@ import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 
 import java.util.HashMap;
@@ -16,7 +17,7 @@ public class ReviewIntegrationTestFixture {
 
     public static ExtractableResponse<Response> 댓글을_등록한다(CreateReviewRequest request, String token, Station station) {
         return RestAssured.given().log().all()
-                .header("Authorization", "Bearer " + token)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                 .body(getParams(request))
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when()

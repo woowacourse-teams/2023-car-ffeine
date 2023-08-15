@@ -60,7 +60,7 @@ public class AdminMemberControllerTest extends MockBeanInjection {
         mockMvc.perform(get("/admin/members")
                         .param("page", "0")
                         .param("size", "2")
-                        .header(HttpHeaders.AUTHORIZATION, "token~~"))
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer token~~"))
                 .andExpect(status().isOk())
                 .andDo(customDocument("get-members",
                         requestParameters(
@@ -80,7 +80,7 @@ public class AdminMemberControllerTest extends MockBeanInjection {
     }
 
     @Test
-    void testUpdateRole() throws Exception {
+    void 회원_권한을_수정한다() throws Exception {
         // given
         MemberRoleUpdateRequest updateRequest = new MemberRoleUpdateRequest("admin");
 
@@ -88,7 +88,7 @@ public class AdminMemberControllerTest extends MockBeanInjection {
         mockMvc.perform(patch("/admin/members/{memberId}", 123L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(updateRequest))
-                        .header(HttpHeaders.AUTHORIZATION, "token~~"))
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer token~~"))
                 .andExpect(status().isNoContent())
                 .andDo(customDocument("update-member-role",
                         pathParameters(parameterWithName("memberId").description("멤버 ID")),

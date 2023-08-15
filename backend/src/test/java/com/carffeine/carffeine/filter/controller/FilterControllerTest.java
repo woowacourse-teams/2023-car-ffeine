@@ -97,7 +97,7 @@ public class FilterControllerTest extends MockBeanInjection {
 
         // then
         mockMvc.perform(post("/filters")
-                        .header(HttpHeaders.AUTHORIZATION, "token")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer token~~")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(filtersRequest))
                 ).andExpect(status().isCreated())
@@ -123,7 +123,7 @@ public class FilterControllerTest extends MockBeanInjection {
     void 필터를_제거한다() throws Exception {
         // then
         mockMvc.perform(RestDocumentationRequestBuilders.delete("/filters/{filterName}", "filterName")
-                        .header(HttpHeaders.AUTHORIZATION, "token"))
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer token~~"))
                 .andExpect(status().isNoContent())
                 .andDo(customDocument("delete_filter",
                         requestHeaders(headerWithName(HttpHeaders.AUTHORIZATION).description("인증 토큰")),

@@ -29,7 +29,8 @@ public class AuthFilter extends OncePerRequestFilter {
         String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
 
         if (authorization == null) {
-            sendUnauthorizedError(response, "토큰이 존재하지 않습니다");
+            request.setAttribute("loginMember", -1L);
+            filterChain.doFilter(request, response);
             return;
         }
 
@@ -39,7 +40,8 @@ public class AuthFilter extends OncePerRequestFilter {
         }
 
         String token = authorization.substring(BEARER_PREFIX.length());
-        tokenProvider.validate(token);
+        Long memberId = tokenProvider.extract(token);
+        request.setAttribute("loginMember", memberId);
         filterChain.doFilter(request, response);
     }
 
