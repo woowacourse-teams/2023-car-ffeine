@@ -65,7 +65,6 @@ const ReplyCreate = ({ stationId, reviewId }: ReplyCreateProps) => {
               </ButtonNext>
             </FlexBox>
           </Box>
-          <Box ml={16} mr={6} my={2} css={{ borderBottom: '1px solid #66666666' }} />
         </>
       )}
     </>

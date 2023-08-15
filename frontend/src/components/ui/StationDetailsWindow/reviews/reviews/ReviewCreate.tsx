@@ -63,7 +63,7 @@ const ReviewCreate = ({ stationId }: ReviewCreateProps) => {
               fullWidth
               onClick={handleClickReviewCreateOpenButton}
             >
-              리뷰 그만작성하기
+              후기 그만작성하기
             </ButtonNext>
             <ButtonNext
               disabled={

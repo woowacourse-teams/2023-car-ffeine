@@ -41,7 +41,7 @@ const ReplyList = ({ stationId, reviewId }: ReplyListProps) => {
             </div>
           ))}
           {isFetchingNextPage && <ReplyListLoading count={5} />}
-          <Box pl={8} pr={4}>
+          <Box pl={8} pr={4} my={3}>
             <ButtonNext
               size="xs"
               py={2}

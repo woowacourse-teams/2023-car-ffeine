@@ -55,7 +55,7 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
             <Box px={2}>
               <FlexBox justifyContent="between">
                 <Box>
-                  <Text variant="label" mb={1}>
+                  <Text variant="label" mb={2}>
                     {review.memberId}님
                     {!review.isDeleted && (
                       <>
@@ -65,7 +65,7 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
                     )}
                   </Text>
 
-                  <Text variant="caption" mb={2}>
+                  <Text variant="caption" mb={3}>
                     {calculateLatestUpdateTime(review.latestUpdateDate)}
                     {review.isDeleted ? '(삭제됨)' : review.isUpdated ? '(수정됨)' : ''}
                   </Text>
