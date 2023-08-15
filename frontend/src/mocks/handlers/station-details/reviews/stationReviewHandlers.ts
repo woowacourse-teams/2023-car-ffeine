@@ -7,10 +7,12 @@ export const stationReviewHandlers = [
   rest.get(`${SERVERS.localhost}/stations/:stationId/total-ratings`, (req, res, ctx) => {
     const reviews = generateReviews();
     const validReviews = reviews.filter((review) => !review.isDeleted);
+    const min = 1;
+    const max = 2000;
     return res(
       ctx.json({
         totalRatings: (validReviews.reduce((a, b) => a + b.ratings, 0) / reviews.length).toFixed(2),
-        totalCount: validReviews.length,
+        totalCount: Math.floor(Math.random() * (max - min + 1)) + min,
       }),
       ctx.delay(1000),
       ctx.status(200)
@@ -71,7 +73,7 @@ export const stationReviewHandlers = [
     return res(ctx.delay(200), ctx.status(204));
   }),
 
-  rest.get(`${SERVERS.localhost}/reviews/:reviewId/replies?page=:pageParam`, (req, res, ctx) => {
+  rest.get(`${SERVERS.localhost}/reviews/:reviewId/replies`, (req, res, ctx) => {
     const replies = generateReplies();
     const { searchParams } = req.url;
     const page = Number(searchParams.get('page'));
@@ -115,12 +117,12 @@ export const stationReviewHandlers = [
     console.log(`충전소 후기 답글 작성 :${JSON.stringify(body)}`);
     return res(ctx.delay(200), ctx.status(204));
   }),
-  rest.patch(`${SERVERS.localhost}/replies/:replyId`, async (req, res, ctx) => {
+  rest.patch(`${SERVERS.localhost}/reviews/:reviewId/replies/:replyId`, async (req, res, ctx) => {
     const body = await req.json();
     console.log(`충전소 후기 답글 수정 :${JSON.stringify(body)}`);
     return res(ctx.delay(200), ctx.status(204));
   }),
-  rest.delete(`${SERVERS.localhost}/replies/:replyId`, (req, res, ctx) => {
+  rest.delete(`${SERVERS.localhost}/reviews/:reviewId/replies/:replyId`, (req, res, ctx) => {
     console.log(`충전소 후기 답글 삭제`);
     return res(ctx.delay(200), ctx.status(204));
   }),

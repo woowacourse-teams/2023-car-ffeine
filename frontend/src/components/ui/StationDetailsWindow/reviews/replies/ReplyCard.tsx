@@ -21,10 +21,11 @@ import type { Reply } from '@type';
 interface ReplyCardProps {
   stationId: string;
   reply: Reply;
+  reviewId: number;
   previewMode: boolean;
 }
 
-const ReplyCard = ({ stationId, reply, previewMode }: ReplyCardProps) => {
+const ReplyCard = ({ stationId, reply, reviewId, previewMode }: ReplyCardProps) => {
   const [isModifyMode, setIsModifyMode] = useState(false);
   const { removeReply, isRemoveReplyLoading } = useRemoveReply(stationId);
   const memberId = memberInfoStore.getState()?.memberId;
@@ -33,12 +34,19 @@ const ReplyCard = ({ stationId, reply, previewMode }: ReplyCardProps) => {
 
   const handleClickRemoveReplyButton = () => {
     if (confirm('정말로 삭제하시겠습니까?')) {
-      removeReply({ replyId: reply.replyId });
+      removeReply({ replyId: reply.replyId, reviewId });
     }
   };
 
   if (isModifyMode) {
-    return <ReplyModify stationId={stationId} reply={reply} setIsModifyMode={setIsModifyMode} />;
+    return (
+      <ReplyModify
+        stationId={stationId}
+        reply={reply}
+        reviewId={reviewId}
+        setIsModifyMode={setIsModifyMode}
+      />
+    );
   }
 
   return (

@@ -36,7 +36,13 @@ const ReplyList = ({ stationId, reviewId }: ReplyListProps) => {
                 </Text>
               )}
               {page.replies.map((reply, index) => (
-                <ReplyCard key={index} stationId={stationId} reply={reply} previewMode={true} />
+                <ReplyCard
+                  key={index}
+                  stationId={stationId}
+                  reply={reply}
+                  reviewId={reviewId}
+                  previewMode={true}
+                />
               ))}
             </div>
           ))}
