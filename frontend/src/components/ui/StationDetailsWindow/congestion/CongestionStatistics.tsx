@@ -12,7 +12,6 @@ import StatisticsGraph from '@ui/StatisticsGraph';
 
 import type { CHARGING_SPEED } from '@constants/chargers';
 import { ENGLISH_DAYS } from '@constants/congestion';
-import { CongestionStatistics } from '@type';
 
 interface CongestionStatisticsProps {
   stationId: string;
@@ -28,19 +27,19 @@ const CongestionStatistics = ({ stationId }: CongestionStatisticsProps) => {
 
   return (
     <Box my={5}>
-      <Text variant='title' mb={3}>
+      <Text variant="title" mb={3}>
         충전소 사용통계
       </Text>
-      <FlexBox direction='column' gap={4}>
+      <FlexBox direction="column" gap={4}>
         <StatisticsGraph
           statistics={congestionStatistics.congestion[chargingSpeed]}
           menus={[...ENGLISH_DAYS]}
-          align='column'
+          align="column"
         />
         <FlexBox nowrap>
           <ButtonNext
             variant={chargingSpeed === 'quick' ? 'contained' : 'outlined'}
-            size='xs'
+            size="xs"
             onClick={() => setChargingSpeed('quick')}
             fullWidth
           >
@@ -48,7 +47,7 @@ const CongestionStatistics = ({ stationId }: CongestionStatisticsProps) => {
           </ButtonNext>
           <ButtonNext
             variant={chargingSpeed === 'standard' ? 'contained' : 'outlined'}
-            size='xs'
+            size="xs"
             onClick={() => setChargingSpeed('standard')}
             fullWidth
           >
