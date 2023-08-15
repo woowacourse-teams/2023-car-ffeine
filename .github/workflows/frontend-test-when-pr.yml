@@ -1,4 +1,4 @@
-name: workflow-example
+name: frontend-test
 
 on: pull_request
 
@@ -7,11 +7,9 @@ jobs:
     name: Run tests
     runs-on: ubuntu-latest
     steps:
-      - name: checkout PR
-        uses: actions/checkout@master
-      - name: yarn install
-        run: yarn
+      - name: Checkout PR
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: yarn install
       - name: Test
-        uses: skx/github-action-tester@master
-        with:
-          script: yarn test
+        run: yarn test
