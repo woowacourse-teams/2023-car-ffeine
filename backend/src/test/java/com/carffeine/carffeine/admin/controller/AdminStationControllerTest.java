@@ -82,7 +82,7 @@ public class AdminStationControllerTest extends MockBeanInjection {
                                 fieldWithPath("elements[].isParkingFree").type(JsonFieldType.BOOLEAN).description("주차 여부"),
                                 fieldWithPath("elements[].isPrivate").type(JsonFieldType.BOOLEAN).description("사설 여부"),
                                 fieldWithPath("elements[].operationTime").type(JsonFieldType.STRING).description("운영 시간").optional(),
-                                fieldWithPath("elements[].private_reason").type(JsonFieldType.STRING).description("사설 사유").optional(),
+                                fieldWithPath("elements[].privateReason").type(JsonFieldType.STRING).description("사설 사유").optional(),
                                 fieldWithPath("elements[].stationState").type(JsonFieldType.STRING).description("충전소 상태").optional(),
                                 fieldWithPath("elements[].address").type(JsonFieldType.STRING).description("주소").optional(),
                                 fieldWithPath("elements[].latitude").type(JsonFieldType.NUMBER).description("위도"),
@@ -113,7 +113,7 @@ public class AdminStationControllerTest extends MockBeanInjection {
                                 fieldWithPath("isParkingFree").type(JsonFieldType.BOOLEAN).description("주차 여부"),
                                 fieldWithPath("isPrivate").type(JsonFieldType.BOOLEAN).description("사설 여부"),
                                 fieldWithPath("operationTime").type(JsonFieldType.STRING).description("운영 시간").optional(),
-                                fieldWithPath("private_reason").type(JsonFieldType.STRING).description("사설 사유").optional(),
+                                fieldWithPath("privateReason").type(JsonFieldType.STRING).description("사설 사유").optional(),
                                 fieldWithPath("stationState").type(JsonFieldType.STRING).description("충전소 상태").optional(),
                                 fieldWithPath("address").type(JsonFieldType.STRING).description("주소").optional(),
                                 fieldWithPath("latitude").type(JsonFieldType.NUMBER).description("위도"),
@@ -152,7 +152,7 @@ public class AdminStationControllerTest extends MockBeanInjection {
 
         // when & then
         mockMvc.perform(patch("/admin/stations/{stationId}", "station123")
-                        .contentType(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .content(objectMapper.writeValueAsString(updateRequest))
                         .header(HttpHeaders.AUTHORIZATION, "token~~"))
                 .andExpect(status().isNoContent())
