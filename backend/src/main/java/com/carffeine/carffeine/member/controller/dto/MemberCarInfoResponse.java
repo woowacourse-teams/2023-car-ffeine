@@ -9,6 +9,10 @@ public record MemberCarInfoResponse(
 ) {
 
     public static MemberCarInfoResponse from(MemberCar memberCar) {
+        if (memberCar.getCar() == null) {
+            return new MemberCarInfoResponse(memberCar.getMember().getId(), null);
+        }
+
         return new MemberCarInfoResponse(memberCar.getMember().getId(), CarResponse.from(memberCar.getCar()));
     }
 }
