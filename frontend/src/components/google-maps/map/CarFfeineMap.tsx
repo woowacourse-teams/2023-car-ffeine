@@ -78,8 +78,9 @@ const UserFilterListener = () => {
   const { setAllServerStationFilters } = serverStationFilterAction;
 
   useEffect(() => {
-    if (memberTokenStore.getState() !== '' && memberFilters !== undefined) {
+    if (memberFilters !== undefined) {
       setAllServerStationFilters(memberFilters);
+      console.log(serverStationFilterAction.getAllServerStationFilters());
     }
 
     queryClient.invalidateQueries([{ queryKey: [QUERY_KEY_STATIONS] }]);
