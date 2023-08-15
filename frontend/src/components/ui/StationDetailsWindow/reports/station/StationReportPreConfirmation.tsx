@@ -54,7 +54,7 @@ const StationReportPreConfirmation = ({ station }: StationReportPreConfirmationP
           fullWidth
           variant="outlined"
           size="sm"
-          color="error"
+          color="secondary"
           onClick={handleCloseModalButton}
         >
           닫기
@@ -64,7 +64,7 @@ const StationReportPreConfirmation = ({ station }: StationReportPreConfirmationP
           fullWidth
           variant="outlined"
           size="sm"
-          color="success"
+          color="secondary"
           onClick={reportCharger}
         >
           {isLoading ? '처리중...' : '그냥 제보하기'}

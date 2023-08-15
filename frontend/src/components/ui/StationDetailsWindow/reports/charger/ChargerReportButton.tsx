@@ -28,7 +28,7 @@ const ChargerReportButton = ({ stationId }: ChargerReportButtonProps) => {
             fullWidth
             variant="outlined"
             size="sm"
-            color="dark"
+            color="secondary"
             onClick={() => {
               if (memberToken === '') {
                 alert('로그인이 필요한 메뉴입니다.');

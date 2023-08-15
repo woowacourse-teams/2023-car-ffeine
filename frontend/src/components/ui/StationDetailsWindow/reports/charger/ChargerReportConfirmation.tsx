@@ -29,20 +29,13 @@ const ChargerReportConfirmation = ({ stationId }: ChargerReportConfirmationProps
       <FlexBox justifyContent="between" nowrap>
         <ButtonNext
           variant="outlined"
-          color="error"
           size="sm"
           fullWidth
           onClick={() => modalActions.closeModal()}
         >
           돌아가기
         </ButtonNext>
-        <ButtonNext
-          variant="contained"
-          color="success"
-          size="sm"
-          fullWidth
-          onClick={() => reportCharger()}
-        >
+        <ButtonNext variant="contained" size="sm" fullWidth onClick={() => reportCharger()}>
           제보하기
         </ButtonNext>
       </FlexBox>

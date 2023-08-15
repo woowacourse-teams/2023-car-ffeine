@@ -162,20 +162,13 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
       />
 
       <FlexBox justifyContent="between" nowrap>
-        <ButtonNext
-          variant="outlined"
-          color="error"
-          size="md"
-          fullWidth
-          onClick={handleCloseModalButton}
-        >
+        <ButtonNext variant="outlined" size="md" fullWidth onClick={handleCloseModalButton}>
           돌아가기
         </ButtonNext>
         {isFormValid ? (
           <ButtonNext
             disabled={isLoading}
             variant="contained"
-            color="success"
             size="md"
             fullWidth
             onClick={reportCharger}
