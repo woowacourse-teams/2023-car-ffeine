@@ -12,6 +12,10 @@ const meta = {
   },
   argTypes: {
     size: {
+      options: { none: false, xs: 'xs', sm: 'sm', md: 'md', lg: 'lg', xl: 'xl', xxl: 'xxl' },
+      control: {
+        type: 'select',
+      },
       description:
         '사이즈를 부여할 수 있습니다. Size Props이외에도 필요에 따라 수동으로도 제어할 수 있습니다.',
     },
@@ -23,7 +27,7 @@ export default meta;
 export const Default = (args: LoaderProps) => {
   return <Loader {...args} />;
 };
-export const Colors = () => {
+export const Sizes = () => {
   return (
     <>
       <Loader />
