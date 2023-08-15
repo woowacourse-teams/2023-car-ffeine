@@ -23,16 +23,13 @@ import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
 import type { StationFilters } from '@type';
 import type { Car } from '@type/cars';
 
+import { getCarFilters, submitMemberCar, submitMemberFilters } from './fetch';
+
 const CarModal = () => {
   const queryClient = useQueryClient();
 
   const { data: cars, isLoading } = useCars();
-  const { getAllServerStationFilters, setAllServerStationFilters } = serverStationFilterAction;
-
-  const memberId = memberInfoStore.getState()?.memberId;
-  const memberToken = memberTokenStore.getState();
-
-  const { closeModal } = modalActions;
+  const { setAllServerStationFilters } = serverStationFilterAction;
 
   const [carName, setCarName] = useState('');
   const [vintage, setVintage] = useState('');
@@ -56,58 +53,19 @@ const CarModal = () => {
       return;
     }
 
-    const mode = serverStore.getState();
+    try {
+      const { carId } = await submitMemberCar(carName, vintage);
+      const carFilters = await getCarFilters(carId);
+      const memberFilters = await submitMemberFilters(carFilters);
 
-    const memberCarInfo = await fetch(`${SERVERS[mode]}/members/${memberId}/cars`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${memberToken}`,
-      },
-      body: JSON.stringify({ name: carName, vintage }),
-    }).then<Car>((response) => response.json());
-
-    const carFilters = await fetch(
-      `${SERVERS[mode]}/cars/${memberCarInfo.carId}/filters`
-    ).then<StationFilters>((response) => response.json());
-
-    setAllServerStationFilters(carFilters);
-
-    const { capacities, companies, connectorTypes } = getAllServerStationFilters();
-
-    if (memberId === undefined) {
+      setAllServerStationFilters(memberFilters);
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
-      return;
+
+      toastActions.showToast('챠량 등록이 완료되었습니다');
+      modalActions.closeModal();
+    } catch (error) {
+      toastActions.showToast(error.message, 'error');
     }
-
-    const memberFilters = await fetch(`${SERVERS[mode]}/members/${memberId}/filters`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${memberToken}`,
-      },
-      body: JSON.stringify({
-        filters: [
-          ...capacities.map((capacity) => ({
-            type: 'capacity',
-            name: capacity,
-          })),
-          ...companies.map((company) => ({
-            type: 'company',
-            name: company,
-          })),
-          ...connectorTypes.map((connectorType) => ({
-            type: 'connectorType',
-            name: connectorType,
-          })),
-        ],
-      }),
-    }).then<StationFilters>((response) => response.json());
-
-    setAllServerStationFilters(memberFilters);
-    queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
-
-    toastActions.showToast('챠량 등록이 완료되었습니다');
-
-    closeModal();
   };
 
   if (isLoading || cars === undefined) {
@@ -136,10 +94,21 @@ const CarModal = () => {
         />
       </FlexBox>
       <FlexBox>
-        <ButtonNext onClick={handleFetchCarFilters} variant="outlined" color="success">
+        <ButtonNext
+          onClick={() => {
+            try {
+              handleFetchCarFilters();
+            } catch (error) {
+              console.log(error);
+              toastActions.showToast(error.message, 'error');
+            }
+          }}
+          variant="outlined"
+          color="success"
+        >
           등록
         </ButtonNext>
-        <ButtonNext onClick={closeModal} variant="outlined" color="error">
+        <ButtonNext onClick={modalActions.closeModal} variant="outlined" color="error">
           취소
         </ButtonNext>
       </FlexBox>

@@ -184,7 +184,7 @@ export const generateCars = (): Car[] => {
   return car;
 };
 
-export const generateCarFilters = (): Omit<StationFilters, 'companies'> => {
+export const generateCarFilters = (): StationFilters => {
   const randomSortedCapacities = (
     [...CAPACITIES.map((capacity) => `${capacity}.00`)] as CapaCityBigDecimal[]
   ).sort(() => (Math.random() - 0.5 > 0 ? 1 : -1));
@@ -199,6 +199,7 @@ export const generateCarFilters = (): Omit<StationFilters, 'companies'> => {
   const connectorTypes = randomSortedConnectorTypes.slice(0, 3);
 
   return {
+    companies: [],
     capacities,
     connectorTypes,
   };
