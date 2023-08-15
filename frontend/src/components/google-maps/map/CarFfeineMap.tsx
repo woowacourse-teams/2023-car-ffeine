@@ -12,7 +12,6 @@ import { toastActions } from '@stores/layout/toastStore';
 import { memberTokenStore } from '@stores/login/memberTokenStore';
 import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
 
-import { useCarFilters } from '@hooks/tanstack-query/station-filters/useCarFilters';
 import { useMemberFilters } from '@hooks/tanstack-query/station-filters/useMemberFilters';
 
 import ToastContainer from '@common/Toast/ToastContainer';
@@ -76,21 +75,15 @@ const CarFfeineMapListener = () => {
 const UserFilterListener = () => {
   const queryClient = useQueryClient();
   const { data: memberFilters } = useMemberFilters();
-  const { data: carFilters } = useCarFilters();
   const { setAllServerStationFilters } = serverStationFilterAction;
 
   useEffect(() => {
-    console.log(memberFilters, carFilters);
     if (memberTokenStore.getState() !== '' && memberFilters !== undefined) {
       setAllServerStationFilters(memberFilters);
     }
 
-    if (carFilters !== undefined) {
-      setAllServerStationFilters(carFilters);
-    }
-
     queryClient.invalidateQueries([{ queryKey: [QUERY_KEY_STATIONS] }]);
-  }, [memberFilters, carFilters]);
+  }, [memberFilters]);
 
   return <></>;
 };
