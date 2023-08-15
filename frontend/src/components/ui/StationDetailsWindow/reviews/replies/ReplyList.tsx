@@ -44,6 +44,7 @@ const ReplyList = ({ stationId, reviewId }: ReplyListProps) => {
           <Box pl={8} pr={4}>
             <ButtonNext
               size="xs"
+              py={2}
               color="secondary"
               variant="contained"
               onClick={() => fetchNextPage()}

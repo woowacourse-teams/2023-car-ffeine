@@ -34,7 +34,6 @@ const ButtonNext = ({ children, noTheme, ...props }: ButtonNextProps) => {
 const S = {
   Button: styled.button<ButtonNextProps>`
     margin: 1px;
-    ${spacing};
 
     border-radius: 6px;
     ${({ pill }) => pill && 'border-radius: 20px;'}
@@ -114,6 +113,8 @@ const S = {
           return '18px';
       }
     }};
+
+    ${spacing};
 
     ${({ css }) => css};
   `,

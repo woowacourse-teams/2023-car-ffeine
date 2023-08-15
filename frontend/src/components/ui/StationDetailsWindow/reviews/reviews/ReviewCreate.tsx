@@ -81,12 +81,7 @@ const ReviewCreate = ({ stationId }: ReviewCreateProps) => {
           </>
         ) : (
           <>
-            <ButtonNext
-              variant="outlined"
-              color="error"
-              fullWidth
-              onClick={handleClickReviewCreateCloseButton}
-            >
+            <ButtonNext variant="outlined" fullWidth onClick={handleClickReviewCreateCloseButton}>
               닫기
             </ButtonNext>
             <ButtonNext variant="contained" fullWidth onClick={handleClickReviewCreateOpenButton}>
