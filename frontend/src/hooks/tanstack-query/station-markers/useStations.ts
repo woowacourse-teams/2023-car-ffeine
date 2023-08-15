@@ -17,6 +17,7 @@ import {
 } from '@stores/station-filters/serverStationFiltersStore';
 
 import { SERVERS } from '@constants';
+import { COMPANIES } from '@constants/chargers';
 import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
 import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
 
@@ -42,9 +43,11 @@ export const fetchStation = async () => {
 
   const requestQueryParams = getQueryFormattedUrl({
     ...displayPositionString,
-    companies:
+    companyNames:
       getStoreSnapshot(selectedCompaniesFilterStore).size > 0
-        ? [...getStoreSnapshot(selectedCompaniesFilterStore)].join(',')
+        ? [...getStoreSnapshot(selectedCompaniesFilterStore)]
+            .map((companyKey) => COMPANIES[companyKey])
+            .join(',')
         : '',
     capacities:
       getStoreSnapshot(selectedCapacitiesFilterStore).size > 0

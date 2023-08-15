@@ -25,8 +25,8 @@ export const serverStationFilterAction = {
   setCarFilters(carFilter: Omit<StationFilters, 'companies'>) {
     const { capacities, connectorTypes } = carFilter;
 
-    selectedConnectorTypesFilterStore.setState((prev) => new Set([...prev, ...connectorTypes]));
     selectedCapacitiesFilterStore.setState((prev) => new Set([...prev, ...capacities]));
+    selectedConnectorTypesFilterStore.setState((prev) => new Set([...prev, ...connectorTypes]));
   },
   resetAllServerStationFilters(stationFilters: StationFilters) {
     const { companies, capacities, connectorTypes } = stationFilters;
