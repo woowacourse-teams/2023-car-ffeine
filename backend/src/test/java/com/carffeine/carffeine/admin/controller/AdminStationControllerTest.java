@@ -152,7 +152,7 @@ public class AdminStationControllerTest extends MockBeanInjection {
 
         // when & then
         mockMvc.perform(patch("/admin/stations/{stationId}", "station123")
-                        .contentType(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .content(objectMapper.writeValueAsString(updateRequest))
                         .header(HttpHeaders.AUTHORIZATION, "token~~"))
                 .andExpect(status().isNoContent())

@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,7 +55,7 @@ public class AdminStationController {
     public ResponseEntity<Void> updateStation(
             @AuthMember Long memberId,
             @PathVariable String stationId,
-            StationUpdateRequest request
+            @ModelAttribute StationUpdateRequest request
     ) {
         adminStationService.updateStation(memberId, stationId, request);
         return ResponseEntity.noContent().build();
