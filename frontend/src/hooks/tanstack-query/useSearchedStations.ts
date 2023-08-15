@@ -44,5 +44,6 @@ export const useSearchedStations = () => {
     queryFn: () => fetchSearchedStations(searchWord),
     enabled: !!searchWord,
     keepPreviousData: true,
+    refetchOnWindowFocus: false,
   });
 };

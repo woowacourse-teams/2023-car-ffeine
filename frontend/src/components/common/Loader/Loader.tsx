@@ -43,8 +43,8 @@ const Loader = styled.div<LoaderProps>`
         return size || '2.0rem';
     }
   }};
-  border: 3px solid #fff;
-  border-bottom-color: #0d6efd;
+  border: 2px solid #e9ecef;
+  border-bottom-color: #212529bf;
   border-radius: 50%;
   display: inline-block;
   box-sizing: border-box;
