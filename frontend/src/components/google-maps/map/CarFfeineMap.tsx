@@ -74,17 +74,22 @@ const CarFfeineMapListener = () => {
 
 const UserFilterListener = () => {
   const queryClient = useQueryClient();
-  const { data: memberFilters } = useMemberFilters();
+  const { data: memberFilters, isLoading } = useMemberFilters();
   const { setAllServerStationFilters } = serverStationFilterAction;
 
   useEffect(() => {
-    if (memberFilters !== undefined) {
+    if (isLoading === false) {
       setAllServerStationFilters(memberFilters);
-      console.log(serverStationFilterAction.getAllServerStationFilters());
-    }
 
-    queryClient.invalidateQueries([{ queryKey: [QUERY_KEY_STATIONS] }]);
-  }, [memberFilters]);
+      console.log('현재 로그인한 유저가 등록한 필터 정보', memberFilters);
+      console.log(
+        '클라이언트 전역 상태에 저장된 필터 정보',
+        serverStationFilterAction.getAllServerStationFilters()
+      );
+
+      queryClient.invalidateQueries([{ queryKey: [QUERY_KEY_STATIONS] }]);
+    }
+  }, [memberFilters, isLoading]);
 
   return <></>;
 };
