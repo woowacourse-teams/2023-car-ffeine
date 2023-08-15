@@ -131,7 +131,3 @@ describe('findDifferentKeys()를 테스트한다.', () => {
     }
   );
 });
-
-it('fail', () => {
-  expect(false).toBeTruthy();
-});
