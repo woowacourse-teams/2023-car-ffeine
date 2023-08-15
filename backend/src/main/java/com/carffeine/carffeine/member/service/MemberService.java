@@ -46,7 +46,7 @@ public class MemberService {
 
     private Member findMember(Long memberId, Long loginMember) {
         Member member = memberRepository.findById(loginMember)
-                .orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND));
+                .orElseThrow(() -> new MemberException(MemberExceptionType.UNAUTHORIZED));
 
         validateMember(memberId, member);
         return member;
@@ -101,7 +101,7 @@ public class MemberService {
     @Transactional(readOnly = true)
     public MemberCar findMemberCar(Long loginMember) {
         Member member = memberRepository.findById(loginMember)
-                .orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND));
+                .orElseThrow(() -> new MemberException(MemberExceptionType.UNAUTHORIZED));
 
         return getMemberCar(member);
     }
