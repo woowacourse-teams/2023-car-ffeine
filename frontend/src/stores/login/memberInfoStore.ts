@@ -11,7 +11,7 @@ export interface MemberCar {
 
 export interface MemberInfo {
   memberId: number;
-  car: MemberCar;
+  car: MemberCar | null;
 }
 
 export const memberInfoStore = store<MemberInfo>(
