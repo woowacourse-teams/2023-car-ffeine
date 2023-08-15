@@ -6,10 +6,16 @@ import { SERVERS } from '@constants';
 
 import type { Car } from '@type/cars';
 
+interface CarResponse {
+  cars: Car[];
+}
+
 const fetchCars = async () => {
   const mode = serverStore.getState();
 
-  const cars = await fetch(`${SERVERS[mode]}/cars`).then<Car[]>((response) => response.json());
+  const cars = await fetch(`${SERVERS[mode]}/cars`).then<CarResponse>((response) =>
+    response.json()
+  );
 
   return cars;
 };
