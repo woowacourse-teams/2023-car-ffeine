@@ -19,6 +19,7 @@ import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
+import ServerStationFiltersSkeleton from '@ui/ServerStationFilters/ServerStationFiltersSkeleton';
 import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
 import { CONNECTOR_TYPES, COMPANIES } from '@constants/chargers';
@@ -45,7 +46,7 @@ const ServerStationFiltersComponent = () => {
   } = useServerStationFilterActions();
 
   if (isLoading) {
-    return <></>;
+    return <ServerStationFiltersSkeleton />;
   }
 
   const { connectorTypes, capacities, companies } = serverStationFilters;
@@ -166,7 +167,7 @@ const ServerStationFiltersComponent = () => {
   );
 };
 
-const overFlowCss = css`
+export const overFlowCss = css`
   overflow-y: scroll;
   overflow-x: hidden;
 
@@ -175,11 +176,11 @@ const overFlowCss = css`
   }
 `;
 
-const borderCss = css`
+export const borderCss = css`
   outline: 1.5px solid #e1e4eb;
 `;
 
-const buttonCss = css`
+export const buttonCss = css`
   width: 100%;
   height: 6rem;
 
@@ -188,10 +189,10 @@ const buttonCss = css`
 
   flex-shrink: 0;
 
-  color: \#fff;
+  color: #fff;
 `;
 
-const filterHeaderCss = css`
+export const filterHeaderCss = css`
   position: sticky;
   top: 0;
   background-color: #fff;
