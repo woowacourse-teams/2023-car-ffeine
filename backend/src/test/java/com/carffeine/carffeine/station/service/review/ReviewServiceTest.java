@@ -214,4 +214,17 @@ class ReviewServiceTest {
         // then
         assertThat(totalCount).isEqualTo(2);
     }
+
+    @Test
+    void 리뷰가_없다면_0점을_반환한다() {
+        // given
+        Station station = 선릉역_충전소_충전기_2개_사용가능_1개;
+        stationRepository.save(station);
+
+        // when
+        double result = reviewService.findAverageRatings(station.getStationId());
+
+        // then
+        assertThat(result).isEqualTo(0.0);
+    }
 }
