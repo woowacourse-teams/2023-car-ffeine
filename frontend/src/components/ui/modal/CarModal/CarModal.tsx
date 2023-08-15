@@ -10,7 +10,6 @@ import { memberTokenStore } from '@stores/login/memberTokenStore';
 import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
 
 import { useCars } from '@hooks/tanstack-query/car/useCars';
-import type { ServerStationFilters } from '@hooks/tanstack-query/station-filters/useServerStationFilters';
 
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
@@ -28,8 +27,7 @@ const CarModal = () => {
   const queryClient = useQueryClient();
 
   const { data: cars, isLoading } = useCars();
-  const { getAllServerStationFilters, setCarFilters, setAllServerStationFilters } =
-    serverStationFilterAction;
+  const { getAllServerStationFilters, setAllServerStationFilters } = serverStationFilterAction;
 
   const memberId = memberInfoStore.getState()?.memberId;
   const memberToken = memberTokenStore.getState();
@@ -68,11 +66,11 @@ const CarModal = () => {
       body: JSON.stringify({ name: carName, vintage }),
     }).then<Car>((response) => response.json());
 
-    const carFilters = await fetch(`${SERVERS[mode]}/cars/${memberCarInfo.carId}/filters`).then<
-      Omit<ServerStationFilters, 'companies'>
-    >((response) => response.json());
+    const carFilters = await fetch(
+      `${SERVERS[mode]}/cars/${memberCarInfo.carId}/filters`
+    ).then<StationFilters>((response) => response.json());
 
-    setCarFilters(carFilters);
+    setAllServerStationFilters(carFilters);
 
     const { capacities, companies, connectorTypes } = getAllServerStationFilters();
 

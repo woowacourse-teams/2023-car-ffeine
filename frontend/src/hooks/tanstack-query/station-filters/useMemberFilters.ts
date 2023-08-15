@@ -7,13 +7,13 @@ import { memberTokenStore } from '@stores/login/memberTokenStore';
 import { SERVERS } from '@constants';
 import { QUERY_KEY_MEMBER_SELECTED_FILTERS } from '@constants/queryKeys';
 
-import type { ServerStationFilters } from './useServerStationFilters';
+import type { StationFilters } from '@type';
 
 interface MemberFilters {
-  selectedFilters: ServerStationFilters;
+  selectedFilters: StationFilters;
 }
 
-const fetchMemberFilters = async (): Promise<ServerStationFilters> => {
+const fetchMemberFilters = async (): Promise<StationFilters> => {
   const mode = serverStore.getState();
   const memberToken = memberTokenStore.getState();
   const memberId = memberInfoStore.getState().memberId;

@@ -77,15 +77,16 @@ const UserFilterListener = () => {
   const queryClient = useQueryClient();
   const { data: memberFilters } = useMemberFilters();
   const { data: carFilters } = useCarFilters();
-  const { setCarFilters, setAllServerStationFilters } = serverStationFilterAction;
+  const { setAllServerStationFilters } = serverStationFilterAction;
 
   useEffect(() => {
+    console.log(memberFilters, carFilters);
     if (memberTokenStore.getState() !== '' && memberFilters !== undefined) {
       setAllServerStationFilters(memberFilters);
     }
 
     if (carFilters !== undefined) {
-      setCarFilters(carFilters);
+      setAllServerStationFilters(carFilters);
     }
 
     queryClient.invalidateQueries([{ queryKey: [QUERY_KEY_STATIONS] }]);

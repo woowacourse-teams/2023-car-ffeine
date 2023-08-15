@@ -1,13 +1,6 @@
 import { getTypedObjectFromEntries } from '@utils/getTypedObjectFromEntries';
 import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
-import {
-  generateRandomCommentsLength,
-  generateRandomData,
-  generateRandomToken,
-  getRandomTime,
-} from '@utils/randomDataGenerator';
-
-import type { ServerStationFilters } from '@hooks/tanstack-query/station-filters/useServerStationFilters';
+import { generateRandomData, generateRandomToken, getRandomTime } from '@utils/randomDataGenerator';
 
 import { CONNECTOR_TYPES, COMPANIES, CAPACITIES } from '@constants/chargers';
 import { ENGLISH_DAYS } from '@constants/congestion';
@@ -17,7 +10,7 @@ import type { Car } from '@type/cars';
 import type { Capacity, ChargerDetails } from '@type/chargers';
 import type { Congestion, CongestionStatistics, EnglishDaysType } from '@type/congestion';
 import type { CapaCityBigDecimal, ConnectorTypeKey } from '@type/serverStationFilter';
-import type { CompanyName, Reply, Review, Station } from '@type/stations';
+import type { CompanyName, Reply, Review, Station, StationFilters } from '@type/stations';
 
 export const generateRandomChargers = () => {
   const length = Math.floor(Math.random() * 10) + 1;
@@ -191,7 +184,7 @@ export const generateCars = (): Car[] => {
   return car;
 };
 
-export const generateCarFilters = (): Omit<ServerStationFilters, 'companies'> => {
+export const generateCarFilters = (): Omit<StationFilters, 'companies'> => {
   const randomSortedCapacities = (
     [...CAPACITIES.map((capacity) => `${capacity}.00`)] as CapaCityBigDecimal[]
   ).sort(() => (Math.random() - 0.5 > 0 ? 1 : -1));
