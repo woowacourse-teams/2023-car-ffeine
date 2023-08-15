@@ -32,7 +32,7 @@ const Graph = ({ statistics, children }: PropsWithChildren<GraphProps>) => {
     <GraphContext.Provider
       value={{ congestionStatistics, setCongestionStatistics, selectedDay, setSelectedDay }}
     >
-      <FlexBox direction="column" gap={5}>
+      <FlexBox direction="column" gap={3}>
         {children}
       </FlexBox>
     </GraphContext.Provider>

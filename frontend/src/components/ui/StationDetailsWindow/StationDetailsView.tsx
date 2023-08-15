@@ -1,10 +1,7 @@
 import { css } from 'styled-components';
 
-import { memberTokenStore } from '@stores/login/memberTokenStore';
-
 import Alert from '@common/Alert';
 import Box from '@common/Box';
-import Text from '@common/Text';
 
 import ChargerList from '@ui/StationDetailsWindow/chargers/ChargerList';
 import ChargerReportButton from '@ui/StationDetailsWindow/reports/charger/ChargerReportButton';

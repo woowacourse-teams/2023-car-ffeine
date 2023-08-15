@@ -27,11 +27,16 @@ const CongestionStatistics = ({ stationId }: CongestionStatisticsProps) => {
   }
 
   return (
-    <Box my={3}>
-      <Text variant='title' my={5}>
+    <Box my={5}>
+      <Text variant='title' mb={3}>
         충전소 사용통계
       </Text>
       <FlexBox direction='column' gap={4}>
+        <StatisticsGraph
+          statistics={congestionStatistics.congestion[chargingSpeed]}
+          menus={[...ENGLISH_DAYS]}
+          align='column'
+        />
         <FlexBox nowrap>
           <ButtonNext
             variant={chargingSpeed === 'quick' ? 'contained' : 'outlined'}
@@ -50,11 +55,6 @@ const CongestionStatistics = ({ stationId }: CongestionStatisticsProps) => {
             완속 충전기 그룹
           </ButtonNext>
         </FlexBox>
-        <StatisticsGraph
-          statistics={congestionStatistics.congestion[chargingSpeed]}
-          menus={[...ENGLISH_DAYS]}
-          align='column'
-        />
       </FlexBox>
     </Box>
   );
