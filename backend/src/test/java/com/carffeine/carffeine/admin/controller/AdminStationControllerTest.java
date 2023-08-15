@@ -59,7 +59,7 @@ public class AdminStationControllerTest extends MockBeanInjection {
                         .param("page", "0")
                         .param("size", "1")
                         .param("q", "선릉역 충전소")
-                        .header(HttpHeaders.AUTHORIZATION, "token~~")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer token~~")
                 )
                 .andExpect(status().isOk())
                 .andDo(customDocument("get-stations",
@@ -99,7 +99,7 @@ public class AdminStationControllerTest extends MockBeanInjection {
 
         // when && then
         mockMvc.perform(get("/admin/stations/{stationId}", "station123")
-                        .header(HttpHeaders.AUTHORIZATION, "token~~"))
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer token~~"))
                 .andExpect(status().isOk())
                 .andDo(customDocument("get-station",
                         pathParameters(parameterWithName("stationId").description("충전소 ID")),
@@ -154,7 +154,7 @@ public class AdminStationControllerTest extends MockBeanInjection {
         mockMvc.perform(patch("/admin/stations/{stationId}", "station123")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .content(objectMapper.writeValueAsString(updateRequest))
-                        .header(HttpHeaders.AUTHORIZATION, "token~~"))
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer token~~"))
                 .andExpect(status().isNoContent())
                 .andDo(customDocument("update-station",
                         pathParameters(parameterWithName("stationId").description("충전소 ID")),

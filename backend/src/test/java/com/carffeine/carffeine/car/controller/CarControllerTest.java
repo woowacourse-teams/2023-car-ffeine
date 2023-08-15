@@ -33,6 +33,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
@@ -97,12 +98,12 @@ class CarControllerTest extends MockBeanInjection {
 
         // then
         mockMvc.perform(post("/cars")
-                        .header(HttpHeaders.AUTHORIZATION, "token")
+                        .header(AUTHORIZATION, "Bearer token~~")
                         .content(objectMapper.writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON)
                 ).andExpect(status().isCreated())
                 .andDo(customDocument("save_all_cars",
-                        requestHeaders(headerWithName(org.springframework.http.HttpHeaders.AUTHORIZATION).description("인증 토큰")),
+                        requestHeaders(headerWithName(AUTHORIZATION).description("인증 토큰")),
                         requestFields(
                                 fieldWithPath("cars[0].name").type(JsonFieldType.STRING).description("차량 이름"),
                                 fieldWithPath("cars[0].vintage").type(JsonFieldType.STRING).description("차량 연식"),
@@ -127,7 +128,7 @@ class CarControllerTest extends MockBeanInjection {
 
         // then
         mockMvc.perform(delete("/cars/{carId}", 1L)
-                        .header(HttpHeaders.AUTHORIZATION, "token")
+                        .header(AUTHORIZATION, "Bearer token~~")
                 ).andExpect(status().isNoContent())
                 .andDo(customDocument("delete_car",
                         requestHeaders(headerWithName(HttpHeaders.AUTHORIZATION).description("인증 토큰")),
@@ -182,7 +183,7 @@ class CarControllerTest extends MockBeanInjection {
 
         // then
         mockMvc.perform(post("/cars/{carId}/filters", 1L)
-                        .header(HttpHeaders.AUTHORIZATION, "token")
+                        .header(AUTHORIZATION, "Bearer token~~")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request))
                 )

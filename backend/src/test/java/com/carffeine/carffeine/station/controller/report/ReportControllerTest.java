@@ -65,7 +65,7 @@ class ReportControllerTest extends MockBeanInjection {
 
         // then
         mockMvc.perform(post("/stations/{stationId}/reports", station.getStationId())
-                        .header(HttpHeaders.AUTHORIZATION, memberId))
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer token"))
 
                 .andExpect(status().isNoContent())
                 .andDo(customDocument("save-report",
@@ -94,7 +94,7 @@ class ReportControllerTest extends MockBeanInjection {
 
         // then
         mockMvc.perform(post("/stations/{stationId}/misinformation-reports", station.getStationId())
-                        .header(HttpHeaders.AUTHORIZATION, memberId)
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer token")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request))
                 )
@@ -122,8 +122,7 @@ class ReportControllerTest extends MockBeanInjection {
 
         // then
         mockMvc.perform(get("/stations/{stationId}/reports/me", station.getStationId())
-                        .header(HttpHeaders.AUTHORIZATION, memberId))
-
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer token"))
                 .andExpect(status().isOk())
                 .andDo(customDocument("duplicate-report",
                                 requestHeaders(headerWithName("Authorization").description("회원 id.")),
