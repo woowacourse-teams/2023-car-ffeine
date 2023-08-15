@@ -17,7 +17,7 @@ const fetchCars = async () => {
     response.json()
   );
 
-  return cars;
+  return cars.cars;
 };
 
 export const useCars = () => {

@@ -70,7 +70,7 @@ const CarModal = () => {
     );
   }
 
-  const carNames = [...new Set([...(cars.cars ?? []).map((car) => car.name)])];
+  const carNames = [...new Set([...(cars ?? []).map((car) => car.name)])];
 
   return (
     <FlexBox width={34} direction="column" alignItems="center" css={{ padding: '1rem' }}>
@@ -85,7 +85,7 @@ const CarModal = () => {
           <SelectBox
             options={[
               '연식',
-              ...cars.cars
+              ...cars
                 .filter((car) => car.name === (carName !== '' ? carName : carNames[0]))
                 .map((car) => car.vintage),
             ]}

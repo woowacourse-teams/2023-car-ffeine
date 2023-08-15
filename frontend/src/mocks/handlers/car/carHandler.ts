@@ -7,7 +7,7 @@ export const carHandler = [
   rest.get(`${SERVERS.localhost}/cars`, (_, res, ctx) => {
     const cars = generateCars();
 
-    return res(ctx.json(cars), ctx.delay(200), ctx.status(200));
+    return res(ctx.json({ cars }), ctx.delay(200), ctx.status(200));
   }),
 
   rest.get(`${SERVERS.localhost}/cars/:carId/filters`, (_, res, ctx) => {
