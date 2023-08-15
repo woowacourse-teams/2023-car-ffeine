@@ -24,6 +24,7 @@ export const submitMemberCar = async (carName: string, vintage: string): Promise
     method: 'POST',
     headers: {
       Authorization: `Bearer ${memberToken}`,
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({ name: carName, vintage }),
   }).then<Car>((response) => {
@@ -81,6 +82,7 @@ export const submitMemberFilters = async (carFilters: StationFilters) => {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${memberToken}`,
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       filters: [

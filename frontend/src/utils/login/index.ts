@@ -1,6 +1,5 @@
 import { setSessionStorage } from '@utils/storage';
 
-import { serverStore } from '@stores/config/serverStore';
 import { toastActions } from '@stores/layout/toastStore';
 import { memberTokenActions } from '@stores/login/memberTokenStore';
 

@@ -71,6 +71,7 @@ const ServerStationFilters = () => {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${memberToken}`,
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           filters: [
