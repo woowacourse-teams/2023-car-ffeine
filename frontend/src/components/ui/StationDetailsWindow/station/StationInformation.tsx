@@ -41,36 +41,40 @@ const StationInformation = ({ station }: StationInformationProps) => {
       </Box>
       <Divider />
       <Box>
-        <Box my={2}>
-          <Text variant="subtitle" mb={1}>
+        <Box my={3}>
+          <Text variant="subtitle" mb={2}>
             운영시간
           </Text>
-          <Text variant="label">
+          <Text variant="label" color="#585858">
             {operatingTime?.length > 0 ? operatingTime : '운영시간 미확인'}
           </Text>
         </Box>
 
-        <Box my={2}>
-          <Text variant="subtitle" mb={1}>
+        <Box my={3}>
+          <Text variant="subtitle" mb={2}>
             연락처
           </Text>
-          <Text variant="label">{contact?.length > 0 ? contact : '연락처 없음'}</Text>
+          <Text variant="label" color="#585858">
+            {contact?.length > 0 ? contact : '연락처 없음'}
+          </Text>
         </Box>
 
-        <Box my={2}>
-          <Text variant="subtitle" mb={1}>
+        <Box my={3}>
+          <Text variant="subtitle" mb={2}>
             주차비
           </Text>
-          <Text variant="label">{isParkingFree ? '무료' : '유료'}</Text>
+          <Text variant="label" color="#585858">
+            {isParkingFree ? '무료' : '유료'}
+          </Text>
         </Box>
 
-        <Box my={2}>
-          <Text variant="subtitle" mb={1}>
+        <Box my={3}>
+          <Text variant="subtitle" mb={2}>
             사용 제한 여부
           </Text>
-          <Text variant="label">
+          <Text variant="label" color="#585858">
             {isPrivate || privateReason
-              ? `사용 제한됨 (사유: ${privateReason?.length > 0 ? privateReason : '없음'})`
+              ? `사용 제한됨 (사유: ${privateReason?.length > 0 ? privateReason : '미확인'})`
               : '누구나 사용가능'}
           </Text>
         </Box>

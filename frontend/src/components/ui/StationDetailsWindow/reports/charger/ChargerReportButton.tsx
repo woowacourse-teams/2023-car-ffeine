@@ -20,7 +20,7 @@ const ChargerReportButton = ({ stationId }: ChargerReportButtonProps) => {
 
   return (
     <>
-      <Box my={3}>
+      <Box my={5}>
         {isStationChargerReportedLoading ? (
           <Skeleton height="3rem" />
         ) : (
