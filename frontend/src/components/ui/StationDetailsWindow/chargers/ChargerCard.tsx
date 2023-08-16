@@ -43,7 +43,7 @@ const ChargerCard = ({ charger }: ChargerCardProps) => {
           <Text css={regularFontWeight}>{CHARGER_STATES[state]}</Text>
         </FlexBox>
       </SquareBox>
-      <Text mt={2} my={0} mb={1}>
+      <Text mt={2} my={0} mb={1.5}>
         {CONNECTOR_TYPES[type]}
       </Text>
       <Text my={0} variant="label">

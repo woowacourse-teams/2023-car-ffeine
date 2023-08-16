@@ -2,10 +2,12 @@ import { Status, Wrapper } from '@googlemaps/react-wrapper';
 
 import CarFfeineMap from '@map/CarFfeineMap';
 
+import Loading from '@common/Loading';
+
 const render = (status: Status) => {
   switch (status) {
     case Status.LOADING:
-      return <>로딩중...</>;
+      return <Loading />;
     case Status.FAILURE:
       return <>에러 발생</>;
     case Status.SUCCESS:
