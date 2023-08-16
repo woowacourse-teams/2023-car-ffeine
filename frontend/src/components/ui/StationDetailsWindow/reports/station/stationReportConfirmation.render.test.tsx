@@ -44,7 +44,7 @@ describe('StationReportConfirmation 테스트', () => {
     expect(getByText('돌아가기')).toBeInTheDocument();
   });
 
-  it('체크박스가 눌렸을 때', () => {
+  it('체크박스들이 눌렸을 때 반응하는지 확인한다', () => {
     const { getByTestId } = render(<StationReportConfirmation station={mockStation} />);
 
     const isParkingFreeCheckbox = getByTestId('isParkingFree-checkbox');
