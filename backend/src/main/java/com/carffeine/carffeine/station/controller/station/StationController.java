@@ -36,15 +36,14 @@ public class StationController {
         return ResponseEntity.ok(chargerStationsSimpleResponse);
     }
 
-//    @GetMapping("/stations")
-//    public ResponseEntity<StationsSimpleResponse> getStations(CoordinateRequest request,
-//                                                              @RequestParam(required = false, defaultValue = "") List<String> companyNames,
-//                                                              @RequestParam(required = false, defaultValue = "") List<ChargerType> chargerTypes,
-//                                                              @RequestParam(required = false, defaultValue = "") List<BigDecimal> capacities) {
-//        List<Station> stations = stationService.findByCoordinate(request, companyNames, chargerTypes, capacities);
-//        StationsSimpleResponse chargerStationsSimpleResponse = StationsSimpleResponse.from(stations);
-//        return ResponseEntity.ok(chargerStationsSimpleResponse);
-//    }
+    public ResponseEntity<StationsSimpleResponse> getStations(CoordinateRequest request,
+                                                              @RequestParam(required = false, defaultValue = "") List<String> companyNames,
+                                                              @RequestParam(required = false, defaultValue = "") List<ChargerType> chargerTypes,
+                                                              @RequestParam(required = false, defaultValue = "") List<BigDecimal> capacities) {
+        List<Station> stations = stationService.findByCoordinate(request, companyNames, chargerTypes, capacities);
+        StationsSimpleResponse chargerStationsSimpleResponse = StationsSimpleResponse.from(stations);
+        return ResponseEntity.ok(chargerStationsSimpleResponse);
+    }
 
     @GetMapping("/stations/search")
     public ResponseEntity<StationsSearchResponse> searchStations(@RequestParam(value = "q") String query,
