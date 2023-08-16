@@ -21,8 +21,11 @@ const ChargerList = ({ chargers }: ChargerListProps) => {
 
   return (
     <>
-      <Text variant="subtitle">
-        충전기 {totalChargersSize}대 중 {availableChargersSize}대 사용가능
+      <Text tag="h3" fontSize={1.8} weight="bold" mb={1.5}>
+        충전기
+      </Text>
+      <Text>
+        {totalChargersSize}대 중 {availableChargersSize}대 사용가능
       </Text>
       <FlexBox my={3}>
         {chargers.slice(0, page * CHARGER_SIZE).map((charger, index) => (

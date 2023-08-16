@@ -39,7 +39,7 @@ const MapController = () => {
       >
         <MapPinIcon
           width={24}
-          fill="#5c68d6"
+          fill="#0054ff"
           stroke="#333"
           type="button"
           aria-label="내 위치로 이동"
