@@ -3,8 +3,9 @@ import { setSessionStorage } from '@utils/storage';
 import { toastActions } from '@stores/layout/toastStore';
 import { memberInfoAction } from '@stores/login/memberInfoStore';
 import { memberTokenActions, memberTokenStore } from '@stores/login/memberTokenStore';
+import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
 
-import { SERVERS } from '@constants';
+import { DEFAULT_TOKEN, SERVERS } from '@constants';
 import { SESSION_KEY_MEMBER_INFO, SESSION_KEY_MEMBER_TOKEN } from '@constants/storageKeys';
 
 interface TokenResponse {
@@ -87,11 +88,19 @@ export const getAPIEndPoint = () => {
 export const logout = () => {
   const { resetMemberToken } = memberTokenActions;
   const { resetMemberInfo } = memberInfoAction;
+  const { deleteAllServerStationFilters } = serverStationFilterAction;
 
   resetMemberToken();
   resetMemberInfo();
   setSessionStorage(SESSION_KEY_MEMBER_TOKEN, '');
-  setSessionStorage(SESSION_KEY_MEMBER_INFO, '');
+  setSessionStorage(
+    SESSION_KEY_MEMBER_INFO,
+    `{
+      "memberId": ${DEFAULT_TOKEN},
+      "car": null
+    }`
+  );
+  deleteAllServerStationFilters();
 };
 
 export const handleInvalidTokenToLogout = () => {
