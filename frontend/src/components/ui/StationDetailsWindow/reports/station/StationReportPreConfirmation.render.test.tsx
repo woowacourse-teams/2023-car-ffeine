@@ -3,9 +3,8 @@ import { render, fireEvent, screen } from '@testing-library/react';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-import StationReportPreConfirmation from '@ui/StationDetailsWindow/reports/station/StationReportPreConfirmation';
-
-import type { StationDetails } from '@type';
+import type { StationDetails } from '../../../../../types';
+import StationReportPreConfirmation from './StationReportPreConfirmation';
 
 const queryClient = new QueryClient();
 

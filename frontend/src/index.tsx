@@ -8,6 +8,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { configureToken } from '@utils/configureToken';
 import { getAPIEndPoint } from '@utils/login';
+import { getSessionStorage } from '@utils/storage';
 
 import { mswModeActions } from '@stores/config/mswModeStore';
 
@@ -16,7 +17,7 @@ import { GlobalStyle } from 'style/GlobalStyle';
 const queryClient = new QueryClient();
 
 const main = async () => {
-  if (getAPIEndPoint() === 'http://localhost:8080/api') {
+  if (process.env.NODE_ENV === 'development') {
     await mswModeActions.startMsw();
   }
 

@@ -6,10 +6,10 @@
   "scripts": {
     "test": "jest",
     "test-auto": "jest --watch --silent",
-    "dev": "webpack-dev-server --open --mode development --hot --port 3000",
-    "start": "webpack-dev-server --open --mode production --hot --port 3000",
-    "build": "webpack --mode production",
-    "build-dev": "webpack --mode development",
+    "dev": "webpack-dev-server --config webpack.config.dev.js --open --mode development --hot --port 3000",
+    "start": "webpack-dev-server --config webpack.config.prod.js --open --mode production --hot --port 3000",
+    "build": "webpack --config webpack.config.prod.js",
+    "build-dev": "webpack --config webpack.config.dev.js",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "cypress": "cypress open"
@@ -41,7 +41,9 @@
     "styled-components": "^6.0.4",
     "ts-loader": "^9.4.4",
     "webpack": "^5.88.2",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "esbuild-loader": "^4.0.0",
+    "speed-measure-webpack-plugin": "^1.5.0"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.22.5",
@@ -61,11 +63,11 @@
     "@trivago/prettier-plugin-sort-imports": "^4.2.0",
     "@typescript-eslint/eslint-plugin": "^5.61.0",
     "@typescript-eslint/parser": "^5.61.0",
-    "cypress": "^12.16.0",
     "eslint": "^8.43.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-storybook": "^0.6.12",
+    "fork-ts-checker-webpack-plugin": "^8.0.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
     "msw-storybook-addon": "^1.8.0",

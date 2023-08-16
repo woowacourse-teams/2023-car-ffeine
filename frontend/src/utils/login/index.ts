@@ -14,8 +14,6 @@ export const getMemberToken = async (code: string, provider: string) => {
   const APIEndPoint = getAPIEndPoint();
   const redirectUri = getRedirectUri();
 
-  alert(redirectUri);
-
   const tokenResponse = await fetch(`${APIEndPoint}/oauth/google/login`, {
     method: 'POST',
     headers: {

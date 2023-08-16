@@ -4,6 +4,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import StationMarkersContainer from '@marker/StationMarkersContainer';
 
+import { debounce } from '@utils/debounce';
 import { useExternalValue } from '@utils/external-state';
 import { setLocalStorage } from '@utils/storage';
 
@@ -46,21 +47,21 @@ const CarFfeineMapListener = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
   const queryClient = useQueryClient();
 
-  useEffect(() => {
-    googleMap.addListener('idle', () => {
-      console.log('idle (테스트용: 제거 예정)');
+  const debouncedIdleHandler = debounce(() => {
+    console.log('idle (테스트용: 제거 예정)');
+    if (googleMap.getZoom() < INITIAL_ZOOM_SIZE) {
+      toastActions.showToast('지도를 조금만 더 확대해주세요', 'warning', 'bottom-center');
+    }
+    queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
 
-      if (googleMap.getZoom() < INITIAL_ZOOM_SIZE) {
-        toastActions.showToast('지도를 조금만 더 확대해주세요', 'warning', 'bottom-center');
-      }
-
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
-
-      setLocalStorage<google.maps.LatLngLiteral>(LOCAL_KEY_LAST_POSITION, {
-        lat: googleMap.getCenter().lat(),
-        lng: googleMap.getCenter().lng(),
-      });
+    setLocalStorage<google.maps.LatLngLiteral>(LOCAL_KEY_LAST_POSITION, {
+      lat: googleMap.getCenter().lat(),
+      lng: googleMap.getCenter().lng(),
     });
+  }, 300);
+
+  useEffect(() => {
+    googleMap.addListener('idle', debouncedIdleHandler);
 
     const initMarkersEvent = googleMap.addListener('bounds_changed', async () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });

@@ -1,6 +1,5 @@
 import {
   AdjustmentsHorizontalIcon,
-  Bars3Icon,
   MagnifyingGlassIcon,
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
@@ -27,7 +26,6 @@ import FlexBox from '@common/FlexBox';
 
 import MswControlButton from '@ui/MswControlButton';
 import ServerStationFilters from '@ui/ServerStationFilters';
-import StationListWindow from '@ui/StationList/StationListWindow';
 import StationSearchWindow from '@ui/StationSearchWindow';
 import LogoIcon from '@ui/Svg/LogoIcon';
 import CarModal from '@ui/modal/CarModal/CarModal';
@@ -100,9 +98,6 @@ const Menu = () => {
       <Button aria-label="필터링 메뉴 열기" onClick={() => openBasePanel(<ServerStationFilters />)}>
         <AdjustmentsHorizontalIcon width="2.8rem" stroke="#333" />
       </Button>
-      <Button aria-label="충전소 목록 보기" onClick={() => openBasePanel(<StationListWindow />)}>
-        <Bars3Icon width="2.8rem" stroke="#333" />
-      </Button>
       {memberToken !== '' ? (
         <PopupMenu trigger={<UserCircleIcon width="2.8rem" stroke="#333" />} menus={loginMenus} />
       ) : (
@@ -110,7 +105,6 @@ const Menu = () => {
           <UserCircleIcon width="2.8rem" stroke="#333" />
         </Button>
       )}
-
       {process.env.NODE_ENV === 'development' && <MswControlButton />}
     </FlexBox>
   );

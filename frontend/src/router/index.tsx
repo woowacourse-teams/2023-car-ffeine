@@ -9,9 +9,9 @@ export const router = createBrowserRouter([
     element: (
       <App
         apiKey={
-          process.env.NODE_ENV === 'development'
-            ? process.env.GOOGLE_MAPS_API_KEY_DEV
-            : process.env.GOOGLE_MAPS_API_KEY_PROD
+          process.env.NODE_ENV === 'production'
+          ? process.env.GOOGLE_MAPS_API_KEY_PROD
+          : process.env.GOOGLE_MAPS_API_KEY_DEV
         }
       />
     ),
