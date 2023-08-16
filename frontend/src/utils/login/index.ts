@@ -1,10 +1,11 @@
 import { setSessionStorage } from '@utils/storage';
 
 import { toastActions } from '@stores/layout/toastStore';
-import { memberTokenActions } from '@stores/login/memberTokenStore';
+import { memberInfoAction } from '@stores/login/memberInfoStore';
+import { memberTokenActions, memberTokenStore } from '@stores/login/memberTokenStore';
 
 import { SERVERS } from '@constants';
-import { SESSION_KEY_MEMBER_TOKEN } from '@constants/storageKeys';
+import { SESSION_KEY_MEMBER_INFO, SESSION_KEY_MEMBER_TOKEN } from '@constants/storageKeys';
 
 interface TokenResponse {
   token: string;
@@ -53,13 +54,6 @@ export const redirectToLoginPage = (provider: string) => {
     });
 };
 
-export const logout = () => {
-  const { setMemberToken } = memberTokenActions;
-
-  setMemberToken('');
-  setSessionStorage(SESSION_KEY_MEMBER_TOKEN, '');
-};
-
 export const getRedirectUri = () => {
   const isProductionServer = window.location.href.search(/https:\/\/carffe.in/) !== -1;
   const isDevServer = window.location.href.search(/https:\/\/dev.carffe.in/) !== -1;
@@ -88,4 +82,18 @@ export const getAPIEndPoint = () => {
   }
 
   return SERVERS['localhost'];
+};
+
+export const logout = () => {
+  const { resetMemberToken } = memberTokenActions;
+  const { resetMemberInfo } = memberInfoAction;
+
+  resetMemberToken();
+  resetMemberInfo();
+  setSessionStorage(SESSION_KEY_MEMBER_TOKEN, '');
+  setSessionStorage(SESSION_KEY_MEMBER_INFO, '');
+};
+
+export const getIsMemberTokenExist = () => {
+  return memberTokenStore.getState() !== '';
 };
