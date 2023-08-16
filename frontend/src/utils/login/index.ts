@@ -61,8 +61,8 @@ export const logout = () => {
 };
 
 export const getRedirectUri = () => {
-  const isProductionServer = window.location.href.match(/https:\/\/carffe.in/) !== null;
-  const isDevServer = window.location.href.match(/https:\/\/dev.carffe.in/) !== null;
+  const isProductionServer = window.location.href.search(/https:\/\/carffe.in/) !== -1;
+  const isDevServer = window.location.href.search(/https:\/\/dev.carffe.in/) !== -1;
 
   if (isProductionServer) {
     return `https://carffe.in`;
@@ -76,8 +76,8 @@ export const getRedirectUri = () => {
 };
 
 export const getAPIEndPoint = () => {
-  const isProductionServer = window.location.href.match(/https:\/\/carffe.in/) !== null;
-  const isDevServer = window.location.href.match(/https:\/\/dev.carffe.in/) !== null;
+  const isProductionServer = window.location.href.search(/https:\/\/carffe.in/) !== -1;
+  const isDevServer = window.location.href.search(/https:\/\/dev.carffe.in/) !== -1;
 
   if (isProductionServer) {
     return SERVERS['production'];
