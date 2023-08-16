@@ -1,6 +1,7 @@
+import { fetchUtils } from '@utils/fetch';
+
 import { serverStore } from '@stores/config/serverStore';
 import { memberInfoStore } from '@stores/login/memberInfoStore';
-import { memberTokenStore } from '@stores/login/memberTokenStore';
 import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
 
 import { SERVERS } from '@constants';
@@ -18,25 +19,12 @@ import type { Car } from '@type/cars';
 export const submitMemberCar = async (carName: string, vintage: string): Promise<Car> => {
   const mode = serverStore.getState();
   const memberId = memberInfoStore.getState()?.memberId;
-  const memberToken = memberTokenStore.getState();
 
-  const memberCarInfo = await fetch(`${SERVERS[mode]}/members/${memberId}/cars`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${memberToken}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ name: carName, vintage }),
-  }).then<Car>((response) => {
-    if (!response.ok) {
-      if (response.status === 401) {
-        throw new Error('로그인이 필요합니다');
-      }
-      throw new Error('차량 정보를 등록하는 중에 오류가 발생했습니다');
-    }
-
-    return response.json();
-  });
+  const memberCarInfo = await fetchUtils.post<Car, Omit<Car, 'carId'>>(
+    `${SERVERS[mode]}/members/${memberId}/cars`,
+    { name: carName, vintage },
+    '차량 정보를 등록하는 중에 오류가 발생했습니다'
+  );
 
   return memberCarInfo;
 };
@@ -50,13 +38,9 @@ export const submitMemberCar = async (carName: string, vintage: string): Promise
 export const getCarFilters = async (carId: number): Promise<StationFilters> => {
   const mode = serverStore.getState();
 
-  const carFilters = await fetch(`${SERVERS[mode]}/cars/${carId}/filters`).then<StationFilters>(
-    (response) => {
-      if (!response.ok) {
-        throw new Error('차량 필터 정보를 불러오는 중에 에러가 발생했습니다');
-      }
-      return response.json();
-    }
+  const carFilters = await fetchUtils.get<StationFilters>(
+    `${SERVERS[mode]}/cars/${carId}/filters`,
+    '차량 필터 정보를 불러오는 중에 에러가 발생했습니다'
   );
 
   return carFilters;
@@ -71,45 +55,15 @@ export const getCarFilters = async (carId: number): Promise<StationFilters> => {
 export const submitMemberFilters = async (carFilters: StationFilters) => {
   const mode = serverStore.getState();
   const memberId = memberInfoStore.getState()?.memberId;
-  const memberToken = memberTokenStore.getState();
-
-  const { setAllServerStationFilters, getAllServerStationFilters } = serverStationFilterAction;
+  const { setAllServerStationFilters, getMemberFilterRequestBody } = serverStationFilterAction;
   setAllServerStationFilters(carFilters);
+  const memberFilterRequestBody = getMemberFilterRequestBody();
 
-  const { capacities, companies, connectorTypes } = getAllServerStationFilters();
-
-  const memberFilters = await fetch(`${SERVERS[mode]}/members/${memberId}/filters`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${memberToken}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      filters: [
-        ...capacities.map((capacity) => ({
-          type: 'capacity',
-          name: capacity,
-        })),
-        ...companies.map((company) => ({
-          type: 'company',
-          name: company,
-        })),
-        ...connectorTypes.map((connectorType) => ({
-          type: 'connectorType',
-          name: connectorType,
-        })),
-      ],
-    }),
-  }).then<StationFilters>((response) => {
-    if (!response.ok) {
-      if (response.status === 401) {
-        throw new Error('로그인이 필요합니다');
-      }
-      throw new Error('필터링 정보를 저장하는 중 오류가 발생했습니다');
-    }
-
-    return response.json();
-  });
+  const memberFilters = fetchUtils.post(
+    `${SERVERS[mode]}/members/${memberId}/filters`,
+    memberFilterRequestBody,
+    '필터링 정보를 저장하는 중 오류가 발생했습니다'
+  );
 
   return memberFilters;
 };
