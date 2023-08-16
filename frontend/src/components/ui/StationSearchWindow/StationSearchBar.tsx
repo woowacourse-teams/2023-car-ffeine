@@ -19,7 +19,6 @@ import Button from '@common/Button';
 import Loader from '@common/Loader';
 
 import StationDetailsWindow from '@ui/StationDetailsWindow';
-import SearchResultSkeleton from '@ui/StationSearchWindow/SearchResultSkeleton';
 import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
 import { pillStyle } from '@style';
