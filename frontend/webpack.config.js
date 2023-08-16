@@ -1,36 +1,47 @@
 /* eslint-disable no-undef */
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
-const prod = process.env.NODE_ENV === 'production';
+const isProductionMode = process.env.NODE_ENV === 'production';
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const DotEnv = require('dotenv-webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 module.exports = {
-  mode: prod ? 'production' : 'development',
+  mode: isProductionMode ? 'production' : 'development',
   entry: './src/index.tsx',
   output: {
     path: path.join(__dirname, '/dist'),
     filename: 'bundle.js',
     publicPath: '/',
   },
-  devtool: prod ? undefined : 'source-map',
+  devtool: isProductionMode ? undefined : 'source-map',
   devServer: {
     static: './dist',
     historyApiFallback: true,
   },
   module: {
     rules: [
-      {
-        test: /\.(ts|tsx)?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
-        resolve: {
-          extensions: ['.ts', '.tsx', '.js', '.json'],
-          fallback: { process: false },
-        },
-      },
+      isProductionMode
+        ? {
+            test: /\.(ts|tsx)?$/,
+            use: 'ts-loader',
+            exclude: /node_modules/,
+            resolve: {
+              extensions: ['.ts', '.tsx', '.js', '.json'],
+              fallback: { process: false },
+            },
+          }
+        : {
+            test: /\.(ts|tsx)?$/,
+            use: 'ts-loader',
+            exclude: /node_modules/,
+            resolve: {
+              extensions: ['.ts', '.tsx', '.js', '.json'],
+              fallback: { process: false },
+            },
+          },
       {
         test: /\.svg$/,
         use: [
@@ -65,14 +76,13 @@ module.exports = {
     },
   },
   plugins: [
+    new ForkTsCheckerWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './public/index.html',
     }),
     new DotEnv(),
     new CopyWebpackPlugin({
-      patterns: [
-        { from: 'public/mockServiceWorker.js', to: '.' }, // msw service worker
-      ],
+      patterns: [{ from: 'public/mockServiceWorker.js', to: '.' }],
     }),
   ],
 };
