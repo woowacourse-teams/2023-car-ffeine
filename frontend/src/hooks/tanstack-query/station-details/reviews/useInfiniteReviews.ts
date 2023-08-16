@@ -14,7 +14,7 @@ interface InfiniteRepliesResponse {
 export const useInfiniteReviews = (stationId: string) => {
   return useInfiniteQuery<InfiniteRepliesResponse>(
     ['reviews', stationId],
-    async ({ pageParam = 1 }) => {
+    async ({ pageParam = 0 }) => {
       const mode = serverStore.getState();
       const res = await fetch(`${SERVERS[mode]}/stations/${stationId}/reviews/?page=${pageParam}`);
       const data = await res.json();
