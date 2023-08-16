@@ -50,4 +50,9 @@ export const serverStationFilterAction = {
       ],
     };
   },
+  deleteAllServerStationFilters() {
+    selectedCompaniesFilterStore.setState(new Set([]));
+    selectedConnectorTypesFilterStore.setState(new Set([]));
+    selectedCapacitiesFilterStore.setState(new Set([]));
+  },
 };
