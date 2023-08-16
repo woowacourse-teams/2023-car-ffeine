@@ -25,7 +25,7 @@ import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigation
 import { pillStyle } from '@style';
 
 import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
-import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
+import { QUERY_KEY_SEARCHED_STATION, QUERY_KEY_STATIONS } from '@constants/queryKeys';
 
 import type { StationPosition } from '@type/stations';
 
@@ -60,7 +60,7 @@ const StationSearchBar = () => {
       showStationDetails({ stationId, latitude, longitude });
     }
 
-    queryClient.invalidateQueries({ queryKey: ['searchedStations'] });
+    queryClient.invalidateQueries({ queryKey: [QUERY_KEY_SEARCHED_STATION] });
   };
 
   const showStationDetails = ({ stationId, latitude, longitude }: StationPosition) => {
