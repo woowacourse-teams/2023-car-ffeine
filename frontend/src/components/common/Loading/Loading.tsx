@@ -17,8 +17,10 @@ function Loading() {
 
 const Message = styled.h2`
   width: fit-content;
-  margin: 23% auto 0;
+  margin: 20% auto 0;
   text-align: center;
+  font-size: 24px;
+  font-weight: 500;
 
   & > span {
     display: block;

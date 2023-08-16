@@ -4,7 +4,6 @@ import Alert from '@common/Alert';
 import Box from '@common/Box';
 
 import ChargerList from '@ui/StationDetailsWindow/chargers/ChargerList';
-import ChargerReportButton from '@ui/StationDetailsWindow/reports/charger/ChargerReportButton';
 import StationReportButton from '@ui/StationDetailsWindow/reports/station/StationReportButton';
 import ReviewPreview from '@ui/StationDetailsWindow/reviews/previews/ReviewPreview';
 import StationInformation from '@ui/StationDetailsWindow/station/StationInformation';
@@ -27,8 +26,7 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
       </Box>
       <StationReportButton station={station} />
 
-      <ChargerList chargers={chargers} />
-      <ChargerReportButton stationId={stationId} />
+      <ChargerList chargers={chargers} stationId={stationId} />
 
       {reportCount > 0 && (
         <Box my={1}>

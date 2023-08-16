@@ -1,7 +1,8 @@
 import type { CSSProp } from 'styled-components';
 import styled, { css } from 'styled-components';
 
-import { type ReactNode, type MouseEventHandler, forwardRef } from 'react';
+import type { ButtonHTMLAttributes, ReactNode, MouseEventHandler } from 'react';
+import { forwardRef } from 'react';
 
 import type { SpacingProps } from '@common/systems';
 import { spacing } from '@common/systems';
@@ -10,7 +11,7 @@ import { getColor, getHoverColor } from '@style';
 
 import type { Color, Size } from '@type/style';
 
-export interface ButtonNextProps extends SpacingProps {
+export interface ButtonNextProps extends SpacingProps, ButtonHTMLAttributes<HTMLButtonElement> {
   noTheme?: boolean;
   variant?: 'text' | 'outlined' | 'contained';
   size?: Size;
