@@ -72,7 +72,7 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
                 </Box>
                 <FlexBox>
                   {!isEditable ? (
-                    <></>
+                    <Text>!{JSON.stringify(memberId)}!</Text>
                   ) : (
                     <>
                       <ButtonNext
