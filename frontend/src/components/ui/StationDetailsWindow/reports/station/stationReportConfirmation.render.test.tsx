@@ -1,8 +1,7 @@
 import '@testing-library/jest-dom';
 import { render, fireEvent } from '@testing-library/react';
 
-import type { StationDetails } from '@type';
-
+import type { StationDetails } from '../../../../../types';
 import StationReportConfirmation from './StationReportConfirmation';
 
 jest.mock('@hooks/tanstack-query/station-details/reports/useUpdateStationReport', () => ({
