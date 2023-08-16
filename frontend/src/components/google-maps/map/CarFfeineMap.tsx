@@ -72,7 +72,6 @@ const CarFfeineMapListener = () => {
   return <></>;
 };
 
-// TODO: 유저 필터링이 로그인 된 이후 바로 적용되지 않는 문제 다시 발생. 이 부분 어떻게 수정할지 고민해보기
 const UserFilterListener = () => {
   const queryClient = useQueryClient();
   const { data: memberFilters } = useMemberFilters();
