@@ -24,6 +24,7 @@ const StationReportButton = ({ station }: StationReportButtonProps) => {
       size="sm"
       color="secondary"
       my={3}
+      disabled={memberId === DEFAULT_TOKEN}
       onClick={() => {
         if (memberId === DEFAULT_TOKEN) {
           alert('로그인이 필요한 메뉴입니다.');
