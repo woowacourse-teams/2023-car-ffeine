@@ -6,10 +6,10 @@
   "scripts": {
     "test": "jest",
     "test-auto": "jest --watch --silent",
-    "dev": "webpack-dev-server --open --mode development --hot --port 3000",
-    "start": "webpack-dev-server --open --mode production --hot --port 3000",
-    "build": "webpack --mode production",
-    "build-dev": "webpack --mode development",
+    "dev": "webpack-dev-server --config webpack.config.dev.js --open --mode development --hot --port 3000",
+    "start": "webpack-dev-server --config webpack.config.dev.js --open --mode production --hot --port 3000",
+    "build": "webpack --config webpack.config.prod.js",
+    "build-dev": "webpack --config webpack.config.dev.js",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "cypress": "cypress open"
