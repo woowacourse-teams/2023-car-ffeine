@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { modalActions } from '@stores/layout/modalStore';
+import { memberTokenStore } from '@stores/login/memberTokenStore';
 
 import { useCreateReview } from '@hooks/tanstack-query/station-details/reviews/useCreateReview';
 
@@ -22,6 +23,7 @@ const ReviewCreate = ({ stationId }: ReviewCreateProps) => {
   const [isReviewCreateOpen, setIsReviewCreateOpen] = useState(false);
   const [stars, setStars] = useState(5);
   const [content, setContent] = useState('');
+  const memberToken = memberTokenStore.getState();
 
   useEffect(() => {
     if (!isCreateReviewLoading && isReviewCreateOpen) {
@@ -84,7 +86,12 @@ const ReviewCreate = ({ stationId }: ReviewCreateProps) => {
             <ButtonNext variant="outlined" fullWidth onClick={handleClickReviewCreateCloseButton}>
               닫기
             </ButtonNext>
-            <ButtonNext variant="contained" fullWidth onClick={handleClickReviewCreateOpenButton}>
+            <ButtonNext
+              variant="contained"
+              disabled={memberToken === ''}
+              fullWidth
+              onClick={handleClickReviewCreateOpenButton}
+            >
               후기 작성하기
             </ButtonNext>
           </>
