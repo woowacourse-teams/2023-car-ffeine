@@ -27,7 +27,7 @@ const ChargerList = ({ chargers }: ChargerListProps) => {
       <Text>
         {totalChargersSize}대 중 {availableChargersSize}대 사용가능
       </Text>
-      <FlexBox my={3}>
+      <FlexBox my={3} rowGap={2} justifyContent="between">
         {chargers.slice(0, page * CHARGER_SIZE).map((charger, index) => (
           <ChargerCard key={index} charger={charger} />
         ))}
