@@ -5,7 +5,11 @@ import { toastActions } from '@stores/layout/toastStore';
 import { memberTokenStore } from '@stores/login/memberTokenStore';
 
 import { SERVERS } from '@constants';
-import { QUERY_KEY_STATION_PREVIEWS, QUERY_KEY_STATION_REVIEWS } from '@constants/queryKeys';
+import {
+  QUERY_KEY_STATION_PREVIEWS,
+  QUERY_KEY_STATION_REPLIES,
+  QUERY_KEY_STATION_REVIEWS,
+} from '@constants/queryKeys';
 
 export interface FetchRemoveReplyRequest {
   reviewId: number;
@@ -34,6 +38,9 @@ export const useRemoveReply = (stationId: string) => {
       toastActions.showToast('리뷰가 삭제됐습니다.', 'success', 'bottom-center');
     },
     onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEY_STATION_REPLIES, stationId],
+      });
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEY_STATION_REVIEWS, stationId],
       });

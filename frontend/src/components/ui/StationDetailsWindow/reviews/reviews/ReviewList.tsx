@@ -48,7 +48,7 @@ export default function ReviewList({ stationId }: ReviewListProps) {
                     key={review.reviewId}
                     stationId={stationId}
                     review={review}
-                    previewMode
+                    previewMode={false}
                   />
                 ))}
               </div>
