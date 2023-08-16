@@ -65,7 +65,6 @@ public class StationService {
                                             List<BigDecimal> capacities) {
         Coordinate coordinate = Coordinate.of(request.latitude(), request.latitudeDelta(), request.longitude(), request.longitudeDelta());
 
-
         // 1. station Id 없는 경우
         if (stationId == null) {
             if (companyNames.isEmpty() && chargerTypes.isEmpty() && capacities.isEmpty()) {

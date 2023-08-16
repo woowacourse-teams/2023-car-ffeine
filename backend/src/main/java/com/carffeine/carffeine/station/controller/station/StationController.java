@@ -31,7 +31,7 @@ public class StationController {
                                                               @RequestParam(required = false, defaultValue = "") List<ChargerType> chargerTypes,
                                                               @RequestParam(required = false, defaultValue = "") List<BigDecimal> capacities,
                                                               @RequestParam(required = false) String stationId) {
-        List<Station> stations = stationService.findByCoordinateV2(stationId, PageRequest.ofSize(10), request, companyNames, chargerTypes, capacities);
+        List<Station> stations = stationService.findByCoordinateV2(stationId, PageRequest.ofSize(11), request, companyNames, chargerTypes, capacities);
         StationsSimpleResponse chargerStationsSimpleResponse = StationsSimpleResponse.from(stations);
         return ResponseEntity.ok(chargerStationsSimpleResponse);
     }

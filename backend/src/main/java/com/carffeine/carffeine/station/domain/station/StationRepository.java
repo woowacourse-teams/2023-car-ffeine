@@ -53,8 +53,10 @@ public interface StationRepository extends Repository<Station, Long> {
     @Query("SELECT DISTINCT s FROM Station s " +
             "INNER JOIN FETCH s.chargers c " +
             "INNER JOIN FETCH c.chargerStatus " +
-            "WHERE s.latitude.value BETWEEN :minLatitude AND :maxLatitude " +
-            "AND s.longitude.value BETWEEN :minLongitude AND :maxLongitude " +
+            "WHERE s.latitude.value >= :minLatitude " +
+            "AND s.latitude.value <= :maxLatitude " +
+            "AND s.longitude.value >= :minLongitude " +
+            "AND s.longitude.value <= :maxLongitude " +
             "AND s.companyName IN :companyNames " +
             "ORDER BY s.stationId")
     List<Station> findAllByFilteringBeingCompanyNames(Pageable pageable,
@@ -68,8 +70,10 @@ public interface StationRepository extends Repository<Station, Long> {
             "INNER JOIN FETCH s.chargers c " +
             "INNER JOIN FETCH c.chargerStatus " +
             "WHERE s.stationId > :stationId " +
-            "AND s.latitude.value BETWEEN :minLatitude AND :maxLatitude " +
-            "AND s.longitude.value BETWEEN :minLongitude AND :maxLongitude " +
+            "AND s.latitude.value >= :minLatitude " +
+            "AND s.latitude.value <= :maxLatitude " +
+            "AND s.longitude.value >= :minLongitude " +
+            "AND s.longitude.value <= :maxLongitude " +
             "AND s.companyName IN :companyNames " +
             "ORDER BY s.stationId")
     List<Station> findAllByFilteringBeingCompanyNamesWithPaging(@Param("stationId") String stationId,
@@ -80,12 +84,15 @@ public interface StationRepository extends Repository<Station, Long> {
                                                                 @Param("maxLongitude") BigDecimal maxLongitude,
                                                                 @Param("companyNames") List<String> companyNames);
 
+
     // 2. fetch join + 충전 타입 bb
     @Query("SELECT DISTINCT s FROM Station s " +
             "INNER JOIN FETCH s.chargers c " +
             "INNER JOIN FETCH c.chargerStatus " +
-            "WHERE s.latitude.value BETWEEN :minLatitude AND :maxLatitude " +
-            "AND s.longitude.value BETWEEN :minLongitude AND :maxLongitude " +
+            "WHERE s.latitude.value >= :minLatitude " +
+            "AND s.latitude.value <= :maxLatitude " +
+            "AND s.longitude.value >= :minLongitude " +
+            "AND s.longitude.value <= :maxLongitude " +
             "AND c.type IN :types " +
             "ORDER BY s.stationId")
     List<Station> findAllByFilteringBeingTypes(Pageable pageable,
@@ -99,8 +106,10 @@ public interface StationRepository extends Repository<Station, Long> {
             "INNER JOIN FETCH s.chargers c " +
             "INNER JOIN FETCH c.chargerStatus " +
             "WHERE s.stationId > :stationId " +
-            "AND s.latitude.value BETWEEN :minLatitude AND :maxLatitude " +
-            "AND s.longitude.value BETWEEN :minLongitude AND :maxLongitude " +
+            "AND s.latitude.value >= :minLatitude " +
+            "AND s.latitude.value <= :maxLatitude " +
+            "AND s.longitude.value >= :minLongitude " +
+            "AND s.longitude.value <= :maxLongitude " +
             "AND c.type IN :types " +
             "ORDER BY s.stationId")
     List<Station> findAllByFilteringBeingTypesWithPaging(@Param("stationId") String stationId,
@@ -115,8 +124,10 @@ public interface StationRepository extends Repository<Station, Long> {
     @Query("SELECT DISTINCT s FROM Station s " +
             "INNER JOIN FETCH s.chargers c " +
             "INNER JOIN FETCH c.chargerStatus " +
-            "WHERE s.latitude.value BETWEEN :minLatitude AND :maxLatitude " +
-            "AND s.longitude.value BETWEEN :minLongitude AND :maxLongitude " +
+            "WHERE s.latitude.value >= :minLatitude " +
+            "AND s.latitude.value <= :maxLatitude " +
+            "AND s.longitude.value >= :minLongitude " +
+            "AND s.longitude.value <= :maxLongitude " +
             "AND c.capacity IN :capacities " +
             "ORDER BY s.stationId")
     List<Station> findAllByFilteringBeingCapacities(Pageable pageable,
@@ -130,8 +141,10 @@ public interface StationRepository extends Repository<Station, Long> {
             "INNER JOIN FETCH s.chargers c " +
             "INNER JOIN FETCH c.chargerStatus " +
             "WHERE s.stationId > :stationId " +
-            "AND s.latitude.value BETWEEN :minLatitude AND :maxLatitude " +
-            "AND s.longitude.value BETWEEN :minLongitude AND :maxLongitude " +
+            "AND s.latitude.value >= :minLatitude " +
+            "AND s.latitude.value <= :maxLatitude " +
+            "AND s.longitude.value >= :minLongitude " +
+            "AND s.longitude.value <= :maxLongitude " +
             "AND c.capacity IN :capacities " +
             "ORDER BY s.stationId")
     List<Station> findAllByFilteringBeingCapacitiesWithPaging(@Param("stationId") String stationId,
@@ -142,12 +155,15 @@ public interface StationRepository extends Repository<Station, Long> {
                                                               @Param("maxLongitude") BigDecimal maxLongitude,
                                                               @Param("capacities") List<BigDecimal> capacities);
 
+
     // 4. fetch join + 회사명 + 타입 bb
     @Query("SELECT DISTINCT s FROM Station s " +
             "INNER JOIN FETCH s.chargers c " +
             "INNER JOIN FETCH c.chargerStatus " +
-            "WHERE s.latitude.value BETWEEN :minLatitude AND :maxLatitude " +
-            "AND s.longitude.value BETWEEN :minLongitude AND :maxLongitude " +
+            "WHERE s.latitude.value >= :minLatitude " +
+            "AND s.latitude.value <= :maxLatitude " +
+            "AND s.longitude.value >= :minLongitude " +
+            "AND s.longitude.value <= :maxLongitude " +
             "AND s.companyName IN :companyNames " +
             "AND c.type IN :types " +
             "ORDER BY s.stationId")
@@ -163,8 +179,10 @@ public interface StationRepository extends Repository<Station, Long> {
             "INNER JOIN FETCH s.chargers c " +
             "INNER JOIN FETCH c.chargerStatus " +
             "WHERE s.stationId > :stationId " +
-            "AND s.latitude.value BETWEEN :minLatitude AND :maxLatitude " +
-            "AND s.longitude.value BETWEEN :minLongitude AND :maxLongitude " +
+            "AND s.latitude.value >= :minLatitude " +
+            "AND s.latitude.value <= :maxLatitude " +
+            "AND s.longitude.value >= :minLongitude " +
+            "AND s.longitude.value <= :maxLongitude " +
             "AND s.companyName IN :companyNames " +
             "AND c.type IN :types " +
             "ORDER BY s.stationId")
@@ -181,8 +199,8 @@ public interface StationRepository extends Repository<Station, Long> {
     @Query("SELECT DISTINCT s FROM Station s " +
             "INNER JOIN FETCH s.chargers c " +
             "INNER JOIN FETCH c.chargerStatus " +
-            "WHERE s.latitude.value BETWEEN :minLatitude AND :maxLatitude " +
-            "AND s.longitude.value BETWEEN :minLongitude AND :maxLongitude " +
+            "WHERE s.latitude.value >= :minLatitude AND s.latitude.value <= :maxLatitude " +
+            "AND s.longitude.value >= :minLongitude AND s.longitude.value <= :maxLongitude " +
             "AND s.companyName IN :companyNames " +
             "AND c.capacity IN :capacities " +
             "ORDER BY s.stationId")
@@ -198,8 +216,8 @@ public interface StationRepository extends Repository<Station, Long> {
             "INNER JOIN FETCH s.chargers c " +
             "INNER JOIN FETCH c.chargerStatus " +
             "WHERE s.stationId > :stationId " +
-            "AND s.latitude.value BETWEEN :minLatitude AND :maxLatitude " +
-            "AND s.longitude.value BETWEEN :minLongitude AND :maxLongitude " +
+            "AND s.latitude.value >= :minLatitude AND s.latitude.value <= :maxLatitude " +
+            "AND s.longitude.value >= :minLongitude AND s.longitude.value <= :maxLongitude " +
             "AND s.companyName IN :companyNames " +
             "AND c.capacity IN :capacities " +
             "ORDER BY s.stationId")
@@ -212,12 +230,13 @@ public interface StationRepository extends Repository<Station, Long> {
                                                                              @Param("companyNames") List<String> companyNames,
                                                                              @Param("capacities") List<BigDecimal> capacities);
 
+
     // 6. fetch join + 타입 + 속도
     @Query("SELECT DISTINCT s FROM Station s " +
             "INNER JOIN FETCH s.chargers c " +
             "INNER JOIN FETCH c.chargerStatus " +
-            "WHERE s.latitude.value BETWEEN :minLatitude AND :maxLatitude " +
-            "AND s.longitude.value BETWEEN :minLongitude AND :maxLongitude " +
+            "WHERE s.latitude.value >= :minLatitude AND s.latitude.value <= :maxLatitude " +
+            "AND s.longitude.value >= :minLongitude AND s.longitude.value <= :maxLongitude " +
             "AND c.type IN :types " +
             "AND c.capacity IN :capacities " +
             "ORDER BY s.stationId")
@@ -233,8 +252,8 @@ public interface StationRepository extends Repository<Station, Long> {
             "INNER JOIN FETCH s.chargers c " +
             "INNER JOIN FETCH c.chargerStatus " +
             "WHERE s.stationId > :stationId " +
-            "AND s.latitude.value BETWEEN :minLatitude AND :maxLatitude " +
-            "AND s.longitude.value BETWEEN :minLongitude AND :maxLongitude " +
+            "AND s.latitude.value >= :minLatitude AND s.latitude.value <= :maxLatitude " +
+            "AND s.longitude.value >= :minLongitude AND s.longitude.value <= :maxLongitude " +
             "AND c.type IN :types " +
             "AND c.capacity IN :capacities " +
             "ORDER BY s.stationId")
@@ -247,12 +266,13 @@ public interface StationRepository extends Repository<Station, Long> {
                                                                       @Param("types") List<ChargerType> types,
                                                                       @Param("capacities") List<BigDecimal> capacities);
 
+
     // 7. fetch join + 모두 존재 bb
     @Query("SELECT DISTINCT s FROM Station s " +
             "INNER JOIN FETCH s.chargers c " +
             "INNER JOIN FETCH c.chargerStatus " +
-            "WHERE s.latitude.value BETWEEN :minLatitude AND :maxLatitude " +
-            "AND s.longitude.value BETWEEN :minLongitude AND :maxLongitude " +
+            "WHERE s.latitude.value >= :minLatitude AND s.latitude.value <= :maxLatitude " +
+            "AND s.longitude.value >= :minLongitude AND s.longitude.value <= :maxLongitude " +
             "AND s.companyName IN :companyNames " +
             "AND c.capacity IN :capacities " +
             "AND c.type IN :types " +
@@ -270,8 +290,8 @@ public interface StationRepository extends Repository<Station, Long> {
             "INNER JOIN FETCH s.chargers c " +
             "INNER JOIN FETCH c.chargerStatus " +
             "WHERE s.stationId > :stationId " +
-            "AND s.latitude.value BETWEEN :minLatitude AND :maxLatitude " +
-            "AND s.longitude.value BETWEEN :minLongitude AND :maxLongitude " +
+            "AND s.latitude.value >= :minLatitude AND s.latitude.value <= :maxLatitude " +
+            "AND s.longitude.value >= :minLongitude AND s.longitude.value <= :maxLongitude " +
             "AND s.companyName IN :companyNames " +
             "AND c.capacity IN :capacities " +
             "AND c.type IN :types " +
@@ -290,8 +310,8 @@ public interface StationRepository extends Repository<Station, Long> {
     @Query("SELECT DISTINCT s FROM Station s " +
             "INNER JOIN FETCH s.chargers c " +
             "INNER JOIN FETCH c.chargerStatus " +
-            "WHERE s.latitude.value BETWEEN :minLatitude AND :maxLatitude " +
-            "AND s.longitude.value BETWEEN :minLongitude AND :maxLongitude " +
+            "WHERE s.latitude.value >= :minLatitude AND s.latitude.value <= :maxLatitude " +
+            "AND s.longitude.value >= :minLongitude AND s.longitude.value <= :maxLongitude " +
             "ORDER BY s.stationId")
     List<Station> findAllByFilteringNone(Pageable pageable,
                                          @Param("minLatitude") BigDecimal minLatitude,
@@ -299,12 +319,13 @@ public interface StationRepository extends Repository<Station, Long> {
                                          @Param("minLongitude") BigDecimal minLongitude,
                                          @Param("maxLongitude") BigDecimal maxLongitude);
 
+
     @Query("SELECT DISTINCT s FROM Station s " +
             "INNER JOIN FETCH s.chargers c " +
             "INNER JOIN FETCH c.chargerStatus " +
             "WHERE s.stationId > :stationId " +
-            "AND s.latitude.value BETWEEN :minLatitude AND :maxLatitude " +
-            "AND s.longitude.value BETWEEN :minLongitude AND :maxLongitude " +
+            "AND s.latitude.value >= :minLatitude AND s.latitude.value <= :maxLatitude " +
+            "AND s.longitude.value >= :minLongitude AND s.longitude.value <= :maxLongitude " +
             "ORDER BY s.stationId")
     List<Station> findAllByFilteringNoneWithPaging(@Param("stationId") String stationId,
                                                    Pageable pageable,
