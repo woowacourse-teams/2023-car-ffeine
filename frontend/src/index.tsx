@@ -7,8 +7,6 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { configureToken } from '@utils/configureToken';
-import { getAPIEndPoint } from '@utils/login';
-import { getSessionStorage } from '@utils/storage';
 
 import { mswModeActions } from '@stores/config/mswModeStore';
 
