@@ -9,10 +9,6 @@ import { QUERY_KEY_MEMBER_SELECTED_FILTERS } from '@constants/queryKeys';
 
 import type { StationFilters } from '@type';
 
-interface MemberFilters {
-  selectedFilters: StationFilters;
-}
-
 const fetchMemberFilters = async (): Promise<StationFilters> => {
   const mode = serverStore.getState();
   const memberToken = memberTokenStore.getState();
@@ -34,24 +30,22 @@ const fetchMemberFilters = async (): Promise<StationFilters> => {
       Authorization: `Bearer ${memberToken}`,
     },
   })
-    .then<MemberFilters>((response) => {
+    .then<StationFilters>((response) => {
       if (!response.ok) {
         throw new Error('유저의 필터 정보를 불러오는데 실패했습니다.');
       }
 
       return response.json();
     })
-    .catch<MemberFilters>(() => {
+    .catch<StationFilters>(() => {
       return {
-        selectedFilters: {
-          companies: [],
-          capacities: [],
-          connectorTypes: [],
-        },
+        companies: [],
+        capacities: [],
+        connectorTypes: [],
       };
     });
 
-  return memberFilters.selectedFilters;
+  return memberFilters;
 };
 
 export const useMemberFilters = () => {

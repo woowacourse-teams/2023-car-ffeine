@@ -36,11 +36,9 @@ export const memberFilterHandlers = [
     return res(
       ctx.status(200),
       ctx.json({
-        selectedFilters: {
-          companies: ['AM', 'BA', 'BG', 'BK'],
-          capacities: ['3.00', '7.00'],
-          connectorTypes: ['DC_COMBO'],
-        },
+        companies: ['AM', 'BA', 'BG', 'BK'],
+        capacities: ['3.00', '7.00'],
+        connectorTypes: ['DC_COMBO'],
       })
     );
   }),
