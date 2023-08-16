@@ -28,7 +28,7 @@ const fetchRemoveReview = async (fetchRemoveReviewRequestParams: FetchRemoveRevi
   });
 };
 
-export const useRemoveReview = (stationId: string) => {
+export const useRemoveReview = (stationId: string, reviewId: number) => {
   const queryClient = useQueryClient();
 
   const { mutate, isLoading: isRemoveReviewLoading } = useMutation({
@@ -38,7 +38,7 @@ export const useRemoveReview = (stationId: string) => {
     },
     onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEY_STATION_REPLIES, stationId],
+        queryKey: [QUERY_KEY_STATION_REPLIES, reviewId],
       });
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEY_STATION_REVIEWS, stationId],

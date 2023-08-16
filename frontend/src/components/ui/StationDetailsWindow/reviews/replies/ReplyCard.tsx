@@ -27,7 +27,7 @@ interface ReplyCardProps {
 
 const ReplyCard = ({ stationId, reply, reviewId, previewMode }: ReplyCardProps) => {
   const [isModifyMode, setIsModifyMode] = useState(false);
-  const { removeReply, isRemoveReplyLoading } = useRemoveReply(stationId);
+  const { removeReply, isRemoveReplyLoading } = useRemoveReply(stationId, reviewId);
   const memberId = memberInfoStore.getState()?.memberId;
   const isReplyOwner = memberId !== reply.memberId;
   const isEditable = (isReplyOwner || !reply.isDeleted) && !previewMode;

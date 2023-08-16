@@ -27,7 +27,7 @@ export interface ReviewCardProps {
 }
 
 const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
-  const { isRemoveReviewLoading, removeReview } = useRemoveReview(stationId);
+  const { isRemoveReviewLoading, removeReview } = useRemoveReview(stationId, review.reviewId);
   const [isRepliesOpen, setIsRepliesOpen] = useState(false);
   const [isModifyMode, setIsModifyMode] = useState(false);
   const memberId = memberInfoStore.getState()?.memberId;

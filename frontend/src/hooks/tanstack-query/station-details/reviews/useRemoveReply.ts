@@ -29,7 +29,7 @@ const fetchRemoveReply = async (fetchRemoveReplyRequestParams: FetchRemoveReplyR
   });
 };
 
-export const useRemoveReply = (stationId: string) => {
+export const useRemoveReply = (stationId: string, reviewId: number) => {
   const queryClient = useQueryClient();
 
   const { mutate, isLoading: isRemoveReplyLoading } = useMutation({
@@ -39,7 +39,7 @@ export const useRemoveReply = (stationId: string) => {
     },
     onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEY_STATION_REPLIES, stationId],
+        queryKey: [QUERY_KEY_STATION_REPLIES, reviewId],
       });
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEY_STATION_REVIEWS, stationId],
