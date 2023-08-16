@@ -5,7 +5,7 @@ import { getMemberToken } from '@utils/login';
 import { getAPIEndPoint } from '@utils/login/index';
 import { setSessionStorage } from '@utils/storage';
 
-import type { MemberInfo } from '@stores/login/memberInfoStore';
+import { memberTokenStore } from '@stores/login/memberTokenStore';
 
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
@@ -25,6 +25,8 @@ const GoogleLogin = () => {
 
     getMemberToken(code, 'google')
       .then(async (token) => {
+        memberTokenStore.setState(token);
+
         const memberInfo = await fetchUtils.get(`${APIEndPoint}/members/me`);
 
         setSessionStorage(SESSION_KEY_MEMBER_TOKEN, token);
