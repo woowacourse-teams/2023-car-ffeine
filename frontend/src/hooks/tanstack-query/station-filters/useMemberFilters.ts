@@ -35,7 +35,6 @@ const fetchMemberFilters = async (): Promise<StationFilters> => {
     },
   })
     .then<MemberFilters>((response) => {
-      console.log(response);
       if (!response.ok) {
         throw new Error('유저의 필터 정보를 불러오는데 실패했습니다.');
       }
