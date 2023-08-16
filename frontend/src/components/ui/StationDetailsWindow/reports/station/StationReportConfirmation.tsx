@@ -136,7 +136,11 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
       <Box>
         <ButtonNext noTheme onClick={() => handleClickButton('isParkingFree')}>
           <FlexBox alignItems="center">
-            <input type="checkbox" checked={form.isParkingFree} />
+            <input
+              data-testid="isParkingFree-checkbox"
+              type="checkbox"
+              checked={form.isParkingFree}
+            />
             <Text>주차비 무료</Text>
           </FlexBox>
         </ButtonNext>
@@ -144,7 +148,7 @@ const StationReportConfirmation = ({ station }: StationReportConfirmationProps) 
       <Box>
         <ButtonNext noTheme onClick={() => handleClickButton('isPrivate')}>
           <FlexBox alignItems="center">
-            <input type="checkbox" checked={form.isPrivate} />
+            <input data-testid="isPrivate-checkbox" type="checkbox" checked={form.isPrivate} />
             <Text>사용 제한</Text>
           </FlexBox>
         </ButtonNext>

@@ -2,6 +2,8 @@ import { css } from 'styled-components';
 
 import { useEffect, useState } from 'react';
 
+import { memberTokenStore } from '@stores/login/memberTokenStore';
+
 import { useCreateReply } from '@hooks/tanstack-query/station-details/reviews/useCreateReply';
 
 import Box from '@common/Box';
@@ -22,9 +24,11 @@ const ReplyCreate = ({ stationId, reviewId }: ReplyCreateProps) => {
   const { isCreateReplyLoading, createReply } = useCreateReply(stationId);
   const [content, setContent] = useState('');
   const [isReplyCreateOpen, setIsReplyCreateOpen] = useState(true);
+  const memberToken = memberTokenStore.getState();
 
   useEffect(() => {
     if (isCreateReplyLoading && isReplyCreateOpen) {
+      setContent('');
       setIsReplyCreateOpen(false);
     }
   }, [isCreateReplyLoading]);
@@ -34,7 +38,7 @@ const ReplyCreate = ({ stationId, reviewId }: ReplyCreateProps) => {
     setContent('');
   };
 
-  if (!isReplyCreateOpen) {
+  if (!isReplyCreateOpen || memberToken === '') {
     return <></>;
   }
 

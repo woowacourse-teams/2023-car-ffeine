@@ -2,6 +2,8 @@ import { css } from 'styled-components';
 
 import React from 'react';
 
+import { memberInfoStore } from '@stores/login/memberInfoStore';
+
 import { useInfiniteReviews } from '@hooks/tanstack-query/station-details/reviews/useInfiniteReviews';
 
 import Box from '@common/Box';

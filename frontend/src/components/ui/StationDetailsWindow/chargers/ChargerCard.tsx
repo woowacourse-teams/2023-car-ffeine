@@ -1,5 +1,5 @@
 import { BoltIcon } from '@heroicons/react/24/solid';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import { calculateLatestUpdateTime } from '@utils/index';
 

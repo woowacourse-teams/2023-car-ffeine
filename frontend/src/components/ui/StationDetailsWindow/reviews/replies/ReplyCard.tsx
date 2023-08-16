@@ -63,7 +63,7 @@ const ReplyCard = ({ stationId, reply, reviewId, previewMode }: ReplyCardProps) 
               </Text>
             </Box>
             {!isEditable ? (
-              <></>
+              <Text>!{JSON.stringify(memberId)}!</Text>
             ) : (
               <div>
                 <ButtonNext
