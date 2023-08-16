@@ -77,7 +77,7 @@ export const getRedirectUri = () => {
 
 export const getAPIEndPoint = () => {
   const isProductionServer = process.env.NODE_ENV === 'production';
-  const isDevServer = window.location.href.match(/https:\/\/dev.carffe.in/) !== null;
+  const isDevServer = window.location.href.match(/dev.carffe.in/) !== null;
 
   if (isProductionServer) {
     return SERVERS['production'];
