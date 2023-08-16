@@ -8,6 +8,29 @@ import { serverStationFilterAction } from '@stores/station-filters/serverStation
 import { DEFAULT_TOKEN, SERVERS } from '@constants';
 import { SESSION_KEY_MEMBER_INFO, SESSION_KEY_MEMBER_TOKEN } from '@constants/storageKeys';
 
+interface LoginUriResponse {
+  loginUri: string;
+}
+
+export const redirectToLoginPage = (provider: string) => {
+  const { showToast } = toastActions;
+  const APIEndPoint = getAPIEndPoint();
+  const redirectUri = getRedirectUri();
+
+  fetch(`${APIEndPoint}/oauth/${provider}/login-uri?redirect-uri=${redirectUri}/${provider}`)
+    .then<LoginUriResponse>((response) => response.json())
+    .then((data) => {
+      const loginUri = data.loginUri;
+
+      if (loginUri !== undefined) {
+        window.location.href = loginUri;
+      }
+    })
+    .catch(() => {
+      showToast('로그인에 실패했습니다', 'error');
+    });
+};
+
 interface TokenResponse {
   token: string;
 }
@@ -30,29 +53,6 @@ export const getMemberToken = async (code: string, provider: string) => {
   const memberToken = tokenResponse.token;
 
   return memberToken;
-};
-
-interface LoginUriResponse {
-  loginUri: string;
-}
-
-export const redirectToLoginPage = (provider: string) => {
-  const { showToast } = toastActions;
-  const APIEndPoint = getAPIEndPoint();
-  const redirectUri = getRedirectUri();
-
-  fetch(`${APIEndPoint}/oauth/${provider}/login-uri?redirect-uri=${redirectUri}/${provider}`)
-    .then<LoginUriResponse>((response) => response.json())
-    .then((data) => {
-      const loginUri = data.loginUri;
-
-      if (loginUri !== undefined) {
-        window.location.href = loginUri;
-      }
-    })
-    .catch(() => {
-      showToast('로그인에 실패했습니다', 'error');
-    });
 };
 
 export const getRedirectUri = () => {
@@ -86,11 +86,11 @@ export const getAPIEndPoint = () => {
 };
 
 export const logout = () => {
-  const { resetMemberToken } = memberTokenActions;
+  const { setMemberToken } = memberTokenActions;
   const { resetMemberInfo } = memberInfoAction;
   const { deleteAllServerStationFilters } = serverStationFilterAction;
 
-  resetMemberToken();
+  setMemberToken('');
   resetMemberInfo();
   setSessionStorage(SESSION_KEY_MEMBER_TOKEN, '');
   setSessionStorage(

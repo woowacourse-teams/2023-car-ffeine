@@ -5,7 +5,7 @@ import { SESSION_KEY_MEMBER_TOKEN } from '@constants/storageKeys';
 
 import { toastActions } from '../layout/toastStore';
 
-export const memberTokenStore = store(getSessionStorage(SESSION_KEY_MEMBER_TOKEN, ''));
+export const memberTokenStore = store('');
 
 export const memberTokenActions = {
   /**
@@ -13,10 +13,10 @@ export const memberTokenActions = {
    *
    * @param memberToken 발급받은 토큰
    */
-  setMemberToken: async (memberToken: string) => {
+  setMemberToken: async (memberToken: string, isInitial?: boolean) => {
     memberTokenStore.setState(memberToken);
 
-    if (memberToken === '') {
+    if (memberToken === '' && isInitial !== true) {
       toastActions.showToast('로그아웃 되었습니다');
     }
 
@@ -31,3 +31,5 @@ export const memberTokenActions = {
     memberTokenStore.setState('');
   },
 };
+
+memberTokenActions.setMemberToken(getSessionStorage(SESSION_KEY_MEMBER_TOKEN, ''), true);
