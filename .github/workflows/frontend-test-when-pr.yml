@@ -8,7 +8,7 @@ on:
     paths:
       - frontend/**
       - .github/**
-        
+
 permissions:
   contents: read
 
@@ -24,6 +24,6 @@ jobs:
       - name: Checkout PR
         uses: actions/checkout@v2
       - name: Install dependencies
-        run: yarn install
+        run: npm install
       - name: Test
-        run: yarn test
+        run: npm run test
