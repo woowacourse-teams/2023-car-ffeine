@@ -25,6 +25,7 @@ const ReplyCreate = ({ stationId, reviewId }: ReplyCreateProps) => {
 
   useEffect(() => {
     if (isCreateReplyLoading && isReplyCreateOpen) {
+      setContent('');
       setIsReplyCreateOpen(false);
     }
   }, [isCreateReplyLoading]);
