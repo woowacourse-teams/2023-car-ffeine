@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import { fetchUtils } from '@utils/fetch';
 import { getMemberToken } from '@utils/login';
 import { getAPIEndPoint } from '@utils/login/index';
 import { setSessionStorage } from '@utils/storage';
@@ -24,12 +25,7 @@ const GoogleLogin = () => {
 
     getMemberToken(code, 'google')
       .then(async (token) => {
-        const memberInfo = await fetch(`${APIEndPoint}/members/me`, {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }).then<MemberInfo>((response) => response.json());
+        const memberInfo = await fetchUtils.get(`${APIEndPoint}/members/me`);
 
         setSessionStorage(SESSION_KEY_MEMBER_TOKEN, token);
         setSessionStorage(SESSION_KEY_MEMBER_INFO, JSON.stringify(memberInfo));
