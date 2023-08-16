@@ -45,7 +45,7 @@ jobs:
       - name: Join EC2 dev server
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.SERVER_HOST }}
+          host: ${{ secrets.DEVELOP_SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SERVER_KEY }}
           port: ${{ secrets.SERVER_PORT }}
@@ -56,7 +56,7 @@ jobs:
             
             sudo docker pull woowacarffeine/frontend-dev:latest
             
-            sudo docker run -d -p 3001:3000 \
+            sudo docker run -d -p 3000:3000 \
             --name frontend-dev \
             woowacarffeine/frontend-dev:latest
             
