@@ -125,15 +125,15 @@ const SelectBox = ({
 }) => {
   return (
     <select
-      onChange={(e) => {
-        onChange(e.target.value);
+      onChange={({ target: { value } }) => {
+        onChange(value);
       }}
       style={{
         flex: 1,
       }}
     >
-      {options.map((option, i) => (
-        <option key={i} value={option}>
+      {options.map((option, index) => (
+        <option key={index} value={option}>
           {option}
         </option>
       ))}
