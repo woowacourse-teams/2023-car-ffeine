@@ -25,6 +25,7 @@ const ReviewCreate = ({ stationId }: ReviewCreateProps) => {
 
   useEffect(() => {
     if (!isCreateReviewLoading && isReviewCreateOpen) {
+      setContent('');
       setIsReviewCreateOpen(false);
     }
   }, [isCreateReviewLoading]);
