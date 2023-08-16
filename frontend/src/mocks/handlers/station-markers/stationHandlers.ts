@@ -23,6 +23,21 @@ export const stationHandlers = [
     const selectedChargerTypes = searchParams.get('chargerTypes')?.split(',');
     const selectedCapacities = searchParams.get('capacities')?.split(',')?.map(Number);
     const selectedCompanies = searchParams.get('companies')?.split(',');
+    const lastStationId = searchParams.get('lastStationId');
+
+    console.log(
+      latitude,
+      longitude,
+      latitudeDelta,
+      longitudeDelta,
+      isChargerTypeFilterSelected,
+      isCapacityFilterSelected,
+      isCompanyNameFilterSelected,
+      selectedChargerTypes,
+      selectedCapacities,
+      selectedCompanies,
+      lastStationId
+    );
 
     const northEastBoundary = {
       latitude: latitude + latitudeDelta,
@@ -73,13 +88,43 @@ export const stationHandlers = [
       });
 
     console.log('찾은 충전소 갯수: ' + foundStations.length);
+    //
+    // return res(
+    //   ctx.delay(1000),
+    //   ctx.status(200),
+    //   ctx.json({
+    //     stations: foundStations,
+    //   })
+    // );
+    if (foundStations.length === 0) {
+      return res(
+        ctx.json({
+          stations: [],
+          hasNextPage: false,
+        }),
+        ctx.delay(1000),
+        ctx.status(200)
+      );
+    }
+
+    if (Math.random() < 0.3) {
+      return res(
+        ctx.json({
+          stations: foundStations.slice(0, 3),
+          hasNextPage: false,
+        }),
+        ctx.delay(1000),
+        ctx.status(200)
+      );
+    }
 
     return res(
-      ctx.delay(1000),
-      ctx.status(200),
       ctx.json({
         stations: foundStations,
-      })
+        hasNextPage: true,
+      }),
+      ctx.delay(1000),
+      ctx.status(200)
     );
   }),
 ];

@@ -46,7 +46,7 @@ const generateRandomStationId = () => {
   return `${randomLetter1}${randomLetter2}${randomNumber}`;
 };
 
-export const stations: Station[] = Array.from({ length: 3000 }, (_, index) => {
+export const stations: Station[] = Array.from({ length: 10 }, (_, index) => {
   const randomStationId = generateRandomStationId();
   return {
     stationId: randomStationId,
