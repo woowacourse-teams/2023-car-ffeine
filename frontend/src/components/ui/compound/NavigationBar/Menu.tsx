@@ -113,7 +113,6 @@ const Menu = () => {
           <UserCircleIcon width="2.8rem" stroke="#333" />
         </Button>
       )}
-
       {process.env.NODE_ENV === 'development' && <MswControlButton />}
     </FlexBox>
   );

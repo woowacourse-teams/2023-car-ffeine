@@ -1,4 +1,3 @@
-import * as process from 'process';
 import { router } from 'router';
 
 import { createRoot } from 'react-dom/client';
@@ -8,7 +7,6 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { configureToken } from '@utils/configureToken';
-import { getAPIEndPoint } from '@utils/login';
 import { getSessionStorage } from '@utils/storage';
 
 import { mswModeActions } from '@stores/config/mswModeStore';
@@ -32,7 +30,7 @@ if (memberToken !== '' && memberInfo !== '') {
 }
 
 const main = async () => {
-  if (process.env.NODE_ENV === 'development' && getAPIEndPoint() === 'http://localhost:8080/api') {
+  if (process.env.NODE_ENV === 'development') {
     await mswModeActions.startMsw();
   }
 

@@ -41,7 +41,9 @@
     "styled-components": "^6.0.4",
     "ts-loader": "^9.4.4",
     "webpack": "^5.88.2",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "esbuild-loader": "^4.0.0",
+    "speed-measure-webpack-plugin": "^1.5.0"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.22.5",
@@ -61,7 +63,6 @@
     "@trivago/prettier-plugin-sort-imports": "^4.2.0",
     "@typescript-eslint/eslint-plugin": "^5.61.0",
     "@typescript-eslint/parser": "^5.61.0",
-    "esbuild-loader": "^4.0.0",
     "eslint": "^8.43.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-react": "^7.32.2",
@@ -71,7 +72,6 @@
     "lint-staged": "^13.2.3",
     "msw-storybook-addon": "^1.8.0",
     "prettier": "^3.0.1",
-    "speed-measure-webpack-plugin": "^1.5.0",
     "storybook": "^7.0.24",
     "typescript": "^5.1.6",
     "webpack-dev-server": "^4.15.1"
