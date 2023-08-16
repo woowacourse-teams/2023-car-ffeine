@@ -69,7 +69,7 @@ jobs:
           DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
           DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
         with:
-          host: ${{ secrets.SERVER_HOST }}
+          host: ${{ secrets.DEVELOP_SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SERVER_KEY }}
           port: ${{ secrets.SERVER_PORT }}
@@ -80,7 +80,7 @@ jobs:
             sudo docker stop backend-dev || true
             sudo docker container prune -f
             
-            sudo docker run -d -p 8081:8080 \
+            sudo docker run -d -p 8080:8080 \
             -e "SPRING_PROFILE=dev" \
             -e "ENCRYPT_KEY=${{secrets.JASYPT_KEY}}" \
             -e "DATABASE_USERNAME=${{secrets.DATABASE_USERNAME}}" \
