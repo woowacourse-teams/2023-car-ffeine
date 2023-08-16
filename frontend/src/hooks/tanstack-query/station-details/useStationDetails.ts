@@ -47,6 +47,6 @@ export const useStationDetails = () => {
   return useQuery({
     queryKey: [QUERY_KEY_STATION_DETAILS, selectedStationId],
     queryFn: () => fetchStationDetails(selectedStationId),
-    enabled: !!selectedStationId,
+    refetchOnWindowFocus: false,
   });
 };
