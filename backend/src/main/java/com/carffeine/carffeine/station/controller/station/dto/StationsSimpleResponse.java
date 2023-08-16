@@ -4,7 +4,8 @@ import com.carffeine.carffeine.station.domain.station.Station;
 
 import java.util.List;
 
-public record StationsSimpleResponse(List<StationSimpleResponse> stations) {
+public record StationsSimpleResponse(List<StationSimpleResponse> stations, boolean hasNextPage) {
+
 
     public static StationsSimpleResponse from(List<Station> stations) {
         List<StationSimpleResponse> simpleResponses = stations.stream()
@@ -22,9 +23,14 @@ public record StationsSimpleResponse(List<StationSimpleResponse> stations) {
                         it.isPrivate(),
                         it.getTotalCount(),
                         it.getAvailableCount()
-                ))
+                )).limit(10)
                 .toList();
-        return new StationsSimpleResponse(simpleResponses);
+
+        if (stations.size() != 11) {
+            return new StationsSimpleResponse(simpleResponses, false);
+        }
+
+        return new StationsSimpleResponse(simpleResponses, true);
     }
 }
 

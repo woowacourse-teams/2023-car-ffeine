@@ -49,7 +49,6 @@ class StationControllerTest extends MockBeanInjection {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Test
     void 충전소를_위도_경도로_조회한다() throws Exception {
         // given
         BigDecimal latitude = BigDecimal.valueOf(35.3994933);

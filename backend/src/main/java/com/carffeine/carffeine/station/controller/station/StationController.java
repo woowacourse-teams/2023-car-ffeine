@@ -8,6 +8,7 @@ import com.carffeine.carffeine.station.service.station.StationService;
 import com.carffeine.carffeine.station.service.station.dto.CoordinateRequest;
 import com.carffeine.carffeine.station.service.station.dto.StationsSearchResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,16 @@ public class StationController {
     private final StationService stationService;
 
     @GetMapping("/stations")
+    public ResponseEntity<StationsSimpleResponse> getStations(CoordinateRequest request,
+                                                              @RequestParam(required = false, defaultValue = "") List<String> companyNames,
+                                                              @RequestParam(required = false, defaultValue = "") List<ChargerType> chargerTypes,
+                                                              @RequestParam(required = false, defaultValue = "") List<BigDecimal> capacities,
+                                                              @RequestParam(required = false) String stationId) {
+        List<Station> stations = stationService.findByCoordinateV2(stationId, PageRequest.ofSize(11), request, companyNames, chargerTypes, capacities);
+        StationsSimpleResponse chargerStationsSimpleResponse = StationsSimpleResponse.from(stations);
+        return ResponseEntity.ok(chargerStationsSimpleResponse);
+    }
+
     public ResponseEntity<StationsSimpleResponse> getStations(CoordinateRequest request,
                                                               @RequestParam(required = false, defaultValue = "") List<String> companyNames,
                                                               @RequestParam(required = false, defaultValue = "") List<ChargerType> chargerTypes,
