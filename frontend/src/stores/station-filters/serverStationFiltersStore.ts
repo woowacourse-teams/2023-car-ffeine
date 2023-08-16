@@ -29,4 +29,25 @@ export const serverStationFilterAction = {
     selectedConnectorTypesFilterStore.setState(new Set([...connectorTypes]));
     selectedCapacitiesFilterStore.setState(new Set([...capacities]));
   },
+  getMemberFilterRequestBody() {
+    const { capacities, companies, connectorTypes } =
+      serverStationFilterAction.getAllServerStationFilters();
+
+    return {
+      filters: [
+        ...capacities.map((capacity) => ({
+          type: 'capacity',
+          name: capacity,
+        })),
+        ...companies.map((company) => ({
+          type: 'company',
+          name: company,
+        })),
+        ...connectorTypes.map((connectorType) => ({
+          type: 'connectorType',
+          name: connectorType,
+        })),
+      ],
+    };
+  },
 };
