@@ -94,6 +94,10 @@ export const logout = () => {
   setSessionStorage(SESSION_KEY_MEMBER_INFO, '');
 };
 
-export const getIsMemberTokenExist = () => {
-  return memberTokenStore.getState() !== '';
+export const handleInvalidTokenToLogout = () => {
+  const isTokenExist = memberTokenStore.getState() !== '';
+
+  if (isTokenExist) {
+    logout();
+  }
 };
