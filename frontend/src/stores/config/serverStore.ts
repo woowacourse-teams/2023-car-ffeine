@@ -3,12 +3,14 @@ import { getAPIEndPoint } from '@utils/login';
 
 import type { SERVERS } from '@constants';
 
+const APIEndPoint = getAPIEndPoint();
+
 export const serverStore = store<keyof typeof SERVERS>(
-  process.env.NODE_ENV === 'production'
+  APIEndPoint === 'https://api.carffe.in/api'
     ? 'production'
-    : getAPIEndPoint() === 'http://localhost:8080/api'
-    ? 'localhost'
-    : 'dain'
+    : APIEndPoint === 'https://dain.carffe.in/api'
+    ? 'dain'
+    : 'localhost'
 );
 
 export const serverActions = {
