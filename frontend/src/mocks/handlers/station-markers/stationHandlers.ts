@@ -24,8 +24,6 @@ export const stationHandlers = [
     const selectedCapacities = searchParams.get('capacities')?.split(',')?.map(Number);
     const selectedCompanies = searchParams.get('companyNames')?.split(',');
 
-    console.log(selectedCompanies);
-
     const northEastBoundary = {
       latitude: latitude + latitudeDelta,
       longitude: longitude + longitudeDelta,
