@@ -29,8 +29,8 @@ const ReplyCard = ({ stationId, reply, reviewId, previewMode }: ReplyCardProps) 
   const [isModifyMode, setIsModifyMode] = useState(false);
   const { removeReply, isRemoveReplyLoading } = useRemoveReply(stationId, reviewId);
   const memberId = memberInfoStore.getState()?.memberId;
-  const isReplyOwner = memberId !== reply.memberId;
-  const isEditable = (isReplyOwner || !reply.isDeleted) && !previewMode;
+  const isReplyOwner = memberId === reply.memberId;
+  const isEditable = isReplyOwner && !reply.isDeleted && !previewMode;
 
   const handleClickRemoveReplyButton = () => {
     if (confirm('정말로 삭제하시겠습니까?')) {

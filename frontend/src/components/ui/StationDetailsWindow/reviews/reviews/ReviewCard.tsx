@@ -32,8 +32,8 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
   const [isModifyMode, setIsModifyMode] = useState(false);
   const memberId = memberInfoStore.getState()?.memberId;
 
-  const isReviewOwner = memberId !== review.memberId;
-  const isEditable = (isReviewOwner || !review.isDeleted) && !previewMode;
+  const isReviewOwner = memberId === review.memberId;
+  const isEditable = isReviewOwner && !review.isDeleted && !previewMode;
 
   const handleClickRemoveReviewButton = () => {
     if (confirm('정말로 삭제하시겠습니까?')) {
