@@ -2,15 +2,11 @@ import { useState } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 
-import { serverStore } from '@stores/config/serverStore';
 import { modalActions } from '@stores/layout/modalStore';
 import { toastActions } from '@stores/layout/toastStore';
-import { memberInfoStore } from '@stores/login/memberInfoStore';
-import { memberTokenStore } from '@stores/login/memberTokenStore';
 import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
 
 import { useCars } from '@hooks/tanstack-query/car/useCars';
-import type { ServerStationFilters } from '@hooks/tanstack-query/station-filters/useServerStationFilters';
 
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
@@ -18,23 +14,15 @@ import Text from '@common/Text';
 
 import LogoIcon from '@ui/Svg/LogoIcon';
 
-import { SERVERS } from '@constants';
 import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
 
-import type { StationFilters } from '@type';
-import type { Car } from '@type/cars';
+import { getCarFilters, submitMemberCar, submitMemberFilters } from './fetch';
 
 const CarModal = () => {
   const queryClient = useQueryClient();
 
   const { data: cars, isLoading } = useCars();
-  const { getAllServerStationFilters, setCarFilters, setAllServerStationFilters } =
-    serverStationFilterAction;
-
-  const memberId = memberInfoStore.getState()?.memberId;
-  const memberToken = memberTokenStore.getState();
-
-  const { closeModal } = modalActions;
+  const { setAllServerStationFilters } = serverStationFilterAction;
 
   const [carName, setCarName] = useState('');
   const [vintage, setVintage] = useState('');
@@ -58,58 +46,19 @@ const CarModal = () => {
       return;
     }
 
-    const mode = serverStore.getState();
+    try {
+      const { carId } = await submitMemberCar(carName, vintage);
+      const carFilters = await getCarFilters(carId);
+      const memberFilters = await submitMemberFilters(carFilters);
 
-    const memberCarInfo = await fetch(`${SERVERS[mode]}/members/${memberId}/cars`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${memberToken}`,
-      },
-      body: JSON.stringify({ name: carName, vintage }),
-    }).then<Car>((response) => response.json());
-
-    const carFilters = await fetch(`${SERVERS[mode]}/cars/${memberCarInfo.carId}/filters`).then<
-      Omit<ServerStationFilters, 'companies'>
-    >((response) => response.json());
-
-    setCarFilters(carFilters);
-
-    const { capacities, companies, connectorTypes } = getAllServerStationFilters();
-
-    if (memberId === undefined) {
+      setAllServerStationFilters(memberFilters);
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
-      return;
+
+      toastActions.showToast('챠량 등록이 완료되었습니다');
+      modalActions.closeModal();
+    } catch (error) {
+      toastActions.showToast(error.message, 'error');
     }
-
-    const memberFilters = await fetch(`${SERVERS[mode]}/members/${memberId}/filters`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${memberToken}`,
-      },
-      body: JSON.stringify({
-        filters: [
-          ...capacities.map((capacity) => ({
-            type: 'capacity',
-            name: capacity,
-          })),
-          ...companies.map((company) => ({
-            type: 'company',
-            name: company,
-          })),
-          ...connectorTypes.map((connectorType) => ({
-            type: 'connectorType',
-            name: connectorType,
-          })),
-        ],
-      }),
-    }).then<StationFilters>((response) => response.json());
-
-    setAllServerStationFilters(memberFilters);
-    queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
-
-    toastActions.showToast('챠량 등록이 완료되었습니다');
-
-    closeModal();
   };
 
   if (isLoading || cars === undefined) {
@@ -124,25 +73,43 @@ const CarModal = () => {
   const carNames = [...new Set([...(cars ?? []).map((car) => car.name)])];
 
   return (
-    <FlexBox direction="column" alignItems="center">
-      <FlexBox>
-        <SelectBox options={['모델명', ...carNames]} onChange={handleSelectCarName} />
-        <SelectBox
-          options={[
-            '연식',
-            ...cars
-              .filter((car) => car.name === (carName !== '' ? carName : carNames[0]))
-              .map((car) => car.vintage),
-          ]}
-          onChange={handleSelectVintage}
-        />
+    <FlexBox width={34} direction="column" alignItems="center" css={{ padding: '1rem' }}>
+      <Text variant="h5" mb={3}>
+        차량 선택
+      </Text>
+      <FlexBox width="100%">
+        <FlexBox css={{ flex: 1, height: '4rem' }}>
+          <SelectBox options={['모델명', ...carNames]} onChange={handleSelectCarName} />
+        </FlexBox>
+        <FlexBox css={{ flex: 1, height: '4rem' }}>
+          <SelectBox
+            options={[
+              '연식',
+              ...cars
+                .filter((car) => car.name === (carName !== '' ? carName : carNames[0]))
+                .map((car) => car.vintage),
+            ]}
+            onChange={handleSelectVintage}
+          />
+        </FlexBox>
       </FlexBox>
-      <FlexBox>
-        <ButtonNext onClick={handleFetchCarFilters} variant="outlined" color="success">
-          등록
-        </ButtonNext>
-        <ButtonNext onClick={closeModal} variant="outlined" color="error">
+      <FlexBox width="100%">
+        <ButtonNext onClick={modalActions.closeModal} variant="outlined" css={{ flex: 1 }}>
           취소
+        </ButtonNext>
+        <ButtonNext
+          onClick={() => {
+            try {
+              handleFetchCarFilters();
+            } catch (error) {
+              console.log(error);
+              toastActions.showToast(error.message, 'error');
+            }
+          }}
+          variant="contained"
+          css={{ flex: 1 }}
+        >
+          등록
         </ButtonNext>
       </FlexBox>
     </FlexBox>
@@ -158,12 +125,15 @@ const SelectBox = ({
 }) => {
   return (
     <select
-      onChange={(e) => {
-        onChange(e.target.value);
+      onChange={({ target: { value } }) => {
+        onChange(value);
+      }}
+      style={{
+        flex: 1,
       }}
     >
-      {options.map((option, i) => (
-        <option key={i} value={option}>
+      {options.map((option, index) => (
+        <option key={index} value={option}>
           {option}
         </option>
       ))}

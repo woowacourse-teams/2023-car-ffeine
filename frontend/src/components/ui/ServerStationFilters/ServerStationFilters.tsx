@@ -10,7 +10,6 @@ import { memberInfoStore } from '@stores/login/memberInfoStore';
 import { memberTokenStore } from '@stores/login/memberTokenStore';
 import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
 
-import type { ServerStationFilters } from '@hooks/tanstack-query/station-filters/useServerStationFilters';
 import { useServerStationFilters } from '@hooks/tanstack-query/station-filters/useServerStationFilters';
 import { useServerStationFilterActions } from '@hooks/useServerStationFilterActions';
 
@@ -29,7 +28,7 @@ import type { Capacity, StationFilters } from '@type';
 
 import FilterSection from './FilterOption';
 
-const ServerStationFiltersComponent = () => {
+const ServerStationFilters = () => {
   const queryClient = useQueryClient();
   const { showToast } = toastActions;
   const { data: serverStationFilters, isLoading } = useServerStationFilters();
@@ -72,6 +71,7 @@ const ServerStationFiltersComponent = () => {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${memberToken}`,
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           filters: [
@@ -96,7 +96,7 @@ const ServerStationFiltersComponent = () => {
 
       showToast('필터가 적용되었습니다');
     } catch {
-      const stationFilters = queryClient.getQueryData<ServerStationFilters>([
+      const stationFilters = queryClient.getQueryData<StationFilters>([
         QUERY_KEY_MEMBER_SELECTED_FILTERS,
       ]);
       resetAllServerStationFilters(stationFilters);
@@ -200,4 +200,4 @@ export const filterHeaderCss = css`
   padding: 0 2rem;
 `;
 
-export default ServerStationFiltersComponent;
+export default ServerStationFilters;

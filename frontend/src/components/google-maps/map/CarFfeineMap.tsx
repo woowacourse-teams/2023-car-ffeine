@@ -13,7 +13,6 @@ import { toastActions } from '@stores/layout/toastStore';
 import { memberTokenStore } from '@stores/login/memberTokenStore';
 import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
 
-import { useCarFilters } from '@hooks/tanstack-query/station-filters/useCarFilters';
 import { useMemberFilters } from '@hooks/tanstack-query/station-filters/useMemberFilters';
 
 import ToastContainer from '@common/Toast/ToastContainer';
@@ -74,23 +73,22 @@ const CarFfeineMapListener = () => {
   return <></>;
 };
 
+// TODO: 유저 필터링이 로그인 된 이후 바로 적용되지 않는 문제 다시 발생. 이 부분 어떻게 수정할지 고민해보기
 const UserFilterListener = () => {
   const queryClient = useQueryClient();
   const { data: memberFilters } = useMemberFilters();
-  const { data: carFilters } = useCarFilters();
-  const { setCarFilters, setAllServerStationFilters } = serverStationFilterAction;
+  const { setAllServerStationFilters } = serverStationFilterAction;
 
-  useEffect(() => {
-    if (memberTokenStore.getState() !== '' && memberFilters !== undefined) {
-      setAllServerStationFilters(memberFilters);
-    }
+  console.log('현재 로그인한 유저가 등록한 필터 정보', memberFilters);
+  console.log(
+    '클라이언트 전역 상태에 저장된 필터 정보',
+    serverStationFilterAction.getAllServerStationFilters()
+  );
 
-    if (carFilters !== undefined) {
-      setCarFilters(carFilters);
-    }
-
+  if (memberFilters !== undefined) {
+    setAllServerStationFilters(memberFilters);
     queryClient.invalidateQueries([{ queryKey: [QUERY_KEY_STATIONS] }]);
-  }, [memberFilters, carFilters]);
+  }
 
   return <></>;
 };

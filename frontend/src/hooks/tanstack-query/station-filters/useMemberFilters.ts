@@ -7,25 +7,45 @@ import { memberTokenStore } from '@stores/login/memberTokenStore';
 import { SERVERS } from '@constants';
 import { QUERY_KEY_MEMBER_SELECTED_FILTERS } from '@constants/queryKeys';
 
-import type { ServerStationFilters } from './useServerStationFilters';
+import type { StationFilters } from '@type';
 
-interface MemberFilters {
-  selectedFilters: ServerStationFilters;
-}
-
-const fetchMemberFilters = async () => {
+const fetchMemberFilters = async (): Promise<StationFilters> => {
   const mode = serverStore.getState();
   const memberToken = memberTokenStore.getState();
   const memberId = memberInfoStore.getState().memberId;
+
+  if (memberId === undefined || memberToken === '') {
+    return new Promise((resolve) => {
+      resolve({
+        companies: [],
+        capacities: [],
+        connectorTypes: [],
+      });
+    });
+  }
 
   const memberFilters = await fetch(`${SERVERS[mode]}/members/${memberId}/filters`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${memberToken}`,
     },
-  }).then<MemberFilters>((response) => response.json());
+  })
+    .then<StationFilters>((response) => {
+      if (!response.ok) {
+        throw new Error('유저의 필터 정보를 불러오는데 실패했습니다.');
+      }
 
-  return memberFilters.selectedFilters;
+      return response.json();
+    })
+    .catch<StationFilters>(() => {
+      return {
+        companies: [],
+        capacities: [],
+        connectorTypes: [],
+      };
+    });
+
+  return memberFilters;
 };
 
 export const useMemberFilters = () => {

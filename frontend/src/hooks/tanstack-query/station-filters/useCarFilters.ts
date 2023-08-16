@@ -8,19 +8,23 @@ import { QUERY_KEY_MEMBER_CAR_FILTERS } from '@constants/queryKeys';
 
 import type { StationFilters } from '@type';
 
-type CarFilters = Omit<StationFilters, 'companies'>;
-
-const fetchCarFilters = async () => {
+const fetchCarFilters = async (): Promise<StationFilters> => {
   const mode = serverStore.getState();
   const memberInfo = memberInfoStore.getState();
 
-  if (memberInfo.car.carId === undefined) {
-    return new Promise<CarFilters>((resolve) => resolve({ capacities: [], connectorTypes: [] }));
+  if (memberInfo.car === undefined || memberInfo.car === null) {
+    return new Promise((resolve) =>
+      resolve({
+        capacities: [],
+        companies: [],
+        connectorTypes: [],
+      })
+    );
   }
 
   const carFilters = await fetch(
     `${SERVERS[mode]}/cars/${memberInfo.car.carId}/filters`
-  ).then<CarFilters>((response) => response.json());
+  ).then<StationFilters>((response) => response.json());
 
   return carFilters;
 };

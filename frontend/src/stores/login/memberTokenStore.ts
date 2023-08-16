@@ -1,9 +1,12 @@
 import { store } from '@utils/external-state';
+import { getSessionStorage } from '@utils/storage';
+
+import { SESSION_KEY_MEMBER_TOKEN } from '@constants/storageKeys';
 
 import { toastActions } from '../layout/toastStore';
 import { memberInfoStore } from './memberInfoStore';
 
-export const memberTokenStore = store('');
+export const memberTokenStore = store(getSessionStorage(SESSION_KEY_MEMBER_TOKEN, ''));
 
 export const memberTokenActions = {
   setMemberToken: async (memberToken: string) => {

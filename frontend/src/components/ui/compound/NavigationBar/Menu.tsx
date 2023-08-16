@@ -25,7 +25,7 @@ import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 
 import MswControlButton from '@ui/MswControlButton';
-import ServerStationFiltersComponent from '@ui/ServerStationFilters';
+import ServerStationFilters from '@ui/ServerStationFilters';
 import StationSearchWindow from '@ui/StationSearchWindow';
 import LogoIcon from '@ui/Svg/LogoIcon';
 import CarModal from '@ui/modal/CarModal/CarModal';
@@ -95,10 +95,7 @@ const Menu = () => {
       <Button aria-label="검색창 열기" onClick={() => openBasePanel(<StationSearchWindow />)}>
         <MagnifyingGlassIcon width="2.8rem" stroke="#333" />
       </Button>
-      <Button
-        aria-label="필터링 메뉴 열기"
-        onClick={() => openBasePanel(<ServerStationFiltersComponent />)}
-      >
+      <Button aria-label="필터링 메뉴 열기" onClick={() => openBasePanel(<ServerStationFilters />)}>
         <AdjustmentsHorizontalIcon width="2.8rem" stroke="#333" />
       </Button>
       {memberToken !== '' ? (
