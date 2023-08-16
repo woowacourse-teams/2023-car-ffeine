@@ -26,13 +26,7 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
       </Box>
       <StationReportButton station={station} />
 
-      <ChargerList chargers={chargers} stationId={stationId} />
-
-      {reportCount > 0 && (
-        <Box my={1}>
-          <Alert color={'secondary'} text={`충전 상태 불일치 신고가 ${reportCount}번 접수됐어요`} />
-        </Box>
-      )}
+      <ChargerList chargers={chargers} stationId={stationId} reportCount={reportCount} />
 
       <CongestionStatistics stationId={stationId} />
       <ReviewPreview stationId={stationId} />
