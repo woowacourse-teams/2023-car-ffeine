@@ -59,7 +59,7 @@ export const submitMemberFilters = async (carFilters: StationFilters) => {
   setAllServerStationFilters(carFilters);
   const memberFilterRequestBody = getMemberFilterRequestBody();
 
-  const memberFilters = fetchUtils.post(
+  const memberFilters = fetchUtils.post<StationFilters, typeof memberFilterRequestBody>(
     `${SERVERS[mode]}/members/${memberId}/filters`,
     memberFilterRequestBody,
     '필터링 정보를 저장하는 중 오류가 발생했습니다'
