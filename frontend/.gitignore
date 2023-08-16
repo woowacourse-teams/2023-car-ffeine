@@ -2,3 +2,4 @@
 /dist/
 .env
 .husky
+yarn-error.log

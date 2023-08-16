@@ -1,6 +1,5 @@
 import { setSessionStorage } from '@utils/storage';
 
-import { serverStore } from '@stores/config/serverStore';
 import { toastActions } from '@stores/layout/toastStore';
 import { memberTokenActions } from '@stores/login/memberTokenStore';
 
@@ -14,8 +13,6 @@ interface TokenResponse {
 export const getMemberToken = async (code: string, provider: string) => {
   const APIEndPoint = getAPIEndPoint();
   const redirectUri = getRedirectUri();
-
-  alert(redirectUri);
 
   const tokenResponse = await fetch(`${APIEndPoint}/oauth/google/login`, {
     method: 'POST',
