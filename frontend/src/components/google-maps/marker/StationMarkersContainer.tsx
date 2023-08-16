@@ -1,19 +1,22 @@
-import { useStations } from '@hooks/tanstack-query/station-markers/useStations';
+import React from 'react';
+
+import { useInfiniteStationSummary } from '@hooks/tanstack-query/station-markers/useInfiniteStationSummary';
 
 import StationMarker from './StationMarker';
 
 const StationMarkersContainer = () => {
-  const { data: stations, isSuccess } = useStations();
+  const { status, data } = useInfiniteStationSummary();
 
-  if (!stations || !isSuccess) {
+  if (status === 'loading' || status === 'error') {
     return <></>;
   }
+  const stations = data.pages.map((page) => page.stations).flatMap((foo) => foo);
 
   return (
     <>
-      {stations.map((station) => {
-        return <StationMarker key={station.stationId} station={station} />;
-      })}
+      {stations.map((station, index) => (
+        <StationMarker key={station.stationId + index} station={station} />
+      ))}
     </>
   );
 };
