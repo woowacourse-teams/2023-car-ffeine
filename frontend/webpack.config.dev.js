@@ -40,11 +40,7 @@ module.exports = function () {
           test: /\.svg$/,
           use: [
             {
-              loader: 'file-loader',
-              options: {
-                name: '[name].[ext]',
-                outputPath: 'assets/',
-              },
+              use: ['@svgr/webpack'],
             },
           ],
         },
