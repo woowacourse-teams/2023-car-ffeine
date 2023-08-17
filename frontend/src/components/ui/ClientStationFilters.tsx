@@ -1,11 +1,13 @@
 import { styled } from 'styled-components';
 
-import { useExternalState } from '@utils/external-state';
+import { useExternalState, useExternalValue } from '@utils/external-state';
 
+import { navigationBarPanelStore } from '@stores/layout/navigationBarPanelStore';
 import { clientStationFiltersStore } from '@stores/station-filters/clientStationFiltersStore';
 
 import ButtonNext from '@common/ButtonNext';
 
+import { NAVIGATOR_PANEL_WIDTH } from '@constants';
 import { CHARGING_SPEED } from '@constants/chargers';
 
 const ClientStationFilters = () => {
@@ -18,6 +20,12 @@ const ClientStationFilters = () => {
     },
     setFilterOption,
   ] = useExternalState(clientStationFiltersStore);
+
+  const { basePanel, lastPanel } = useExternalValue(navigationBarPanelStore);
+  const navigationComponentWidth =
+    (basePanel === null ? 0 : NAVIGATOR_PANEL_WIDTH) +
+    (lastPanel === null ? 0 : NAVIGATOR_PANEL_WIDTH) +
+    10;
 
   const toggleAvailableStation = () => {
     setFilterOption((prev) => ({
@@ -48,7 +56,7 @@ const ClientStationFilters = () => {
   };
 
   return (
-    <Container>
+    <Container left={navigationComponentWidth}>
       <ButtonNext
         onClick={toggleAvailableStation}
         variant={isAvailableStationFilterSelected ? 'contained' : 'outlined'}
@@ -85,10 +93,10 @@ const ClientStationFilters = () => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.div<{ left: number }>`
   position: fixed;
   top: 10px;
-  left: 180px;
+  left: ${(props) => props.left}rem;
   z-index: 998;
   padding: 10px;
   background-color: white;

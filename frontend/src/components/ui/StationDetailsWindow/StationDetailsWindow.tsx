@@ -1,5 +1,9 @@
 import { css } from 'styled-components';
 
+import { useExternalValue } from '@utils/external-state';
+
+import { selectedStationIdStore } from '@stores/selectedStationStore';
+
 import { useStationDetails } from '@hooks/tanstack-query/station-details/useStationDetails';
 
 import Box from '@common/Box';
@@ -7,6 +11,8 @@ import Box from '@common/Box';
 import StationDetailsView from '@ui/StationDetailsWindow/StationDetailsView';
 import StationDetailsViewSkeleton from '@ui/StationDetailsWindow/StationDetailsViewSkeleton';
 import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
+
+import { NAVIGATOR_PANEL_WIDTH } from '@constants';
 
 const StationDetailsWindow = () => {
   const {
@@ -16,8 +22,9 @@ const StationDetailsWindow = () => {
     isFetching,
   } = useStationDetails();
   const { handleClosePanel } = useNavigationBar();
+  const selectedStationId = useExternalValue(selectedStationIdStore);
 
-  if (!isFetching && selectedStation === undefined) {
+  if (selectedStationId === null || (!isFetching && selectedStation === null)) {
     handleClosePanel();
   }
 
@@ -37,7 +44,7 @@ const StationDetailsWindow = () => {
 };
 
 const stationDetailsWindowCss = css`
-  width: 34rem;
+  width: ${NAVIGATOR_PANEL_WIDTH}rem;
   height: 100vh;
   z-index: 999;
   overflow: scroll;

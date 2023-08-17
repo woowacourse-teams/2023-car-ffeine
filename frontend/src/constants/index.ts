@@ -18,3 +18,6 @@ export const FORM_PRIVATE_REASON_LENGTH_LIMIT = 100;
 
 export const MIN_REVIEW_CONTENT_LENGTH = 10;
 export const MAX_REVIEW_CONTENT_LENGTH = 100;
+
+export const BROWSER_WIDTH = document.body.offsetWidth;
+export const NAVIGATOR_PANEL_WIDTH = 34;

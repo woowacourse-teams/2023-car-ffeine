@@ -5,18 +5,23 @@ import Button from '@common/Button';
 import { useNavigationBar } from './hooks/useNavigationBar';
 
 interface Props {
-  canDisplay: boolean
+  canDisplay: boolean;
 }
 
 const CloseButton = ({ canDisplay }: Props) => {
   const { handleClosePanel } = useNavigationBar();
 
-  if(!canDisplay) {
-    return <></>
+  if (!canDisplay) {
+    return <></>;
   }
 
   return (
-    <Button variant="label" aria-label="검색창 닫기" onClick={handleClosePanel}>
+    <Button
+      css={{ top: '50%', transform: 'translate(0, -50%);' }}
+      variant="label"
+      aria-label="검색창 닫기"
+      onClick={handleClosePanel}
+    >
       <ChevronLeftIcon width="2.4rem" stroke="#9c9fa7" />
     </Button>
   );

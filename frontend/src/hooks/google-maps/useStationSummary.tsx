@@ -1,4 +1,5 @@
 import { useExternalValue, useSetExternalState } from '@utils/external-state';
+import { getCalculatedMapDelta } from '@utils/google-maps/getCalculatedMapDelta';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
@@ -9,13 +10,10 @@ import StationSummaryWindow from '@ui/StationSummaryWindow';
 
 import type { StationSummary } from '@type';
 
-import { useCalculatedMapDelta } from './useCalculatedMapDelta';
-
 export const useStationSummary = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
   const infoWindowInstance = useExternalValue(getStationSummaryWindowStore());
   const stationMarkers = useExternalValue(markerInstanceStore);
-  const calculatedMapDelta = useCalculatedMapDelta();
   const setSelectedStationId = useSetExternalState(selectedStationIdStore);
 
   const openStationSummary = (
@@ -28,6 +26,7 @@ export const useStationSummary = () => {
     );
     const markerInstance = stationMarkerInstance ?? stationMarker.markerInstance;
     const { lat, lng } = markerInstance.position as google.maps.LatLngLiteral;
+    const calculatedMapDelta = getCalculatedMapDelta();
 
     setSelectedStationId(stationId);
 
