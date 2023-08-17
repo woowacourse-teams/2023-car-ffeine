@@ -49,7 +49,7 @@ const CarFfeineMapListener = () => {
   const queryClient = useQueryClient();
 
   const debouncedIdleHandler = debounce(() => {
-    console.log('idle (테스트용: 제거 예정)');
+    // console.log('idle (테스트용: 제거 예정)');
     if (googleMap.getZoom() < INITIAL_ZOOM_SIZE) {
       toastActions.showToast('지도를 조금만 더 확대해주세요', 'warning', 'bottom-center');
     }
