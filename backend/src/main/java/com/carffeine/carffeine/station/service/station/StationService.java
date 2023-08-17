@@ -18,7 +18,6 @@ import com.carffeine.carffeine.station.service.station.dto.CoordinateRequest;
 import com.carffeine.carffeine.station.service.station.dto.StationSearchResponse;
 import com.carffeine.carffeine.station.service.station.dto.StationsSearchResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,105 +54,6 @@ public class StationService {
         return stations.findFilteredStations(companyNames, chargerTypes, capacities);
     }
 
-
-    @Transactional(readOnly = true)
-    public List<Station> findByCoordinateV2(String stationId,
-                                            Pageable pageable,
-                                            CoordinateRequest request,
-                                            List<String> companyNames,
-                                            List<ChargerType> chargerTypes,
-                                            List<BigDecimal> capacities) {
-        Coordinate coordinate = Coordinate.of(request.latitude(), request.latitudeDelta(), request.longitude(), request.longitudeDelta());
-
-        // 1. station Id 없는 경우
-        if (stationId == null) {
-            if (companyNames.isEmpty() && chargerTypes.isEmpty() && capacities.isEmpty()) {
-                // 필터 없는 경우
-                return stationRepository.findAllByFilteringNone(pageable, coordinate.minLatitudeValue(), coordinate.maxLatitudeValue(), coordinate.minLongitudeValue(), coordinate.maxLongitudeValue());
-            }
-
-            if (!companyNames.isEmpty() && chargerTypes.isEmpty() && capacities.isEmpty()) {
-                // 1. 회사명 필터링
-                return stationRepository.findAllByFilteringBeingCompanyNames(pageable, coordinate.minLatitudeValue(), coordinate.maxLatitudeValue(), coordinate.minLongitudeValue(), coordinate.maxLongitudeValue(), companyNames);
-            }
-
-            if (companyNames.isEmpty() && !chargerTypes.isEmpty() && capacities.isEmpty()) {
-                // 2. 충전 타입 필터링
-                return stationRepository.findAllByFilteringBeingTypes(pageable, coordinate.minLatitudeValue(), coordinate.maxLatitudeValue(), coordinate.minLongitudeValue(), coordinate.maxLongitudeValue(), chargerTypes);
-            }
-
-            if (companyNames.isEmpty() && chargerTypes.isEmpty() && !capacities.isEmpty()) {
-                // 3. 충전 속도 필터링
-                return stationRepository.findAllByFilteringBeingCapacities(pageable, coordinate.minLatitudeValue(), coordinate.maxLatitudeValue(), coordinate.minLongitudeValue(), coordinate.maxLongitudeValue(), capacities);
-            }
-
-            if (!companyNames.isEmpty() && !chargerTypes.isEmpty() && capacities.isEmpty()) {
-                // 4. 회사명 + 충전 타입 필터링
-                return stationRepository.findAllByFilteringBeingCompanyNamesAndTypes(pageable, coordinate.minLatitudeValue(), coordinate.maxLatitudeValue(), coordinate.minLongitudeValue(), coordinate.maxLongitudeValue(), companyNames, chargerTypes);
-            }
-
-            if (!companyNames.isEmpty() && !chargerTypes.isEmpty() && capacities.isEmpty()) {
-                // 5. 회사명 + 충전 속도
-                return stationRepository.findAllByFilteringBeingCompanyNamesAndCapacities(pageable, coordinate.minLatitudeValue(), coordinate.maxLatitudeValue(), coordinate.minLongitudeValue(), coordinate.maxLongitudeValue(), companyNames, capacities);
-            }
-
-            if (companyNames.isEmpty() && !chargerTypes.isEmpty() && !capacities.isEmpty()) {
-                // 6. 충전 타입 + 충전 속도
-                return stationRepository.findAllByFilteringBeingTypesAndCapacities(pageable, coordinate.minLatitudeValue(), coordinate.maxLatitudeValue(), coordinate.minLongitudeValue(), coordinate.maxLongitudeValue(), chargerTypes, capacities);
-            }
-
-            if (!companyNames.isEmpty() && !chargerTypes.isEmpty() && !capacities.isEmpty()) {
-                // 7. 모든 필터 존재
-                return stationRepository.findAllByFilteringBeingAllFilters(pageable, coordinate.minLatitudeValue(), coordinate.maxLatitudeValue(), coordinate.minLongitudeValue(), coordinate.maxLongitudeValue(), companyNames, capacities, chargerTypes);
-            }
-        }
-
-
-        // 2. station Id 있는 경우
-        if (companyNames.isEmpty() && chargerTypes.isEmpty() && capacities.isEmpty()) {
-            // 필터 없는 경우
-            return stationRepository.findAllByFilteringNoneWithPaging(stationId, pageable, coordinate.minLatitudeValue(), coordinate.maxLatitudeValue(), coordinate.minLongitudeValue(), coordinate.maxLongitudeValue());
-        }
-
-        if (!companyNames.isEmpty() && chargerTypes.isEmpty() && capacities.isEmpty()) {
-            // 1. 회사명 필터링
-            return stationRepository.findAllByFilteringBeingCompanyNamesWithPaging(stationId, pageable, coordinate.minLatitudeValue(), coordinate.maxLatitudeValue(), coordinate.minLongitudeValue(), coordinate.maxLongitudeValue(), companyNames);
-        }
-
-        if (companyNames.isEmpty() && !chargerTypes.isEmpty() && capacities.isEmpty()) {
-            // 2. 충전 타입 필터링
-            return stationRepository.findAllByFilteringBeingTypesWithPaging(stationId, pageable, coordinate.minLatitudeValue(), coordinate.maxLatitudeValue(), coordinate.minLongitudeValue(), coordinate.maxLongitudeValue(), chargerTypes);
-        }
-
-        if (companyNames.isEmpty() && chargerTypes.isEmpty() && !capacities.isEmpty()) {
-            // 3. 충전 속도 필터링
-            return stationRepository.findAllByFilteringBeingCapacitiesWithPaging(stationId, pageable, coordinate.minLatitudeValue(), coordinate.maxLatitudeValue(), coordinate.minLongitudeValue(), coordinate.maxLongitudeValue(), capacities);
-        }
-
-        if (!companyNames.isEmpty() && !chargerTypes.isEmpty() && capacities.isEmpty()) {
-            // 4. 회사명 + 충전 타입 필터링
-            return stationRepository.findAllByFilteringBeingCompanyNamesAndTypesWithPaging(stationId, pageable, coordinate.minLatitudeValue(), coordinate.maxLatitudeValue(), coordinate.minLongitudeValue(), coordinate.maxLongitudeValue(), companyNames, chargerTypes);
-        }
-
-        if (!companyNames.isEmpty() && !chargerTypes.isEmpty() && capacities.isEmpty()) {
-            // 5. 회사명 + 충전 속도
-            return stationRepository.findAllByFilteringBeingCompanyNamesAndCapacitiesWithPaging(stationId, pageable, coordinate.minLatitudeValue(), coordinate.maxLatitudeValue(), coordinate.minLongitudeValue(), coordinate.maxLongitudeValue(), companyNames, capacities);
-        }
-
-        if (companyNames.isEmpty() && !chargerTypes.isEmpty() && !capacities.isEmpty()) {
-            // 6. 충전 타입 + 충전 속도
-            return stationRepository.findAllByFilteringBeingTypesAndCapacitiesWithPaging(stationId, pageable, coordinate.minLatitudeValue(), coordinate.maxLatitudeValue(), coordinate.minLongitudeValue(), coordinate.maxLongitudeValue(), chargerTypes, capacities);
-        }
-
-        if (!companyNames.isEmpty() && !chargerTypes.isEmpty() && !capacities.isEmpty()) {
-            // 7. 모든 필터 존재
-            return stationRepository.findAllByFilteringBeingAllFiltersWithPaging(stationId, pageable, coordinate.minLatitudeValue(), coordinate.maxLatitudeValue(), coordinate.minLongitudeValue(), coordinate.maxLongitudeValue(), companyNames, capacities, chargerTypes);
-        }
-
-
-        return new ArrayList<>();
-    }
-
     @Transactional(readOnly = true)
     public Station findStationById(String stationId) {
         return stationRepository.findChargeStationByStationId(stationId)
@@ -178,6 +78,7 @@ public class StationService {
         periodicCongestionCustomRepository.updateTotalCountByPeriod(dayOfWeek, period);
     }
 
+    @Transactional(readOnly = true)
     public StationsSearchResponse searchStations(String query, Set<String> scope, int page, int limit) {
         List<Station> stations = stationRepository.findAllByStationNameContainingOrAddressContainingOrderByStationId(query, query);
         List<StationSearchResponse> stationByScope = stationsToScope(stations, scope, page, limit);
@@ -189,7 +90,7 @@ public class StationService {
 
     private List<StationSearchResponse> stationsToScope(List<Station> stations, Set<String> scope, int page, int limit) {
         return stations.stream()
-                .skip((page - 1) * limit)
+                .skip((long) (page - 1) * limit)
                 .limit(limit)
                 .map(station -> stationToScope(station, scope))
                 .toList();
