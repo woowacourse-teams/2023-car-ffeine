@@ -32,12 +32,10 @@ const StationInformation = ({ station }: StationInformationProps) => {
           {stationName}
         </Text>
         <Text variant="body" mb={1.5}>
-          {contact?.length > 0 || !address || address === 'null' ? '주소 미확인' : address}
+          {!address || address?.length === 0 ? '주소 미확인' : address}
         </Text>
         <Text variant="caption" mb={1}>
-          {contact?.length > 0 || !address || detailLocation === 'null'
-            ? '상세주소 미확인'
-            : detailLocation}
+          {!detailLocation || detailLocation?.length === 0 ? '상세주소 미확인' : detailLocation}
         </Text>
       </Box>
       <Divider />
