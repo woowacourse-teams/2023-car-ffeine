@@ -1,9 +1,7 @@
-import { BoltIcon } from '@heroicons/react/24/solid';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { calculateLatestUpdateTime } from '@utils/index';
 
-import Box from '@common/Box';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
@@ -39,32 +37,50 @@ const statusLightColor = (state: ChargerStateType) => {
 const ChargerCard = ({ charger }: ChargerCardProps) => {
   const { type, price, capacity, latestUpdateTime, state, method } = charger;
   return (
-    <Box border width={36.5} p={2}>
+    <FlexBox tag="article" outlined nowrap direction="column" width="49%" p={2} css={borderCss}>
       <SquareBox heavyColor={statusLightColor(state)} lightColor={statusHeavyColor(state)}>
-        <FlexBox justifyContent="center" alignItems="center">
-          <BoltIcon width={24} fill={statusHeavyColor(state)} />
-          <Text>{CHARGER_STATES[state]}</Text>
+        <FlexBox py={0.8} justifyContent="center" alignItems="center">
+          <Text css={regularFontWeight}>{CHARGER_STATES[state]}</Text>
         </FlexBox>
       </SquareBox>
-      <Text my={1}>{CONNECTOR_TYPES[type]}</Text>
-      <Text my={1}>
-        {capacity >= 50 ? '급속' : '완속'}({capacity}kW)
+      <Text mt={2} my={0} mb={1.5}>
+        {CONNECTOR_TYPES[type]}
       </Text>
-      {method && <Text my={1}>{method}</Text>}
+      <Text my={0} variant="label">
+        {capacity >= 50 ? '급속' : '완속'}({capacity}kW)
+        {method && (
+          <Text tag="span" variant="label" my={1}>
+            &nbsp;/&nbsp;{method}
+          </Text>
+        )}
+      </Text>
       {latestUpdateTime && (
-        <Text variant="caption" align="right" my={1}>
-          업데이트: {calculateLatestUpdateTime(latestUpdateTime)}
+        <Text variant="caption" align="right" css={bottomTextCss}>
+          업데이트 : {calculateLatestUpdateTime(latestUpdateTime)}
         </Text>
       )}
-    </Box>
+    </FlexBox>
   );
 };
 
+const borderCss = css`
+  border: 0.4px solid #66666666;
+  height: 142px;
+`;
+
 const SquareBox = styled.div<{ heavyColor: string; lightColor: string }>`
   padding: 0.4rem;
-  border-radius: 10px;
+  border-radius: 4px;
   background: ${({ heavyColor }) => heavyColor};
   color: ${({ lightColor }) => lightColor};
+`;
+
+const regularFontWeight = css`
+  font-weight: 500;
+`;
+
+const bottomTextCss = css`
+  margin-top: auto;
 `;
 
 export default ChargerCard;

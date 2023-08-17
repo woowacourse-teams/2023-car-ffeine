@@ -28,7 +28,7 @@ export interface BoxProps extends HTMLAttributes<HTMLDivElement>, SpacingProps {
 const BoxWrapper = styled.div<BoxProps>`
   ${spacing}
 
-  ${({ border }) => border && `border: 0.01rem solid #66666666; border-radius:0.4rem;`}
+  ${({ border }) => border && `border: 0.1px solid #66666666; border-radius:0.4rem;`}
 
   ${({ height }) => height && `height: ${height * 0.4}rem`};
   ${({ minHeight }) => minHeight && `min-height: ${minHeight * 0.4}rem`};

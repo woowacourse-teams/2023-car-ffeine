@@ -8,7 +8,7 @@ import type { Review } from '@type';
 
 export const fetchReviews = async (stationId: string) => {
   const mode = serverStore.getState();
-  return fetch(`${SERVERS[mode]}/stations/${stationId}/reviews/?page=1`).then<Review[]>(
+  return fetch(`${SERVERS[mode]}/stations/${stationId}/reviews/?page=0`).then<Review[]>(
     async (response) => {
       const data = await response.json();
       return data.reviews as Review[];

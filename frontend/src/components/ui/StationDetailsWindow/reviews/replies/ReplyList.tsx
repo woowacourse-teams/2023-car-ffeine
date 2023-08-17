@@ -12,9 +12,10 @@ import ReplyListLoading from '@ui/StationDetailsWindow/reviews/replies/ReplyList
 interface ReplyListProps {
   stationId: string;
   reviewId: number;
+  previewMode: boolean;
 }
 
-const ReplyList = ({ stationId, reviewId }: ReplyListProps) => {
+const ReplyList = ({ stationId, reviewId, previewMode }: ReplyListProps) => {
   const { status, data, error, isFetchingNextPage, fetchNextPage, hasNextPage } =
     useInfiniteReplies(reviewId);
 
@@ -41,7 +42,7 @@ const ReplyList = ({ stationId, reviewId }: ReplyListProps) => {
                   stationId={stationId}
                   reply={reply}
                   reviewId={reviewId}
-                  previewMode={true}
+                  previewMode={previewMode}
                 />
               ))}
             </div>

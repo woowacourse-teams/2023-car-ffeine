@@ -1,3 +1,7 @@
+import { MinusSmallIcon, PlusSmallIcon } from '@heroicons/react/24/outline';
+import { MapPinIcon } from '@heroicons/react/24/solid';
+import { css } from 'styled-components';
+
 import { useExternalValue } from '@utils/external-state';
 
 import { getGoogleMapStore, googleMapActions } from '@stores/google-maps/googleMapStore';
@@ -5,7 +9,7 @@ import { getGoogleMapStore, googleMapActions } from '@stores/google-maps/googleM
 import { useCurrentPosition } from '@hooks/google-maps/useCurrentPosition';
 
 import Box from '@common/Box';
-import ButtonNext from '@common/ButtonNext';
+import Button from '@common/Button';
 
 import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
 
@@ -28,23 +32,55 @@ const MapController = () => {
 
   return (
     <Box position="fixed" bottom={5} right={2} css={{ zIndex: 999 }}>
-      <Box mb={3}>
-        <ButtonNext variant="contained" color="light" onClick={() => handleCurrentPositionButton()}>
-          🧭
-        </ButtonNext>
-      </Box>
-      <Box mb={1}>
-        <ButtonNext variant="contained" color="light" onClick={() => handleZoomUpButton()}>
-          ➕
-        </ButtonNext>
-      </Box>
-      <Box>
-        <ButtonNext variant="contained" color="light" onClick={() => handleZoomDownButton()}>
-          ➖
-        </ButtonNext>
-      </Box>
+      <Button
+        outlined
+        css={[buttonCss, currentPositionIconCss]}
+        onClick={handleCurrentPositionButton}
+      >
+        <MapPinIcon
+          width={24}
+          fill="#0054ff"
+          stroke="#333"
+          type="button"
+          aria-label="내 위치로 이동"
+        />
+      </Button>
+      <Button
+        outlined
+        noRadius="bottom"
+        css={[buttonCss, plusIconCss]}
+        onClick={handleZoomUpButton}
+        type="button"
+        aria-label="확대"
+      >
+        <PlusSmallIcon width={24} fill="#333" />
+      </Button>
+      <Button
+        outlined
+        noRadius="top"
+        css={buttonCss}
+        onClick={handleZoomDownButton}
+        type="button"
+        aria-label="축소"
+      >
+        <MinusSmallIcon width={24} fill="#333" />
+      </Button>
     </Box>
   );
 };
+
+const buttonCss = css`
+  display: flex;
+  padding: 8px;
+  border: 1.8px solid #e3e8f7;
+`;
+
+const currentPositionIconCss = css`
+  margin-bottom: 20px;
+`;
+
+const plusIconCss = css`
+  border-bottom: 0;
+`;
 
 export default MapController;

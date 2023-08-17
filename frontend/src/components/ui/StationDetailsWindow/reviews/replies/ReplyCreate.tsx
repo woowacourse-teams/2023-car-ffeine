@@ -2,6 +2,7 @@ import { css } from 'styled-components';
 
 import { useEffect, useState } from 'react';
 
+import { memberInfoStore } from '@stores/login/memberInfoStore';
 import { memberTokenStore } from '@stores/login/memberTokenStore';
 
 import { useCreateReply } from '@hooks/tanstack-query/station-details/reviews/useCreateReply';
@@ -13,7 +14,7 @@ import Text from '@common/Text';
 
 import ContentField from '@ui/StationDetailsWindow/reviews/common/ContentField';
 
-import { MAX_REVIEW_CONTENT_LENGTH, MIN_REVIEW_CONTENT_LENGTH } from '@constants';
+import { DEFAULT_TOKEN, MAX_REVIEW_CONTENT_LENGTH, MIN_REVIEW_CONTENT_LENGTH } from '@constants';
 
 interface ReplyCreateProps {
   stationId: string;
@@ -24,7 +25,7 @@ const ReplyCreate = ({ stationId, reviewId }: ReplyCreateProps) => {
   const { isCreateReplyLoading, createReply } = useCreateReply(stationId);
   const [content, setContent] = useState('');
   const [isReplyCreateOpen, setIsReplyCreateOpen] = useState(true);
-  const memberToken = memberTokenStore.getState();
+  const memberId = memberInfoStore.getState()?.memberId;
 
   useEffect(() => {
     if (isCreateReplyLoading && isReplyCreateOpen) {
@@ -38,7 +39,7 @@ const ReplyCreate = ({ stationId, reviewId }: ReplyCreateProps) => {
     setContent('');
   };
 
-  if (!isReplyCreateOpen || memberToken === '') {
+  if (!isReplyCreateOpen || memberId === DEFAULT_TOKEN) {
     return <></>;
   }
 

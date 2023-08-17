@@ -18,6 +18,7 @@ module.exports = function () {
       path: path.join(__dirname, '/dist'),
       filename: 'bundle.js',
       publicPath: '/',
+      clean: true,
     },
     devtool: 'source-map',
     devServer: {
@@ -71,6 +72,8 @@ module.exports = function () {
     plugins: [
       new HtmlWebpackPlugin({
         template: './public/index.html',
+        hash: true,
+        favicon: './public/favicon.ico',
       }),
       new DotEnv(),
       new CopyWebpackPlugin({
