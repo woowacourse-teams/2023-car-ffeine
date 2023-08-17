@@ -29,7 +29,7 @@ const S = {
     height: 100vh;
     background: #fcfcfc;
     outline: 1.5px solid #e1e4eb;
-    padding-top: 3.6rem;
+    padding-top: 2.4rem;
   `,
 
   Padding: styled.div`
@@ -38,7 +38,7 @@ const S = {
 };
 
 const labelText = css`
-  padding: 5.2rem 0 2.2rem;
+  padding: 4.2rem 0 2.2rem;
 `;
 
 export default StationSearchWindow;
