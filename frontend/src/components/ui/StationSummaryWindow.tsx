@@ -1,7 +1,11 @@
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import { css } from 'styled-components';
 
-import { useSetExternalState } from '@utils/external-state';
+import type { MouseEvent } from 'react';
 
+import { useExternalValue, useSetExternalState } from '@utils/external-state';
+
+import { getStationSummaryWindowStore } from '@stores/google-maps/stationSummaryWindowStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
 import Button from '@common/Button';
@@ -20,6 +24,7 @@ interface Props {
 }
 
 const StationSummaryWindow = ({ station }: Props) => {
+  const infoWindowInstance = useExternalValue(getStationSummaryWindowStore());
   const setSelectedStationId = useSetExternalState(selectedStationIdStore);
   const { openLastPanel } = useNavigationBar();
 
@@ -42,13 +47,21 @@ const StationSummaryWindow = ({ station }: Props) => {
     openLastPanel(<StationDetailsWindow />);
   };
 
+  const handleCloseStationSummary = (event: MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    infoWindowInstance.infoWindowInstance.close();
+  };
+
   return (
-    <ListItem tag="div" key={stationId} css={noPadding}>
+    <ListItem tag="div" key={stationId} css={padding}>
       <Button width="100%" shadow css={foundStationButton} onClick={handleOpenStationDetail}>
-        <FlexBox alignItems="start" justifyContent="between" nowrap columnGap={2.8}>
+        <Button onClick={handleCloseStationSummary} css={closeButtonCss}>
+          <XMarkIcon fill="#333" width={24} />
+        </Button>
+        <FlexBox alignItems="start" mr={2} justifyContent="between" nowrap columnGap={2.8}>
           <article>
             <Text
-              tag="h4"
+              tag="h3"
               align="left"
               variant="subtitle"
               title={stationName}
@@ -63,7 +76,7 @@ const StationSummaryWindow = ({ station }: Props) => {
             <Text variant="body" align="left" lineClamp={1} mb={1} color="#585858">
               {address === 'null' || !address ? '주소 미확인' : address}
             </Text>
-            <Text variant="caption" align="left" lineClamp={1} mb={3} color="#585858">
+            <Text variant="caption" align="left" lineClamp={1} mb={3.5} color="#585858">
               {operatingTime}
             </Text>
             <FlexBox columnGap={3}>
@@ -82,8 +95,8 @@ const StationSummaryWindow = ({ station }: Props) => {
   );
 };
 
-const noPadding = css`
-  padding: 0;
+const padding = css`
+  padding: 1.2rem;
 `;
 
 const companyNameText = css`
@@ -91,15 +104,20 @@ const companyNameText = css`
 `;
 
 const foundStationButton = css`
-  padding: 1.4rem 1.2rem 2rem;
-  box-shadow: 0 0.3rem 0.8rem 0 var(--gray-200-color);
-  border-radius: 1.2rem;
+  padding: 1.6rem 1.2rem;
+  box-shadow: none;
 `;
 
 const labelStyle = css`
   padding: 0.2rem 1rem 0.3rem;
   background: var(--light-color);
   border-radius: 8px;
+`;
+
+const closeButtonCss = css`
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
 `;
 
 export default StationSummaryWindow;
