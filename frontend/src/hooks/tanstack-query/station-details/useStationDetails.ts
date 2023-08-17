@@ -26,16 +26,16 @@ export const fetchStationDetails = async (selectedStationId: string) => {
     }
 
     const data: StationDetails = await response.json();
-
-    const changedDataList = Object.entries(data).map(([key, value]) => {
-      if (INVALID_VALUE_LIST.includes(String(value))) {
-        return [key, null];
-      }
-
-      return [key, value];
-    });
-
-    return Object.fromEntries(changedDataList);
+    return data;
+    // const changedDataList = Object.entries(data).map(([key, value]) => {
+    //   if (INVALID_VALUE_LIST.includes(String(value))) {
+    //     return [key, null];
+    //   }
+    //
+    //   return [key, value];
+    // });
+    //
+    // return Object.fromEntries(changedDataList);
   });
 
   return stationDetails;
@@ -47,6 +47,6 @@ export const useStationDetails = () => {
   return useQuery({
     queryKey: [QUERY_KEY_STATION_DETAILS, selectedStationId],
     queryFn: () => fetchStationDetails(selectedStationId),
-    enabled: !!selectedStationId,
+    refetchOnWindowFocus: false,
   });
 };

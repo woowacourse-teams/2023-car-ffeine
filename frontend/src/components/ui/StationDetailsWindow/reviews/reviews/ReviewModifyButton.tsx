@@ -28,7 +28,7 @@ const ReviewModifyButton = ({
   stars,
   content,
 }: ReviewModifyButtonProps) => {
-  const { modifyReview, isModifyReviewLoading } = useModifyReview(stationId);
+  const { modifyReview, isModifyReviewLoading } = useModifyReview(stationId, review.reviewId);
   const handleClickCloseModifyMode = () => {
     setIsModifyMode(false);
   };

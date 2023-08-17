@@ -5,7 +5,11 @@ import { toastActions } from '@stores/layout/toastStore';
 import { memberTokenStore } from '@stores/login/memberTokenStore';
 
 import { SERVERS } from '@constants';
-import { QUERY_KEY_STATION_PREVIEWS, QUERY_KEY_STATION_REVIEWS } from '@constants/queryKeys';
+import {
+  QUERY_KEY_STATION_PREVIEWS,
+  QUERY_KEY_STATION_REPLIES,
+  QUERY_KEY_STATION_REVIEWS,
+} from '@constants/queryKeys';
 
 export interface FetchModifyReplyRequest {
   replyId: number;
@@ -27,7 +31,7 @@ const fetchModifyReply = async (fetchModifyReplyRequestParams: FetchModifyReplyR
   });
 };
 
-export const useModifyReply = (stationId: string) => {
+export const useModifyReply = (stationId: string, reviewId: number) => {
   const queryClient = useQueryClient();
 
   const { mutate, isLoading: isModifyReplyLoading } = useMutation({
@@ -36,6 +40,9 @@ export const useModifyReply = (stationId: string) => {
       toastActions.showToast('답글이 수정됐습니다.', 'success', 'bottom-center');
     },
     onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEY_STATION_REPLIES, reviewId],
+      });
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEY_STATION_REVIEWS, stationId],
       });

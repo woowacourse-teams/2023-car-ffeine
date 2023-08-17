@@ -31,10 +31,12 @@ const reportButtonCss = css`
   min-width: 8rem;
   margin: 0;
   background: #666;
-  outline: 1.6px solid #666;
+  outline: 0;
+
   &:hover {
     background: #666;
   }
+
   &:hover:enabled {
     background: #555;
   }

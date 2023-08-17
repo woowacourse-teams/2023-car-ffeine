@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { modalActions } from '@stores/layout/modalStore';
+import { memberInfoStore } from '@stores/login/memberInfoStore';
 import { memberTokenStore } from '@stores/login/memberTokenStore';
 
 import { useCreateReview } from '@hooks/tanstack-query/station-details/reviews/useCreateReview';
@@ -12,7 +13,7 @@ import FlexBox from '@common/FlexBox';
 import ContentField from '@ui/StationDetailsWindow/reviews/common/ContentField';
 import HeaderWithRating from '@ui/StationDetailsWindow/reviews/common/HeaderWithRating';
 
-import { MAX_REVIEW_CONTENT_LENGTH, MIN_REVIEW_CONTENT_LENGTH } from '@constants';
+import { DEFAULT_TOKEN, MAX_REVIEW_CONTENT_LENGTH, MIN_REVIEW_CONTENT_LENGTH } from '@constants';
 
 interface ReviewCreateProps {
   stationId: string;
@@ -23,7 +24,7 @@ const ReviewCreate = ({ stationId }: ReviewCreateProps) => {
   const [isReviewCreateOpen, setIsReviewCreateOpen] = useState(false);
   const [stars, setStars] = useState(5);
   const [content, setContent] = useState('');
-  const memberToken = memberTokenStore.getState();
+  const memberId = memberInfoStore.getState().memberId;
 
   useEffect(() => {
     if (!isCreateReviewLoading && isReviewCreateOpen) {
@@ -88,7 +89,7 @@ const ReviewCreate = ({ stationId }: ReviewCreateProps) => {
             </ButtonNext>
             <ButtonNext
               variant="contained"
-              disabled={memberToken === ''}
+              disabled={memberId === DEFAULT_TOKEN}
               fullWidth
               onClick={handleClickReviewCreateOpenButton}
             >

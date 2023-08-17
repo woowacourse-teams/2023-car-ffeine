@@ -27,13 +27,13 @@ export interface ReviewCardProps {
 }
 
 const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
-  const { isRemoveReviewLoading, removeReview } = useRemoveReview(stationId);
+  const { isRemoveReviewLoading, removeReview } = useRemoveReview(stationId, review.reviewId);
   const [isRepliesOpen, setIsRepliesOpen] = useState(false);
   const [isModifyMode, setIsModifyMode] = useState(false);
   const memberId = memberInfoStore.getState()?.memberId;
 
-  const isReviewOwner = memberId !== review.memberId;
-  const isEditable = (isReviewOwner || review.isDeleted) && !previewMode;
+  const isReviewOwner = memberId === review.memberId;
+  const isEditable = isReviewOwner && !review.isDeleted && !previewMode;
 
   const handleClickRemoveReviewButton = () => {
     if (confirm('정말로 삭제하시겠습니까?')) {
@@ -72,7 +72,11 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
                 </Box>
                 <FlexBox>
                   {!isEditable ? (
-                    <Text>!{JSON.stringify(memberId)}!</Text>
+                    <Text>
+                      !{JSON.stringify(memberId)}
+                      {JSON.stringify(review.isDeleted)}
+                      {JSON.stringify(previewMode)}!
+                    </Text>
                   ) : (
                     <>
                       <ButtonNext
@@ -112,7 +116,11 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
 
           {isRepliesOpen && (
             <>
-              <ReplyList reviewId={review.reviewId} stationId={stationId} />
+              <ReplyList
+                reviewId={review.reviewId}
+                stationId={stationId}
+                previewMode={previewMode}
+              />
               <ReplyCreate stationId={stationId} reviewId={review.reviewId} />
             </>
           )}

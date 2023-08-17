@@ -22,7 +22,7 @@ interface ReplyModifyProps {
 
 const ReplyModify = ({ stationId, reply, reviewId, setIsModifyMode }: ReplyModifyProps) => {
   const [content, setContent] = useState(reply.content);
-  const { modifyReply, isModifyReplyLoading } = useModifyReply(stationId);
+  const { modifyReply, isModifyReplyLoading } = useModifyReply(stationId, reviewId);
 
   const handleClickModifyReply = () => {
     modifyReply({ replyId: reply.replyId, content, reviewId });
