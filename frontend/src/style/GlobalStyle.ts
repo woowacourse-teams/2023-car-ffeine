@@ -34,4 +34,7 @@ export const GlobalStyle = createGlobalStyle`
   button.gm-ui-hover-effect {
     visibility: hidden;
   }
+  div.gm-style .gm-style-iw-c {
+    padding: 0;
+  }
 `;
