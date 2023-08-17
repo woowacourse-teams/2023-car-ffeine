@@ -5,6 +5,7 @@ import com.carffeine.carffeine.common.exception.ExceptionResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -46,8 +47,8 @@ public class AuthFilter extends OncePerRequestFilter {
     }
 
     private void sendUnauthorizedError(HttpServletResponse response, String errorMessage) throws IOException {
-        ExceptionResponse exceptionResponse = new ExceptionResponse(HttpServletResponse.SC_UNAUTHORIZED, errorMessage);
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.BAD_REQUEST.value(), errorMessage);
+        response.setStatus(HttpStatus.BAD_REQUEST.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         objectMapper.writeValue(response.getWriter(), exceptionResponse);
     }
