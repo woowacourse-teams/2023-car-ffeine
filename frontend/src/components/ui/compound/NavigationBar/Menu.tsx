@@ -120,7 +120,7 @@ const flexCss = css`
   flex-direction: column;
   align-items: center;
   background-color: #fff;
-  gap: 7.5rem;
+  gap: 3rem;
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     width: 100vw;
