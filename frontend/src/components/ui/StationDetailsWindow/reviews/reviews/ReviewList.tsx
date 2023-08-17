@@ -1,13 +1,10 @@
 import { css } from 'styled-components';
 
-import React from 'react';
-
-import { memberInfoStore } from '@stores/login/memberInfoStore';
+import { useEffect, useRef } from 'react';
 
 import { useInfiniteReviews } from '@hooks/tanstack-query/station-details/reviews/useInfiniteReviews';
 
 import Box from '@common/Box';
-import ButtonNext from '@common/ButtonNext';
 import Text from '@common/Text';
 
 import ReviewCard from '@ui/StationDetailsWindow/reviews/reviews/ReviewCard';
@@ -21,6 +18,28 @@ export interface ReviewListProps {
 export default function ReviewList({ stationId }: ReviewListProps) {
   const { status, data, error, isFetchingNextPage, fetchNextPage, hasNextPage } =
     useInfiniteReviews(stationId);
+
+  const loadMoreElementRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage();
+        }
+      });
+    });
+
+    if (loadMoreElementRef.current) {
+      observer.observe(loadMoreElementRef.current);
+    }
+
+    return () => {
+      if (loadMoreElementRef.current) {
+        observer.unobserve(loadMoreElementRef.current);
+      }
+    };
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
   return (
     <>
@@ -54,24 +73,11 @@ export default function ReviewList({ stationId }: ReviewListProps) {
               </div>
             ))}
             {isFetchingNextPage && <ReviewCardsLoading count={10} />}
-            <ButtonNext
-              size="xs"
-              variant="contained"
-              onClick={() => fetchNextPage()}
-              color="secondary"
-              disabled={!hasNextPage || isFetchingNextPage}
-              fullWidth
-            >
-              {isFetchingNextPage
-                ? '로딩중...'
-                : hasNextPage
-                ? '후기 더 보기'
-                : '더 이상 후기가 없습니다.'}
-              (무한스크롤로 제거 예정)
-            </ButtonNext>
+            <div ref={loadMoreElementRef} />
           </>
         )}
       </Box>
+
       <Box css={modalButtonCss}>
         <ReviewCreate stationId={stationId} />
       </Box>
