@@ -69,6 +69,8 @@ module.exports = function () {
     plugins: [
       new HtmlWebpackPlugin({
         template: './public/index.html',
+        hash: true,
+        favicon: './public/favicon.ico',
       }),
       new DotEnv(),
     ],

@@ -1,13 +1,12 @@
 import { styled } from 'styled-components';
 
-import { useExternalState, useExternalValue } from '@utils/external-state';
+import { useExternalState } from '@utils/external-state';
+import { getNavigationComponentWidth } from '@utils/google-maps/getCalculatedMapDelta';
 
-import { navigationBarPanelStore } from '@stores/layout/navigationBarPanelStore';
 import { clientStationFiltersStore } from '@stores/station-filters/clientStationFiltersStore';
 
 import ButtonNext from '@common/ButtonNext';
 
-import { NAVIGATOR_PANEL_WIDTH } from '@constants';
 import { CHARGING_SPEED } from '@constants/chargers';
 
 const ClientStationFilters = () => {
@@ -21,11 +20,8 @@ const ClientStationFilters = () => {
     setFilterOption,
   ] = useExternalState(clientStationFiltersStore);
 
-  const { basePanel, lastPanel } = useExternalValue(navigationBarPanelStore);
-  const navigationComponentWidth =
-    (basePanel === null ? 0 : NAVIGATOR_PANEL_WIDTH) +
-    (lastPanel === null ? 0 : NAVIGATOR_PANEL_WIDTH) +
-    10;
+  const ADDITIONAL_MARGIN = 10;
+  const navigationComponentWidth = getNavigationComponentWidth() + ADDITIONAL_MARGIN;
 
   const toggleAvailableStation = () => {
     setFilterOption((prev) => ({
