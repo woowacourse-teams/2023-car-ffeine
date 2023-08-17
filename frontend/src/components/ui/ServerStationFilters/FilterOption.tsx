@@ -30,7 +30,7 @@ const FilterSection = ({
   return (
     <FlexBox width={30} direction="column" mb={6} css={containerCss}>
       <FlexBox justifyContent="between">
-        <Text variant={'h6'} mb={1}>
+        <Text variant={'h6'} mb={2}>
           {title}
         </Text>
         <Text variant="caption">중복선택 가능</Text>

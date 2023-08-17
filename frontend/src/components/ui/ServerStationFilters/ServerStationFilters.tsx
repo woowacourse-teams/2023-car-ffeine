@@ -71,34 +71,34 @@ const ServerStationFilters = () => {
         </ButtonNext>
       </FlexBox>
       <FilterSection
-        title={'커넥터 타입'}
+        title="커넥터 타입"
         filterOptionNames={connectorTypes.map((connectorType) => CONNECTOR_TYPES[connectorType])}
         filterOptionValues={connectorTypes}
         toggleSelectFilter={toggleConnectorTypeFilter}
         getIsFilterSelected={getIsConnectorTypeSelected}
       />
       <FilterSection
-        title={'충전 속도(kW)'}
+        title="충전 속도(kW)"
         filterOptionNames={[...capacities.map((capacity) => Number(capacity))] as Capacity[]}
         filterOptionValues={[...capacities]}
-        filterButtonVariant={'sm'}
+        filterButtonVariant="sm"
         toggleSelectFilter={toggleCapacityFilter}
         getIsFilterSelected={getIsCapacitySelected}
       />
       <FilterSection
-        title={'충전 사업자'}
+        title="충전 사업자"
         filterOptionNames={companies.map((companyKey) => COMPANIES[companyKey])}
         filterOptionValues={[...companies]}
         toggleSelectFilter={toggleCompanyFilter}
         getIsFilterSelected={getIsCompanySelected}
       />
       <Button
-        background={'#0064FF'}
+        background="#0064ff"
         css={buttonCss}
-        noRadius={'all'}
+        noRadius="all"
         onClick={handleApplySelectedFilters}
       >
-        <Text variant={'h6'}>적용하기</Text>
+        <Text variant="h6">적용하기</Text>
       </Button>
     </FlexBox>
   );
