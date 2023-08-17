@@ -1,22 +1,19 @@
+import { UserCircleIcon } from '@heroicons/react/24/outline';
 import { css } from 'styled-components';
 
-import type { PropsWithChildren, ReactNode } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import type { PropsWithChildren } from 'react';
+import { useState } from 'react';
 
-import Box from '@common/Box';
 import FlexBox from '@common/FlexBox';
 
 import Menus from './Menus';
 
 interface Props {
-  trigger: ReactNode;
   menus: PropsWithChildren<{ onClick: () => void }>[];
 }
 
-const PopupMenu = ({ trigger, menus }: Props) => {
-  const triggerRef = useRef<HTMLButtonElement>(null);
+const PopupMenu = ({ menus }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [triggerWidth, setTriggerWidth] = useState(0);
 
   const handleToggleMenu = () => {
     setIsOpen((prev) => !prev);
@@ -26,33 +23,30 @@ const PopupMenu = ({ trigger, menus }: Props) => {
     setIsOpen(false);
   };
 
-  useEffect(() => {
-    if (triggerRef.current) setTriggerWidth(triggerRef.current.offsetWidth);
-  }, []);
-
   return (
     <FlexBox css={container}>
-      <button ref={triggerRef} onClick={handleToggleMenu}>
-        {trigger}
+      {isOpen && <Menus menus={menus} closeMenu={handleCloseMenu} />}
+      <button onClick={handleToggleMenu}>
+        <UserCircleIcon width="2.8rem" stroke="#333" />
       </button>
-      <Box css={getMenuContainerCss(triggerWidth)}>
-        {isOpen && <Menus menus={menus} closeMenu={handleCloseMenu} />}
-      </Box>
     </FlexBox>
   );
 };
 
 const container = css`
   position: relative;
-`;
+  display: inline-block;
 
-const getMenuContainerCss = (triggerWidth: number) => {
-  return css`
+  & > ul:first-child {
+    left: calc(100% + 20px);
     position: absolute;
+    top: -18px;
 
-    top: -2rem;
-    left: calc(${triggerWidth}px + 2rem);
-  `;
-};
+    @media screen and (max-width: 414px) {
+      top: -134px;
+      left: -43px;
+    }
+  }
+`;
 
 export default PopupMenu;

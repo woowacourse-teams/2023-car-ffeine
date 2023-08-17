@@ -36,7 +36,7 @@ const LoginModal = () => {
 };
 
 const containerCss = css`
-  padding: 4.8rem 5rem 6.4rem;
+  padding: 4.6rem 4.8rem 6.4rem;
 `;
 
 const GoogleLogin = styled.button`

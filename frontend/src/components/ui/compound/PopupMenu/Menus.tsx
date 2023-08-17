@@ -48,6 +48,13 @@ const StartingPointBox = styled.div`
   background-color: #fff;
 
   transform: rotate(45deg);
+
+  @media screen and (max-width: 414px) {
+    top: auto;
+    bottom: -10px;
+    left: auto;
+    transform: rotate(-45deg);
+  }
 `;
 
 const containerCss = css`
