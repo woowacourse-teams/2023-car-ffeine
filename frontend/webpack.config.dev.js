@@ -63,9 +63,9 @@ module.exports = function () {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: './public/index.html',
+        template: path.join(__dirname, './public/index.html'),
         hash: true,
-        favicon: './public/favicon.ico',
+        favicon: path.join(__dirname, './public/favicon.ico'),
       }),
       new DotEnv(),
       new CopyWebpackPlugin({
