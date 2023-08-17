@@ -58,6 +58,7 @@ const CarModal = () => {
       modalActions.closeModal();
     } catch (error) {
       toastActions.showToast(error.message, 'error');
+      modalActions.closeModal();
     }
   };
 

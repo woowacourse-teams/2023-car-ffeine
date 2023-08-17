@@ -6,7 +6,11 @@ export const memberHandlers = [
   rest.get(`${SERVERS.localhost}/members/me`, (req, res, ctx) => {
     const memberToken = req.headers.get('Authorization');
 
-    if (memberToken === undefined || memberToken.replace('Bearer', '') === '') {
+    if (
+      memberToken === undefined ||
+      memberToken === null ||
+      memberToken.replace('Bearer', '') === ''
+    ) {
       return res(ctx.status(401), ctx.json('unauthorized error'));
     }
 

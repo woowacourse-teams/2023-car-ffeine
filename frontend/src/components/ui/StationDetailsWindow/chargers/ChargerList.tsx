@@ -27,6 +27,10 @@ const ChargerList = ({ chargers, stationId, reportCount }: ChargerListProps) => 
   const availableChargersSize = chargers.filter((charger) => charger.state === 'STANDBY').length;
   const loadedChargersSize = page * CHARGER_SIZE;
 
+  const handleShowMoreChargers = () => {
+    setPage((prev) => prev + 1);
+  };
+
   return (
     <>
       <Text tag="h3" fontSize={1.8} weight="bold" mt={8} mb={1.5}>
@@ -51,7 +55,7 @@ const ChargerList = ({ chargers, stationId, reportCount }: ChargerListProps) => 
         ))}
       </FlexBox>
       {totalChargersSize - loadedChargersSize > 0 && (
-        <Button css={MoreButtonContainer}>
+        <Button css={MoreButtonContainer} onClick={handleShowMoreChargers}>
           <FlexBox justifyContent="center">
             <Text>더보기</Text>
             <ChevronDownIcon width={20} />

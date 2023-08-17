@@ -1,34 +1,12 @@
 import { setSessionStorage } from '@utils/storage';
 
 import { toastActions } from '@stores/layout/toastStore';
-import { memberTokenActions } from '@stores/login/memberTokenStore';
+import { memberInfoAction } from '@stores/login/memberInfoStore';
+import { memberTokenActions, memberTokenStore } from '@stores/login/memberTokenStore';
+import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
 
-import { SERVERS } from '@constants';
-import { SESSION_KEY_MEMBER_TOKEN } from '@constants/storageKeys';
-
-interface TokenResponse {
-  token: string;
-}
-
-export const getMemberToken = async (code: string, provider: string) => {
-  const APIEndPoint = getAPIEndPoint();
-  const redirectUri = getRedirectUri();
-
-  const tokenResponse = await fetch(`${APIEndPoint}/oauth/google/login`, {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json',
-    },
-    body: JSON.stringify({
-      code,
-      redirectUri: `${redirectUri}/${provider}`,
-    }),
-  }).then<TokenResponse>((response) => response.json());
-
-  const memberToken = tokenResponse.token;
-
-  return memberToken;
-};
+import { DEFAULT_TOKEN, SERVERS } from '@constants';
+import { SESSION_KEY_MEMBER_INFO, SESSION_KEY_MEMBER_TOKEN } from '@constants/storageKeys';
 
 interface LoginUriResponse {
   loginUri: string;
@@ -53,11 +31,28 @@ export const redirectToLoginPage = (provider: string) => {
     });
 };
 
-export const logout = () => {
-  const { setMemberToken } = memberTokenActions;
+interface TokenResponse {
+  token: string;
+}
 
-  setMemberToken('');
-  setSessionStorage(SESSION_KEY_MEMBER_TOKEN, '');
+export const getMemberToken = async (code: string, provider: string) => {
+  const APIEndPoint = getAPIEndPoint();
+  const redirectUri = getRedirectUri();
+
+  const tokenResponse = await fetch(`${APIEndPoint}/oauth/google/login`, {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      code,
+      redirectUri: `${redirectUri}/${provider}`,
+    }),
+  }).then<TokenResponse>((response) => response.json());
+
+  const memberToken = tokenResponse.token;
+
+  return memberToken;
 };
 
 export const getRedirectUri = () => {
@@ -88,4 +83,30 @@ export const getAPIEndPoint = () => {
   }
 
   return SERVERS['localhost'];
+};
+
+export const logout = () => {
+  const { setMemberToken } = memberTokenActions;
+  const { resetMemberInfo } = memberInfoAction;
+  const { deleteAllServerStationFilters } = serverStationFilterAction;
+
+  setMemberToken('');
+  resetMemberInfo();
+  setSessionStorage(SESSION_KEY_MEMBER_TOKEN, '');
+  setSessionStorage(
+    SESSION_KEY_MEMBER_INFO,
+    `{
+      "memberId": ${DEFAULT_TOKEN},
+      "car": null
+    }`
+  );
+  deleteAllServerStationFilters();
+};
+
+export const handleInvalidTokenToLogout = () => {
+  const isTokenExist = memberTokenStore.getState() !== '';
+
+  if (isTokenExist) {
+    logout();
+  }
 };

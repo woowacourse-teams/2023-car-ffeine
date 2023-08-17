@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
 
+import { fetchUtils } from '@utils/fetch';
 import { getMemberToken } from '@utils/login';
 import { getAPIEndPoint } from '@utils/login/index';
 import { setSessionStorage } from '@utils/storage';
 
-import type { MemberInfo } from '@stores/login/memberInfoStore';
+import { memberTokenStore } from '@stores/login/memberTokenStore';
 
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
+import Loading from '@common/Loading';
 import Text from '@common/Text';
 
 import LogoIcon from '@ui/Svg/LogoIcon';
@@ -24,12 +26,9 @@ const GoogleLogin = () => {
 
     getMemberToken(code, 'google')
       .then(async (token) => {
-        const memberInfo = await fetch(`${APIEndPoint}/members/me`, {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }).then<MemberInfo>((response) => response.json());
+        memberTokenStore.setState(token);
+
+        const memberInfo = await fetchUtils.get(`${APIEndPoint}/members/me`);
 
         setSessionStorage(SESSION_KEY_MEMBER_TOKEN, token);
         setSessionStorage(SESSION_KEY_MEMBER_INFO, JSON.stringify(memberInfo));
@@ -62,12 +61,7 @@ const GoogleLogin = () => {
     );
   }
 
-  return (
-    <FlexBox height="100vh" direction="column" alignItems="center" justifyContent="center">
-      <LogoIcon width={15} />
-      <Text variant="h5">로딩중...</Text>
-    </FlexBox>
-  );
+  return <Loading />;
 };
 
 export default GoogleLogin;

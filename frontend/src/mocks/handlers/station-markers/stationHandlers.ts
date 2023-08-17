@@ -18,11 +18,11 @@ export const stationHandlers = [
 
     const isChargerTypeFilterSelected = searchParams.get('chargerTypes') !== null;
     const isCapacityFilterSelected = searchParams.get('capacities') !== null;
-    const isCompanyNameFilterSelected = searchParams.get('companies') !== null;
+    const isCompanyNameFilterSelected = searchParams.get('companyNames') !== null;
 
     const selectedChargerTypes = searchParams.get('chargerTypes')?.split(',');
     const selectedCapacities = searchParams.get('capacities')?.split(',')?.map(Number);
-    const selectedCompanies = searchParams.get('companies')?.split(',');
+    const selectedCompanies = searchParams.get('companyNames')?.split(',');
 
     const northEastBoundary = {
       latitude: latitude + latitudeDelta,

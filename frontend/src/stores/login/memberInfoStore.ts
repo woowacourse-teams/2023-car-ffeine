@@ -43,4 +43,10 @@ export const memberInfoAction = {
       car,
     }));
   },
+  resetMemberInfo() {
+    memberInfoStore.setState({
+      memberId: -1,
+      car: null,
+    });
+  },
 };

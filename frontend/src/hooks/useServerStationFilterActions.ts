@@ -8,7 +8,7 @@ import {
 
 import type { CapaCityBigDecimal, CompanyKey, ConnectorTypeKey } from '@type/serverStationFilter';
 
-export const useServerStationFilterActions = () => {
+export const useServerStationFilterStoreActions = () => {
   const [selectedCompaniesFilters, setSelectedCompaniesFilter] = useExternalState(
     selectedCompaniesFilterStore
   );

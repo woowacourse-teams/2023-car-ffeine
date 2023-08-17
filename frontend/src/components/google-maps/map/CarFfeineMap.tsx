@@ -10,7 +10,6 @@ import { setLocalStorage } from '@utils/storage';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { toastActions } from '@stores/layout/toastStore';
-import { memberTokenStore } from '@stores/login/memberTokenStore';
 import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
 
 import { useMemberFilters } from '@hooks/tanstack-query/station-filters/useMemberFilters';
@@ -73,17 +72,10 @@ const CarFfeineMapListener = () => {
   return <></>;
 };
 
-// TODO: 유저 필터링이 로그인 된 이후 바로 적용되지 않는 문제 다시 발생. 이 부분 어떻게 수정할지 고민해보기
 const UserFilterListener = () => {
   const queryClient = useQueryClient();
   const { data: memberFilters } = useMemberFilters();
   const { setAllServerStationFilters } = serverStationFilterAction;
-
-  console.log('현재 로그인한 유저가 등록한 필터 정보', memberFilters);
-  console.log(
-    '클라이언트 전역 상태에 저장된 필터 정보',
-    serverStationFilterAction.getAllServerStationFilters()
-  );
 
   if (memberFilters !== undefined) {
     setAllServerStationFilters(memberFilters);
