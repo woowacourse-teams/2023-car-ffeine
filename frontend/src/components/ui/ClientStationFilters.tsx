@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import { css, styled } from 'styled-components';
 
 import { useExternalState, useExternalValue } from '@utils/external-state';
 
@@ -58,38 +58,27 @@ const ClientStationFilters = () => {
 
   return (
     <Container left={navigationComponentWidth}>
-      <ButtonNext
+      <ClientFilterButton
         onClick={toggleAvailableStation}
-        variant={isAvailableStationFilterSelected ? 'contained' : 'outlined'}
-        color="dark"
-        size="sm"
+        isChecked={isAvailableStationFilterSelected}
       >
         현재 사용 가능
-      </ButtonNext>
-      <ButtonNext
+      </ClientFilterButton>
+      <ClientFilterButton
         onClick={toggleParkingFreeStation}
-        variant={isParkingFreeStationFilterSelected ? 'contained' : 'outlined'}
-        color="dark"
-        size="sm"
+        isChecked={isParkingFreeStationFilterSelected}
       >
         주차 무료
-      </ButtonNext>
-      <ButtonNext
+      </ClientFilterButton>
+      <ClientFilterButton
         onClick={toggleFastChargeStation}
-        variant={isFastChargeStationFilterSelected ? 'contained' : 'outlined'}
-        color="dark"
-        size="sm"
+        isChecked={isFastChargeStationFilterSelected}
       >
         {CHARGING_SPEED.quick}
-      </ButtonNext>
-      <ButtonNext
-        onClick={togglePrivateStation}
-        variant={isPrivateStationFilterSelected ? 'contained' : 'outlined'}
-        color="dark"
-        size="sm"
-      >
+      </ClientFilterButton>
+      <ClientFilterButton onClick={togglePrivateStation} isChecked={isPrivateStationFilterSelected}>
         외부인 개방
-      </ButtonNext>
+      </ClientFilterButton>
     </Container>
   );
 };
@@ -100,10 +89,20 @@ const Container = styled.div<{ left: number }>`
   left: ${(props) => props.left}rem;
   z-index: 998;
   padding: 10px;
-  background-color: white;
+  //background-color: white;
 
   display: flex;
   gap: 10px;
+`;
+
+const ClientFilterButton = styled.button<{ isChecked: boolean }>`
+  padding: 0.6rem 1.2rem;
+  background: ${({ isChecked }) => (isChecked ? '#e9edf8' : '#ffffff')};
+  box-shadow:
+    0 1px 2px rgba(60, 64, 67, 0.3),
+    0 1px 3px 1px rgba(60, 64, 67, 0.15);
+  border-radius: 8px;
+  color: ${({ isChecked }) => (isChecked ? '#000000' : '#000000')};
 `;
 
 export default ClientStationFilters;
