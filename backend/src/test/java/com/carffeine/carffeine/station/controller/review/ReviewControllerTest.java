@@ -30,6 +30,7 @@ import static com.carffeine.carffeine.station.fixture.station.StationFixture.선
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
@@ -160,30 +161,22 @@ public class ReviewControllerTest extends MockBeanInjection {
     @Test
     void 충전소의_리뷰를_삭제한다() throws Exception {
         // given
-        Station station = 선릉역_충전소_충전기_2개_사용가능_1개;
         Member member = 일반_회원;
-        CreateReviewRequest request = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
         Review review = 리뷰_별4_15글자;
 
         // when
-        when(reviewService.saveReview(request, station.getStationId(), member.getId())).thenReturn(review);
-        String jsonData = objectMapper.writeValueAsString(request);
+        doNothing().when(reviewService).deleteReview(member.getId(), review.getId());
 
         // then
         mockMvc.perform(delete("/reviews/{reviewId}", review.getId())
                         .header(HttpHeaders.AUTHORIZATION, "Bearer " + member.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(jsonData)
                 )
                 .andExpect(status().isNoContent())
                 .andDo(customDocument("delete-review",
                         requestHeaders(headerWithName("Authorization").description("회원 ID")),
-                        pathParameters(parameterWithName("reviewId").description("충전소 ID")),
-                        requestFields(
-                                fieldWithPath("ratings").type(JsonFieldType.NUMBER).description("별점"),
-                                fieldWithPath("content").type(JsonFieldType.STRING).description("내용")
-                        ))
+                        pathParameters(parameterWithName("reviewId").description("충전소 ID")))
                 );
     }
 

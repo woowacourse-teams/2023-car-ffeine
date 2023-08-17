@@ -11,6 +11,7 @@ import com.carffeine.carffeine.station.domain.review.Reply;
 import com.carffeine.carffeine.station.domain.review.ReplyRepository;
 import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.domain.review.ReviewRepository;
+import com.carffeine.carffeine.station.domain.station.StationRepository;
 import com.carffeine.carffeine.station.service.review.dto.CreateReplyRequest;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,6 +30,7 @@ import static com.carffeine.carffeine.station.fixture.review.ReplyFixture.답글
 import static com.carffeine.carffeine.station.fixture.review.ReplyFixture.답글_수정_요청_1개;
 import static com.carffeine.carffeine.station.fixture.review.ReplyFixture.답글_요청_1개;
 import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.리뷰_별4_15글자;
+import static com.carffeine.carffeine.station.fixture.station.StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
 import static com.carffeine.carffeine.station.integration.review.ReplyIntegrationTestFixture.답글을_등록한다;
 import static com.carffeine.carffeine.station.integration.review.ReplyIntegrationTestFixture.답글을_삭제한다;
 import static com.carffeine.carffeine.station.integration.review.ReplyIntegrationTestFixture.답글을_수정한다;
@@ -56,10 +58,13 @@ public class ReplyIntegrationTest extends IntegrationTest {
     @Autowired
     private MemberRepository memberRepository;
     @Autowired
+    private StationRepository stationRepository;
+    @Autowired
     private JwtProvider jwtProvider;
 
     @BeforeEach
     void setUp() {
+        stationRepository.save(선릉역_충전소_충전기_2개_사용가능_1개);
         멤버 = memberRepository.save(일반_회원);
         요청 = 답글_요청_1개;
         토큰 = jwtProvider.create(멤버.getId());

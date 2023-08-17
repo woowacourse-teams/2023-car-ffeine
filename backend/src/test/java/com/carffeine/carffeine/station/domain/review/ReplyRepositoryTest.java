@@ -2,6 +2,8 @@ package com.carffeine.carffeine.station.domain.review;
 
 import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.member.domain.MemberRepository;
+import com.carffeine.carffeine.station.domain.station.Station;
+import com.carffeine.carffeine.station.domain.station.StationRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -14,7 +16,8 @@ import org.springframework.data.domain.Pageable;
 
 import static com.carffeine.carffeine.member.fixture.MemberFixture.일반_회원;
 import static com.carffeine.carffeine.station.fixture.review.ReplyFixture.답글_13개;
-import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.저장안된_리뷰;
+import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.저장_전_리뷰;
+import static com.carffeine.carffeine.station.fixture.station.StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
@@ -32,13 +35,17 @@ public class ReplyRepositoryTest {
     @Autowired
     private ReviewRepository reviewRepository;
 
+    @Autowired
+    private StationRepository stationRepository;
+    private Station station;
     private Member member;
     private Review review;
 
     @BeforeEach
     void setUp() {
+        station = stationRepository.save(선릉역_충전소_충전기_2개_사용가능_1개);
         member = memberRepository.save(일반_회원);
-        review = reviewRepository.save(저장안된_리뷰(member));
+        review = reviewRepository.save(저장_전_리뷰(member));
     }
 
     @Test
