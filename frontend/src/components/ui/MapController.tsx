@@ -71,7 +71,7 @@ const MapController = () => {
 };
 
 const containerCss = css`
-  z-index: 999;
+  z-index: 99;
 
   position: fixed;
   bottom: 3.2rem;

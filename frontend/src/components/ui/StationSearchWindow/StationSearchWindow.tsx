@@ -4,7 +4,7 @@ import Text from '@common/Text';
 
 import StationList from '@ui/StationList/StationList';
 
-import { NAVIGATOR_PANEL_WIDTH } from '@constants';
+import { MOBILE_BREAKPOINT, NAVIGATOR_PANEL_WIDTH } from '@constants';
 
 import StationSearchBar from './StationSearchBar';
 
@@ -26,10 +26,14 @@ const StationSearchWindow = () => {
 const S = {
   Container: styled.article`
     width: ${NAVIGATOR_PANEL_WIDTH}rem;
-    height: 100vh;
+    height: 90vh;
     background: #fcfcfc;
     outline: 1.5px solid #e1e4eb;
     padding-top: 3.6rem;
+
+    @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+      display: none;
+    }
   `,
 
   Padding: styled.div`

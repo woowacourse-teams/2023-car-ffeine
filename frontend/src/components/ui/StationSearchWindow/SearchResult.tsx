@@ -7,6 +7,8 @@ import List from '@common/List';
 import ListItem from '@common/ListItem';
 import Text from '@common/Text';
 
+import { MOBILE_BREAKPOINT } from '@constants';
+
 import type { SearchedStation, StationPosition } from '@type/stations';
 
 export interface SearchResultProps {
@@ -68,6 +70,13 @@ export const searchResultList = css`
   background: #fcfcfc;
   box-shadow: 0 3px 10px 0 #d9d9da;
   font-size: 1.5rem;
+
+  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+    width: calc(100vw - 2rem);
+    margin-top: 5rem;
+
+    max-height: 22.6rem;
+  }
 `;
 
 export const foundStationList = css`

@@ -6,6 +6,8 @@ import { useStations } from '@hooks/tanstack-query/station-markers/useStations';
 
 import Loader from '@common/Loader';
 
+import { MOBILE_BREAKPOINT } from '@constants';
+
 const StationMarkerLoadingSpinner = () => {
   const navigationComponentWidth = getNavigationComponentWidth();
 
@@ -24,6 +26,10 @@ const positionCss = (navigationComponentWidth: number) => css`
   top: 50%;
   left: calc(50% + ${navigationComponentWidth / 2}rem);
   margin: -5rem 0 0 -5rem;
+
+  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+    left: 50%;
+  }
 `;
 
 export default StationMarkerLoadingSpinner;
