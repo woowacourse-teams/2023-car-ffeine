@@ -48,20 +48,11 @@ const StartingPointBox = styled.div<{ containerWidth: number }>`
 
   transform: rotate(45deg);
 
-  @media screen and (min-width: ${MOBILE_BREAKPOINT}px) {
-    top: 2rem;
-    left: -1rem;
-
-    border-top: none;
-    border-right: none;
-  }
-
-  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
-    bottom: -1rem;
-    left: ${(props) => props.containerWidth / 2 - 10}px;
-
-    border-top: none;
-    border-left: none;
+  @media screen and (max-width: 414px) {
+    top: auto;
+    bottom: -10px;
+    left: auto;
+    transform: rotate(-45deg);
   }
 `;
 

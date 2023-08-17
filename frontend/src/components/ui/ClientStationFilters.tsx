@@ -1,4 +1,4 @@
-import { css, styled } from 'styled-components';
+import { styled } from 'styled-components';
 
 import { useExternalState, useExternalValue } from '@utils/external-state';
 
@@ -97,7 +97,7 @@ const ClientStationFilters = () => {
 
 const Container = styled.div<{ left: number }>`
   position: fixed;
-  top: 10px;
+  top: 14px;
   left: ${(props) => props.left}rem;
   z-index: 998;
   padding: 10px;

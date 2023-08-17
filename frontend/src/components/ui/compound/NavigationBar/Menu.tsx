@@ -95,7 +95,7 @@ const Menu = () => {
         <AdjustmentsHorizontalIcon width="2.8rem" stroke="#333" />
       </Button>
       {memberToken !== '' ? (
-        <PopupMenu trigger={<UserCircleIcon width="2.8rem" stroke="#333" />} menus={loginMenus} />
+        <PopupMenu menus={loginMenus} />
       ) : (
         <Button aria-label="로그인 하기" onClick={handleClickLoginIcon}>
           <UserCircleIcon width="2.8rem" stroke="#333" />

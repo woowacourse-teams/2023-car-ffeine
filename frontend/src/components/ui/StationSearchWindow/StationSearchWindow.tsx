@@ -29,7 +29,7 @@ const S = {
     height: 90vh;
     background: #fcfcfc;
     outline: 1.5px solid #e1e4eb;
-    padding-top: 3.6rem;
+    padding-top: 2.4rem;
 
     @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
       display: none;
@@ -42,7 +42,7 @@ const S = {
 };
 
 const labelText = css`
-  padding: 5.2rem 0 2.2rem;
+  padding: 4.2rem 0 2.2rem;
 `;
 
 export default StationSearchWindow;

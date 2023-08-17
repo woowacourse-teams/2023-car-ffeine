@@ -25,7 +25,7 @@ export const stationReviewHandlers = [
     const page = Number(searchParams.get('page'));
     console.log(`충전소 후기 조회 page=${page}`);
 
-    if (page === 3) {
+    if (page === 5) {
       return res(
         ctx.json({
           reviews: reviews.slice(0, 3),
@@ -35,7 +35,7 @@ export const stationReviewHandlers = [
         ctx.delay(1000),
         ctx.status(200)
       );
-    } else if (page > 3) {
+    } else if (page > 5) {
       return res(
         ctx.json({
           reviews: [],

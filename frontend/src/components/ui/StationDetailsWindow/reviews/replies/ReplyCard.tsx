@@ -56,18 +56,15 @@ const ReplyCard = ({ stationId, reply, reviewId, previewMode }: ReplyCardProps) 
           <FlexBox justifyContent="between">
             <Box>
               <Text variant="label" mb={2}>
-                {reply.memberId}님
+                {reply.isDeleted ? '(알수없음)' : `${reply.memberId}님`}
               </Text>
               <Text variant="caption">
-                {calculateLatestUpdateTime(reply.latestUpdateDate)} {reply.isUpdated && '(수정됨)'}
+                {!reply.isDeleted && calculateLatestUpdateTime(reply.latestUpdateDate)}
+                {reply.isDeleted ? ' (삭제됨)' : reply.isUpdated ? ' (수정됨)' : ''}
               </Text>
             </Box>
             {!isEditable ? (
-              <Text>
-                !{JSON.stringify(memberId)}
-                {JSON.stringify(reply.isDeleted)}
-                {JSON.stringify(previewMode)}!
-              </Text>
+              <></>
             ) : (
               <div>
                 <ButtonNext
@@ -95,7 +92,7 @@ const ReplyCard = ({ stationId, reply, reviewId, previewMode }: ReplyCardProps) 
             )}
           </FlexBox>
           <Box mt={3}>
-            <Text variant="body">{reply.content}</Text>
+            <Text variant="body">{reply.isDeleted ? '(삭제된 답글입니다.)' : reply.content}</Text>
           </Box>
         </Box>
       </Box>
