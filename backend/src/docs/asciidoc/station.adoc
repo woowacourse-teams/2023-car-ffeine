@@ -9,35 +9,35 @@
 
 === Request
 
-include::{snippets}/charger-station-controller-test/findChargeStation/http-request.adoc[]
-include::{snippets}/charger-station-controller-test/findChargeStation/request-parameters.adoc[]
+include::{snippets}/station-controller-test/findChargeStation/http-request.adoc[]
+include::{snippets}/station-controller-test/findChargeStation/request-parameters.adoc[]
 
 === Response
 
-include::{snippets}/charger-station-controller-test/findChargeStation/http-response.adoc[]
-include::{snippets}/charger-station-controller-test/findChargeStation/response-fields.adoc[]
+include::{snippets}/station-controller-test/findChargeStation/http-response.adoc[]
+include::{snippets}/station-controller-test/findChargeStation/response-fields.adoc[]
 
 == 충전소 id 값을 기준으로 충전소를 상세 조회한다 (/stations/{stationId})
 
 === Request
 
-include::{snippets}/charger-station-controller-test/findChargeStationById/http-request.adoc[]
+include::{snippets}/station-controller-test/findChargeStationById/http-request.adoc[]
 
 === Response
 
-include::{snippets}/charger-station-controller-test/findChargeStationById/http-response.adoc[]
-include::{snippets}/charger-station-controller-test/findChargeStationById/response-body.adoc[]
+include::{snippets}/station-controller-test/findChargeStationById/http-response.adoc[]
+include::{snippets}/station-controller-test/findChargeStationById/response-body.adoc[]
 
 == 잘못된 충전소 id 값으로 충전소를 상세 조회하는 경우 예외가 발생한다. (/stations/{stationId})
 
 === Request
 
-include::{snippets}/charger-station-controller-test/findChargeStationByInvalidId/http-request.adoc[]
+include::{snippets}/station-controller-test/findChargeStationByInvalidId/http-request.adoc[]
 
 === Response
 
-include::{snippets}/charger-station-controller-test/findChargeStationByInvalidId/http-response.adoc[]
-include::{snippets}/charger-station-controller-test/findChargeStationByInvalidId/response-fields.adoc[]
+include::{snippets}/station-controller-test/findChargeStationByInvalidId/http-response.adoc[]
+include::{snippets}/station-controller-test/findChargeStationByInvalidId/response-fields.adoc[]
 
 == 충전소의 id 값을 기준으로 충전소의 혼잡도를 조회한다 (/stations/{stationId}/statistics)
 
