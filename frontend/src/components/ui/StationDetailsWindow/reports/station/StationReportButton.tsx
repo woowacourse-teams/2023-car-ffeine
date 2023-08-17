@@ -1,36 +1,21 @@
-import { modalActions } from '@stores/layout/modalStore';
-import { memberTokenStore } from '@stores/login/memberTokenStore';
-
-import ButtonNext from '@common/ButtonNext';
+import { MegaphoneIcon } from '@heroicons/react/24/outline';
 
 import StationReportPreConfirmation from '@ui/StationDetailsWindow/reports/station/StationReportPreConfirmation';
 
 import type { StationDetails } from '@type';
+
+import ReportButton from '../ReportButton';
 
 interface StationReportButtonProps {
   station: StationDetails;
 }
 
 const StationReportButton = ({ station }: StationReportButtonProps) => {
-  const memberToken = memberTokenStore.getState();
-
   return (
-    <ButtonNext
-      fullWidth
-      variant="outlined"
-      size="sm"
-      color="secondary"
-      my={3}
-      onClick={() => {
-        if (memberToken === '') {
-          alert('로그인이 필요한 메뉴입니다.');
-        } else {
-          modalActions.openModal(<StationReportPreConfirmation station={station} />);
-        }
-      }}
-    >
-      📝 충전소 정보 수정 제안하기
-    </ButtonNext>
+    <ReportButton modalContent={<StationReportPreConfirmation station={station} />}>
+      <MegaphoneIcon width={20} stroke="#666" aria-hidden />
+      잘못된 충전소 정보 제보
+    </ReportButton>
   );
 };
 

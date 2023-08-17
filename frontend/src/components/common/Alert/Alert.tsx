@@ -1,3 +1,4 @@
+import type { CSSProp } from 'styled-components';
 import styled, { css } from 'styled-components';
 
 import type { Color } from '@type/style';
@@ -5,6 +6,7 @@ import type { Color } from '@type/style';
 export interface AlertProps {
   color: Color;
   text: string;
+  css?: CSSProp;
 }
 
 const AlertContainer = styled.div<AlertProps>`
@@ -70,6 +72,8 @@ const AlertContainer = styled.div<AlertProps>`
   border-radius: 4px;
   margin-bottom: 1rem;
   font-size: 1.5rem;
+
+  ${({ css }) => css}
 `;
 
 const Alert = ({ ...props }: AlertProps) => {

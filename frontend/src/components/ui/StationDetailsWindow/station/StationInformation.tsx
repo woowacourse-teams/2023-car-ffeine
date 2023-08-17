@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import Box from '@common/Box';
 import Text from '@common/Text';
@@ -19,20 +19,19 @@ const StationInformation = ({ station }: StationInformationProps) => {
     address,
     detailLocation,
     isPrivate,
-    stationState,
     privateReason,
   } = station;
 
   return (
     <Box>
-      <Box>
-        <Text variant="label" mb={1}>
+      <Box css={lineHeight}>
+        <Text variant="label" mb={1.5}>
           {companyName}
         </Text>
         <Text variant="title" mb={1}>
           {stationName}
         </Text>
-        <Text variant="subtitle" mb={2}>
+        <Text variant="body" mb={1.5}>
           {address?.length > 0 ? address : '도로명주소 없음'}
         </Text>
         <Text variant="caption" mb={1}>
@@ -42,7 +41,7 @@ const StationInformation = ({ station }: StationInformationProps) => {
       <Divider />
       <Box>
         <Box my={3}>
-          <Text variant="subtitle" mb={2}>
+          <Text variant="body" weight="bold" mb={2}>
             운영시간
           </Text>
           <Text variant="label" color="#585858">
@@ -51,7 +50,7 @@ const StationInformation = ({ station }: StationInformationProps) => {
         </Box>
 
         <Box my={3}>
-          <Text variant="subtitle" mb={2}>
+          <Text variant="body" weight="bold" mb={2}>
             연락처
           </Text>
           <Text variant="label" color="#585858">
@@ -60,7 +59,7 @@ const StationInformation = ({ station }: StationInformationProps) => {
         </Box>
 
         <Box my={3}>
-          <Text variant="subtitle" mb={2}>
+          <Text variant="body" weight="bold" mb={2}>
             주차비
           </Text>
           <Text variant="label" color="#585858">
@@ -69,11 +68,11 @@ const StationInformation = ({ station }: StationInformationProps) => {
         </Box>
 
         <Box my={3}>
-          <Text variant="subtitle" mb={2}>
+          <Text variant="body" weight="bold" mb={2}>
             사용 제한 여부
           </Text>
           <Text variant="label" color="#585858">
-            {isPrivate || privateReason
+            {isPrivate
               ? `사용 제한됨 (사유: ${privateReason?.length > 0 ? privateReason : '미확인'})`
               : '누구나 사용가능'}
           </Text>
@@ -85,6 +84,10 @@ const StationInformation = ({ station }: StationInformationProps) => {
 
 const Divider = styled.hr`
   margin: 1.5rem 0 1.5rem 0;
+`;
+
+const lineHeight = css`
+  line-height: 1.2;
 `;
 
 export default StationInformation;
