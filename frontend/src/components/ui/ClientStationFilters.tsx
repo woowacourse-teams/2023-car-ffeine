@@ -1,11 +1,9 @@
-import { css, styled } from 'styled-components';
+import { styled } from 'styled-components';
 
 import { useExternalState, useExternalValue } from '@utils/external-state';
 
 import { navigationBarPanelStore } from '@stores/layout/navigationBarPanelStore';
 import { clientStationFiltersStore } from '@stores/station-filters/clientStationFiltersStore';
-
-import ButtonNext from '@common/ButtonNext';
 
 import { NAVIGATOR_PANEL_WIDTH } from '@constants';
 import { CHARGING_SPEED } from '@constants/chargers';
@@ -85,11 +83,10 @@ const ClientStationFilters = () => {
 
 const Container = styled.div<{ left: number }>`
   position: fixed;
-  top: 10px;
+  top: 14px;
   left: ${(props) => props.left}rem;
   z-index: 998;
   padding: 10px;
-  //background-color: white;
 
   display: flex;
   gap: 10px;
