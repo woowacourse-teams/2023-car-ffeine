@@ -4,6 +4,7 @@ import Skeleton from '@common/Skeleton';
 import FilterOptionSkeleton from '@ui/ServerStationFilters/FilterOptionSkeleton';
 import {
   borderCss,
+  containerCss,
   filterHeaderCss,
   overFlowCss,
 } from '@ui/ServerStationFilters/ServerStationFilters';
@@ -16,7 +17,7 @@ const ServerStationFiltersSkeleton = () => {
       alignItems={'center'}
       direction={'column'}
       background={'white'}
-      css={[overFlowCss, borderCss]}
+      css={[overFlowCss, borderCss, containerCss]}
       nowrap={true}
       noRadius={'all'}
     >

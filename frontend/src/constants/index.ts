@@ -21,3 +21,4 @@ export const MAX_REVIEW_CONTENT_LENGTH = 100;
 
 export const BROWSER_WIDTH = document.body.offsetWidth;
 export const NAVIGATOR_PANEL_WIDTH = 34;
+export const MOBILE_BREAKPOINT = 415;

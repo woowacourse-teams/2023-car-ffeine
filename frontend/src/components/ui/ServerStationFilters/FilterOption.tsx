@@ -4,6 +4,8 @@ import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
+import { MOBILE_BREAKPOINT } from '@constants';
+
 import type { Capacity, ConnectorTypeName } from '@type/chargers';
 import type { CapaCityBigDecimal, CompanyKey, ConnectorTypeKey } from '@type/serverStationFilter';
 import type { CompanyName } from '@type/stations';
@@ -26,13 +28,7 @@ const FilterSection = ({
   getIsFilterSelected,
 }: FilterSectionProps) => {
   return (
-    <FlexBox
-      width={30}
-      direction={'column'}
-      css={css`
-        margin-bottom: 4.8rem;
-      `}
-    >
+    <FlexBox width={30} direction="column" mb={6} css={containerCss}>
       <FlexBox justifyContent="between">
         <Text variant={'h6'} mb={2}>
           {title}
@@ -55,4 +51,11 @@ const FilterSection = ({
     </FlexBox>
   );
 };
+
+const containerCss = css`
+  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+    width: calc(100vw - 6rem);
+  }
+`;
+
 export default FilterSection;

@@ -1,5 +1,6 @@
 import {
   AdjustmentsHorizontalIcon,
+  Bars3Icon,
   MagnifyingGlassIcon,
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
@@ -26,11 +27,15 @@ import FlexBox from '@common/FlexBox';
 
 import MswControlButton from '@ui/MswControlButton';
 import ServerStationFilters from '@ui/ServerStationFilters';
+import StationListWindow from '@ui/StationList/StationListWindow';
 import StationSearchWindow from '@ui/StationSearchWindow';
 import LogoIcon from '@ui/Svg/LogoIcon';
 import CarModal from '@ui/modal/CarModal/CarModal';
 import LoginModal from '@ui/modal/LoginModal/LoginModal';
 
+import { displayNoneInMobile, displayNoneInWeb } from '@style/mediaQuery';
+
+import { MOBILE_BREAKPOINT } from '@constants';
 import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
 
 import PopupMenu from '../PopupMenu';
@@ -78,19 +83,13 @@ const Menu = () => {
   ];
 
   return (
-    <FlexBox
-      width={7}
-      height="100vh"
-      direction="column"
-      alignItems="center"
-      background="#fff"
-      gap={7.5}
-      css={[fixedPositionCss, paddingCss, borderCss]}
-      noRadius="all"
-      nowrap
-    >
+    <FlexBox css={[fixedPositionCss, paddingCss, borderCss, flexCss]} noRadius="all" nowrap>
       <LogoIcon width={3} />
-      <Button aria-label="검색창 열기" onClick={() => openBasePanel(<StationSearchWindow />)}>
+      <Button
+        css={displayNoneInMobile}
+        aria-label="검색창 열기"
+        onClick={() => openBasePanel(<StationSearchWindow />)}
+      >
         <MagnifyingGlassIcon width="2.8rem" stroke="#333" />
       </Button>
       <Button aria-label="필터링 메뉴 열기" onClick={() => openBasePanel(<ServerStationFilters />)}>
@@ -103,24 +102,64 @@ const Menu = () => {
           <UserCircleIcon width="2.8rem" stroke="#333" />
         </Button>
       )}
+      <Button
+        css={displayNoneInWeb}
+        aria-label="충전소 리스트 열기"
+        onClick={() => openBasePanel(<StationListWindow />)}
+      >
+        <Bars3Icon width="2.8rem" stroke="#333" />
+      </Button>
       {process.env.NODE_ENV === 'development' && <MswControlButton />}
     </FlexBox>
   );
 };
 
+const flexCss = css`
+  width: 7rem;
+  height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  gap: 3rem;
+
+  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+    width: 100vw;
+    height: 7rem;
+    flex-direction: row;
+    gap: 0;
+    justify-content: space-around;
+
+    & > svg:first-child {
+      display: none;
+    }
+  }
+`;
+
 const fixedPositionCss = css`
   position: fixed;
-  top: 0;
   left: 0;
   z-index: 999;
+
+  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+    bottom: 0;
+  }
 `;
 
 const paddingCss = css`
   padding-top: 2rem;
+
+  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+    padding-top: 0;
+  }
 `;
 
 const borderCss = css`
   border-right: 0.1rem solid #ddd;
+
+  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+    border-top: 0.1rem solid #ddd;
+    border-right: none;
+  }
 `;
 
 export default Menu;

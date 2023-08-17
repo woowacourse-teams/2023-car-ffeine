@@ -5,8 +5,14 @@ import { useExternalState, useExternalValue } from '@utils/external-state';
 import { navigationBarPanelStore } from '@stores/layout/navigationBarPanelStore';
 import { clientStationFiltersStore } from '@stores/station-filters/clientStationFiltersStore';
 
-import { NAVIGATOR_PANEL_WIDTH } from '@constants';
+import FlexBox from '@common/FlexBox';
+
+import { displayNoneInWeb } from '@style/mediaQuery';
+
+import { MOBILE_BREAKPOINT, NAVIGATOR_PANEL_WIDTH } from '@constants';
 import { CHARGING_SPEED } from '@constants/chargers';
+
+import StationSearchBar from './StationSearchWindow/StationSearchBar';
 
 const ClientStationFilters = () => {
   const [
@@ -56,27 +62,35 @@ const ClientStationFilters = () => {
 
   return (
     <Container left={navigationComponentWidth}>
-      <ClientFilterButton
-        onClick={toggleAvailableStation}
-        isChecked={isAvailableStationFilterSelected}
-      >
-        현재 사용 가능
-      </ClientFilterButton>
-      <ClientFilterButton
-        onClick={toggleParkingFreeStation}
-        isChecked={isParkingFreeStationFilterSelected}
-      >
-        주차 무료
-      </ClientFilterButton>
-      <ClientFilterButton
-        onClick={toggleFastChargeStation}
-        isChecked={isFastChargeStationFilterSelected}
-      >
-        {CHARGING_SPEED.quick}
-      </ClientFilterButton>
-      <ClientFilterButton onClick={togglePrivateStation} isChecked={isPrivateStationFilterSelected}>
-        외부인 개방
-      </ClientFilterButton>
+      <FlexBox css={displayNoneInWeb}>
+        <StationSearchBar />
+      </FlexBox>
+      <FlexBox>
+        <ClientFilterButton
+          onClick={toggleAvailableStation}
+          isChecked={isAvailableStationFilterSelected}
+        >
+          현재 사용 가능
+        </ClientFilterButton>
+        <ClientFilterButton
+          onClick={toggleParkingFreeStation}
+          isChecked={isParkingFreeStationFilterSelected}
+        >
+          주차 무료
+        </ClientFilterButton>
+        <ClientFilterButton
+          onClick={toggleFastChargeStation}
+          isChecked={isFastChargeStationFilterSelected}
+        >
+          {CHARGING_SPEED.quick}
+        </ClientFilterButton>
+        <ClientFilterButton
+          onClick={togglePrivateStation}
+          isChecked={isPrivateStationFilterSelected}
+        >
+          외부인 개방
+        </ClientFilterButton>
+      </FlexBox>
     </Container>
   );
 };
@@ -89,7 +103,13 @@ const Container = styled.div<{ left: number }>`
   padding: 10px;
 
   display: flex;
+  flex-direction: row;
   gap: 10px;
+
+  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+    flex-direction: column;
+    left: 0;
+  }
 `;
 
 const ClientFilterButton = styled.button<{ isChecked: boolean }>`
@@ -101,5 +121,14 @@ const ClientFilterButton = styled.button<{ isChecked: boolean }>`
     0 1px 3px 1px rgba(60, 64, 67, 0.15);
   border-radius: 16px;
 `;
+
+// const mobileFilterContainerCss = css`
+//   gap: 1rem;
+
+//   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+//     justify-content: space-between;
+//     width: calc(100vw - 2rem);
+//   }
+// `;
 
 export default ClientStationFilters;

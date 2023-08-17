@@ -4,7 +4,7 @@ import Text from '@common/Text';
 
 import StationList from '@ui/StationList/StationList';
 
-import { NAVIGATOR_PANEL_WIDTH } from '@constants';
+import { MOBILE_BREAKPOINT, NAVIGATOR_PANEL_WIDTH } from '@constants';
 
 import StationSearchBar from './StationSearchBar';
 
@@ -30,6 +30,10 @@ const S = {
     background: #fcfcfc;
     outline: 1.5px solid #e1e4eb;
     padding-top: 2.4rem;
+
+    @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+      display: none;
+    }
   `,
 
   Padding: styled.div`

@@ -3,3 +3,4 @@
 .env
 .husky
 yarn-error.log
+/storybook-static/

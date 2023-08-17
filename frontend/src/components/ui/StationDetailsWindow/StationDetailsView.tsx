@@ -1,14 +1,17 @@
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import { css } from 'styled-components';
 
-import Alert from '@common/Alert';
+import { navigationBarPanelStore } from '@stores/layout/navigationBarPanelStore';
+
 import Box from '@common/Box';
+import Button from '@common/Button';
 
 import ChargerList from '@ui/StationDetailsWindow/chargers/ChargerList';
 import StationReportButton from '@ui/StationDetailsWindow/reports/station/StationReportButton';
 import ReviewPreview from '@ui/StationDetailsWindow/reviews/previews/ReviewPreview';
 import StationInformation from '@ui/StationDetailsWindow/station/StationInformation';
 
-import { NAVIGATOR_PANEL_WIDTH } from '@constants';
+import { MOBILE_BREAKPOINT, NAVIGATOR_PANEL_WIDTH } from '@constants';
 
 import type { StationDetails } from '@type';
 
@@ -21,8 +24,18 @@ export interface StationDetailsViewProps {
 const StationDetailsView = ({ station }: StationDetailsViewProps) => {
   const { stationId, chargers, reportCount } = station;
 
+  const handleCloseDetail = () => {
+    navigationBarPanelStore.setState((panels) => ({
+      ...panels,
+      lastPanel: null,
+    }));
+  };
+
   return (
     <Box p={5} css={stationDetailsViewContainerCss}>
+      <Button css={xIconCss} onClick={handleCloseDetail}>
+        <XMarkIcon width={32} />
+      </Button>
       <Box mt={4}>
         <StationInformation station={station} />
       </Box>
@@ -44,6 +57,22 @@ export const stationDetailsViewContainerCss = css`
   border-left: 0.5px solid #e1e4eb;
   border-right: 0.5px solid #e1e4eb;
   overflow: scroll;
+
+  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+    width: 100vw;
+  }
+`;
+
+const xIconCss = css`
+  @media screen and (min-width: ${MOBILE_BREAKPOINT}px) {
+    display: none;
+  }
+
+  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+  }
 `;
 
 export default StationDetailsView;

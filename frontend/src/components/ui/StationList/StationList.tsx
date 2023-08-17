@@ -7,6 +7,8 @@ import List from '@common/List';
 import EmptyStationsNotice from '@ui/StationList/EmptyStationsNotice';
 import StationSummaryCardSkeleton from '@ui/StationList/StationSummaryCardSkeleton';
 
+import { MOBILE_BREAKPOINT } from '@constants';
+
 import StationSummaryCard from './StationSummaryCard';
 
 const StationList = () => {
@@ -46,6 +48,10 @@ const searchResultList = css`
   border-top-right-radius: 20px;
   background: var(--lighter-color);
   overflow: auto;
+
+  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+    width: calc(100vw - 6rem);
+  }
 `;
 
 export default StationList;

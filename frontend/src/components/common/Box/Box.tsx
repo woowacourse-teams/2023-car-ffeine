@@ -1,7 +1,8 @@
 import type { CSSProp } from 'styled-components';
 import styled from 'styled-components';
 
-import type { HTMLAttributes, ReactNode } from 'react';
+import type { Ref } from 'react';
+import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
 
 import type { SpacingProps } from '@common/systems';
 import { spacing } from '@common/systems';
@@ -50,8 +51,12 @@ const BoxWrapper = styled.div<BoxProps>`
   ${({ css }) => css};
 `;
 
-const Box = ({ children, ...props }: BoxProps) => {
-  return <BoxWrapper {...props}>{children}</BoxWrapper>;
+const Box = ({ children, ...props }: BoxProps, ref: Ref<HTMLDivElement>) => {
+  return (
+    <BoxWrapper ref={ref} {...props}>
+      {children}
+    </BoxWrapper>
+  );
 };
 
-export default Box;
+export default forwardRef(Box);
