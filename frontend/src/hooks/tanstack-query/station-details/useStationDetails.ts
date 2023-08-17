@@ -27,15 +27,6 @@ export const fetchStationDetails = async (selectedStationId: string) => {
 
     const data: StationDetails = await response.json();
     return data;
-    // const changedDataList = Object.entries(data).map(([key, value]) => {
-    //   if (INVALID_VALUE_LIST.includes(String(value))) {
-    //     return [key, null];
-    //   }
-    //
-    //   return [key, value];
-    // });
-    //
-    // return Object.fromEntries(changedDataList);
   });
 
   return stationDetails;
