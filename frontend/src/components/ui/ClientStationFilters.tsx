@@ -65,7 +65,7 @@ const ClientStationFilters = () => {
       <FlexBox css={displayNoneInWeb}>
         <StationSearchBar />
       </FlexBox>
-      <FlexBox nowrap css={mobileFilterContainerCss}>
+      <FlexBox>
         <ClientFilterButton
           onClick={toggleAvailableStation}
           isChecked={isAvailableStationFilterSelected}
@@ -104,6 +104,7 @@ const Container = styled.div<{ left: number }>`
 
   display: flex;
   flex-direction: row;
+  gap: 10px;
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     flex-direction: column;
