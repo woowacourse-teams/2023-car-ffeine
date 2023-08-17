@@ -1,17 +1,14 @@
 import { css } from 'styled-components';
-import { container } from 'webpack';
 
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-import { MOBILE_BREAKPOINT, NAVIGATOR_PANEL_WIDTH } from '@constants';
+import { MOBILE_BREAKPOINT } from '@constants';
 
 import type { Capacity, ConnectorTypeName } from '@type/chargers';
 import type { CapaCityBigDecimal, CompanyKey, ConnectorTypeKey } from '@type/serverStationFilter';
 import type { CompanyName } from '@type/stations';
-
-import { filterContainerCss } from './ServerStationFilters';
 
 interface FilterSectionProps {
   title: string;

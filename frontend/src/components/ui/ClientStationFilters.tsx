@@ -122,13 +122,13 @@ const ClientFilterButton = styled.button<{ isChecked: boolean }>`
   border-radius: 16px;
 `;
 
-const mobileFilterContainerCss = css`
-  gap: 1rem;
+// const mobileFilterContainerCss = css`
+//   gap: 1rem;
 
-  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
-    justify-content: space-between;
-    width: calc(100vw - 2rem);
-  }
-`;
+//   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+//     justify-content: space-between;
+//     width: calc(100vw - 2rem);
+//   }
+// `;
 
 export default ClientStationFilters;
