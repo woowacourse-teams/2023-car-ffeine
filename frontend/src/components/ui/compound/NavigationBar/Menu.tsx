@@ -27,6 +27,7 @@ import FlexBox from '@common/FlexBox';
 
 import MswControlButton from '@ui/MswControlButton';
 import ServerStationFilters from '@ui/ServerStationFilters';
+import StationListWindow from '@ui/StationList/StationListWindow';
 import StationSearchWindow from '@ui/StationSearchWindow';
 import LogoIcon from '@ui/Svg/LogoIcon';
 import CarModal from '@ui/modal/CarModal/CarModal';
@@ -104,7 +105,7 @@ const Menu = () => {
       <Button
         css={displayNoneInWeb}
         aria-label="충전소 리스트 열기"
-        onClick={() => openBasePanel(<StationSearchWindow />)}
+        onClick={() => openBasePanel(<StationListWindow />)}
       >
         <Bars3Icon width="2.8rem" stroke="#333" />
       </Button>
