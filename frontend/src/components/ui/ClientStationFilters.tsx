@@ -21,7 +21,8 @@ const ClientStationFilters = () => {
   ] = useExternalState(clientStationFiltersStore);
 
   const { basePanel, lastPanel } = useExternalValue(navigationBarPanelStore);
-  const leftPosition = (basePanel === null ? 0 : 34) + (lastPanel === null ? 0 : 34) + 10;
+  const navigationComponentWidth =
+    (basePanel === null ? 0 : 34) + (lastPanel === null ? 0 : 34) + 10;
 
   const toggleAvailableStation = () => {
     setFilterOption((prev) => ({
@@ -52,7 +53,7 @@ const ClientStationFilters = () => {
   };
 
   return (
-    <Container left={leftPosition}>
+    <Container left={navigationComponentWidth}>
       <ButtonNext
         onClick={toggleAvailableStation}
         variant={isAvailableStationFilterSelected ? 'contained' : 'outlined'}
