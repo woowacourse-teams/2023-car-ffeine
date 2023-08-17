@@ -53,12 +53,12 @@ const ReplyCard = ({ stationId, reply, reviewId, previewMode }: ReplyCardProps) 
     <>
       <Box key={reply.replyId} p={3} pl={8}>
         <Box pl={4} py={3} css={{ borderLeft: '1px solid #66666666' }}>
-          <FlexBox justifyContent='between'>
+          <FlexBox justifyContent="between">
             <Box>
-              <Text variant='label' mb={2}>
+              <Text variant="label" mb={2}>
                 {reply.isDeleted ? '(알수없음)' : `${reply.memberId}님`}
               </Text>
-              <Text variant='caption'>
+              <Text variant="caption">
                 {!reply.isDeleted && calculateLatestUpdateTime(reply.latestUpdateDate)}
                 {reply.isDeleted ? ' (삭제됨)' : reply.isUpdated ? ' (수정됨)' : ''}
               </Text>
@@ -68,33 +68,31 @@ const ReplyCard = ({ stationId, reply, reviewId, previewMode }: ReplyCardProps) 
             ) : (
               <div>
                 <ButtonNext
-                  size='xs'
-                  variant='text'
-                  color='secondary'
+                  size="xs"
+                  variant="text"
+                  color="secondary"
                   onClick={() => setIsModifyMode(true)}
                 >
-                  <PencilSquareIcon width={15} display='inline-block' />
+                  <PencilSquareIcon width={15} display="inline-block" />
                 </ButtonNext>
                 <ButtonNext
                   disabled={isRemoveReplyLoading}
-                  size='xs'
-                  variant='text'
-                  color='secondary'
+                  size="xs"
+                  variant="text"
+                  color="secondary"
                   onClick={() => handleClickRemoveReplyButton()}
                 >
                   {isRemoveReplyLoading ? (
                     '삭제중'
                   ) : (
-                    <TrashIcon width={15} display='inline-block' />
+                    <TrashIcon width={15} display="inline-block" />
                   )}
                 </ButtonNext>
               </div>
             )}
           </FlexBox>
           <Box mt={3}>
-            <Text variant='body'>
-              {reply.isDeleted ? '(삭제된 답글입니다.)' : reply.content}
-            </Text>
+            <Text variant="body">{reply.isDeleted ? '(삭제된 답글입니다.)' : reply.content}</Text>
           </Box>
         </Box>
       </Box>
