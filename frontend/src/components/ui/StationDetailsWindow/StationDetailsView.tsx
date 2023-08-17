@@ -4,7 +4,6 @@ import Alert from '@common/Alert';
 import Box from '@common/Box';
 
 import ChargerList from '@ui/StationDetailsWindow/chargers/ChargerList';
-import ChargerReportButton from '@ui/StationDetailsWindow/reports/charger/ChargerReportButton';
 import StationReportButton from '@ui/StationDetailsWindow/reports/station/StationReportButton';
 import ReviewPreview from '@ui/StationDetailsWindow/reviews/previews/ReviewPreview';
 import StationInformation from '@ui/StationDetailsWindow/station/StationInformation';
@@ -27,14 +26,7 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
       </Box>
       <StationReportButton station={station} />
 
-      <ChargerList chargers={chargers} />
-      <ChargerReportButton stationId={stationId} />
-
-      {reportCount > 0 && (
-        <Box my={1}>
-          <Alert color={'secondary'} text={`충전 상태 불일치 신고가 ${reportCount}번 접수됐어요`} />
-        </Box>
-      )}
+      <ChargerList chargers={chargers} stationId={stationId} reportCount={reportCount} />
 
       <CongestionStatistics stationId={stationId} />
       <ReviewPreview stationId={stationId} />

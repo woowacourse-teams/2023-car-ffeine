@@ -1,3 +1,4 @@
+import type { CSSProp } from 'styled-components';
 import styled, { keyframes } from 'styled-components';
 
 import type { SpacingProps } from '@common/systems';
@@ -7,6 +8,7 @@ export interface SkeletonProps extends SpacingProps {
   width?: string;
   height?: string;
   borderRadius?: string;
+  css?: CSSProp;
 }
 
 const skeletonAnimation = keyframes`
@@ -30,6 +32,8 @@ const SkeletonWrapper = styled.div<SkeletonProps>`
   background-size: 400%;
   animation: ${skeletonAnimation} 5s infinite ease-out;
   border-radius: ${({ borderRadius }) => borderRadius || '6px'};
+
+  ${({ css }) => css}
 `;
 
 const Skeleton = ({ ...props }: SkeletonProps) => {

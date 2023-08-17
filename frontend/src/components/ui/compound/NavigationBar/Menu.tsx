@@ -89,9 +89,7 @@ const Menu = () => {
       noRadius="all"
       nowrap
     >
-      <Button>
-        <LogoIcon width={3} />
-      </Button>
+      <LogoIcon width={3} />
       <Button aria-label="검색창 열기" onClick={() => openBasePanel(<StationSearchWindow />)}>
         <MagnifyingGlassIcon width="2.8rem" stroke="#333" />
       </Button>
