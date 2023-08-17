@@ -34,7 +34,7 @@ const FilterSection = ({
       `}
     >
       <FlexBox justifyContent="between">
-        <Text variant={'h6'} mb={1}>
+        <Text variant={'h6'} mb={2}>
           {title}
         </Text>
         <Text variant="caption">중복선택 가능</Text>
@@ -55,5 +55,4 @@ const FilterSection = ({
     </FlexBox>
   );
 };
-
 export default FilterSection;
