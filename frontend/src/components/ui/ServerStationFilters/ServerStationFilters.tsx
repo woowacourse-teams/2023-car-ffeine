@@ -104,7 +104,7 @@ const ServerStationFilters = () => {
   );
 };
 
-const containerCss = css`
+export const containerCss = css`
   width: ${NAVIGATOR_PANEL_WIDTH}rem;
   height: 100vh;
   align-items: center;
