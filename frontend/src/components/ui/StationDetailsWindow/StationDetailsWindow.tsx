@@ -12,7 +12,7 @@ import StationDetailsView from '@ui/StationDetailsWindow/StationDetailsView';
 import StationDetailsViewSkeleton from '@ui/StationDetailsWindow/StationDetailsViewSkeleton';
 import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
-import { NAVIGATOR_PANEL_WIDTH } from '@constants';
+import { MOBILE_BREAKPOINT, NAVIGATOR_PANEL_WIDTH } from '@constants';
 
 const StationDetailsWindow = () => {
   const {
@@ -48,6 +48,10 @@ const stationDetailsWindowCss = css`
   height: 100vh;
   z-index: 999;
   overflow: scroll;
+
+  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+    width: 100vw;
+  }
 `;
 
 export default StationDetailsWindow;
