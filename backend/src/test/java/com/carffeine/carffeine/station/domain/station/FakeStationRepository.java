@@ -1,6 +1,5 @@
 package com.carffeine.carffeine.station.domain.station;
 
-import com.carffeine.carffeine.station.domain.charger.ChargerType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -86,85 +85,4 @@ public class FakeStationRepository implements StationRepository {
     public Optional<Station> findFetchByStationId(String stationId) {
         return Optional.of(map.get(stationId));
     }
-
-    @Override
-    public List<Station> findAllByFilteringBeingCompanyNames(final Pageable pageable, final BigDecimal minLatitude, final BigDecimal maxLatitude, final BigDecimal minLongitude, final BigDecimal maxLongitude, final List<String> companyNames) {
-        return null;
-    }
-
-    @Override
-    public List<Station> findAllByFilteringBeingCompanyNamesWithPaging(final String stationId, final Pageable pageable, final BigDecimal minLatitude, final BigDecimal maxLatitude, final BigDecimal minLongitude, final BigDecimal maxLongitude, final List<String> companyNames) {
-        return null;
-    }
-
-    @Override
-    public List<Station> findAllByFilteringBeingTypes(final Pageable pageable, final BigDecimal minLatitude, final BigDecimal maxLatitude, final BigDecimal minLongitude, final BigDecimal maxLongitude, final List<ChargerType> types) {
-        return null;
-    }
-
-    @Override
-    public List<Station> findAllByFilteringBeingTypesWithPaging(final String stationId, final Pageable pageable, final BigDecimal minLatitude, final BigDecimal maxLatitude, final BigDecimal minLongitude, final BigDecimal maxLongitude, final List<ChargerType> types) {
-        return null;
-    }
-
-    @Override
-    public List<Station> findAllByFilteringBeingCapacities(final Pageable pageable, final BigDecimal minLatitude, final BigDecimal maxLatitude, final BigDecimal minLongitude, final BigDecimal maxLongitude, final List<BigDecimal> capacities) {
-        return null;
-    }
-
-    @Override
-    public List<Station> findAllByFilteringBeingCapacitiesWithPaging(final String stationId, final Pageable pageable, final BigDecimal minLatitude, final BigDecimal maxLatitude, final BigDecimal minLongitude, final BigDecimal maxLongitude, final List<BigDecimal> capacities) {
-        return null;
-    }
-
-    @Override
-    public List<Station> findAllByFilteringBeingCompanyNamesAndTypes(final Pageable pageable, final BigDecimal minLatitude, final BigDecimal maxLatitude, final BigDecimal minLongitude, final BigDecimal maxLongitude, final List<String> companyNames, final List<ChargerType> types) {
-        return null;
-    }
-
-    @Override
-    public List<Station> findAllByFilteringBeingCompanyNamesAndTypesWithPaging(final String stationId, final Pageable pageable, final BigDecimal minLatitude, final BigDecimal maxLatitude, final BigDecimal minLongitude, final BigDecimal maxLongitude, final List<String> companyNames, final List<ChargerType> types) {
-        return null;
-    }
-
-    @Override
-    public List<Station> findAllByFilteringBeingCompanyNamesAndCapacities(final Pageable pageable, final BigDecimal minLatitude, final BigDecimal maxLatitude, final BigDecimal minLongitude, final BigDecimal maxLongitude, final List<String> companyNames, final List<BigDecimal> capacities) {
-        return null;
-    }
-
-    @Override
-    public List<Station> findAllByFilteringBeingCompanyNamesAndCapacitiesWithPaging(final String stationId, final Pageable pageable, final BigDecimal minLatitude, final BigDecimal maxLatitude, final BigDecimal minLongitude, final BigDecimal maxLongitude, final List<String> companyNames, final List<BigDecimal> capacities) {
-        return null;
-    }
-
-    @Override
-    public List<Station> findAllByFilteringBeingTypesAndCapacities(final Pageable pageable, final BigDecimal minLatitude, final BigDecimal maxLatitude, final BigDecimal minLongitude, final BigDecimal maxLongitude, final List<ChargerType> types, final List<BigDecimal> capacities) {
-        return null;
-    }
-
-    @Override
-    public List<Station> findAllByFilteringBeingTypesAndCapacitiesWithPaging(final String stationId, final Pageable pageable, final BigDecimal minLatitude, final BigDecimal maxLatitude, final BigDecimal minLongitude, final BigDecimal maxLongitude, final List<ChargerType> types, final List<BigDecimal> capacities) {
-        return null;
-    }
-
-    @Override
-    public List<Station> findAllByFilteringBeingAllFilters(final Pageable pageable, final BigDecimal minLatitude, final BigDecimal maxLatitude, final BigDecimal minLongitude, final BigDecimal maxLongitude, final List<String> companyNames, final List<BigDecimal> capacities, final List<ChargerType> types) {
-        return null;
-    }
-
-    @Override
-    public List<Station> findAllByFilteringBeingAllFiltersWithPaging(final String stationId, final Pageable pageable, final BigDecimal minLatitude, final BigDecimal maxLatitude, final BigDecimal minLongitude, final BigDecimal maxLongitude, final List<String> companyNames, final List<BigDecimal> capacities, final List<ChargerType> types) {
-        return null;
-    }
-
-    @Override
-    public List<Station> findAllByFilteringNone(final Pageable pageable, final BigDecimal minLatitude, final BigDecimal maxLatitude, final BigDecimal minLongitude, final BigDecimal maxLongitude) {
-        return null;
-    }
-
-    @Override
-    public List<Station> findAllByFilteringNoneWithPaging(final String stationId, final Pageable pageable, final BigDecimal minLatitude, final BigDecimal maxLatitude, final BigDecimal minLongitude, final BigDecimal maxLongitude) {
-        return null;
-    }
-
 }
