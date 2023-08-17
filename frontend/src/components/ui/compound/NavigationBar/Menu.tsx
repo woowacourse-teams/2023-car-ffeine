@@ -1,5 +1,6 @@
 import {
   AdjustmentsHorizontalIcon,
+  Bars3Icon,
   MagnifyingGlassIcon,
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
@@ -30,6 +31,8 @@ import StationSearchWindow from '@ui/StationSearchWindow';
 import LogoIcon from '@ui/Svg/LogoIcon';
 import CarModal from '@ui/modal/CarModal/CarModal';
 import LoginModal from '@ui/modal/LoginModal/LoginModal';
+
+import { displayNoneInMobile, displayNoneInWeb } from '@style/mediaQuery';
 
 import { MOBILE_BREAKPOINT } from '@constants';
 import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
@@ -81,7 +84,11 @@ const Menu = () => {
   return (
     <FlexBox css={[fixedPositionCss, paddingCss, borderCss, flexCss]} noRadius="all" nowrap>
       <LogoIcon width={3} />
-      <Button aria-label="검색창 열기" onClick={() => openBasePanel(<StationSearchWindow />)}>
+      <Button
+        css={displayNoneInMobile}
+        aria-label="검색창 열기"
+        onClick={() => openBasePanel(<StationSearchWindow />)}
+      >
         <MagnifyingGlassIcon width="2.8rem" stroke="#333" />
       </Button>
       <Button aria-label="필터링 메뉴 열기" onClick={() => openBasePanel(<ServerStationFilters />)}>
@@ -94,6 +101,13 @@ const Menu = () => {
           <UserCircleIcon width="2.8rem" stroke="#333" />
         </Button>
       )}
+      <Button
+        css={displayNoneInWeb}
+        aria-label="충전소 리스트 열기"
+        onClick={() => openBasePanel(<StationSearchWindow />)}
+      >
+        <Bars3Icon width="2.8rem" stroke="#333" />
+      </Button>
       {process.env.NODE_ENV === 'development' && <MswControlButton />}
     </FlexBox>
   );
@@ -113,6 +127,10 @@ const flexCss = css`
     flex-direction: row;
     gap: 0;
     justify-content: space-around;
+
+    & > svg:first-child {
+      display: none;
+    }
   }
 `;
 

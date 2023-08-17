@@ -4,7 +4,7 @@ import { serverActions, serverStore } from '@stores/config/serverStore';
 
 import ButtonNext from '@common/ButtonNext';
 
-import { displayNone } from '@style/mediaQuery';
+import { displayNoneInMobile } from '@style/mediaQuery';
 
 const DevelopmentServerControlButton = () => {
   const currentServer = useExternalValue(serverStore);
@@ -19,7 +19,7 @@ const DevelopmentServerControlButton = () => {
       color={currentServer === 'localhost' ? 'secondary' : 'success'}
       size="xs"
       onClick={handleClickDevelopmentServerControlButton}
-      css={displayNone}
+      css={displayNoneInMobile}
     >
       서버
       <br />

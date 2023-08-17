@@ -9,7 +9,7 @@ import Text from '@common/Text';
 
 import DevelopmentServerControlButton from '@ui/DevelopmentServerControlButton';
 
-import { displayNone } from '@style/mediaQuery';
+import { displayNoneInMobile } from '@style/mediaQuery';
 
 const MswControlButton = () => {
   const [isMswMode, setIsMswMode] = useExternalState(mswModeStore);
@@ -29,7 +29,7 @@ const MswControlButton = () => {
       <ButtonNext
         variant="text"
         color={isMswMode ? 'primary' : 'error'}
-        css={displayNone}
+        css={displayNoneInMobile}
         onClick={() => switchMswMode()}
       >
         <>
