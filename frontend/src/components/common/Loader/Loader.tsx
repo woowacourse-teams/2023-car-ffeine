@@ -1,9 +1,12 @@
+import type { CSSProp } from 'styled-components';
 import styled from 'styled-components';
 
 import type { Size } from '@type';
 
 export interface LoaderProps {
   size?: Size | string;
+  border?: number;
+  css?: CSSProp;
 }
 
 const Loader = styled.div<LoaderProps>`
@@ -43,7 +46,7 @@ const Loader = styled.div<LoaderProps>`
         return size || '2.0rem';
     }
   }};
-  border: 2px solid #e9ecef;
+  border: ${({ border }) => (border ? `${border}px` : '2px')} solid #e9ecef;
   border-bottom-color: #212529bf;
   border-radius: 50%;
   display: inline-block;
@@ -58,6 +61,8 @@ const Loader = styled.div<LoaderProps>`
       transform: rotate(360deg);
     }
   }
+
+  ${({ css }) => css}
 `;
 
 export default Loader;
