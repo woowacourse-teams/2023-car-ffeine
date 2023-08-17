@@ -4,7 +4,7 @@ import { navigationBarPanelStore } from '@stores/layout/navigationBarPanelStore'
 
 import NavigationBar from '@ui/compound/NavigationBar';
 
-const Navigator = () => {
+const WebNavigationBar = () => {
   const { basePanel, lastPanel } = useExternalValue(navigationBarPanelStore);
   const canDisplayCloseButton = basePanel !== null || lastPanel !== null;
 
@@ -18,4 +18,4 @@ const Navigator = () => {
   );
 };
 
-export default Navigator;
+export default WebNavigationBar;
