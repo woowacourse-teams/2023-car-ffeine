@@ -14,6 +14,7 @@ import Text from '@common/Text';
 import ServerStationFiltersSkeleton from '@ui/ServerStationFilters/ServerStationFiltersSkeleton';
 import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
+import { NAVIGATOR_PANEL_WIDTH } from '@constants';
 import { CONNECTOR_TYPES, COMPANIES } from '@constants/chargers';
 
 import type { Capacity } from '@type';
@@ -54,7 +55,7 @@ const ServerStationFilters = () => {
 
   return (
     <FlexBox
-      width={34}
+      width={NAVIGATOR_PANEL_WIDTH}
       height={'100vh'}
       alignItems={'center'}
       direction={'column'}
@@ -64,7 +65,7 @@ const ServerStationFilters = () => {
       noRadius={'all'}
     >
       <FlexBox
-        width={34}
+        width={NAVIGATOR_PANEL_WIDTH}
         height={8}
         justifyContent="between"
         alignItems="center"

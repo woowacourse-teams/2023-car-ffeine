@@ -4,6 +4,8 @@ import Text from '@common/Text';
 
 import StationList from '@ui/StationList/StationList';
 
+import { NAVIGATOR_PANEL_WIDTH } from '@constants';
+
 import StationSearchBar from './StationSearchBar';
 
 const StationSearchWindow = () => {
@@ -23,7 +25,7 @@ const StationSearchWindow = () => {
 
 const S = {
   Container: styled.article`
-    width: 34rem;
+    width: ${NAVIGATOR_PANEL_WIDTH}rem;
     height: 100vh;
     background: #fcfcfc;
     outline: 1.5px solid #e1e4eb;

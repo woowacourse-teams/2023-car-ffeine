@@ -1,12 +1,13 @@
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
-import { browserWidthStore } from '@stores/layout/componentWidthStore';
 import { navigationBarPanelStore } from '@stores/layout/navigationBarPanelStore';
+
+import { BROWSER_WIDTH, NAVIGATOR_PANEL_WIDTH } from '@constants';
 
 import { getDisplayPosition } from '.';
 
 export const getCalculatedMapDelta = () => {
   const navigationComponentWidth = getNavigationComponentWidth();
-  const browserWidth = browserWidthStore.getState();
+  const browserWidth = BROWSER_WIDTH;
   const googleMap = getGoogleMapStore().getState();
 
   const navigatorAccordionWidthRatio = (navigationComponentWidth * 10) / browserWidth;
@@ -19,7 +20,9 @@ export const getCalculatedMapDelta = () => {
 export const getNavigationComponentWidth = () => {
   const { basePanel, lastPanel } = navigationBarPanelStore.getState();
   const navigationComponentWidth =
-    (basePanel === null ? 0 : 34) + (lastPanel === null ? 0 : 34) + 10;
+    (basePanel === null ? 0 : NAVIGATOR_PANEL_WIDTH) +
+    (lastPanel === null ? 0 : NAVIGATOR_PANEL_WIDTH) +
+    10;
 
   return navigationComponentWidth;
 };

@@ -7,6 +7,7 @@ import { clientStationFiltersStore } from '@stores/station-filters/clientStation
 
 import ButtonNext from '@common/ButtonNext';
 
+import { NAVIGATOR_PANEL_WIDTH } from '@constants';
 import { CHARGING_SPEED } from '@constants/chargers';
 
 const ClientStationFilters = () => {
@@ -22,7 +23,9 @@ const ClientStationFilters = () => {
 
   const { basePanel, lastPanel } = useExternalValue(navigationBarPanelStore);
   const navigationComponentWidth =
-    (basePanel === null ? 0 : 34) + (lastPanel === null ? 0 : 34) + 10;
+    (basePanel === null ? 0 : NAVIGATOR_PANEL_WIDTH) +
+    (lastPanel === null ? 0 : NAVIGATOR_PANEL_WIDTH) +
+    10;
 
   const toggleAvailableStation = () => {
     setFilterOption((prev) => ({

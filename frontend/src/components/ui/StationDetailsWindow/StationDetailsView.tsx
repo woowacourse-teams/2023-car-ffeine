@@ -8,6 +8,8 @@ import StationReportButton from '@ui/StationDetailsWindow/reports/station/Statio
 import ReviewPreview from '@ui/StationDetailsWindow/reviews/previews/ReviewPreview';
 import StationInformation from '@ui/StationDetailsWindow/station/StationInformation';
 
+import { NAVIGATOR_PANEL_WIDTH } from '@constants';
+
 import type { StationDetails } from '@type';
 
 import CongestionStatistics from './congestion/CongestionStatistics';
@@ -35,7 +37,7 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
 };
 
 export const stationDetailsViewContainerCss = css`
-  width: 34rem;
+  width: ${NAVIGATOR_PANEL_WIDTH}rem;
   height: 100vh;
   background-color: white;
   box-shadow: 1px 1px 2px gray;

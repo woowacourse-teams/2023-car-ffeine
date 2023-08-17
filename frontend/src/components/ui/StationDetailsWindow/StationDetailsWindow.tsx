@@ -8,6 +8,8 @@ import StationDetailsView from '@ui/StationDetailsWindow/StationDetailsView';
 import StationDetailsViewSkeleton from '@ui/StationDetailsWindow/StationDetailsViewSkeleton';
 import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
+import { NAVIGATOR_PANEL_WIDTH } from '@constants';
+
 const StationDetailsWindow = () => {
   const {
     data: selectedStation,
@@ -37,7 +39,7 @@ const StationDetailsWindow = () => {
 };
 
 const stationDetailsWindowCss = css`
-  width: 34rem;
+  width: ${NAVIGATOR_PANEL_WIDTH}rem;
   height: 100vh;
   z-index: 999;
   overflow: scroll;
