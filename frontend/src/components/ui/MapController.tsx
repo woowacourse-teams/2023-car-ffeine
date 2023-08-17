@@ -11,6 +11,7 @@ import { useCurrentPosition } from '@hooks/google-maps/useCurrentPosition';
 import Box from '@common/Box';
 import Button from '@common/Button';
 
+import { MOBILE_BREAKPOINT } from '@constants';
 import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
 
 const MapController = () => {
@@ -31,7 +32,7 @@ const MapController = () => {
   };
 
   return (
-    <Box position="fixed" bottom={5} right={2} css={{ zIndex: 999 }}>
+    <Box css={containerCss}>
       <Button
         outlined
         css={[buttonCss, currentPositionIconCss]}
@@ -68,6 +69,19 @@ const MapController = () => {
     </Box>
   );
 };
+
+const containerCss = css`
+  z-index: 999;
+
+  position: fixed;
+  bottom: 3.2rem;
+  right: 0.8rem;
+
+  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+    bottom: 8rem;
+    right: 0.8rem;
+  }
+`;
 
 const buttonCss = css`
   display: flex;
