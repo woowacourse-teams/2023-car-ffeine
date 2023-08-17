@@ -39,13 +39,13 @@ public class ChargerStatusCustomRepositoryImpl implements ChargerStatusCustomRep
         namedParameterJdbcTemplate.batchUpdate(sql, sqlParameterSources);
     }
 
-    private MapSqlParameterSource changeToSqlParameterSource(ChargerStatus item) {
+    private MapSqlParameterSource changeToSqlParameterSource(ChargerStatus status) {
         LocalDateTime now = LocalDateTime.now();
         return new MapSqlParameterSource()
-                .addValue("stationId", item.getStationId())
-                .addValue("chargerId", item.getChargerId())
-                .addValue("latestUpdateTime", item.getLatestUpdateTime())
-                .addValue("chargerCondition", item.getChargerCondition().name())
+                .addValue("stationId", status.getStationId())
+                .addValue("chargerId", status.getChargerId())
+                .addValue("latestUpdateTime", status.getLatestUpdateTime())
+                .addValue("chargerCondition", status.getChargerCondition().name())
                 .addValue("createdAt", now)
                 .addValue("updatedAt", now);
     }
