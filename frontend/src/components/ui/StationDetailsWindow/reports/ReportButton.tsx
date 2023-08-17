@@ -33,7 +33,7 @@ function ReportButton({ modalContent, disabled, isLoading, children, css }: Prop
   };
 
   if (isLoading) {
-    return <Skeleton height="2.8rem" css={css} />;
+    return <Skeleton height="2.8rem" width="8rem" />;
   }
 
   return (
@@ -71,6 +71,7 @@ const buttonCss = css`
     outline: 1.6px solid #555;
     transform: translateY(-2px);
   }
+
   &:hover {
     background: inherit;
   }
