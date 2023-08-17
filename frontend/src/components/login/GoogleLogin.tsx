@@ -9,6 +9,7 @@ import { memberTokenStore } from '@stores/login/memberTokenStore';
 
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
+import Loading from '@common/Loading';
 import Text from '@common/Text';
 
 import LogoIcon from '@ui/Svg/LogoIcon';
@@ -60,12 +61,7 @@ const GoogleLogin = () => {
     );
   }
 
-  return (
-    <FlexBox height="100vh" direction="column" alignItems="center" justifyContent="center">
-      <LogoIcon width={15} />
-      <Text variant="h5">로딩중...</Text>
-    </FlexBox>
-  );
+  return <Loading />;
 };
 
 export default GoogleLogin;
