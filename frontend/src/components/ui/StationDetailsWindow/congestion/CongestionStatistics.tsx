@@ -38,20 +38,20 @@ const CongestionStatistics = ({ stationId }: CongestionStatisticsProps) => {
         />
         <FlexBox nowrap>
           <ButtonNext
-            variant={chargingSpeed === 'quick' ? 'contained' : 'outlined'}
-            size="xs"
-            onClick={() => setChargingSpeed('quick')}
-            fullWidth
-          >
-            급속 충전기 그룹
-          </ButtonNext>
-          <ButtonNext
             variant={chargingSpeed === 'standard' ? 'contained' : 'outlined'}
             size="xs"
             onClick={() => setChargingSpeed('standard')}
             fullWidth
           >
             완속 충전기 그룹
+          </ButtonNext>
+          <ButtonNext
+            variant={chargingSpeed === 'quick' ? 'contained' : 'outlined'}
+            size="xs"
+            onClick={() => setChargingSpeed('quick')}
+            fullWidth
+          >
+            급속 충전기 그룹
           </ButtonNext>
         </FlexBox>
       </FlexBox>
