@@ -1,4 +1,4 @@
-import { ArrowLeftIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
+import { ArrowPathIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { css } from 'styled-components';
 
 import { memberTokenStore } from '@stores/login/memberTokenStore';
@@ -14,7 +14,7 @@ import Text from '@common/Text';
 import ServerStationFiltersSkeleton from '@ui/ServerStationFilters/ServerStationFiltersSkeleton';
 import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
-import { NAVIGATOR_PANEL_WIDTH } from '@constants';
+import { MOBILE_BREAKPOINT, NAVIGATOR_PANEL_WIDTH } from '@constants';
 import { CONNECTOR_TYPES, COMPANIES } from '@constants/chargers';
 
 import type { Capacity } from '@type';
@@ -54,25 +54,16 @@ const ServerStationFilters = () => {
   };
 
   return (
-    <FlexBox
-      width={NAVIGATOR_PANEL_WIDTH}
-      height={'100vh'}
-      alignItems={'center'}
-      direction={'column'}
-      background={'white'}
-      css={[overFlowCss, borderCss]}
-      nowrap={true}
-      noRadius={'all'}
-    >
+    <FlexBox css={[overFlowCss, borderCss, containerCss]} nowrap={true} noRadius={'all'}>
       <FlexBox
         width={NAVIGATOR_PANEL_WIDTH}
         height={8}
         justifyContent="between"
         alignItems="center"
-        css={filterHeaderCss}
+        css={[filterHeaderCss, filterContainerCss]}
       >
         <ButtonNext onClick={closeBasePanel} noTheme aria-label="필터 선택창 닫기">
-          <ArrowLeftIcon width="2.8rem" stroke="#333" />
+          <XMarkIcon width="2.8rem" stroke="#333" />
         </ButtonNext>
         <Text variant="h5">필터</Text>
         <ButtonNext onClick={resetAllFilters} noTheme aria-label="모든 필터 지우기 버튼">
@@ -112,6 +103,31 @@ const ServerStationFilters = () => {
     </FlexBox>
   );
 };
+
+const containerCss = css`
+  width: ${NAVIGATOR_PANEL_WIDTH}rem;
+  height: 100vh;
+  align-items: center;
+  flex-direction: column;
+  background-color: #fff;
+
+  z-index: 9999;
+
+  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+    width: 100vw;
+  }
+`;
+
+export const filterContainerCss = css`
+  width: ${NAVIGATOR_PANEL_WIDTH};
+  height: 8rem;
+  justify-content: space-between;
+  align-items: center;
+
+  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+    width: calc(100vw - 2rem);
+  }
+`;
 
 export const overFlowCss = css`
   overflow-y: scroll;
