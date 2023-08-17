@@ -31,6 +31,7 @@ import LogoIcon from '@ui/Svg/LogoIcon';
 import CarModal from '@ui/modal/CarModal/CarModal';
 import LoginModal from '@ui/modal/LoginModal/LoginModal';
 
+import { MOBILE_BREAKPOINT } from '@constants';
 import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
 
 import PopupMenu from '../PopupMenu';
@@ -78,17 +79,7 @@ const Menu = () => {
   ];
 
   return (
-    <FlexBox
-      width={7}
-      height="100vh"
-      direction="column"
-      alignItems="center"
-      background="#fff"
-      gap={7.5}
-      css={[fixedPositionCss, paddingCss, borderCss]}
-      noRadius="all"
-      nowrap
-    >
+    <FlexBox css={[fixedPositionCss, paddingCss, borderCss, flexCss]} noRadius="all" nowrap>
       <LogoIcon width={3} />
       <Button aria-label="검색창 열기" onClick={() => openBasePanel(<StationSearchWindow />)}>
         <MagnifyingGlassIcon width="2.8rem" stroke="#333" />
@@ -108,19 +99,48 @@ const Menu = () => {
   );
 };
 
+const flexCss = css`
+  width: 7rem;
+  height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  gap: 7.5rem;
+
+  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+    width: 100vw;
+    height: 7rem;
+    flex-direction: row;
+    gap: 0;
+    justify-content: space-around;
+  }
+`;
+
 const fixedPositionCss = css`
   position: fixed;
-  top: 0;
   left: 0;
   z-index: 999;
+
+  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+    bottom: 0;
+  }
 `;
 
 const paddingCss = css`
   padding-top: 2rem;
+
+  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+    padding-top: 0;
+  }
 `;
 
 const borderCss = css`
   border-right: 0.1rem solid #ddd;
+
+  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+    border-top: 0.1rem solid #ddd;
+    border-right: none;
+  }
 `;
 
 export default Menu;

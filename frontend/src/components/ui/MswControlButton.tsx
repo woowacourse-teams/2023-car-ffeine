@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { useExternalState, useSetExternalState } from '@utils/external-state';
 import { getAPIEndPoint } from '@utils/login';
 
@@ -10,6 +8,8 @@ import ButtonNext from '@common/ButtonNext';
 import Text from '@common/Text';
 
 import DevelopmentServerControlButton from '@ui/DevelopmentServerControlButton';
+
+import { displayNone } from '@style/mediaQuery';
 
 const MswControlButton = () => {
   const [isMswMode, setIsMswMode] = useExternalState(mswModeStore);
@@ -29,6 +29,7 @@ const MswControlButton = () => {
       <ButtonNext
         variant="text"
         color={isMswMode ? 'primary' : 'error'}
+        css={displayNone}
         onClick={() => switchMswMode()}
       >
         <>
