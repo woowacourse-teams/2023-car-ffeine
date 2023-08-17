@@ -97,11 +97,12 @@ const Container = styled.div<{ left: number }>`
 
 const ClientFilterButton = styled.button<{ isChecked: boolean }>`
   padding: 0.6rem 1.2rem;
-  background: ${({ isChecked }) => (isChecked ? '#e9edf8' : '#ffffff')};
+  margin-right: 0.2rem;
+  background: ${({ isChecked }) => (isChecked ? '#ccdaff' : '#ffffff')};
   box-shadow:
     0 1px 2px rgba(60, 64, 67, 0.3),
     0 1px 3px 1px rgba(60, 64, 67, 0.15);
-  border-radius: 8px;
+  border-radius: 16px;
   color: ${({ isChecked }) => (isChecked ? '#000000' : '#000000')};
 `;
 
