@@ -9,13 +9,19 @@ import { QUERY_KEY_STATION_CHARGER_REPORT } from '@constants/queryKeys';
 const fetchStationChargerReport = (stationId: string) => {
   const mode = serverStore.getState();
   const memberToken = memberTokenStore.getState();
+  const headers =
+    memberToken === ''
+      ? {
+          'Content-Type': 'application/json',
+        }
+      : {
+          Authorization: `Bearer ${memberToken}`,
+          'Content-Type': 'application/json',
+        };
 
   return fetch(`${SERVERS[mode]}/stations/${stationId}/reports/me`, {
     method: 'GET',
-    headers: {
-      Authorization: `Bearer ${memberToken}`,
-      'Content-Type': 'application/json',
-    },
+    headers: headers,
   }).then<boolean>(async (response) => {
     const data = await response.json();
     return data.isReported;
