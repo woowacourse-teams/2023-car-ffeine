@@ -30,6 +30,7 @@ import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.리�
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
@@ -162,7 +163,7 @@ public class ReplyControllerTest extends MockBeanInjection {
         Reply reply = 답글_1개;
 
         // when
-        when(replyService.deleteReply(member.getId(), reply.getId())).thenReturn(reply);
+        doNothing().when(replyService).deleteReply(member.getId(), reply.getId());
 
         // then
         mockMvc.perform(delete("/reviews/{reviewId}/replies/{replyId}", review.getId(), reply.getId())

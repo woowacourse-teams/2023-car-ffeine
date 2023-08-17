@@ -12,7 +12,6 @@ import com.carffeine.carffeine.station.domain.station.FakeStationRepository;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.domain.station.StationRepository;
 import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;
-import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -38,6 +37,12 @@ class ReviewServiceTest {
     private StationRepository stationRepository;
     private MemberRepository memberRepository;
 
+    private Station station;
+    private Member member;
+    private CreateReviewRequest createRequest;
+    private CreateReviewRequest createRequest2;
+    private CreateReviewRequest updateRequest;
+
     @BeforeEach
     void before() {
         reviewRepository = new FakeReviewRepository();
@@ -45,27 +50,26 @@ class ReviewServiceTest {
         stationRepository = new FakeStationRepository();
         memberRepository = new FakeMemberRepository();
         reviewService = new ReviewService(reviewRepository, replyRepository, stationRepository, memberRepository);
+        station = stationRepository.save(선릉역_충전소_충전기_2개_사용가능_1개);
+        member = memberRepository.save(일반_회원);
+        createRequest = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
+        createRequest2 = new CreateReviewRequest(2, "여기 충전소 좋은 것 같아요");
+        updateRequest = new CreateReviewRequest(2, "생각해보니 별로인 듯 합니다");
     }
 
     @Test
     void 리뷰를_등록한다() {
         // given
-        String stationId = "ME101010";
-        Long memberId = 1L;
-        CreateReviewRequest request = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
-        Station station = stationRepository.save(선릉역_충전소_충전기_2개_사용가능_1개);
-        Member member = memberRepository.save(일반_회원);
-
         Review expected = Review.builder()
                 .station(station)
                 .member(member)
-                .ratings(request.ratings())
-                .content(request.content())
+                .ratings(createRequest.ratings())
+                .content(createRequest.content())
                 .isDeleted(false)
                 .build();
 
         // when
-        Review review = reviewService.saveReview(request, stationId, memberId);
+        Review review = reviewService.saveReview(createRequest, station.getStationId(), member.getId());
 
         // then
         assertThat(review).usingRecursiveComparison()
@@ -77,43 +81,37 @@ class ReviewServiceTest {
     @Test
     void 전체_리뷰를_조회한다() {
         // given
-        String stationId = "ME101010";
-        Long memberId = 1L;
         Pageable pageable = Pageable.ofSize(10).withPage(0);
-        CreateReviewRequest request = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
-        stationRepository.save(선릉역_충전소_충전기_2개_사용가능_1개);
-        memberRepository.save(일반_회원);
 
-        reviewService.saveReview(request, stationId, memberId);
+        reviewService.saveReview(createRequest, station.getStationId(), member.getId());
+        reviewService.saveReview(createRequest2, station.getStationId(), member.getId());
 
         // when
-        Page<Review> reviews = reviewService.findAllReviews(stationId, pageable);
+        Page<Review> reviews = reviewService.findAllReviews(station.getStationId(), pageable);
 
         // then
-        assertThat(reviews).hasSize(1);
+        assertSoftly(softly -> {
+            softly.assertThat(reviews.getContent().get(0).getRatings()).isEqualTo(createRequest2.ratings());
+            softly.assertThat(reviews).hasSize(2);
+        });
 
     }
 
     @Test
     void 충전소의_리뷰가_13개일_경우_첫_페이지엔_10개의_리뷰가_보여진다() {
         // given
-        String stationId = "ME101010";
-        Long memberId = 1L;
-        int page = 0;
-        Pageable pageable = Pageable.ofSize(10).withPage(page);
-        stationRepository.save(선릉역_충전소_충전기_2개_사용가능_1개);
-        memberRepository.save(일반_회원);
+        Pageable pageable = Pageable.ofSize(10).withPage(0);
 
         for (CreateReviewRequest request : 리뷰_요청_13개()) {
-            reviewService.saveReview(request, stationId, memberId);
+            reviewService.saveReview(request, station.getStationId(), member.getId());
         }
 
         // when
-        Page<Review> reviews = reviewService.findAllReviews(stationId, pageable);
+        Page<Review> reviews = reviewService.findAllReviews(station.getStationId(), pageable);
 
         // then
-        SoftAssertions.assertSoftly(softly -> {
-            assertThat(reviews.getNumber()).isEqualTo(page);
+        assertSoftly(softly -> {
+            assertThat(reviews.getNumber()).isEqualTo(0);
             assertThat(reviews.getNumberOfElements()).isEqualTo(10);
         });
     }
@@ -121,18 +119,14 @@ class ReviewServiceTest {
     @Test
     void 충전소의_리뷰가_13개일_경우_두번째_페이지엔_3개의_리뷰가_보여진다() {
         // given
-        String stationId = "ME101010";
-        Long memberId = 1L;
         Pageable pageable = Pageable.ofSize(10).withPage(1);
-        stationRepository.save(선릉역_충전소_충전기_2개_사용가능_1개);
-        memberRepository.save(일반_회원);
 
         for (CreateReviewRequest request : 리뷰_요청_13개()) {
-            reviewService.saveReview(request, stationId, memberId);
+            reviewService.saveReview(request, station.getStationId(), member.getId());
         }
 
         // when
-        Page<Review> reviews = reviewService.findAllReviews(stationId, pageable);
+        Page<Review> reviews = reviewService.findAllReviews(station.getStationId(), pageable);
 
         // then
         assertThat(reviews.getNumberOfElements()).isEqualTo(3);
@@ -141,18 +135,14 @@ class ReviewServiceTest {
     @Test
     void 충전소의_리뷰가_13개일_경우_세번째_페이지엔_리뷰가_없다() {
         // given
-        String stationId = "ME101010";
-        Long memberId = 1L;
         Pageable pageable = Pageable.ofSize(10).withPage(2);
-        stationRepository.save(선릉역_충전소_충전기_2개_사용가능_1개);
-        memberRepository.save(일반_회원);
 
         for (CreateReviewRequest request : 리뷰_요청_13개()) {
-            reviewService.saveReview(request, stationId, memberId);
+            reviewService.saveReview(request, station.getStationId(), member.getId());
         }
 
         // when
-        Page<Review> reviews = reviewService.findAllReviews(stationId, pageable);
+        Page<Review> reviews = reviewService.findAllReviews(station.getStationId(), pageable);
 
         // then
         assertThat(reviews).hasSize(0);
@@ -161,18 +151,10 @@ class ReviewServiceTest {
     @Test
     void 리뷰를_수정할_수_있다() {
         // given
-        String stationId = "ME101010";
-        Long memberId = 1L;
-        CreateReviewRequest request = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
-        stationRepository.save(선릉역_충전소_충전기_2개_사용가능_1개);
-        memberRepository.save(일반_회원);
-
-        Review review = reviewService.saveReview(request, stationId, memberId);
+        Review review = reviewService.saveReview(createRequest, station.getStationId(), member.getId());
 
         // when
-        long reviewId = review.getId();
-        CreateReviewRequest updateRequest = new CreateReviewRequest(2, "생각해보니 별로인 듯 합니다");
-        Review updatedReview = reviewService.updateReview(updateRequest, reviewId, memberId);
+        Review updatedReview = reviewService.updateReview(updateRequest, review.getId(), member.getId());
 
         // then
         assertSoftly(softly -> {
@@ -182,31 +164,38 @@ class ReviewServiceTest {
     }
 
     @Test
+    void 리뷰를_삭제할_수_있다() {
+        // given
+        stationRepository.save(선릉역_충전소_충전기_2개_사용가능_1개);
+        memberRepository.save(일반_회원);
+        Review review = reviewService.saveReview(createRequest, station.getStationId(), member.getId());
+
+        // when
+        reviewService.deleteReview(member.getId(), review.getId());
+        Review foundReview = reviewService.findReview(review.getId());
+
+        // then
+        assertThat(foundReview.isDeleted()).isTrue();
+    }
+
+    @Test
     void 평균_별점을_구할_수_있다() {
         // given
-        CreateReviewRequest request1 = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
-        CreateReviewRequest request2 = new CreateReviewRequest(5, "빠르게 덕분에 충전했습니다");
-        Station station = stationRepository.save(선릉역_충전소_충전기_2개_사용가능_1개);
-        Member member = memberRepository.save(일반_회원);
-        reviewService.saveReview(request1, station.getStationId(), member.getId());
-        reviewService.saveReview(request2, station.getStationId(), member.getId());
+        reviewService.saveReview(createRequest, station.getStationId(), member.getId());
+        reviewService.saveReview(createRequest2, station.getStationId(), member.getId());
 
         // when
         double averageRatings = reviewService.findAverageRatings(station.getStationId());
 
         // then
-        assertThat(averageRatings).isEqualTo(4.5);
+        assertThat(averageRatings).isEqualTo(3.0);
     }
 
     @Test
     void 총_리뷰_개수를_구할_수_있다() {
         // given
-        CreateReviewRequest request1 = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");
-        CreateReviewRequest request2 = new CreateReviewRequest(5, "빠르게 덕분에 충전했습니다");
-        Station station = stationRepository.save(선릉역_충전소_충전기_2개_사용가능_1개);
-        Member member = memberRepository.save(일반_회원);
-        reviewService.saveReview(request1, station.getStationId(), member.getId());
-        reviewService.saveReview(request2, station.getStationId(), member.getId());
+        reviewService.saveReview(createRequest, station.getStationId(), member.getId());
+        reviewService.saveReview(createRequest2, station.getStationId(), member.getId());
 
         // when
         long totalCount = reviewService.findTotalCount(station.getStationId());
@@ -217,10 +206,6 @@ class ReviewServiceTest {
 
     @Test
     void 리뷰가_없다면_0점을_반환한다() {
-        // given
-        Station station = 선릉역_충전소_충전기_2개_사용가능_1개;
-        stationRepository.save(station);
-
         // when
         double result = reviewService.findAverageRatings(station.getStationId());
 

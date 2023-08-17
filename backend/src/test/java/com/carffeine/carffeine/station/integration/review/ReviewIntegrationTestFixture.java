@@ -55,7 +55,6 @@ public class ReviewIntegrationTestFixture {
         return RestAssured.given().log().all()
                 .header("Authorization", "Bearer " + token)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .when()
                 .delete("/reviews/{reviewId}", review.getId())
                 .then().log().all()
                 .extract();

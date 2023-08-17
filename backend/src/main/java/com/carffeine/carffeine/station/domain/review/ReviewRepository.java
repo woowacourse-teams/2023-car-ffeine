@@ -17,6 +17,8 @@ public interface ReviewRepository extends Repository<Review, Long> {
 
     Page<Review> findAllByStation(Station station, Pageable pageable);
 
+    void delete(Review review);
+
     Long countByStation(Station station);
 
     @Query("SELECT AVG(r.ratings) FROM Review r WHERE r.station = :station")

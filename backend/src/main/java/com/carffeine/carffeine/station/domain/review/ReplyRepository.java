@@ -14,5 +14,7 @@ public interface ReplyRepository extends Repository<Reply, Long> {
 
     Page<Reply> findAllByReview(Review review, Pageable pageable);
 
+    void delete(Reply reply);
+
     Long countByReview(Review review);
 }
