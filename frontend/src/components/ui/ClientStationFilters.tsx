@@ -21,11 +21,12 @@ const ClientStationFilters = () => {
     setFilterOption,
   ] = useExternalState(clientStationFiltersStore);
 
+  const ADDITIONAL_MARGIN = 10;
   const { basePanel, lastPanel } = useExternalValue(navigationBarPanelStore);
   const navigationComponentWidth =
     (basePanel === null ? 0 : NAVIGATOR_PANEL_WIDTH) +
     (lastPanel === null ? 0 : NAVIGATOR_PANEL_WIDTH) +
-    10;
+    ADDITIONAL_MARGIN;
 
   const toggleAvailableStation = () => {
     setFilterOption((prev) => ({

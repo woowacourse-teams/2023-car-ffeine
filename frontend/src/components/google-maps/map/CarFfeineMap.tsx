@@ -21,6 +21,7 @@ import MapController from '@ui/MapController';
 import ModalContainer from '@ui/ModalContainer';
 import ModalSecondaryContainer from '@ui/ModalSecondaryContainer';
 import NavigationBar from '@ui/NavigationBar';
+import StationMarkerLoadingSpinner from '@ui/StationMarkerLoadingSpinner';
 
 import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
 import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
@@ -31,13 +32,14 @@ const CarFfeineMap = () => {
     <>
       <CarFfeineMapListener />
       <UserFilterListener />
+      <ToastContainer />
+      <ModalContainer />
+      <ModalSecondaryContainer />
       <NavigationBar />
       <ClientStationFilters />
       <MapController />
       <StationMarkersContainer />
-      <ModalContainer />
-      <ModalSecondaryContainer />
-      <ToastContainer />
+      <StationMarkerLoadingSpinner />
     </>
   );
 };

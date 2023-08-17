@@ -21,8 +21,7 @@ export const getNavigationComponentWidth = () => {
   const { basePanel, lastPanel } = navigationBarPanelStore.getState();
   const navigationComponentWidth =
     (basePanel === null ? 0 : NAVIGATOR_PANEL_WIDTH) +
-    (lastPanel === null ? 0 : NAVIGATOR_PANEL_WIDTH) +
-    10;
+    (lastPanel === null ? 0 : NAVIGATOR_PANEL_WIDTH);
 
   return navigationComponentWidth;
 };
