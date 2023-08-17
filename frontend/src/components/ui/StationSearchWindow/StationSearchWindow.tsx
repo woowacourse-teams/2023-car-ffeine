@@ -26,7 +26,7 @@ const StationSearchWindow = () => {
 const S = {
   Container: styled.article`
     width: ${NAVIGATOR_PANEL_WIDTH}rem;
-    height: 90vh;
+    height: 100vh;
     background: #fcfcfc;
     outline: 1.5px solid #e1e4eb;
     padding-top: 2.4rem;
