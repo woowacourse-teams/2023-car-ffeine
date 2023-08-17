@@ -12,19 +12,18 @@ import FlexBox from '@common/FlexBox';
 import Loading from '@common/Loading';
 import Text from '@common/Text';
 
-import LogoIcon from '@ui/Svg/LogoIcon';
-
 import { SESSION_KEY_MEMBER_INFO, SESSION_KEY_MEMBER_TOKEN } from '@constants/storageKeys';
 
 const GoogleLogin = () => {
   const [loginError, setLoginError] = useState<Error>(null);
-  const homePageUrl = window.location.href.split('google')[0];
+  const homePageUrl = location.href.split('google')[0];
 
   useEffect(() => {
-    const code = window.location.search.split('&')[0].replace('?code=', '');
+    const code = new URLSearchParams(location.search).get('code') ?? '';
+    const encodedCode = encodeURIComponent(code);
     const APIEndPoint = getAPIEndPoint();
 
-    getMemberToken(code, 'google')
+    getMemberToken(encodedCode, 'google')
       .then(async (token) => {
         memberTokenStore.setState(token);
 
@@ -33,7 +32,7 @@ const GoogleLogin = () => {
         setSessionStorage(SESSION_KEY_MEMBER_TOKEN, token);
         setSessionStorage(SESSION_KEY_MEMBER_INFO, JSON.stringify(memberInfo));
 
-        window.location.href = homePageUrl;
+        location.href = homePageUrl;
       })
       .catch(() => {
         setLoginError(new Error('로그인 중에 에러가 발생했습니다!'));
@@ -52,7 +51,7 @@ const GoogleLogin = () => {
         <Text variant="h3">로그인 중에 에러가 발생했습니다!</Text>
         <ButtonNext
           onClick={() => {
-            window.location.href = homePageUrl;
+            location.href = homePageUrl;
           }}
         >
           홈으로 돌아가기

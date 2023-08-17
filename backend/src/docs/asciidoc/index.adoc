@@ -7,6 +7,12 @@ endif::[]
 :source-highlighter: highlightjs
 :sectlinks:
 
-include::station.adoc[]
-include::filter.adoc[]
+include::admin.adoc[]
+include::auth.adoc[]
 include::car.adoc[]
+include::filter.adoc[]
+include::member.adoc[]
+include::reply.adoc[]
+include::report.adoc[]
+include::review.adoc[]
+include::station.adoc[]

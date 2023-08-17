@@ -28,6 +28,17 @@ public class ReplyFixture {
             .isDeleted(false)
             .build();
 
+    public static Reply 저장_전_답글(Member member, Review review) {
+        return Reply.builder()
+                .review(review)
+                .member(member)
+                .content("저도 그렇게 생각합니다")
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
+                .isDeleted(false)
+                .build();
+    }
+
     public static final Reply 바뀐_답글_1개 = Reply.builder()
             .id(1L)
             .review(리뷰_별4_15글자)

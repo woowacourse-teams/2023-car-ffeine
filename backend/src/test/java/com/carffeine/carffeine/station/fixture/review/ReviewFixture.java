@@ -25,12 +25,22 @@ public class ReviewFixture {
             .isDeleted(false)
             .build();
 
-    public static final Review 저장안된_리뷰(Member member) {
+    public static final Review 저장_전_리뷰(Member member) {
         return Review.builder()
                 .station(선릉역_충전소_충전기_2개_사용가능_1개)
                 .member(member)
                 .ratings(4)
                 .content("덕분에 빠르게 충전했습니다")
+                .isDeleted(false)
+                .build();
+    }
+
+    public static final Review 저장_전_리뷰2(Member member) {
+        return Review.builder()
+                .station(선릉역_충전소_충전기_2개_사용가능_1개)
+                .member(member)
+                .ratings(2)
+                .content("사람이 많이 없어서 좋네요")
                 .isDeleted(false)
                 .build();
     }

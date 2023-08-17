@@ -5,8 +5,8 @@ import com.carffeine.carffeine.common.exception.Status;
 
 public enum StationExceptionType implements ExceptionType {
 
-    INVALID_LATITUDE(Status.INVALID, 1001, "유효하지 않는 위도입니다"),
-    INVALID_LONGITUDE(Status.INVALID, 1002, "유효하지 않는 경도입니다"),
+    INVALID_LATITUDE(Status.BAD_REQUEST, 1001, "유효하지 않는 위도입니다"),
+    INVALID_LONGITUDE(Status.BAD_REQUEST, 1002, "유효하지 않는 경도입니다"),
     NOT_FOUND_ID(Status.NOT_FOUND, 1003, "요청하신 id의 충전소를 찾을 수 없습니다.");
 
     private final Status status;

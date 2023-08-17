@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import static com.carffeine.carffeine.member.exception.MemberExceptionType.NOT_FOUND;
-import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.DELETED_REVIEW;
 import static com.carffeine.carffeine.station.exception.review.ReviewExceptionType.REVIEW_NOT_FOUND;
 
 @RequiredArgsConstructor
@@ -68,15 +67,16 @@ public class ReplyService {
         return reply;
     }
 
-    public Reply deleteReply(Long memberId, Long replyId) {
+    @Transactional(readOnly = true)
+    public Reply findReply(Long replyId) {
+        return replyRepository.findById(replyId)
+                .orElseThrow(() -> new ReviewException(REVIEW_NOT_FOUND));
+    }
+
+    public void deleteReply(Long memberId, Long replyId) {
         Reply reply = findReply(replyId);
         Member member = findMember(memberId);
         reply.validate(member);
-        return reply;
-    }
-
-    private Reply findReply(Long replyId) {
-        return replyRepository.findById(replyId)
-                .orElseThrow(() -> new ReviewException(DELETED_REVIEW));
+        replyRepository.delete(reply);
     }
 }

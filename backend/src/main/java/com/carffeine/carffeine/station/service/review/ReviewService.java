@@ -65,11 +65,11 @@ public class ReviewService {
         return review;
     }
 
-    public Review deleteReview(Long memberId, Long reviewId) {
+    public void deleteReview(Long memberId, Long reviewId) {
         Review review = findReview(reviewId);
         Member member = findMember(memberId);
         review.validate(member);
-        return review;
+        reviewRepository.delete(review);
     }
 
     private Station findStation(String stationId) {

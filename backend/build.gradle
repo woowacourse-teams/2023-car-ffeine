@@ -62,14 +62,22 @@ tasks.named('asciidoctor') {
 }
 
 asciidoctor {
-    inputs.dir snippetsDir
-    configurations 'asciidoctorExt'
     dependsOn test
+    configurations 'asciidoctorExt'
+    baseDirFollowsSourceFile()
+}
+
+
+tasks.register('copyApiDocument', Copy) {
+    dependsOn asciidoctor
+    doFirst {
+        delete file("src/main/resources/static/docs") // 기존 문서 삭제
+    }
+
+    from asciidoctor.outputDir
+    into file("src/main/resources/static/docs")
 }
 
 bootJar {
-    dependsOn asciidoctor
-    from("${asciidoctor.outputDir}") {
-        into 'static/docs'
-    }
+    dependsOn copyApiDocument
 }
