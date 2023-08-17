@@ -2,7 +2,6 @@ import { ArrowLeftIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
 import { css } from 'styled-components';
 
 import { memberTokenStore } from '@stores/login/memberTokenStore';
-import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
 
 import { useServerStationFilters } from '@hooks/tanstack-query/station-filters/useServerStationFilters';
 import { useServerStationFilterStoreActions } from '@hooks/useServerStationFilterActions';
