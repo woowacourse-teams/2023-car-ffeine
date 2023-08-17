@@ -43,9 +43,9 @@ const ServerStationFilters = () => {
   const { connectorTypes, capacities, companies } = serverStationFilters;
 
   const handleApplySelectedFilters = async () => {
-    const isLoggedInUser = memberTokenStore.getState() === '';
+    const isLoggedOutUser = memberTokenStore.getState() === '';
 
-    if (isLoggedInUser !== true) {
+    if (isLoggedOutUser) {
       handleStationsRefetch();
       return;
     }
