@@ -103,7 +103,6 @@ const ClientFilterButton = styled.button<{ isChecked: boolean }>`
     0 1px 2px rgba(60, 64, 67, 0.3),
     0 1px 3px 1px rgba(60, 64, 67, 0.15);
   border-radius: 16px;
-  color: ${({ isChecked }) => (isChecked ? '#000000' : '#000000')};
 `;
 
 export default ClientStationFilters;
