@@ -182,6 +182,21 @@ class ReviewServiceTest {
     }
 
     @Test
+    void 리뷰를_삭제할_수_있다() {
+        // given
+        stationRepository.save(선릉역_충전소_충전기_2개_사용가능_1개);
+        memberRepository.save(일반_회원);
+        Review review = reviewService.saveReview(createRequest, station.getStationId(), member.getId());
+
+        // when
+        reviewService.deleteReview(member.getId(), review.getId());
+        Review foundReview = reviewService.findReview(review.getId());
+
+        // then
+        assertThat(foundReview.isDeleted()).isTrue();
+    }
+
+    @Test
     void 평균_별점을_구할_수_있다() {
         // given
         CreateReviewRequest request1 = new CreateReviewRequest(4, "덕분에 빠르게 충전했습니다");

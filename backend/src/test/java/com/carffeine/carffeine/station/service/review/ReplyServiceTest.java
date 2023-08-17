@@ -162,6 +162,19 @@ public class ReplyServiceTest {
     }
 
     @Test
+    void 답글을_삭제할_수_있다() {
+        // given
+        Reply reply = replyService.saveReply(createRequest, review.getId(), member.getId());
+
+        // when
+        replyService.deleteReply(member.getId(), reply.getId());
+        Reply foundReply = replyService.findReply(reply.getId());
+
+        // then
+        assertThat(foundReply.isDeleted()).isTrue();
+    }
+
+    @Test
     void 작성자가_아니면_수정할_수_없다() {
         // given
         CreateReplyRequest request = new CreateReplyRequest("저도 그렇게 생각합니다");

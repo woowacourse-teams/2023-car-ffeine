@@ -73,6 +73,20 @@ class ReviewRepositoryTest {
     }
 
     @Test
+    void 리뷰를_삭제한다() {
+        // given
+        Review review = reviewRepository.save(저장_전_리뷰(member));
+        reviewRepository.save(저장_전_리뷰2(member));
+
+        // when
+        reviewRepository.delete(review);
+        Page<Review> 삭제_전_리뷰들 = reviewRepository.findAllByStation(station, pageable);
+
+        // then
+        assertThat(삭제_전_리뷰들.getContent().get(1).isDeleted()).isTrue();
+    }
+
+    @Test
     void 평균_별점을_구한다() {
         // given
         Member member = memberRepository.save(일반_회원);
