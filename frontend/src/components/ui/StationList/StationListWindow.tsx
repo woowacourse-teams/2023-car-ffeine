@@ -23,7 +23,7 @@ const StationListWindow = () => {
   }
 
   return (
-    <FlexBox css={[containerCss]}>
+    <FlexBox css={[containerCss]} nowrap>
       <Button css={xIconCss} onClick={closeBasePanel}>
         <XMarkIcon width={32} />
       </Button>

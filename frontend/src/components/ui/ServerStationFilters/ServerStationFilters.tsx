@@ -115,6 +115,7 @@ export const containerCss = css`
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     width: 100vw;
+    padding-bottom: 9rem;
   }
 `;
 
