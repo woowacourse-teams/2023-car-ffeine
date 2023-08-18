@@ -153,6 +153,10 @@ export const buttonCss = css`
   flex-shrink: 0;
 
   color: #fff;
+
+  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+    position: fixed;
+  }
 `;
 
 export const filterHeaderCss = css`

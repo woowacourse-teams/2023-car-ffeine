@@ -32,6 +32,6 @@ public record ChargerStateRequest(
             return null;
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-        return LocalDateTime.parse(input, formatter);
+        return LocalDateTime.parse(input, formatter).minusHours(9);
     }
 }
