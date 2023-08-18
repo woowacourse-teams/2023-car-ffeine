@@ -5,18 +5,15 @@ import type { PropsWithChildren } from 'react';
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 
-import { MOBILE_BREAKPOINT } from '@constants';
-
 interface Props {
   menus: PropsWithChildren<{ onClick: () => void }>[];
   closeMenu: () => void;
-  containerWidth: number;
 }
 
-const Menus = ({ menus, containerWidth, closeMenu }: Props) => {
+const Menus = ({ menus, closeMenu }: Props) => {
   return (
     <FlexBox tag="ul" width="max-content" direction="column" alignItems="center" css={containerCss}>
-      <StartingPointBox containerWidth={containerWidth} />
+      <StartingPointBox />
       {menus.map(({ children, onClick }, i) => (
         <FlexBox key={i} tag="li">
           <ButtonNext
@@ -36,13 +33,17 @@ const Menus = ({ menus, containerWidth, closeMenu }: Props) => {
   );
 };
 
-const StartingPointBox = styled.div<{ containerWidth: number }>`
+const StartingPointBox = styled.div`
   width: 2rem;
   height: 2rem;
 
   position: absolute;
+  top: 2rem;
+  left: -1rem;
 
   border: 1px solid #d6d6d6;
+  border-top: none;
+  border-right: none;
 
   background-color: #fff;
 
