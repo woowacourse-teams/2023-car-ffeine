@@ -6,8 +6,6 @@ import { useState } from 'react';
 
 import FlexBox from '@common/FlexBox';
 
-import { MOBILE_BREAKPOINT } from '@constants';
-
 import Menus from './Menus';
 
 interface Props {
