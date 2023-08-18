@@ -134,7 +134,9 @@ export const filterContainerCss = css`
 `;
 
 const paddingBottomCss = css`
-  padding-bottom: 12rem;
+  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+    padding-bottom: 12rem;
+  }
 `;
 
 export const overFlowCss = css`
