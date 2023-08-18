@@ -57,6 +57,7 @@ export const stationDetailsViewContainerCss = css`
   border-left: 0.5px solid #e1e4eb;
   border-right: 0.5px solid #e1e4eb;
   overflow: scroll;
+  padding-bottom: 10rem;
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     width: 100vw;
