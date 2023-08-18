@@ -7,9 +7,11 @@ import { useExternalValue } from '@utils/external-state';
 import { getGoogleMapStore, googleMapActions } from '@stores/google-maps/googleMapStore';
 
 import { useCurrentPosition } from '@hooks/google-maps/useCurrentPosition';
+import { useStations } from '@hooks/tanstack-query/station-markers/useStations';
 
 import Box from '@common/Box';
 import Button from '@common/Button';
+import Loader from '@common/Loader';
 
 import { MOBILE_BREAKPOINT } from '@constants';
 import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
@@ -17,6 +19,7 @@ import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
 const MapController = () => {
   const position = useCurrentPosition();
   const googleMap = useExternalValue(getGoogleMapStore());
+  const { isFetching } = useStations();
 
   const handleCurrentPositionButton = () => {
     googleMap.panTo({ lat: position.lat, lng: position.lng });
@@ -33,19 +36,25 @@ const MapController = () => {
 
   return (
     <Box css={containerCss}>
-      <Button
-        outlined
-        css={[buttonCss, currentPositionIconCss]}
-        onClick={handleCurrentPositionButton}
-      >
-        <MapPinIcon
-          width={24}
-          fill="#0054ff"
-          stroke="#333"
-          type="button"
-          aria-label="내 위치로 이동"
-        />
-      </Button>
+      {isFetching ? (
+        <Button outlined css={[buttonCss, currentPositionIconCss]}>
+          <Loader css={{ borderBottomColor: 'blue' }} />
+        </Button>
+      ) : (
+        <Button
+          outlined
+          css={[buttonCss, currentPositionIconCss]}
+          onClick={handleCurrentPositionButton}
+        >
+          <MapPinIcon
+            width={24}
+            fill="#0054ff"
+            stroke="#333"
+            type="button"
+            aria-label="내 위치로 이동"
+          />
+        </Button>
+      )}
       <Button
         outlined
         noRadius="bottom"
