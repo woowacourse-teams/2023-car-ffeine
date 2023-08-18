@@ -54,7 +54,11 @@ const ServerStationFilters = () => {
   };
 
   return (
-    <FlexBox css={[overFlowCss, borderCss, containerCss]} nowrap={true} noRadius={'all'}>
+    <FlexBox
+      css={[overFlowCss, borderCss, containerCss, paddingBottomCss]}
+      nowrap={true}
+      noRadius={'all'}
+    >
       <FlexBox
         width={NAVIGATOR_PANEL_WIDTH}
         height={8}
@@ -115,7 +119,6 @@ export const containerCss = css`
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     width: 100vw;
-    padding-bottom: 9rem;
   }
 `;
 
@@ -128,6 +131,10 @@ export const filterContainerCss = css`
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     width: calc(100vw - 2rem);
   }
+`;
+
+const paddingBottomCss = css`
+  padding-bottom: 12rem;
 `;
 
 export const overFlowCss = css`
