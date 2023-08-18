@@ -51,6 +51,7 @@ const searchResultList = css`
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     width: calc(100vw - 6rem);
+    height: 100vh;
   }
 `;
 

@@ -9,13 +9,13 @@ import Loader from '@common/Loader';
 import { MOBILE_BREAKPOINT } from '@constants';
 
 const StationMarkerLoadingSpinner = () => {
-  const navigationComponentWidth = getNavigationComponentWidth();
-
-  const { isFetching } = useStations();
-
-  if (isFetching) {
-    return <Loader size="10rem" border={6} css={positionCss(navigationComponentWidth)} />;
-  }
+  // const navigationComponentWidth = getNavigationComponentWidth();
+  //
+  // const { isFetching } = useStations();
+  //
+  // if (isFetching) {
+  //   return <Loader size="10rem" border={6} css={positionCss(navigationComponentWidth)} />;
+  // }
 
   return <></>;
 };
