@@ -1,17 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { serverStore } from '@stores/config/serverStore';
+import { serverUrlStore } from '@stores/config/serverUrlStore';
 
-import { SERVERS } from '@constants';
 import { ERROR_MESSAGES } from '@constants/errorMessages';
 import { QUERY_KEY_STATION_CONGESTION_STATISTICS } from '@constants/queryKeys';
 
 import type { CongestionStatistics } from '@type/congestion';
 
 export const fetchStationDetails = async (selectedStationId: string) => {
-  const mode = serverStore.getState();
+  const serverUrl = serverUrlStore.getState();
 
-  const stationDetails = await fetch(`${SERVERS[mode]}/stations/${selectedStationId}/statistics`, {
+  const stationDetails = await fetch(`${serverUrl}/stations/${selectedStationId}/statistics`, {
     method: 'GET',
   }).then<CongestionStatistics>(async (response) => {
     if (!response.ok) {

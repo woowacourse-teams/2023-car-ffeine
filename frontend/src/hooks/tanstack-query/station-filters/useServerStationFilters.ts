@@ -1,16 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { serverStore } from '@stores/config/serverStore';
+import { serverUrlStore } from '@stores/config/serverUrlStore';
 
-import { SERVERS } from '@constants';
 import { QUERY_KEY_SERVER_STATION_FILTERS } from '@constants/queryKeys';
 
 import type { StationFilters } from '@type';
 
 const fetchServerStationFilters = async () => {
-  const mode = serverStore.getState();
+  const serverUrl = serverUrlStore.getState();
 
-  const serverStationFilters = await fetch(`${SERVERS[mode]}/filters`).then<StationFilters>(
+  const serverStationFilters = await fetch(`${serverUrl}/filters`).then<StationFilters>(
     (response) => response.json()
   );
 

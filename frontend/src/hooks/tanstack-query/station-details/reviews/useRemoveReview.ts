@@ -1,10 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { serverStore } from '@stores/config/serverStore';
+import { serverUrlStore } from '@stores/config/serverUrlStore';
 import { toastActions } from '@stores/layout/toastStore';
 import { memberTokenStore } from '@stores/login/memberTokenStore';
 
-import { SERVERS } from '@constants';
 import {
   QUERY_KEY_STATION_PREVIEWS,
   QUERY_KEY_STATION_REPLIES,
@@ -18,8 +17,8 @@ export interface FetchRemoveReviewRequest {
 const fetchRemoveReview = async (fetchRemoveReviewRequestParams: FetchRemoveReviewRequest) => {
   const { reviewId } = fetchRemoveReviewRequestParams;
   const memberToken = memberTokenStore.getState();
-  const mode = serverStore.getState();
-  return fetch(`${SERVERS[mode]}/reviews/${reviewId}`, {
+  const serverUrl = serverUrlStore.getState();
+  return fetch(`${serverUrl}/reviews/${reviewId}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${memberToken}`,

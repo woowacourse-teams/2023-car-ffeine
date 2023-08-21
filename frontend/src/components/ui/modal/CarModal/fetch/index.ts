@@ -1,10 +1,8 @@
 import { fetchUtils } from '@utils/fetch';
 
-import { serverStore } from '@stores/config/serverStore';
+import { serverUrlStore } from '@stores/config/serverUrlStore';
 import { memberInfoStore } from '@stores/login/memberInfoStore';
 import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
-
-import { SERVERS } from '@constants';
 
 import type { StationFilters } from '@type';
 import type { Car } from '@type/cars';
@@ -17,11 +15,11 @@ import type { Car } from '@type/cars';
  * @returns 등록된 member의 차량 정보 { carId, name, vintage }
  */
 export const submitMemberCar = async (carName: string, vintage: string): Promise<Car> => {
-  const mode = serverStore.getState();
   const memberId = memberInfoStore.getState()?.memberId;
+  const serverUrl = serverUrlStore.getState();
 
   const memberCarInfo = await fetchUtils.post<Car, Omit<Car, 'carId'>>(
-    `${SERVERS[mode]}/members/${memberId}/cars`,
+    `${serverUrl}/members/${memberId}/cars`,
     { name: carName, vintage },
     '차량 정보를 등록하는 중에 오류가 발생했습니다'
   );
@@ -36,10 +34,10 @@ export const submitMemberCar = async (carName: string, vintage: string): Promise
  * @returns 차량 필터 정보 { companies, capacities, connectorTypes }
  */
 export const getCarFilters = async (carId: number): Promise<StationFilters> => {
-  const mode = serverStore.getState();
+  const serverUrl = serverUrlStore.getState();
 
   const carFilters = await fetchUtils.get<StationFilters>(
-    `${SERVERS[mode]}/cars/${carId}/filters`,
+    `${serverUrl}/cars/${carId}/filters`,
     '차량 필터 정보를 불러오는 중에 에러가 발생했습니다'
   );
 
@@ -53,14 +51,14 @@ export const getCarFilters = async (carId: number): Promise<StationFilters> => {
  * @returns member에게 등록된 필터 정보 { companies, capacities, connectorTypes }
  */
 export const submitMemberFilters = async (carFilters: StationFilters) => {
-  const mode = serverStore.getState();
+  const serverUrl = serverUrlStore.getState();
   const memberId = memberInfoStore.getState()?.memberId;
   const { setAllServerStationFilters, getMemberFilterRequestBody } = serverStationFilterAction;
   setAllServerStationFilters(carFilters);
   const memberFilterRequestBody = getMemberFilterRequestBody();
 
   const memberFilters = fetchUtils.post<StationFilters, typeof memberFilterRequestBody>(
-    `${SERVERS[mode]}/members/${memberId}/filters`,
+    `${serverUrl}/members/${memberId}/filters`,
     memberFilterRequestBody,
     '필터링 정보를 저장하는 중 오류가 발생했습니다'
   );
