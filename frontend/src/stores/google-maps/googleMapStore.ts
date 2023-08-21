@@ -25,6 +25,7 @@ export const getGoogleMapStore = (() => {
         center: initialCenter,
         zoom: INITIAL_ZOOM_SIZE,
         disableDefaultUI: true,
+        clickableIcons: false,
         mapId: '92cb7201b7d43b21',
         minZoom: 8,
         maxZoom: 20,
