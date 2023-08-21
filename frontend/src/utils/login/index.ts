@@ -1,11 +1,12 @@
 import { setSessionStorage } from '@utils/storage';
 
+import { serverUrlStore } from '@stores/config/serverUrlStore';
 import { toastActions } from '@stores/layout/toastStore';
 import { memberInfoAction } from '@stores/login/memberInfoStore';
 import { memberTokenActions, memberTokenStore } from '@stores/login/memberTokenStore';
 import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
 
-import { DEFAULT_TOKEN, SERVERS } from '@constants';
+import { DEFAULT_TOKEN } from '@constants';
 import { SESSION_KEY_MEMBER_INFO, SESSION_KEY_MEMBER_TOKEN } from '@constants/storageKeys';
 
 interface LoginUriResponse {
@@ -14,10 +15,10 @@ interface LoginUriResponse {
 
 export const redirectToLoginPage = (provider: string) => {
   const { showToast } = toastActions;
-  const APIEndPoint = getAPIEndPoint();
   const redirectUri = getRedirectUri();
+  const serverUrl = serverUrlStore.getState();
 
-  fetch(`${APIEndPoint}/oauth/${provider}/login-uri?redirect-uri=${redirectUri}/${provider}`)
+  fetch(`${serverUrl}/oauth/${provider}/login-uri?redirect-uri=${redirectUri}/${provider}`)
     .then<LoginUriResponse>((response) => response.json())
     .then((data) => {
       const loginUri = data.loginUri;
@@ -36,10 +37,10 @@ interface TokenResponse {
 }
 
 export const getMemberToken = async (code: string, provider: string) => {
-  const APIEndPoint = getAPIEndPoint();
+  const serverUrl = serverUrlStore.getState();
   const redirectUri = getRedirectUri();
 
-  const tokenResponse = await fetch(`${APIEndPoint}/oauth/google/login`, {
+  const tokenResponse = await fetch(`${serverUrl}/oauth/google/login`, {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',
@@ -68,21 +69,6 @@ export const getRedirectUri = () => {
   }
 
   return 'http://localhost:3000';
-};
-
-export const getAPIEndPoint = () => {
-  const isProductionServer = window.location.href.search(/https:\/\/carffe.in/) !== -1;
-  const isDevServer = window.location.href.search(/https:\/\/dev.carffe.in/) !== -1;
-
-  if (isProductionServer) {
-    return SERVERS['production'];
-  }
-
-  if (isDevServer) {
-    return SERVERS['dain'];
-  }
-
-  return SERVERS['localhost'];
 };
 
 export const logout = () => {

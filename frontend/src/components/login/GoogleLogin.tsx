@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 
 import { fetchUtils } from '@utils/fetch';
 import { getMemberToken } from '@utils/login';
-import { getAPIEndPoint } from '@utils/login/index';
 import { setSessionStorage } from '@utils/storage';
 
+import { serverUrlStore } from '@stores/config/serverUrlStore';
 import { memberTokenStore } from '@stores/login/memberTokenStore';
 
 import ButtonNext from '@common/ButtonNext';
@@ -21,13 +21,13 @@ const GoogleLogin = () => {
   useEffect(() => {
     const code = new URLSearchParams(location.search).get('code') ?? '';
     const encodedCode = encodeURIComponent(code);
-    const APIEndPoint = getAPIEndPoint();
+    const serverUrl = serverUrlStore.getState();
 
     getMemberToken(encodedCode, 'google')
       .then(async (token) => {
         memberTokenStore.setState(token);
 
-        const memberInfo = await fetchUtils.get(`${APIEndPoint}/members/me`);
+        const memberInfo = await fetchUtils.get(`${serverUrl}/members/me`);
 
         setSessionStorage(SESSION_KEY_MEMBER_TOKEN, token);
         setSessionStorage(SESSION_KEY_MEMBER_INFO, JSON.stringify(memberInfo));
