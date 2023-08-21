@@ -1,9 +1,9 @@
 import { rest } from 'msw';
 
-import { SERVERS } from '@constants';
+import { DEVELOP_SERVER_URL } from '@constants/server';
 
 export const memberHandlers = [
-  rest.get(`${SERVERS.localhost}/members/me`, (req, res, ctx) => {
+  rest.get(`${DEVELOP_SERVER_URL}/members/me`, (req, res, ctx) => {
     const memberToken = req.headers.get('Authorization');
 
     if (
@@ -27,7 +27,7 @@ export const memberHandlers = [
     );
   }),
 
-  rest.post(`${SERVERS.localhost}/members/:memberId/cars`, async (req, res, ctx) => {
+  rest.post(`${DEVELOP_SERVER_URL}/members/:memberId/cars`, async (req, res, ctx) => {
     const memberToken = req.headers.get('Authorization');
 
     if (memberToken === undefined || memberToken.replace('Bearer', '') === '') {

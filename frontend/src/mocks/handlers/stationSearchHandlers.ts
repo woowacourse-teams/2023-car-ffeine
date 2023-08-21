@@ -1,11 +1,11 @@
 import { getSearchedStations, stations } from '@mocks/data';
 import { rest } from 'msw';
 
-import { SERVERS } from '@constants';
 import { ERROR_MESSAGES } from '@constants/errorMessages';
+import { DEVELOP_SERVER_URL } from '@constants/server';
 
 export const stationSearchHandlers = [
-  rest.get(`${SERVERS.localhost}/stations/search`, async (req, res, ctx) => {
+  rest.get(`${DEVELOP_SERVER_URL}/stations/search`, async (req, res, ctx) => {
     const searchWord = req.url.searchParams.get('q');
 
     if (!stations.length) {
