@@ -15,12 +15,10 @@ import { GlobalStyle } from 'style/GlobalStyle';
 const queryClient = new QueryClient();
 
 const main = async () => {
-  if (process.env.NODE_ENV === 'development') {
-    await mswModeActions.startMsw();
-  }
-
   const domNode = document.getElementById('root');
   const root = createRoot(domNode);
+
+  await mswModeActions.startMsw();
 
   root.render(
     <QueryClientProvider client={queryClient}>

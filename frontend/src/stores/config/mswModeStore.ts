@@ -1,5 +1,3 @@
-import { worker } from '@mocks/browser';
-
 import { store } from '@utils/external-state';
 import { getAPIEndPoint } from '@utils/login';
 
@@ -11,16 +9,24 @@ export const mswModeActions = {
       return;
     }
 
-    await worker.start({
-      serviceWorker: {
-        url: '/mockServiceWorker.js',
-      },
-      onUnhandledRequest: 'bypass',
-    });
+    if (process.env.NODE_ENV === 'development') {
+      const { worker } = require('@mocks/browser');
+      await worker.start({
+        serviceWorker: {
+          url: '/mockServiceWorker.js',
+        },
+        onUnhandledRequest: 'bypass',
+      });
+    }
+
     mswModeStore.setState(true);
   },
   stopMsw: async () => {
-    await worker.stop();
+    if (process.env.NODE_ENV === 'development') {
+      const { worker } = require('@mocks/browser');
+      await worker.stop();
+    }
+
     mswModeStore.setState(false);
   },
 };
