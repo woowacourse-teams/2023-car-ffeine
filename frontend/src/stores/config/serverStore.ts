@@ -6,11 +6,7 @@ import type { SERVERS } from '@constants';
 const APIEndPoint = getAPIEndPoint();
 
 export const serverStore = store<keyof typeof SERVERS>(
-  APIEndPoint === 'https://api.carffe.in/api'
-    ? 'production'
-    : APIEndPoint === 'https://dain.carffe.in/api'
-    ? 'dain'
-    : 'localhost'
+  APIEndPoint === 'https://api.carffe.in/api' ? 'production' : 'dain'
 );
 
 export const serverActions = {
