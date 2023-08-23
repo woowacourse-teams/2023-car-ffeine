@@ -6,7 +6,7 @@ import { SESSION_KEY_MEMBER_TOKEN } from '@constants/storageKeys';
 
 import { toastActions } from '../layout/toastStore';
 
-export const memberTokenStore = store('');
+export const memberTokenStore = store(EMPTY_MEMBER_TOKEN);
 
 export const memberTokenActions = {
   /**
@@ -29,8 +29,11 @@ export const memberTokenActions = {
    * 로그아웃을 시키는 메서드지만 "로그아웃 되었습니다" 메세지를 토스트로 띄우고 싶지 않을 때 사용하는 메서드
    */
   resetMemberToken() {
-    memberTokenStore.setState('');
+    memberTokenStore.setState(EMPTY_MEMBER_TOKEN);
   },
 };
 
-memberTokenActions.setMemberToken(getSessionStorage(SESSION_KEY_MEMBER_TOKEN, ''), true);
+memberTokenActions.setMemberToken(
+  getSessionStorage(SESSION_KEY_MEMBER_TOKEN, EMPTY_MEMBER_TOKEN),
+  true
+);

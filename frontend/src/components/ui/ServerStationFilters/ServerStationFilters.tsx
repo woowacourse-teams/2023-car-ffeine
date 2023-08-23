@@ -14,7 +14,7 @@ import Text from '@common/Text';
 import ServerStationFiltersSkeleton from '@ui/ServerStationFilters/ServerStationFiltersSkeleton';
 import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
-import { MOBILE_BREAKPOINT, NAVIGATOR_PANEL_WIDTH } from '@constants';
+import { EMPTY_MEMBER_TOKEN, MOBILE_BREAKPOINT, NAVIGATOR_PANEL_WIDTH } from '@constants';
 import { CONNECTOR_TYPES, COMPANIES } from '@constants/chargers';
 
 import type { Capacity } from '@type';
@@ -43,7 +43,7 @@ const ServerStationFilters = () => {
   const { connectorTypes, capacities, companies } = serverStationFilters;
 
   const handleApplySelectedFilters = async () => {
-    const isLoggedOutUser = memberTokenStore.getState() === '';
+    const isLoggedOutUser = memberTokenStore.getState() === EMPTY_MEMBER_TOKEN;
 
     if (isLoggedOutUser) {
       handleStationsRefetch();

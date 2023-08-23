@@ -1,5 +1,6 @@
 import { rest } from 'msw';
 
+import { EMPTY_MEMBER_TOKEN } from '@constants';
 import { DEVELOP_SERVER_URL } from '@constants/server';
 
 export const memberFilterHandlers = [
@@ -19,7 +20,7 @@ export const memberFilterHandlers = [
       .filter((filterOption: { type: string; name: string }) => filterOption.type === 'company')
       .map((filterOption: { type: string; name: string }) => filterOption.name);
 
-    if (memberToken === undefined || memberToken.replace('Bearer', '') === '') {
+    if (memberToken === undefined || memberToken.replace('Bearer', '') === EMPTY_MEMBER_TOKEN) {
       return res(ctx.status(401), ctx.json('unauthorized error'));
     }
 
@@ -29,7 +30,7 @@ export const memberFilterHandlers = [
   rest.get(`${DEVELOP_SERVER_URL}/members/:memberId/filters`, (req, res, ctx) => {
     const memberToken = req.headers.get('Authorization');
 
-    if (memberToken === undefined || memberToken.replace('Bearer', '') === '') {
+    if (memberToken === undefined || memberToken.replace('Bearer', '') === EMPTY_MEMBER_TOKEN) {
       return res(ctx.status(401), ctx.json('unauthorized error'));
     }
 

@@ -2,6 +2,8 @@ import { handleInvalidTokenToLogout } from '@utils/login';
 
 import { memberTokenStore } from '@stores/login/memberTokenStore';
 
+import { EMPTY_MEMBER_TOKEN } from '@constants';
+
 export const fetchUtils = {
   /**
    * @param url request url
@@ -9,7 +11,7 @@ export const fetchUtils = {
    * @returns T
    */
   async get<T>(url: string, errorMessage?: string) {
-    const isMemberTokenExist = memberTokenStore.getState() !== '';
+    const isMemberTokenExist = memberTokenStore.getState() !== EMPTY_MEMBER_TOKEN;
 
     return await fetch(url, {
       method: 'GET',
@@ -39,7 +41,7 @@ export const fetchUtils = {
    * @returns T
    */
   async post<T, U extends object>(url: string, body: U, errorMessage?: string) {
-    const isMemberTokenExist = memberTokenStore.getState() !== '';
+    const isMemberTokenExist = memberTokenStore.getState() !== EMPTY_MEMBER_TOKEN;
 
     return await fetch(url, {
       method: 'POST',
