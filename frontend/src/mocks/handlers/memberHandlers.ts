@@ -17,8 +17,8 @@ export const memberHandlers = [
         memberId: Math.random(),
         car: {
           carId: Math.random(),
-          name: '포르쉐 타이칸',
-          year: '2022',
+          name: '아이오닉3',
+          vintage: '2019',
         },
       })
     );

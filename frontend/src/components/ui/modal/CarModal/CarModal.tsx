@@ -4,6 +4,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import { modalActions } from '@stores/layout/modalStore';
 import { toastActions } from '@stores/layout/toastStore';
+import { memberInfoStore } from '@stores/login/memberInfoStore';
 import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
 
 import { useCars } from '@hooks/tanstack-query/car/useCars';
@@ -22,10 +23,11 @@ const CarModal = () => {
   const queryClient = useQueryClient();
 
   const { data: cars, isLoading } = useCars();
+  const memberInfo = memberInfoStore.getState();
   const { setAllServerStationFilters } = serverStationFilterAction;
 
-  const [carName, setCarName] = useState('');
-  const [vintage, setVintage] = useState('');
+  const [carName, setCarName] = useState(memberInfo.car !== null ? memberInfo.car.name : '');
+  const [vintage, setVintage] = useState(memberInfo.car !== null ? memberInfo.car.vintage : '');
 
   const handleSelectCarName = (name: string) => {
     setCarName(name);
@@ -80,7 +82,11 @@ const CarModal = () => {
       </Text>
       <FlexBox width="100%">
         <FlexBox css={{ flex: 1, height: '4rem' }}>
-          <SelectBox options={['모델명', ...carNames]} onChange={handleSelectCarName} />
+          <SelectBox
+            options={['모델명', ...carNames]}
+            onChange={handleSelectCarName}
+            initialValue={carName}
+          />
         </FlexBox>
         <FlexBox css={{ flex: 1, height: '4rem' }}>
           <SelectBox
@@ -91,6 +97,7 @@ const CarModal = () => {
                 .map((car) => car.vintage),
             ]}
             onChange={handleSelectVintage}
+            initialValue={vintage}
           />
         </FlexBox>
       </FlexBox>
@@ -119,10 +126,14 @@ const CarModal = () => {
 const SelectBox = ({
   options,
   onChange,
+  initialValue,
 }: {
   options: string[];
   onChange: (option: string) => void;
+  initialValue?: string;
 }) => {
+  console.log(initialValue);
+
   return (
     <select
       onChange={({ target: { value } }) => {
@@ -131,6 +142,7 @@ const SelectBox = ({
       style={{
         flex: 1,
       }}
+      defaultValue={initialValue}
     >
       {options.map((option, index) => (
         <option key={index} value={option}>
