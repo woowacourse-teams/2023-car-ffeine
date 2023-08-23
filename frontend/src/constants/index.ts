@@ -1,4 +1,5 @@
 export const DEFAULT_TOKEN = -1;
+export const EMPTY_MEMBER_TOKEN = '';
 
 export const INVALID_VALUE_LIST = ['null', '.', '..', '1', '#'];
 
