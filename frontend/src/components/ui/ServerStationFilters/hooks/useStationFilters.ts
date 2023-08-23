@@ -11,7 +11,7 @@ import { QUERY_KEY_MEMBER_SELECTED_FILTERS, QUERY_KEY_STATIONS } from '@constant
 
 import type { StationFilters } from '@type';
 
-export const useServerStationFiltersComponentActions = () => {
+export const useStationFilters = () => {
   const queryClient = useQueryClient();
   const { showToast } = toastActions;
 

@@ -20,12 +20,12 @@ import { CONNECTOR_TYPES, COMPANIES } from '@constants/chargers';
 import type { Capacity } from '@type';
 
 import FilterSection from './FilterOption';
-import { useServerStationFiltersComponentActions } from './hooks/useServerStationFiltersComponentActions';
+import { useStationFilters } from './hooks/useStationFilters';
 
 const ServerStationFilters = () => {
   const { data: serverStationFilters, isLoading } = useServerStationFilters();
   const { closeBasePanel } = useNavigationBar();
-  const { handleStationsRefetch, submitMemberFilters } = useServerStationFiltersComponentActions();
+  const { handleStationsRefetch, submitMemberFilters } = useStationFilters();
   const {
     toggleCapacityFilter,
     toggleConnectorTypeFilter,
