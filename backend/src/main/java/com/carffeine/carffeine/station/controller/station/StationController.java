@@ -1,5 +1,6 @@
 package com.carffeine.carffeine.station.controller.station;
 
+import com.carffeine.carffeine.station.controller.station.dto.StationSimpleResponse;
 import com.carffeine.carffeine.station.controller.station.dto.StationSpecificResponse;
 import com.carffeine.carffeine.station.controller.station.dto.StationsSimpleResponse;
 import com.carffeine.carffeine.station.domain.charger.ChargerType;
@@ -31,6 +32,16 @@ public class StationController {
                                                               @RequestParam(required = false, defaultValue = "") List<BigDecimal> capacities) {
         List<Station> stations = stationService.findByCoordinate(request, companyNames, chargerTypes, capacities);
         StationsSimpleResponse chargerStationsSimpleResponse = StationsSimpleResponse.from(stations);
+        return ResponseEntity.ok(chargerStationsSimpleResponse);
+    }
+
+    @GetMapping("/stations-v2")
+    public ResponseEntity<StationsSimpleResponse> getStationsV2(CoordinateRequest request,
+                                                                @RequestParam(required = false, defaultValue = "") List<String> companyNames,
+                                                                @RequestParam(required = false, defaultValue = "") List<ChargerType> chargerTypes,
+                                                                @RequestParam(required = false, defaultValue = "") List<BigDecimal> capacities) {
+        List<StationSimpleResponse> byCoordinateV2 = stationService.findByCoordinateV2(request, companyNames, chargerTypes, capacities);
+        StationsSimpleResponse chargerStationsSimpleResponse = new StationsSimpleResponse(byCoordinateV2);
         return ResponseEntity.ok(chargerStationsSimpleResponse);
     }
 

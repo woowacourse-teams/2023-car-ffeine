@@ -50,24 +50,23 @@ dependencies {
 
     asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 
-    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+    implementation 'com.querydsl:querydsl-jpa:5.0.0'
     annotationProcessor "javax.persistence:javax.persistence-api"
     annotationProcessor "javax.annotation:javax.annotation-api"
     annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa"
 }
 
-def generated = 'build/generated'
-
-tasks.withType(JavaCompile) {
-    options.getGeneratedSourceOutputDirectory().set(file(generated))
-}
-
+def generated = 'src/main/generated'
 sourceSets {
     main.java.srcDirs += [generated]
 }
 
-clean {
-    delete file(generated)
+tasks.withType(JavaCompile) {
+    options.annotationProcessorGeneratedSourcesDirectory = file(generated)
+}
+
+clean.doLast {
+    file(generated).deleteDir()
 }
 
 tasks.named('test') {

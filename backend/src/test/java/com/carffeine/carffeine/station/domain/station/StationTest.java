@@ -15,7 +15,7 @@ class StationTest {
     void 전체_충전기_수를_반환한다() {
         Station station = StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
 
-        int actual = station.getTotalCount();
+        long actual = station.getTotalCount();
 
         assertThat(actual).isEqualTo(2);
     }
@@ -24,7 +24,7 @@ class StationTest {
     void 사용_가능한_충전기_수를_반환한다() {
         Station station = StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
 
-        int actual = station.getAvailableCount();
+        Long actual = station.getAvailableCount();
 
         assertThat(actual).isEqualTo(1);
     }

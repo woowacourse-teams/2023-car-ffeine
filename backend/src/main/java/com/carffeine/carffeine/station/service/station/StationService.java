@@ -1,12 +1,12 @@
 package com.carffeine.carffeine.station.service.station;
 
+import com.carffeine.carffeine.station.controller.station.dto.StationSimpleResponse;
 import com.carffeine.carffeine.station.domain.charger.Charger;
 import com.carffeine.carffeine.station.domain.charger.ChargerStatus;
 import com.carffeine.carffeine.station.domain.charger.ChargerStatusRepository;
 import com.carffeine.carffeine.station.domain.charger.ChargerType;
 import com.carffeine.carffeine.station.domain.congestion.PeriodicCongestion;
 import com.carffeine.carffeine.station.domain.congestion.PeriodicCongestionCustomRepository;
-import com.carffeine.carffeine.station.domain.congestion.PeriodicCongestionRepository;
 import com.carffeine.carffeine.station.domain.congestion.RequestPeriod;
 import com.carffeine.carffeine.station.domain.station.Coordinate;
 import com.carffeine.carffeine.station.domain.station.Station;
@@ -14,6 +14,7 @@ import com.carffeine.carffeine.station.domain.station.StationRepository;
 import com.carffeine.carffeine.station.domain.station.Stations;
 import com.carffeine.carffeine.station.exception.StationException;
 import com.carffeine.carffeine.station.exception.StationExceptionType;
+import com.carffeine.carffeine.station.infrastructure.repository.StationQueryRepository;
 import com.carffeine.carffeine.station.service.station.dto.CoordinateRequest;
 import com.carffeine.carffeine.station.service.station.dto.StationSearchResponse;
 import com.carffeine.carffeine.station.service.station.dto.StationsSearchResponse;
@@ -37,7 +38,7 @@ public class StationService {
     private static final String STANDARD = "STANDARD";
 
     private final StationRepository stationRepository;
-    private final PeriodicCongestionRepository periodicCongestionRepository;
+    private final StationQueryRepository stationQueryRepository;
     private final ChargerStatusRepository chargerStatusRepository;
     private final PeriodicCongestionCustomRepository periodicCongestionCustomRepository;
 
@@ -52,6 +53,16 @@ public class StationService {
         Stations stations = Stations.from(stationsByCoordinate);
 
         return stations.findFilteredStations(companyNames, chargerTypes, capacities);
+    }
+
+    @Transactional(readOnly = true)
+    public List<StationSimpleResponse> findByCoordinateV2(CoordinateRequest request,
+                                                          List<String> companyNames,
+                                                          List<ChargerType> chargerTypes,
+                                                          List<BigDecimal> capacities) {
+        Coordinate coordinate = Coordinate.of(request.latitude(), request.latitudeDelta(), request.longitude(), request.longitudeDelta());
+
+        return stationQueryRepository.findAllFetchByLatitudeBetweenAndLongitudeBetween(coordinate.minLatitudeValue(), coordinate.maxLatitudeValue(), coordinate.minLongitudeValue(), coordinate.maxLongitudeValue());
     }
 
     @Transactional(readOnly = true)

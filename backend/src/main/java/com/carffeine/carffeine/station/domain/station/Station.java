@@ -80,12 +80,12 @@ public class Station extends BaseEntity {
     @OneToMany(mappedBy = "station", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<FaultReport> faultReports = new HashSet<>();
 
-    public int getTotalCount() {
-        return chargers.size();
+    public Long getTotalCount() {
+        return (long) chargers.size();
     }
 
-    public int getAvailableCount() {
-        return (int) chargers.stream()
+    public Long getAvailableCount() {
+        return chargers.stream()
                 .filter(Charger::isAvailable)
                 .count();
     }
