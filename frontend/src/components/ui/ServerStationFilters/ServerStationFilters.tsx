@@ -90,7 +90,6 @@ const ServerStationFilters = () => {
         title="충전 속도(kW)"
         filterOptionNames={[...capacities.map((capacity) => Number(capacity))] as Capacity[]}
         filterOptionValues={[...capacities]}
-        filterButtonVariant="sm"
         toggleSelectFilter={toggleCapacityFilter}
         getIsFilterSelected={getIsCapacitySelected}
       />
