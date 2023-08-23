@@ -2,7 +2,9 @@ import { ArrowPathIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { css } from 'styled-components';
 
 import { memberTokenStore } from '@stores/login/memberTokenStore';
+import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
 
+import { useCarFilters } from '@hooks/tanstack-query/station-filters/useCarFilters';
 import { useServerStationFilters } from '@hooks/tanstack-query/station-filters/useServerStationFilters';
 import { useServerStationFilterStoreActions } from '@hooks/useServerStationFilterActions';
 
@@ -24,6 +26,8 @@ import { useStationFilters } from './hooks/useStationFilters';
 
 const ServerStationFilters = () => {
   const { data: serverStationFilters, isLoading } = useServerStationFilters();
+  const { data: carFilters } = useCarFilters();
+  const { setAllServerStationFilters } = serverStationFilterAction;
   const { closeBasePanel } = useNavigationBar();
   const { handleStationsRefetch, submitMemberFilters } = useStationFilters();
   const {
@@ -50,6 +54,7 @@ const ServerStationFilters = () => {
       return;
     }
 
+    setAllServerStationFilters(carFilters);
     submitMemberFilters();
   };
 

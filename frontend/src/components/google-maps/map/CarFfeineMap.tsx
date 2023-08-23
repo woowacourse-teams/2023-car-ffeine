@@ -12,6 +12,7 @@ import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { toastActions } from '@stores/layout/toastStore';
 import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
 
+import { useCarFilters } from '@hooks/tanstack-query/station-filters/useCarFilters';
 import { useMemberFilters } from '@hooks/tanstack-query/station-filters/useMemberFilters';
 
 import ToastContainer from '@common/Toast/ToastContainer';
@@ -74,10 +75,12 @@ const CarFfeineMapListener = () => {
 const UserFilterListener = () => {
   const queryClient = useQueryClient();
   const { data: memberFilters } = useMemberFilters();
+  const { data: carFilters } = useCarFilters();
   const { setAllServerStationFilters } = serverStationFilterAction;
 
   if (memberFilters !== undefined) {
     setAllServerStationFilters(memberFilters);
+    setAllServerStationFilters(carFilters);
     queryClient.invalidateQueries([{ queryKey: [QUERY_KEY_STATIONS] }]);
   }
 

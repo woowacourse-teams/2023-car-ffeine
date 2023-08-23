@@ -103,7 +103,6 @@ const CarModal = () => {
             try {
               handleFetchCarFilters();
             } catch (error) {
-              console.log(error);
               toastActions.showToast(error.message, 'error');
             }
           }}
