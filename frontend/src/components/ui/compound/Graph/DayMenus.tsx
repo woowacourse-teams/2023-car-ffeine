@@ -10,7 +10,11 @@ export interface DayMenusProps extends Omit<GraphProps, 'align'> {
 }
 
 const DayMenus = ({ menus, renderMenuSelectButton }: DayMenusProps) => {
-  return <FlexBox gap={0}>{menus.map((menu) => renderMenuSelectButton(menu))}</FlexBox>;
+  return (
+    <FlexBox justifyContent="between" gap={0}>
+      {menus.map((menu) => renderMenuSelectButton(menu))}
+    </FlexBox>
+  );
 };
 
 export default DayMenus;
