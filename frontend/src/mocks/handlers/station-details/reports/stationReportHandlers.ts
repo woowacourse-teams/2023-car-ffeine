@@ -2,11 +2,11 @@ import { rest } from 'msw';
 
 import { getSessionStorage, setSessionStorage } from '@utils/storage';
 
-import { SERVERS } from '@constants';
+import { DEVELOP_SERVER_URL } from '@constants/server';
 import { SESSION_KEY_REPORTED_STATIONS } from '@constants/storageKeys';
 
 export const stationReportHandlers = [
-  rest.post(`${SERVERS.localhost}/stations/:stationId/reports`, (req, res, ctx) => {
+  rest.post(`${DEVELOP_SERVER_URL}/stations/:stationId/reports`, (req, res, ctx) => {
     const stationId = req.params.stationId as string;
     const prevReportedStations = getSessionStorage<string[]>(SESSION_KEY_REPORTED_STATIONS, []);
 
@@ -17,7 +17,7 @@ export const stationReportHandlers = [
     return res(ctx.delay(200), ctx.status(204));
   }),
 
-  rest.get(`${SERVERS.localhost}/stations/:stationId/reports/me`, (req, res, ctx) => {
+  rest.get(`${DEVELOP_SERVER_URL}/stations/:stationId/reports/me`, (req, res, ctx) => {
     console.log(req.headers.get('Authorization')); // TODO: 이후에 비로그인 기능도 구현할 때 활용해야함
     const stationId = req.params.stationId as string;
     const reportedStations = getSessionStorage<string[]>(SESSION_KEY_REPORTED_STATIONS, []);
@@ -30,7 +30,7 @@ export const stationReportHandlers = [
   }),
 
   rest.post(
-    `${SERVERS.localhost}/stations/:stationId/misinformation-reports`,
+    `${DEVELOP_SERVER_URL}/stations/:stationId/misinformation-reports`,
     async (req, res, ctx) => {
       const body = await req.json();
       console.log(JSON.stringify(body.stationDetailsToUpdate));

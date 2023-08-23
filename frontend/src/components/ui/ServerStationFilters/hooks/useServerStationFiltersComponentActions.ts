@@ -1,8 +1,8 @@
 import { useQueryClient } from '@tanstack/react-query';
 
 import { fetchUtils } from '@utils/fetch';
-import { getAPIEndPoint } from '@utils/login';
 
+import { serverUrlStore } from '@stores/config/serverUrlStore';
 import { toastActions } from '@stores/layout/toastStore';
 import { memberInfoStore } from '@stores/login/memberInfoStore';
 import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
@@ -33,14 +33,14 @@ export const useServerStationFiltersComponentActions = () => {
   };
 
   const applyMemberFilters = async () => {
-    const APIEndPoint = getAPIEndPoint();
+    const serverUrl = serverUrlStore.getState();
     const memberId = memberInfoStore.getState()?.memberId;
 
     const { getMemberFilterRequestBody } = serverStationFilterAction;
     const memberFilterRequestBody = getMemberFilterRequestBody();
 
     return await fetchUtils.post<StationFilters, typeof memberFilterRequestBody>(
-      `${APIEndPoint}/members/${memberId}/filters`,
+      `${serverUrl}/members/${memberId}/filters`,
       memberFilterRequestBody
     );
   };

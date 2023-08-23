@@ -2,10 +2,9 @@ import { useQuery } from '@tanstack/react-query';
 
 import { useExternalValue } from '@utils/external-state';
 
-import { serverStore } from '@stores/config/serverStore';
+import { serverUrlStore } from '@stores/config/serverUrlStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
-import { INVALID_VALUE_LIST, SERVERS } from '@constants';
 import { ERROR_MESSAGES } from '@constants/errorMessages';
 import { QUERY_KEY_STATION_DETAILS } from '@constants/queryKeys';
 
@@ -16,9 +15,9 @@ export const fetchStationDetails = async (selectedStationId: string) => {
     throw new Error('선택된 충전소가 없습니다.');
   }
 
-  const mode = serverStore.getState();
+  const serverUrl = serverUrlStore.getState();
 
-  const stationDetails = await fetch(`${SERVERS[mode]}/stations/${selectedStationId}`, {
+  const stationDetails = await fetch(`${serverUrl}/stations/${selectedStationId}`, {
     method: 'GET',
   }).then<StationDetails>(async (response) => {
     if (!response.ok) {

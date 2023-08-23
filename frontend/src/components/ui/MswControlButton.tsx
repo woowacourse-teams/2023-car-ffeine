@@ -1,27 +1,23 @@
-import { useExternalState, useSetExternalState } from '@utils/external-state';
-import { getAPIEndPoint } from '@utils/login';
+import { useExternalState } from '@utils/external-state';
 
 import { mswModeActions, mswModeStore } from '@stores/config/mswModeStore';
-import { serverStore } from '@stores/config/serverStore';
 
 import ButtonNext from '@common/ButtonNext';
 import Text from '@common/Text';
-
-import DevelopmentServerControlButton from '@ui/DevelopmentServerControlButton';
 
 import { displayNoneInMobile } from '@style/mediaQuery';
 
 const MswControlButton = () => {
   const [isMswMode, setIsMswMode] = useExternalState(mswModeStore);
-  const setDevelopmentServer = useSetExternalState(serverStore);
+
   const switchMswMode = async () => {
-    setIsMswMode(!isMswMode);
     if (isMswMode) {
       await mswModeActions.stopMsw();
     } else {
-      setDevelopmentServer(getAPIEndPoint() === 'http://localhost:8080/api' ? 'localhost' : 'dain');
       await mswModeActions.startMsw();
     }
+
+    setIsMswMode(!isMswMode);
   };
 
   return (
@@ -32,12 +28,9 @@ const MswControlButton = () => {
         css={displayNoneInMobile}
         onClick={() => switchMswMode()}
       >
-        <>
-          <Text align="center">MSW</Text>
-          <Text align="center">{isMswMode ? 'ON' : 'OFF'}</Text>
-        </>
+        <Text align="center">MSW</Text>
+        <Text align="center">{isMswMode ? 'ON' : 'OFF'}</Text>
       </ButtonNext>
-      {!isMswMode && <DevelopmentServerControlButton />}
     </>
   );
 };

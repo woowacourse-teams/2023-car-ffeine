@@ -1,14 +1,14 @@
 import { stations } from '@mocks/data';
 import { rest } from 'msw';
 
-import { SERVERS } from '@constants';
 import { COMPANIES } from '@constants/chargers';
+import { DEVELOP_SERVER_URL } from '@constants/server';
 
 import type { StationSummary } from '@type';
 import type { CompanyKey } from '@type/serverStationFilter';
 
 export const stationHandlers = [
-  rest.get(`${SERVERS.localhost}/stations`, async (req, res, ctx) => {
+  rest.get(`${DEVELOP_SERVER_URL}/stations`, async (req, res, ctx) => {
     const { searchParams } = req.url;
 
     const latitude = Number(searchParams.get('latitude'));

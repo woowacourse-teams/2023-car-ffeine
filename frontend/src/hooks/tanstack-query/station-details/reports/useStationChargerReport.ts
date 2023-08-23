@@ -1,13 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { serverStore } from '@stores/config/serverStore';
+import { serverUrlStore } from '@stores/config/serverUrlStore';
 import { memberTokenStore } from '@stores/login/memberTokenStore';
 
-import { SERVERS } from '@constants';
 import { QUERY_KEY_STATION_CHARGER_REPORT } from '@constants/queryKeys';
 
 const fetchStationChargerReport = (stationId: string) => {
-  const mode = serverStore.getState();
+  const serverUrl = serverUrlStore.getState();
   const memberToken = memberTokenStore.getState();
   const headers =
     memberToken === ''
@@ -19,7 +18,7 @@ const fetchStationChargerReport = (stationId: string) => {
           'Content-Type': 'application/json',
         };
 
-  return fetch(`${SERVERS[mode]}/stations/${stationId}/reports/me`, {
+  return fetch(`${serverUrl}/stations/${stationId}/reports/me`, {
     method: 'GET',
     headers: headers,
   }).then<boolean>(async (response) => {

@@ -7,7 +7,7 @@ import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 import { getDisplayPosition } from '@utils/google-maps';
 import { getQueryFormattedUrl } from '@utils/request-query-params';
 
-import { serverStore } from '@stores/config/serverStore';
+import { serverUrlStore } from '@stores/config/serverUrlStore';
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { clientStationFiltersStore } from '@stores/station-filters/clientStationFiltersStore';
 import {
@@ -16,7 +16,6 @@ import {
   selectedCompaniesFilterStore,
 } from '@stores/station-filters/serverStationFiltersStore';
 
-import { SERVERS } from '@constants';
 import { COMPANIES } from '@constants/chargers';
 import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
 import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
@@ -59,8 +58,8 @@ export const fetchStation = async () => {
         : '',
   });
 
-  const mode = serverStore.getState();
-  const stations = await fetch(`${SERVERS[mode]}/stations?${requestQueryParams}`, {
+  const serverUrl = serverUrlStore.getState();
+  const stations = await fetch(`${serverUrl}/stations?${requestQueryParams}`, {
     method: 'GET',
   }).then<StationSummary[]>(async (response) => {
     const data = await response.json();

@@ -2,12 +2,12 @@ import { useMutation } from '@tanstack/react-query';
 
 import { getLocalStorage } from '@utils/storage';
 
-import { serverStore } from '@stores/config/serverStore';
+import { serverUrlStore } from '@stores/config/serverUrlStore';
 import { modalActions } from '@stores/layout/modalStore';
 
 import type { Differences } from '@ui/StationDetailsWindow/reports/station/StationReportConfirmation';
 
-import { DEFAULT_TOKEN, SERVERS } from '@constants';
+import { DEFAULT_TOKEN } from '@constants';
 import { LOCAL_KEY_TOKEN } from '@constants/storageKeys';
 
 interface FetchReportStationRequest {
@@ -18,8 +18,9 @@ interface FetchReportStationRequest {
 const fetchReportStation = async (fetchReportStationRequestParams: FetchReportStationRequest) => {
   const { stationId, differences } = fetchReportStationRequestParams;
   const token = getLocalStorage<number>(LOCAL_KEY_TOKEN, DEFAULT_TOKEN);
-  const mode = serverStore.getState();
-  return fetch(`${SERVERS[mode]}/stations/${stationId}/misinformation-reports`, {
+
+  const serverUrl = serverUrlStore.getState();
+  return fetch(`${serverUrl}/stations/${stationId}/misinformation-reports`, {
     method: 'POST',
     headers: {
       Authorization: `${token}`,

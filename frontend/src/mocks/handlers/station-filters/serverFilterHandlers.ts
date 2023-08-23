@@ -1,10 +1,10 @@
 import { rest } from 'msw';
 
-import { SERVERS } from '@constants';
 import { CAPACITIES, CONNECTOR_TYPES, COMPANIES } from '@constants/chargers';
+import { DEVELOP_SERVER_URL } from '@constants/server';
 
 export const serverFilterHandlers = [
-  rest.get(`${SERVERS.localhost}/filters`, (_, res, ctx) => {
+  rest.get(`${DEVELOP_SERVER_URL}/filters`, (_, res, ctx) => {
     CONNECTOR_TYPES;
     COMPANIES;
     CAPACITIES;

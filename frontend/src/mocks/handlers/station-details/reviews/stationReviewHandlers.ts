@@ -1,10 +1,10 @@
 import { generateReplies, generateReviews } from '@mocks/data';
 import { rest } from 'msw';
 
-import { SERVERS } from '@constants';
+import { DEVELOP_SERVER_URL } from '@constants/server';
 
 export const stationReviewHandlers = [
-  rest.get(`${SERVERS.localhost}/stations/:stationId/total-ratings`, (req, res, ctx) => {
+  rest.get(`${DEVELOP_SERVER_URL}/stations/:stationId/total-ratings`, (req, res, ctx) => {
     const reviews = generateReviews();
     const validReviews = reviews.filter((review) => !review.isDeleted);
     const min = 1;
@@ -19,7 +19,7 @@ export const stationReviewHandlers = [
     );
   }),
 
-  rest.get(`${SERVERS.localhost}/stations/:stationId/reviews`, (req, res, ctx) => {
+  rest.get(`${DEVELOP_SERVER_URL}/stations/:stationId/reviews`, (req, res, ctx) => {
     const reviews = generateReviews();
     const { searchParams } = req.url;
     const page = Number(searchParams.get('page'));
@@ -58,22 +58,22 @@ export const stationReviewHandlers = [
     }
   }),
 
-  rest.post(`${SERVERS.localhost}/stations/:stationId/reviews`, async (req, res, ctx) => {
+  rest.post(`${DEVELOP_SERVER_URL}/stations/:stationId/reviews`, async (req, res, ctx) => {
     const body = await req.json();
     console.log(`충전소 후기 작성 :${JSON.stringify(body)}`);
     return res(ctx.delay(200), ctx.status(204));
   }),
-  rest.patch(`${SERVERS.localhost}/reviews/:reviewId`, async (req, res, ctx) => {
+  rest.patch(`${DEVELOP_SERVER_URL}/reviews/:reviewId`, async (req, res, ctx) => {
     const body = await req.json();
     console.log(`충전소 후기 수정 :${JSON.stringify(body)}`);
     return res(ctx.delay(200), ctx.status(204));
   }),
-  rest.delete(`${SERVERS.localhost}/reviews/:reviewId`, async (req, res, ctx) => {
+  rest.delete(`${DEVELOP_SERVER_URL}/reviews/:reviewId`, async (req, res, ctx) => {
     console.log(`충전소 후기 삭제`);
     return res(ctx.delay(200), ctx.status(204));
   }),
 
-  rest.get(`${SERVERS.localhost}/reviews/:reviewId/replies`, (req, res, ctx) => {
+  rest.get(`${DEVELOP_SERVER_URL}/reviews/:reviewId/replies`, (req, res, ctx) => {
     const replies = generateReplies();
     const { searchParams } = req.url;
     const page = Number(searchParams.get('page'));
@@ -112,17 +112,17 @@ export const stationReviewHandlers = [
     }
   }),
 
-  rest.post(`${SERVERS.localhost}/reviews/:reviewId/replies`, async (req, res, ctx) => {
+  rest.post(`${DEVELOP_SERVER_URL}/reviews/:reviewId/replies`, async (req, res, ctx) => {
     const body = await req.json();
     console.log(`충전소 후기 답글 작성 :${JSON.stringify(body)}`);
     return res(ctx.delay(200), ctx.status(204));
   }),
-  rest.patch(`${SERVERS.localhost}/reviews/:reviewId/replies/:replyId`, async (req, res, ctx) => {
+  rest.patch(`${DEVELOP_SERVER_URL}/reviews/:reviewId/replies/:replyId`, async (req, res, ctx) => {
     const body = await req.json();
     console.log(`충전소 후기 답글 수정 :${JSON.stringify(body)}`);
     return res(ctx.delay(200), ctx.status(204));
   }),
-  rest.delete(`${SERVERS.localhost}/reviews/:reviewId/replies/:replyId`, (req, res, ctx) => {
+  rest.delete(`${DEVELOP_SERVER_URL}/reviews/:reviewId/replies/:replyId`, (req, res, ctx) => {
     console.log(`충전소 후기 답글 삭제`);
     return res(ctx.delay(200), ctx.status(204));
   }),

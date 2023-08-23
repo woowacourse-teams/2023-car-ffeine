@@ -1,14 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { serverStore } from '@stores/config/serverStore';
-
-import { SERVERS } from '@constants';
+import { serverUrlStore } from '@stores/config/serverUrlStore';
 
 import type { StationRatings } from '@type';
 
 export const fetchReviewRatings = async (stationId: string) => {
-  const mode = serverStore.getState();
-  return fetch(`${SERVERS[mode]}/stations/${stationId}/total-ratings`).then<StationRatings>(
+  const serverUrl = serverUrlStore.getState();
+  return fetch(`${serverUrl}/stations/${stationId}/total-ratings`).then<StationRatings>(
     async (response): Promise<StationRatings> => {
       const data = await response.json();
       return data;

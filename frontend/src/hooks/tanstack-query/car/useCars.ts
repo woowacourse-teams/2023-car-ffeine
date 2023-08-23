@@ -1,8 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { serverStore } from '@stores/config/serverStore';
-
-import { SERVERS } from '@constants';
+import { serverUrlStore } from '@stores/config/serverUrlStore';
 
 import type { Car } from '@type/cars';
 
@@ -11,11 +9,9 @@ interface CarResponse {
 }
 
 const fetchCars = async () => {
-  const mode = serverStore.getState();
+  const serverUrl = serverUrlStore.getState();
 
-  const cars = await fetch(`${SERVERS[mode]}/cars`).then<CarResponse>((response) =>
-    response.json()
-  );
+  const cars = await fetch(`${serverUrl}/cars`).then<CarResponse>((response) => response.json());
 
   return cars.cars;
 };

@@ -1,9 +1,9 @@
 import { rest } from 'msw';
 
-import { SERVERS } from '@constants';
+import { DEVELOP_SERVER_URL } from '@constants/server';
 
 export const memberFilterHandlers = [
-  rest.post(`${SERVERS.localhost}/members/:memberId/filters`, async (req, res, ctx) => {
+  rest.post(`${DEVELOP_SERVER_URL}/members/:memberId/filters`, async (req, res, ctx) => {
     const memberToken = req.headers.get('Authorization');
     const requestBody = await req.json();
 
@@ -26,7 +26,7 @@ export const memberFilterHandlers = [
     return res(ctx.status(200), ctx.json({ connectorTypes, capacities, companies }));
   }),
 
-  rest.get(`${SERVERS.localhost}/members/:memberId/filters`, (req, res, ctx) => {
+  rest.get(`${DEVELOP_SERVER_URL}/members/:memberId/filters`, (req, res, ctx) => {
     const memberToken = req.headers.get('Authorization');
 
     if (memberToken === undefined || memberToken.replace('Bearer', '') === '') {

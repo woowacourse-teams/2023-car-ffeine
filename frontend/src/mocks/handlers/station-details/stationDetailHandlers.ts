@@ -1,11 +1,11 @@
 import { stations } from '@mocks/data';
 import { rest } from 'msw';
 
-import { SERVERS } from '@constants';
 import { ERROR_MESSAGES } from '@constants/errorMessages';
+import { DEVELOP_SERVER_URL } from '@constants/server';
 
 export const stationDetailHandlers = [
-  rest.get(`${SERVERS.localhost}/stations/:id`, async (req, res, ctx) => {
+  rest.get(`${DEVELOP_SERVER_URL}/stations/:id`, async (req, res, ctx) => {
     const stationId = req.params.id;
     const selectedStation = stations.find((station) => station.stationId === stationId);
 
