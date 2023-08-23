@@ -35,7 +35,7 @@ import LoginModal from '@ui/modal/LoginModal/LoginModal';
 
 import { displayNoneInMobile, displayNoneInWeb } from '@style/mediaQuery';
 
-import { MOBILE_BREAKPOINT } from '@constants';
+import { EMPTY_MEMBER_TOKEN, MOBILE_BREAKPOINT } from '@constants';
 import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
 
 import PopupMenu from '../PopupMenu';
@@ -95,7 +95,7 @@ const Menu = () => {
       <Button aria-label="필터링 메뉴 열기" onClick={() => openBasePanel(<ServerStationFilters />)}>
         <AdjustmentsHorizontalIcon width="2.8rem" stroke="#333" />
       </Button>
-      {memberToken !== '' ? (
+      {memberToken !== EMPTY_MEMBER_TOKEN ? (
         <PopupMenu menus={loginMenus} />
       ) : (
         <Button aria-label="로그인 하기" onClick={handleClickLoginIcon}>

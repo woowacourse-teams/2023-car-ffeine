@@ -4,12 +4,13 @@ import { serverUrlStore } from '@stores/config/serverUrlStore';
 import { memberTokenStore } from '@stores/login/memberTokenStore';
 
 import { QUERY_KEY_STATION_CHARGER_REPORT } from '@constants/queryKeys';
+import { EMPTY_MEMBER_TOKEN } from '@constants';
 
 const fetchStationChargerReport = (stationId: string) => {
   const serverUrl = serverUrlStore.getState();
   const memberToken = memberTokenStore.getState();
   const headers =
-    memberToken === ''
+    memberToken === EMPTY_MEMBER_TOKEN
       ? {
           'Content-Type': 'application/json',
         }

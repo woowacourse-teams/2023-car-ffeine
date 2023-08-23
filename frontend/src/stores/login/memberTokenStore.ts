@@ -1,6 +1,7 @@
 import { store } from '@utils/external-state';
 import { getSessionStorage } from '@utils/storage';
 
+import { EMPTY_MEMBER_TOKEN } from '@constants';
 import { SESSION_KEY_MEMBER_TOKEN } from '@constants/storageKeys';
 
 import { toastActions } from '../layout/toastStore';
@@ -16,11 +17,11 @@ export const memberTokenActions = {
   setMemberToken: async (memberToken: string, isInitial?: boolean) => {
     memberTokenStore.setState(memberToken);
 
-    if (memberToken === '' && isInitial !== true) {
+    if (memberToken === EMPTY_MEMBER_TOKEN && isInitial !== true) {
       toastActions.showToast('로그아웃 되었습니다');
     }
 
-    if (memberToken !== '') {
+    if (memberToken !== EMPTY_MEMBER_TOKEN) {
       toastActions.showToast('로그인 되었습니다');
     }
   },
