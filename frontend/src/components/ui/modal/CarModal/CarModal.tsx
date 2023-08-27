@@ -1,6 +1,10 @@
+import { css, styled } from 'styled-components';
+
 import { useState } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
+
+import { useExternalState } from '@utils/external-state';
 
 import { modalActions } from '@stores/layout/modalStore';
 import { toastActions } from '@stores/layout/toastStore';
@@ -23,14 +27,15 @@ const CarModal = () => {
   const queryClient = useQueryClient();
 
   const { data: cars, isLoading } = useCars();
-  const memberInfo = memberInfoStore.getState();
   const { setAllServerStationFilters } = serverStationFilterAction;
 
-  const [carName, setCarName] = useState(memberInfo.car !== null ? memberInfo.car.name : '');
-  const [vintage, setVintage] = useState(memberInfo.car !== null ? memberInfo.car.vintage : '');
+  const [memberInfo, setMemberInfo] = useExternalState(memberInfoStore);
+  const [carName, setCarName] = useState(memberInfo.car !== null ? memberInfo.car.name : '모델명');
+  const [vintage, setVintage] = useState(memberInfo.car !== null ? memberInfo.car.vintage : '연식');
 
   const handleSelectCarName = (name: string) => {
     setCarName(name);
+    setVintage('연식');
   };
 
   const handleSelectVintage = (vintage: string) => {
@@ -38,12 +43,12 @@ const CarModal = () => {
   };
 
   const handleFetchCarFilters = async () => {
-    if (carName === '') {
+    if (carName === '모델명') {
       toastActions.showToast('차량 모델명을 선택해주세요', 'error');
       return;
     }
 
-    if (vintage === '') {
+    if (vintage === '연식') {
       toastActions.showToast('차량 연식을 선택해주세요', 'error');
       return;
     }
@@ -55,6 +60,14 @@ const CarModal = () => {
 
       setAllServerStationFilters(memberFilters);
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
+      setMemberInfo((prev) => ({
+        ...prev,
+        car: {
+          ...prev.car,
+          name: carName,
+          vintage,
+        },
+      }));
 
       toastActions.showToast('챠량 등록이 완료되었습니다');
       modalActions.closeModal();
@@ -76,33 +89,33 @@ const CarModal = () => {
   const carNames = [...new Set([...(cars ?? []).map((car) => car.name)])];
 
   return (
-    <FlexBox width={34} direction="column" alignItems="center" css={{ padding: '1rem' }}>
+    <FlexBox width={34} direction="column" alignItems="center" css={paddingCss}>
       <Text variant="h5" mb={3}>
         차량 선택
       </Text>
       <FlexBox width="100%">
-        <FlexBox css={{ flex: 1, height: '4rem' }}>
+        <FlexBox css={[flexRatioCss, selectBoxCss]}>
           <SelectBox
             options={['모델명', ...carNames]}
             onChange={handleSelectCarName}
-            initialValue={carName}
+            value={carName}
           />
         </FlexBox>
-        <FlexBox css={{ flex: 1, height: '4rem' }}>
+        <FlexBox css={[flexRatioCss, selectBoxCss]}>
           <SelectBox
             options={[
               '연식',
               ...cars
-                .filter((car) => car.name === (carName !== '' ? carName : carNames[0]))
+                .filter((car) => car.name === (carName !== '모델명' ? carName : carNames[0]))
                 .map((car) => car.vintage),
             ]}
             onChange={handleSelectVintage}
-            initialValue={vintage}
+            value={vintage}
           />
         </FlexBox>
       </FlexBox>
       <FlexBox width="100%">
-        <ButtonNext onClick={modalActions.closeModal} variant="outlined" css={{ flex: 1 }}>
+        <ButtonNext onClick={modalActions.closeModal} variant="outlined" css={flexRatioCss}>
           취소
         </ButtonNext>
         <ButtonNext
@@ -114,7 +127,7 @@ const CarModal = () => {
             }
           }}
           variant="contained"
-          css={{ flex: 1 }}
+          css={flexRatioCss}
         >
           등록
         </ButtonNext>
@@ -126,31 +139,45 @@ const CarModal = () => {
 const SelectBox = ({
   options,
   onChange,
-  initialValue,
+  value,
 }: {
   options: string[];
   onChange: (option: string) => void;
-  initialValue?: string;
+  value: string;
 }) => {
-  console.log(initialValue);
-
   return (
-    <select
+    <StyledSelectBox
       onChange={({ target: { value } }) => {
         onChange(value);
       }}
       style={{
         flex: 1,
       }}
-      defaultValue={initialValue}
+      value={value}
     >
       {options.map((option, index) => (
         <option key={index} value={option}>
           {option}
         </option>
       ))}
-    </select>
+    </StyledSelectBox>
   );
 };
+
+const flexRatioCss = css`
+  flex: 1;
+`;
+
+const selectBoxCss = css`
+  height: 4rem;
+`;
+
+const paddingCss = css`
+  padding: 1rem;
+`;
+
+const StyledSelectBox = styled.select`
+  flex: 1;
+`;
 
 export default CarModal;
