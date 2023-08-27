@@ -1,6 +1,7 @@
 import { stations } from '@mocks/data';
 import { rest } from 'msw';
 
+import { COMMA } from '@constants';
 import { COMPANIES } from '@constants/chargers';
 import { DEVELOP_SERVER_URL } from '@constants/server';
 
@@ -20,9 +21,9 @@ export const stationHandlers = [
     const isCapacityFilterSelected = searchParams.get('capacities') !== null;
     const isCompanyNameFilterSelected = searchParams.get('companyNames') !== null;
 
-    const selectedChargerTypes = searchParams.get('chargerTypes')?.split(',');
-    const selectedCapacities = searchParams.get('capacities')?.split(',')?.map(Number);
-    const selectedCompanies = searchParams.get('companyNames')?.split(',');
+    const selectedChargerTypes = searchParams.get('chargerTypes')?.split(COMMA);
+    const selectedCapacities = searchParams.get('capacities')?.split(COMMA)?.map(Number);
+    const selectedCompanies = searchParams.get('companyNames')?.split(COMMA);
 
     const northEastBoundary = {
       latitude: latitude + latitudeDelta,

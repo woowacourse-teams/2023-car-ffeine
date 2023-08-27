@@ -16,6 +16,7 @@ import {
   selectedCompaniesFilterStore,
 } from '@stores/station-filters/serverStationFiltersStore';
 
+import { COMMA } from '@constants';
 import { COMPANIES } from '@constants/chargers';
 import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
 import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
@@ -51,10 +52,10 @@ export const fetchStation = async () => {
     ...displayPositionString,
     companyNames:
       companyFilters.size > 0
-        ? [...companyFilters].map((companyKey) => COMPANIES[companyKey]).join(',')
+        ? [...companyFilters].map((companyKey) => COMPANIES[companyKey]).join(COMMA)
         : '',
-    capacities: capacityFilters.size > 0 ? [...capacityFilters].join(',') : '',
-    chargerTypes: connectorTypeFilters.size > 0 ? [...connectorTypeFilters].join(',') : '',
+    capacities: capacityFilters.size > 0 ? [...capacityFilters].join(COMMA) : '',
+    chargerTypes: connectorTypeFilters.size > 0 ? [...connectorTypeFilters].join(COMMA) : '',
   });
 
   const serverUrl = serverUrlStore.getState();
