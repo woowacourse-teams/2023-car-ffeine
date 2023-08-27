@@ -150,9 +150,6 @@ const SelectBox = ({
       onChange={({ target: { value } }) => {
         onChange(value);
       }}
-      style={{
-        flex: 1,
-      }}
       value={value}
     >
       {options.map((option, index) => (
