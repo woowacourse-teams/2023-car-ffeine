@@ -5,6 +5,8 @@ import type { PropsWithChildren } from 'react';
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 
+import { MOBILE_BREAKPOINT } from '@constants';
+
 interface Props {
   menus: PropsWithChildren<{ onClick: () => void }>[];
   closeMenu: () => void;
@@ -63,7 +65,7 @@ const containerCss = css`
 
     transform: rotate(45deg);
 
-    @media screen and (max-width: 414px) {
+    @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
       top: auto;
       bottom: -10px;
       left: auto;

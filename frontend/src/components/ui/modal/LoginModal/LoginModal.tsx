@@ -7,6 +7,8 @@ import Text from '@common/Text';
 
 import LogoIcon from '@ui/Svg/LogoIcon';
 
+import { MOBILE_BREAKPOINT } from '@constants';
+
 import GoogleLogo from '@assets/google-logo.svg';
 
 const LoginModal = () => {
@@ -64,7 +66,7 @@ const GoogleLogin = styled.button`
     margin: 0.9rem 2.4rem 1.2rem 0;
   }
 
-  @media screen and (max-width: 414px) {
+  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     column-gap: 1.6rem;
   }
 `;
