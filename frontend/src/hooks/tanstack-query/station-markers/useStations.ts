@@ -16,6 +16,7 @@ import {
   selectedCompaniesFilterStore,
 } from '@stores/station-filters/serverStationFiltersStore';
 
+import { DELIMITER } from '@constants';
 import { COMPANIES } from '@constants/chargers';
 import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
 import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
@@ -36,26 +37,25 @@ export const fetchStation = async () => {
     return new Promise<StationSummary[]>((resolve) => resolve([]));
   }
 
-  const displayPositionKey = getTypedObjectKeys<DisplayPosition>(displayPosition);
-  const displayPositionValue = Object.values(displayPosition).map(String);
-  const displayPositionString = getTypedObjectFromEntries(displayPositionKey, displayPositionValue);
+  const displayPositionKeys = getTypedObjectKeys<DisplayPosition>(displayPosition);
+  const displayPositionValues = Object.values(displayPosition).map(String);
+  const displayPositionString = getTypedObjectFromEntries(
+    displayPositionKeys,
+    displayPositionValues
+  );
+
+  const companyFilters = selectedCompaniesFilterStore.getState();
+  const capacityFilters = selectedCapacitiesFilterStore.getState();
+  const connectorTypeFilters = selectedConnectorTypesFilterStore.getState();
 
   const requestQueryParams = getQueryFormattedUrl({
     ...displayPositionString,
     companyNames:
-      getStoreSnapshot(selectedCompaniesFilterStore).size > 0
-        ? [...getStoreSnapshot(selectedCompaniesFilterStore)]
-            .map((companyKey) => COMPANIES[companyKey])
-            .join(',')
+      companyFilters.size > 0
+        ? [...companyFilters].map((companyKey) => COMPANIES[companyKey]).join(DELIMITER)
         : '',
-    capacities:
-      getStoreSnapshot(selectedCapacitiesFilterStore).size > 0
-        ? [...getStoreSnapshot(selectedCapacitiesFilterStore)].join(',')
-        : '',
-    chargerTypes:
-      getStoreSnapshot(selectedConnectorTypesFilterStore).size > 0
-        ? [...getStoreSnapshot(selectedConnectorTypesFilterStore)].join(',')
-        : '',
+    capacities: capacityFilters.size > 0 ? [...capacityFilters].join(DELIMITER) : '',
+    chargerTypes: connectorTypeFilters.size > 0 ? [...connectorTypeFilters].join(DELIMITER) : '',
   });
 
   const serverUrl = serverUrlStore.getState();

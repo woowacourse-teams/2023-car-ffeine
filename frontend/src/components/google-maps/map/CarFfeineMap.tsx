@@ -12,6 +12,7 @@ import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { toastActions } from '@stores/layout/toastStore';
 import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
 
+import { useCarFilters } from '@hooks/tanstack-query/station-filters/useCarFilters';
 import { useMemberFilters } from '@hooks/tanstack-query/station-filters/useMemberFilters';
 
 import ToastContainer from '@common/Toast/ToastContainer';
@@ -21,7 +22,6 @@ import MapController from '@ui/MapController';
 import ModalContainer from '@ui/ModalContainer';
 import ModalSecondaryContainer from '@ui/ModalSecondaryContainer';
 import Navigator from '@ui/Navigator';
-import StationMarkerLoadingSpinner from '@ui/StationMarkerLoadingSpinner';
 
 import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
 import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
@@ -39,7 +39,6 @@ const CarFfeineMap = () => {
       <ClientStationFilters />
       <MapController />
       <StationMarkersContainer />
-      <StationMarkerLoadingSpinner />
     </>
   );
 };
@@ -49,7 +48,6 @@ const CarFfeineMapListener = () => {
   const queryClient = useQueryClient();
 
   const debouncedIdleHandler = debounce(() => {
-    // console.log('idle (테스트용: 제거 예정)');
     if (googleMap.getZoom() < INITIAL_ZOOM_SIZE) {
       toastActions.showToast('지도를 조금만 더 확대해주세요', 'warning', 'bottom-center');
     }
@@ -77,10 +75,12 @@ const CarFfeineMapListener = () => {
 const UserFilterListener = () => {
   const queryClient = useQueryClient();
   const { data: memberFilters } = useMemberFilters();
+  const { data: carFilters } = useCarFilters();
   const { setAllServerStationFilters } = serverStationFilterAction;
 
   if (memberFilters !== undefined) {
     setAllServerStationFilters(memberFilters);
+    setAllServerStationFilters(carFilters);
     queryClient.invalidateQueries([{ queryKey: [QUERY_KEY_STATIONS] }]);
   }
 

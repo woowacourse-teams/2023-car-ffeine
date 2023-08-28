@@ -1,13 +1,7 @@
 export const DEFAULT_TOKEN = -1;
+export const EMPTY_MEMBER_TOKEN = '';
 
 export const INVALID_VALUE_LIST = ['null', '.', '..', '1', '#'];
-
-export const SERVERS = {
-  dain: 'https://dain.carffe.in/api',
-  production: 'https://api.carffe.in/api',
-} as const;
-
-export const MSW_OFF = 'mswOff';
 
 export const FORM_ADDRESS_LENGTH_LIMIT = 150;
 export const FORM_DETAIL_LOCATION_LENGTH_LIMIT = 200;
@@ -21,3 +15,5 @@ export const MAX_REVIEW_CONTENT_LENGTH = 100;
 export const BROWSER_WIDTH = document.body.offsetWidth;
 export const NAVIGATOR_PANEL_WIDTH = 34;
 export const MOBILE_BREAKPOINT = 415;
+
+export const DELIMITER = ',';

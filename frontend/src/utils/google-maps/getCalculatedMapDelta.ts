@@ -18,10 +18,10 @@ export const getCalculatedMapDelta = () => {
 };
 
 export const getNavigationComponentWidth = () => {
-  const { basePanel, lastPanel } = navigationBarPanelStore.getState();
-  const navigationComponentWidth =
-    (basePanel === null ? 0 : NAVIGATOR_PANEL_WIDTH) +
-    (lastPanel === null ? 0 : NAVIGATOR_PANEL_WIDTH);
+  const { basePanel } = navigationBarPanelStore.getState();
 
-  return navigationComponentWidth;
+  if (basePanel !== null) {
+    return NAVIGATOR_PANEL_WIDTH * 2;
+  }
+  return NAVIGATOR_PANEL_WIDTH;
 };
