@@ -49,7 +49,7 @@ const headerCss = css`
 
 const xIconCss = css`
   position: absolute;
-  top: 4rem;
+  top: 2rem;
   right: 3rem;
 `;
 

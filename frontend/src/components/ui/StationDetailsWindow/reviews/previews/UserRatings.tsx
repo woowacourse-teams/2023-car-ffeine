@@ -1,4 +1,5 @@
 import { StarIcon } from '@heroicons/react/24/solid';
+import { css } from 'styled-components';
 
 import { useReviewRatings } from '@hooks/tanstack-query/station-details/reviews/useReviewRatings';
 
@@ -35,12 +36,12 @@ const UserRatings = ({ stationId }: UserRatingsProps) => {
   }
 
   return (
-    <Box mt={10} mb={5}>
+    <Box mt={12} mb={5}>
       <FlexBox justifyContent="between" alignItems="center">
         <Text fontSize={1.8} weight="bold">
           충전소 후기
         </Text>
-        <Text variant="subtitle">
+        <Text variant="subtitle" css={ratingCss}>
           <StarIcon width={14} display="inline-block" />
           {totalRatings.totalRatings} ({totalRatings.totalCount}명)
         </Text>
@@ -48,5 +49,12 @@ const UserRatings = ({ stationId }: UserRatingsProps) => {
     </Box>
   );
 };
+
+const ratingCss = css`
+  gap: 0.4rem;
+  display: flex;
+  align-self: baseline;
+  align-items: center;
+`;
 
 export default UserRatings;

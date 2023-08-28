@@ -44,7 +44,7 @@ const GoogleLogin = styled.button`
   align-items: center;
   column-gap: 6.6rem;
 
-  width: 29.2rem;
+  max-width: 29.2rem;
   height: 4rem;
   margin: 3.6rem auto -1rem;
   padding: 0 1.8rem;
@@ -62,6 +62,10 @@ const GoogleLogin = styled.button`
 
   & > p {
     margin: 0.9rem 2.4rem 1.2rem 0;
+  }
+
+  @media screen and (max-width: 414px) {
+    column-gap: 1.6rem;
   }
 `;
 
