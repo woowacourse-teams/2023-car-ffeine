@@ -16,4 +16,4 @@ export const BROWSER_WIDTH = document.body.offsetWidth;
 export const NAVIGATOR_PANEL_WIDTH = 34;
 export const MOBILE_BREAKPOINT = 415;
 
-export const COMMA = ',';
+export const DELIMITER = ',';
