@@ -1,10 +1,11 @@
-import { styled } from 'styled-components';
+import { css, styled } from 'styled-components';
 
 import { useExternalState, useExternalValue } from '@utils/external-state';
 
 import { navigationBarPanelStore } from '@stores/layout/navigationBarPanelStore';
 import { clientStationFiltersStore } from '@stores/station-filters/clientStationFiltersStore';
 
+import Box from '@common/Box';
 import FlexBox from '@common/FlexBox';
 
 import { displayNoneInWeb } from '@style/mediaQuery';
@@ -25,7 +26,7 @@ const ClientStationFilters = () => {
     setFilterOption,
   ] = useExternalState(clientStationFiltersStore);
 
-  const ADDITIONAL_MARGIN = 10;
+  const ADDITIONAL_MARGIN = 8;
   const { basePanel, lastPanel } = useExternalValue(navigationBarPanelStore);
   const navigationComponentWidth =
     (basePanel === null ? 0 : NAVIGATOR_PANEL_WIDTH) +
@@ -62,10 +63,10 @@ const ClientStationFilters = () => {
 
   return (
     <Container left={navigationComponentWidth}>
-      <FlexBox css={displayNoneInWeb}>
+      <Box css={displayNoneInWeb}>
         <StationSearchBar />
-      </FlexBox>
-      <FlexBox>
+      </Box>
+      <FlexBox css={mobileFilterContainerCss}>
         <ClientFilterButton
           onClick={toggleAvailableStation}
           isChecked={isAvailableStationFilterSelected}
@@ -98,23 +99,21 @@ const ClientStationFilters = () => {
 const Container = styled.div<{ left: number }>`
   position: fixed;
   top: 14px;
-  left: ${(props) => props.left}rem;
+  left: ${({ left }) => left}rem;
   z-index: 998;
   padding: 10px;
 
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
-    flex-direction: column;
     left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 `;
 
 const ClientFilterButton = styled.button<{ isChecked: boolean }>`
   padding: 0.6rem 1.2rem;
-  margin-right: 0.2rem;
+  margin-right: 0.4rem;
   background: ${({ isChecked }) => (isChecked ? '#ccdaff' : '#ffffff')};
   box-shadow:
     0 1px 2px rgba(60, 64, 67, 0.3),
@@ -122,13 +121,10 @@ const ClientFilterButton = styled.button<{ isChecked: boolean }>`
   border-radius: 16px;
 `;
 
-// const mobileFilterContainerCss = css`
-//   gap: 1rem;
-
-//   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
-//     justify-content: space-between;
-//     width: calc(100vw - 2rem);
-//   }
-// `;
+const mobileFilterContainerCss = css`
+  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+    row-gap: 10px;
+  }
+`;
 
 export default ClientStationFilters;

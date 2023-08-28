@@ -1,4 +1,4 @@
-import { css, styled } from 'styled-components';
+import { css } from 'styled-components';
 
 import type { PropsWithChildren } from 'react';
 
@@ -12,8 +12,14 @@ interface Props {
 
 const Menus = ({ menus, closeMenu }: Props) => {
   return (
-    <FlexBox tag="ul" width="max-content" direction="column" alignItems="center" css={containerCss}>
-      <StartingPointBox />
+    <FlexBox
+      tag="ul"
+      width="max-content"
+      direction="column"
+      alignItems="center"
+      gap={0}
+      css={containerCss}
+    >
       {menus.map(({ children, onClick }, i) => (
         <FlexBox key={i} tag="li">
           <ButtonNext
@@ -33,47 +39,46 @@ const Menus = ({ menus, closeMenu }: Props) => {
   );
 };
 
-const StartingPointBox = styled.div`
-  width: 2rem;
-  height: 2rem;
-
-  position: absolute;
-  top: 2rem;
-  left: -1rem;
-
-  border: 1px solid #d6d6d6;
-  border-top: none;
-  border-right: none;
-
-  background-color: #fff;
-
-  transform: rotate(45deg);
-
-  @media screen and (max-width: 414px) {
-    top: auto;
-    bottom: -10px;
-    left: auto;
-    transform: rotate(-45deg);
-  }
-`;
-
 const containerCss = css`
-  flex-shrink: 0;
-
   position: relative;
 
-  border: 1px solid #d6d6d6;
+  border: 2.4px solid #d6d6d6;
 
-  background-color: #fff;
+  background: #fff;
+
+  &::before {
+    content: '';
+    width: 2rem;
+    height: 2rem;
+    background: none;
+
+    position: absolute;
+    top: 2rem;
+    left: -1rem;
+
+    border: 1px solid #d6d6d6;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent transparent #d6d6d6;
+
+    transform: rotate(45deg);
+
+    @media screen and (max-width: 414px) {
+      top: auto;
+      bottom: -10px;
+      left: auto;
+      transform: rotate(-45deg);
+    }
+  }
 `;
 
 const buttonCss = css`
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  flex-shrink: 0;
+  gap: 0.6rem;
 
-  padding: 1rem;
+  padding: 0.8rem 1rem;
+  font-size: 1.5rem;
 `;
 
 export default Menus;

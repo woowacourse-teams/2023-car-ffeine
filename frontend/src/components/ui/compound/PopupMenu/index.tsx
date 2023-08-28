@@ -43,7 +43,7 @@ const container = css`
     top: -18px;
 
     @media screen and (max-width: 414px) {
-      top: -134px;
+      top: -102px;
       left: -43px;
     }
   }

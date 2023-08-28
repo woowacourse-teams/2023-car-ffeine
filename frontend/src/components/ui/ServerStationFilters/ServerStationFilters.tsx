@@ -54,11 +54,7 @@ const ServerStationFilters = () => {
   };
 
   return (
-    <FlexBox
-      css={[overFlowCss, borderCss, containerCss, paddingBottomCss]}
-      nowrap={true}
-      noRadius={'all'}
-    >
+    <FlexBox css={[overFlowCss, borderCss, containerCss, paddingBottomCss]} nowrap noRadius="all">
       <FlexBox
         width={NAVIGATOR_PANEL_WIDTH}
         height={8}
@@ -115,10 +111,11 @@ export const containerCss = css`
   flex-direction: column;
   background-color: #fff;
 
-  z-index: 9999;
+  z-index: 99;
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     width: 100vw;
+    border-radius: 0;
   }
 `;
 

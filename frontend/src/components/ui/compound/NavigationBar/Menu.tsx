@@ -124,7 +124,7 @@ const flexCss = css`
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     width: 100vw;
-    height: 7rem;
+    height: 6rem;
     flex-direction: row;
     gap: 0;
     justify-content: space-around;
@@ -142,6 +142,7 @@ const fixedPositionCss = css`
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     bottom: 0;
+    z-index: 99;
   }
 `;
 

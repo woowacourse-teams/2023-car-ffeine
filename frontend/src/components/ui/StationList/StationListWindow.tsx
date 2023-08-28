@@ -12,6 +12,8 @@ import Text from '@common/Text';
 import { containerCss } from '@ui/ServerStationFilters/ServerStationFilters';
 import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
+import { MOBILE_BREAKPOINT } from '@constants';
+
 import StationList from './StationList';
 
 const StationListWindow = () => {
@@ -36,10 +38,13 @@ const StationListWindow = () => {
 };
 
 const headerCss = css`
-  margin-top: 4rem;
+  margin: 4rem 0 2rem;
 
   width: calc(100vw - 6rem);
-  margin-bottom: 2rem;
+
+  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+    margin-top: 2.8rem;
+  }
 `;
 
 const xIconCss = css`
