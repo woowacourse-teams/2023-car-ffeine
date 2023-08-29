@@ -44,9 +44,9 @@ const containerCss = css`
 const GoogleLogin = styled.button`
   display: flex;
   align-items: center;
-  column-gap: 6.6rem;
+  column-gap: 7rem;
 
-  max-width: 29.2rem;
+  width: 29.2rem;
   height: 4rem;
   margin: 3.6rem auto -1rem;
   padding: 0 1.8rem;
@@ -68,6 +68,7 @@ const GoogleLogin = styled.button`
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     column-gap: 1.6rem;
+    width: auto;
   }
 `;
 
