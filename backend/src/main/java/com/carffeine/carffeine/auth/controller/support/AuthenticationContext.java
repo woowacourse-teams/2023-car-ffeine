@@ -24,7 +24,7 @@ public class AuthenticationContext {
         return memberId;
     }
 
-    public void setNotLogin() {
+    public void setAnonymous() {
         this.memberId = -1L;
     }
 }

@@ -19,7 +19,7 @@ public class LoginCheckerInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         if (AuthenticationExtractor.extract(request).isEmpty()) {
-            authenticationContext.setNotLogin();
+            authenticationContext.setAnonymous();
             return true;
         }
         return loginInterceptor.preHandle(request, response, handler);
