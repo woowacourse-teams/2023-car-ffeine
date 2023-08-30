@@ -5,6 +5,4 @@ public interface TokenProvider {
     String create(Long id);
 
     Long extract(String token);
-
-    void validate(String token);
 }
