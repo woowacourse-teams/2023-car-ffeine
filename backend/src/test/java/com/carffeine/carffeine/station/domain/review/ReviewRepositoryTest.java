@@ -19,7 +19,6 @@ import static com.carffeine.carffeine.member.fixture.MemberFixture.일반_회원
 import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.리뷰_13개;
 import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.저장_전_리뷰;
 import static com.carffeine.carffeine.station.fixture.station.StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -102,24 +101,5 @@ class ReviewRepositoryTest {
             softly.assertThat(reviews.getContent().get(0).isDeleted()).isTrue();
         });
 
-    }
-
-    @Test
-    void 평균_별점을_구한다() {
-        // when
-        Double averageRatings = reviewRepository.findAverageRatingsByStation(station).get();
-        double roundAverageRatings = Math.round(averageRatings * 10.0) / 10.0;
-
-        // then
-        assertThat(roundAverageRatings).isEqualTo(2.1);
-    }
-
-    @Test
-    void 리뷰의_총_개수를_구한다() {
-        // when
-        long count = reviewRepository.countByStation(station);
-
-        // then
-        assertThat(count).isEqualTo(14);
     }
 }
