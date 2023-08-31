@@ -34,11 +34,6 @@ public class CarService {
     private final CarFilterRepository carFilterRepository;
     private final FilterRepository filterRepository;
 
-    @Transactional(readOnly = true)
-    public List<Car> findAllCars() {
-        return carRepository.findAll();
-    }
-
     @Transactional
     public List<Car> saveCars(Long memberId, CarsRequest carsRequest) {
         validateIsMemberAdmin(memberId);
@@ -69,22 +64,9 @@ public class CarService {
         carRepository.deleteById(carId);
     }
 
-    @Transactional(readOnly = true)
-    public List<Filter> findCarFilters(Long carId) {
-        Car car = findCar(carId);
-        return findAllFiltersByCar(car);
-    }
-
-    private Car findCar(Long carId) {
+    public Car findCar(Long carId) {
         return carRepository.findById(carId)
                 .orElseThrow(() -> new CarException(NOT_FOUND_EXCEPTION));
-    }
-
-    private List<Filter> findAllFiltersByCar(Car car) {
-        return carFilterRepository.findAllByCar(car)
-                .stream()
-                .map(CarFilter::getFilter)
-                .collect(toList());
     }
 
     @Transactional

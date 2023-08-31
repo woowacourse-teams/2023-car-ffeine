@@ -1,8 +1,11 @@
 package com.carffeine.carffeine.car.controller;
 
+import com.carffeine.carffeine.car.controller.dto.CarResponse;
+import com.carffeine.carffeine.car.controller.dto.CarsResponse;
 import com.carffeine.carffeine.car.domain.Car;
 import com.carffeine.carffeine.car.service.dto.CarRequest;
 import com.carffeine.carffeine.car.service.dto.CarsRequest;
+import com.carffeine.carffeine.filter.controller.dto.FiltersResponse;
 import com.carffeine.carffeine.filter.domain.Filter;
 import com.carffeine.carffeine.filter.domain.FilterType;
 import com.carffeine.carffeine.filter.service.dto.FilterRequest;
@@ -61,10 +64,15 @@ class CarControllerTest extends MockBeanInjection {
     @Test
     void 모든_차량_정보를_조회한다() throws Exception {
         // given
-        List<Car> cars = List.of(createCar(), createOtherCar());
+        CarsResponse carsResponse = new CarsResponse(
+                List.of(
+                        new CarResponse(1L, "아이오닉5", "2022-A"),
+                        new CarResponse(2L, "아이오닉5", "2022-B")
+                )
+        );
 
         // when
-        when(carService.findAllCars()).thenReturn(cars);
+        when(carQueryService.findAllCars()).thenReturn(carsResponse);
 
         // then
         mockMvc.perform(get("/cars"))
@@ -144,9 +152,10 @@ class CarControllerTest extends MockBeanInjection {
                 createConnectorTypeFilter(),
                 createCapacityFilter()
         );
+        FiltersResponse response = FiltersResponse.from(filters);
 
         // when
-        when(carService.findCarFilters(anyLong())).thenReturn(filters);
+        when(filterQueryService.findCarFilters(anyLong())).thenReturn(response);
 
         // then
         mockMvc.perform(get("/cars/{carId}/filters", 1L))

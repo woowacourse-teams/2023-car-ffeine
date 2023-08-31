@@ -3,7 +3,6 @@ package com.carffeine.carffeine.car.service;
 import com.carffeine.carffeine.admin.exception.AdminException;
 import com.carffeine.carffeine.admin.exception.AdminExceptionType;
 import com.carffeine.carffeine.car.domain.Car;
-import com.carffeine.carffeine.car.domain.CarFilter;
 import com.carffeine.carffeine.car.domain.CarFilterRepository;
 import com.carffeine.carffeine.car.domain.CarRepository;
 import com.carffeine.carffeine.car.fake.FakeCarFilterRepository;
@@ -76,21 +75,6 @@ class CarServiceTest {
     }
 
     @Test
-    void 차량을_모두_조회한다() {
-        // given
-        Car savedCar = carRepository.save(createCar());
-
-        // when
-        List<Car> result = carService.findAllCars();
-
-        // then
-        assertSoftly(softly -> {
-            softly.assertThat(result.size()).isEqualTo(1);
-            softly.assertThat(savedCar).usingRecursiveComparison().isEqualTo(result.get(0));
-        });
-    }
-
-    @Test
     void 차량을_저장한다() {
         // given
         CarsRequest request = new CarsRequest(
@@ -158,22 +142,6 @@ class CarServiceTest {
         // then
         int afterSize = carRepository.findAll().size();
         assertThat(afterSize).isEqualTo(beforeSize - 1);
-    }
-
-    @Test
-    void 차량에_저장된_필터를_모두_조회한다() {
-        // given
-        Car savedCar = carRepository.save(createCar());
-        List<CarFilter> carFilters = carFilterRepository.saveAll(List.of(new CarFilter(savedCar, createCompanyFilter())));
-
-        // when
-        List<Filter> result = carService.findCarFilters(savedCar.getId());
-
-        // then
-        assertSoftly(softly -> {
-            softly.assertThat(carFilters.size()).isEqualTo(result.size());
-            softly.assertThat(carFilters.get(0).getFilter().equals(result.get(0))).isTrue();
-        });
     }
 
     @Test
