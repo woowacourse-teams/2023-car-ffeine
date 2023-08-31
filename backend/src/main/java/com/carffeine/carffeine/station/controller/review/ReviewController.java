@@ -2,8 +2,8 @@ package com.carffeine.carffeine.station.controller.review;
 
 import com.carffeine.carffeine.auth.controller.AuthMember;
 import com.carffeine.carffeine.station.controller.review.dto.ReviewResponses;
-import com.carffeine.carffeine.station.controller.review.dto.TotalRatingsResponse;
 import com.carffeine.carffeine.station.domain.review.Review;
+import com.carffeine.carffeine.station.infrastructure.repository.review.TotalRatingsResponse;
 import com.carffeine.carffeine.station.service.review.ReviewQueryService;
 import com.carffeine.carffeine.station.service.review.ReviewService;
 import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;

@@ -3,7 +3,6 @@ package com.carffeine.carffeine.station.infrastructure.repository.review;
 import com.carffeine.carffeine.helper.QuerydslTest;
 import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.member.domain.MemberRepository;
-import com.carffeine.carffeine.station.controller.review.dto.TotalRatingsResponse;
 import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.domain.review.ReviewRepository;
 import com.carffeine.carffeine.station.domain.station.Station;

@@ -1,6 +1,5 @@
 package com.carffeine.carffeine.station.infrastructure.repository.review;
 
-import com.carffeine.carffeine.station.controller.review.dto.TotalRatingsResponse;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

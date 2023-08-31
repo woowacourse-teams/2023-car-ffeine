@@ -2,9 +2,9 @@ package com.carffeine.carffeine.station.controller.review;
 
 import com.carffeine.carffeine.helper.MockBeanInjection;
 import com.carffeine.carffeine.member.domain.Member;
-import com.carffeine.carffeine.station.controller.review.dto.TotalRatingsResponse;
 import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.domain.station.Station;
+import com.carffeine.carffeine.station.infrastructure.repository.review.TotalRatingsResponse;
 import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayNameGeneration;

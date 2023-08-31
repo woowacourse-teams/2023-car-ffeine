@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.station.controller.review.dto;
+package com.carffeine.carffeine.station.infrastructure.repository.review;
 
 public record TotalRatingsResponse(
         Double totalRatings,
