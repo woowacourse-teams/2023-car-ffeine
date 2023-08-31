@@ -34,7 +34,9 @@ public class PathContainer {
         }
     }
 
-    public void addExcludePatterns(String path, HttpMethod method) {
-        excludePatterns.add(new PathRequest(path, method));
+    public void addExcludePatterns(String path, HttpMethod... method) {
+        for (HttpMethod httpMethod : method) {
+            excludePatterns.add(new PathRequest(path, httpMethod));
+        }
     }
 }

@@ -28,7 +28,7 @@ public class PathMatcherInterceptor implements HandlerInterceptor {
         return this;
     }
 
-    public PathMatcherInterceptor excludePathPattern(String pathPattern, HttpMethod pathMethod) {
+    public PathMatcherInterceptor excludePathPattern(String pathPattern, HttpMethod... pathMethod) {
         pathContainer.addExcludePatterns(pathPattern, pathMethod);
         return this;
     }
