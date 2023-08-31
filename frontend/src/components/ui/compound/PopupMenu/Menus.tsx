@@ -44,7 +44,7 @@ const Menus = ({ menus, closeMenu }: Props) => {
 const containerCss = css`
   position: relative;
 
-  border: 2.4px solid #d6d6d6;
+  border: 2.4px solid #333;
 
   background: #fff;
 
@@ -58,10 +58,10 @@ const containerCss = css`
     top: 2rem;
     left: -1rem;
 
-    border: 1px solid #d6d6d6;
+    border: 1px solid #333;
     border-width: 10px;
     border-style: solid;
-    border-color: transparent transparent transparent #d6d6d6;
+    border-color: transparent transparent transparent #333;
 
     transform: rotate(45deg);
 
