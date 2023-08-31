@@ -2,7 +2,9 @@ import { ArrowPathIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { css } from 'styled-components';
 
 import { memberTokenStore } from '@stores/login/memberTokenStore';
+import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
 
+import { useCarFilters } from '@hooks/tanstack-query/station-filters/useCarFilters';
 import { useServerStationFilters } from '@hooks/tanstack-query/station-filters/useServerStationFilters';
 import { useServerStationFilterStoreActions } from '@hooks/useServerStationFilterActions';
 
@@ -14,18 +16,20 @@ import Text from '@common/Text';
 import ServerStationFiltersSkeleton from '@ui/ServerStationFilters/ServerStationFiltersSkeleton';
 import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
-import { MOBILE_BREAKPOINT, NAVIGATOR_PANEL_WIDTH } from '@constants';
+import { EMPTY_MEMBER_TOKEN, MOBILE_BREAKPOINT, NAVIGATOR_PANEL_WIDTH } from '@constants';
 import { CONNECTOR_TYPES, COMPANIES } from '@constants/chargers';
 
 import type { Capacity } from '@type';
 
 import FilterSection from './FilterOption';
-import { useServerStationFiltersComponentActions } from './hooks/useServerStationFiltersComponentActions';
+import { useStationFilters } from './hooks/useStationFilters';
 
 const ServerStationFilters = () => {
   const { data: serverStationFilters, isLoading } = useServerStationFilters();
+  const { data: carFilters } = useCarFilters();
+  const { setAllServerStationFilters } = serverStationFilterAction;
   const { closeBasePanel } = useNavigationBar();
-  const { handleStationsRefetch, submitMemberFilters } = useServerStationFiltersComponentActions();
+  const { handleStationsRefetch, submitMemberFilters } = useStationFilters();
   const {
     toggleCapacityFilter,
     toggleConnectorTypeFilter,
@@ -43,13 +47,14 @@ const ServerStationFilters = () => {
   const { connectorTypes, capacities, companies } = serverStationFilters;
 
   const handleApplySelectedFilters = async () => {
-    const isLoggedOutUser = memberTokenStore.getState() === '';
+    const isLoggedOutUser = memberTokenStore.getState() === EMPTY_MEMBER_TOKEN;
 
     if (isLoggedOutUser) {
       handleStationsRefetch();
       return;
     }
 
+    setAllServerStationFilters(carFilters);
     submitMemberFilters();
   };
 
@@ -81,7 +86,6 @@ const ServerStationFilters = () => {
         title="충전 속도(kW)"
         filterOptionNames={[...capacities.map((capacity) => Number(capacity))] as Capacity[]}
         filterOptionValues={[...capacities]}
-        filterButtonVariant="sm"
         toggleSelectFilter={toggleCapacityFilter}
         getIsFilterSelected={getIsCapacitySelected}
       />

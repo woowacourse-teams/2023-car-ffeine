@@ -7,7 +7,7 @@ import { SESSION_KEY_MEMBER_INFO } from '@constants/storageKeys';
 export interface MemberCar {
   carId: number;
   name: string;
-  year: string;
+  vintage: string;
 }
 
 export interface MemberInfo {

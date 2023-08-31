@@ -5,7 +5,7 @@ import com.carffeine.carffeine.admin.controller.dto.FaultReportsResponse;
 import com.carffeine.carffeine.admin.controller.dto.MisinformationDetailResponse;
 import com.carffeine.carffeine.admin.controller.dto.MisinformationReportResponse;
 import com.carffeine.carffeine.admin.service.AdminReportService;
-import com.carffeine.carffeine.auth.controller.AuthMember;
+import com.carffeine.carffeine.auth.controller.support.AuthMember;
 import com.carffeine.carffeine.station.domain.report.FaultReport;
 import com.carffeine.carffeine.station.domain.report.MisinformationReport;
 import lombok.RequiredArgsConstructor;

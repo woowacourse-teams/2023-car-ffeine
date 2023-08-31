@@ -6,7 +6,7 @@ import { memberInfoAction } from '@stores/login/memberInfoStore';
 import { memberTokenActions, memberTokenStore } from '@stores/login/memberTokenStore';
 import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
 
-import { DEFAULT_TOKEN } from '@constants';
+import { DEFAULT_TOKEN, EMPTY_MEMBER_TOKEN } from '@constants';
 import { SESSION_KEY_MEMBER_INFO, SESSION_KEY_MEMBER_TOKEN } from '@constants/storageKeys';
 
 interface LoginUriResponse {
@@ -76,9 +76,9 @@ export const logout = () => {
   const { resetMemberInfo } = memberInfoAction;
   const { deleteAllServerStationFilters } = serverStationFilterAction;
 
-  setMemberToken('');
+  setMemberToken(EMPTY_MEMBER_TOKEN);
   resetMemberInfo();
-  setSessionStorage(SESSION_KEY_MEMBER_TOKEN, '');
+  setSessionStorage(SESSION_KEY_MEMBER_TOKEN, EMPTY_MEMBER_TOKEN);
   setSessionStorage(
     SESSION_KEY_MEMBER_INFO,
     `{
@@ -90,7 +90,7 @@ export const logout = () => {
 };
 
 export const handleInvalidTokenToLogout = () => {
-  const isTokenExist = memberTokenStore.getState() !== '';
+  const isTokenExist = memberTokenStore.getState() !== EMPTY_MEMBER_TOKEN;
 
   if (isTokenExist) {
     logout();

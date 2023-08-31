@@ -4,6 +4,7 @@ import { getLocalStorage } from '@utils/storage';
 
 import { serverUrlStore } from '@stores/config/serverUrlStore';
 import { modalActions } from '@stores/layout/modalStore';
+import { memberTokenStore } from '@stores/login/memberTokenStore';
 
 import type { Differences } from '@ui/StationDetailsWindow/reports/station/StationReportConfirmation';
 
@@ -17,13 +18,13 @@ interface FetchReportStationRequest {
 
 const fetchReportStation = async (fetchReportStationRequestParams: FetchReportStationRequest) => {
   const { stationId, differences } = fetchReportStationRequestParams;
-  const token = getLocalStorage<number>(LOCAL_KEY_TOKEN, DEFAULT_TOKEN);
+  const memberToken = memberTokenStore.getState();
 
   const serverUrl = serverUrlStore.getState();
   return fetch(`${serverUrl}/stations/${stationId}/misinformation-reports`, {
     method: 'POST',
     headers: {
-      Authorization: `${token}`,
+      Authorization: `${memberToken}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ stationDetailsToUpdate: differences }),

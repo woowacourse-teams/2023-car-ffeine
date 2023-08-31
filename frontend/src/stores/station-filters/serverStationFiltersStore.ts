@@ -16,6 +16,9 @@ export const serverStationFilterAction = {
     };
   },
   setAllServerStationFilters(stationFilters: StationFilters) {
+    if (stationFilters === undefined) {
+      return;
+    }
     const { companies, capacities, connectorTypes } = stationFilters;
 
     selectedCompaniesFilterStore.setState((prev) => new Set([...prev, ...companies]));

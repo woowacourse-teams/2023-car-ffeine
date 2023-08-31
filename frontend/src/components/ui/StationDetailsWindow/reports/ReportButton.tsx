@@ -10,6 +10,7 @@ import { memberTokenStore } from '@stores/login/memberTokenStore';
 
 import ButtonNext from '@common/ButtonNext';
 import Skeleton from '@common/Skeleton';
+import { EMPTY_MEMBER_TOKEN } from '@constants';
 
 interface Props {
   modalContent: JSX.Element;
@@ -25,7 +26,7 @@ function ReportButton({ modalContent, disabled, isLoading, children, css }: Prop
   const { openModal } = modalActions;
 
   const handleOpenStationReportForm = () => {
-    if (memberToken === '') {
+    if (memberToken === EMPTY_MEMBER_TOKEN) {
       showToast('로그인이 필요한 메뉴입니다.');
     } else {
       openModal(modalContent);

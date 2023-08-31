@@ -12,7 +12,6 @@ import type { CompanyName } from '@type/stations';
 
 interface FilterSectionProps {
   title: string;
-  filterButtonVariant?: 'xs' | 'sm';
   filterOptionNames: ConnectorTypeName[] | Capacity[] | CompanyName[];
   filterOptionValues: ConnectorTypeKey[] | CapaCityBigDecimal[] | CompanyKey[];
   toggleSelectFilter: (filter: ConnectorTypeKey | CapaCityBigDecimal | CompanyKey) => void;
@@ -23,7 +22,6 @@ const FilterSection = ({
   title,
   filterOptionNames,
   filterOptionValues,
-  filterButtonVariant = 'sm',
   toggleSelectFilter,
   getIsFilterSelected,
 }: FilterSectionProps) => {
@@ -40,7 +38,7 @@ const FilterSection = ({
           <ButtonNext
             key={index}
             variant={getIsFilterSelected(filterOptionValues[index]) ? 'contained' : 'outlined'}
-            size={filterButtonVariant}
+            size="sm"
             onClick={() => toggleSelectFilter(filterOptionValues[index])}
             pill
           >

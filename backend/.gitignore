@@ -41,3 +41,4 @@ src/main/resources/encryptKey.txt
 mysql
 
 /src/main/resources/static/docs/
+/src/main/generated

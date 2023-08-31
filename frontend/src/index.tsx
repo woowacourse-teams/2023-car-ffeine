@@ -6,8 +6,6 @@ import { RouterProvider } from 'react-router-dom';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import { configureToken } from '@utils/configureToken';
-
 import { mswModeActions } from '@stores/config/mswModeStore';
 
 import { GlobalStyle } from 'style/GlobalStyle';
@@ -29,5 +27,4 @@ const main = async () => {
   );
 };
 
-configureToken();
 main();

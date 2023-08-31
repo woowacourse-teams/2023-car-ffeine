@@ -88,9 +88,4 @@ public class JwtProvider implements TokenProvider {
             throw new AuthException(INVALID_TOKEN);
         }
     }
-
-    @Override
-    public void validate(String token) {
-        extract(token);
-    }
 }
