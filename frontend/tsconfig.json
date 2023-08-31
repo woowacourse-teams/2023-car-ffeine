@@ -4,8 +4,6 @@
     "node_modules",
     "cypress",
     "**/*.cy.tsx",
-    "**/*.test.tsx",
-    "**/*.test.ts",
     "**/*.stories.ts",
     "**/*.stories.tsx"
   ],
