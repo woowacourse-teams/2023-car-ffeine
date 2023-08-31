@@ -42,8 +42,10 @@ const CircleDaySelectButton = ({ children }: PropsWithChildren) => {
 };
 
 const buttonCss = css`
-  width: 4rem;
-  height: 4rem;
+  width: 14.2%;
+  max-width: 4rem;
+  min-height: 4rem;
+  padding: 0;
 
   border: 1px solid #d4d4d4;
   border-radius: 50%;

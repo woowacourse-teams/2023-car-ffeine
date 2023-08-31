@@ -23,7 +23,6 @@ import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigation
 
 import { pillStyle } from '@style';
 
-import { MOBILE_BREAKPOINT } from '@constants';
 import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
 import { QUERY_KEY_SEARCHED_STATION, QUERY_KEY_STATIONS } from '@constants/queryKeys';
 
@@ -115,10 +114,6 @@ const StationSearchBar = () => {
 const S = {
   Form: styled.form`
     position: relative;
-
-    @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
-      width: calc(100vw - 2rem);
-    }
   `,
 
   Search: styled.input`

@@ -1,3 +1,5 @@
+import { css } from 'styled-components';
+
 import { modalActions } from '@stores/layout/modalStore';
 
 import { useReviewRatings } from '@hooks/tanstack-query/station-details/reviews/useReviewRatings';
@@ -85,13 +87,22 @@ const ReviewPreview = ({ stationId }: ReviewPreviewProps) => {
         )}
 
         <FlexBox justifyContent="end">
-          <ButtonNext variant="text" size="sm" onClick={() => handleClickMoreReviewButton()}>
-            {aliveReviews.length === 0 ? '후기 작성하기' : '후기 더 보기'}
+          <ButtonNext
+            variant="text"
+            size="sm"
+            css={moreButtonCss}
+            onClick={() => handleClickMoreReviewButton()}
+          >
+            {aliveReviews.length === 0 ? '후기 작성하기' : '후기 더보기'}
           </ButtonNext>
         </FlexBox>
       </Box>
     </>
   );
 };
+
+const moreButtonCss = css`
+  font-size: 1.5rem;
+`;
 
 export default ReviewPreview;

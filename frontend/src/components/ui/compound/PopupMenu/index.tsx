@@ -6,6 +6,8 @@ import { useState } from 'react';
 
 import FlexBox from '@common/FlexBox';
 
+import { MOBILE_BREAKPOINT } from '@constants';
+
 import Menus from './Menus';
 
 interface Props {
@@ -42,8 +44,8 @@ const container = css`
     position: absolute;
     top: -18px;
 
-    @media screen and (max-width: 414px) {
-      top: -134px;
+    @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+      top: -102px;
       left: -43px;
     }
   }
