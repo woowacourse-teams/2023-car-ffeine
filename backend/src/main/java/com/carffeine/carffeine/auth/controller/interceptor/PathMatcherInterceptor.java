@@ -10,7 +10,7 @@ public class PathMatcherInterceptor implements HandlerInterceptor {
     private final HandlerInterceptor handlerInterceptor;
     private final PathContainer pathContainer;
 
-    public PathMatcherInterceptor(final HandlerInterceptor handlerInterceptor) {
+    public PathMatcherInterceptor(HandlerInterceptor handlerInterceptor) {
         this.handlerInterceptor = handlerInterceptor;
         this.pathContainer = new PathContainer();
     }
