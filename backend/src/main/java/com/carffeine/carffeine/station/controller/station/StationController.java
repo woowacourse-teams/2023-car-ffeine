@@ -1,9 +1,10 @@
 package com.carffeine.carffeine.station.controller.station;
 
-import com.carffeine.carffeine.station.controller.station.dto.StationSpecificResponse;
 import com.carffeine.carffeine.station.controller.station.dto.StationsSimpleResponse;
 import com.carffeine.carffeine.station.domain.charger.ChargerType;
 import com.carffeine.carffeine.station.domain.station.Station;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
+import com.carffeine.carffeine.station.service.station.StationQueryService;
 import com.carffeine.carffeine.station.service.station.StationService;
 import com.carffeine.carffeine.station.service.station.dto.CoordinateRequest;
 import com.carffeine.carffeine.station.service.station.dto.StationsSearchResponse;
@@ -23,6 +24,7 @@ import java.util.Set;
 public class StationController {
 
     private final StationService stationService;
+    private final StationQueryService stationQueryService;
 
     @GetMapping("/stations")
     public ResponseEntity<StationsSimpleResponse> getStations(CoordinateRequest request,
@@ -45,7 +47,6 @@ public class StationController {
 
     @GetMapping("/stations/{stationId}")
     public ResponseEntity<StationSpecificResponse> getStationById(@PathVariable String stationId) {
-        Station station = stationService.findStationById(stationId);
-        return ResponseEntity.ok(StationSpecificResponse.from(station));
+        return ResponseEntity.ok(stationQueryService.findStationById(stationId));
     }
 }

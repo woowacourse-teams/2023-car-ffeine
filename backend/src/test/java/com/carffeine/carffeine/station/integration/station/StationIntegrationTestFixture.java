@@ -1,9 +1,10 @@
 package com.carffeine.carffeine.station.integration.station;
 
 import com.carffeine.carffeine.helper.integration.AcceptanceTestFixture;
-import com.carffeine.carffeine.station.controller.station.dto.StationSpecificResponse;
 import com.carffeine.carffeine.station.controller.station.dto.StationsSimpleResponse;
 import com.carffeine.carffeine.station.domain.station.Station;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.ChargerSpecificResponse;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
 import com.carffeine.carffeine.station.service.station.dto.CoordinateRequest;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
@@ -47,11 +48,34 @@ public abstract class StationIntegrationTestFixture extends AcceptanceTestFixtur
                 .extract();
     }
 
-    public static void 충전소_상세_정보를_검증한다(ExtractableResponse<Response> 응답, Station 충전소) {
+    public static void 충전소_상세_정보를_검증한다(ExtractableResponse<Response> 응답, Station station) {
         var response = 응답.as(StationSpecificResponse.class);
         assertThat(response).usingRecursiveComparison()
                 .withEqualsForType((i, i2) -> i.compareTo(i2) == 0, BigDecimal.class)
                 .withEqualsForType(LocalDateTime::isEqual, LocalDateTime.class)
-                .isEqualTo(StationSpecificResponse.from(충전소));
+                .isEqualTo(new StationSpecificResponse(
+                        station.getStationId(),
+                        station.getStationName(),
+                        station.getCompanyName(),
+                        station.getAddress(),
+                        station.getContact(),
+                        station.isParkingFree(),
+                        station.getOperatingTime(),
+                        station.getDetailLocation(),
+                        station.getLatitude().getValue(),
+                        station.getLongitude().getValue(),
+                        station.isPrivate(),
+                        station.getStationState(),
+                        station.getPrivateReason(),
+                        station.getReportCount(),
+                        station.getChargers().stream()
+                                .map(it -> new ChargerSpecificResponse(
+                                        it.getType(),
+                                        it.getPrice(),
+                                        it.getCapacity(),
+                                        it.getChargerStatus().getLatestUpdateTime(),
+                                        it.getChargerStatus().getChargerCondition(),
+                                        it.getMethod()
+                                )).toList()));
     }
 }

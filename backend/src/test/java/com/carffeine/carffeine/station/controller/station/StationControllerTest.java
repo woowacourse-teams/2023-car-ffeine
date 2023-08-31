@@ -5,10 +5,11 @@ import com.carffeine.carffeine.station.domain.charger.ChargerType;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.exception.StationException;
 import com.carffeine.carffeine.station.exception.StationExceptionType;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.ChargerSpecificResponse;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
 import com.carffeine.carffeine.station.service.station.dto.CoordinateRequest;
 import com.carffeine.carffeine.station.service.station.dto.StationSearchResponse;
 import com.carffeine.carffeine.station.service.station.dto.StationsSearchResponse;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator.ReplaceUnderscores;
 import org.junit.jupiter.api.Test;
@@ -45,9 +46,6 @@ class StationControllerTest extends MockBeanInjection {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Test
     void 충전소를_위도_경도로_조회한다() throws Exception {
@@ -114,7 +112,30 @@ class StationControllerTest extends MockBeanInjection {
         String stationId = station.getStationId();
 
         // when
-        when(stationService.findStationById(stationId)).thenReturn(station);
+        when(stationQueryService.findStationById(stationId)).thenReturn(new StationSpecificResponse(
+                station.getStationId(),
+                station.getStationName(),
+                station.getCompanyName(),
+                station.getAddress(),
+                station.getContact(),
+                station.isParkingFree(),
+                station.getOperatingTime(),
+                station.getDetailLocation(),
+                station.getLatitude().getValue(),
+                station.getLongitude().getValue(),
+                station.isPrivate(),
+                station.getStationState(),
+                station.getPrivateReason(),
+                station.getReportCount(),
+                station.getChargers().stream()
+                        .map(it -> new ChargerSpecificResponse(
+                                it.getType(),
+                                it.getPrice(),
+                                it.getCapacity(),
+                                it.getChargerStatus().getLatestUpdateTime(),
+                                it.getChargerStatus().getChargerCondition(),
+                                it.getMethod()
+                        )).toList()));
 
         // then
         mockMvc.perform(RestDocumentationRequestBuilders.get("/stations/" + stationId))
@@ -150,7 +171,7 @@ class StationControllerTest extends MockBeanInjection {
     @Test
     void 충전소_id가_존재하지_않다면_NOT_FOUND_예외가_발생한다() throws Exception {
         // when
-        when(stationService.findStationById("errorId")).thenThrow(new StationException(StationExceptionType.NOT_FOUND_ID));
+        when(stationQueryService.findStationById("errorId")).thenThrow(new StationException(StationExceptionType.NOT_FOUND_ID));
 
         // then
         mockMvc.perform(RestDocumentationRequestBuilders.get("/stations/" + "errorId"))

@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.station.infrastructure.repository;
+package com.carffeine.carffeine.station.infrastructure.repository.station;
 
 import com.carffeine.carffeine.station.domain.station.CustomStationRepository;
 import com.carffeine.carffeine.station.domain.station.Station;

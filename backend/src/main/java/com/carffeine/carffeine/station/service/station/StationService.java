@@ -6,7 +6,6 @@ import com.carffeine.carffeine.station.domain.charger.ChargerStatusRepository;
 import com.carffeine.carffeine.station.domain.charger.ChargerType;
 import com.carffeine.carffeine.station.domain.congestion.PeriodicCongestion;
 import com.carffeine.carffeine.station.domain.congestion.PeriodicCongestionCustomRepository;
-import com.carffeine.carffeine.station.domain.congestion.PeriodicCongestionRepository;
 import com.carffeine.carffeine.station.domain.congestion.RequestPeriod;
 import com.carffeine.carffeine.station.domain.station.Coordinate;
 import com.carffeine.carffeine.station.domain.station.Station;
@@ -37,7 +36,6 @@ public class StationService {
     private static final String STANDARD = "STANDARD";
 
     private final StationRepository stationRepository;
-    private final PeriodicCongestionRepository periodicCongestionRepository;
     private final ChargerStatusRepository chargerStatusRepository;
     private final PeriodicCongestionCustomRepository periodicCongestionCustomRepository;
 
