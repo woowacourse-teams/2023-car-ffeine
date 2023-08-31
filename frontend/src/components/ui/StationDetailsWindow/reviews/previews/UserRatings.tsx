@@ -42,8 +42,11 @@ const UserRatings = ({ stationId }: UserRatingsProps) => {
           충전소 후기
         </Text>
         <Text variant="subtitle" css={ratingCss}>
-          <StarIcon width={14} display="inline-block" />
-          {totalRatings.totalRatings} ({totalRatings.totalCount}명)
+          <StarIcon width={14} display="inline-block" fill="#fc4c4e" />
+          <Text tag="span" color="#3e3e3e" weight="bold">
+            {totalRatings.totalRatings}
+          </Text>
+          ({totalRatings.totalCount}명)
         </Text>
       </FlexBox>
     </Box>
@@ -51,9 +54,8 @@ const UserRatings = ({ stationId }: UserRatingsProps) => {
 };
 
 const ratingCss = css`
-  gap: 0.4rem;
+  column-gap: 0.2rem;
   display: flex;
-  align-self: baseline;
   align-items: center;
 `;
 
