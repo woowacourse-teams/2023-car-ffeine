@@ -3,6 +3,8 @@ import { css, styled } from 'styled-components';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
+import { getHoverColor } from '@style';
+
 import { NO_RATIO } from '@constants/congestion';
 
 interface BarProps {
@@ -24,54 +26,51 @@ const Bar = ({ ratio, hour, align }: BarProps) => {
       <Text variant="caption" css={align === 'column' && textCss}>
         {hour}
       </Text>
-      <StyledBar ratio={ratio} align={align} />
-      <BackgroundBar ratio={ratio} align={align} />
+      <ProgressBar value={ratio === NO_RATIO ? 100 : ratio} max={100} color={colorByRatio(ratio)} />
     </FlexBox>
   );
 };
 
-const StyledBar = styled.div<Omit<BarProps, 'hour'>>`
-  ${({ align, ratio }) =>
-    align === 'column'
-      ? `
-        width: ${ratio === NO_RATIO ? '100%' : `calc(100% * ${ratio} / 100)`};
-        height: 1.2rem;
-      `
-      : `
-        height: ${ratio === NO_RATIO ? '100%' : `calc(100% * ${ratio} / 100)`};
-        width: 1.2rem;
+const colorByRatio = (ratio: number) => {
+  if (ratio === NO_RATIO) {
+    return getHoverColor('secondary');
+  }
 
-      `}
+  if (ratio < 50) {
+    return getHoverColor('success');
+  }
 
-  text-align: center;
+  if (ratio < 80) {
+    return getHoverColor('warning');
+  }
 
-  border-top-left-radius: 0.4rem;
-  border-bottom-left-radius: 0.4rem;
-  border-top-right-radius: 1rem;
-  border-bottom-right-radius: 1rem;
-  background-color: ${({ ratio }) => (ratio === NO_RATIO ? '#afafaf42' : '#0064ff')};
-`;
+  return getHoverColor('error');
+};
 
-const BackgroundBar = styled.div<Omit<BarProps, 'hour'>>`
-  ${({ align, ratio }) =>
-    align === 'column'
-      ? `
-        width: ${ratio === NO_RATIO ? '0' : `calc(100% * ${100 - ratio} / 100)`};
-        height: 1.2rem;
-      `
-      : `
-        height: ${ratio === NO_RATIO ? '0' : `calc(100% * ${100 - ratio} / 100)`};
-        width: 1.2rem;
+const ProgressBar = styled.progress<{ color: string }>`
+  width: 100%;
+  height: 1.2rem;
 
-      `}
+  -webkit-appearance: none;
+  appearance: none;
 
-  text-align: center;
+  &::-webkit-progress-bar {
+    background-color: #eee;
 
-  border-top-left-radius: 0.4rem;
-  border-bottom-left-radius: 0.4rem;
-  border-top-right-radius: 1rem;
-  border-bottom-right-radius: 1rem;
-  background-color: #e9edf8;
+    border-top-left-radius: 0.4rem;
+    border-bottom-left-radius: 0.4rem;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+  }
+
+  &::-webkit-progress-value {
+    background-color: ${({ color }) => color};
+
+    border-top-left-radius: 0.4rem;
+    border-bottom-left-radius: 0.4rem;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+  }
 `;
 
 const rowAlignCss = css`
