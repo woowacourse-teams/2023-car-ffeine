@@ -11,6 +11,7 @@ import java.util.Objects;
 @Component
 public class AuthenticationContext {
 
+    private static final long ANONYMOUS_MEMBER = -1L;
     private Long memberId;
 
     public void setAuthentication(Long memberId) {
@@ -25,6 +26,6 @@ public class AuthenticationContext {
     }
 
     public void setAnonymous() {
-        this.memberId = -1L;
+        this.memberId = ANONYMOUS_MEMBER;
     }
 }
