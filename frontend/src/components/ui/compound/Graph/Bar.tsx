@@ -36,15 +36,7 @@ const colorByRatio = (ratio: number) => {
     return getHoverColor('secondary');
   }
 
-  if (ratio < 50) {
-    return getHoverColor('success');
-  }
-
-  if (ratio < 80) {
-    return getHoverColor('warning');
-  }
-
-  return getHoverColor('error');
+  return getHoverColor('primary');
 };
 
 const ProgressBar = styled.progress<{ color: string }>`
