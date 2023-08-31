@@ -14,6 +14,7 @@ const Bar = ({ ratio, hour, align }: BarProps) => {
     <FlexBox
       tag="li"
       nowrap
+      width="100%"
       direction={align === 'column' ? 'row' : 'column'}
       css={align === 'row' && rowAlignCss}
       alignItems={align === 'row' ? 'center' : 'start'}
@@ -31,11 +32,11 @@ const StyledBar = styled.div<Omit<BarProps, 'hour'>>`
   ${({ align, ratio }) =>
     align === 'column'
       ? `
-        width: ${ratio === -1 ? '26rem' : `calc(26rem * ${ratio} / 100)`};
+        width: ${ratio === -1 ? '100%' : `calc(100% * ${ratio} / 100)`};
         height: 1.2rem;
       `
       : `
-        height: ${ratio === -1 ? '26rem' : `calc(26rem * ${ratio} / 100)`};
+        height: ${ratio === -1 ? '100%' : `calc(100% * ${ratio} / 100)`};
         width: 1.2rem;
 
       `}
@@ -53,11 +54,11 @@ const BackgroundBar = styled.div<Omit<BarProps, 'hour'>>`
   ${({ align, ratio }) =>
     align === 'column'
       ? `
-        width: ${ratio === -1 ? '0' : `calc(26rem * ${100 - ratio} / 100)`};
+        width: ${ratio === -1 ? '0' : `calc(100% * ${100 - ratio} / 100)`};
         height: 1.2rem;
       `
       : `
-        height: ${ratio === -1 ? '0' : `calc(26rem * ${100 - ratio} / 100)`};
+        height: ${ratio === -1 ? '0' : `calc(100% * ${100 - ratio} / 100)`};
         width: 1.2rem;
 
       `}

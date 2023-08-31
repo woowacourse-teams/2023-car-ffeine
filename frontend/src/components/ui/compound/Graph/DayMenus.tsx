@@ -11,7 +11,7 @@ export interface DayMenusProps extends Omit<GraphProps, 'align'> {
 
 const DayMenus = ({ menus, renderMenuSelectButton }: DayMenusProps) => {
   return (
-    <FlexBox justifyContent="between" gap={0}>
+    <FlexBox nowrap width="100%" justifyContent="between" gap={0}>
       {menus.map((menu) => renderMenuSelectButton(menu))}
     </FlexBox>
   );
