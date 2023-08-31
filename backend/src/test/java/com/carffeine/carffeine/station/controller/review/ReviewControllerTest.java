@@ -4,6 +4,8 @@ import com.carffeine.carffeine.helper.MockBeanInjection;
 import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.domain.station.Station;
+import com.carffeine.carffeine.station.infrastructure.repository.review.ReviewResponse;
+import com.carffeine.carffeine.station.infrastructure.repository.review.ReviewResponses;
 import com.carffeine.carffeine.station.infrastructure.repository.review.TotalRatingsResponse;
 import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,8 +15,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -22,11 +22,11 @@ import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
-import java.util.Map;
 
 import static com.carffeine.carffeine.helper.RestDocsHelper.customDocument;
 import static com.carffeine.carffeine.member.fixture.MemberFixture.일반_회원;
 import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.리뷰_별4_15글자;
+import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.응답_리뷰;
 import static com.carffeine.carffeine.station.fixture.station.StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
@@ -95,12 +95,11 @@ public class ReviewControllerTest extends MockBeanInjection {
         // given
         String stationId = "ME101010";
 
-        Page<Review> reviews = new PageImpl<>(List.of(리뷰_별4_15글자));
-        Map<Long, Long> replySize = Map.of(1L, 1L);
+        List<ReviewResponse> reviewResponses = List.of(응답_리뷰());
+        int nextPage = 1;
 
         // when
-        when(reviewService.findAllReviews(eq(stationId), any(Pageable.class))).thenReturn(reviews);
-        when(reviewService.countReplies(reviews)).thenReturn(replySize);
+        when(reviewQueryService.findAllReviews(eq(stationId), any(Pageable.class))).thenReturn(new ReviewResponses(reviewResponses, nextPage));
 
         // then
         mockMvc.perform(get("/stations/{stationId}/reviews", stationId)
