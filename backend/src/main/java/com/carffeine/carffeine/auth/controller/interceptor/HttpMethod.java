@@ -1,6 +1,7 @@
 package com.carffeine.carffeine.auth.controller.interceptor;
 
 public enum HttpMethod {
+
     GET,
     POST,
     PUT,
