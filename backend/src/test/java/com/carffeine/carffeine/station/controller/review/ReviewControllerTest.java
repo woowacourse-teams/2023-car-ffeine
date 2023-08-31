@@ -2,6 +2,7 @@ package com.carffeine.carffeine.station.controller.review;
 
 import com.carffeine.carffeine.helper.MockBeanInjection;
 import com.carffeine.carffeine.member.domain.Member;
+import com.carffeine.carffeine.station.controller.review.dto.TotalRatingsResponse;
 import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;
@@ -188,8 +189,7 @@ public class ReviewControllerTest extends MockBeanInjection {
         long totalCount = 1;
 
         // when
-        when(reviewService.findAverageRatings(stationId)).thenReturn(averageRatings);
-        when(reviewService.findTotalCount(stationId)).thenReturn(totalCount);
+        when(reviewQueryService.findTotalRatings(stationId)).thenReturn(new TotalRatingsResponse(averageRatings, totalCount));
 
         // then
         mockMvc.perform(get("/stations/{stationId}/total-ratings", stationId)

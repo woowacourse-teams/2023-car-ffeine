@@ -16,6 +16,7 @@ import com.carffeine.carffeine.station.domain.review.ReviewRepository;
 import com.carffeine.carffeine.station.service.congestion.CongestionService;
 import com.carffeine.carffeine.station.service.report.ReportService;
 import com.carffeine.carffeine.station.service.review.ReplyService;
+import com.carffeine.carffeine.station.service.review.ReviewQueryService;
 import com.carffeine.carffeine.station.service.review.ReviewService;
 import com.carffeine.carffeine.station.service.station.StationService;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -60,4 +61,6 @@ public class MockBeanInjection {
     protected ReplyRepository replyRepository;
     @MockBean
     protected CarService carService;
+    @MockBean
+    protected ReviewQueryService reviewQueryService;
 }
