@@ -3,6 +3,8 @@ import { css, styled } from 'styled-components';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
+import { NO_RATIO } from '@constants/congestion';
+
 interface BarProps {
   ratio: number;
   hour: number;
@@ -32,11 +34,11 @@ const StyledBar = styled.div<Omit<BarProps, 'hour'>>`
   ${({ align, ratio }) =>
     align === 'column'
       ? `
-        width: ${ratio === -1 ? '100%' : `calc(100% * ${ratio} / 100)`};
+        width: ${ratio === NO_RATIO ? '100%' : `calc(100% * ${ratio} / 100)`};
         height: 1.2rem;
       `
       : `
-        height: ${ratio === -1 ? '100%' : `calc(100% * ${ratio} / 100)`};
+        height: ${ratio === NO_RATIO ? '100%' : `calc(100% * ${ratio} / 100)`};
         width: 1.2rem;
 
       `}
@@ -47,18 +49,18 @@ const StyledBar = styled.div<Omit<BarProps, 'hour'>>`
   border-bottom-left-radius: 0.4rem;
   border-top-right-radius: 1rem;
   border-bottom-right-radius: 1rem;
-  background-color: ${({ ratio }) => (ratio === -1 ? '#afafaf42' : '#0064ff')};
+  background-color: ${({ ratio }) => (ratio === NO_RATIO ? '#afafaf42' : '#0064ff')};
 `;
 
 const BackgroundBar = styled.div<Omit<BarProps, 'hour'>>`
   ${({ align, ratio }) =>
     align === 'column'
       ? `
-        width: ${ratio === -1 ? '0' : `calc(100% * ${100 - ratio} / 100)`};
+        width: ${ratio === NO_RATIO ? '0' : `calc(100% * ${100 - ratio} / 100)`};
         height: 1.2rem;
       `
       : `
-        height: ${ratio === -1 ? '0' : `calc(100% * ${100 - ratio} / 100)`};
+        height: ${ratio === NO_RATIO ? '0' : `calc(100% * ${100 - ratio} / 100)`};
         width: 1.2rem;
 
       `}
