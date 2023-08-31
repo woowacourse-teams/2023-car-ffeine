@@ -39,6 +39,8 @@ const reportButtonCss = css`
 
   &:hover:enabled {
     background: #555;
+    outline: 0;
+    transform: none;
   }
 
   & > div {

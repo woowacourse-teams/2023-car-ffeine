@@ -55,12 +55,15 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
             <Box px={2}>
               <FlexBox justifyContent="between">
                 <Box>
-                  <Text variant="label" mb={2}>
+                  <Text variant="label" mb={2} weight="regular">
                     {review.isDeleted ? '(알수없음)' : `${review.memberId}님`}
                     {!review.isDeleted && (
                       <>
-                        (<StarIcon width={10} display="inline-block" />
-                        {review.ratings})
+                        (<StarIcon width={10} display="inline-block" fill="#fc4c4e" />
+                        <Text tag="span" variant="label">
+                          {review.ratings}
+                        </Text>
+                        )
                       </>
                     )}
                   </Text>

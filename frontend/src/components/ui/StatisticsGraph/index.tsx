@@ -1,7 +1,6 @@
-import type { GraphProps } from "@ui/compound/Graph";
-import Graph from "@ui/compound/Graph";
-import type { DayMenusProps } from "@ui/compound/Graph/DayMenus";
-
+import type { GraphProps } from '@ui/compound/Graph';
+import Graph from '@ui/compound/Graph';
+import type { DayMenusProps } from '@ui/compound/Graph/DayMenus';
 
 interface StatisticsGraphProps extends GraphProps, Omit<DayMenusProps, 'renderMenuSelectButton'> {}
 

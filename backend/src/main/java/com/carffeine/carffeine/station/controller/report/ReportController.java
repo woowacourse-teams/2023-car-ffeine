@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.station.controller.report;
 
-import com.carffeine.carffeine.auth.controller.AuthMember;
+import com.carffeine.carffeine.auth.controller.support.AuthMember;
 import com.carffeine.carffeine.station.controller.report.dto.DuplicateReportResponse;
 import com.carffeine.carffeine.station.service.report.ReportService;
 import com.carffeine.carffeine.station.service.report.dto.MisinformationReportRequest;

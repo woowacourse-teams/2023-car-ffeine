@@ -17,8 +17,8 @@ const BarContainer = ({ align, statistics, renderBar }: BarContainerProps) => {
       direction={align}
       nowrap
       alignItems={align === 'row' ? 'end' : 'start'}
-      width={align === 'column' && '28.4rem'}
-      height={align === 'row' && '28.4rem'}
+      width={align === 'column' && '100%'}
+      height={align === 'row' && '100%'}
     >
       {statistics[selectedDay].map(({ hour, ratio }) => renderBar(hour, ratio))}
     </FlexBox>

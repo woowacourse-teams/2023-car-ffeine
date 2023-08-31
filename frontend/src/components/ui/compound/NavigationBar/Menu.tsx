@@ -25,7 +25,6 @@ import {
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 
-import MswControlButton from '@ui/MswControlButton';
 import ServerStationFilters from '@ui/ServerStationFilters';
 import StationListWindow from '@ui/StationList/StationListWindow';
 import StationSearchWindow from '@ui/StationSearchWindow';
@@ -109,7 +108,6 @@ const Menu = () => {
       >
         <Bars3Icon width="2.8rem" stroke="#333" />
       </Button>
-      {process.env.NODE_ENV === 'development' && <MswControlButton />}
     </FlexBox>
   );
 };
@@ -124,7 +122,7 @@ const flexCss = css`
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     width: 100vw;
-    height: 7rem;
+    height: 6rem;
     flex-direction: row;
     gap: 0;
     justify-content: space-around;
@@ -142,6 +140,7 @@ const fixedPositionCss = css`
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     bottom: 0;
+    z-index: 99;
   }
 `;
 

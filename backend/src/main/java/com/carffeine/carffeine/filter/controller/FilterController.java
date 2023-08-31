@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.filter.controller;
 
-import com.carffeine.carffeine.auth.controller.AuthMember;
+import com.carffeine.carffeine.auth.controller.support.AuthMember;
 import com.carffeine.carffeine.filter.controller.dto.FiltersResponse;
 import com.carffeine.carffeine.filter.service.FilterService;
 import com.carffeine.carffeine.filter.service.dto.FiltersRequest;

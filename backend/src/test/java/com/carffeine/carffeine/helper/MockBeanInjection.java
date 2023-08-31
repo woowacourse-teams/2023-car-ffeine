@@ -4,6 +4,7 @@ import com.carffeine.carffeine.admin.service.AdminMemberService;
 import com.carffeine.carffeine.admin.service.AdminReportService;
 import com.carffeine.carffeine.admin.service.AdminStationService;
 import com.carffeine.carffeine.auth.controller.AuthArgumentResolver;
+import com.carffeine.carffeine.auth.controller.support.AuthenticationContext;
 import com.carffeine.carffeine.auth.domain.TokenProvider;
 import com.carffeine.carffeine.auth.service.AuthService;
 import com.carffeine.carffeine.auth.service.OAuthRequester;
@@ -60,4 +61,6 @@ public class MockBeanInjection {
     protected ReplyRepository replyRepository;
     @MockBean
     protected CarService carService;
+    @MockBean
+    protected AuthenticationContext authenticationContext;
 }
