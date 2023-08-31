@@ -26,12 +26,16 @@ const Bar = ({ ratio, hour, align }: BarProps) => {
       <Text variant="caption" css={align === 'column' && textCss}>
         {hour}
       </Text>
-      <ProgressBar value={ratio === NO_RATIO ? 100 : ratio} max={100} color={colorByRatio(ratio)} />
+      <ProgressBar
+        value={ratio === NO_RATIO ? 100 : ratio}
+        max={100}
+        color={getColorByRatio(ratio)}
+      />
     </FlexBox>
   );
 };
 
-const colorByRatio = (ratio: number) => {
+const getColorByRatio = (ratio: number) => {
   if (ratio === NO_RATIO) {
     return getHoverColor('secondary');
   }
