@@ -16,8 +16,8 @@ public class ReviewQueryRepository {
     public TotalRatingsResponse findTotalRatings(String stationId) {
         return jpaQueryFactory.select(
                         constructor(TotalRatingsResponse.class,
-                                review.ratings.avg(),
-                                review.id.count()
+                                review.ratings.avg().coalesce(0.0),
+                                review.id.count().coalesce(0L)
                         )).from(review)
                 .where(review.station.stationId.eq(stationId))
                 .fetchOne();

@@ -59,4 +59,15 @@ class ReviewQueryRepositoryTest {
                 .usingRecursiveComparison()
                 .isEqualTo(new TotalRatingsResponse(2.0, 13L));
     }
+
+    @Test
+    void 리뷰가_없으면_평균은_0점0_총_리뷰는_0L을_반환한다() {
+        // when
+        TotalRatingsResponse totalRatings = reviewQueryRepository.findTotalRatings(station.getStationId());
+
+        // then
+        assertThat(totalRatings)
+                .usingRecursiveComparison()
+                .isEqualTo(new TotalRatingsResponse(0.0, 0L));
+    }
 }

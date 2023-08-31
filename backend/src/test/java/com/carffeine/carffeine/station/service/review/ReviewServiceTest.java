@@ -177,39 +177,4 @@ class ReviewServiceTest {
         // then
         assertThat(foundReview.isDeleted()).isTrue();
     }
-
-    @Test
-    void 평균_별점을_구할_수_있다() {
-        // given
-        reviewService.saveReview(createRequest, station.getStationId(), member.getId());
-        reviewService.saveReview(createRequest2, station.getStationId(), member.getId());
-
-        // when
-        double averageRatings = reviewService.findAverageRatings(station.getStationId());
-
-        // then
-        assertThat(averageRatings).isEqualTo(3.0);
-    }
-
-    @Test
-    void 총_리뷰_개수를_구할_수_있다() {
-        // given
-        reviewService.saveReview(createRequest, station.getStationId(), member.getId());
-        reviewService.saveReview(createRequest2, station.getStationId(), member.getId());
-
-        // when
-        long totalCount = reviewService.findTotalCount(station.getStationId());
-
-        // then
-        assertThat(totalCount).isEqualTo(2);
-    }
-
-    @Test
-    void 리뷰가_없다면_0점을_반환한다() {
-        // when
-        double result = reviewService.findAverageRatings(station.getStationId());
-
-        // then
-        assertThat(result).isEqualTo(0.0);
-    }
 }
