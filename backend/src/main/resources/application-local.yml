@@ -5,11 +5,11 @@ spring:
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
   flyway:
-    enabled: true
+    enabled: false
     baseline-on-migrate: true
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     properties:
       hibernate:

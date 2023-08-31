@@ -1,27 +1,31 @@
 package com.carffeine.carffeine.station.service.station;
 
+import com.carffeine.carffeine.helper.integration.IntegrationTest;
+import com.carffeine.carffeine.station.domain.charger.ChargerType;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.domain.station.StationRepository;
 import com.carffeine.carffeine.station.exception.StationException;
 import com.carffeine.carffeine.station.exception.StationExceptionType;
 import com.carffeine.carffeine.station.fixture.station.StationFixture;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.ChargerSpecificResponse;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
+import com.carffeine.carffeine.station.service.station.dto.CoordinateRequest;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
+import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
-@SpringBootTest
-public class StationQueryServiceTest {
+public class StationQueryServiceTest extends IntegrationTest {
 
     @Autowired
     private StationQueryService stationQueryService;
@@ -71,5 +75,171 @@ public class StationQueryServiceTest {
         assertThatThrownBy(() -> stationQueryService.findStationById("WRONG_ID"))
                 .isInstanceOf(StationException.class)
                 .hasMessage(StationExceptionType.NOT_FOUND_ID.message());
+    }
+
+    @Test
+    void 위도_경도로_충전소를_조회한다() {
+        //given
+        Station station = StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
+        stationRepository.save(station);
+        Station station1 = StationFixture.잠실역_충전소_충전기_2개_사용가능_1개;
+        stationRepository.save(station1);
+
+        BigDecimal centerX = BigDecimal.valueOf(37.3994933);
+        BigDecimal centerY = BigDecimal.valueOf(127.3994933);
+        BigDecimal deltaX = BigDecimal.valueOf(1);
+        BigDecimal deltaY = BigDecimal.valueOf(1);
+        CoordinateRequest coordinateRequest = new CoordinateRequest(centerX, centerY, deltaX, deltaY);
+
+        // when
+        List<StationSimpleResponse> result = stationQueryService.findByLocation(coordinateRequest, List.of(), List.of(), List.of());
+
+        // then
+        assertThat(result).usingRecursiveComparison()
+                .isEqualTo(List.of(
+                                new StationSimpleResponse(
+                                        station.getStationId(),
+                                        station.getStationName(),
+                                        station.getLatitude().getValue(),
+                                        station.getLongitude().getValue(),
+                                        station.isParkingFree(),
+                                        station.isPrivate(),
+                                        station.getAvailableCount(),
+                                        station.getChargers().stream().filter(it -> it.getCapacity().compareTo(BigDecimal.valueOf(50.0)) >= 0).count()
+                                ),
+                                new StationSimpleResponse(
+                                        station1.getStationId(),
+                                        station1.getStationName(),
+                                        station1.getLatitude().getValue(),
+                                        station1.getLongitude().getValue(),
+                                        station1.isParkingFree(),
+                                        station1.isPrivate(),
+                                        station1.getAvailableCount(),
+                                        station1.getChargers().stream().filter(it -> it.getCapacity().compareTo(BigDecimal.valueOf(50.0)) >= 0).count()
+                                )
+                        )
+                );
+    }
+
+    @Test
+    void 위도_경도로_조회할_때_충전소_회사로_필터링한다() {
+        //given
+        Station station = StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
+        stationRepository.save(station);
+        Station station1 = StationFixture.잠실역_충전소_충전기_2개_사용가능_1개;
+        stationRepository.save(station1);
+
+        BigDecimal centerX = BigDecimal.valueOf(37.3994933);
+        BigDecimal centerY = BigDecimal.valueOf(127.3994933);
+        BigDecimal deltaX = BigDecimal.valueOf(1);
+        BigDecimal deltaY = BigDecimal.valueOf(1);
+        CoordinateRequest coordinateRequest = new CoordinateRequest(centerX, centerY, deltaX, deltaY);
+
+        // when
+        List<StationSimpleResponse> result = stationQueryService.findByLocation(coordinateRequest, List.of("볼튼"), List.of(), List.of());
+
+        // then
+        assertThat(result).usingRecursiveComparison()
+                .isEqualTo(List.of(
+                                new StationSimpleResponse(
+                                        station.getStationId(),
+                                        station.getStationName(),
+                                        station.getLatitude().getValue(),
+                                        station.getLongitude().getValue(),
+                                        station.isParkingFree(),
+                                        station.isPrivate(),
+                                        station.getAvailableCount(),
+                                        station.getChargers().stream().filter(it -> it.getCapacity().compareTo(BigDecimal.valueOf(50.0)) >= 0).count()
+                                ),
+                                new StationSimpleResponse(
+                                        station1.getStationId(),
+                                        station1.getStationName(),
+                                        station1.getLatitude().getValue(),
+                                        station1.getLongitude().getValue(),
+                                        station1.isParkingFree(),
+                                        station1.isPrivate(),
+                                        station1.getAvailableCount(),
+                                        station1.getChargers().stream().filter(it -> it.getCapacity().compareTo(BigDecimal.valueOf(50.0)) >= 0).count()
+                                )
+                        )
+                );
+    }
+
+    @Test
+    void 위도_경도로_조회할_때_충전기_타입으로_필터링한다() {
+        //given
+        Station station = StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
+        stationRepository.save(station);
+        Station station1 = StationFixture.잠실역_충전소_충전기_2개_사용가능_1개;
+        stationRepository.save(station1);
+
+        BigDecimal centerX = BigDecimal.valueOf(37.3994933);
+        BigDecimal centerY = BigDecimal.valueOf(127.3994933);
+        BigDecimal deltaX = BigDecimal.valueOf(1);
+        BigDecimal deltaY = BigDecimal.valueOf(1);
+        CoordinateRequest coordinateRequest = new CoordinateRequest(centerX, centerY, deltaX, deltaY);
+
+        // when
+        List<StationSimpleResponse> result = stationQueryService.findByLocation(coordinateRequest, List.of(), List.of(ChargerType.AC_3PHASE), List.of());
+
+        // then
+        assertThat(result).usingRecursiveComparison()
+                .isEqualTo(List.of(
+                                new StationSimpleResponse(
+                                        station.getStationId(),
+                                        station.getStationName(),
+                                        station.getLatitude().getValue(),
+                                        station.getLongitude().getValue(),
+                                        station.isParkingFree(),
+                                        station.isPrivate(),
+                                        station.getAvailableCount(),
+                                        station.getChargers().stream().filter(it -> it.getCapacity().compareTo(BigDecimal.valueOf(50.0)) >= 0).count()
+                                )
+                        )
+                );
+    }
+
+    @Test
+    void 위도_경도로_조회할_때_충전속도로_필터링한다() {
+        //given
+        Station station = StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
+        stationRepository.save(station);
+        Station station1 = StationFixture.잠실역_충전소_충전기_2개_사용가능_1개;
+        stationRepository.save(station1);
+
+        BigDecimal centerX = BigDecimal.valueOf(37.3994933);
+        BigDecimal centerY = BigDecimal.valueOf(127.3994933);
+        BigDecimal deltaX = BigDecimal.valueOf(1);
+        BigDecimal deltaY = BigDecimal.valueOf(1);
+        CoordinateRequest coordinateRequest = new CoordinateRequest(centerX, centerY, deltaX, deltaY);
+
+        // when
+        List<StationSimpleResponse> result = stationQueryService.findByLocation(coordinateRequest, List.of(), List.of(), List.of(BigDecimal.valueOf(50.0)));
+
+        // then
+        assertThat(result).usingRecursiveComparison()
+                .isEqualTo(List.of(
+                                new StationSimpleResponse(
+                                        station.getStationId(),
+                                        station.getStationName(),
+                                        station.getLatitude().getValue(),
+                                        station.getLongitude().getValue(),
+                                        station.isParkingFree(),
+                                        station.isPrivate(),
+                                        station.getAvailableCount(),
+                                        station.getChargers().stream().filter(it -> it.getCapacity().compareTo(BigDecimal.valueOf(50.0)) >= 0).count()
+                                ),
+                                new StationSimpleResponse(
+                                        station1.getStationId(),
+                                        station1.getStationName(),
+                                        station1.getLatitude().getValue(),
+                                        station1.getLongitude().getValue(),
+                                        station1.isParkingFree(),
+                                        station1.isPrivate(),
+                                        station1.getAvailableCount(),
+                                        station1.getChargers().stream().filter(it -> it.getCapacity().compareTo(BigDecimal.valueOf(50.0)) >= 0).count()
+                                )
+                        )
+                );
     }
 }

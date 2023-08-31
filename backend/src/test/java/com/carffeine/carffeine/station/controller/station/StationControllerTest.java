@@ -6,6 +6,7 @@ import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.exception.StationException;
 import com.carffeine.carffeine.station.exception.StationExceptionType;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.ChargerSpecificResponse;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
 import com.carffeine.carffeine.station.service.station.dto.CoordinateRequest;
 import com.carffeine.carffeine.station.service.station.dto.StationSearchResponse;
@@ -57,8 +58,17 @@ class StationControllerTest extends MockBeanInjection {
         CoordinateRequest coordinateRequest = new CoordinateRequest(latitude, longitude, latitudeDelta, longitudeDelta);
 
         // when
-        List<Station> fakeStations = List.of(선릉역_충전소_충전기_2개_사용가능_1개);
-        when(stationService.findByCoordinate(coordinateRequest, List.of("볼튼"), List.of(ChargerType.DC_COMBO), List.of(new BigDecimal("50.00")))).thenReturn(fakeStations);
+        Station station = 선릉역_충전소_충전기_2개_사용가능_1개;
+        when(stationQueryService.findByLocation(coordinateRequest, List.of("볼튼"), List.of(ChargerType.DC_COMBO), List.of(new BigDecimal("50.00")))).thenReturn(List.of(new StationSimpleResponse(
+                station.getStationId(),
+                station.getStationName(),
+                station.getLatitude().getValue(),
+                station.getLongitude().getValue(),
+                station.isParkingFree(),
+                station.isPrivate(),
+                station.getAvailableCount(),
+                1L
+        )));
 
         // then
         mockMvc.perform(get("/stations")
@@ -87,20 +97,12 @@ class StationControllerTest extends MockBeanInjection {
                                 fieldWithPath("stations").type(JsonFieldType.ARRAY).description("충전소들"),
                                 fieldWithPath("stations[].stationId").type(JsonFieldType.STRING).description("충전소 ID"),
                                 fieldWithPath("stations[].stationName").type(JsonFieldType.STRING).description("충전소 이름"),
-                                fieldWithPath("stations[].companyName").type(JsonFieldType.STRING).description("충전소 회사 이름"),
-                                fieldWithPath("stations[].address").type(JsonFieldType.STRING).description("충전소 주소"),
-                                fieldWithPath("stations[].chargers").type(JsonFieldType.ARRAY).description("충전소의 충전기들"),
-                                fieldWithPath("stations[].chargers[].type").type(JsonFieldType.STRING).description("충전기 종류"),
-                                fieldWithPath("stations[].chargers[].capacity").type(JsonFieldType.NUMBER).description("충전기 용량"),
-                                fieldWithPath("stations[].chargers[].price").type(JsonFieldType.NUMBER).description("충전기 kWh당 가격"),
                                 fieldWithPath("stations[].isParkingFree").type(JsonFieldType.BOOLEAN).description("주차 무료"),
-                                fieldWithPath("stations[].operatingTime").type(JsonFieldType.STRING).description("이용 가능 시간"),
-                                fieldWithPath("stations[].detailLocation").type(JsonFieldType.STRING).description("상세 위치"),
                                 fieldWithPath("stations[].latitude").type(JsonFieldType.NUMBER).description("위도"),
                                 fieldWithPath("stations[].longitude").type(JsonFieldType.NUMBER).description("경도"),
                                 fieldWithPath("stations[].isPrivate").type(JsonFieldType.BOOLEAN).description("이용 제한"),
-                                fieldWithPath("stations[].totalCount").type(JsonFieldType.NUMBER).description("전체 충전기 수"),
-                                fieldWithPath("stations[].availableCount").type(JsonFieldType.NUMBER).description("사용 가능한 수")
+                                fieldWithPath("stations[].availableCount").type(JsonFieldType.NUMBER).description("사용 가능한 충전기 수"),
+                                fieldWithPath("stations[].quickChargerCount").type(JsonFieldType.NUMBER).description("사용 가능한 수")
                         )
                 ));
     }

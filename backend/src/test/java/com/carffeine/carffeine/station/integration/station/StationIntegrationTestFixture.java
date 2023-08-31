@@ -4,6 +4,7 @@ import com.carffeine.carffeine.helper.integration.AcceptanceTestFixture;
 import com.carffeine.carffeine.station.controller.station.dto.StationsSimpleResponse;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.ChargerSpecificResponse;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
 import com.carffeine.carffeine.station.service.station.dto.CoordinateRequest;
 import io.restassured.RestAssured;
@@ -32,9 +33,20 @@ public abstract class StationIntegrationTestFixture extends AcceptanceTestFixtur
 
     public static void 충전소_간단_정보를_검증한다(ExtractableResponse<Response> extract, Station... 충전소들) {
         var response = extract.as(StationsSimpleResponse.class);
+        List<StationSimpleResponse> simpleResponses = List.of(충전소들).stream()
+                .map(it -> new StationSimpleResponse(
+                        it.getStationId(),
+                        it.getStationName(),
+                        it.getLatitude().getValue(),
+                        it.getLongitude().getValue(),
+                        it.isParkingFree(),
+                        it.isPrivate(),
+                        it.getAvailableCount(),
+                        it.getChargers().stream().filter(charger -> charger.getCapacity().compareTo(BigDecimal.valueOf(50)) >= 0).count()
+                )).toList();
         assertThat(response).usingRecursiveComparison()
                 .withEqualsForType((i, i2) -> i.compareTo(i2) == 0, BigDecimal.class)
-                .isEqualTo(StationsSimpleResponse.from(List.of(충전소들)));
+                .isEqualTo(new StationsSimpleResponse(simpleResponses));
     }
 
     public static CoordinateRequest 좌표_중심값과_화면_크기(String 중심_경도, String 중심_위도, String 화면_경도, String 화면_위도) {

@@ -2,7 +2,7 @@ package com.carffeine.carffeine.station.controller.station;
 
 import com.carffeine.carffeine.station.controller.station.dto.StationsSimpleResponse;
 import com.carffeine.carffeine.station.domain.charger.ChargerType;
-import com.carffeine.carffeine.station.domain.station.Station;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
 import com.carffeine.carffeine.station.service.station.StationQueryService;
 import com.carffeine.carffeine.station.service.station.StationService;
@@ -31,9 +31,8 @@ public class StationController {
                                                               @RequestParam(required = false, defaultValue = "") List<String> companyNames,
                                                               @RequestParam(required = false, defaultValue = "") List<ChargerType> chargerTypes,
                                                               @RequestParam(required = false, defaultValue = "") List<BigDecimal> capacities) {
-        List<Station> stations = stationService.findByCoordinate(request, companyNames, chargerTypes, capacities);
-        StationsSimpleResponse chargerStationsSimpleResponse = StationsSimpleResponse.from(stations);
-        return ResponseEntity.ok(chargerStationsSimpleResponse);
+        List<StationSimpleResponse> simpleResponses = stationQueryService.findByLocation(request, companyNames, chargerTypes, capacities);
+        return ResponseEntity.ok(new StationsSimpleResponse(simpleResponses));
     }
 
     @GetMapping("/stations/search")

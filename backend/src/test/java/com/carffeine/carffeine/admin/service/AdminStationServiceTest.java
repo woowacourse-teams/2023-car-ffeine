@@ -93,7 +93,7 @@ public class AdminStationServiceTest {
     @Test
     void 충전소의_정보를_상세_조회한다() {
         // given
-        Station saved = stationRepository.save(StationFixture.천호역_충전소_충전기_2개_사용가능_1개);
+        Station saved = stationRepository.save(StationFixture.천호역_충전소_충전기_2개_사용가능_0개);
 
         // when
         Station station = adminStationService.getStation(saved.getStationId(), admin.getId());
