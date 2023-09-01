@@ -26,7 +26,10 @@ public class ReviewQueryService {
     }
 
     private static int getNextPage(int pageNumber, Page<ReviewResponse> allReviews) {
-        return allReviews.hasNext() ? pageNumber + NEXT_PAGE_INDEX : NO_MORE_PAGE;
+        if (allReviews.hasNext()) {
+            return pageNumber + NEXT_PAGE_INDEX;
+        }
+        return NO_MORE_PAGE;
     }
 
     public TotalRatingsResponse findTotalRatings(String stationId) {
