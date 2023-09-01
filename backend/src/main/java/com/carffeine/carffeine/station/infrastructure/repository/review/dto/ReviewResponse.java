@@ -10,5 +10,6 @@ public record ReviewResponse(
         String content,
         boolean isUpdated,
         boolean isDeleted,
-        long replySize) {
+        long replySize
+) {
 }
