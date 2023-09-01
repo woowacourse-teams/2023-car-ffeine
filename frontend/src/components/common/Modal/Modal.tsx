@@ -8,10 +8,20 @@ export interface ModalProps {
   onClose: () => void;
   children: ReactNode;
   staticBackdrop?: boolean;
+  noOverflowHidden?: boolean;
+  noBackdrop?: boolean;
   css?: CSSProp;
 }
 
-const Modal = ({ isOpen, onClose, children, staticBackdrop = false, css }: ModalProps) => {
+const Modal = ({
+  isOpen,
+  onClose,
+  children,
+  staticBackdrop = false,
+  noOverflowHidden,
+  noBackdrop,
+  css,
+}: ModalProps) => {
   const handleClickModalContent = (event: MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
   };
@@ -26,11 +36,23 @@ const Modal = ({ isOpen, onClose, children, staticBackdrop = false, css }: Modal
     return null;
   }
 
+  const modalContent = (
+    <ModalContent noBackdrop onClick={handleClickModalContent} css={css}>
+      {children}
+    </ModalContent>
+  );
+
+  if (noBackdrop) {
+    return modalContent;
+  }
+
   return (
-    <ModalWrapper className="modal-open" onClick={handleBackdropClick} css={css}>
-      <ModalContent onClick={handleClickModalContent} css={css}>
-        {children}
-      </ModalContent>
+    <ModalWrapper
+      className={noOverflowHidden && 'modal-open'}
+      onClick={handleBackdropClick}
+      css={css}
+    >
+      {modalContent}
     </ModalWrapper>
   );
 };
@@ -57,19 +79,22 @@ const ModalWrapper = styled.div<{ css: CSSProp }>`
   width: 100%;
   height: 100%;
 
-  background-color: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.5);
   overflow: auto;
 
   animation: ${fadeIn} 0.2s ease-in-out;
 
   z-index: 9999;
+
   ${({ css }) => css};
 `;
 
-const ModalContent = styled.div<{ css: CSSProp }>`
+const ModalContent = styled.div<{ noBackdrop: boolean; css: CSSProp }>`
   background: #fff;
   margin: 1rem;
-  border-radius: 1rem;
+  border-radius: 10px;
   max-height: calc(100% - 4rem);
   overflow-y: auto;
+
+  ${({ noBackdrop, css }) => noBackdrop && css};
 `;

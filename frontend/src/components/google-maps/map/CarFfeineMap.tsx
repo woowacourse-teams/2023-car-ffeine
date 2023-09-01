@@ -9,19 +9,20 @@ import { useExternalValue } from '@utils/external-state';
 import { setLocalStorage } from '@utils/storage';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
-import { toastActions } from '@stores/layout/toastStore';
+import { warningModalActions } from '@stores/layout/warningModalStore';
 import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
 
 import { useCarFilters } from '@hooks/tanstack-query/station-filters/useCarFilters';
 import { useMemberFilters } from '@hooks/tanstack-query/station-filters/useMemberFilters';
 
 import ToastContainer from '@common/Toast/ToastContainer';
+import ZoomWarningModal from '@common/WarningModal';
 
 import ClientStationFilters from '@ui/ClientStationFilters';
 import MapController from '@ui/MapController';
 import ModalContainer from '@ui/ModalContainer';
-import ModalSecondaryContainer from '@ui/ModalSecondaryContainer';
 import Navigator from '@ui/Navigator';
+import WarningModalContainer from '@ui/WarningModalContainer';
 
 import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
 import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
@@ -32,12 +33,15 @@ const CarFfeineMap = () => {
     <>
       <CarFfeineMapListener />
       <UserFilterListener />
+
       <ToastContainer />
       <ModalContainer />
-      <ModalSecondaryContainer />
+
       <Navigator />
       <ClientStationFilters />
       <MapController />
+
+      <WarningModalContainer />
       <StationMarkersContainer />
     </>
   );
@@ -49,7 +53,9 @@ const CarFfeineMapListener = () => {
 
   const debouncedIdleHandler = debounce(() => {
     if (googleMap.getZoom() < INITIAL_ZOOM_SIZE) {
-      toastActions.showToast('지도를 조금만 더 확대해주세요', 'warning', 'bottom-center');
+      warningModalActions.openModal(<ZoomWarningModal />);
+    } else {
+      warningModalActions.closeModal();
     }
     queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
 

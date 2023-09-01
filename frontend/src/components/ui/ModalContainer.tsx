@@ -9,7 +9,7 @@ const ModalContainer = () => {
   const modalContent = useExternalValue(modalContentStore);
 
   return (
-    <Modal isOpen={isModalOpen} onClose={() => modalActions.closeModal()} css={{ zIndex: 10000 }}>
+    <Modal isOpen={isModalOpen} onClose={() => modalActions.closeModal()}>
       {modalContent}
     </Modal>
   );
