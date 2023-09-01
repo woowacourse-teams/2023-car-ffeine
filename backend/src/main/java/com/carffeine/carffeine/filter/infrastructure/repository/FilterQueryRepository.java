@@ -21,6 +21,7 @@ public class FilterQueryRepository {
                         carFilter.filter.name,
                         carFilter.filter.filterType
                 )).from(carFilter)
+                .innerJoin(carFilter.filter)
                 .where(carFilter.id.eq(carId))
                 .fetch();
     }
