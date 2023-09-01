@@ -1,6 +1,6 @@
 FROM arm64v8/node:18-alpine as builder
 
-WORKDIR /usr/src/app
+WORKDIR /app/build
 
 COPY package.json package.json
 COPY yarn.lock yarn.lock
