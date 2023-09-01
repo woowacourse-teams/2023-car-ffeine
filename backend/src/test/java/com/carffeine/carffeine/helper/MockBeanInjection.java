@@ -67,5 +67,6 @@ public class MockBeanInjection {
     protected ReviewQueryService reviewQueryService;
     @MockBean
     protected ReplyQueryService replyQueryService;
+    @MockBean
     protected AuthenticationContext authenticationContext;
 }
