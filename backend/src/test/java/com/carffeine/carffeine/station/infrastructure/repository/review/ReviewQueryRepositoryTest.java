@@ -9,6 +9,7 @@ import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.domain.station.StationRepository;
 import com.carffeine.carffeine.station.infrastructure.repository.review.dto.ReviewResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.review.dto.TotalRatingsResponse;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -19,13 +20,13 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-import java.time.LocalDateTime;
-import java.util.Comparator;
+import javax.persistence.EntityManager;
 import java.util.List;
 
 import static com.carffeine.carffeine.member.fixture.MemberFixture.일반_회원;
 import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.리뷰_13개;
 import static com.carffeine.carffeine.station.fixture.station.StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
+import static java.util.Comparator.comparing;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
@@ -47,6 +48,8 @@ class ReviewQueryRepositoryTest {
     @Autowired
     private StationRepository stationRepository;
 
+    @Autowired
+    private EntityManager entityManager;
     private Member member;
     private Station station;
 
@@ -56,18 +59,24 @@ class ReviewQueryRepositoryTest {
         station = stationRepository.save(선릉역_충전소_충전기_2개_사용가능_1개);
     }
 
+    @AfterEach
+    void afterEach() {
+        entityManager.createNativeQuery("ALTER TABLE review ALTER COLUMN id RESTART WITH 1").executeUpdate();
+    }
+
     @Test
     void 리뷰_13개_중_첫번째_페이지엔_10개의_리뷰가_있다() {
         // given
         List<Review> reviewList = 리뷰_13개(member).stream()
                 .map(it -> reviewRepository.save(it))
                 .toList();
+
         PageRequest pageable = PageRequest.of(0, 10);
 
         // when
         Page<ReviewResponse> allReviews = reviewQueryRepository.findAllReviews(station.getStationId(), pageable);
-        List<ReviewResponse> list = reviewList.stream()
-                .sorted(Comparator.comparing(Review::getId).reversed())
+        List<ReviewResponse> expected = reviewList.stream()
+                .sorted(comparing(Review::getId).reversed())
                 .limit(10)
                 .map(it -> new ReviewResponse(it.getId(), it.getMember().getId(), it.getUpdatedAt(), it.getRatings(), it.getContent(), it.getUpdatedAt().isAfter(it.getCreatedAt()), it.isDeleted(), 0))
                 .toList();
@@ -78,8 +87,7 @@ class ReviewQueryRepositoryTest {
             softly.assertThat(allReviews.hasNext()).isTrue();
             softly.assertThat(allReviews.getContent())
                     .usingRecursiveComparison()
-                    .ignoringFieldsOfTypes(LocalDateTime.class)
-                    .isEqualTo(list);
+                    .isEqualTo(expected);
         });
     }
 
@@ -95,16 +103,16 @@ class ReviewQueryRepositoryTest {
         Page<ReviewResponse> allReviews = reviewQueryRepository.findAllReviews(station.getStationId(), pageRequest);
         List<ReviewResponse> expected = reviewList.stream()
                 .limit(3)
-                .sorted(Comparator.comparing(Review::getId).reversed())
+                .sorted(comparing(Review::getId).reversed())
                 .map(it -> new ReviewResponse(it.getId(), it.getMember().getId(), it.getUpdatedAt(), it.getRatings(), it.getContent(), it.getUpdatedAt().isAfter(it.getCreatedAt()), it.isDeleted(), 0))
                 .toList();
+
         // then
         assertSoftly(softly -> {
             softly.assertThat(allReviews).hasSize(3);
             softly.assertThat(allReviews.hasNext()).isFalse();
             softly.assertThat(allReviews.getContent())
                     .usingRecursiveComparison()
-                    .ignoringFieldsOfTypes(LocalDateTime.class)
                     .isEqualTo(expected);
 
         });
