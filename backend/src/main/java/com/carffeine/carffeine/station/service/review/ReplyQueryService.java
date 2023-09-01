@@ -14,16 +14,17 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ReplyQueryService {
 
-    public static final int NEXT_PAGE_INDEX = 1;
-    public static final int NO_MORE_PAGE = -1;
+    private static final int NEXT_PAGE_INDEX = 1;
+    private static final int NO_MORE_PAGE = -1;
+
     private final ReplyQueryRepository replyQueryRepository;
 
     public ReplyResponses findAllReplies(Long reviewId, Pageable pageable) {
         Page<ReplyResponse> allReplies = replyQueryRepository.findAllReplies(reviewId, pageable);
-        return new ReplyResponses(allReplies.getContent(), getNextPage(pageable, allReplies));
+        return new ReplyResponses(allReplies.getContent(), getNextPage(pageable.getPageNumber(), allReplies));
     }
 
-    private static int getNextPage(Pageable pageable, Page<ReplyResponse> allReplies) {
-        return allReplies.hasNext() ? pageable.getPageNumber() + NEXT_PAGE_INDEX : NO_MORE_PAGE;
+    private static int getNextPage(int pageNumber, Page<ReplyResponse> allReplies) {
+        return allReplies.hasNext() ? pageNumber + NEXT_PAGE_INDEX : NO_MORE_PAGE;
     }
 }
