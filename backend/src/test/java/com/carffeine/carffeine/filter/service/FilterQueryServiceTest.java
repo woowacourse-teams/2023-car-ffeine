@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.assertj.core.api.SoftAssertions.assertSoftly;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
@@ -48,10 +48,7 @@ class FilterQueryServiceTest extends IntegrationTest {
         FiltersResponse result = filterQueryService.findCarFilters(car.getId());
 
         // then
-        assertSoftly(softly -> {
-            softly.assertThat(result.companies().size()).isEqualTo(1);
-            softly.assertThat(result.companies().get(0)).isEqualTo(carFilters.get(0).getFilter().getName());
-        });
+        assertThat(result).usingRecursiveComparison().isEqualTo(new FiltersResponse(List.of("회사명"), List.of(), List.of()));
     }
 
     @Test

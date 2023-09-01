@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Import;
 
 import java.util.List;
 
-import static org.assertj.core.api.SoftAssertions.assertSoftly;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
@@ -44,15 +44,12 @@ class FilterQueryRepositoryTest {
         Car car = carRepository.save(Car.from("아이오닉5", "2023"));
         List<Filter> filters = filterRepository.saveAll(List.of(Filter.of("회사명", FilterType.COMPANY.getName())));
         List<CarFilter> carFilters = carFilterRepository.saveAll(List.of(new CarFilter(car, filters.get(0))));
+        Filter carFilter = carFilters.get(0).getFilter();
 
         // when
         List<FilterResponse> result = filterQueryRepository.findCarFilters(car.getId());
 
         // then
-        assertSoftly(softly -> {
-            softly.assertThat(result.size()).isEqualTo(1);
-            softly.assertThat(result.get(0).name()).isEqualTo(carFilters.get(0).getFilter().getName());
-            softly.assertThat(result.get(0).filterType()).isEqualTo(filters.get(0).getFilterType());
-        });
+        assertThat(result).usingRecursiveComparison().isEqualTo(List.of(new FilterResponse(carFilter.getName(), carFilter.getFilterType())));
     }
 }
