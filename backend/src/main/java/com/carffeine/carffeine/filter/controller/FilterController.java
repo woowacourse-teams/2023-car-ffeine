@@ -3,6 +3,7 @@ package com.carffeine.carffeine.filter.controller;
 import com.carffeine.carffeine.auth.controller.support.AuthMember;
 import com.carffeine.carffeine.filter.controller.dto.FiltersResponse;
 import com.carffeine.carffeine.filter.domain.Filter;
+import com.carffeine.carffeine.filter.domain.MemberFilter;
 import com.carffeine.carffeine.filter.service.FilterQueryService;
 import com.carffeine.carffeine.filter.service.FilterService;
 import com.carffeine.carffeine.filter.service.dto.FiltersRequest;
@@ -56,5 +57,20 @@ public class FilterController {
         List<Filter> filters = filterService.addCarFilters(memberId, carId, filtersRequest);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(FiltersResponse.from(filters));
+    }
+
+    @GetMapping("/members/{memberId}/filters")
+    public ResponseEntity<FiltersResponse> findMemberFilters(@PathVariable Long memberId,
+                                                             @AuthMember Long loginMember) {
+        List<Filter> memberFilters = filterService.findMemberFilters(memberId, loginMember);
+        return ResponseEntity.ok(FiltersResponse.from(memberFilters));
+    }
+
+    @PostMapping("/members/{memberId}/filters")
+    public ResponseEntity<FiltersResponse> addMemberFilters(@PathVariable Long memberId,
+                                                            @AuthMember Long loginMember,
+                                                            @RequestBody FiltersRequest filtersRequest) {
+        List<MemberFilter> memberFilters = filterService.addMemberFilters(memberId, loginMember, filtersRequest);
+        return ResponseEntity.ok(FiltersResponse.fromMemberFilters(memberFilters));
     }
 }

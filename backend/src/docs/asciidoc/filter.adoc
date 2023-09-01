@@ -66,3 +66,31 @@ include::{snippets}/filter-controller-test/add_car_filters/http-request.adoc[]
 
 include::{snippets}/filter-controller-test/add_car_filters/response-fields.adoc[]
 include::{snippets}/filter-controller-test/add_car_filters/http-response.adoc[]
+
+== 회원이 등록한 모든 필터를 조회한다.
+
+=== Request
+
+include::{snippets}/filter-controller-test/find_member_filters/request-headers.adoc[]
+include::{snippets}/filter-controller-test/find_member_filters/path-parameters.adoc[]
+include::{snippets}/filter-controller-test/find_member_filters/request-body.adoc[]
+include::{snippets}/filter-controller-test/find_member_filters/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/filter-controller-test/find_member_filters/response-fields.adoc[]
+include::{snippets}/filter-controller-test/find_member_filters/http-response.adoc[]
+
+== 회원의 선호 필터를 등록한다
+
+=== Request
+
+include::{snippets}/filter-controller-test/add_member_filters/request-headers.adoc[]
+include::{snippets}/filter-controller-test/add_member_filters/path-parameters.adoc[]
+include::{snippets}/filter-controller-test/add_member_filters/request-fields.adoc[]
+include::{snippets}/filter-controller-test/add_member_filters/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/filter-controller-test/add_member_filters/response-fields.adoc[]
+include::{snippets}/filter-controller-test/add_member_filters/http-response.adoc[]

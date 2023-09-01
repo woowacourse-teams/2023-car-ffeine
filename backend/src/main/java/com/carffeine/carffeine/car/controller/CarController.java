@@ -1,15 +1,15 @@
 package com.carffeine.carffeine.car.controller;
 
 import com.carffeine.carffeine.auth.controller.support.AuthMember;
+import com.carffeine.carffeine.car.controller.dto.MemberCarInfoResponse;
 import com.carffeine.carffeine.car.domain.Car;
+import com.carffeine.carffeine.car.domain.MemberCar;
 import com.carffeine.carffeine.car.infrastructure.dto.CarResponse;
 import com.carffeine.carffeine.car.infrastructure.dto.CarsResponse;
 import com.carffeine.carffeine.car.service.CarQueryService;
 import com.carffeine.carffeine.car.service.CarService;
 import com.carffeine.carffeine.car.service.dto.CarRequest;
 import com.carffeine.carffeine.car.service.dto.CarsRequest;
-import com.carffeine.carffeine.member.controller.dto.MemberCarInfoResponse;
-import com.carffeine.carffeine.member.domain.MemberCar;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

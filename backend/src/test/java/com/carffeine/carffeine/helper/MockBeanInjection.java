@@ -13,7 +13,6 @@ import com.carffeine.carffeine.car.service.CarService;
 import com.carffeine.carffeine.filter.service.FilterQueryService;
 import com.carffeine.carffeine.filter.service.FilterService;
 import com.carffeine.carffeine.member.domain.MemberRepository;
-import com.carffeine.carffeine.member.service.MemberService;
 import com.carffeine.carffeine.station.domain.review.ReplyRepository;
 import com.carffeine.carffeine.station.domain.review.ReviewRepository;
 import com.carffeine.carffeine.station.service.congestion.CongestionService;
@@ -55,8 +54,6 @@ public class MockBeanInjection {
     protected AdminMemberService adminMemberService;
     @MockBean
     protected FilterService filterService;
-    @MockBean
-    protected MemberService memberService;
     @MockBean
     protected ReplyService replyService;
     @MockBean

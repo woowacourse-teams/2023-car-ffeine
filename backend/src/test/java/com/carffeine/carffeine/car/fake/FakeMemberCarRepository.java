@@ -1,4 +1,8 @@
-package com.carffeine.carffeine.member.domain;
+package com.carffeine.carffeine.car.fake;
+
+import com.carffeine.carffeine.car.domain.MemberCar;
+import com.carffeine.carffeine.car.domain.MemberCarRepository;
+import com.carffeine.carffeine.member.domain.Member;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,8 @@
-package com.carffeine.carffeine.member.domain;
+package com.carffeine.carffeine.filter.fake;
+
+import com.carffeine.carffeine.filter.domain.MemberFilter;
+import com.carffeine.carffeine.filter.domain.MemberFilterRepository;
+import com.carffeine.carffeine.member.domain.Member;
 
 import java.util.ArrayList;
 import java.util.HashMap;

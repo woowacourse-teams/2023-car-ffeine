@@ -1,12 +1,12 @@
 package com.carffeine.carffeine.car.controller;
 
 import com.carffeine.carffeine.car.domain.Car;
+import com.carffeine.carffeine.car.domain.MemberCar;
 import com.carffeine.carffeine.car.infrastructure.dto.CarResponse;
 import com.carffeine.carffeine.car.infrastructure.dto.CarsResponse;
 import com.carffeine.carffeine.car.service.dto.CarRequest;
 import com.carffeine.carffeine.car.service.dto.CarsRequest;
 import com.carffeine.carffeine.helper.MockBeanInjection;
-import com.carffeine.carffeine.member.domain.MemberCar;
 import com.carffeine.carffeine.member.fixture.MemberFixture;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpHeaders;

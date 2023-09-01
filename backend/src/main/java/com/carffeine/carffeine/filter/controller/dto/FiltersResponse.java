@@ -1,7 +1,7 @@
 package com.carffeine.carffeine.filter.controller.dto;
 
 import com.carffeine.carffeine.filter.domain.Filter;
-import com.carffeine.carffeine.member.domain.MemberFilter;
+import com.carffeine.carffeine.filter.domain.MemberFilter;
 
 import java.util.List;
 
