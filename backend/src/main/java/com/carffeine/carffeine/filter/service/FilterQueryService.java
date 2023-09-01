@@ -1,10 +1,10 @@
 package com.carffeine.carffeine.filter.service;
 
-import com.carffeine.carffeine.car.infrastructure.repository.dto.FilterResponse;
 import com.carffeine.carffeine.filter.controller.dto.FiltersResponse;
 import com.carffeine.carffeine.filter.domain.Filter;
 import com.carffeine.carffeine.filter.exception.FilterException;
 import com.carffeine.carffeine.filter.infrastructure.repository.FilterQueryRepository;
+import com.carffeine.carffeine.filter.infrastructure.repository.dto.FilterResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
