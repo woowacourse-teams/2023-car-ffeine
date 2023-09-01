@@ -8,10 +8,11 @@ import com.carffeine.carffeine.auth.controller.support.AuthenticationContext;
 import com.carffeine.carffeine.auth.domain.TokenProvider;
 import com.carffeine.carffeine.auth.service.AuthService;
 import com.carffeine.carffeine.auth.service.OAuthRequester;
+import com.carffeine.carffeine.car.service.CarQueryService;
 import com.carffeine.carffeine.car.service.CarService;
+import com.carffeine.carffeine.filter.service.FilterQueryService;
 import com.carffeine.carffeine.filter.service.FilterService;
 import com.carffeine.carffeine.member.domain.MemberRepository;
-import com.carffeine.carffeine.member.service.MemberService;
 import com.carffeine.carffeine.station.domain.review.ReplyRepository;
 import com.carffeine.carffeine.station.domain.review.ReviewRepository;
 import com.carffeine.carffeine.station.service.congestion.CongestionService;
@@ -54,8 +55,6 @@ public class MockBeanInjection {
     @MockBean
     protected FilterService filterService;
     @MockBean
-    protected MemberService memberService;
-    @MockBean
     protected ReplyService replyService;
     @MockBean
     protected ReplyRepository replyRepository;
@@ -63,4 +62,8 @@ public class MockBeanInjection {
     protected CarService carService;
     @MockBean
     protected AuthenticationContext authenticationContext;
+    @MockBean
+    protected CarQueryService carQueryService;
+    @MockBean
+    protected FilterQueryService filterQueryService;
 }

@@ -3,23 +3,20 @@ package com.carffeine.carffeine.car.service;
 import com.carffeine.carffeine.admin.exception.AdminException;
 import com.carffeine.carffeine.admin.exception.AdminExceptionType;
 import com.carffeine.carffeine.car.domain.Car;
-import com.carffeine.carffeine.car.domain.CarFilter;
-import com.carffeine.carffeine.car.domain.CarFilterRepository;
 import com.carffeine.carffeine.car.domain.CarRepository;
-import com.carffeine.carffeine.car.fake.FakeCarFilterRepository;
+import com.carffeine.carffeine.car.domain.MemberCar;
+import com.carffeine.carffeine.car.domain.MemberCarRepository;
+import com.carffeine.carffeine.car.exception.CarException;
+import com.carffeine.carffeine.car.exception.CarExceptionType;
 import com.carffeine.carffeine.car.fake.FakeCarRepository;
+import com.carffeine.carffeine.car.fake.FakeMemberCarRepository;
 import com.carffeine.carffeine.car.service.dto.CarRequest;
 import com.carffeine.carffeine.car.service.dto.CarsRequest;
-import com.carffeine.carffeine.filter.domain.Filter;
-import com.carffeine.carffeine.filter.domain.FilterRepository;
-import com.carffeine.carffeine.filter.domain.FilterType;
-import com.carffeine.carffeine.filter.fake.FakeFilterRepository;
-import com.carffeine.carffeine.filter.service.dto.FilterRequest;
-import com.carffeine.carffeine.filter.service.dto.FiltersRequest;
 import com.carffeine.carffeine.member.domain.FakeMemberRepository;
 import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.member.domain.MemberRepository;
 import com.carffeine.carffeine.member.domain.MemberRole;
+import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -28,9 +25,6 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static com.carffeine.carffeine.car.fixture.CarFixture.createCar;
-import static com.carffeine.carffeine.filter.fixture.FilterFixture.createCapacityFilter;
-import static com.carffeine.carffeine.filter.fixture.FilterFixture.createCompanyFilter;
-import static com.carffeine.carffeine.filter.fixture.FilterFixture.createConnectorTypeFilter;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
@@ -42,8 +36,7 @@ class CarServiceTest {
     private CarService carService;
     private MemberRepository memberRepository;
     private CarRepository carRepository;
-    private CarFilterRepository carFilterRepository;
-    private FilterRepository filterRepository;
+    private MemberCarRepository memberCarRepository;
 
     private Member member;
     private Member admin;
@@ -52,13 +45,11 @@ class CarServiceTest {
     void setup() {
         memberRepository = new FakeMemberRepository();
         carRepository = new FakeCarRepository();
-        carFilterRepository = new FakeCarFilterRepository();
-        filterRepository = new FakeFilterRepository();
+        memberCarRepository = new FakeMemberCarRepository();
         carService = new CarService(
                 memberRepository,
                 carRepository,
-                carFilterRepository,
-                filterRepository
+                memberCarRepository
         );
 
         member = memberRepository.save(Member.builder()
@@ -69,25 +60,6 @@ class CarServiceTest {
         admin = memberRepository.save(Member.builder()
                 .memberRole(MemberRole.ADMIN)
                 .build());
-
-        filterRepository.saveAll(
-                List.of(createCompanyFilter(), createConnectorTypeFilter(), createCapacityFilter())
-        );
-    }
-
-    @Test
-    void 차량을_모두_조회한다() {
-        // given
-        Car savedCar = carRepository.save(createCar());
-
-        // when
-        List<Car> result = carService.findAllCars();
-
-        // then
-        assertSoftly(softly -> {
-            softly.assertThat(result.size()).isEqualTo(1);
-            softly.assertThat(savedCar).usingRecursiveComparison().isEqualTo(result.get(0));
-        });
     }
 
     @Test
@@ -127,7 +99,7 @@ class CarServiceTest {
         List<Car> result = carService.saveCars(admin.getId(), request);
 
         // then
-        assertThat(result.size()).isEqualTo(1);
+        assertThat(result).hasSize(1);
     }
 
     @Test
@@ -161,51 +133,35 @@ class CarServiceTest {
     }
 
     @Test
-    void 차량에_저장된_필터를_모두_조회한다() {
+    void 회원이_등록한_차량을_조회한다() {
         // given
-        Car savedCar = carRepository.save(createCar());
-        List<CarFilter> carFilters = carFilterRepository.saveAll(List.of(new CarFilter(savedCar, createCompanyFilter())));
+        Car car = createCar();
+        memberCarRepository.save(new MemberCar(member, car));
 
         // when
-        List<Filter> result = carService.findCarFilters(savedCar.getId());
+        MemberCar memberCar = carService.findMemberCar(member.getId());
 
         // then
-        assertSoftly(softly -> {
-            softly.assertThat(carFilters.size()).isEqualTo(result.size());
-            softly.assertThat(carFilters.get(0).getFilter().equals(result.get(0))).isTrue();
-        });
+        assertThat(memberCar.getCar()).usingRecursiveComparison().isEqualTo(car);
     }
 
     @Test
-    void 차량에_필터를_적용한다() {
+    void 회원이_차량을_등록한다() {
         // given
-        Car savedCar = carRepository.save(createCar());
-        String filterName = "HG";
-        FiltersRequest request = new FiltersRequest(
-                List.of(new FilterRequest(FilterType.COMPANY.getName(), filterName))
-        );
+        Car car = carRepository.save(createCar());
 
         // when
-        List<Filter> result = carService.addCarFilters(admin.getId(), savedCar.getId(), request);
+        Car savedCar = carService.addMemberCar(member.getId(), member.getId(), new CarRequest(car.getName(), car.getVintage()));
 
         // then
-        assertSoftly(softly -> {
-            softly.assertThat(result.size()).isEqualTo(1);
-            softly.assertThat(result.get(0).getName()).isEqualTo(filterName);
-        });
+        assertThat(savedCar.getName()).isEqualTo("아이오닉5");
     }
 
     @Test
-    void 어드민이_아니면_차량에_필터를_적용하지_못한다() {
-        // given
-        Car savedCar = carRepository.save(createCar());
-        FiltersRequest request = new FiltersRequest(
-                List.of(new FilterRequest(FilterType.COMPANY.getName(), "HG"))
-        );
-
+    void 회원이_없는_차량을_등록하면_예외를_발생한다() {
         // when & then
-        assertThatThrownBy(() -> carService.addCarFilters(member.getId(), savedCar.getId(), request))
-                .isInstanceOf(AdminException.class)
-                .hasMessage(AdminExceptionType.NOT_ADMIN.message());
+        AssertionsForClassTypes.assertThatThrownBy(() -> carService.addMemberCar(member.getId(), member.getId(), new CarRequest("G바겐", "2022")))
+                .isInstanceOf(CarException.class)
+                .hasMessage(CarExceptionType.NOT_FOUND_EXCEPTION.message());
     }
 }

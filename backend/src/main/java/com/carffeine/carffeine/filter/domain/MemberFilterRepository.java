@@ -1,5 +1,6 @@
-package com.carffeine.carffeine.member.domain;
+package com.carffeine.carffeine.filter.domain;
 
+import com.carffeine.carffeine.member.domain.Member;
 import org.springframework.data.repository.Repository;
 
 import java.util.List;

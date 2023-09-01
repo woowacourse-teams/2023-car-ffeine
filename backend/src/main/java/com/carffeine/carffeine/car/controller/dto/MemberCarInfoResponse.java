@@ -1,7 +1,7 @@
-package com.carffeine.carffeine.member.controller.dto;
+package com.carffeine.carffeine.car.controller.dto;
 
-import com.carffeine.carffeine.car.controller.dto.CarResponse;
-import com.carffeine.carffeine.member.domain.MemberCar;
+import com.carffeine.carffeine.car.domain.MemberCar;
+import com.carffeine.carffeine.car.infrastructure.repository.dto.CarResponse;
 
 public record MemberCarInfoResponse(
         Long memberId,

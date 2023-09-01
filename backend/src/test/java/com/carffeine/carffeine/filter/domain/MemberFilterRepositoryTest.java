@@ -1,8 +1,8 @@
-package com.carffeine.carffeine.member.domain;
+package com.carffeine.carffeine.filter.domain;
 
-import com.carffeine.carffeine.filter.domain.Filter;
-import com.carffeine.carffeine.filter.domain.FilterRepository;
-import com.carffeine.carffeine.filter.domain.FilterType;
+import com.carffeine.carffeine.member.domain.Member;
+import com.carffeine.carffeine.member.domain.MemberRepository;
+import com.carffeine.carffeine.member.domain.MemberRole;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
@@ -56,7 +56,7 @@ class MemberFilterRepositoryTest {
         List<MemberFilter> memberFilter = memberFilterRepository.findAllByMember(member);
 
         // then
-        assertThat(memberFilter.size()).isEqualTo(1);
+        assertThat(memberFilter).hasSize(1);
     }
 
     @Test
@@ -69,7 +69,7 @@ class MemberFilterRepositoryTest {
 
         // then
         List<MemberFilter> result = memberFilterRepository.findAllByMember(member);
-        assertThat(result.size()).isEqualTo(0);
+        assertThat(result.size()).isZero();
     }
 
     @Test
@@ -79,6 +79,6 @@ class MemberFilterRepositoryTest {
 
         // then
         List<MemberFilter> result = memberFilterRepository.findAllByMember(member);
-        assertThat(result.size()).isEqualTo(1);
+        assertThat(result).hasSize(1);
     }
 }

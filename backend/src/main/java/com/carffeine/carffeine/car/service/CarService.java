@@ -3,27 +3,22 @@ package com.carffeine.carffeine.car.service;
 import com.carffeine.carffeine.admin.exception.AdminException;
 import com.carffeine.carffeine.admin.exception.AdminExceptionType;
 import com.carffeine.carffeine.car.domain.Car;
-import com.carffeine.carffeine.car.domain.CarFilter;
-import com.carffeine.carffeine.car.domain.CarFilterRepository;
 import com.carffeine.carffeine.car.domain.CarRepository;
+import com.carffeine.carffeine.car.domain.MemberCar;
+import com.carffeine.carffeine.car.domain.MemberCarRepository;
 import com.carffeine.carffeine.car.exception.CarException;
+import com.carffeine.carffeine.car.exception.CarExceptionType;
 import com.carffeine.carffeine.car.service.dto.CarRequest;
 import com.carffeine.carffeine.car.service.dto.CarsRequest;
-import com.carffeine.carffeine.filter.domain.Filter;
-import com.carffeine.carffeine.filter.domain.FilterRepository;
-import com.carffeine.carffeine.filter.exception.FilterException;
-import com.carffeine.carffeine.filter.exception.FilterExceptionType;
-import com.carffeine.carffeine.filter.service.dto.FiltersRequest;
 import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.member.domain.MemberRepository;
+import com.carffeine.carffeine.member.exception.MemberException;
+import com.carffeine.carffeine.member.exception.MemberExceptionType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
-import static com.carffeine.carffeine.car.exception.CarExceptionType.NOT_FOUND_EXCEPTION;
-import static java.util.stream.Collectors.toList;
 
 @RequiredArgsConstructor
 @Service
@@ -31,13 +26,7 @@ public class CarService {
 
     private final MemberRepository memberRepository;
     private final CarRepository carRepository;
-    private final CarFilterRepository carFilterRepository;
-    private final FilterRepository filterRepository;
-
-    @Transactional(readOnly = true)
-    public List<Car> findAllCars() {
-        return carRepository.findAll();
-    }
+    private final MemberCarRepository memberCarRepository;
 
     @Transactional
     public List<Car> saveCars(Long memberId, CarsRequest carsRequest) {
@@ -56,7 +45,7 @@ public class CarService {
                 .stream()
                 .filter(it -> !isAlreadyExisted(it))
                 .map(it -> carRepository.save(Car.from(it.name(), it.vintage())))
-                .collect(toList());
+                .toList();
     }
 
     private boolean isAlreadyExisted(CarRequest carRequest) {
@@ -70,57 +59,50 @@ public class CarService {
     }
 
     @Transactional(readOnly = true)
-    public List<Filter> findCarFilters(Long carId) {
-        Car car = findCar(carId);
-        return findAllFiltersByCar(car);
+    public MemberCar findMemberCar(Long loginMember) {
+        Member member = memberRepository.findById(loginMember)
+                .orElseThrow(() -> new MemberException(MemberExceptionType.UNAUTHORIZED));
+
+        return getMemberCar(member);
     }
 
-    private Car findCar(Long carId) {
-        return carRepository.findById(carId)
-                .orElseThrow(() -> new CarException(NOT_FOUND_EXCEPTION));
-    }
-
-    private List<Filter> findAllFiltersByCar(Car car) {
-        return carFilterRepository.findAllByCar(car)
-                .stream()
-                .map(CarFilter::getFilter)
-                .collect(toList());
+    private MemberCar getMemberCar(Member member) {
+        return memberCarRepository.findByMember(member)
+                .orElseGet(() -> new MemberCar(member, null));
     }
 
     @Transactional
-    public List<Filter> addCarFilters(Long memberId,
-                                      Long carId,
-                                      FiltersRequest filtersRequest) {
-        validateRole(memberId);
-        Car car = findCar(carId);
-        carFilterRepository.deleteAllByCar(car);
-        return makeCarFilters(filtersRequest, car);
+    public Car addMemberCar(Long memberId,
+                            Long loginMember,
+                            CarRequest carRequest) {
+        Member member = findMember(memberId, loginMember);
+        Car car = findCar(carRequest);
+        addMemberCar(member, car);
+        return car;
     }
 
-    private void validateRole(Long memberId) {
-        memberRepository.findById(memberId)
-                .filter(Member::isAdmin)
-                .orElseThrow(() -> new AdminException(AdminExceptionType.NOT_ADMIN));
+    private Member findMember(Long memberId, Long loginMember) {
+        Member member = memberRepository.findById(loginMember)
+                .orElseThrow(() -> new MemberException(MemberExceptionType.UNAUTHORIZED));
+
+        validateMember(memberId, member);
+        return member;
     }
 
-    private List<Filter> makeCarFilters(FiltersRequest filtersRequest, Car car) {
-        List<Filter> filters = filtersRequest.filters()
-                .stream()
-                .map(it -> findFilter(it.name()))
-                .toList();
-
-        List<CarFilter> carFilters = filters.stream()
-                .map(it -> new CarFilter(car, it))
-                .toList();
-
-        return carFilterRepository.saveAll(carFilters)
-                .stream()
-                .map(CarFilter::getFilter)
-                .toList();
+    private static void validateMember(Long memberId, Member member) {
+        if (!member.isSame(memberId)) {
+            throw new MemberException(MemberExceptionType.INVALID_ACCESS);
+        }
     }
 
-    private Filter findFilter(String filterName) {
-        return filterRepository.findByName(filterName)
-                .orElseThrow(() -> new FilterException(FilterExceptionType.FILTER_NOT_FOUND));
+    private Car findCar(CarRequest carRequest) {
+        return carRepository.findByNameAndVintage(carRequest.name(), carRequest.vintage())
+                .orElseThrow(() -> new CarException(CarExceptionType.NOT_FOUND_EXCEPTION));
+    }
+
+    private void addMemberCar(Member member, Car car) {
+        memberCarRepository.deleteByMember(member);
+        memberCarRepository.findByMember(member)
+                .orElseGet(() -> memberCarRepository.save(new MemberCar(member, car)));
     }
 }

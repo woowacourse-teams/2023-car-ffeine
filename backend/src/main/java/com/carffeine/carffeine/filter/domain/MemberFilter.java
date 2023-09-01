@@ -1,7 +1,7 @@
-package com.carffeine.carffeine.member.domain;
+package com.carffeine.carffeine.filter.domain;
 
 import com.carffeine.carffeine.common.domain.BaseEntity;
-import com.carffeine.carffeine.filter.domain.Filter;
+import com.carffeine.carffeine.member.domain.Member;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

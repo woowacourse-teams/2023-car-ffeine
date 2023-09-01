@@ -5,7 +5,8 @@ import com.carffeine.carffeine.common.exception.Status;
 
 public enum FilterExceptionType implements ExceptionType {
 
-    FILTER_NOT_FOUND(Status.NOT_FOUND, 1001, "해당 필터를 찾을 수 없습니다.");
+    FILTER_NOT_FOUND(Status.NOT_FOUND, 6001, "해당 필터를 찾을 수 없습니다."),
+    CAR_FILTER_NOT_FOUND(Status.NOT_FOUND, 6002, "차량의 필터를 찾을 수 없습니다.");
 
     private final Status status;
     private final int exceptionCode;

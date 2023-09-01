@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.car.controller.dto;
+package com.carffeine.carffeine.car.infrastructure.repository.dto;
 
 import com.carffeine.carffeine.car.domain.Car;
 
@@ -11,6 +11,5 @@ public record CarsResponse(List<CarResponse> cars) {
         return cars.stream()
                 .map(CarResponse::from)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), CarsResponse::new));
-
     }
 }

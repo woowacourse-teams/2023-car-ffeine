@@ -41,28 +41,29 @@ include::{snippets}/car-controller-test/delete_car/http-request.adoc[]
 
 include::{snippets}/car-controller-test/delete_car/http-response.adoc[]
 
-== 차량에 등록된 필터를 조회한다 (/cars/{carId}/filters)
+
+== 회원이 등록한 차량을 조회한다
 
 === Request
 
-include::{snippets}/car-controller-test/find_car_filters/path-parameters.adoc[]
-include::{snippets}/car-controller-test/find_car_filters/http-request.adoc[]
+include::{snippets}/car-controller-test/find_member_car/request-headers.adoc[]
+include::{snippets}/car-controller-test/find_member_car/http-request.adoc[]
 
 === Response
 
-include::{snippets}/car-controller-test/find_car_filters/response-fields.adoc[]
-include::{snippets}/car-controller-test/find_car_filters/http-response.adoc[]
+include::{snippets}/car-controller-test/find_member_car/response-fields.adoc[]
+include::{snippets}/car-controller-test/find_member_car/http-response.adoc[]
 
-== 차량에 필터를 등록한다 (/cars/{carId}/filters)
+== 회원이 차량을 등록한다
 
 === Request
 
-include::{snippets}/car-controller-test/add_car_filters/request-headers.adoc[]
-include::{snippets}/car-controller-test/add_car_filters/path-parameters.adoc[]
-include::{snippets}/car-controller-test/add_car_filters/request-body.adoc[]
-include::{snippets}/car-controller-test/add_car_filters/http-request.adoc[]
+include::{snippets}/car-controller-test/add_member_car/request-headers.adoc[]
+include::{snippets}/car-controller-test/add_member_car/path-parameters.adoc[]
+include::{snippets}/car-controller-test/add_member_car/request-fields.adoc[]
+include::{snippets}/car-controller-test/add_member_car/http-request.adoc[]
 
 === Response
 
-include::{snippets}/car-controller-test/add_car_filters/response-fields.adoc[]
-include::{snippets}/car-controller-test/add_car_filters/http-response.adoc[]
+include::{snippets}/car-controller-test/add_member_car/response-fields.adoc[]
+include::{snippets}/car-controller-test/add_member_car/http-response.adoc[]
