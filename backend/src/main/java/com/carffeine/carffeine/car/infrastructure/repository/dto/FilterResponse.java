@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.car.infrastructure.dto;
+package com.carffeine.carffeine.car.infrastructure.repository.dto;
 
 import com.carffeine.carffeine.filter.domain.Filter;
 import com.carffeine.carffeine.filter.domain.FilterType;

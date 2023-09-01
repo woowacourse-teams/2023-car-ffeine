@@ -6,7 +6,7 @@ import com.carffeine.carffeine.car.domain.Car;
 import com.carffeine.carffeine.car.domain.CarRepository;
 import com.carffeine.carffeine.car.domain.MemberCar;
 import com.carffeine.carffeine.car.domain.MemberCarRepository;
-import com.carffeine.carffeine.car.infrastructure.dto.CarResponse;
+import com.carffeine.carffeine.car.infrastructure.repository.dto.CarResponse;
 import com.carffeine.carffeine.filter.domain.Filter;
 import com.carffeine.carffeine.filter.domain.FilterRepository;
 import com.carffeine.carffeine.filter.domain.FilterType;

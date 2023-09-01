@@ -2,7 +2,7 @@ package com.carffeine.carffeine.car.infrastructure.repository;
 
 import com.carffeine.carffeine.car.domain.Car;
 import com.carffeine.carffeine.car.domain.CarRepository;
-import com.carffeine.carffeine.car.infrastructure.dto.CarResponse;
+import com.carffeine.carffeine.car.infrastructure.repository.dto.CarResponse;
 import com.carffeine.carffeine.config.QuerydslConfig;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;

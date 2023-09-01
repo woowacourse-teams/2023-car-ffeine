@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.filter.service;
 
-import com.carffeine.carffeine.car.infrastructure.dto.FilterResponse;
+import com.carffeine.carffeine.car.infrastructure.repository.dto.FilterResponse;
 import com.carffeine.carffeine.filter.controller.dto.FiltersResponse;
 import com.carffeine.carffeine.filter.domain.Filter;
 import com.carffeine.carffeine.filter.exception.FilterException;

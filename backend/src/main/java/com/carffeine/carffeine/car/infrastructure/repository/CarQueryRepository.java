@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.car.infrastructure.repository;
 
-import com.carffeine.carffeine.car.infrastructure.dto.CarResponse;
+import com.carffeine.carffeine.car.infrastructure.repository.dto.CarResponse;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
