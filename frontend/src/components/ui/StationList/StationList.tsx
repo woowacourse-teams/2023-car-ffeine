@@ -41,7 +41,7 @@ const StationList = () => {
 
 const searchResultList = css`
   width: 34rem;
-  height: calc(100vh - 15rem);
+  height: calc(100vh - 14.133rem);
   border-top: 1.2rem solid var(--lighter-color);
   border-bottom: 3.6rem solid var(--lighter-color);
   border-top-left-radius: 20px;
@@ -50,7 +50,7 @@ const searchResultList = css`
   overflow: auto;
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
-    width: calc(100vw - 6rem);
+    width: 100%;
     height: 100vh;
   }
 `;

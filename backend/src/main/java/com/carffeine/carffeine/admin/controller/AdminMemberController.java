@@ -4,7 +4,7 @@ import com.carffeine.carffeine.admin.common.CustomPage;
 import com.carffeine.carffeine.admin.controller.dto.MembersResponse;
 import com.carffeine.carffeine.admin.service.AdminMemberService;
 import com.carffeine.carffeine.admin.service.dto.MemberRoleUpdateRequest;
-import com.carffeine.carffeine.auth.controller.AuthMember;
+import com.carffeine.carffeine.auth.controller.support.AuthMember;
 import com.carffeine.carffeine.member.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

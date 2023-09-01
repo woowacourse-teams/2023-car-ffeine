@@ -5,7 +5,7 @@ import com.carffeine.carffeine.admin.controller.dto.StationPageResponse;
 import com.carffeine.carffeine.admin.controller.dto.StationResponse;
 import com.carffeine.carffeine.admin.service.AdminStationService;
 import com.carffeine.carffeine.admin.service.dto.StationUpdateRequest;
-import com.carffeine.carffeine.auth.controller.AuthMember;
+import com.carffeine.carffeine.auth.controller.support.AuthMember;
 import com.carffeine.carffeine.station.domain.station.Station;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

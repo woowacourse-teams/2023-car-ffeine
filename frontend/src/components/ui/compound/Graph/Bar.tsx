@@ -3,6 +3,10 @@ import { css, styled } from 'styled-components';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
+import { getHoverColor } from '@style';
+
+import { NO_RATIO } from '@constants/congestion';
+
 interface BarProps {
   ratio: number;
   hour: number;
@@ -14,6 +18,7 @@ const Bar = ({ ratio, hour, align }: BarProps) => {
     <FlexBox
       tag="li"
       nowrap
+      width="100%"
       direction={align === 'column' ? 'row' : 'column'}
       css={align === 'row' && rowAlignCss}
       alignItems={align === 'row' ? 'center' : 'start'}
@@ -21,54 +26,47 @@ const Bar = ({ ratio, hour, align }: BarProps) => {
       <Text variant="caption" css={align === 'column' && textCss}>
         {hour}
       </Text>
-      <StyledBar ratio={ratio} align={align} />
-      <BackgroundBar ratio={ratio} align={align} />
+      <ProgressBar
+        value={ratio === NO_RATIO ? 100 : ratio}
+        max={100}
+        color={getColorByRatio(ratio)}
+      />
     </FlexBox>
   );
 };
 
-const StyledBar = styled.div<Omit<BarProps, 'hour'>>`
-  ${({ align, ratio }) =>
-    align === 'column'
-      ? `
-        width: ${ratio === -1 ? '26rem' : `calc(26rem * ${ratio} / 100)`};
-        height: 1.2rem;
-      `
-      : `
-        height: ${ratio === -1 ? '26rem' : `calc(26rem * ${ratio} / 100)`};
-        width: 1.2rem;
+const getColorByRatio = (ratio: number) => {
+  if (ratio === NO_RATIO) {
+    return getHoverColor('secondary');
+  }
 
-      `}
+  return '#0064ff';
+};
 
-  text-align: center;
+const ProgressBar = styled.progress<{ color: string }>`
+  width: 100%;
+  height: 1.2rem;
 
-  border-top-left-radius: 0.4rem;
-  border-bottom-left-radius: 0.4rem;
-  border-top-right-radius: 1rem;
-  border-bottom-right-radius: 1rem;
-  background-color: ${({ ratio }) => (ratio === -1 ? '#afafaf42' : '#0064ff')};
-`;
+  -webkit-appearance: none;
+  appearance: none;
 
-const BackgroundBar = styled.div<Omit<BarProps, 'hour'>>`
-  ${({ align, ratio }) =>
-    align === 'column'
-      ? `
-        width: ${ratio === -1 ? '0' : `calc(26rem * ${100 - ratio} / 100)`};
-        height: 1.2rem;
-      `
-      : `
-        height: ${ratio === -1 ? '0' : `calc(26rem * ${100 - ratio} / 100)`};
-        width: 1.2rem;
+  &::-webkit-progress-bar {
+    background-color: #eee;
 
-      `}
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
 
-  text-align: center;
+  &::-webkit-progress-value {
+    background-color: ${({ color }) => color};
 
-  border-top-left-radius: 0.4rem;
-  border-bottom-left-radius: 0.4rem;
-  border-top-right-radius: 1rem;
-  border-bottom-right-radius: 1rem;
-  background-color: #e9edf8;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
 `;
 
 const rowAlignCss = css`

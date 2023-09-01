@@ -30,7 +30,7 @@ interface TextProps extends HTMLAttributes<HTMLElement>, SpacingProps {
   color?: string;
   lineClamp?: number;
   fontSize?: number;
-  weight?: 'bolder' | 'bold' | 'normal' | 'lighter';
+  weight?: 'bolder' | 'bold' | 'regular' | 'normal' | 'lighter';
   css?: CSSProp;
 }
 
@@ -131,7 +131,7 @@ const S = {
     }}
 
     font-size: ${({ fontSize }) => fontSize && `${fontSize}rem`};
-    font-weight: ${({ weight }) => weight};
+    font-weight: ${({ weight }) => (weight === 'regular' ? 500 : weight)};
     color: ${({ color }) => color};
 
     ${({ lineClamp }) =>

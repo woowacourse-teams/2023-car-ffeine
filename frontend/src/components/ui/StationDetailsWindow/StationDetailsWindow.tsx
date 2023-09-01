@@ -46,7 +46,7 @@ const StationDetailsWindow = () => {
 const stationDetailsWindowCss = css`
   width: ${NAVIGATOR_PANEL_WIDTH}rem;
   height: 100vh;
-  z-index: 999;
+  z-index: 99;
   overflow: scroll;
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {

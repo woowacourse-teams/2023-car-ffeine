@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.auth.controller;
+package com.carffeine.carffeine.auth.controller.support;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
