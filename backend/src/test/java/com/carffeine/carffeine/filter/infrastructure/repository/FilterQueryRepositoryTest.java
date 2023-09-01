@@ -46,7 +46,6 @@ class FilterQueryRepositoryTest {
         List<CarFilter> carFilters = carFilterRepository.saveAll(List.of(new CarFilter(car, filters.get(0))));
 
         // when
-        System.out.println("---------------");
         List<FilterResponse> result = filterQueryRepository.findCarFilters(car.getId());
 
         // then
