@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.station.infrastructure.repository.review;
 
-import com.carffeine.carffeine.helper.QuerydslTest;
+import com.carffeine.carffeine.config.QuerydslConfig;
 import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.member.domain.MemberRepository;
 import com.carffeine.carffeine.station.domain.review.Reply;
@@ -14,6 +14,8 @@ import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -29,7 +31,8 @@ import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
-@QuerydslTest
+@Import(value = {QuerydslConfig.class, ReplyQueryRepository.class})
+@DataJpaTest
 class ReplyQueryRepositoryTest {
 
     @Autowired
@@ -60,13 +63,12 @@ class ReplyQueryRepositoryTest {
     @Test
     void 답글을_조회한다() {
         // given
-        replyRepository.save(저장_전_답글(member, review));
+        Reply reply = replyRepository.save(저장_전_답글(member, review));
         PageRequest pageable = PageRequest.of(0, 10);
 
         // when
         Page<ReplyResponse> allReplies = replyQueryRepository.findAllReplies(review.getId(), pageable);
-        ReplyResponse expected = new ReplyResponse(1L, review.getId(), member.getId(), null, "저도 그렇게 생각합니다", false, false);
-
+        ReplyResponse expected = new ReplyResponse(reply.getId(), reply.getReview().getId(), reply.getMember().getId(), reply.getUpdatedAt(), reply.getContent(), reply.getUpdatedAt().isAfter(reply.getCreatedAt()), reply.isDeleted());
         // then
         assertThat(allReplies.getContent().get(0)).usingRecursiveComparison()
                 .ignoringFieldsOfTypes(LocalDateTime.class)

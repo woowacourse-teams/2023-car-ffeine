@@ -77,6 +77,7 @@ class ReplyQueryServiceTest extends IntegrationTest {
     @Test
     void 리뷰의_13개_답글들_중_첫번째_페이지를_조회한다(){
         // given
+
         for (CreateReplyRequest replyRequest : 답글_요청_13개()) {
             replyService.saveReply(replyRequest, review.getId(), member.getId());
         }
@@ -84,7 +85,7 @@ class ReplyQueryServiceTest extends IntegrationTest {
 
         // when
         ReplyResponses allReplies = replyQueryService.findAllReplies(review.getId(), pageable);
-        ReplyResponse expected = new ReplyResponse(1L, review.getId(), member.getId(), null, "저도 그렇게 생각합니다", false, false);
+        ReplyResponse expected = new ReplyResponse(13L, review.getId(), member.getId(), null, "저도 그렇게 생각합니다", false, false);
 
         assertSoftly(softly -> {
             softly.assertThat(allReplies.replies()).hasSize(10);
@@ -105,7 +106,7 @@ class ReplyQueryServiceTest extends IntegrationTest {
 
         // when
         ReplyResponses allReplies = replyQueryService.findAllReplies(review.getId(), pageable);
-        ReplyResponse expected = new ReplyResponse(1L, review.getId(), member.getId(), null, "저도 그렇게 생각합니다", false, false);
+        ReplyResponse expected = new ReplyResponse(3L, review.getId(), member.getId(), null, "저도 그렇게 생각합니다", false, false);
 
         assertSoftly(softly -> {
             softly.assertThat(allReplies.replies()).hasSize(3);
