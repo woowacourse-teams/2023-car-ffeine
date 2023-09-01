@@ -11,7 +11,7 @@ import {
 
 import Modal from '@common/Modal';
 
-import { NAVIGATOR_PANEL_WIDTH } from '@constants';
+import { MOBILE_BREAKPOINT, NAVIGATOR_PANEL_WIDTH } from '@constants';
 
 const WarningModalContainer = () => {
   const isModalOpen = useExternalValue(warningModalOpenStore);
@@ -44,6 +44,10 @@ const warningModalCss = (navigationComponentWidth: number) => css`
   margin: 0;
 
   background: transparent;
+
+  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+    transform: translate(-50%, -50%);
+  }
 `;
 
 export default WarningModalContainer;
