@@ -62,8 +62,8 @@ class ReviewQueryRepositoryTest {
 
         // then
         assertSoftly(softly -> {
-                softly.assertThat(allReviews).hasSize(10);
-                softly.assertThat(allReviews.hasNext()).isTrue();
+            softly.assertThat(allReviews).hasSize(10);
+            softly.assertThat(allReviews.hasNext()).isTrue();
         });
     }
 
@@ -80,8 +80,8 @@ class ReviewQueryRepositoryTest {
 
         // then
         assertSoftly(softly -> {
-                softly.assertThat(allReviews).hasSize(3);
-                softly.assertThat(allReviews.hasNext()).isFalse();
+            softly.assertThat(allReviews).hasSize(3);
+            softly.assertThat(allReviews.hasNext()).isFalse();
         });
     }
 
@@ -94,21 +94,23 @@ class ReviewQueryRepositoryTest {
 
         // when
         TotalRatingsResponse totalRatings = reviewQueryRepository.findTotalRatings(station.getStationId());
+        TotalRatingsResponse expected = new TotalRatingsResponse(2.0, 13L);
 
         // then
         assertThat(totalRatings)
                 .usingRecursiveComparison()
-                .isEqualTo(new TotalRatingsResponse(2.0, 13L));
+                .isEqualTo(expected);
     }
 
     @Test
     void 리뷰가_없으면_평균은_0점0_총_리뷰는_0L을_반환한다() {
         // when
         TotalRatingsResponse totalRatings = reviewQueryRepository.findTotalRatings(station.getStationId());
+        TotalRatingsResponse expected = new TotalRatingsResponse(0.0, 0L);
 
         // then
         assertThat(totalRatings)
                 .usingRecursiveComparison()
-                .isEqualTo(new TotalRatingsResponse(0.0, 0L));
+                .isEqualTo(expected);
     }
 }

@@ -63,15 +63,15 @@ class ReviewQueryServiceTest extends IntegrationTest {
 
         // when
         ReviewResponses reviews = reviewQueryService.findAllReviews(station.getStationId(), pageable);
+        ReviewResponse expected = new ReviewResponse(1L, member.getId(), null, 4, "덕분에 빠르게 충전했습니다", false, false, 0);
 
         // then
         assertSoftly(softly -> {
                 softly.assertThat(reviews.reviews()).hasSize(1);
                 softly.assertThat(reviews.reviews().get(0))
                         .usingRecursiveComparison()
-                        .ignoringFields("reviewId")
                         .ignoringFieldsOfTypes(LocalDateTime.class)
-                        .isEqualTo(new ReviewResponse(null, member.getId(), null,4, "덕분에 빠르게 충전했습니다",false,false,0));
+                        .isEqualTo(expected);
         });
     }
 
@@ -118,21 +118,23 @@ class ReviewQueryServiceTest extends IntegrationTest {
 
         // when
         TotalRatingsResponse totalRatings = reviewQueryService.findTotalRatings(station.getStationId());
+        TotalRatingsResponse expected = new TotalRatingsResponse(4.0, 1L);
 
         // then
         assertThat(totalRatings)
                 .usingRecursiveComparison()
-                .isEqualTo(new TotalRatingsResponse(4.0, 1L));
+                .isEqualTo(expected);
     }
 
     @Test
     void 충전소에_등록된_리뷰가_없으면_평균0과_총_개수0이_조회된다() {
         // when
         TotalRatingsResponse totalRatings = reviewQueryService.findTotalRatings(station.getStationId());
+        TotalRatingsResponse expected = new TotalRatingsResponse(0.0, 0L);
 
         // then
         assertThat(totalRatings)
                 .usingRecursiveComparison()
-                .isEqualTo(new TotalRatingsResponse(0.0, 0L));
+                .isEqualTo(expected);
     }
 }

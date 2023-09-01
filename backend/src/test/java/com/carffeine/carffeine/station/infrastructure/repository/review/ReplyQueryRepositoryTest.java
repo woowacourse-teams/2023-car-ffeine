@@ -65,12 +65,12 @@ class ReplyQueryRepositoryTest {
 
         // when
         Page<ReplyResponse> allReplies = replyQueryRepository.findAllReplies(review.getId(), pageable);
+        ReplyResponse expected = new ReplyResponse(1L, review.getId(), member.getId(), null, "저도 그렇게 생각합니다", false, false);
 
         // then
         assertThat(allReplies.getContent().get(0)).usingRecursiveComparison()
-                .ignoringFields("replyId")
                 .ignoringFieldsOfTypes(LocalDateTime.class)
-                .isEqualTo(new ReplyResponse(null, review.getId(), member.getId(), null, "저도 그렇게 생각합니다", false, false));
+                .isEqualTo(expected);
     }
 
     @Test

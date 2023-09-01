@@ -64,12 +64,11 @@ class ReplyQueryServiceTest extends IntegrationTest {
 
         // when
         ReplyResponses allReplies = replyQueryService.findAllReplies(review.getId(), pageable);
-        ReplyResponse expected = new ReplyResponse(null, review.getId(), member.getId(), null, "도움이 많이 되는 리뷰네요", false, false);
+        ReplyResponse expected = new ReplyResponse(1L, review.getId(), member.getId(), null, "도움이 많이 되는 리뷰네요", false, false);
 
         assertSoftly(softly -> {
                 softly.assertThat(allReplies.replies()).hasSize(1);
                 softly.assertThat(allReplies.replies().get(0)).usingRecursiveComparison()
-                        .ignoringFields("replyId")
                         .ignoringFieldsOfTypes(LocalDateTime.class)
                         .isEqualTo(expected);
         });
@@ -85,13 +84,12 @@ class ReplyQueryServiceTest extends IntegrationTest {
 
         // when
         ReplyResponses allReplies = replyQueryService.findAllReplies(review.getId(), pageable);
-        ReplyResponse expected = new ReplyResponse(null, review.getId(), member.getId(), null, "저도 그렇게 생각합니다", false, false);
+        ReplyResponse expected = new ReplyResponse(1L, review.getId(), member.getId(), null, "저도 그렇게 생각합니다", false, false);
 
         assertSoftly(softly -> {
             softly.assertThat(allReplies.replies()).hasSize(10);
             softly.assertThat(allReplies.nextPage()).isEqualTo(1);
             softly.assertThat(allReplies.replies().get(0)).usingRecursiveComparison()
-                    .ignoringFields("replyId")
                     .ignoringFieldsOfTypes(LocalDateTime.class)
                     .isEqualTo(expected);
         });
@@ -107,13 +105,12 @@ class ReplyQueryServiceTest extends IntegrationTest {
 
         // when
         ReplyResponses allReplies = replyQueryService.findAllReplies(review.getId(), pageable);
-        ReplyResponse expected = new ReplyResponse(null, review.getId(), member.getId(), null, "저도 그렇게 생각합니다", false, false);
+        ReplyResponse expected = new ReplyResponse(1L, review.getId(), member.getId(), null, "저도 그렇게 생각합니다", false, false);
 
         assertSoftly(softly -> {
             softly.assertThat(allReplies.replies()).hasSize(3);
             softly.assertThat(allReplies.nextPage()).isEqualTo(-1);
             softly.assertThat(allReplies.replies().get(0)).usingRecursiveComparison()
-                    .ignoringFields("replyId")
                     .ignoringFieldsOfTypes(LocalDateTime.class)
                     .isEqualTo(expected);
         });
