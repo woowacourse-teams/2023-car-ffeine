@@ -15,6 +15,7 @@ import com.carffeine.carffeine.station.domain.review.ReplyRepository;
 import com.carffeine.carffeine.station.domain.review.ReviewRepository;
 import com.carffeine.carffeine.station.service.congestion.CongestionService;
 import com.carffeine.carffeine.station.service.report.ReportService;
+import com.carffeine.carffeine.station.service.review.ReplyQueryService;
 import com.carffeine.carffeine.station.service.review.ReplyService;
 import com.carffeine.carffeine.station.service.review.ReviewQueryService;
 import com.carffeine.carffeine.station.service.review.ReviewService;
@@ -63,4 +64,6 @@ public class MockBeanInjection {
     protected CarService carService;
     @MockBean
     protected ReviewQueryService reviewQueryService;
+    @MockBean
+    protected ReplyQueryService replyQueryService;
 }

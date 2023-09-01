@@ -15,11 +15,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ReviewQueryService {
 
+    public static final int NEXT_PAGE_INDEX = 1;
+    public static final int NO_MORE_PAGE = -1;
+
     private final ReviewQueryRepository reviewQueryRepository;
 
     public ReviewResponses findAllReviews(String stationId, Pageable pageable) {
         Page<ReviewResponse> allReviews = reviewQueryRepository.findAllReviews(stationId, pageable);
-        return new ReviewResponses(allReviews.getContent(), allReviews.hasNext() ? pageable.getPageNumber() + 1 : -1);
+        return new ReviewResponses(allReviews.getContent(), allReviews.hasNext() ? pageable.getPageNumber() + NEXT_PAGE_INDEX : NO_MORE_PAGE);
     }
 
     public TotalRatingsResponse findTotalRatings(String stationId) {

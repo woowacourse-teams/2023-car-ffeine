@@ -1,12 +1,11 @@
 package com.carffeine.carffeine.station.controller.review;
 
 import com.carffeine.carffeine.auth.controller.AuthMember;
-import com.carffeine.carffeine.station.controller.review.dto.ReplyResponses;
-import com.carffeine.carffeine.station.domain.review.Reply;
+import com.carffeine.carffeine.station.infrastructure.repository.review.ReplyResponses;
+import com.carffeine.carffeine.station.service.review.ReplyQueryService;
 import com.carffeine.carffeine.station.service.review.ReplyService;
 import com.carffeine.carffeine.station.service.review.dto.CreateReplyRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +26,7 @@ import static org.springframework.data.domain.Sort.Direction.DESC;
 public class ReplyController {
 
     private final ReplyService replyService;
+    private final ReplyQueryService replyQueryService;
 
     @PostMapping("/reviews/{reviewId}/replies")
     public ResponseEntity<Void> saveReply(
@@ -41,8 +41,7 @@ public class ReplyController {
     public ResponseEntity<ReplyResponses> findReplies(
             @PathVariable Long reviewId,
             @PageableDefault(sort = "id", direction = DESC) Pageable pageable) {
-        Page<Reply> replies = replyService.findAllReplies(reviewId, pageable);
-        return ResponseEntity.ok(ReplyResponses.from(replies));
+        return ResponseEntity.ok(replyQueryService.findAllReplies(reviewId, pageable));
     }
 
     @PatchMapping("/reviews/{reviewId}/replies/{replyId}")

@@ -1,8 +1,8 @@
 package com.carffeine.carffeine.station.integration.review;
 
-import com.carffeine.carffeine.station.controller.review.dto.ReplyResponse;
-import com.carffeine.carffeine.station.controller.review.dto.ReplyResponses;
 import com.carffeine.carffeine.station.domain.review.Review;
+import com.carffeine.carffeine.station.infrastructure.repository.review.ReplyResponse;
+import com.carffeine.carffeine.station.infrastructure.repository.review.ReplyResponses;
 import com.carffeine.carffeine.station.service.review.dto.CreateReplyRequest;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
