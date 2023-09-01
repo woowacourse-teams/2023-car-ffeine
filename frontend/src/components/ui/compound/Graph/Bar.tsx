@@ -53,19 +53,19 @@ const ProgressBar = styled.progress<{ color: string }>`
   &::-webkit-progress-bar {
     background-color: #eee;
 
-    border-top-left-radius: 0.4rem;
-    border-bottom-left-radius: 0.4rem;
-    border-top-right-radius: 1rem;
-    border-bottom-right-radius: 1rem;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
   }
 
   &::-webkit-progress-value {
     background-color: ${({ color }) => color};
 
-    border-top-left-radius: 0.4rem;
-    border-bottom-left-radius: 0.4rem;
-    border-top-right-radius: 1rem;
-    border-bottom-right-radius: 1rem;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
   }
 `;
 
