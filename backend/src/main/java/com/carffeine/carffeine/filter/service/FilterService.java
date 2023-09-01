@@ -2,6 +2,11 @@ package com.carffeine.carffeine.filter.service;
 
 import com.carffeine.carffeine.admin.exception.AdminException;
 import com.carffeine.carffeine.admin.exception.AdminExceptionType;
+import com.carffeine.carffeine.car.domain.Car;
+import com.carffeine.carffeine.car.domain.CarFilter;
+import com.carffeine.carffeine.car.domain.CarFilterRepository;
+import com.carffeine.carffeine.car.domain.CarRepository;
+import com.carffeine.carffeine.car.exception.CarException;
 import com.carffeine.carffeine.filter.domain.Filter;
 import com.carffeine.carffeine.filter.domain.FilterRepository;
 import com.carffeine.carffeine.filter.exception.FilterException;
@@ -15,12 +20,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.carffeine.carffeine.car.exception.CarExceptionType.NOT_FOUND_EXCEPTION;
+
 @RequiredArgsConstructor
 @Service
 public class FilterService {
 
     private final FilterRepository filterRepository;
     private final MemberRepository memberRepository;
+    private final CarRepository carRepository;
+    private final CarFilterRepository carFilterRepository;
 
     @Transactional(readOnly = true)
     public List<Filter> findAllFilters() {
@@ -59,5 +68,41 @@ public class FilterService {
                 .orElseThrow(() -> new FilterException(FilterExceptionType.FILTER_NOT_FOUND));
 
         filterRepository.deleteById(filter.getId());
+    }
+
+    @Transactional
+    public List<Filter> addCarFilters(Long memberId,
+                                      Long carId,
+                                      FiltersRequest filtersRequest) {
+        validateRole(memberId);
+        Car car = findCar(carId);
+        carFilterRepository.deleteAllByCar(car);
+        return makeCarFilters(filtersRequest, car);
+    }
+
+    public Car findCar(Long carId) {
+        return carRepository.findById(carId)
+                .orElseThrow(() -> new CarException(NOT_FOUND_EXCEPTION));
+    }
+
+    private List<Filter> makeCarFilters(FiltersRequest filtersRequest, Car car) {
+        List<Filter> filters = filtersRequest.filters()
+                .stream()
+                .map(it -> findFilter(it.name()))
+                .toList();
+
+        List<CarFilter> carFilters = filters.stream()
+                .map(it -> new CarFilter(car, it))
+                .toList();
+
+        return carFilterRepository.saveAll(carFilters)
+                .stream()
+                .map(CarFilter::getFilter)
+                .toList();
+    }
+
+    private Filter findFilter(String filterName) {
+        return filterRepository.findByName(filterName)
+                .orElseThrow(() -> new FilterException(FilterExceptionType.FILTER_NOT_FOUND));
     }
 }

@@ -2,6 +2,8 @@ package com.carffeine.carffeine.filter.controller;
 
 import com.carffeine.carffeine.auth.controller.support.AuthMember;
 import com.carffeine.carffeine.filter.controller.dto.FiltersResponse;
+import com.carffeine.carffeine.filter.domain.Filter;
+import com.carffeine.carffeine.filter.service.FilterQueryService;
 import com.carffeine.carffeine.filter.service.FilterService;
 import com.carffeine.carffeine.filter.service.dto.FiltersRequest;
 import lombok.RequiredArgsConstructor;
@@ -14,11 +16,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 public class FilterController {
 
     private final FilterService filterService;
+    private final FilterQueryService filterQueryService;
 
     @GetMapping("/filters")
     public ResponseEntity<FiltersResponse> findAllFilters() {
@@ -37,5 +42,19 @@ public class FilterController {
                                              @PathVariable String filterName) {
         filterService.deleteFilterByName(memberId, filterName);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/cars/{carId}/filters")
+    public ResponseEntity<FiltersResponse> findCarFilters(@PathVariable Long carId) {
+        return ResponseEntity.ok(filterQueryService.findCarFilters(carId));
+    }
+
+    @PostMapping("/cars/{carId}/filters")
+    public ResponseEntity<FiltersResponse> addCarFilters(@AuthMember Long memberId,
+                                                         @PathVariable Long carId,
+                                                         @RequestBody FiltersRequest filtersRequest) {
+        List<Filter> filters = filterService.addCarFilters(memberId, carId, filtersRequest);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(FiltersResponse.from(filters));
     }
 }

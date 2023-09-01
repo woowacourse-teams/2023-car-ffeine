@@ -29,7 +29,6 @@ include::{snippets}/filter-controller-test/add_filters/http-request.adoc[]
 include::{snippets}/filter-controller-test/add_filters/response-fields.adoc[]
 include::{snippets}/filter-controller-test/add_filters/http-response.adoc[]
 
-
 == 필터를 제거한다. (/filters/{filterName})
 
 === Request
@@ -41,3 +40,29 @@ include::{snippets}/filter-controller-test/delete_filter/http-request.adoc[]
 === Response
 
 include::{snippets}/filter-controller-test/delete_filter/http-response.adoc[]
+
+== 차량에 등록된 필터를 조회한다 (/cars/{carId}/filters)
+
+=== Request
+
+include::{snippets}/filter-controller-test/find_car_filters/path-parameters.adoc[]
+include::{snippets}/filter-controller-test/find_car_filters/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/filter-controller-test/find_car_filters/response-fields.adoc[]
+include::{snippets}/filter-controller-test/find_car_filters/http-response.adoc[]
+
+== 차량에 필터를 등록한다 (/cars/{carId}/filters)
+
+=== Request
+
+include::{snippets}/filter-controller-test/add_car_filters/request-headers.adoc[]
+include::{snippets}/filter-controller-test/add_car_filters/path-parameters.adoc[]
+include::{snippets}/filter-controller-test/add_car_filters/request-body.adoc[]
+include::{snippets}/filter-controller-test/add_car_filters/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/filter-controller-test/add_car_filters/response-fields.adoc[]
+include::{snippets}/filter-controller-test/add_car_filters/http-response.adoc[]

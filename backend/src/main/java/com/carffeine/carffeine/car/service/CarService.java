@@ -3,17 +3,9 @@ package com.carffeine.carffeine.car.service;
 import com.carffeine.carffeine.admin.exception.AdminException;
 import com.carffeine.carffeine.admin.exception.AdminExceptionType;
 import com.carffeine.carffeine.car.domain.Car;
-import com.carffeine.carffeine.car.domain.CarFilter;
-import com.carffeine.carffeine.car.domain.CarFilterRepository;
 import com.carffeine.carffeine.car.domain.CarRepository;
-import com.carffeine.carffeine.car.exception.CarException;
 import com.carffeine.carffeine.car.service.dto.CarRequest;
 import com.carffeine.carffeine.car.service.dto.CarsRequest;
-import com.carffeine.carffeine.filter.domain.Filter;
-import com.carffeine.carffeine.filter.domain.FilterRepository;
-import com.carffeine.carffeine.filter.exception.FilterException;
-import com.carffeine.carffeine.filter.exception.FilterExceptionType;
-import com.carffeine.carffeine.filter.service.dto.FiltersRequest;
 import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.member.domain.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,17 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.carffeine.carffeine.car.exception.CarExceptionType.NOT_FOUND_EXCEPTION;
-import static java.util.stream.Collectors.toList;
-
 @RequiredArgsConstructor
 @Service
 public class CarService {
 
     private final MemberRepository memberRepository;
     private final CarRepository carRepository;
-    private final CarFilterRepository carFilterRepository;
-    private final FilterRepository filterRepository;
 
     @Transactional
     public List<Car> saveCars(Long memberId, CarsRequest carsRequest) {
@@ -51,7 +38,7 @@ public class CarService {
                 .stream()
                 .filter(it -> !isAlreadyExisted(it))
                 .map(it -> carRepository.save(Car.from(it.name(), it.vintage())))
-                .collect(toList());
+                .toList();
     }
 
     private boolean isAlreadyExisted(CarRequest carRequest) {
@@ -62,47 +49,5 @@ public class CarService {
     public void deleteCar(Long memberId, Long carId) {
         validateIsMemberAdmin(memberId);
         carRepository.deleteById(carId);
-    }
-
-    public Car findCar(Long carId) {
-        return carRepository.findById(carId)
-                .orElseThrow(() -> new CarException(NOT_FOUND_EXCEPTION));
-    }
-
-    @Transactional
-    public List<Filter> addCarFilters(Long memberId,
-                                      Long carId,
-                                      FiltersRequest filtersRequest) {
-        validateRole(memberId);
-        Car car = findCar(carId);
-        carFilterRepository.deleteAllByCar(car);
-        return makeCarFilters(filtersRequest, car);
-    }
-
-    private void validateRole(Long memberId) {
-        memberRepository.findById(memberId)
-                .filter(Member::isAdmin)
-                .orElseThrow(() -> new AdminException(AdminExceptionType.NOT_ADMIN));
-    }
-
-    private List<Filter> makeCarFilters(FiltersRequest filtersRequest, Car car) {
-        List<Filter> filters = filtersRequest.filters()
-                .stream()
-                .map(it -> findFilter(it.name()))
-                .toList();
-
-        List<CarFilter> carFilters = filters.stream()
-                .map(it -> new CarFilter(car, it))
-                .toList();
-
-        return carFilterRepository.saveAll(carFilters)
-                .stream()
-                .map(CarFilter::getFilter)
-                .toList();
-    }
-
-    private Filter findFilter(String filterName) {
-        return filterRepository.findByName(filterName)
-                .orElseThrow(() -> new FilterException(FilterExceptionType.FILTER_NOT_FOUND));
     }
 }
