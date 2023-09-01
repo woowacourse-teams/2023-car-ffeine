@@ -3,7 +3,7 @@ package com.carffeine.carffeine.station.fixture.review;
 import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.station.domain.review.Reply;
 import com.carffeine.carffeine.station.domain.review.Review;
-import com.carffeine.carffeine.station.infrastructure.repository.review.ReplyResponse;
+import com.carffeine.carffeine.station.infrastructure.repository.review.dto.ReplyResponse;
 import com.carffeine.carffeine.station.service.review.dto.CreateReplyRequest;
 
 import java.time.LocalDateTime;

@@ -8,6 +8,7 @@ import com.carffeine.carffeine.station.domain.review.ReplyRepository;
 import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.domain.review.ReviewRepository;
 import com.carffeine.carffeine.station.domain.station.StationRepository;
+import com.carffeine.carffeine.station.infrastructure.repository.review.dto.ReplyResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;

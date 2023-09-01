@@ -1,7 +1,7 @@
 package com.carffeine.carffeine.station.controller.review;
 
 import com.carffeine.carffeine.auth.controller.AuthMember;
-import com.carffeine.carffeine.station.infrastructure.repository.review.ReplyResponses;
+import com.carffeine.carffeine.station.infrastructure.repository.review.dto.ReplyResponses;
 import com.carffeine.carffeine.station.service.review.ReplyQueryService;
 import com.carffeine.carffeine.station.service.review.ReplyService;
 import com.carffeine.carffeine.station.service.review.dto.CreateReplyRequest;

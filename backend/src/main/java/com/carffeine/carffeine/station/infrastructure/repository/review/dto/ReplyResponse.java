@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.station.infrastructure.repository.review;
+package com.carffeine.carffeine.station.infrastructure.repository.review.dto;
 
 import java.time.LocalDateTime;
 

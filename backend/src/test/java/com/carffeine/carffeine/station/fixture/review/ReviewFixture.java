@@ -2,7 +2,7 @@ package com.carffeine.carffeine.station.fixture.review;
 
 import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.station.domain.review.Review;
-import com.carffeine.carffeine.station.infrastructure.repository.review.ReviewResponse;
+import com.carffeine.carffeine.station.infrastructure.repository.review.dto.ReviewResponse;
 import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;
 
 import java.time.LocalDateTime;

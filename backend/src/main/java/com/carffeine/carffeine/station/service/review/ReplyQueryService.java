@@ -1,8 +1,8 @@
 package com.carffeine.carffeine.station.service.review;
 
 import com.carffeine.carffeine.station.infrastructure.repository.review.ReplyQueryRepository;
-import com.carffeine.carffeine.station.infrastructure.repository.review.ReplyResponse;
-import com.carffeine.carffeine.station.infrastructure.repository.review.ReplyResponses;
+import com.carffeine.carffeine.station.infrastructure.repository.review.dto.ReplyResponse;
+import com.carffeine.carffeine.station.infrastructure.repository.review.dto.ReplyResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

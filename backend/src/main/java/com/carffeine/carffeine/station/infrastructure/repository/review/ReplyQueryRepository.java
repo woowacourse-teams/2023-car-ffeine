@@ -1,5 +1,6 @@
 package com.carffeine.carffeine.station.infrastructure.repository.review;
 
+import com.carffeine.carffeine.station.infrastructure.repository.review.dto.ReplyResponse;
 import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;

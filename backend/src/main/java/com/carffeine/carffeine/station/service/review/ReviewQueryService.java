@@ -1,9 +1,9 @@
 package com.carffeine.carffeine.station.service.review;
 
 import com.carffeine.carffeine.station.infrastructure.repository.review.ReviewQueryRepository;
-import com.carffeine.carffeine.station.infrastructure.repository.review.ReviewResponse;
-import com.carffeine.carffeine.station.infrastructure.repository.review.ReviewResponses;
-import com.carffeine.carffeine.station.infrastructure.repository.review.TotalRatingsResponse;
+import com.carffeine.carffeine.station.infrastructure.repository.review.dto.ReviewResponse;
+import com.carffeine.carffeine.station.infrastructure.repository.review.dto.ReviewResponses;
+import com.carffeine.carffeine.station.infrastructure.repository.review.dto.TotalRatingsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
