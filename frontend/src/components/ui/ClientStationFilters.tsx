@@ -2,13 +2,13 @@ import { css, styled } from 'styled-components';
 
 import { useExternalState, useExternalValue } from '@utils/external-state';
 
+import type { Panels } from '@stores/layout/navigationBarPanelStore';
 import { navigationBarPanelStore } from '@stores/layout/navigationBarPanelStore';
 import { clientStationFiltersStore } from '@stores/station-filters/clientStationFiltersStore';
 
-import Box from '@common/Box';
-import FlexBox from '@common/FlexBox';
+import useMediaQueries from '@hooks/useMediaQueries';
 
-import { displayNoneInWeb } from '@style/mediaQuery';
+import FlexBox from '@common/FlexBox';
 
 import { MOBILE_BREAKPOINT, NAVIGATOR_PANEL_WIDTH } from '@constants';
 import { CHARGING_SPEED } from '@constants/chargers';
@@ -61,11 +61,11 @@ const ClientStationFilters = () => {
     }));
   };
 
+  const screen = useMediaQueries();
+
   return (
-    <Container left={navigationComponentWidth}>
-      <Box css={displayNoneInWeb}>
-        <StationSearchBar />
-      </Box>
+    <Container left={navigationComponentWidth} basePanel={basePanel}>
+      {screen.get('isMobile') ? <StationSearchBar /> : !basePanel && <StationSearchBar />}
       <FlexBox css={mobileFilterContainerCss}>
         <ClientFilterButton
           onClick={toggleAvailableStation}
@@ -96,18 +96,22 @@ const ClientStationFilters = () => {
   );
 };
 
-const Container = styled.div<{ left: number }>`
+const Container = styled.div<{ left: number; basePanel: Panels['basePanel'] }>`
   position: fixed;
-  top: 14px;
+  top: ${({ basePanel }) => (basePanel ? '16.5px' : '14px')};
   left: ${({ left }) => left}rem;
   z-index: 998;
   padding: 10px;
 
+  display: flex;
+  align-items: center;
+  column-gap: 40px;
+
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     left: 0;
-    display: flex;
-    flex-direction: column;
     gap: 10px;
+    flex-direction: column;
+    width: 100%;
   }
 `;
 
@@ -122,6 +126,8 @@ const ClientFilterButton = styled.button<{ isChecked: boolean }>`
 `;
 
 const mobileFilterContainerCss = css`
+  margin-top: 4px;
+
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     row-gap: 10px;
   }
