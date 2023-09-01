@@ -4,7 +4,6 @@ import com.carffeine.carffeine.filter.controller.dto.FiltersResponse;
 import com.carffeine.carffeine.filter.domain.Filter;
 import com.carffeine.carffeine.filter.exception.FilterException;
 import com.carffeine.carffeine.filter.infrastructure.repository.FilterQueryRepository;
-import com.carffeine.carffeine.filter.infrastructure.repository.dto.FilterResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +28,7 @@ public class FilterQueryService {
     private List<Filter> findFilters(Long carId) {
         return filterQueryRepository.findCarFilters(carId)
                 .stream()
-                .map(it -> FilterResponse.toFilter(it.name(), it.filterType()))
+                .map(it -> new Filter(it.name(), it.filterType()))
                 .toList();
     }
 
