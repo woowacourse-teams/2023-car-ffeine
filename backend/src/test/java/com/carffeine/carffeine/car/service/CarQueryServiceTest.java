@@ -1,8 +1,8 @@
 package com.carffeine.carffeine.car.service;
 
-import com.carffeine.carffeine.car.controller.dto.CarsResponse;
 import com.carffeine.carffeine.car.domain.Car;
 import com.carffeine.carffeine.car.domain.CarRepository;
+import com.carffeine.carffeine.car.infrastructure.dto.CarsResponse;
 import com.carffeine.carffeine.helper.integration.IntegrationTest;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;

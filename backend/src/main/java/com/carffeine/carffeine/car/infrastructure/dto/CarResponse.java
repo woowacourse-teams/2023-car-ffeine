@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.car.controller.dto;
+package com.carffeine.carffeine.car.infrastructure.dto;
 
 import com.carffeine.carffeine.car.domain.Car;
 

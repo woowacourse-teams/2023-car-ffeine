@@ -1,9 +1,9 @@
 package com.carffeine.carffeine.member.integration;
 
 import com.carffeine.carffeine.auth.domain.TokenProvider;
-import com.carffeine.carffeine.car.controller.dto.CarResponse;
 import com.carffeine.carffeine.car.domain.Car;
 import com.carffeine.carffeine.car.domain.CarRepository;
+import com.carffeine.carffeine.car.infrastructure.dto.CarResponse;
 import com.carffeine.carffeine.filter.controller.dto.FiltersResponse;
 import com.carffeine.carffeine.filter.domain.Filter;
 import com.carffeine.carffeine.filter.domain.FilterRepository;
@@ -29,7 +29,7 @@ import static com.carffeine.carffeine.car.fixture.CarFixture.createOtherCar;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
-public class MemberFilterIntegrationTest extends MemberFilterIntegrationFixture {
+class MemberFilterIntegrationTest extends MemberFilterIntegrationFixture {
 
     @Autowired
     private MemberRepository memberRepository;

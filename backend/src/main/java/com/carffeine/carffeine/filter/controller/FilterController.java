@@ -12,29 +12,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
-@RequestMapping("/filters")
 @RestController
 public class FilterController {
 
     private final FilterService filterService;
 
-    @GetMapping
+    @GetMapping("/filters")
     public ResponseEntity<FiltersResponse> findAllFilters() {
         return ResponseEntity.ok(FiltersResponse.from(filterService.findAllFilters()));
     }
 
-    @PostMapping
+    @PostMapping("/filters")
     public ResponseEntity<FiltersResponse> addFilters(@AuthMember Long memberId,
                                                       @RequestBody FiltersRequest filtersRequest) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(FiltersResponse.from(filterService.addFilters(memberId, filtersRequest)));
     }
 
-    @DeleteMapping("/{filterName}")
+    @DeleteMapping("/filters/{filterName}")
     public ResponseEntity<Void> deleteFilter(@AuthMember Long memberId,
                                              @PathVariable String filterName) {
         filterService.deleteFilterByName(memberId, filterName);

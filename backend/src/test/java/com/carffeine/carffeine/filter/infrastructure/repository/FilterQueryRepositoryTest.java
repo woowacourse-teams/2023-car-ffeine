@@ -4,7 +4,7 @@ import com.carffeine.carffeine.car.domain.Car;
 import com.carffeine.carffeine.car.domain.CarFilter;
 import com.carffeine.carffeine.car.domain.CarFilterRepository;
 import com.carffeine.carffeine.car.domain.CarRepository;
-import com.carffeine.carffeine.car.infrastructure.repository.FilterResponse;
+import com.carffeine.carffeine.car.infrastructure.dto.FilterResponse;
 import com.carffeine.carffeine.config.QuerydslConfig;
 import com.carffeine.carffeine.filter.domain.Filter;
 import com.carffeine.carffeine.filter.domain.FilterRepository;

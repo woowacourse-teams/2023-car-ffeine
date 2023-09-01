@@ -1,7 +1,8 @@
 package com.carffeine.carffeine.filter.service;
 
-import com.carffeine.carffeine.car.infrastructure.repository.FilterResponse;
+import com.carffeine.carffeine.car.infrastructure.dto.FilterResponse;
 import com.carffeine.carffeine.filter.controller.dto.FiltersResponse;
+import com.carffeine.carffeine.filter.domain.Filter;
 import com.carffeine.carffeine.filter.exception.FilterException;
 import com.carffeine.carffeine.filter.infrastructure.repository.FilterQueryRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,12 +21,19 @@ public class FilterQueryService {
     private final FilterQueryRepository filterQueryRepository;
 
     public FiltersResponse findCarFilters(Long carId) {
-        List<FilterResponse> filters = filterQueryRepository.findCarFilters(carId);
+        List<Filter> filters = findFilters(carId);
         validateEmpty(filters);
-        return FiltersResponse.fromFilterResponse(filters);
+        return FiltersResponse.from(filters);
     }
 
-    private void validateEmpty(List<FilterResponse> filters) {
+    private List<Filter> findFilters(Long carId) {
+        return filterQueryRepository.findCarFilters(carId)
+                .stream()
+                .map(it -> FilterResponse.toFilter(it.name(), it.filterType()))
+                .toList();
+    }
+
+    private void validateEmpty(List<Filter> filters) {
         if (filters.isEmpty()) {
             throw new FilterException(CAR_FILTER_NOT_FOUND);
         }

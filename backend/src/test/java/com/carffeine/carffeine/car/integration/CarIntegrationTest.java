@@ -1,11 +1,11 @@
 package com.carffeine.carffeine.car.integration;
 
 import com.carffeine.carffeine.auth.domain.TokenProvider;
-import com.carffeine.carffeine.car.controller.dto.CarsResponse;
 import com.carffeine.carffeine.car.domain.Car;
 import com.carffeine.carffeine.car.domain.CarFilter;
 import com.carffeine.carffeine.car.domain.CarFilterRepository;
 import com.carffeine.carffeine.car.domain.CarRepository;
+import com.carffeine.carffeine.car.infrastructure.dto.CarsResponse;
 import com.carffeine.carffeine.car.service.dto.CarRequest;
 import com.carffeine.carffeine.car.service.dto.CarsRequest;
 import com.carffeine.carffeine.filter.controller.dto.FiltersResponse;
@@ -32,7 +32,7 @@ import static com.carffeine.carffeine.filter.fixture.FilterFixture.createConnect
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
-public class CarIntegrationTest extends CarIntegrationFixture {
+class CarIntegrationTest extends CarIntegrationFixture {
 
     @Autowired
     private MemberRepository memberRepository;

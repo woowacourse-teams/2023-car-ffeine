@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.filter.infrastructure.repository;
 
-import com.carffeine.carffeine.car.infrastructure.repository.FilterResponse;
+import com.carffeine.carffeine.car.infrastructure.dto.FilterResponse;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

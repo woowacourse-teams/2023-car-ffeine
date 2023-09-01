@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.member.controller.dto;
 
-import com.carffeine.carffeine.car.controller.dto.CarResponse;
+import com.carffeine.carffeine.car.infrastructure.dto.CarResponse;
 import com.carffeine.carffeine.member.domain.MemberCar;
 
 public record MemberCarInfoResponse(

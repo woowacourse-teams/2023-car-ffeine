@@ -1,8 +1,8 @@
 package com.carffeine.carffeine.car.controller;
 
 import com.carffeine.carffeine.auth.controller.support.AuthMember;
-import com.carffeine.carffeine.car.controller.dto.CarsResponse;
 import com.carffeine.carffeine.car.domain.Car;
+import com.carffeine.carffeine.car.infrastructure.dto.CarsResponse;
 import com.carffeine.carffeine.car.service.CarQueryService;
 import com.carffeine.carffeine.car.service.CarService;
 import com.carffeine.carffeine.car.service.dto.CarsRequest;
