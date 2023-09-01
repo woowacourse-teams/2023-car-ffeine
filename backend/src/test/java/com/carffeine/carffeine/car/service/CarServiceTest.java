@@ -4,13 +4,19 @@ import com.carffeine.carffeine.admin.exception.AdminException;
 import com.carffeine.carffeine.admin.exception.AdminExceptionType;
 import com.carffeine.carffeine.car.domain.Car;
 import com.carffeine.carffeine.car.domain.CarRepository;
+import com.carffeine.carffeine.car.exception.CarException;
+import com.carffeine.carffeine.car.exception.CarExceptionType;
 import com.carffeine.carffeine.car.fake.FakeCarRepository;
 import com.carffeine.carffeine.car.service.dto.CarRequest;
 import com.carffeine.carffeine.car.service.dto.CarsRequest;
+import com.carffeine.carffeine.member.domain.FakeMemberCarRepository;
 import com.carffeine.carffeine.member.domain.FakeMemberRepository;
 import com.carffeine.carffeine.member.domain.Member;
+import com.carffeine.carffeine.member.domain.MemberCar;
+import com.carffeine.carffeine.member.domain.MemberCarRepository;
 import com.carffeine.carffeine.member.domain.MemberRepository;
 import com.carffeine.carffeine.member.domain.MemberRole;
+import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -30,6 +36,7 @@ class CarServiceTest {
     private CarService carService;
     private MemberRepository memberRepository;
     private CarRepository carRepository;
+    private MemberCarRepository memberCarRepository;
 
     private Member member;
     private Member admin;
@@ -38,9 +45,11 @@ class CarServiceTest {
     void setup() {
         memberRepository = new FakeMemberRepository();
         carRepository = new FakeCarRepository();
+        memberCarRepository = new FakeMemberCarRepository();
         carService = new CarService(
                 memberRepository,
-                carRepository
+                carRepository,
+                memberCarRepository
         );
 
         member = memberRepository.save(Member.builder()
@@ -121,5 +130,38 @@ class CarServiceTest {
         // then
         int afterSize = carRepository.findAll().size();
         assertThat(afterSize).isEqualTo(beforeSize - 1);
+    }
+
+    @Test
+    void 회원이_등록한_차량을_조회한다() {
+        // given
+        Car car = createCar();
+        memberCarRepository.save(new MemberCar(member, car));
+
+        // when
+        MemberCar memberCar = carService.findMemberCar(member.getId());
+
+        // then
+        assertThat(memberCar.getCar()).usingRecursiveComparison().isEqualTo(car);
+    }
+
+    @Test
+    void 회원이_차량을_등록한다() {
+        // given
+        Car car = carRepository.save(createCar());
+
+        // when
+        Car savedCar = carService.addMemberCar(member.getId(), member.getId(), new CarRequest(car.getName(), car.getVintage()));
+
+        // then
+        assertThat(savedCar.getName()).isEqualTo("아이오닉5");
+    }
+
+    @Test
+    void 회원이_없는_차량을_등록하면_예외를_발생한다() {
+        // when & then
+        AssertionsForClassTypes.assertThatThrownBy(() -> carService.addMemberCar(member.getId(), member.getId(), new CarRequest("G바겐", "2022")))
+                .isInstanceOf(CarException.class)
+                .hasMessage(CarExceptionType.NOT_FOUND_EXCEPTION.message());
     }
 }

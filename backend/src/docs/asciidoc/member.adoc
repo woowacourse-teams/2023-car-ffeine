@@ -32,29 +32,3 @@ include::{snippets}/member-controller-test/add_member_filters/http-request.adoc[
 
 include::{snippets}/member-controller-test/add_member_filters/response-fields.adoc[]
 include::{snippets}/member-controller-test/add_member_filters/http-response.adoc[]
-
-== 회원이 등록한 차량을 조회한다
-
-=== Request
-
-include::{snippets}/member-controller-test/find_member_car/request-headers.adoc[]
-include::{snippets}/member-controller-test/find_member_car/http-request.adoc[]
-
-=== Response
-
-include::{snippets}/member-controller-test/find_member_car/response-fields.adoc[]
-include::{snippets}/member-controller-test/find_member_car/http-response.adoc[]
-
-== 회원이 차량을 등록한다
-
-=== Request
-
-include::{snippets}/member-controller-test/add_member_car/request-headers.adoc[]
-include::{snippets}/member-controller-test/add_member_car/path-parameters.adoc[]
-include::{snippets}/member-controller-test/add_member_car/request-fields.adoc[]
-include::{snippets}/member-controller-test/add_member_car/http-request.adoc[]
-
-=== Response
-
-include::{snippets}/member-controller-test/add_member_car/response-fields.adoc[]
-include::{snippets}/member-controller-test/add_member_car/http-response.adoc[]

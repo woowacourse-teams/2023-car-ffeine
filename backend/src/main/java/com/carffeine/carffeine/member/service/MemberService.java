@@ -1,18 +1,11 @@
 package com.carffeine.carffeine.member.service;
 
-import com.carffeine.carffeine.car.domain.Car;
-import com.carffeine.carffeine.car.domain.CarRepository;
-import com.carffeine.carffeine.car.exception.CarException;
-import com.carffeine.carffeine.car.exception.CarExceptionType;
-import com.carffeine.carffeine.car.service.dto.CarRequest;
 import com.carffeine.carffeine.filter.domain.Filter;
 import com.carffeine.carffeine.filter.domain.FilterRepository;
 import com.carffeine.carffeine.filter.exception.FilterException;
 import com.carffeine.carffeine.filter.exception.FilterExceptionType;
 import com.carffeine.carffeine.filter.service.dto.FiltersRequest;
 import com.carffeine.carffeine.member.domain.Member;
-import com.carffeine.carffeine.member.domain.MemberCar;
-import com.carffeine.carffeine.member.domain.MemberCarRepository;
 import com.carffeine.carffeine.member.domain.MemberFilter;
 import com.carffeine.carffeine.member.domain.MemberFilterRepository;
 import com.carffeine.carffeine.member.domain.MemberRepository;
@@ -23,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -32,8 +24,6 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final MemberFilterRepository memberFilterRepository;
     private final FilterRepository filterRepository;
-    private final MemberCarRepository memberCarRepository;
-    private final CarRepository carRepository;
 
     @Transactional(readOnly = true)
     public List<Filter> findMemberFilters(Long memberId, Long loginMember) {
@@ -41,7 +31,7 @@ public class MemberService {
 
         return memberFilterRepository.findAllByMember(member).stream()
                 .map(MemberFilter::getFilter)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private Member findMember(Long memberId, Long loginMember) {
@@ -75,39 +65,5 @@ public class MemberService {
         return filters.stream()
                 .map(it -> new MemberFilter(member, it))
                 .toList();
-    }
-
-    @Transactional
-    public Car addMemberCar(Long memberId,
-                            Long loginMember,
-                            CarRequest carRequest) {
-        Member member = findMember(memberId, loginMember);
-        Car car = findCar(carRequest);
-        addMemberCar(member, car);
-        return car;
-    }
-
-    private Car findCar(CarRequest carRequest) {
-        return carRepository.findByNameAndVintage(carRequest.name(), carRequest.vintage())
-                .orElseThrow(() -> new CarException(CarExceptionType.NOT_FOUND_EXCEPTION));
-    }
-
-    private void addMemberCar(Member member, Car car) {
-        memberCarRepository.deleteByMember(member);
-        memberCarRepository.findByMember(member)
-                .orElseGet(() -> memberCarRepository.save(new MemberCar(member, car)));
-    }
-
-    @Transactional(readOnly = true)
-    public MemberCar findMemberCar(Long loginMember) {
-        Member member = memberRepository.findById(loginMember)
-                .orElseThrow(() -> new MemberException(MemberExceptionType.UNAUTHORIZED));
-
-        return getMemberCar(member);
-    }
-
-    private MemberCar getMemberCar(Member member) {
-        return memberCarRepository.findByMember(member)
-                .orElseGet(() -> new MemberCar(member, null));
     }
 }

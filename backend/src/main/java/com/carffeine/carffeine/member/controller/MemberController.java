@@ -1,18 +1,12 @@
 package com.carffeine.carffeine.member.controller;
 
 import com.carffeine.carffeine.auth.controller.support.AuthMember;
-import com.carffeine.carffeine.car.domain.Car;
-import com.carffeine.carffeine.car.infrastructure.dto.CarResponse;
-import com.carffeine.carffeine.car.service.dto.CarRequest;
 import com.carffeine.carffeine.filter.controller.dto.FiltersResponse;
 import com.carffeine.carffeine.filter.domain.Filter;
 import com.carffeine.carffeine.filter.service.dto.FiltersRequest;
-import com.carffeine.carffeine.member.controller.dto.MemberCarInfoResponse;
-import com.carffeine.carffeine.member.domain.MemberCar;
 import com.carffeine.carffeine.member.domain.MemberFilter;
 import com.carffeine.carffeine.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,20 +37,5 @@ public class MemberController {
                                                             @RequestBody FiltersRequest filtersRequest) {
         List<MemberFilter> memberFilters = memberService.addMemberFilters(memberId, loginMember, filtersRequest);
         return ResponseEntity.ok(FiltersResponse.fromMemberFilters(memberFilters));
-    }
-
-    @GetMapping("/me")
-    public ResponseEntity<MemberCarInfoResponse> findMemberCarInfo(@AuthMember Long loginMember) {
-        MemberCar memberCar = memberService.findMemberCar(loginMember);
-        return ResponseEntity.ok(MemberCarInfoResponse.from(memberCar));
-    }
-
-    @PostMapping("/{memberId}/cars")
-    public ResponseEntity<CarResponse> addMemberCar(@PathVariable Long memberId,
-                                                    @AuthMember Long loginMember,
-                                                    @RequestBody CarRequest carRequest) {
-        Car car = memberService.addMemberCar(memberId, loginMember, carRequest);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(CarResponse.from(car));
     }
 }

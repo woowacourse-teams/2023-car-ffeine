@@ -1,14 +1,11 @@
 package com.carffeine.carffeine.member.controller;
 
-import com.carffeine.carffeine.car.domain.Car;
-import com.carffeine.carffeine.car.service.dto.CarRequest;
 import com.carffeine.carffeine.filter.domain.Filter;
 import com.carffeine.carffeine.filter.domain.FilterType;
 import com.carffeine.carffeine.filter.service.dto.FilterRequest;
 import com.carffeine.carffeine.filter.service.dto.FiltersRequest;
 import com.carffeine.carffeine.helper.MockBeanInjection;
 import com.carffeine.carffeine.member.domain.Member;
-import com.carffeine.carffeine.member.domain.MemberCar;
 import com.carffeine.carffeine.member.domain.MemberFilter;
 import com.carffeine.carffeine.member.fixture.MemberFixture;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,7 +22,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
-import static com.carffeine.carffeine.car.fixture.CarFixture.createCar;
 import static com.carffeine.carffeine.helper.RestDocsHelper.customDocument;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -127,59 +123,5 @@ class MemberControllerTest extends MockBeanInjection {
                                 )
                         )
                 );
-    }
-
-    @Test
-    void 회원이_등록한_차량을_조회한다() throws Exception {
-        // given
-        MemberCar memberCar = new MemberCar(MemberFixture.일반_회원, createCar());
-
-        // when
-        when(memberService.findMemberCar(any())).thenReturn(memberCar);
-
-        // then
-        mockMvc.perform(get("/members/me")
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer token~~")
-                ).andExpect(status().isOk())
-                .andDo(customDocument("find_member_car",
-                                requestHeaders(headerWithName(HttpHeaders.AUTHORIZATION).description("인증 토큰")),
-                                responseFields(
-                                        fieldWithPath("memberId").type(JsonFieldType.NUMBER).description("유저 id"),
-                                        fieldWithPath("car.carId").type(JsonFieldType.NUMBER).description("차량 id"),
-                                        fieldWithPath("car.name").type(JsonFieldType.STRING).description("차량 이름"),
-                                        fieldWithPath("car.vintage").type(JsonFieldType.STRING).description("차량 연식")
-                                )
-                        )
-                );
-    }
-
-    @Test
-    void 회원의_차량을_등록한다() throws Exception {
-        // given
-        Car car = createCar();
-        CarRequest carRequest = new CarRequest("아이오닉5", "2022-A");
-
-        // when
-        when(memberService.addMemberCar(any(), any(), any())).thenReturn(car);
-
-        // then
-        mockMvc.perform(post("/members/{memberId}/cars", 1L)
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer token~~")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(carRequest))
-                ).andExpect(status().isCreated())
-                .andDo(customDocument("add_member_car",
-                        requestHeaders(headerWithName(HttpHeaders.AUTHORIZATION).description("인증 토큰")),
-                        pathParameters(parameterWithName("memberId").description("Member id")),
-                        requestFields(
-                                fieldWithPath("name").type(JsonFieldType.STRING).description("차량 이름"),
-                                fieldWithPath("vintage").type(JsonFieldType.STRING).description("차량 연식")
-                        ),
-                        responseFields(
-                                fieldWithPath("carId").type(JsonFieldType.NUMBER).description("차량 id"),
-                                fieldWithPath("name").type(JsonFieldType.STRING).description("차량 이름"),
-                                fieldWithPath("vintage").type(JsonFieldType.STRING).description("차량 연식")
-                        )
-                ));
     }
 }
