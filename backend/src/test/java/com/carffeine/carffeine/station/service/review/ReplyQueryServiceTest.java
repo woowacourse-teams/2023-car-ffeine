@@ -10,7 +10,6 @@ import com.carffeine.carffeine.station.domain.station.StationRepository;
 import com.carffeine.carffeine.station.infrastructure.repository.review.ReplyQueryRepository;
 import com.carffeine.carffeine.station.infrastructure.repository.review.dto.ReplyResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.review.dto.ReplyResponses;
-import com.carffeine.carffeine.station.service.review.dto.CreateReplyRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -21,7 +20,7 @@ import org.springframework.data.domain.PageRequest;
 import java.time.LocalDateTime;
 
 import static com.carffeine.carffeine.member.fixture.MemberFixture.일반_회원;
-import static com.carffeine.carffeine.station.fixture.review.ReplyFixture.답글_요청_13개;
+import static com.carffeine.carffeine.station.fixture.review.ReplyFixture.저장_전_답글;
 import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.저장_전_리뷰;
 import static com.carffeine.carffeine.station.fixture.station.StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
@@ -40,46 +39,42 @@ class ReplyQueryServiceTest extends IntegrationTest {
     private MemberRepository memberRepository;
     @Autowired
     private ReplyQueryRepository replyQueryRepository;
-    private ReplyService replyService;
     private ReplyQueryService replyQueryService;
     private Member member;
     private Review review;
-    private CreateReplyRequest createReplyRequest;
 
     @BeforeEach
     void before() {
         stationRepository.save(선릉역_충전소_충전기_2개_사용가능_1개);
         member = memberRepository.save(일반_회원);
         review = reviewRepository.save(저장_전_리뷰(member));
-        createReplyRequest = new CreateReplyRequest("도움이 많이 되는 리뷰네요");
-        replyService = new ReplyService(reviewRepository, replyRepository, memberRepository);
         replyQueryService = new ReplyQueryService(replyQueryRepository);
     }
 
     @Test
-    void 리뷰의_답글들을_조회한다(){
+    void 리뷰의_답글들을_조회한다() {
         // given
-        replyService.saveReply(createReplyRequest, review.getId(),member.getId());
+        replyRepository.save(저장_전_답글(member, review));
         PageRequest pageable = PageRequest.of(0, 10);
 
         // when
         ReplyResponses allReplies = replyQueryService.findAllReplies(review.getId(), pageable);
-        ReplyResponse expected = new ReplyResponse(1L, review.getId(), member.getId(), null, "도움이 많이 되는 리뷰네요", false, false);
+        ReplyResponse expected = new ReplyResponse(1L, review.getId(), member.getId(), null, "저도 그렇게 생각합니다", false, false);
 
         assertSoftly(softly -> {
-                softly.assertThat(allReplies.replies()).hasSize(1);
-                softly.assertThat(allReplies.replies().get(0)).usingRecursiveComparison()
-                        .ignoringFieldsOfTypes(LocalDateTime.class)
-                        .isEqualTo(expected);
+            softly.assertThat(allReplies.replies()).hasSize(1);
+            softly.assertThat(allReplies.replies().get(0)).usingRecursiveComparison()
+                    .ignoringFieldsOfTypes(LocalDateTime.class)
+                    .isEqualTo(expected);
         });
     }
 
     @Test
-    void 리뷰의_13개_답글들_중_첫번째_페이지를_조회한다(){
+    void 리뷰의_13개_답글들_중_첫번째_페이지를_조회한다() {
         // given
 
-        for (CreateReplyRequest replyRequest : 답글_요청_13개()) {
-            replyService.saveReply(replyRequest, review.getId(), member.getId());
+        for (int i = 0; i < 13; i++) {
+            replyRepository.save(저장_전_답글(member, review));
         }
         PageRequest pageable = PageRequest.of(0, 10);
 
@@ -97,10 +92,10 @@ class ReplyQueryServiceTest extends IntegrationTest {
     }
 
     @Test
-    void 리뷰의_13개_답글들_중_마지막_페이지를_조회한다(){
+    void 리뷰의_13개_답글들_중_마지막_페이지를_조회한다() {
         // given
-        for (CreateReplyRequest replyRequest : 답글_요청_13개()) {
-            replyService.saveReply(replyRequest, review.getId(), member.getId());
+        for (int i = 0; i < 13; i++) {
+            replyRepository.save(저장_전_답글(member, review));
         }
         PageRequest pageable = PageRequest.of(1, 10);
 

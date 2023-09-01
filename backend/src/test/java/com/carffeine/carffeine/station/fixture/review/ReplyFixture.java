@@ -48,7 +48,7 @@ public class ReplyFixture {
             .isDeleted(false)
             .build();
 
-    public static final List<Reply> 답글_13개(Review review, Member member) {
+    public static List<Reply> 답글_13개(Review review, Member member) {
         List<Reply> replies = new ArrayList<>();
         for (int i = 0; i < 13; i++) {
             Reply reply = Reply.builder()
@@ -72,7 +72,7 @@ public class ReplyFixture {
         return createReplyRequests;
     }
 
-    public static final ReplyResponse 응답_답글() {
+    public static ReplyResponse 응답_답글() {
         return new ReplyResponse(1L, 1L, 1L, LocalDateTime.now(), "덕분에 도움이 되었습니다", false, false);
     }
 }

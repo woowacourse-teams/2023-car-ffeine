@@ -26,7 +26,7 @@ public class ReviewFixture {
             .isDeleted(false)
             .build();
 
-    public static final Review 저장_전_리뷰(Member member) {
+    public static Review 저장_전_리뷰(Member member) {
         return Review.builder()
                 .station(선릉역_충전소_충전기_2개_사용가능_1개)
                 .member(member)
@@ -36,7 +36,7 @@ public class ReviewFixture {
                 .build();
     }
 
-    public static final ReviewResponse 응답_리뷰() {
+    public static ReviewResponse 응답_리뷰() {
         return new ReviewResponse(
                 1L, 1L, LocalDateTime.now(), 4, "감사합니다 감사합니다", false, false, 0
         );
