@@ -52,6 +52,7 @@ class FilterQueryRepositoryTest {
         assertSoftly(softly -> {
             softly.assertThat(result.size()).isEqualTo(1);
             softly.assertThat(result.get(0).name()).isEqualTo(carFilters.get(0).getFilter().getName());
+            softly.assertThat(result.get(0).filterType()).isEqualTo(filters.get(0).getFilterType());
         });
     }
 }

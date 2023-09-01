@@ -38,8 +38,13 @@ class CarQueryRepositoryTest {
 
         // then
         assertSoftly(softly -> {
+            softly.assertThat(result).hasSize(2);
+            softly.assertThat(result.get(0).carId()).isEqualTo(car1.getId());
             softly.assertThat(result.get(0).name()).isEqualTo(car1.getName());
+            softly.assertThat(result.get(0).vintage()).isEqualTo(car1.getVintage());
+            softly.assertThat(result.get(1).carId()).isEqualTo(car2.getId());
             softly.assertThat(result.get(1).name()).isEqualTo(car2.getName());
+            softly.assertThat(result.get(1).vintage()).isEqualTo(car2.getVintage());
         });
     }
 }

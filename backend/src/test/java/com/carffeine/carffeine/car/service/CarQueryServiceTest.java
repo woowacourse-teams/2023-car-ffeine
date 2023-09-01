@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static com.carffeine.carffeine.car.fixture.CarFixture.createCar;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
@@ -31,6 +31,11 @@ class CarQueryServiceTest extends IntegrationTest {
         CarsResponse result = carQueryService.findAllCars();
 
         // then
-        assertThat(result.cars().get(0).name()).isEqualTo(car.getName());
+        assertSoftly(softly -> {
+            softly.assertThat(result.cars()).hasSize(1);
+            softly.assertThat(result.cars().get(0).carId()).isEqualTo(car.getId());
+            softly.assertThat(result.cars().get(0).name()).isEqualTo(car.getName());
+            softly.assertThat(result.cars().get(0).vintage()).isEqualTo(car.getVintage());
+        });
     }
 }
