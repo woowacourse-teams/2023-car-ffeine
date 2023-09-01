@@ -1,4 +1,4 @@
-FROM arm64v8/node:18-alpine
+FROM arm64v8/node:18-alpine as builder
 
 WORKDIR /usr/src/app
 
@@ -9,10 +9,12 @@ RUN yarn --production
 
 COPY . .
 
-EXPOSE 3000
-
 RUN yarn build
 
-RUN npm install -g serve
+FROM nginx 
 
-ENTRYPOINT ["serve","-l", "3000", "-s", "dist"]
+COPY --from=builder /app/build /usr/share/nginx/html
+
+EXPOSE 3000
+
+CMD ["nginx", "-g", "daemon off;"]
