@@ -1,6 +1,6 @@
 FROM arm64v8/node:18-alpine as builder
 
-WORKDIR /app/build
+WORKDIR /app
 
 COPY package.json package.json
 COPY yarn.lock yarn.lock
@@ -11,7 +11,7 @@ COPY . .
 
 RUN yarn build
 
-FROM nginx 
+FROM nginx
 
 COPY --from=builder /app/build /usr/share/nginx/html
 
