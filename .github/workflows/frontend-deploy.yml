@@ -22,7 +22,6 @@ jobs:
           touch .env
           echo "${{ secrets.GOOGLE_MAPS_API_KEY }}" >> .env
 
-
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
@@ -48,13 +47,13 @@ jobs:
           script: |
             sudo docker stop frontend || true
             sudo docker container prune -f
-            
+
             sudo docker pull woowacarffeine/frontend:latest
-            
-            sudo docker run -d -p 3000:3000 \
+
+            sudo docker run -d -p 3000:80 \
             --name frontend \
             woowacarffeine/frontend:latest
-            
+
             sudo docker image prune -a -f
       - name: clean overlay
         run: |
