@@ -16,11 +16,11 @@ export default meta;
 export const Default = () => {
   return Array.from({ length: 25 }, (_, index) => (
     <Box key={index} my={1}>
-      <Bar align={'column'} ratio={(index / 24) * 100} hour={index} />
+      <Bar align="column" ratio={(index / 24) * 100} hour={index} />
     </Box>
   ));
 };
 
 export const NoRatio = () => {
-  return <Bar align={'column'} ratio={NO_RATIO} hour={1} />;
+  return <Bar align="column" ratio={NO_RATIO} hour={1} />;
 };
