@@ -1,9 +1,11 @@
 package com.carffeine.carffeine.station.controller.station;
 
 import com.carffeine.carffeine.station.controller.station.dto.StationsSimpleResponse;
+import com.carffeine.carffeine.station.controller.station.dto.StationsSummaryResponse;
 import com.carffeine.carffeine.station.domain.charger.ChargerType;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSummaryResponse;
 import com.carffeine.carffeine.station.service.station.StationQueryService;
 import com.carffeine.carffeine.station.service.station.StationService;
 import com.carffeine.carffeine.station.service.station.dto.CoordinateRequest;
@@ -47,5 +49,11 @@ public class StationController {
     @GetMapping("/stations/{stationId}")
     public ResponseEntity<StationSpecificResponse> getStationById(@PathVariable String stationId) {
         return ResponseEntity.ok(stationQueryService.findStationById(stationId));
+    }
+
+    @GetMapping("/stations/summary")
+    public ResponseEntity<StationsSummaryResponse> getStationsSummary(@RequestParam List<String> stationIds) {
+        List<StationSummaryResponse> stations = stationQueryService.findStationsSummary(stationIds);
+        return ResponseEntity.ok(new StationsSummaryResponse(stations));
     }
 }

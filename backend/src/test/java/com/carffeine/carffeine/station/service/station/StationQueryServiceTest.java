@@ -10,6 +10,7 @@ import com.carffeine.carffeine.station.fixture.station.StationFixture;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.ChargerSpecificResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSummaryResponse;
 import com.carffeine.carffeine.station.service.station.dto.CoordinateRequest;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -238,6 +239,48 @@ public class StationQueryServiceTest extends IntegrationTest {
                                         station1.isPrivate(),
                                         station1.getAvailableCount(),
                                         station1.getChargers().stream().filter(it -> it.getCapacity().compareTo(BigDecimal.valueOf(50.0)) >= 0).count()
+                                )
+                        )
+                );
+    }
+
+    @Test
+    void 충전소의_id로_요약정보를_조회한다() {
+        // given
+        Station station = StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
+        stationRepository.save(station);
+        Station station2 = StationFixture.천호역_충전소_충전기_2개_사용가능_0개;
+        stationRepository.save(station2);
+
+        // when
+        List<StationSummaryResponse> result = stationQueryService.findStationsSummary(List.of(station.getStationId(), station2.getStationId()));
+
+        // then
+        assertThat(result).usingRecursiveComparison()
+                .isEqualTo(List.of(
+                                new StationSummaryResponse(
+                                        station.getStationId(),
+                                        station.getCompanyName(),
+                                        station.getStationName(),
+                                        station.getAddress(),
+                                        station.getOperatingTime(),
+                                        station.isParkingFree(),
+                                        station.isPrivate(),
+                                        station.getLatitude().getValue(),
+                                        station.getLongitude().getValue(),
+                                        station.getChargers().stream().filter(charger -> charger.getCapacity().compareTo(BigDecimal.valueOf(50)) >= 0).count()
+                                ),
+                                new StationSummaryResponse(
+                                        station2.getStationId(),
+                                        station2.getCompanyName(),
+                                        station2.getStationName(),
+                                        station2.getAddress(),
+                                        station2.getOperatingTime(),
+                                        station2.isParkingFree(),
+                                        station2.isPrivate(),
+                                        station2.getLatitude().getValue(),
+                                        station2.getLongitude().getValue(),
+                                        station2.getChargers().stream().filter(charger -> charger.getCapacity().compareTo(BigDecimal.valueOf(50)) >= 0).count()
                                 )
                         )
                 );

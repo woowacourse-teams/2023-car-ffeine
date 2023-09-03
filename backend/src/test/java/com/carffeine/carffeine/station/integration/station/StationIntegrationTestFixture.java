@@ -2,10 +2,12 @@ package com.carffeine.carffeine.station.integration.station;
 
 import com.carffeine.carffeine.helper.integration.AcceptanceTestFixture;
 import com.carffeine.carffeine.station.controller.station.dto.StationsSimpleResponse;
+import com.carffeine.carffeine.station.controller.station.dto.StationsSummaryResponse;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.ChargerSpecificResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSummaryResponse;
 import com.carffeine.carffeine.station.service.station.dto.CoordinateRequest;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
@@ -14,6 +16,7 @@ import io.restassured.response.Response;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -90,4 +93,34 @@ public abstract class StationIntegrationTestFixture extends AcceptanceTestFixtur
                                         it.getMethod()
                                 )).toList()));
     }
+
+    public static void 충전소_요약_정보를_검증한다(ExtractableResponse<Response> response, Station... stations) {
+        StationsSummaryResponse stationsSummaryResponse = response.as(StationsSummaryResponse.class);
+        List<StationSummaryResponse> summaryResponses = List.of(stations).stream()
+                .map(it -> new StationSummaryResponse(
+                        it.getStationId(),
+                        it.getCompanyName(),
+                        it.getStationName(),
+                        it.getAddress(),
+                        it.getOperatingTime(),
+                        it.isParkingFree(),
+                        it.isPrivate(),
+                        it.getLatitude().getValue(),
+                        it.getLongitude().getValue(),
+                        it.getChargers().stream().filter(charger -> charger.getCapacity().compareTo(BigDecimal.valueOf(50)) >= 0).count()
+                )).collect(Collectors.toList());
+        assertThat(stationsSummaryResponse).usingRecursiveComparison()
+                .withEqualsForType((i, i2) -> i.compareTo(i2) == 0, BigDecimal.class)
+                .isEqualTo(new StationsSummaryResponse(summaryResponses));
+    }
+
+    public static ExtractableResponse<Response> 충전소_ID로_요약_정보를_조회한다(String... 충전소_id) {
+        String 충전소_ID = String.join(",", 충전소_id);
+        return RestAssured.given().log().all()
+                .param("stationIds", 충전소_ID)
+                .get("/stations/summary")
+                .then().log().all()
+                .extract();
+    }
 }
+

@@ -8,6 +8,7 @@ import com.carffeine.carffeine.station.fixture.station.StationFixture;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.ChargerSpecificResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSummaryResponse;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
@@ -171,6 +172,31 @@ public class StationQueryRepositoryTest {
                         station.isParkingFree(),
                         station.isPrivate(),
                         station.getAvailableCount(),
+                        station.getChargers().stream().filter(it -> it.getCapacity().compareTo(BigDecimal.valueOf(50.0)) >= 0).count()
+                )));
+    }
+
+    @Test
+    void 충전기_id로_충전소의_요약된_정보를_조회한다() {
+        // given
+        Station station = StationFixture.선릉역_충전소_충전기_2개_사용가능_1개_완속;
+        stationRepository.save(station);
+
+        // when
+        List<StationSummaryResponse> result = stationQueryRepository.findStationsSummary(List.of(station.getStationId()));
+
+        // then
+        assertThat(result).usingRecursiveComparison()
+                .isEqualTo(List.of(new StationSummaryResponse(
+                        station.getStationId(),
+                        station.getCompanyName(),
+                        station.getStationName(),
+                        station.getAddress(),
+                        station.getOperatingTime(),
+                        station.isParkingFree(),
+                        station.isPrivate(),
+                        station.getLatitude().getValue(),
+                        station.getLongitude().getValue(),
                         station.getChargers().stream().filter(it -> it.getCapacity().compareTo(BigDecimal.valueOf(50.0)) >= 0).count()
                 )));
     }

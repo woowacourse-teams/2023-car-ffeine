@@ -49,3 +49,15 @@ include::{snippets}/congestion-controller-test/statistics/http-request.adoc[]
 
 include::{snippets}/congestion-controller-test/statistics/http-response.adoc[]
 include::{snippets}/congestion-controller-test/statistics/response-fields.adoc[]
+
+== id를 기준으로 충전소 요약 정보 조회한다 (/stations)
+
+=== Request
+
+include::{snippets}/station-controller-test/stationSummary/http-request.adoc[]
+include::{snippets}/station-controller-test/stationSummary/request-parameters.adoc[]
+
+=== Response
+
+include::{snippets}/station-controller-test/stationSummary/http-response.adoc[]
+include::{snippets}/station-controller-test/stationSummary/response-fields.adoc[]

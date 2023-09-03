@@ -5,6 +5,7 @@ import com.carffeine.carffeine.station.domain.charger.ChargerType;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.ChargerSpecificResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSummaryResponse;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -120,6 +121,30 @@ public class StationQueryRepository {
                 .innerJoin(chargerStatus)
                 .on(charger.station.stationId.eq(chargerStatus.stationId)
                         .and(charger.chargerId.eq(chargerStatus.chargerId)))
+                .where(station.stationId.in(stationIds))
+                .groupBy(station.stationId)
+                .fetch();
+    }
+
+    public List<StationSummaryResponse> findStationsSummary(List<String> stationIds) {
+        return jpaQueryFactory.select(constructor(StationSummaryResponse.class,
+                        station.stationId,
+                        station.companyName,
+                        station.stationName,
+                        station.address,
+                        station.operatingTime,
+                        station.isParkingFree,
+                        station.isPrivate,
+                        station.latitude.value,
+                        station.longitude.value,
+                        cases()
+                                .when(charger.capacity.goe(BigDecimal.valueOf(50.0)))
+                                .then(1L)
+                                .otherwise(0L)
+                                .sum()
+                )).from(station)
+                .innerJoin(charger)
+                .on(charger.stationId.eq(station.stationId))
                 .where(station.stationId.in(stationIds))
                 .groupBy(station.stationId)
                 .fetch();

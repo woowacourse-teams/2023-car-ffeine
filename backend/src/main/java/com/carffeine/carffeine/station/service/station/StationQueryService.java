@@ -7,6 +7,7 @@ import com.carffeine.carffeine.station.exception.StationExceptionType;
 import com.carffeine.carffeine.station.infrastructure.repository.station.StationQueryRepository;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSummaryResponse;
 import com.carffeine.carffeine.station.service.station.dto.CoordinateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -44,5 +45,9 @@ public class StationQueryService {
             return Collections.emptyList();
         }
         return stationQueryRepository.findStationByStationIds(stationIds);
+    }
+
+    public List<StationSummaryResponse> findStationsSummary(List<String> stationIds) {
+        return stationQueryRepository.findStationsSummary(stationIds);
     }
 }
