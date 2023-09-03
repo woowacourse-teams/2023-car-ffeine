@@ -3,6 +3,8 @@ package com.carffeine.carffeine.station.infrastructure.repository.station;
 import com.carffeine.carffeine.station.domain.charger.ChargerCondition;
 import com.carffeine.carffeine.station.domain.charger.ChargerType;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.ChargerSpecificResponse;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationInfo;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSearchResult;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSummaryResponse;
@@ -160,5 +162,36 @@ public class StationQueryRepository {
 
     private BooleanExpression eqCapacities(List<BigDecimal> capacities) {
         return capacities.isEmpty() ? null : charger.capacity.in(capacities);
+    }
+
+    public StationSearchResult findSearchResult(String query, int page, int limit) {
+        List<StationInfo> stations = jpaQueryFactory.selectFrom(station)
+                .innerJoin(charger)
+                .on(charger.stationId.eq(station.stationId))
+                .where(station.stationName.contains(query)
+                        .or(station.address.contains(query)))
+                .offset((long) (page - 1) * limit)
+                .limit(limit)
+                .orderBy(station.stationId.asc())
+                .transform(
+                        groupBy(station.stationId)
+                                .list(constructor(StationInfo.class,
+                                        station.stationId,
+                                        station.stationName,
+                                        list(charger.type),
+                                        station.address,
+                                        station.latitude.value,
+                                        station.longitude.value
+                                ))
+                );
+
+        Long totalCount = jpaQueryFactory.select(
+                        station.stationId.count()
+                )
+                .from(station)
+                .where(station.stationName.contains(query)
+                        .or(station.address.contains(query)))
+                .fetchOne();
+        return new StationSearchResult(totalCount, stations);
     }
 }

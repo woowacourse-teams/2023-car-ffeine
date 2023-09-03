@@ -7,7 +7,6 @@ import com.carffeine.carffeine.station.infrastructure.repository.station.dto.Sta
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSummaryResponse;
 import com.carffeine.carffeine.station.service.station.StationQueryService;
-import com.carffeine.carffeine.station.service.station.StationService;
 import com.carffeine.carffeine.station.service.station.dto.CoordinateRequest;
 import com.carffeine.carffeine.station.service.station.dto.StationsSearchResponse;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +24,6 @@ import java.util.Set;
 @RestController
 public class StationController {
 
-    private final StationService stationService;
     private final StationQueryService stationQueryService;
 
     @GetMapping("/stations")
@@ -42,7 +40,7 @@ public class StationController {
                                                                  @RequestParam(value = "scope") Set<String> scope,
                                                                  @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                                                                  @RequestParam(value = "limit", required = false, defaultValue = "12") int limit) {
-        StationsSearchResponse stationSearchResponse = stationService.searchStations(query, scope, page, limit);
+        StationsSearchResponse stationSearchResponse = stationQueryService.searchStations(query, scope, page, limit);
         return ResponseEntity.ok(stationSearchResponse);
     }
 

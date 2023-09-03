@@ -190,9 +190,9 @@ class StationControllerTest extends MockBeanInjection {
 
     @Test
     void 충전소를_검색한다() throws Exception {
-        when(stationService.searchStations(any(), any(), anyInt(), anyInt()))
+        when(stationQueryService.searchStations(any(), any(), anyInt(), anyInt()))
                 .thenReturn(new StationsSearchResponse(
-                        2,
+                        2L,
                         List.of(
                                 new StationSearchResponse(
                                         "stationId",
