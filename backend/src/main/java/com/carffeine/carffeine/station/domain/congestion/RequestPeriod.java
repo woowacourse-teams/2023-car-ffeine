@@ -32,8 +32,7 @@ public enum RequestPeriod {
     TWENTY(2000),
     TWENTY_ONE(2100),
     TWENTY_TWO(2200),
-    TWENTY_THREE(2300),
-    TWENTY_FOUR(2400);
+    TWENTY_THREE(2300);
 
     private static final int UNIT = 100;
     private static final List<RequestPeriod> periods = Arrays.stream(values())
