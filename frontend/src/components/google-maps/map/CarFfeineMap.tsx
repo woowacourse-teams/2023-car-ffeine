@@ -25,7 +25,7 @@ import Navigator from '@ui/Navigator';
 import WarningModalContainer from '@ui/WarningModalContainer';
 
 import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
-import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
+import { QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
 import { LOCAL_KEY_LAST_POSITION } from '@constants/storageKeys';
 
 const CarFfeineMap = () => {
@@ -57,7 +57,7 @@ const CarFfeineMapListener = () => {
     } else {
       warningModalActions.closeModal();
     }
-    queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
+    queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_MARKERS] });
 
     setLocalStorage<google.maps.LatLngLiteral>(LOCAL_KEY_LAST_POSITION, {
       lat: googleMap.getCenter().lat(),
@@ -69,7 +69,7 @@ const CarFfeineMapListener = () => {
     googleMap.addListener('idle', debouncedIdleHandler);
 
     const initMarkersEvent = googleMap.addListener('bounds_changed', async () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_MARKERS] });
 
       google.maps.event.removeListener(initMarkersEvent);
     });
@@ -87,7 +87,7 @@ const UserFilterListener = () => {
   if (memberFilters !== undefined) {
     setAllServerStationFilters(memberFilters);
     setAllServerStationFilters(carFilters);
-    queryClient.invalidateQueries([{ queryKey: [QUERY_KEY_STATIONS] }]);
+    queryClient.invalidateQueries([{ queryKey: [QUERY_KEY_STATION_MARKERS] }]);
   }
 
   return <></>;

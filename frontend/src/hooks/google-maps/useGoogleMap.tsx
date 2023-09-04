@@ -11,7 +11,7 @@ import CarFfeineMarker from '@ui/CarFfeineMarker';
 import StationDetailsWindow from '@ui/StationDetailsWindow';
 import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
-import type { StationSummary } from '@type';
+import type { StationMarker } from '@type';
 
 import { useStationSummary } from './useStationSummary';
 
@@ -24,7 +24,7 @@ export const useGoogleMap = () => {
   const { openLastPanel } = useNavigationBar();
   const { openStationSummary } = useStationSummary();
 
-  const renderStationMarker = (station: StationSummary) => {
+  const renderStationMarker = (station: StationMarker) => {
     const { latitude, longitude, stationName, stationId } = station;
     const container = document.createElement('div');
 
@@ -39,7 +39,7 @@ export const useGoogleMap = () => {
     markerRoot.render(<CarFfeineMarker {...station} />);
 
     markerInstance.addListener('click', () => {
-      openStationSummary(station, markerInstance);
+      // openStationSummary(station, markerInstance);
       openLastPanel(<StationDetailsWindow />);
     });
 
@@ -51,9 +51,9 @@ export const useGoogleMap = () => {
       },
     ]);
 
-    if (selectedStationId === stationId) {
-      openStationSummary(station, markerInstance);
-    }
+    // if (selectedStationId === stationId) {
+    //   openStationSummary(station, markerInstance);
+    // }
 
     return () => {
       const selectedStationId = getStoreSnapshot(selectedStationIdStore);
