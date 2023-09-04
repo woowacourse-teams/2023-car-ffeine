@@ -1,6 +1,7 @@
 import { css } from 'styled-components';
 
-import { useStations } from '@hooks/tanstack-query/station-markers/useStations';
+import { useStationMarkers } from '@hooks/tanstack-query/station-markers/useStationMarkers';
+import { useStationSummaries } from '@hooks/tanstack-query/station-markers/useStationSummaries';
 
 import List from '@common/List';
 
@@ -12,9 +13,15 @@ import { MOBILE_BREAKPOINT } from '@constants';
 import StationSummaryCard from './StationSummaryCard';
 
 const StationList = () => {
-  const { data: stations, isSuccess, isLoading } = useStations();
+  const {
+    data: filteredMarkers,
+    isSuccess: isFilteredMarkersSuccess,
+    isLoading: isFilteredMarkersLoading,
+  } = useStationMarkers();
 
-  if (isLoading) {
+  const { data: stationSummaries, isSuccess, isLoading } = useStationSummaries(filteredMarkers);
+
+  if (isFilteredMarkersLoading || isLoading) {
     return (
       <List css={searchResultList}>
         {Array.from({ length: 10 }, (_, index) => (
@@ -25,11 +32,12 @@ const StationList = () => {
   }
 
   return (
-    isSuccess && (
+    isSuccess &&
+    isFilteredMarkersSuccess && (
       <List css={searchResultList}>
-        {stations.length > 0 ? (
-          stations.map((station) => (
-            <StationSummaryCard key={station.stationId} station={station} />
+        {stationSummaries.length > 0 ? (
+          stationSummaries.map((stationSummary) => (
+            <StationSummaryCard key={stationSummary.stationId} station={stationSummary} />
           ))
         ) : (
           <EmptyStationsNotice />
