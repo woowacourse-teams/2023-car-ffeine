@@ -25,9 +25,9 @@ import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
-@DataJpaTest
 @Import(value = {QuerydslConfig.class, StationQueryRepository.class})
-public class StationQueryRepositoryTest {
+@DataJpaTest
+class StationQueryRepositoryTest {
 
     @Autowired
     private StationQueryRepository stationQueryRepository;
@@ -73,7 +73,6 @@ public class StationQueryRepositoryTest {
                                             it.getChargerStatus().getChargerCondition(),
                                             it.getMethod()
                                     )).toList()
-
                     ));
         });
     }

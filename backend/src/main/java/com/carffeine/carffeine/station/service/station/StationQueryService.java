@@ -29,6 +29,7 @@ public class StationQueryService {
 
     private static final String QUICK = "QUICK";
     private static final String STANDARD = "STANDARD";
+    private static final int QUICK_CAPACITY = 50;
 
     private final StationQueryRepository stationQueryRepository;
 
@@ -98,7 +99,7 @@ public class StationQueryService {
     }
 
     private String parseToChargerSpeed(BigDecimal capacity) {
-        if (capacity.compareTo(BigDecimal.valueOf(50)) >= 0) {
+        if (capacity.compareTo(BigDecimal.valueOf(QUICK_CAPACITY)) >= 0) {
             return QUICK;
         }
         return STANDARD;

@@ -30,6 +30,7 @@ import static com.querydsl.core.types.dsl.Expressions.cases;
 @Repository
 public class StationQueryRepository {
 
+    private static final double QUICK_CAPACITY = 50.0;
     private final JPAQueryFactory jpaQueryFactory;
 
     public Optional<StationSpecificResponse> findStationById(String stationId) {
@@ -70,7 +71,10 @@ public class StationQueryRepository {
                                 ))
                 );
 
-        return result.isEmpty() ? Optional.empty() : Optional.of(result.get(0));
+        if (result.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(result.get(0));
     }
 
     public List<String> findStationIdsByCoordinate(
@@ -112,7 +116,7 @@ public class StationQueryRepository {
                         chargerStatus.chargerCondition
                                 .when(ChargerCondition.STANDBY).then(1L).otherwise(0L).sum(),
                         cases()
-                                .when(charger.capacity.goe(BigDecimal.valueOf(50.0)))
+                                .when(charger.capacity.goe(BigDecimal.valueOf(QUICK_CAPACITY)))
                                 .then(1L)
                                 .otherwise(0L)
                                 .sum()
@@ -140,7 +144,7 @@ public class StationQueryRepository {
                         station.latitude.value,
                         station.longitude.value,
                         cases()
-                                .when(charger.capacity.goe(BigDecimal.valueOf(50.0)))
+                                .when(charger.capacity.goe(BigDecimal.valueOf(QUICK_CAPACITY)))
                                 .then(1L)
                                 .otherwise(0L)
                                 .sum()
@@ -153,15 +157,24 @@ public class StationQueryRepository {
     }
 
     private BooleanExpression eqCompanyNames(List<String> companyNames) {
-        return companyNames.isEmpty() ? null : station.companyName.in(companyNames);
+        if (companyNames.isEmpty()) {
+            return null;
+        }
+        return station.companyName.in(companyNames);
     }
 
     private BooleanExpression eqChargerTypes(List<ChargerType> chargerTypes) {
-        return chargerTypes.isEmpty() ? null : charger.type.in(chargerTypes);
+        if (chargerTypes.isEmpty()) {
+            return null;
+        }
+        return charger.type.in(chargerTypes);
     }
 
     private BooleanExpression eqCapacities(List<BigDecimal> capacities) {
-        return capacities.isEmpty() ? null : charger.capacity.in(capacities);
+        if (capacities.isEmpty()) {
+            return null;
+        }
+        return charger.capacity.in(capacities);
     }
 
     public StationSearchResult findSearchResult(String query, int page, int limit) {
