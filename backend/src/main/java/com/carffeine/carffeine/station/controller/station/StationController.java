@@ -1,10 +1,12 @@
 package com.carffeine.carffeine.station.controller.station;
 
-import com.carffeine.carffeine.station.controller.station.dto.StationSpecificResponse;
 import com.carffeine.carffeine.station.controller.station.dto.StationsSimpleResponse;
+import com.carffeine.carffeine.station.controller.station.dto.StationsSummaryResponse;
 import com.carffeine.carffeine.station.domain.charger.ChargerType;
-import com.carffeine.carffeine.station.domain.station.Station;
-import com.carffeine.carffeine.station.service.station.StationService;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSummaryResponse;
+import com.carffeine.carffeine.station.service.station.StationQueryService;
 import com.carffeine.carffeine.station.service.station.dto.CoordinateRequest;
 import com.carffeine.carffeine.station.service.station.dto.StationsSearchResponse;
 import lombok.RequiredArgsConstructor;
@@ -22,16 +24,15 @@ import java.util.Set;
 @RestController
 public class StationController {
 
-    private final StationService stationService;
+    private final StationQueryService stationQueryService;
 
     @GetMapping("/stations")
     public ResponseEntity<StationsSimpleResponse> getStations(CoordinateRequest request,
                                                               @RequestParam(required = false, defaultValue = "") List<String> companyNames,
                                                               @RequestParam(required = false, defaultValue = "") List<ChargerType> chargerTypes,
                                                               @RequestParam(required = false, defaultValue = "") List<BigDecimal> capacities) {
-        List<Station> stations = stationService.findByCoordinate(request, companyNames, chargerTypes, capacities);
-        StationsSimpleResponse chargerStationsSimpleResponse = StationsSimpleResponse.from(stations);
-        return ResponseEntity.ok(chargerStationsSimpleResponse);
+        List<StationSimpleResponse> simpleResponses = stationQueryService.findByLocation(request, companyNames, chargerTypes, capacities);
+        return ResponseEntity.ok(new StationsSimpleResponse(simpleResponses));
     }
 
     @GetMapping("/stations/search")
@@ -39,13 +40,18 @@ public class StationController {
                                                                  @RequestParam(value = "scope") Set<String> scope,
                                                                  @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                                                                  @RequestParam(value = "limit", required = false, defaultValue = "12") int limit) {
-        StationsSearchResponse stationSearchResponse = stationService.searchStations(query, scope, page, limit);
+        StationsSearchResponse stationSearchResponse = stationQueryService.searchStations(query, scope, page, limit);
         return ResponseEntity.ok(stationSearchResponse);
     }
 
     @GetMapping("/stations/{stationId}")
     public ResponseEntity<StationSpecificResponse> getStationById(@PathVariable String stationId) {
-        Station station = stationService.findStationById(stationId);
-        return ResponseEntity.ok(StationSpecificResponse.from(station));
+        return ResponseEntity.ok(stationQueryService.findStationById(stationId));
+    }
+
+    @GetMapping("/stations/summary")
+    public ResponseEntity<StationsSummaryResponse> getStationsSummary(@RequestParam List<String> stationIds) {
+        List<StationSummaryResponse> stations = stationQueryService.findStationsSummary(stationIds);
+        return ResponseEntity.ok(new StationsSummaryResponse(stations));
     }
 }

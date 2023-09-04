@@ -117,7 +117,7 @@ public class StationFixture {
             )
             .build();
 
-    public static final Station 천호역_충전소_충전기_2개_사용가능_1개 = Station.builder()
+    public static final Station 천호역_충전소_충전기_2개_사용가능_0개 = Station.builder()
             .stationId("MZ101011")
             .stationName("천호역 충전소")
             .companyName("환경부")

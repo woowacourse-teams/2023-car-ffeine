@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.carffeine.carffeine.station.fixture.station.StationFixture.선릉역_충전소_충전기_2개_사용가능_1개_이름_변경됨;
-import static com.carffeine.carffeine.station.fixture.station.StationFixture.천호역_충전소_충전기_2개_사용가능_1개;
+import static com.carffeine.carffeine.station.fixture.station.StationFixture.천호역_충전소_충전기_2개_사용가능_0개;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -21,7 +21,7 @@ class StationsTest {
     void 회사_이름을_기준으로_충전소를_필터링한다() {
         // given
         Stations stations = Stations.from(List.of(
-                천호역_충전소_충전기_2개_사용가능_1개,
+                천호역_충전소_충전기_2개_사용가능_0개,
                 선릉역_충전소_충전기_2개_사용가능_1개_이름_변경됨
         ));
 
@@ -39,7 +39,7 @@ class StationsTest {
     void 충전기_타입을_기준으로_충전소를_필터링한다() {
         // given
         Stations stations = Stations.from(List.of(
-                천호역_충전소_충전기_2개_사용가능_1개,
+                천호역_충전소_충전기_2개_사용가능_0개,
                 선릉역_충전소_충전기_2개_사용가능_1개_이름_변경됨
         ));
 
@@ -49,7 +49,7 @@ class StationsTest {
         // then
         assertSoftly(softly -> {
             softly.assertThat(result.size()).isEqualTo(1);
-            softly.assertThat(result.get(0).getStationId()).isEqualTo(천호역_충전소_충전기_2개_사용가능_1개.getStationId());
+            softly.assertThat(result.get(0).getStationId()).isEqualTo(천호역_충전소_충전기_2개_사용가능_0개.getStationId());
         });
     }
 
@@ -57,7 +57,7 @@ class StationsTest {
     void 충전기_속도를_기준으로_충전소를_필터링한다() {
         // given
         Stations stations = Stations.from(List.of(
-                천호역_충전소_충전기_2개_사용가능_1개,
+                천호역_충전소_충전기_2개_사용가능_0개,
                 선릉역_충전소_충전기_2개_사용가능_1개_이름_변경됨
         ));
 
@@ -67,7 +67,7 @@ class StationsTest {
         // then
         assertSoftly(softly -> {
             softly.assertThat(result.size()).isEqualTo(1);
-            softly.assertThat(result.get(0).getStationId()).isEqualTo(천호역_충전소_충전기_2개_사용가능_1개.getStationId());
+            softly.assertThat(result.get(0).getStationId()).isEqualTo(천호역_충전소_충전기_2개_사용가능_0개.getStationId());
         });
     }
 }

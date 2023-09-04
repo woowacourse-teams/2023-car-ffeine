@@ -19,6 +19,7 @@ import com.carffeine.carffeine.station.service.congestion.CongestionService;
 import com.carffeine.carffeine.station.service.report.ReportService;
 import com.carffeine.carffeine.station.service.review.ReplyService;
 import com.carffeine.carffeine.station.service.review.ReviewService;
+import com.carffeine.carffeine.station.service.station.StationQueryService;
 import com.carffeine.carffeine.station.service.station.StationService;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
@@ -66,4 +67,6 @@ public class MockBeanInjection {
     protected CarQueryService carQueryService;
     @MockBean
     protected FilterQueryService filterQueryService;
+    @MockBean
+    protected StationQueryService stationQueryService;
 }
