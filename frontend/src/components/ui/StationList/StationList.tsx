@@ -19,7 +19,11 @@ const StationList = () => {
     isLoading: isFilteredMarkersLoading,
   } = useStationMarkers();
 
-  const { data: stationSummaries, isSuccess, isLoading } = useStationSummaries(filteredMarkers);
+  const {
+    data: stationSummaries,
+    isSuccess,
+    isLoading,
+  } = useStationSummaries(filteredMarkers ?? []);
 
   if (isFilteredMarkersLoading || isLoading) {
     return (

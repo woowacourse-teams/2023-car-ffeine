@@ -7,8 +7,6 @@ import { QUERY_KEY_STATION_SUMMARIES } from '@constants/queryKeys';
 
 import type { StationMarker, StationSummary } from '@type';
 
-import { useStationMarkers } from './useStationMarkers';
-
 const fetchStationSummaries = async (markers: StationMarker[]) => {
   const stationIds = markers.map((marker) => marker.stationId);
 
@@ -29,7 +27,10 @@ const fetchStationSummaries = async (markers: StationMarker[]) => {
 
 export const useStationSummaries = (filteredMarkers: StationMarker[]) => {
   return useQuery({
-    queryKey: [QUERY_KEY_STATION_SUMMARIES],
+    queryKey: [
+      QUERY_KEY_STATION_SUMMARIES,
+      filteredMarkers.map((marker) => marker.stationId).join(DELIMITER),
+    ],
     queryFn: () => fetchStationSummaries(filteredMarkers),
   });
 };
