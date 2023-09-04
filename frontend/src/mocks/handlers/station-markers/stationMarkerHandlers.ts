@@ -5,10 +5,10 @@ import { DELIMITER } from '@constants';
 import { COMPANIES } from '@constants/chargers';
 import { DEVELOP_SERVER_URL } from '@constants/server';
 
-import type { StationSummary } from '@type';
+import type { StationMarker, StationSummary } from '@type';
 import type { CompanyKey } from '@type/serverStationFilter';
 
-export const stationHandlers = [
+export const stationMarkerHandlers = [
   rest.get(`${DEVELOP_SERVER_URL}/stations`, async (req, res, ctx) => {
     const { searchParams } = req.url;
 
@@ -49,7 +49,7 @@ export const stationHandlers = [
       );
     };
 
-    const foundStations: StationSummary[] = stations
+    const foundStations: StationMarker[] = stations
       .filter(
         (station) =>
           isStationLatitudeWithinBounds(station) && isStationLongitudeWithinBounds(station)
@@ -71,6 +71,29 @@ export const stationHandlers = [
           return false;
         }
         return true;
+      })
+      .map((station: StationMarker) => {
+        const {
+          stationId,
+          latitude,
+          longitude,
+          stationName,
+          availableCount,
+          isParkingFree,
+          isPrivate,
+          quickChargerCount,
+        } = station;
+
+        return {
+          stationId,
+          latitude,
+          longitude,
+          stationName,
+          availableCount,
+          isParkingFree,
+          isPrivate,
+          quickChargerCount,
+        };
       });
 
     console.log('찾은 충전소 갯수: ' + foundStations.length);
@@ -82,50 +105,5 @@ export const stationHandlers = [
         stations: foundStations,
       })
     );
-  }),
-
-  rest.get(`${DEVELOP_SERVER_URL}/stations/summary`, async (req, res, ctx) => {
-    const { searchParams } = req.url;
-    // ?stationIds=PE123456,PE123457,PE123465 ==> 대략 10개, 검사는 안함
-    const stationIdsParam = searchParams.get('stationIds');
-    if (stationIdsParam === undefined) {
-      return res(ctx.delay(1000), ctx.status(200), ctx.json([]));
-    }
-    const stationIds = stationIdsParam.split(DELIMITER);
-    const foundStations = stations.filter((station) => stationIds.includes(station.stationId));
-    const stationSummaries: StationSummary[] = foundStations.map((station) => {
-      const {
-        address,
-        availableCount,
-        chargers,
-        companyName,
-        detailLocation,
-        isParkingFree,
-        isPrivate,
-        latitude,
-        longitude,
-        operatingTime,
-        stationId,
-        stationName,
-        totalCount,
-      }: StationSummary = station;
-
-      return {
-        address,
-        availableCount,
-        chargers,
-        companyName,
-        detailLocation,
-        isParkingFree,
-        isPrivate,
-        latitude,
-        longitude,
-        operatingTime,
-        stationId,
-        stationName,
-        totalCount,
-      };
-    });
-    return res(ctx.delay(1000), ctx.status(200), ctx.json(stationSummaries));
   }),
 ];
