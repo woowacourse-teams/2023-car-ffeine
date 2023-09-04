@@ -8,7 +8,7 @@ interface Props {
   station: StationSummary;
 }
 
-const StationMarker = ({ station }: Props) => {
+const Marker = ({ station }: Props) => {
   const { renderStationMarker } = useGoogleMap();
 
   useEffect(() => {
@@ -20,4 +20,4 @@ const StationMarker = ({ station }: Props) => {
   return <></>;
 };
 
-export default StationMarker;
+export default Marker;

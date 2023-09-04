@@ -1,6 +1,6 @@
 import { useStations } from '@hooks/tanstack-query/station-markers/useStations';
 
-import StationMarker from './StationMarker';
+import Marker from './Marker';
 
 const StationMarkersContainer = () => {
   const { data: stations, isSuccess } = useStations();
@@ -12,7 +12,7 @@ const StationMarkersContainer = () => {
   return (
     <>
       {stations.map((station) => {
-        return <StationMarker key={station.stationId} station={station} />;
+        return <Marker key={station.stationId} station={station} />;
       })}
     </>
   );
