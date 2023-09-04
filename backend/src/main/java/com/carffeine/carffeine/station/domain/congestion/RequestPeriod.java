@@ -10,7 +10,30 @@ import java.util.List;
 public enum RequestPeriod {
 
     ZERO(0),
-    TWELVE(1200);
+    ONE(100),
+    TWO(200),
+    THREE(300),
+    FOUR(400),
+    FIVE(500),
+    SIX(600),
+    SEVEN(700),
+    EIGHT(800),
+    NINE(900),
+    TEN(1000),
+    ELEVEN(1100),
+    TWELVE(1200),
+    THIRTEEN(1300),
+    FOURTEEN(1400),
+    FIFTEEN(1500),
+    SIXTEEN(1600),
+    SEVENTEEN(1700),
+    EIGHTEEN(1800),
+    NINETEEN(1900),
+    TWENTY(2000),
+    TWENTY_ONE(2100),
+    TWENTY_TWO(2200),
+    TWENTY_THREE(2300),
+    TWENTY_FOUR(2400);
 
     private static final int UNIT = 100;
     private static final List<RequestPeriod> periods = Arrays.stream(values())
