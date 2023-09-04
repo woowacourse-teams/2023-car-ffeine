@@ -48,6 +48,7 @@ const generateRandomStationId = () => {
 
 export const stations: Station[] = Array.from({ length: 3000 }, (_, index) => {
   const randomStationId = generateRandomStationId();
+
   return {
     stationId: randomStationId,
     stationName: `충전소 ${randomStationId}`,
@@ -72,6 +73,7 @@ export const stations: Station[] = Array.from({ length: 3000 }, (_, index) => {
     isPrivate: generateRandomData<boolean>([true, false]),
     totalCount: generateRandomData<number>([3, 4, 5]),
     availableCount: generateRandomData<number>([0, 1, 2, 3]),
+    quickChargerCount: generateRandomData<number>([0, 1]),
     stationState: generateRandomData(['yyyy-mm-dd일부터 충전소 공사합니다.', 'null', null]),
     privateReason: generateRandomData(['아파트', 'null', null]),
     reportCount: generateRandomData([0, 0, Math.floor(Math.random() * 99)]),
