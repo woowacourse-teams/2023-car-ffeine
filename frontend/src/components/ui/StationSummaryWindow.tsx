@@ -52,7 +52,7 @@ const StationSummaryWindow = ({ stationId }: Props) => {
 
   const handleOpenStationDetail = () => {
     setSelectedStationId(stationId);
-    openLastPanel(<StationDetailsWindow />);
+    openLastPanel(<StationDetailsWindow stationId={stationId} />);
   };
 
   const handleCloseStationSummary = (event: MouseEvent<HTMLButtonElement>) => {

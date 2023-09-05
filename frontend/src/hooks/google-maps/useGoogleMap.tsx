@@ -43,7 +43,7 @@ export const useGoogleMap = () => {
       /**
        * TODO: pc에서만 openLastPanel을 호출하도록 수정
        */
-      openLastPanel(<StationDetailsWindow />);
+      openLastPanel(<StationDetailsWindow stationId={stationId} />);
     });
 
     setMarkerInstanceState((previewsMarkerInstances) => [
@@ -54,6 +54,9 @@ export const useGoogleMap = () => {
       },
     ]);
 
+    /**
+     * [중요] 이 부분은 장거리 검색 결과를 클릭하는 경우 지도에 없어서 마커를 찾지 못하는 버그를 방지합니다.
+     */
     if (selectedStationId === stationId) {
       openStationSummary(stationId, markerInstance);
     }
