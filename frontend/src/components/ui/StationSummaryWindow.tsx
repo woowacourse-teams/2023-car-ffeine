@@ -8,13 +8,17 @@ import { useExternalValue, useSetExternalState } from '@utils/external-state';
 import { getStationSummaryWindowStore } from '@stores/google-maps/stationSummaryWindowStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
+import { useFetchStationSummary } from '@hooks/fetch/useFetchStationSummary';
+
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
+import List from '@common/List';
 import ListItem from '@common/ListItem';
 import Text from '@common/Text';
 
 import ChargingSpeedIcon from './ChargingSpeedIcon';
 import StationDetailsWindow from './StationDetailsWindow';
+import StationSummaryCardSkeleton from './StationList/StationSummaryCardSkeleton';
 import { useNavigationBar } from './compound/NavigationBar/hooks/useNavigationBar';
 
 interface Props {
@@ -26,16 +30,16 @@ const StationSummaryWindow = ({ stationId }: Props) => {
   const setSelectedStationId = useSetExternalState(selectedStationIdStore);
   const { openLastPanel } = useNavigationBar();
 
-  const station = {
-    stationId: '1',
-    stationName: '테스트',
-    companyName: '테스트',
-    address: '테스트',
-    operatingTime: '테스트',
-    isPrivate: false,
-    isParkingFree: false,
-    fastChargerCount: 0,
-  };
+  const { isLoading, stationSummary } = useFetchStationSummary(stationId);
+
+  if (isLoading || stationSummary === null) {
+    return (
+      <List>
+        <StationSummaryCardSkeleton />
+      </List>
+    );
+  }
+
   const {
     stationName,
     companyName,
@@ -43,12 +47,8 @@ const StationSummaryWindow = ({ stationId }: Props) => {
     operatingTime,
     isPrivate,
     isParkingFree,
-    fastChargerCount,
-  } = station;
-
-  /**
-   * TODO: useEffect + 페칭 구현
-   */
+    quickChargerCount,
+  } = stationSummary;
 
   const handleOpenStationDetail = () => {
     setSelectedStationId(stationId);
@@ -96,7 +96,7 @@ const StationSummaryWindow = ({ stationId }: Props) => {
               </Text>
             </FlexBox>
           </article>
-          {fastChargerCount !== 0 && <ChargingSpeedIcon />}
+          {quickChargerCount !== 0 && <ChargingSpeedIcon />}
         </FlexBox>
       </Button>
     </ListItem>
