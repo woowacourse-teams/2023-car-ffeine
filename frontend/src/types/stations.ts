@@ -51,7 +51,6 @@ export type StationSummary = Pick<
   Station,
   | 'address'
   | 'availableCount'
-  | 'chargers'
   | 'companyName'
   | 'detailLocation'
   | 'isParkingFree'
