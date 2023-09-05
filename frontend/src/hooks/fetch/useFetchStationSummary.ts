@@ -4,7 +4,7 @@ import type { StationSummary } from '@type';
 
 import { fetchStationSummaries } from './fetchStationSummaries';
 
-export const useStationSummary = (stationId: string) => {
+export const useFetchStationSummary = (stationId: string) => {
   const [stationSummary, setStationSummary] = useState<StationSummary>();
   const [isLoading, setIsLoading] = useState(false);
 
