@@ -35,7 +35,7 @@ import LoginModal from '@ui/modal/LoginModal/LoginModal';
 import { displayNoneInMobile, displayNoneInWeb } from '@style/mediaQuery';
 
 import { EMPTY_MEMBER_TOKEN, MOBILE_BREAKPOINT } from '@constants';
-import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
+import { QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
 
 import PopupMenu from '../PopupMenu';
 import { useNavigationBar } from './hooks/useNavigationBar';
@@ -76,7 +76,7 @@ const Menu = () => {
         selectedConnectorTypesFilterStore.setState(new Set([]));
         selectedCompaniesFilterStore.setState(new Set([]));
 
-        queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
+        queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_MARKERS] });
       },
     },
   ];

@@ -19,12 +19,12 @@ import {
 import { DELIMITER } from '@constants';
 import { COMPANIES } from '@constants/chargers';
 import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
-import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
+import { QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
 
 import type { StationSummary } from '@type';
-import type { DisplayPosition } from '@type/stations';
+import type { DisplayPosition, StationMarker } from '@type/stations';
 
-export const fetchStation = async () => {
+export const fetchStationMarkers = async () => {
   const googleMap = getStoreSnapshot(getGoogleMapStore());
   const displayPosition = getDisplayPosition(googleMap);
   const { latitudeDelta, longitudeDelta } = displayPosition;
@@ -34,7 +34,7 @@ export const fetchStation = async () => {
   }
 
   if (displayPosition.zoom < INITIAL_ZOOM_SIZE) {
-    return new Promise<StationSummary[]>((resolve) => resolve([]));
+    return new Promise<StationMarker[]>((resolve) => resolve([]));
   }
 
   const displayPositionKeys = getTypedObjectKeys<DisplayPosition>(displayPosition);
@@ -59,18 +59,18 @@ export const fetchStation = async () => {
   });
 
   const serverUrl = serverUrlStore.getState();
-  const stations = await fetch(`${serverUrl}/stations?${requestQueryParams}`, {
+  const stationMarkers = await fetch(`${serverUrl}/stations?${requestQueryParams}`, {
     method: 'GET',
-  }).then<StationSummary[]>(async (response) => {
+  }).then<StationMarker[]>(async (response) => {
     const data = await response.json();
 
     return data.stations;
   });
 
-  return stations;
+  return stationMarkers;
 };
 
-export const useStations = () => {
+export const useStationMarkers = () => {
   const {
     isAvailableStationFilterSelected,
     isFastChargeStationFilterSelected,
@@ -79,15 +79,14 @@ export const useStations = () => {
   } = useExternalValue(clientStationFiltersStore);
 
   return useQuery({
-    queryKey: [QUERY_KEY_STATIONS],
-    queryFn: fetchStation,
+    queryKey: [QUERY_KEY_STATION_MARKERS],
+    queryFn: fetchStationMarkers,
     select: (data) => {
       return data.filter((station) => {
-        const { availableCount, isParkingFree, chargers, isPrivate } = station;
+        const { availableCount, isParkingFree, isPrivate, quickChargerCount } = station;
 
         const isNoAvailable = isAvailableStationFilterSelected && availableCount === 0;
-        const isNoFastCharge =
-          isFastChargeStationFilterSelected && !chargers.some((charger) => charger.capacity >= 50);
+        const isNoFastCharge = isFastChargeStationFilterSelected && quickChargerCount === 0;
         const isNoFreeParking = isParkingFreeStationFilterSelected && !isParkingFree;
         const isNoPublic = isPrivateStationFilterSelected && isPrivate;
 

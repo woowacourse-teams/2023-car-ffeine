@@ -42,8 +42,8 @@ const StationSummaryCard = ({ station, tag, $noPadding }: Props) => {
         shadow
         css={foundStationButton}
         onClick={() => {
-          openStationSummary(station);
-          openLastPanel(<StationDetailsWindow />);
+          openStationSummary(stationId);
+          openLastPanel(<StationDetailsWindow stationId={stationId} />);
         }}
       >
         <FlexBox alignItems="start" justifyContent="between" nowrap columnGap={2.8}>

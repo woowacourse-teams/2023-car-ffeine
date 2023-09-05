@@ -62,6 +62,7 @@ export type StationSummary = Pick<
   | 'stationId'
   | 'stationName'
   | 'totalCount'
+  | 'quickChargerCount'
 >;
 
 export type StationDetails = Pick<

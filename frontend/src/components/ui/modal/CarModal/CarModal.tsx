@@ -19,7 +19,7 @@ import Text from '@common/Text';
 
 import LogoIcon from '@ui/Svg/LogoIcon';
 
-import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
+import { QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
 
 import { getCarFilters, submitMemberCar, submitMemberFilters } from './fetch';
 
@@ -59,7 +59,7 @@ const CarModal = () => {
       const memberFilters = await submitMemberFilters(carFilters);
 
       setAllServerStationFilters(memberFilters);
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_MARKERS] });
       setMemberInfo((prev) => ({
         ...prev,
         car: {

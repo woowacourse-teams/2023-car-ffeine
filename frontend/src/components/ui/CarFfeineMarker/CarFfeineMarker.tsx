@@ -1,13 +1,13 @@
 import { styled } from 'styled-components';
 
-import type { StationSummary } from '@type';
+import type { StationMarker } from '@type';
 
 const enum MarkerColors {
   noAvailableCharger = '#dc3545',
   availableCharger = '#0d6efd',
 }
 
-export const CarFfeineMarker = (station: StationSummary) => {
+export const CarFfeineMarker = (station: StationMarker) => {
   const { stationName, availableCount } = station;
 
   const color =

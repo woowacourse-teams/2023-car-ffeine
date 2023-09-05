@@ -2,17 +2,17 @@ import { useEffect } from 'react';
 
 import { useGoogleMap } from '@hooks/google-maps/useGoogleMap';
 
-import type { StationSummary } from '@type';
+import type { StationMarker } from '@type';
 
 interface Props {
-  station: StationSummary;
+  stationMarker: StationMarker;
 }
 
-const Marker = ({ station }: Props) => {
+const Marker = ({ stationMarker }: Props) => {
   const { renderStationMarker } = useGoogleMap();
 
   useEffect(() => {
-    const unmountStationMarker = renderStationMarker(station);
+    const unmountStationMarker = renderStationMarker(stationMarker);
 
     return unmountStationMarker;
   }, []);

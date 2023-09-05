@@ -7,7 +7,7 @@ import { useExternalValue } from '@utils/external-state';
 import { getGoogleMapStore, googleMapActions } from '@stores/google-maps/googleMapStore';
 
 import { useCurrentPosition } from '@hooks/google-maps/useCurrentPosition';
-import { useStations } from '@hooks/tanstack-query/station-markers/useStations';
+import { useStationMarkers } from '@hooks/tanstack-query/station-markers/useStationMarkers';
 
 import Box from '@common/Box';
 import Button from '@common/Button';
@@ -19,7 +19,7 @@ import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
 const MapController = () => {
   const position = useCurrentPosition();
   const googleMap = useExternalValue(getGoogleMapStore());
-  const { isFetching } = useStations();
+  const { isFetching } = useStationMarkers();
 
   const handleCurrentPositionButton = () => {
     googleMap.panTo({ lat: position.lat, lng: position.lng });

@@ -1,18 +1,18 @@
-import { useStations } from '@hooks/tanstack-query/station-markers/useStations';
+import { useStationMarkers } from '@hooks/tanstack-query/station-markers/useStationMarkers';
 
 import Marker from './Marker';
 
 const StationMarkersContainer = () => {
-  const { data: stations, isSuccess } = useStations();
+  const { data: stationMarkers, isSuccess } = useStationMarkers();
 
-  if (!stations || !isSuccess) {
+  if (!stationMarkers || !isSuccess) {
     return <></>;
   }
 
   return (
     <>
-      {stations.map((station) => {
-        return <Marker key={station.stationId} station={station} />;
+      {stationMarkers.map((stationMarker) => {
+        return <Marker key={stationMarker.stationId} stationMarker={stationMarker} />;
       })}
     </>
   );

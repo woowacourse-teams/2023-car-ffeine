@@ -10,14 +10,14 @@ import { QUERY_KEY_STATION_DETAILS } from '@constants/queryKeys';
 
 import type { StationDetails } from '@type';
 
-export const fetchStationDetails = async (selectedStationId: string) => {
-  if (selectedStationId === null) {
+export const fetchStationDetails = async (stationId: string) => {
+  if (stationId === null) {
     throw new Error('선택된 충전소가 없습니다.');
   }
 
   const serverUrl = serverUrlStore.getState();
 
-  const stationDetails = await fetch(`${serverUrl}/stations/${selectedStationId}`, {
+  const stationDetails = await fetch(`${serverUrl}/stations/${stationId}`, {
     method: 'GET',
   }).then<StationDetails>(async (response) => {
     if (!response.ok) {
@@ -31,9 +31,7 @@ export const fetchStationDetails = async (selectedStationId: string) => {
   return stationDetails;
 };
 
-export const useStationDetails = () => {
-  const selectedStationId = useExternalValue(selectedStationIdStore);
-
+export const useStationDetails = (selectedStationId: string) => {
   return useQuery({
     queryKey: [QUERY_KEY_STATION_DETAILS, selectedStationId],
     queryFn: () => fetchStationDetails(selectedStationId),

@@ -25,7 +25,7 @@ import { pillStyle } from '@style';
 
 import { MOBILE_BREAKPOINT } from '@constants';
 import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
-import { QUERY_KEY_SEARCHED_STATION, QUERY_KEY_STATIONS } from '@constants/queryKeys';
+import { QUERY_KEY_SEARCHED_STATION, QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
 
 import type { StationPosition } from '@type/stations';
 
@@ -69,7 +69,7 @@ const StationSearchBar = () => {
     googleMap.panTo({ lat: latitude, lng: longitude });
     googleMap.setZoom(INITIAL_ZOOM_SIZE);
 
-    queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
+    queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_MARKERS] });
     setSelectedStationId(stationId);
     !basePanel && openBasePanel(<StationSearchWindow />);
   };
