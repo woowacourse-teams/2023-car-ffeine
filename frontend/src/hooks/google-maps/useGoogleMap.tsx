@@ -39,7 +39,10 @@ export const useGoogleMap = () => {
     markerRoot.render(<CarFfeineMarker {...station} />);
 
     markerInstance.addListener('click', () => {
-      // openStationSummary(station, markerInstance);
+      openStationSummary(stationId, markerInstance);
+      /**
+       * TODO: pc에서만 openLastPanel을 호출하도록 수정
+       */
       openLastPanel(<StationDetailsWindow />);
     });
 
@@ -51,9 +54,9 @@ export const useGoogleMap = () => {
       },
     ]);
 
-    // if (selectedStationId === stationId) {
-    //   openStationSummary(station, markerInstance);
-    // }
+    if (selectedStationId === stationId) {
+      openStationSummary(stationId, markerInstance);
+    }
 
     return () => {
       const selectedStationId = getStoreSnapshot(selectedStationIdStore);

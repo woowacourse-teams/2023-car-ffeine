@@ -20,27 +20,37 @@ import StationDetailsWindow from './StationDetailsWindow';
 import { useNavigationBar } from './compound/NavigationBar/hooks/useNavigationBar';
 
 interface Props {
-  station: StationSummary;
+  stationId: string;
 }
 
-const StationSummaryWindow = ({ station }: Props) => {
+const StationSummaryWindow = ({ stationId }: Props) => {
   const infoWindowInstance = useExternalValue(getStationSummaryWindowStore());
   const setSelectedStationId = useSetExternalState(selectedStationIdStore);
   const { openLastPanel } = useNavigationBar();
 
+  const station = {
+    stationId: '1',
+    stationName: '테스트',
+    companyName: '테스트',
+    address: '테스트',
+    operatingTime: '테스트',
+    isPrivate: false,
+    isParkingFree: false,
+    fastChargerCount: 0,
+  };
   const {
-    stationId,
-    chargers,
-    companyName,
     stationName,
+    companyName,
     address,
     operatingTime,
-    isParkingFree,
     isPrivate,
+    isParkingFree,
+    fastChargerCount,
   } = station;
 
-  const slowChargerCount = chargers.filter((charger) => charger.capacity < 50).length;
-  const fastChargerCount = chargers.length - slowChargerCount;
+  /**
+   * TODO: useEffect + 페칭 구현
+   */
 
   const handleOpenStationDetail = () => {
     setSelectedStationId(stationId);

@@ -42,7 +42,7 @@ const StationSummaryCard = ({ station, tag, $noPadding }: Props) => {
         shadow
         css={foundStationButton}
         onClick={() => {
-          openStationSummary(station);
+          openStationSummary(stationId);
           openLastPanel(<StationDetailsWindow />);
         }}
       >
