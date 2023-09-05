@@ -2,11 +2,9 @@ import { stations } from '@mocks/data';
 import { rest } from 'msw';
 
 import { DELIMITER } from '@constants';
-import { COMPANIES } from '@constants/chargers';
 import { DEVELOP_SERVER_URL } from '@constants/server';
 
 import type { StationSummary } from '@type';
-import type { CompanyKey } from '@type/serverStationFilter';
 
 export const stationHandlers = [
   rest.get(`${DEVELOP_SERVER_URL}/stations/summary`, async (req, res, ctx) => {
@@ -33,6 +31,7 @@ export const stationHandlers = [
         stationId,
         stationName,
         totalCount,
+        quickChargerCount,
       }: StationSummary = station;
 
       return {
@@ -49,6 +48,7 @@ export const stationHandlers = [
         stationId,
         stationName,
         totalCount,
+        quickChargerCount,
       };
     });
     return res(

@@ -8,8 +8,6 @@ import { selectedStationIdStore } from '@stores/selectedStationStore';
 
 import StationSummaryWindow from '@ui/StationSummaryWindow';
 
-import type { StationSummary } from '@type';
-
 export const useStationSummary = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
   const infoWindowInstance = useExternalValue(getStationSummaryWindowStore());

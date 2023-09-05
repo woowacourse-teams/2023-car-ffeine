@@ -13,8 +13,6 @@ import FlexBox from '@common/FlexBox';
 import ListItem from '@common/ListItem';
 import Text from '@common/Text';
 
-import type { StationSummary } from '@type';
-
 import ChargingSpeedIcon from './ChargingSpeedIcon';
 import StationDetailsWindow from './StationDetailsWindow';
 import { useNavigationBar } from './compound/NavigationBar/hooks/useNavigationBar';
