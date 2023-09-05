@@ -1,9 +1,5 @@
 import { css } from 'styled-components';
 
-import { useExternalValue } from '@utils/external-state';
-
-import { selectedStationIdStore } from '@stores/selectedStationStore';
-
 import { useStationDetails } from '@hooks/tanstack-query/station-details/useStationDetails';
 
 import Box from '@common/Box';
