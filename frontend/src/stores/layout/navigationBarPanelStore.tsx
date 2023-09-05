@@ -10,6 +10,6 @@ export interface Panels {
 }
 
 export const navigationBarPanelStore = store<Panels>({
-  basePanel: null,
+  basePanel: <StationSearchWindow />,
   lastPanel: null,
 });
