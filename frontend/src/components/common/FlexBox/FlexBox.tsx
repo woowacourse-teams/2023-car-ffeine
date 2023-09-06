@@ -1,7 +1,6 @@
 import type { CSSProp } from 'styled-components';
 import styled from 'styled-components';
 
-import type { ForwardedRef } from 'react';
 import { type HTMLAttributes, type ReactNode } from 'react';
 
 import type { SpacingProps } from '@common/systems';
@@ -38,11 +37,11 @@ export interface FlexBoxProps extends HTMLAttributes<HTMLDivElement>, SpacingPro
 }
 
 // TODO: tag가 바뀌었을 때 ref의 타입을 바꾸는 로직을 추가한다.
-const FlexBox = ({ children, tag, noRadius, ...props }: FlexBoxProps) => {
+const FlexBox = ({ children, tag, noRadius, columnGap, ...props }: FlexBoxProps) => {
   const changeableTag = tag || 'div';
 
   return (
-    <S.FlexBox as={changeableTag} $noRadius={noRadius} {...props}>
+    <S.FlexBox as={changeableTag} $noRadius={noRadius} $columnGap={columnGap} {...props}>
       {children}
     </S.FlexBox>
   );
@@ -59,8 +58,9 @@ const getGap = ({ gap, rowGap, columnGap }: Pick<FlexBoxProps, 'gap' | 'rowGap' 
   return `${row}rem ${column}rem`;
 };
 
-export type StyledFlexBoxType = Omit<FlexBoxProps, 'noRadius'> & {
+export type StyledFlexBoxType = Omit<FlexBoxProps, 'noRadius' | 'columnGap'> & {
   $noRadius: BorderRadiusDirectionType;
+  $columnGap: number;
 };
 
 const S = {
@@ -74,7 +74,7 @@ const S = {
     justify-content: ${({ justifyContent }) => FLEX_BOX_ITEM_POSITION[justifyContent]};
     align-items: ${({ alignItems }) => FLEX_BOX_ITEM_POSITION[alignItems]};
     align-content: ${({ alignContent }) => FLEX_BOX_ITEM_POSITION[alignContent]};
-    gap: ${({ gap, rowGap, columnGap }) => getGap({ gap, rowGap, columnGap })};
+    gap: ${({ gap, rowGap, $columnGap }) => getGap({ gap, rowGap, columnGap: $columnGap })};
     ${({ background }) => background && `background: ${background};`}
     border: ${({ outlined }) => (outlined ? '0.15rem solid #000' : 'none')};
 
