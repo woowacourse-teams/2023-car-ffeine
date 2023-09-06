@@ -38,11 +38,14 @@ export interface FlexBoxProps extends HTMLAttributes<HTMLDivElement>, SpacingPro
 }
 
 // TODO: tag가 바뀌었을 때 ref의 타입을 바꾸는 로직을 추가한다.
-const FlexBox = ({ children, tag, ...props }: FlexBoxProps, ref: ForwardedRef<HTMLDivElement>) => {
+const FlexBox = (
+  { children, tag, noRadius, ...props }: FlexBoxProps,
+  ref: ForwardedRef<HTMLDivElement>
+) => {
   const changeableTag = tag || 'div';
 
   return (
-    <S.FlexBox as={changeableTag} {...props} ref={ref}>
+    <S.FlexBox as={changeableTag} $noRadius={noRadius} {...props} ref={ref}>
       {children}
     </S.FlexBox>
   );
@@ -59,8 +62,12 @@ const getGap = ({ gap, rowGap, columnGap }: Pick<FlexBoxProps, 'gap' | 'rowGap' 
   return `${row}rem ${column}rem`;
 };
 
+export type StyledFlexBoxType = Omit<FlexBoxProps, 'noRadius'> & {
+  $noRadius: BorderRadiusDirectionType;
+};
+
 const S = {
-  FlexBox: styled.div<FlexBoxProps>`
+  FlexBox: styled.div<StyledFlexBoxType>`
     ${spacing};
 
     width: ${({ width }) => getSize(width)};
@@ -78,7 +85,7 @@ const S = {
     border-radius: 1rem;
     font-size: 1.5rem;
 
-    ${({ noRadius }) => noRadius && borderRadius(noRadius)};
+    ${({ $noRadius }) => $noRadius && borderRadius($noRadius)};
 
     ${({ css }) => css};
   `,
