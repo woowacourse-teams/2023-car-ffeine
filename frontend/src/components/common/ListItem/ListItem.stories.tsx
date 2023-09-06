@@ -1,9 +1,9 @@
 import type { Meta } from '@storybook/react';
 
-import List from '@common/List';
-import ListItem from '@common/ListItem';
-import type { ListItemProps } from '@common/ListItem/ListItem';
-import Text from '@common/Text';
+import List from '../List';
+import Text from '../Text';
+import type { ListItemProps } from './ListItem';
+import ListItem from './index';
 
 const meta = {
   title: 'Components/ListItem',
