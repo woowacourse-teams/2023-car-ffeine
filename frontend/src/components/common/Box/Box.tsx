@@ -2,7 +2,7 @@ import type { CSSProp } from 'styled-components';
 import styled from 'styled-components';
 
 import type { Ref } from 'react';
-import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
+import { type HTMLAttributes, type ReactNode } from 'react';
 
 import type { SpacingProps } from '@common/systems';
 import { spacing } from '@common/systems';
@@ -59,4 +59,4 @@ const Box = ({ children, ...props }: BoxProps, ref: Ref<HTMLDivElement>) => {
   );
 };
 
-export default forwardRef(Box);
+export default Box;
