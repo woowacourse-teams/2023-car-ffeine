@@ -2,7 +2,7 @@ import type { CSSProp } from 'styled-components';
 import styled from 'styled-components';
 
 import type { ForwardedRef } from 'react';
-import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
+import { type HTMLAttributes, type ReactNode } from 'react';
 
 import type { SpacingProps } from '@common/systems';
 import { spacing } from '@common/systems';
@@ -91,4 +91,4 @@ const S = {
   `,
 };
 
-export default forwardRef(FlexBox);
+export default FlexBox;
