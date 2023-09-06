@@ -20,7 +20,6 @@ export const stationHandlers = [
       const {
         address,
         availableCount,
-        chargers,
         companyName,
         detailLocation,
         isParkingFree,
@@ -37,7 +36,6 @@ export const stationHandlers = [
       return {
         address,
         availableCount,
-        chargers,
         companyName,
         detailLocation,
         isParkingFree,
