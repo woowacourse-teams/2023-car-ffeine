@@ -1,9 +1,10 @@
-import { getCongestionStatistics } from '@mocks/data';
+// import { getCongestionStatistics } from '@mocks/data';
 import type { Meta } from '@storybook/react';
 
-import { ENGLISH_DAYS } from '@constants/congestion';
-
+// import { ENGLISH_DAYS } from '@constants/congestion';
 import StatisticsGraph from '.';
+import { ENGLISH_DAYS } from '../../../constants/congestion';
+import { getCongestionStatistics } from '../../../mocks/data';
 
 const meta = {
   title: 'UI/StatisticsGraph',
