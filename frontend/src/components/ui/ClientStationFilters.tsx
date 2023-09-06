@@ -64,7 +64,7 @@ const ClientStationFilters = () => {
   const screen = useMediaQueries();
 
   return (
-    <Container left={navigationComponentWidth} basePanel={basePanel}>
+    <Container left={navigationComponentWidth} $basePanel={basePanel}>
       {screen.get('isMobile') ? <StationSearchBar /> : !basePanel && <StationSearchBar />}
       <FlexBox css={mobileFilterContainerCss}>
         <ClientFilterButton
@@ -96,9 +96,9 @@ const ClientStationFilters = () => {
   );
 };
 
-const Container = styled.div<{ left: number; basePanel: Panels['basePanel'] }>`
+const Container = styled.div<{ left: number; $basePanel: Panels['basePanel'] }>`
   position: fixed;
-  top: ${({ basePanel }) => (basePanel ? '16.5px' : '14px')};
+  top: ${({ $basePanel }) => ($basePanel ? '16.5px' : '14px')};
   left: ${({ left }) => left}rem;
   z-index: 998;
   padding: 10px;
