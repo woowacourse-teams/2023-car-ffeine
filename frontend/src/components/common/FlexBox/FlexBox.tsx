@@ -36,12 +36,43 @@ export interface FlexBoxProps extends HTMLAttributes<HTMLDivElement>, SpacingPro
   children: ReactNode;
 }
 
+export type StyledFlexBoxType = Omit<
+  FlexBoxProps,
+  'noRadius' | 'rowGap' | 'columnGap' | 'justifyContent' | 'alignItems' | 'alignContent'
+> & {
+  $noRadius: BorderRadiusDirectionType;
+  $rowGap: number;
+  $columnGap: number;
+  $justifyContent: keyof typeof FLEX_BOX_ITEM_POSITION;
+  $alignItems: keyof typeof FLEX_BOX_ITEM_POSITION;
+  $alignContent: keyof typeof FLEX_BOX_ITEM_POSITION;
+};
+
 // TODO: tag가 바뀌었을 때 ref의 타입을 바꾸는 로직을 추가한다.
-const FlexBox = ({ children, tag, noRadius, columnGap, ...props }: FlexBoxProps) => {
+const FlexBox = ({
+  children,
+  tag,
+  noRadius,
+  rowGap,
+  columnGap,
+  justifyContent,
+  alignItems,
+  alignContent,
+  ...props
+}: FlexBoxProps) => {
   const changeableTag = tag || 'div';
 
   return (
-    <S.FlexBox as={changeableTag} $noRadius={noRadius} $columnGap={columnGap} {...props}>
+    <S.FlexBox
+      as={changeableTag}
+      $noRadius={noRadius}
+      $rowGap={rowGap}
+      $columnGap={columnGap}
+      $justifyContent={justifyContent}
+      $alignItems={alignItems}
+      $alignContent={alignContent}
+      {...props}
+    >
       {children}
     </S.FlexBox>
   );
@@ -58,11 +89,6 @@ const getGap = ({ gap, rowGap, columnGap }: Pick<FlexBoxProps, 'gap' | 'rowGap' 
   return `${row}rem ${column}rem`;
 };
 
-export type StyledFlexBoxType = Omit<FlexBoxProps, 'noRadius' | 'columnGap'> & {
-  $noRadius: BorderRadiusDirectionType;
-  $columnGap: number;
-};
-
 const S = {
   FlexBox: styled.div<StyledFlexBoxType>`
     ${spacing};
@@ -71,10 +97,11 @@ const S = {
     height: ${({ height }) => getSize(height)};
     flex-wrap: ${({ nowrap }) => (nowrap ? 'nowrap' : 'wrap')};
     flex-direction: ${({ direction }) => (direction ? direction : 'row')};
-    justify-content: ${({ justifyContent }) => FLEX_BOX_ITEM_POSITION[justifyContent]};
-    align-items: ${({ alignItems }) => FLEX_BOX_ITEM_POSITION[alignItems]};
-    align-content: ${({ alignContent }) => FLEX_BOX_ITEM_POSITION[alignContent]};
-    gap: ${({ gap, rowGap, $columnGap }) => getGap({ gap, rowGap, columnGap: $columnGap })};
+    justify-content: ${({ $justifyContent }) => FLEX_BOX_ITEM_POSITION[$justifyContent]};
+    align-items: ${({ $alignItems }) => FLEX_BOX_ITEM_POSITION[$alignItems]};
+    align-content: ${({ $alignContent }) => FLEX_BOX_ITEM_POSITION[$alignContent]};
+    gap: ${({ gap, $rowGap, $columnGap }) =>
+      getGap({ gap, rowGap: $rowGap, columnGap: $columnGap })};
     ${({ background }) => background && `background: ${background};`}
     border: ${({ outlined }) => (outlined ? '0.15rem solid #000' : 'none')};
 

@@ -69,25 +69,25 @@ const ClientStationFilters = () => {
       <FlexBox css={mobileFilterContainerCss}>
         <ClientFilterButton
           onClick={toggleAvailableStation}
-          isChecked={isAvailableStationFilterSelected}
+          $isChecked={isAvailableStationFilterSelected}
         >
           현재 사용 가능
         </ClientFilterButton>
         <ClientFilterButton
           onClick={toggleParkingFreeStation}
-          isChecked={isParkingFreeStationFilterSelected}
+          $isChecked={isParkingFreeStationFilterSelected}
         >
           주차 무료
         </ClientFilterButton>
         <ClientFilterButton
           onClick={toggleFastChargeStation}
-          isChecked={isFastChargeStationFilterSelected}
+          $isChecked={isFastChargeStationFilterSelected}
         >
           {CHARGING_SPEED.quick}
         </ClientFilterButton>
         <ClientFilterButton
           onClick={togglePrivateStation}
-          isChecked={isPrivateStationFilterSelected}
+          $isChecked={isPrivateStationFilterSelected}
         >
           외부인 개방
         </ClientFilterButton>
@@ -115,10 +115,10 @@ const Container = styled.div<{ left: number; $basePanel: Panels['basePanel'] }>`
   }
 `;
 
-const ClientFilterButton = styled.button<{ isChecked: boolean }>`
+const ClientFilterButton = styled.button<{ $isChecked: boolean }>`
   padding: 0.6rem 1.2rem;
   margin-right: 0.4rem;
-  background: ${({ isChecked }) => (isChecked ? '#ccdaff' : '#ffffff')};
+  background: ${({ $isChecked }) => ($isChecked ? '#ccdaff' : '#ffffff')};
   box-shadow:
     0 1px 2px rgba(60, 64, 67, 0.3),
     0 1px 3px 1px rgba(60, 64, 67, 0.15);
