@@ -33,7 +33,7 @@ class CongestionServiceTest {
     @Test
     void 상태값이_없는_데이터일_경우_음수가_반환된다() {
         StatisticsRequest statisticsRequest = new StatisticsRequest("ME174003");
-        StatisticsResponse statisticsResponse = congestionService.calculateCongestion(statisticsRequest);
+        StatisticsResponse statisticsResponse = congestionService.showCongestionStatistics(statisticsRequest);
 
         CongestionResponse expected = getExpected();
 
