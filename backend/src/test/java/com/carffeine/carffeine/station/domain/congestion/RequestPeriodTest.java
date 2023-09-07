@@ -18,6 +18,6 @@ class RequestPeriodTest {
         RequestPeriod result = RequestPeriod.from(input);
 
         // then
-        assertThat(result).isSameAs(RequestPeriod.from(input));
+        assertThat(result.getSection()).isEqualTo(input * 100);
     }
 }
