@@ -1,7 +1,7 @@
 import type { Meta } from '@storybook/react';
 
-import type { ChargerCardProps } from '@ui/StationDetailsWindow/chargers/ChargerCard';
-import ChargerCard from '@ui/StationDetailsWindow/chargers/ChargerCard';
+import type { ChargerCardProps } from './ChargerCard';
+import ChargerCard from './ChargerCard';
 
 const meta = {
   title: 'UI/ChargerCard',

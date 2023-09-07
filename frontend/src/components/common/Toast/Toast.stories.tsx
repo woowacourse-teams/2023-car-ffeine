@@ -1,15 +1,11 @@
 import type { Meta } from '@storybook/react';
 import { styled } from 'styled-components';
 
-import { useExternalValue } from '@utils/external-state';
-
-import { toastActions, toastListStore } from '@stores/layout/toastStore';
-
-import ButtonNext from '@common/ButtonNext';
-import Text from '@common/Text';
-
-import type { Color } from '@type';
-
+import { toastActions, toastListStore } from '../../../stores/layout/toastStore';
+import type { Color } from '../../../types';
+import { useExternalValue } from '../../../utils/external-state';
+import ButtonNext from '../ButtonNext';
+import Text from '../Text';
 import type { ToastProps } from './Toast';
 import Toast, { getToastColor } from './Toast';
 

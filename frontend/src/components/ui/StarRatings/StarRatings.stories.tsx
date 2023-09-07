@@ -1,11 +1,10 @@
 import type { Meta } from '@storybook/react';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-import Text from '@common/Text';
-
-import StarRatings from '@ui/StarRatings';
-import type { StarRatingsProps } from '@ui/StarRatings/StarRatings';
+import Text from '../../common/Text';
+import type { StarRatingsProps } from './StarRatings';
+import StarRatings from './index';
 
 const meta = {
   title: 'UI/StarRatings',

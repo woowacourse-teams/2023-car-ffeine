@@ -2,10 +2,9 @@ import type { Meta } from '@storybook/react';
 
 import { useState } from 'react';
 
-import Text from '@common/Text';
-
-import Star from '@ui/Star';
-import type { StarProps } from '@ui/Star/Star';
+import Text from '../../common/Text';
+import type { StarProps } from './Star';
+import Star from './Star';
 
 const meta = {
   title: 'UI/Star',
