@@ -17,7 +17,7 @@ public class CongestionController {
 
     @GetMapping("/stations/{stationId}/statistics")
     public ResponseEntity<StatisticsResponse> showCongestionStatistics(@PathVariable String stationId) {
-        StatisticsResponse statisticsResponse = congestionService.calculateCongestion(new StatisticsRequest(stationId));
+        StatisticsResponse statisticsResponse = congestionService.showCongestionStatistics(new StatisticsRequest(stationId));
         return ResponseEntity.ok(statisticsResponse);
     }
 }

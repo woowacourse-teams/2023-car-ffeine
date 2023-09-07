@@ -5,6 +5,7 @@ import com.carffeine.carffeine.station.config.RequestPeriodConverter;
 import com.carffeine.carffeine.station.domain.charger.Charger;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -26,8 +27,12 @@ import java.time.DayOfWeek;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Entity
+@EqualsAndHashCode(of = {"id"}, callSuper = false)
 @Table(name = "periodic_congestion")
 public class PeriodicCongestion extends BaseEntity {
+
+    private static final int DEFAULT_COUNT = 0;
+    private static final double DEFAULT_CONGESTIONS = 0;
 
     @Id
     private String id;
@@ -73,9 +78,18 @@ public class PeriodicCongestion extends BaseEntity {
         this.chargerId = chargerId;
     }
 
-    public static PeriodicCongestion of(DayOfWeek dayOfWeek, RequestPeriod startTime, int useCount, int totalCount, String stationId, String chargerId) {
+    public static PeriodicCongestion createDefault(DayOfWeek dayOfWeek, RequestPeriod startTime, String stationId, String chargerId) {
         String id = IdGenerator.generateId(dayOfWeek, startTime, stationId, chargerId);
-        double congestion = (double) useCount / totalCount;
-        return new PeriodicCongestion(id, dayOfWeek, startTime, useCount, totalCount, congestion, stationId, chargerId);
+
+        return new PeriodicCongestion(
+                id,
+                dayOfWeek,
+                startTime,
+                DEFAULT_COUNT,
+                DEFAULT_COUNT,
+                DEFAULT_CONGESTIONS,
+                stationId,
+                chargerId
+        );
     }
 }

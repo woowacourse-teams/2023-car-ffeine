@@ -25,17 +25,27 @@ public class StationService {
     @Scheduled(cron = "* * 0/1 * * *")
     public void calculateCongestion() {
         LocalDateTime now = LocalDateTime.now();
-        DayOfWeek dayOfWeek = now.getDayOfWeek();
+        DayOfWeek day = now.getDayOfWeek();
         RequestPeriod period = RequestPeriod.from(now.getHour());
+
         List<ChargerStatus> chargerStatuses = chargerStatusRepository.findAll();
-        List<PeriodicCongestion> congestions = chargerStatuses.stream()
-                .map(it -> PeriodicCongestion.of(dayOfWeek, period, 0, 0, it.getStationId(), it.getChargerId()))
+        List<PeriodicCongestion> congestions = createCongestions(chargerStatuses, day, period);
+        List<ChargerStatus> usingChargers = findUsingChargers(chargerStatuses);
+
+        periodicCongestionCustomRepository.saveAllIfNotExist(congestions);
+        periodicCongestionCustomRepository.updateTotalCountByPeriod(day, period);
+        periodicCongestionCustomRepository.updateUsingCount(day, period, usingChargers);
+    }
+
+    private List<PeriodicCongestion> createCongestions(List<ChargerStatus> chargerStatuses, DayOfWeek day, RequestPeriod period) {
+        return chargerStatuses.stream()
+                .map(it -> PeriodicCongestion.createDefault(day, period, it.getStationId(), it.getChargerId()))
                 .toList();
-        List<ChargerStatus> usingChargers = chargerStatuses.stream()
+    }
+
+    private List<ChargerStatus> findUsingChargers(List<ChargerStatus> chargerStatuses) {
+        return chargerStatuses.stream()
                 .filter(ChargerStatus::isUsing)
                 .toList();
-        periodicCongestionCustomRepository.saveAll(congestions);
-        periodicCongestionCustomRepository.updateUsingCount(dayOfWeek, period, usingChargers);
-        periodicCongestionCustomRepository.updateTotalCountByPeriod(dayOfWeek, period);
     }
 }

@@ -31,7 +31,7 @@ public class CongestionService {
     private final PeriodicCongestionRepository periodicCongestionRepository;
     private final ChargerRepository chargerRepository;
 
-    public StatisticsResponse calculateCongestion(StatisticsRequest statisticsRequest) {
+    public StatisticsResponse showCongestionStatistics(StatisticsRequest statisticsRequest) {
         String stationId = statisticsRequest.stationId();
 
         List<PeriodicCongestion> congestions = periodicCongestionRepository.findAllByStationId(stationId);

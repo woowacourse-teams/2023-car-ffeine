@@ -25,7 +25,7 @@ public class PeriodicCongestionCustomRepositoryImpl implements PeriodicCongestio
     public void updateTotalCountByPeriod(DayOfWeek dayOfWeek, RequestPeriod requestPeriod) {
         String sql = "UPDATE periodic_congestion " +
                 "SET total_count = total_count + 1, " +
-                "congestion = use_count / total_count, " +
+                "congestion = CASE WHEN total_count = 0 THEN 0 ELSE use_count / total_count END, " +
                 "updated_at = :updatedAt " +
                 "WHERE day_of_week = :dayOfWeek AND start_time = :startTime ";
         namedParameterJdbcTemplate.update(sql, changeToSqlParameterSource(dayOfWeek, requestPeriod));
@@ -54,7 +54,7 @@ public class PeriodicCongestionCustomRepositoryImpl implements PeriodicCongestio
     }
 
     @Override
-    public void saveAll(List<PeriodicCongestion> congestions) {
+    public void saveAllIfNotExist(List<PeriodicCongestion> congestions) {
         String sql = "INSERT IGNORE INTO periodic_congestion (id, charger_id, day_of_week, start_time, station_id, total_count, use_count, congestion, created_at, updated_at) " +
                 "VALUES (:id, :chargerId, :dayOfWeek, :startTime, :stationId, :totalCount, :useCount, :congestion, :createdAt, :updatedAt) ";
         namedParameterJdbcTemplate.batchUpdate(sql, chargerSqlParameterSource(congestions));
@@ -62,7 +62,7 @@ public class PeriodicCongestionCustomRepositoryImpl implements PeriodicCongestio
 
     private MapSqlParameterSource[] chargerSqlParameterSource(List<PeriodicCongestion> congestions) {
         return congestions.stream()
-                .map(it -> changeToSqlParameterSource(it))
+                .map(this::changeToSqlParameterSource)
                 .toArray(MapSqlParameterSource[]::new);
     }
 
