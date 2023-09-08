@@ -1,4 +1,4 @@
-FROM arm64v8/node:18-alpine as builder
+FROM arm64v8/node:18-alpine AS builder
 
 WORKDIR /app
 
@@ -12,6 +12,9 @@ COPY . .
 RUN yarn build
 
 FROM nginx
+
+RUN rm -rf /etc/nginx/conf.d
+COPY nginx /etc/nginx
 
 COPY --from=builder /app/dist /usr/share/nginx/html
 
