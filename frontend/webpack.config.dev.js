@@ -69,7 +69,13 @@ module.exports = function () {
       }),
       new DotEnv(),
       new CopyWebpackPlugin({
-        patterns: [{ from: 'public/mockServiceWorker.js', to: '.' }],
+        patterns: [
+          { from: 'public/mockServiceWorker.js', to: '.' },
+          { from: 'public/icons', to: './icons' },
+          { from: 'public/manifest.json', to: '.' },
+          { from: 'public/pwabuilder-sw.js', to: '.' },
+          { from: 'public/browserconfig.xml', to: '.' },
+        ],
       }),
       new ForkTsCheckerWebpackPlugin(),
     ],
