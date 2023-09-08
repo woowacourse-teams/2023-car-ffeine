@@ -2,7 +2,10 @@ import { UserCircleIcon } from '@heroicons/react/24/outline';
 import { css } from 'styled-components';
 
 import type { PropsWithChildren } from 'react';
-import { useState } from 'react';
+
+import { useExternalState } from '@utils/external-state';
+
+import { popupMenuOpenStore } from '@stores/popupMenuOpenStore';
 
 import FlexBox from '@common/FlexBox';
 
@@ -15,20 +18,20 @@ interface Props {
 }
 
 const PopupMenu = ({ menus }: Props) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useExternalState(popupMenuOpenStore);
 
-  const handleToggleMenu = () => {
-    setIsOpen((prev) => !prev);
-  };
-
-  const handleCloseMenu = () => {
+  const closePopupMenu = () => {
     setIsOpen(false);
   };
 
+  const toggleOpenPopupMenu = () => {
+    setIsOpen((prev) => !prev);
+  };
+
   return (
-    <FlexBox css={container}>
-      {isOpen && <Menus menus={menus} closeMenu={handleCloseMenu} />}
-      <button onClick={handleToggleMenu}>
+    <FlexBox css={container} onClick={(e) => e.stopPropagation()}>
+      {isOpen && <Menus menus={menus} closeMenu={closePopupMenu} />}
+      <button onClick={toggleOpenPopupMenu}>
         <UserCircleIcon width="2.8rem" stroke="#333" />
       </button>
     </FlexBox>
