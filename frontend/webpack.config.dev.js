@@ -73,7 +73,6 @@ module.exports = function () {
           { from: 'public/mockServiceWorker.js', to: '.' },
           { from: 'public/icons', to: './icons' },
           { from: 'public/manifest.json', to: '.' },
-          { from: 'public/pwabuilder-sw.js', to: '.' },
           { from: 'public/browserconfig.xml', to: '.' },
         ],
       }),
