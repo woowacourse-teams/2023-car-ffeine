@@ -14,7 +14,7 @@ RUN yarn build
 FROM nginx
 
 RUN rm -rf /etc/nginx/conf.d
-COPY conf /etc/nginx
+COPY nginx /etc/nginx
 
 COPY --from=builder /app/dist /usr/share/nginx/html
 
