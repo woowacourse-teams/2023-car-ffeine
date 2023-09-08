@@ -1,10 +1,6 @@
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { css } from 'styled-components';
 
-import { useExternalValue } from '@utils/external-state';
-
-import { selectedStationIdStore } from '@stores/selectedStationStore';
-
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
@@ -17,12 +13,7 @@ import { MOBILE_BREAKPOINT } from '@constants';
 import StationList from './StationList';
 
 const StationListWindow = () => {
-  const selectedStationId = useExternalValue(selectedStationIdStore);
   const { closeBasePanel } = useNavigationBar();
-
-  if (selectedStationId !== null) {
-    closeBasePanel();
-  }
 
   return (
     <FlexBox css={[containerCss]} nowrap>
