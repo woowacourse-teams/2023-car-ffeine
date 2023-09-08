@@ -44,3 +44,19 @@ self.addEventListener('fetch', (event) => {
     );
   }
 });
+
+self.addEventListener('activate', function (event) {
+  const cacheWhitelist = [];
+  cacheWhitelist.push(CACHE);
+  event.waitUntil(
+    caches.keys().then(function (cacheNames) {
+      return Promise.all(
+        cacheNames.map(function (cacheName) {
+          if (!cacheWhitelist.includes(cacheName)) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
+});
