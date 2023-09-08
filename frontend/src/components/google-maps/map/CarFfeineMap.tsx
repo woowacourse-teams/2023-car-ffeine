@@ -5,11 +5,12 @@ import { useQueryClient } from '@tanstack/react-query';
 import StationMarkersContainer from '@marker/StationMarkersContainer';
 
 import { debounce } from '@utils/debounce';
-import { useExternalValue } from '@utils/external-state';
+import { useExternalValue, useSetExternalState } from '@utils/external-state';
 import { setLocalStorage } from '@utils/storage';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { warningModalActions } from '@stores/layout/warningModalStore';
+import { popupMenuOpenStore } from '@stores/popupMenuOpenStore';
 import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
 
 import { useCarFilters } from '@hooks/tanstack-query/station-filters/useCarFilters';
@@ -50,6 +51,7 @@ const CarFfeineMap = () => {
 const CarFfeineMapListener = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
   const queryClient = useQueryClient();
+  const setIsPopupMenuOpen = useSetExternalState(popupMenuOpenStore);
 
   const debouncedIdleHandler = debounce(() => {
     if (googleMap.getZoom() < INITIAL_ZOOM_SIZE) {
@@ -59,7 +61,7 @@ const CarFfeineMapListener = () => {
     }
 
     queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_MARKERS] });
-    // queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_SUMMARIES] });
+    setIsPopupMenuOpen(false);
 
     setLocalStorage<google.maps.LatLngLiteral>(LOCAL_KEY_LAST_POSITION, {
       lat: googleMap.getCenter().lat(),
