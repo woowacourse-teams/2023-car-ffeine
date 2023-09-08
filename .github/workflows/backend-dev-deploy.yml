@@ -65,31 +65,19 @@ jobs:
     if: ${{ needs.docker-build.result == 'success' }}
     needs: [ docker-build ]
     steps:
-      - name: Join EC2 dev server
-        uses: appleboy/ssh-action@master
-        env:
-          JASYPT_KEY: ${{ secrets.JASYPT_KEY }}
-          DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
-          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-        with:
-          host: ${{ secrets.DEVELOP_SERVER_HOST }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          key: ${{ secrets.SERVER_KEY }}
-          port: ${{ secrets.SERVER_PORT }}
-          envs: JASYPT_KEY, DATABASE_USERNAME, DATABASE_PASSWORD
-
-          script: |
-            sudo docker pull woowacarffeine/backend-dev:latest
-            sudo docker stop backend-dev || true
-            sudo docker container prune -f
-            
-            sudo docker run -d -p 8080:8080 -p 8088:8088 \
-            -e "SPRING_PROFILE=dev" \
-            -e "ENCRYPT_KEY=${{secrets.JASYPT_KEY}}" \
-            -e "DATABASE_USERNAME=${{secrets.DATABASE_USERNAME}}" \
-            -e "DATABASE_PASSWORD=${{secrets.DATABASE_PASSWORD}}" \
-            -e "SLACK_WEBHOOK_URL=${{secrets.SLACK_WEBHOOK_URL}}" \
-            --name backend-dev \
-            woowacarffeine/backend-dev:latest
-            
-            sudo docker image prune -a -f
+      - name: run docker
+        run: |
+          sudo docker pull woowacarffeine/backend-dev:latest
+          sudo docker stop backend-dev || true
+          sudo docker container prune -f
+          
+          sudo docker run -d -p 8080:8080 -p 8088:8088 \
+          -e "SPRING_PROFILE=dev" \
+          -e "ENCRYPT_KEY=${{secrets.JASYPT_KEY}}" \
+          -e "DATABASE_USERNAME=${{secrets.DATABASE_USERNAME}}" \
+          -e "DATABASE_PASSWORD=${{secrets.DATABASE_PASSWORD}}" \
+          -e "SLACK_WEBHOOK_URL=${{secrets.SLACK_WEBHOOK_URL}}" \
+          --name backend-dev \
+          woowacarffeine/backend-dev:latest
+          
+          sudo docker image prune -a -f
