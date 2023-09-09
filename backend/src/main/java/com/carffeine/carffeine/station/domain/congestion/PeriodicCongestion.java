@@ -92,4 +92,8 @@ public class PeriodicCongestion extends BaseEntity {
                 chargerId
         );
     }
+
+    public boolean isSameStartTime(int section) {
+        return this.startTime.isSameSection(section);
+    }
 }

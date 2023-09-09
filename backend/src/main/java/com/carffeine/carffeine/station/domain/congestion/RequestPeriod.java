@@ -51,4 +51,8 @@ public enum RequestPeriod {
                 .findFirst()
                 .orElseThrow();
     }
+
+    public boolean isSameSection(int section) {
+        return this.section == section;
+    }
 }
