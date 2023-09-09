@@ -51,7 +51,7 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
         <CongestionStatistics stationId={stationId} />
       ) : (
         <ButtonNext onClick={() => setIsCongestionStatisticsOpen(true)} fullWidth>
-          충전소 사용 통계 확인하기
+          충전소 사용 통계 확인하기 (BETA)
         </ButtonNext>
       )}
 

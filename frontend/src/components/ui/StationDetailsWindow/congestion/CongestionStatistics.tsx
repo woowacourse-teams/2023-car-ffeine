@@ -27,9 +27,12 @@ const CongestionStatistics = ({ stationId }: CongestionStatisticsProps) => {
 
   return (
     <Box my={5}>
-      <Text fontSize={1.8} weight="bold" mt={12.5} mb={3}>
-        충전소 시간별 혼잡도
-      </Text>
+      <FlexBox justifyContent="between" alignItems="center" mt={12.5} mb={3}>
+        <Text fontSize={1.8} weight="bold">
+          충전소 시간별 혼잡도
+        </Text>
+        <Text>BETA</Text>
+      </FlexBox>
       <FlexBox direction="column" gap={4}>
         <StatisticsGraph
           statistics={congestionStatistics.congestion[chargingSpeed]}
