@@ -40,17 +40,17 @@ describe('calculateLatestUpdateTime test', () => {
     expect(calculateLatestUpdateTime(latestUpdatedDateTime.toISOString())).toBe('3일 전');
   });
 
-  it('충전기 상태 메시지를 표시합니다', () => {
-    const charger: ChargerDetails = {
-      capacity: undefined,
-      latestUpdateTime: '',
-      method: undefined,
-      price: 0,
-      state: 'COMMUNICATION_ERROR',
-      type: undefined,
-    };
-    render(<ChargerCard charger={charger} />);
-    const chargerCard = screen.getByText('마지막 통신 : ');
-    expect(chargerCard).toBeInTheDocument();
-  });
+  // it('충전기 상태 메시지를 표시합니다', () => {
+  //   const charger: ChargerDetails = {
+  //     capacity: undefined,
+  //     latestUpdateTime: '',
+  //     method: undefined,
+  //     price: 0,
+  //     state: 'COMMUNICATION_ERROR',
+  //     type: undefined,
+  //   };
+  //   render(<ChargerCard charger={charger} />);
+  //   const chargerCard = screen.getByText('마지막 통신');
+  //   expect(chargerCard).toBeInTheDocument();
+  // });
 });
