@@ -7,7 +7,5 @@ import java.util.List;
 
 public interface PeriodicCongestionRepository extends Repository<PeriodicCongestion, String> {
 
-    List<PeriodicCongestion> findAllByStationId(String stationId);
-
     List<PeriodicCongestion> findAllByStationIdAndDayOfWeek(String stationId, DayOfWeek dayOfWeek);
 }
