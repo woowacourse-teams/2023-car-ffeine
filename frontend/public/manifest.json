@@ -3,7 +3,7 @@
   "short_name": "카페인",
   "description": "편리한 전기차 충전소 지도",
   "background_color": "#fff",
-  "theme_color": "#fff",
+  "theme_color": "#fcfcfc",
   "dir": "ltr",
   "display": "standalone",
   "orientation": "portrait",
