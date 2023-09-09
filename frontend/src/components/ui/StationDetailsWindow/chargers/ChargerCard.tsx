@@ -7,13 +7,13 @@ import Text from '@common/Text';
 
 import { CHARGER_STATES, CONNECTOR_TYPES } from '@constants/chargers';
 
-import type { ChargerDetails } from '@type/chargers';
+import type { ChargerDetails, ChargerStateType } from '@type/chargers';
 
 export interface ChargerCardProps {
   charger: ChargerDetails;
 }
 
-const statusHeavyColor = (state: keyof typeof CHARGER_STATES) => {
+const statusHeavyColor = (state: ChargerStateType) => {
   switch (state) {
     case 'STANDBY':
       return '#052c65';
@@ -23,7 +23,7 @@ const statusHeavyColor = (state: keyof typeof CHARGER_STATES) => {
       return '#2b2f32';
   }
 };
-const statusLightColor = (state: keyof typeof CHARGER_STATES) => {
+const statusLightColor = (state: ChargerStateType) => {
   switch (state) {
     case 'STANDBY':
       return '#cfe2ff';

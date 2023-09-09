@@ -3,6 +3,7 @@ import type { CHARGER_STATES } from '@constants/chargers';
 
 import type { ConnectorTypeKey } from './serverStationFilter';
 
+export type ChargerStateType = keyof typeof CHARGER_STATES;
 export type ChargerMethodType = '단독' | '동시' | null;
 export type ConnectorTypeName = (typeof CONNECTOR_TYPES)[ConnectorTypeKey];
 export type Capacity = (typeof CAPACITIES)[number];
@@ -15,6 +16,6 @@ export interface ChargerSummary {
 
 export interface ChargerDetails extends ChargerSummary {
   latestUpdateTime: string | null;
-  state: keyof typeof CHARGER_STATES;
+  state: ChargerStateType;
   method: ChargerMethodType;
 }
