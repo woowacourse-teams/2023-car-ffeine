@@ -51,6 +51,11 @@
       "sizes": "192x192",
       "type": "image/png",
       "density": "4.0"
+    },
+    {
+      "src": "icons/android/android-icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ],
   "id": "carffe.in",
