@@ -63,10 +63,7 @@ module.exports = {
     }),
     new CopyWebpackPlugin({
       patterns: [
-        { from: 'public/icons', to: './icons' },
-        { from: 'public/manifest.json', to: '.' },
-        { from: 'public/pwabuilder-sw.js', to: '.' },
-        { from: 'public/browserconfig.xml', to: '.' },
+        { from: 'public', globOptions: { ignore: ['**/mockServiceWorker.js', '**/index.html'] } },
       ],
     }),
     new DotEnv(),
