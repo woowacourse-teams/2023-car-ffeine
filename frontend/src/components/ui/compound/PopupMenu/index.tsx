@@ -29,7 +29,7 @@ const PopupMenu = ({ menus }: Props) => {
   };
 
   return (
-    <FlexBox css={container} onClick={(e) => e.stopPropagation()}>
+    <FlexBox css={container} onClick={(event) => event.stopPropagation()}>
       {isOpen && <Menus menus={menus} closeMenu={closePopupMenu} />}
       <button onClick={toggleOpenPopupMenu}>
         <UserCircleIcon width="2.8rem" stroke="#333" />
