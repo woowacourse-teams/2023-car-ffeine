@@ -5,7 +5,7 @@ import { calculateLatestUpdateTime } from '@utils/index';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-import { CHARGER_STATES, CONNECTOR_TYPES } from '@constants/chargers';
+import { CHARGER_STATES, CONNECTOR_TYPES, STATE_MESSAGE } from '@constants/chargers';
 
 import type { ChargerDetails, ChargerStateType } from '@type/chargers';
 
@@ -36,14 +36,6 @@ const statusLightColor = (state: ChargerStateType) => {
 
 const ChargerCard = ({ charger }: ChargerCardProps) => {
   const { type, price, capacity, latestUpdateTime, state, method } = charger;
-  const STATE_MESSAGE = {
-    COMMUNICATION_ERROR: '마지막 통신',
-    STANDBY: '마지막 충전',
-    CHARGING_IN_PROGRESS: '충전 시작',
-    OPERATION_SUSPENDED: '마지막 충전',
-    UNDER_INSPECTION: '마지막 충전',
-    STATUS_UNKNOWN: '마지막 통신',
-  };
 
   return (
     <FlexBox tag="article" outlined nowrap direction="column" width="49%" p={2} css={borderCss}>

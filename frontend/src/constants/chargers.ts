@@ -21,6 +21,15 @@ export const CHARGER_STATES = {
   STATUS_UNKNOWN: '상태미확인',
 } as const;
 
+export const STATE_MESSAGE = {
+  COMMUNICATION_ERROR: '마지막 통신',
+  STANDBY: '마지막 충전',
+  CHARGING_IN_PROGRESS: '충전 시작',
+  OPERATION_SUSPENDED: '마지막 충전',
+  UNDER_INSPECTION: '마지막 충전',
+  STATUS_UNKNOWN: '마지막 통신',
+};
+
 export const COMPANIES = {
   AM: '아마노코리아',
   BA: '부안군',
