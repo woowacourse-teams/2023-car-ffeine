@@ -7,13 +7,13 @@ import Text from '@common/Text';
 
 import { CHARGER_STATES, CONNECTOR_TYPES } from '@constants/chargers';
 
-import type { ChargerDetails, ChargerStateType } from '@type/chargers';
+import type { ChargerDetails } from '@type/chargers';
 
 export interface ChargerCardProps {
   charger: ChargerDetails;
 }
 
-const statusHeavyColor = (state: ChargerStateType) => {
+const statusHeavyColor = (state: keyof typeof CHARGER_STATES) => {
   switch (state) {
     case 'STANDBY':
       return '#052c65';
@@ -23,7 +23,7 @@ const statusHeavyColor = (state: ChargerStateType) => {
       return '#2b2f32';
   }
 };
-const statusLightColor = (state: ChargerStateType) => {
+const statusLightColor = (state: keyof typeof CHARGER_STATES) => {
   switch (state) {
     case 'STANDBY':
       return '#cfe2ff';
@@ -57,7 +57,7 @@ const ChargerCard = ({ charger }: ChargerCardProps) => {
       </Text>
       {latestUpdateTime && (
         <Text variant="caption" align="right" css={bottomTextCss}>
-          {CHARGER_STATES[state].timeMessage} : {calculateLatestUpdateTime(latestUpdateTime)}
+          {CHARGER_STATES[state].timeMessage(calculateLatestUpdateTime(latestUpdateTime))}
         </Text>
       )}
     </FlexBox>

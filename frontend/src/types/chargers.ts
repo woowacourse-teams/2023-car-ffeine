@@ -1,14 +1,7 @@
 import type { CAPACITIES, CONNECTOR_TYPES } from '@constants/chargers';
+import type { CHARGER_STATES } from '@constants/chargers';
 
 import type { ConnectorTypeKey } from './serverStationFilter';
-
-export type ChargerStateType =
-  | 'COMMUNICATION_ERROR'
-  | 'STANDBY'
-  | 'CHARGING_IN_PROGRESS'
-  | 'OPERATION_SUSPENDED'
-  | 'UNDER_INSPECTION'
-  | 'STATUS_UNKNOWN';
 
 export type ChargerMethodType = '단독' | '동시' | null;
 export type ConnectorTypeName = (typeof CONNECTOR_TYPES)[ConnectorTypeKey];
@@ -22,6 +15,6 @@ export interface ChargerSummary {
 
 export interface ChargerDetails extends ChargerSummary {
   latestUpdateTime: string | null;
-  state: ChargerStateType;
+  state: keyof typeof CHARGER_STATES;
   method: ChargerMethodType;
 }
