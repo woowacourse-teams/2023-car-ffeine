@@ -3,6 +3,7 @@
 const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const DotEnv = require('dotenv-webpack');
 
 module.exports = {
@@ -59,6 +60,14 @@ module.exports = {
       hash: true,
       favicon: './public/favicon.ico',
       minify: true,
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'public/icons', to: './icons' },
+        { from: 'public/manifest.json', to: '.' },
+        { from: 'public/pwabuilder-sw.js', to: '.' },
+        { from: 'public/browserconfig.xml', to: '.' },
+      ],
     }),
     new DotEnv(),
   ],
