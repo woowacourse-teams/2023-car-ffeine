@@ -57,7 +57,7 @@ const ChargerCard = ({ charger }: ChargerCardProps) => {
       </Text>
       {latestUpdateTime && (
         <Text variant="caption" align="right" css={bottomTextCss}>
-          {CHARGER_STATES[state].timeMessage} : {calculateLatestUpdateTime(latestUpdateTime)}
+          {CHARGER_STATES[state].message} : {calculateLatestUpdateTime(latestUpdateTime)}
         </Text>
       )}
     </FlexBox>
