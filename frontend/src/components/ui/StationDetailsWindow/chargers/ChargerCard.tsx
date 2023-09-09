@@ -41,7 +41,7 @@ const ChargerCard = ({ charger }: ChargerCardProps) => {
     <FlexBox tag="article" outlined nowrap direction="column" width="49%" p={2} css={borderCss}>
       <SquareBox heavyColor={statusLightColor(state)} lightColor={statusHeavyColor(state)}>
         <FlexBox py={0.8} justifyContent="center" alignItems="center">
-          <Text css={regularFontWeight}>{CHARGER_STATES[state].status}</Text>
+          <Text css={regularFontWeight}>{CHARGER_STATES[state].state}</Text>
         </FlexBox>
       </SquareBox>
       <Text mt={2} my={0} mb={1.5}>

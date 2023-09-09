@@ -14,17 +14,17 @@ export const CONNECTOR_TYPES = {
  */
 export const CHARGER_STATES = {
   COMMUNICATION_ERROR: {
-    status: '통신이상',
+    state: '통신이상',
     message: '마지막 통신',
   },
-  STANDBY: { status: '충전대기', message: '마지막 사용' },
-  CHARGING_IN_PROGRESS: { status: '충전중', message: '충전 시작' },
+  STANDBY: { state: '충전대기', message: '마지막 사용' },
+  CHARGING_IN_PROGRESS: { state: '충전중', message: '충전 시작' },
   OPERATION_SUSPENDED: {
-    status: '운영중지',
+    state: '운영중지',
     message: '운영 중지',
   },
-  UNDER_INSPECTION: { status: '점검중', message: '점검 시작' },
-  STATUS_UNKNOWN: { status: '상태미확인', message: '마지막 확인' },
+  UNDER_INSPECTION: { state: '점검중', message: '점검 시작' },
+  STATUS_UNKNOWN: { state: '상태미확인', message: '마지막 확인' },
 } as const;
 
 export const COMPANIES = {
