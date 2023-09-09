@@ -1,10 +1,13 @@
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { css } from 'styled-components';
 
+import { useState } from 'react';
+
 import { navigationBarPanelStore } from '@stores/layout/navigationBarPanelStore';
 
 import Box from '@common/Box';
 import Button from '@common/Button';
+import ButtonNext from '@common/ButtonNext';
 
 import ChargerList from '@ui/StationDetailsWindow/chargers/ChargerList';
 import StationReportButton from '@ui/StationDetailsWindow/reports/station/StationReportButton';
@@ -23,6 +26,7 @@ export interface StationDetailsViewProps {
 
 const StationDetailsView = ({ station }: StationDetailsViewProps) => {
   const { stationId, chargers, reportCount } = station;
+  const [isCongestionStatisticsOpen, setIsCongestionStatisticsOpen] = useState(false); // 임시
 
   const handleCloseDetail = () => {
     navigationBarPanelStore.setState((panels) => ({
@@ -43,7 +47,14 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
 
       <ChargerList chargers={chargers} stationId={stationId} reportCount={reportCount} />
 
-      <CongestionStatistics stationId={stationId} />
+      {isCongestionStatisticsOpen ? (
+        <CongestionStatistics stationId={stationId} />
+      ) : (
+        <ButtonNext onClick={() => setIsCongestionStatisticsOpen(true)} fullWidth>
+          충전소 사용 통계 확인하기 (BETA)
+        </ButtonNext>
+      )}
+
       <ReviewPreview stationId={stationId} />
     </Box>
   );
