@@ -1,6 +1,8 @@
 ALTER TABLE periodic_congestion DROP PRIMARY KEY;
+
 ALTER TABLE periodic_congestion
-ADD PRIMARY KEY (id, day_of_week);
+    ADD PRIMARY KEY (id, day_of_week),
+    ADD INDEX idx_station_day_of_week (station_id, day_of_week);
 
 ALTER TABLE periodic_congestion
     PARTITION BY LIST COLUMNS (day_of_week) (
