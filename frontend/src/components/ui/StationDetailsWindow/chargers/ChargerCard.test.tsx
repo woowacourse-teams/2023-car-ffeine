@@ -1,4 +1,9 @@
-import { calculateLatestUpdateTime } from '@utils/index';
+import '@testing-library/jest-dom';
+import { render, screen } from '@testing-library/react';
+
+import type { ChargerDetails } from '../../../../types';
+import { calculateLatestUpdateTime } from '../../../../utils';
+import ChargerCard from './ChargerCard';
 
 describe('calculateLatestUpdateTime test', () => {
   it('1분 미만의 시간 차이일 때 "방금 전"을 표시합니다', () => {
@@ -32,4 +37,18 @@ describe('calculateLatestUpdateTime test', () => {
 
     expect(calculateLatestUpdateTime(latestUpdatedDateTime.toISOString())).toBe('3일 전');
   });
+
+  // it('충전기 상태 메시지를 표시합니다', () => {
+  //   const charger: ChargerDetails = {
+  //     capacity: undefined,
+  //     latestUpdateTime: '',
+  //     method: undefined,
+  //     price: 0,
+  //     state: 'COMMUNICATION_ERROR',
+  //     type: undefined,
+  //   };
+  //   render(<ChargerCard charger={charger} />);
+  //   const chargerCard = screen.getByText('마지막 통신 : ');
+  //   expect(chargerCard).toBeInTheDocument();
+  // });
 });
