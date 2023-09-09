@@ -21,7 +21,7 @@ export const CHARGER_STATES = {
   CHARGING_IN_PROGRESS: { status: '충전중', timeMessage: (time: string) => `충전 시작 : ${time}` },
   OPERATION_SUSPENDED: {
     status: '운영중지',
-    timeMessage: (time: string) => `운영중지 : ${time}`,
+    timeMessage: (time: string) => `운영 중지 : ${time}`,
   },
   UNDER_INSPECTION: { status: '점검중', timeMessage: (time: string) => `점검 시작 : ${time}` },
   STATUS_UNKNOWN: { status: '상태미확인', timeMessage: (time: string) => `마지막 확인 : ${time}` },
