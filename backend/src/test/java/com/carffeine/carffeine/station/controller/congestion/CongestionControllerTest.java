@@ -110,7 +110,7 @@ class CongestionControllerTest extends MockBeanInjection {
                         )));
     }
 
-    private static List<CongestionInfoResponse> getCongestions() {
+    private List<CongestionInfoResponse> getCongestions() {
         List<CongestionInfoResponse> congestions = new ArrayList<>();
 
         for (int i = 0; i < 24; i++) {
