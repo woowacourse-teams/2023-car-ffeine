@@ -13,22 +13,13 @@ export const CONNECTOR_TYPES = {
  *     충전기상태(1: 통신이상, 2: 충전대기,3: 충전중, 4: 운영중지, 5: 점검중, 9: 상태미확인)
  */
 export const CHARGER_STATES = {
-  COMMUNICATION_ERROR: '통신이상',
-  STANDBY: '충전대기',
-  CHARGING_IN_PROGRESS: '충전중',
-  OPERATION_SUSPENDED: '운영중지',
-  UNDER_INSPECTION: '점검중',
-  STATUS_UNKNOWN: '상태미확인',
+  COMMUNICATION_ERROR: { status: '통신이상', timeMessage: '마지막 통신' },
+  STANDBY: { status: '충전대기', timeMessage: '마지막 충전' },
+  CHARGING_IN_PROGRESS: { status: '충전중', timeMessage: '충전 시작' },
+  OPERATION_SUSPENDED: { status: '운영중지', timeMessage: '마지막 충전' },
+  UNDER_INSPECTION: { status: '점검중', timeMessage: '마지막 충전' },
+  STATUS_UNKNOWN: { status: '상태미확인', timeMessage: '마지막 통신' },
 } as const;
-
-export const STATE_MESSAGE = {
-  COMMUNICATION_ERROR: '마지막 통신',
-  STANDBY: '마지막 충전',
-  CHARGING_IN_PROGRESS: '충전 시작',
-  OPERATION_SUSPENDED: '마지막 충전',
-  UNDER_INSPECTION: '마지막 충전',
-  STATUS_UNKNOWN: '마지막 통신',
-};
 
 export const COMPANIES = {
   AM: '아마노코리아',
