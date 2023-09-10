@@ -2,7 +2,6 @@ import { css, styled } from 'styled-components';
 
 import { useExternalState, useExternalValue } from '@utils/external-state';
 
-import type { Panels } from '@stores/layout/navigationBarPanelStore';
 import { navigationBarPanelStore } from '@stores/layout/navigationBarPanelStore';
 import { clientStationFiltersStore } from '@stores/station-filters/clientStationFiltersStore';
 
@@ -64,7 +63,7 @@ const ClientStationFilters = () => {
   const screen = useMediaQueries();
 
   return (
-    <Container left={navigationComponentWidth} $basePanel={basePanel}>
+    <Container left={navigationComponentWidth}>
       {screen.get('isMobile') ? <StationSearchBar /> : !basePanel && <StationSearchBar />}
       <FlexBox css={mobileFilterContainerCss}>
         <ClientFilterButton
@@ -96,15 +95,15 @@ const ClientStationFilters = () => {
   );
 };
 
-const Container = styled.div<{ left: number; $basePanel: Panels['basePanel'] }>`
+const Container = styled.div<{ left: number }>`
   position: fixed;
-  top: ${({ $basePanel }) => ($basePanel ? '16.5px' : '14px')};
+  top: 14px;
   left: ${({ left }) => left}rem;
   z-index: 998;
   padding: 10px;
 
   display: flex;
-  align-items: center;
+  align-items: start;
   column-gap: 40px;
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
@@ -126,8 +125,6 @@ const ClientFilterButton = styled.button<{ $isChecked: boolean }>`
 `;
 
 const mobileFilterContainerCss = css`
-  margin-top: 4px;
-
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     row-gap: 10px;
   }

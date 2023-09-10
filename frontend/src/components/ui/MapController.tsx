@@ -22,6 +22,8 @@ const MapController = () => {
   const { isFetching } = useStationMarkers();
 
   const handleCurrentPositionButton = () => {
+    if (isFetching) return;
+
     googleMap.panTo({ lat: position.lat, lng: position.lng });
     googleMap.setZoom(INITIAL_ZOOM_SIZE);
   };
@@ -36,16 +38,14 @@ const MapController = () => {
 
   return (
     <Box css={containerCss}>
-      {isFetching ? (
-        <Button outlined css={[buttonCss, currentPositionIconCss]}>
+      <Button
+        outlined
+        css={[buttonCss, currentPositionIconCss]}
+        onClick={handleCurrentPositionButton}
+      >
+        {isFetching ? (
           <Loader css={{ borderBottomColor: 'blue' }} />
-        </Button>
-      ) : (
-        <Button
-          outlined
-          css={[buttonCss, currentPositionIconCss]}
-          onClick={handleCurrentPositionButton}
-        >
+        ) : (
           <MapPinIcon
             width={24}
             fill="#0054ff"
@@ -53,8 +53,8 @@ const MapController = () => {
             type="button"
             aria-label="내 위치로 이동"
           />
-        </Button>
-      )}
+        )}
+      </Button>
       <Button
         outlined
         noRadius="bottom"
@@ -80,11 +80,12 @@ const MapController = () => {
 };
 
 const containerCss = css`
-  z-index: 99;
-
   position: fixed;
   bottom: 3.2rem;
   right: 0.8rem;
+  z-index: 99;
+
+  width: 4.2rem;
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     bottom: 8rem;
@@ -94,8 +95,14 @@ const containerCss = css`
 
 const buttonCss = css`
   display: flex;
-  padding: 8px;
+  width: 100%;
+  height: 4.2rem;
   border: 1.8px solid #e3e8f7;
+
+  & svg,
+  div {
+    margin: auto;
+  }
 `;
 
 const currentPositionIconCss = css`
