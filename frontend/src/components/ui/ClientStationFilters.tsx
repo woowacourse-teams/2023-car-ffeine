@@ -65,7 +65,7 @@ const ClientStationFilters = () => {
   return (
     <Container left={navigationComponentWidth}>
       {screen.get('isMobile') ? <StationSearchBar /> : !basePanel && <StationSearchBar />}
-      <FlexBox css={mobileFilterContainerCss}>
+      <FlexBox css={filterContainerCss}>
         <ClientFilterButton
           onClick={toggleAvailableStation}
           $isChecked={isAvailableStationFilterSelected}
@@ -116,7 +116,6 @@ const Container = styled.div<{ left: number }>`
 
 const ClientFilterButton = styled.button<{ $isChecked: boolean }>`
   padding: 0.6rem 1.2rem;
-  margin-right: 0.4rem;
   background: ${({ $isChecked }) => ($isChecked ? '#ccdaff' : '#ffffff')};
   box-shadow:
     0 1px 2px rgba(60, 64, 67, 0.3),
@@ -124,10 +123,8 @@ const ClientFilterButton = styled.button<{ $isChecked: boolean }>`
   border-radius: 16px;
 `;
 
-const mobileFilterContainerCss = css`
-  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
-    row-gap: 10px;
-  }
+const filterContainerCss = css`
+  gap: 10px;
 `;
 
 export default ClientStationFilters;

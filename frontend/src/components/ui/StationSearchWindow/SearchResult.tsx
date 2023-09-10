@@ -74,7 +74,7 @@ export const searchResultList = css`
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     width: calc(100vw - 2rem);
-    margin-top: 5rem;
+    margin-top: 1rem;
 
     max-height: 22.6rem;
   }
