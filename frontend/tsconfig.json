@@ -1,5 +1,5 @@
 {
-  "exclude": ["./cypress.config.ts", "node_modules", "cypress", "**/*.cy.tsx"],
+  "exclude": ["node_modules"],
   "compilerOptions": {
     "outDir": "./dist/",
     "inlineSourceMap": true,

@@ -11,8 +11,7 @@
     "build": "webpack --config webpack.config.prod.js",
     "build-dev": "webpack --config webpack.config.dev.js",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "cypress": "cypress open"
+    "build-storybook": "storybook build"
   },
   "author": "",
   "license": "ISC",
