@@ -28,7 +28,7 @@ module.exports = {
           target: 'es6',
           minify: true,
         },
-        exclude: /node_modules|\.test\.(ts|tsx)?$/,
+        exclude: /node_modules|\.test\.(ts|tsx)?$|\.stories\.(ts|tsx)?$/,
       },
       {
         test: /\.svg$/,

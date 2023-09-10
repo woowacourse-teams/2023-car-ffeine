@@ -17,7 +17,6 @@ export default meta;
 export const Default = () => {
   return (
     <PopupMenu
-      trigger={<UserCircleIcon width="2.8rem" stroke="#333" />}
       menus={[
         {
           children: (
@@ -43,7 +42,6 @@ export const Default = () => {
 export const BigTrigger = () => {
   return (
     <PopupMenu
-      trigger={<Trigger />}
       menus={[
         {
           children: (
