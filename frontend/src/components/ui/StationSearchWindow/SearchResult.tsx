@@ -38,6 +38,7 @@ const SearchResult = (props: SearchResultProps) => {
           <Button
             width="100%"
             noRadius="all"
+            background="transparent"
             onMouseDown={() => handleShowStationDetails({ stationId, latitude, longitude })}
           >
             <Text variant="h6" align="left" title={stationName} lineClamp={1}>
@@ -73,7 +74,7 @@ export const searchResultList = css`
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     width: calc(100vw - 2rem);
-    margin-top: 5rem;
+    margin-top: 1rem;
 
     max-height: 22.6rem;
   }
@@ -81,6 +82,10 @@ export const searchResultList = css`
 
 export const foundStationList = css`
   padding: 0.8rem 1.2rem;
+
+  &:hover {
+    background: #f5f5f5;
+  }
 `;
 
 export const noSearchResult = css`

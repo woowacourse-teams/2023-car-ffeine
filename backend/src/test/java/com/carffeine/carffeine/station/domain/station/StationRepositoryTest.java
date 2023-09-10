@@ -131,7 +131,7 @@ class StationRepositoryTest {
         // given
         stationRepository.save(StationFixture.선릉역_충전소_충전기_2개_사용가능_1개);
         stationRepository.save(StationFixture.잠실역_충전소_충전기_2개_사용가능_1개);
-        stationRepository.save(StationFixture.천호역_충전소_충전기_2개_사용가능_1개);
+        stationRepository.save(StationFixture.천호역_충전소_충전기_2개_사용가능_0개);
         Pageable pageable = Pageable.ofSize(1);
 
         // when
@@ -150,7 +150,7 @@ class StationRepositoryTest {
         // given
         stationRepository.save(StationFixture.선릉역_충전소_충전기_2개_사용가능_1개);
         stationRepository.save(StationFixture.잠실역_충전소_충전기_2개_사용가능_1개);
-        stationRepository.save(StationFixture.천호역_충전소_충전기_2개_사용가능_1개);
+        stationRepository.save(StationFixture.천호역_충전소_충전기_2개_사용가능_0개);
 
         // when
         Page<Station> stations = stationRepository.findAllByStationNameContains(PageRequest.of(0, 1), query);

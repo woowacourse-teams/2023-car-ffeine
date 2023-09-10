@@ -1,9 +1,5 @@
 import { css } from 'styled-components';
 
-import { useExternalValue } from '@utils/external-state';
-
-import { selectedStationIdStore } from '@stores/selectedStationStore';
-
 import { useStationDetails } from '@hooks/tanstack-query/station-details/useStationDetails';
 
 import Box from '@common/Box';
@@ -14,17 +10,20 @@ import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigation
 
 import { MOBILE_BREAKPOINT, NAVIGATOR_PANEL_WIDTH } from '@constants';
 
-const StationDetailsWindow = () => {
+export interface Props {
+  stationId: string;
+}
+
+const StationDetailsWindow = ({ stationId }: Props) => {
   const {
     data: selectedStation,
     isLoading: isSelectedStationLoading,
     isError: isSelectedStationError,
     isFetching,
-  } = useStationDetails();
+  } = useStationDetails(stationId);
   const { handleClosePanel } = useNavigationBar();
-  const selectedStationId = useExternalValue(selectedStationIdStore);
 
-  if (selectedStationId === null || (!isFetching && selectedStation === null)) {
+  if (stationId === null || (!isFetching && selectedStation === null)) {
     handleClosePanel();
   }
 

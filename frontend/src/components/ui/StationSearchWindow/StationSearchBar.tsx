@@ -9,6 +9,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useExternalValue, useSetExternalState } from '@utils/external-state';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
+import { navigationBarPanelStore } from '@stores/layout/navigationBarPanelStore';
 import { searchWordStore } from '@stores/searchWordStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
@@ -18,24 +19,26 @@ import { useDebounce } from '@hooks/useDebounce';
 import Button from '@common/Button';
 import Loader from '@common/Loader';
 
-import StationDetailsWindow from '@ui/StationDetailsWindow';
 import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
 import { pillStyle } from '@style';
 
+import { MOBILE_BREAKPOINT } from '@constants';
 import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
-import { QUERY_KEY_SEARCHED_STATION, QUERY_KEY_STATIONS } from '@constants/queryKeys';
+import { QUERY_KEY_SEARCHED_STATION, QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
 
 import type { StationPosition } from '@type/stations';
 
 import SearchResult from './SearchResult';
+import StationSearchWindow from './StationSearchWindow';
 
 const StationSearchBar = () => {
   const [isFocused, setIsFocused] = useState(false);
   const googleMap = useExternalValue(getGoogleMapStore());
   const setSelectedStationId = useSetExternalState(selectedStationIdStore);
 
-  const { openLastPanel } = useNavigationBar();
+  const { basePanel } = useExternalValue(navigationBarPanelStore);
+  const { openBasePanel } = useNavigationBar();
 
   const [inputValue, setInputValue] = useState('');
   const setSearchWord = useSetExternalState(searchWordStore);
@@ -66,9 +69,9 @@ const StationSearchBar = () => {
     googleMap.panTo({ lat: latitude, lng: longitude });
     googleMap.setZoom(INITIAL_ZOOM_SIZE);
 
-    queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
+    queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_MARKERS] });
     setSelectedStationId(stationId);
-    openLastPanel(<StationDetailsWindow />);
+    !basePanel && openBasePanel(<StationSearchWindow />);
   };
 
   const handleRequestSearchResult = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
@@ -78,7 +81,7 @@ const StationSearchBar = () => {
   };
 
   return (
-    <>
+    <S.Container>
       <S.Form role="search" onSubmit={handleSubmitSearchWord}>
         <S.Search
           type="search"
@@ -107,11 +110,19 @@ const StationSearchBar = () => {
           showStationDetails={showStationDetails}
         />
       )}
-    </>
+    </S.Container>
   );
 };
 
 const S = {
+  Container: styled.div`
+    width: 30rem;
+
+    @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+      width: 100%;
+    }
+  `,
+
   Form: styled.form`
     position: relative;
   `,

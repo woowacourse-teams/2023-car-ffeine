@@ -12,18 +12,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 class RequestPeriodTest {
 
     @ParameterizedTest
-    @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11})
-    void ZERO_구간에_있는지_알수있다(int input) {
+    @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23})
+    void 하루종일_시간_마다_작동한다(int input) {
+        // when
         RequestPeriod result = RequestPeriod.from(input);
 
-        assertThat(result).isSameAs(RequestPeriod.ZERO);
-    }
-
-    @ParameterizedTest
-    @ValueSource(ints = {12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23})
-    void TWELVE_구간에_있는지_알수있다(int input) {
-        RequestPeriod result = RequestPeriod.from(input);
-
-        assertThat(result).isSameAs(RequestPeriod.TWELVE);
+        // then
+        assertThat(result.getSection()).isEqualTo(input * 100);
     }
 }

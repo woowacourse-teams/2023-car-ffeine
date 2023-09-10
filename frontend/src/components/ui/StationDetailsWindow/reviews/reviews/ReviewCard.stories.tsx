@@ -1,12 +1,9 @@
 import type { Meta } from '@storybook/react';
 
-import Box from '@common/Box';
-
-import type { ReviewCardProps } from '@ui/StationDetailsWindow/reviews/reviews/ReviewCard';
-import ReviewCard from '@ui/StationDetailsWindow/reviews/reviews/ReviewCard';
-import ReviewCardSkeleton from '@ui/StationDetailsWindow/reviews/reviews/ReviewCardSkeleton';
-
-import type { Reply } from '@type';
+import Box from '../../../../common/Box';
+import type { ReviewCardProps } from './ReviewCard';
+import ReviewCard from './ReviewCard';
+import ReviewCardSkeleton from './ReviewCardSkeleton';
 
 const meta = {
   title: 'UI/ReviewCard',

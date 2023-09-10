@@ -17,6 +17,7 @@ export interface Charger {
 export interface Station {
   address: string;
   availableCount: number;
+  quickChargerCount: number;
   chargers: Charger[];
   companyName: string;
   contact: string;
@@ -34,11 +35,22 @@ export interface Station {
   totalCount: number;
 }
 
+export type StationMarker = Pick<
+  Station,
+  | 'latitude'
+  | 'longitude'
+  | 'stationId'
+  | 'stationName'
+  | 'availableCount'
+  | 'isParkingFree'
+  | 'isPrivate'
+  | 'quickChargerCount'
+>;
+
 export type StationSummary = Pick<
   Station,
   | 'address'
   | 'availableCount'
-  | 'chargers'
   | 'companyName'
   | 'detailLocation'
   | 'isParkingFree'
@@ -49,6 +61,7 @@ export type StationSummary = Pick<
   | 'stationId'
   | 'stationName'
   | 'totalCount'
+  | 'quickChargerCount'
 >;
 
 export type StationDetails = Pick<

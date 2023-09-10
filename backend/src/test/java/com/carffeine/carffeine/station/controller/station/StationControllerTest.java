@@ -5,10 +5,13 @@ import com.carffeine.carffeine.station.domain.charger.ChargerType;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.exception.StationException;
 import com.carffeine.carffeine.station.exception.StationExceptionType;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.ChargerSpecificResponse;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSummaryResponse;
 import com.carffeine.carffeine.station.service.station.dto.CoordinateRequest;
 import com.carffeine.carffeine.station.service.station.dto.StationSearchResponse;
 import com.carffeine.carffeine.station.service.station.dto.StationsSearchResponse;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator.ReplaceUnderscores;
 import org.junit.jupiter.api.Test;
@@ -28,6 +31,7 @@ import static com.carffeine.carffeine.station.fixture.station.StationFixture.선
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -46,9 +50,6 @@ class StationControllerTest extends MockBeanInjection {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
     @Test
     void 충전소를_위도_경도로_조회한다() throws Exception {
         // given
@@ -59,8 +60,17 @@ class StationControllerTest extends MockBeanInjection {
         CoordinateRequest coordinateRequest = new CoordinateRequest(latitude, longitude, latitudeDelta, longitudeDelta);
 
         // when
-        List<Station> fakeStations = List.of(선릉역_충전소_충전기_2개_사용가능_1개);
-        when(stationService.findByCoordinate(coordinateRequest, List.of("볼튼"), List.of(ChargerType.DC_COMBO), List.of(new BigDecimal("50.00")))).thenReturn(fakeStations);
+        Station station = 선릉역_충전소_충전기_2개_사용가능_1개;
+        when(stationQueryService.findByLocation(coordinateRequest, List.of("볼튼"), List.of(ChargerType.DC_COMBO), List.of(new BigDecimal("50.00")))).thenReturn(List.of(new StationSimpleResponse(
+                station.getStationId(),
+                station.getStationName(),
+                station.getLatitude().getValue(),
+                station.getLongitude().getValue(),
+                station.isParkingFree(),
+                station.isPrivate(),
+                station.getAvailableCount(),
+                1L
+        )));
 
         // then
         mockMvc.perform(get("/stations")
@@ -89,20 +99,12 @@ class StationControllerTest extends MockBeanInjection {
                                 fieldWithPath("stations").type(JsonFieldType.ARRAY).description("충전소들"),
                                 fieldWithPath("stations[].stationId").type(JsonFieldType.STRING).description("충전소 ID"),
                                 fieldWithPath("stations[].stationName").type(JsonFieldType.STRING).description("충전소 이름"),
-                                fieldWithPath("stations[].companyName").type(JsonFieldType.STRING).description("충전소 회사 이름"),
-                                fieldWithPath("stations[].address").type(JsonFieldType.STRING).description("충전소 주소"),
-                                fieldWithPath("stations[].chargers").type(JsonFieldType.ARRAY).description("충전소의 충전기들"),
-                                fieldWithPath("stations[].chargers[].type").type(JsonFieldType.STRING).description("충전기 종류"),
-                                fieldWithPath("stations[].chargers[].capacity").type(JsonFieldType.NUMBER).description("충전기 용량"),
-                                fieldWithPath("stations[].chargers[].price").type(JsonFieldType.NUMBER).description("충전기 kWh당 가격"),
                                 fieldWithPath("stations[].isParkingFree").type(JsonFieldType.BOOLEAN).description("주차 무료"),
-                                fieldWithPath("stations[].operatingTime").type(JsonFieldType.STRING).description("이용 가능 시간"),
-                                fieldWithPath("stations[].detailLocation").type(JsonFieldType.STRING).description("상세 위치"),
                                 fieldWithPath("stations[].latitude").type(JsonFieldType.NUMBER).description("위도"),
                                 fieldWithPath("stations[].longitude").type(JsonFieldType.NUMBER).description("경도"),
                                 fieldWithPath("stations[].isPrivate").type(JsonFieldType.BOOLEAN).description("이용 제한"),
-                                fieldWithPath("stations[].totalCount").type(JsonFieldType.NUMBER).description("전체 충전기 수"),
-                                fieldWithPath("stations[].availableCount").type(JsonFieldType.NUMBER).description("사용 가능한 수")
+                                fieldWithPath("stations[].availableCount").type(JsonFieldType.NUMBER).description("사용 가능한 충전기 수"),
+                                fieldWithPath("stations[].quickChargerCount").type(JsonFieldType.NUMBER).description("급속 충전기 수")
                         )
                 ));
     }
@@ -114,7 +116,30 @@ class StationControllerTest extends MockBeanInjection {
         String stationId = station.getStationId();
 
         // when
-        when(stationService.findStationById(stationId)).thenReturn(station);
+        when(stationQueryService.findStationById(stationId)).thenReturn(new StationSpecificResponse(
+                station.getStationId(),
+                station.getStationName(),
+                station.getCompanyName(),
+                station.getAddress(),
+                station.getContact(),
+                station.isParkingFree(),
+                station.getOperatingTime(),
+                station.getDetailLocation(),
+                station.getLatitude().getValue(),
+                station.getLongitude().getValue(),
+                station.isPrivate(),
+                station.getStationState(),
+                station.getPrivateReason(),
+                station.getReportCount(),
+                station.getChargers().stream()
+                        .map(it -> new ChargerSpecificResponse(
+                                it.getType(),
+                                it.getPrice(),
+                                it.getCapacity(),
+                                it.getChargerStatus().getLatestUpdateTime(),
+                                it.getChargerStatus().getChargerCondition(),
+                                it.getMethod()
+                        )).toList()));
 
         // then
         mockMvc.perform(RestDocumentationRequestBuilders.get("/stations/" + stationId))
@@ -150,7 +175,7 @@ class StationControllerTest extends MockBeanInjection {
     @Test
     void 충전소_id가_존재하지_않다면_NOT_FOUND_예외가_발생한다() throws Exception {
         // when
-        when(stationService.findStationById("errorId")).thenThrow(new StationException(StationExceptionType.NOT_FOUND_ID));
+        when(stationQueryService.findStationById("errorId")).thenThrow(new StationException(StationExceptionType.NOT_FOUND_ID));
 
         // then
         mockMvc.perform(RestDocumentationRequestBuilders.get("/stations/" + "errorId"))
@@ -165,9 +190,9 @@ class StationControllerTest extends MockBeanInjection {
 
     @Test
     void 충전소를_검색한다() throws Exception {
-        when(stationService.searchStations(any(), any(), anyInt(), anyInt()))
+        when(stationQueryService.searchStations(any(), any(), anyInt(), anyInt()))
                 .thenReturn(new StationsSearchResponse(
-                        2,
+                        2L,
                         List.of(
                                 new StationSearchResponse(
                                         "stationId",
@@ -212,6 +237,60 @@ class StationControllerTest extends MockBeanInjection {
                                 fieldWithPath("stations[].latitude").type(JsonFieldType.NUMBER).description("위도"),
                                 fieldWithPath("stations[].longitude").type(JsonFieldType.NUMBER).description("경도"),
                                 fieldWithPath("stations[].speed").type(JsonFieldType.ARRAY).description("충전소에 포함되어있는 급속 완속 충전기 종류")
+                        )
+                ));
+    }
+
+    @Test
+    void 충전소의_id로_요약정보를_조회한다() throws Exception {
+        when(stationQueryService.findStationsSummary(anyList()))
+                .thenReturn(List.of(
+                        new StationSummaryResponse(
+                                "ME101010",
+                                "볼튼",
+                                "박스터 충전소",
+                                "서울시 선릉",
+                                "24시간 이용가능",
+                                true,
+                                false,
+                                BigDecimal.valueOf(37.123456),
+                                BigDecimal.valueOf(127.123456),
+                                2
+                        ),
+                        new StationSummaryResponse(
+                                "ME101011",
+                                "볼튼",
+                                "카페인 충전소",
+                                "서울시 잠실",
+                                "24시간 이용가능",
+                                true,
+                                false,
+                                BigDecimal.valueOf(36.123456),
+                                BigDecimal.valueOf(127.123456),
+                                0
+                        )
+                ));
+
+        // then
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/stations/summary?stationIds=ME101010,ME101011"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.stations", hasSize(2)))
+                .andDo(customDocument("stationSummary",
+                        requestParameters(
+                                parameterWithName("stationIds").description("충전소 ID들")
+                        ),
+                        responseFields(
+                                fieldWithPath("stations").type(JsonFieldType.ARRAY).description("결과"),
+                                fieldWithPath("stations[].stationId").type(JsonFieldType.STRING).description("충전소 ID"),
+                                fieldWithPath("stations[].stationName").type(JsonFieldType.STRING).description("충전소 이름"),
+                                fieldWithPath("stations[].companyName").type(JsonFieldType.STRING).description("충전소 회사 이름"),
+                                fieldWithPath("stations[].address").type(JsonFieldType.STRING).description("충전소 주소"),
+                                fieldWithPath("stations[].operationTime").type(JsonFieldType.STRING).description("충전소 이용시간"),
+                                fieldWithPath("stations[].isParkingFree").type(JsonFieldType.BOOLEAN).description("주차 무료"),
+                                fieldWithPath("stations[].isPrivate").type(JsonFieldType.BOOLEAN).description("외부인 개방"),
+                                fieldWithPath("stations[].latitude").type(JsonFieldType.NUMBER).description("위도"),
+                                fieldWithPath("stations[].longitude").type(JsonFieldType.NUMBER).description("경도"),
+                                fieldWithPath("stations[].quickChargerCount").type(JsonFieldType.NUMBER).description("급속 충전기 개수")
                         )
                 ));
     }

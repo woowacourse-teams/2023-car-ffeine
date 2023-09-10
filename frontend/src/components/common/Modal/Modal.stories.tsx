@@ -2,9 +2,8 @@ import type { Meta } from '@storybook/react';
 
 import { useState } from 'react';
 
-import Button from '@common/Button';
-import Text from '@common/Text';
-
+import Button from '../Button';
+import Text from '../Text';
 import Modal from './Modal';
 
 const meta = {

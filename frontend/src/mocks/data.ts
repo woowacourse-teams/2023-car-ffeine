@@ -46,14 +46,19 @@ const generateRandomStationId = () => {
   return `${randomLetter1}${randomLetter2}${randomNumber}`;
 };
 
-export const stations: Station[] = Array.from({ length: 3000 }, (_, index) => {
+export const stations: Station[] = Array.from({ length: 30000 }, (_, index) => {
   const randomStationId = generateRandomStationId();
+  const chargers = generateRandomChargers();
+  const totalCount = chargers.length;
+  const availableCount = chargers.filter(({ state }) => state === 'STANDBY').length;
+  const quickChargerCount = chargers.filter(({ capacity }) => capacity >= 50).length;
+
   return {
     stationId: randomStationId,
     stationName: `충전소 ${randomStationId}`,
     companyName: generateRandomData<CompanyName>(Object.values(COMPANIES)),
     contact: generateRandomData(['', '010-1234-5678', '02-000-0000']),
-    chargers: generateRandomChargers(),
+    chargers: chargers,
     isParkingFree: generateRandomData<boolean>([true, false]),
     operatingTime: generateRandomData<string>([
       '24시간',
@@ -70,8 +75,9 @@ export const stations: Station[] = Array.from({ length: 3000 }, (_, index) => {
     latitude: 37 + 0.25 + 9999 * Math.random() * 0.00005,
     longitude: 127 - 0.25 + 9999 * Math.random() * 0.00005,
     isPrivate: generateRandomData<boolean>([true, false]),
-    totalCount: generateRandomData<number>([3, 4, 5]),
-    availableCount: generateRandomData<number>([0, 1, 2, 3]),
+    totalCount,
+    availableCount,
+    quickChargerCount,
     stationState: generateRandomData(['yyyy-mm-dd일부터 충전소 공사합니다.', 'null', null]),
     privateReason: generateRandomData(['아파트', 'null', null]),
     reportCount: generateRandomData([0, 0, Math.floor(Math.random() * 99)]),

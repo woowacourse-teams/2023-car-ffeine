@@ -5,26 +5,28 @@ import { useQueryClient } from '@tanstack/react-query';
 import StationMarkersContainer from '@marker/StationMarkersContainer';
 
 import { debounce } from '@utils/debounce';
-import { useExternalValue } from '@utils/external-state';
+import { useExternalValue, useSetExternalState } from '@utils/external-state';
 import { setLocalStorage } from '@utils/storage';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
-import { toastActions } from '@stores/layout/toastStore';
+import { warningModalActions } from '@stores/layout/warningModalStore';
+import { popupMenuOpenStore } from '@stores/popupMenuOpenStore';
 import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
 
 import { useCarFilters } from '@hooks/tanstack-query/station-filters/useCarFilters';
 import { useMemberFilters } from '@hooks/tanstack-query/station-filters/useMemberFilters';
 
 import ToastContainer from '@common/Toast/ToastContainer';
+import ZoomWarningModal from '@common/WarningModal';
 
 import ClientStationFilters from '@ui/ClientStationFilters';
 import MapController from '@ui/MapController';
 import ModalContainer from '@ui/ModalContainer';
-import ModalSecondaryContainer from '@ui/ModalSecondaryContainer';
 import Navigator from '@ui/Navigator';
+import WarningModalContainer from '@ui/WarningModalContainer';
 
 import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
-import { QUERY_KEY_STATIONS } from '@constants/queryKeys';
+import { QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
 import { LOCAL_KEY_LAST_POSITION } from '@constants/storageKeys';
 
 const CarFfeineMap = () => {
@@ -32,12 +34,15 @@ const CarFfeineMap = () => {
     <>
       <CarFfeineMapListener />
       <UserFilterListener />
+
       <ToastContainer />
       <ModalContainer />
-      <ModalSecondaryContainer />
+
       <Navigator />
       <ClientStationFilters />
       <MapController />
+
+      <WarningModalContainer />
       <StationMarkersContainer />
     </>
   );
@@ -46,12 +51,17 @@ const CarFfeineMap = () => {
 const CarFfeineMapListener = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
   const queryClient = useQueryClient();
+  const setIsPopupMenuOpen = useSetExternalState(popupMenuOpenStore);
 
   const debouncedIdleHandler = debounce(() => {
     if (googleMap.getZoom() < INITIAL_ZOOM_SIZE) {
-      toastActions.showToast('지도를 조금만 더 확대해주세요', 'warning', 'bottom-center');
+      warningModalActions.openModal(<ZoomWarningModal />);
+    } else {
+      warningModalActions.closeModal();
     }
-    queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
+
+    queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_MARKERS] });
+    setIsPopupMenuOpen(false);
 
     setLocalStorage<google.maps.LatLngLiteral>(LOCAL_KEY_LAST_POSITION, {
       lat: googleMap.getCenter().lat(),
@@ -63,7 +73,7 @@ const CarFfeineMapListener = () => {
     googleMap.addListener('idle', debouncedIdleHandler);
 
     const initMarkersEvent = googleMap.addListener('bounds_changed', async () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_MARKERS] });
 
       google.maps.event.removeListener(initMarkersEvent);
     });
@@ -81,7 +91,7 @@ const UserFilterListener = () => {
   if (memberFilters !== undefined) {
     setAllServerStationFilters(memberFilters);
     setAllServerStationFilters(carFilters);
-    queryClient.invalidateQueries([{ queryKey: [QUERY_KEY_STATIONS] }]);
+    queryClient.invalidateQueries([{ queryKey: [QUERY_KEY_STATION_MARKERS] }]);
   }
 
   return <></>;

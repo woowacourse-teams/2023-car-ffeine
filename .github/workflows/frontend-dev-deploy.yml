@@ -42,21 +42,14 @@ jobs:
           touch .env
           echo "${{ secrets.GOOGLE_MAPS_API_KEY }}" >> .env
 
-      - name: Join EC2 dev server
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.DEVELOP_SERVER_HOST }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          key: ${{ secrets.SERVER_KEY }}
-          port: ${{ secrets.SERVER_PORT }}
-
-          script: |
+      - name: Deploy to server
+        run: |
             sudo docker stop frontend-dev || true
             sudo docker container prune -f
 
             sudo docker pull woowacarffeine/frontend-dev:latest
 
-            sudo docker run -d -p 3000:3000 \
+            sudo docker run -d -p 3000:80 \
             --name frontend-dev \
             woowacarffeine/frontend-dev:latest
 

@@ -142,8 +142,8 @@ public class Station extends BaseEntity {
         return false;
     }
 
-    public Integer getReportCount() {
-        return faultReports.size();
+    public Long getReportCount() {
+        return (long) faultReports.size();
     }
 
     public void update(Station updatedStation) {

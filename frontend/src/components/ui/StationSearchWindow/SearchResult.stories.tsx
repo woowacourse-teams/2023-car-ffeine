@@ -1,10 +1,9 @@
 import type { Meta } from '@storybook/react';
 import { styled } from 'styled-components';
 
-import SearchResultSkeleton from '@ui/StationSearchWindow/SearchResultSkeleton';
-
 import type { SearchResultProps } from './SearchResult';
 import SearchResult from './SearchResult';
+import SearchResultSkeleton from './SearchResultSkeleton';
 
 const meta = {
   title: 'UI/SearchResult',

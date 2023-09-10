@@ -39,16 +39,20 @@ export const BUTTON_FONT_SIZE = {
   xl: '2.2rem',
 } as const;
 
-const Button = ({ children, ...props }: ButtonProps) => {
+const Button = ({ children, noRadius, ...props }: ButtonProps) => {
   return (
-    <S.Button type="button" {...props}>
+    <S.Button type="button" $noRadius={noRadius} {...props}>
       {children}
     </S.Button>
   );
 };
 
+export type StyledButtonType = Omit<ButtonProps, 'noRadius'> & {
+  $noRadius: BorderRadiusDirectionType;
+};
+
 const S = {
-  Button: styled.button<ButtonProps>`
+  Button: styled.button<StyledButtonType>`
     width: ${({ width }) => getSize(width)};
     height: ${({ height }) => getSize(height)};
     padding: ${({ size }) => BUTTON_PADDING_SIZE[size] || 0};
@@ -61,7 +65,7 @@ const S = {
     border-radius: 1.2rem;
     text-align: center;
 
-    ${({ noRadius }) => noRadius && borderRadius(noRadius)};
+    ${({ $noRadius }) => $noRadius && borderRadius($noRadius)};
     ${({ variant }) => {
       switch (variant) {
         case 'pill':

@@ -11,7 +11,7 @@ import CarFfeineMarker from '@ui/CarFfeineMarker';
 import StationDetailsWindow from '@ui/StationDetailsWindow';
 import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
-import type { StationSummary } from '@type';
+import type { StationMarker } from '@type';
 
 import { useStationSummary } from './useStationSummary';
 
@@ -24,7 +24,7 @@ export const useGoogleMap = () => {
   const { openLastPanel } = useNavigationBar();
   const { openStationSummary } = useStationSummary();
 
-  const renderStationMarker = (station: StationSummary) => {
+  const renderStationMarker = (station: StationMarker) => {
     const { latitude, longitude, stationName, stationId } = station;
     const container = document.createElement('div');
 
@@ -39,8 +39,11 @@ export const useGoogleMap = () => {
     markerRoot.render(<CarFfeineMarker {...station} />);
 
     markerInstance.addListener('click', () => {
-      openStationSummary(station, markerInstance);
-      openLastPanel(<StationDetailsWindow />);
+      openStationSummary(stationId, markerInstance);
+      /**
+       * TODO: pc에서만 openLastPanel을 호출하도록 수정
+       */
+      openLastPanel(<StationDetailsWindow stationId={stationId} />);
     });
 
     setMarkerInstanceState((previewsMarkerInstances) => [
@@ -51,8 +54,11 @@ export const useGoogleMap = () => {
       },
     ]);
 
+    /**
+     * [중요] 이 부분은 장거리 검색 결과를 클릭하는 경우 지도에 없어서 마커를 찾지 못하는 버그를 방지합니다.
+     */
     if (selectedStationId === stationId) {
-      openStationSummary(station, markerInstance);
+      openStationSummary(stationId, markerInstance);
     }
 
     return () => {

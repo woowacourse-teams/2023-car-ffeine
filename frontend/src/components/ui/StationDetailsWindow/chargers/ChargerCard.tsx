@@ -36,20 +36,12 @@ const statusLightColor = (state: ChargerStateType) => {
 
 const ChargerCard = ({ charger }: ChargerCardProps) => {
   const { type, price, capacity, latestUpdateTime, state, method } = charger;
-  const STATE_MESSAGE = {
-    COMMUNICATION_ERROR: '마지막 통신',
-    STANDBY: '마지막 충전',
-    CHARGING_IN_PROGRESS: '충전 시작',
-    OPERATION_SUSPENDED: '마지막 충전',
-    UNDER_INSPECTION: '마지막 충전',
-    STATUS_UNKNOWN: '마지막 통신',
-  };
 
   return (
     <FlexBox tag="article" outlined nowrap direction="column" width="49%" p={2} css={borderCss}>
       <SquareBox heavyColor={statusLightColor(state)} lightColor={statusHeavyColor(state)}>
         <FlexBox py={0.8} justifyContent="center" alignItems="center">
-          <Text css={regularFontWeight}>{CHARGER_STATES[state]}</Text>
+          <Text css={regularFontWeight}>{CHARGER_STATES[state].state}</Text>
         </FlexBox>
       </SquareBox>
       <Text mt={2} my={0} mb={1.5}>
@@ -65,7 +57,7 @@ const ChargerCard = ({ charger }: ChargerCardProps) => {
       </Text>
       {latestUpdateTime && (
         <Text variant="caption" align="right" css={bottomTextCss}>
-          {STATE_MESSAGE[state]} : {calculateLatestUpdateTime(latestUpdateTime)}
+          {CHARGER_STATES[state].message} : {calculateLatestUpdateTime(latestUpdateTime)}
         </Text>
       )}
     </FlexBox>

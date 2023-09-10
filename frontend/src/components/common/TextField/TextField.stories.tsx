@@ -2,8 +2,7 @@ import type { Meta } from '@storybook/react';
 
 import { useState } from 'react';
 
-import Text from '@common/Text';
-
+import Text from '../Text';
 import type { TextFieldProps } from './TextField';
 import TextField from './TextField';
 

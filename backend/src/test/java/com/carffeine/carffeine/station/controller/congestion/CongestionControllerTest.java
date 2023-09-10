@@ -42,7 +42,7 @@ class CongestionControllerTest extends MockBeanInjection {
         // given
         String stationId = "1";
 
-        given(congestionService.calculateCongestion(any()))
+        given(congestionService.showCongestionStatistics(any()))
                 .willReturn(
                         new StatisticsResponse(
                                 "1",

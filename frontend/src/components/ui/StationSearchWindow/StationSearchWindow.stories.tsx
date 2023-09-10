@@ -2,11 +2,9 @@ import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 import type { Meta } from '@storybook/react';
 import { css, styled } from 'styled-components';
 
-import Button from '@common/Button';
-import Text from '@common/Text';
-
-import Navigator from '@ui/Navigator';
-
+import Button from '../../common/Button';
+import Text from '../../common/Text';
+import Navigator from '../Navigator';
 import { Default as StationSearchBar } from './StationSearchBar.stories';
 import StationSearchWindow from './StationSearchWindow';
 

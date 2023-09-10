@@ -8,43 +8,51 @@ import { useExternalValue, useSetExternalState } from '@utils/external-state';
 import { getStationSummaryWindowStore } from '@stores/google-maps/stationSummaryWindowStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
+import { useFetchStationSummary } from '@hooks/fetch/useFetchStationSummary';
+
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
+import List from '@common/List';
 import ListItem from '@common/ListItem';
 import Text from '@common/Text';
 
-import type { StationSummary } from '@type';
-
 import ChargingSpeedIcon from './ChargingSpeedIcon';
 import StationDetailsWindow from './StationDetailsWindow';
+import StationSummaryCardSkeleton from './StationList/StationSummaryCardSkeleton';
 import { useNavigationBar } from './compound/NavigationBar/hooks/useNavigationBar';
 
 interface Props {
-  station: StationSummary;
+  stationId: string;
 }
 
-const StationSummaryWindow = ({ station }: Props) => {
+const StationSummaryWindow = ({ stationId }: Props) => {
   const infoWindowInstance = useExternalValue(getStationSummaryWindowStore());
   const setSelectedStationId = useSetExternalState(selectedStationIdStore);
   const { openLastPanel } = useNavigationBar();
 
+  const { isLoading, stationSummary } = useFetchStationSummary(stationId);
+
+  if (isLoading || stationSummary === null) {
+    return (
+      <List>
+        <StationSummaryCardSkeleton />
+      </List>
+    );
+  }
+
   const {
-    stationId,
-    chargers,
-    companyName,
     stationName,
+    companyName,
     address,
     operatingTime,
-    isParkingFree,
     isPrivate,
-  } = station;
-
-  const slowChargerCount = chargers.filter((charger) => charger.capacity < 50).length;
-  const fastChargerCount = chargers.length - slowChargerCount;
+    isParkingFree,
+    quickChargerCount,
+  } = stationSummary;
 
   const handleOpenStationDetail = () => {
     setSelectedStationId(stationId);
-    openLastPanel(<StationDetailsWindow />);
+    openLastPanel(<StationDetailsWindow stationId={stationId} />);
   };
 
   const handleCloseStationSummary = (event: MouseEvent<HTMLButtonElement>) => {
@@ -88,7 +96,7 @@ const StationSummaryWindow = ({ station }: Props) => {
               </Text>
             </FlexBox>
           </article>
-          {fastChargerCount !== 0 && <ChargingSpeedIcon />}
+          {quickChargerCount !== 0 && <ChargingSpeedIcon />}
         </FlexBox>
       </Button>
     </ListItem>

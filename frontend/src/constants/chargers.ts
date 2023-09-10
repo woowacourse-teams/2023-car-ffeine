@@ -13,12 +13,18 @@ export const CONNECTOR_TYPES = {
  *     충전기상태(1: 통신이상, 2: 충전대기,3: 충전중, 4: 운영중지, 5: 점검중, 9: 상태미확인)
  */
 export const CHARGER_STATES = {
-  COMMUNICATION_ERROR: '통신이상',
-  STANDBY: '충전대기',
-  CHARGING_IN_PROGRESS: '충전중',
-  OPERATION_SUSPENDED: '운영중지',
-  UNDER_INSPECTION: '점검중',
-  STATUS_UNKNOWN: '상태미확인',
+  COMMUNICATION_ERROR: {
+    state: '통신이상',
+    message: '마지막 통신',
+  },
+  STANDBY: { state: '충전대기', message: '마지막 사용' },
+  CHARGING_IN_PROGRESS: { state: '충전중', message: '충전 시작' },
+  OPERATION_SUSPENDED: {
+    state: '운영중지',
+    message: '운영 중지',
+  },
+  UNDER_INSPECTION: { state: '점검중', message: '점검 시작' },
+  STATUS_UNKNOWN: { state: '상태미확인', message: '마지막 확인' },
 } as const;
 
 export const COMPANIES = {

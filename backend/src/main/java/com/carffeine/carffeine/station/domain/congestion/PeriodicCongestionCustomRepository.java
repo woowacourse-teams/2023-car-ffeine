@@ -11,5 +11,5 @@ public interface PeriodicCongestionCustomRepository {
 
     void updateUsingCount(DayOfWeek dayOfWeek, RequestPeriod period, List<ChargerStatus> usingChargers);
 
-    void saveAll(List<PeriodicCongestion> periodicCongestions);
+    void saveAllIfNotExist(List<PeriodicCongestion> periodicCongestions);
 }

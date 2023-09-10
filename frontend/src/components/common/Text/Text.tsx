@@ -34,18 +34,22 @@ interface TextProps extends HTMLAttributes<HTMLElement>, SpacingProps {
   css?: CSSProp;
 }
 
-const Text = ({ children, tag, ...props }: TextProps) => {
+export type StyledTextType = Omit<TextProps, 'lineClamp'> & {
+  $lineClamp?: number;
+};
+
+const Text = ({ children, tag, lineClamp, ...props }: TextProps) => {
   const changeableTag = tag || 'p';
 
   return (
-    <S.Text as={changeableTag} {...props}>
+    <S.Text as={changeableTag} $lineClamp={lineClamp} {...props}>
       {children}
     </S.Text>
   );
 };
 
 const S = {
-  Text: styled.p<TextProps>`
+  Text: styled.p<StyledTextType>`
     ${spacing};
 
     ${({ align }) => {
@@ -134,14 +138,14 @@ const S = {
     font-weight: ${({ weight }) => (weight === 'regular' ? 500 : weight)};
     color: ${({ color }) => color};
 
-    ${({ lineClamp }) =>
-      lineClamp &&
+    ${({ $lineClamp }) =>
+      $lineClamp &&
       `
         display: -webkit-box;
         overflow: hidden;
         text-overflow: ellipsis;
         -webkit-box-orient: vertical;
-        -webkit-line-clamp: ${lineClamp};
+        -webkit-line-clamp: ${$lineClamp};
       `}
 
     ${({ css }) => css}

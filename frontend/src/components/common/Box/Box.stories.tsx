@@ -1,7 +1,6 @@
 import type { Meta } from '@storybook/react';
 
-import Text from '@common/Text';
-
+import Text from '../Text';
 import type { BoxProps } from './Box';
 import Box from './Box';
 

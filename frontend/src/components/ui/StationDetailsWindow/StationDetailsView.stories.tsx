@@ -1,13 +1,12 @@
 import type { Meta } from '@storybook/react';
 import { css } from 'styled-components';
 
-import Box from '@common/Box';
-import FlexBox from '@common/FlexBox';
-
-import type { StationDetailsViewProps } from '@ui/StationDetailsWindow/StationDetailsView';
-import StationDetailsView from '@ui/StationDetailsWindow/StationDetailsView';
-import StationDetailsViewSkeleton from '@ui/StationDetailsWindow/StationDetailsViewSkeleton';
-import CongestionStatisticsSkeleton from '@ui/StationDetailsWindow/congestion/CongestionStatisticsSkeleton';
+import Box from '../../common/Box';
+import FlexBox from '../../common/FlexBox';
+import type { StationDetailsViewProps } from './StationDetailsView';
+import StationDetailsView from './StationDetailsView';
+import StationDetailsViewSkeleton from './StationDetailsViewSkeleton';
+import CongestionStatisticsSkeleton from './congestion/CongestionStatisticsSkeleton';
 
 const meta = {
   title: 'UI/StationDetailsView',

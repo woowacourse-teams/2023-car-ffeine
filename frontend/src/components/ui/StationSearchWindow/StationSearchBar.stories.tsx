@@ -5,19 +5,13 @@ import { styled } from 'styled-components';
 import { useState } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
 
-import { useSetExternalState } from '@utils/external-state';
-
-import { searchWordStore } from '@stores/searchWordStore';
-import { selectedStationIdStore } from '@stores/selectedStationStore';
-
-import { useSearchedStations } from '@hooks/tanstack-query/useSearchedStations';
-
-import Button from '@common/Button';
-
-import { pillStyle } from '@style';
-
-import type { StationPosition } from '@type/stations';
-
+import { useSearchedStations } from '../../../hooks/tanstack-query/useSearchedStations';
+import { searchWordStore } from '../../../stores/searchWordStore';
+import { selectedStationIdStore } from '../../../stores/selectedStationStore';
+import { pillStyle } from '../../../style';
+import type { StationPosition } from '../../../types';
+import { useSetExternalState } from '../../../utils/external-state';
+import Button from '../../common/Button';
 import SearchResult from './SearchResult';
 
 const meta = {
@@ -90,7 +84,7 @@ const S = {
   `,
 
   Search: styled.input`
-    ${pillStyle}
+    ${pillStyle};
 
     background: #fcfcfc;
     border: 1px solid #d0d2d8;

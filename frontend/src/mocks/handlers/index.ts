@@ -8,6 +8,7 @@ import { statisticsHandlers } from './station-details/statisticsHandlers';
 import { memberFilterHandlers } from './station-filters/memberFilterHandlers';
 import { serverFilterHandlers } from './station-filters/serverFilterHandlers';
 import { stationHandlers } from './station-markers/stationHandlers';
+import { stationMarkerHandlers } from './station-markers/stationMarkerHandlers';
 import { stationSearchHandlers } from './stationSearchHandlers';
 
 export const handlers = [
@@ -22,4 +23,5 @@ export const handlers = [
   ...stationReviewHandlers,
   ...loginHandlers,
   ...carHandler,
+  ...stationMarkerHandlers,
 ];

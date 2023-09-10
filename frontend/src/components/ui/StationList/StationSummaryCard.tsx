@@ -31,9 +31,8 @@ const StationSummaryCard = ({ station, tag, $noPadding }: Props) => {
     isPrivate,
     isParkingFree,
     operatingTime,
-    chargers,
+    quickChargerCount,
   } = station;
-  const fastChargerCount = chargers.filter(({ capacity }) => capacity >= 50).length;
 
   return (
     <ListItem tag={tag} key={stationId} css={$noPadding && noPadding}>
@@ -42,8 +41,8 @@ const StationSummaryCard = ({ station, tag, $noPadding }: Props) => {
         shadow
         css={foundStationButton}
         onClick={() => {
-          openStationSummary(station);
-          openLastPanel(<StationDetailsWindow />);
+          openStationSummary(stationId);
+          openLastPanel(<StationDetailsWindow stationId={stationId} />);
         }}
       >
         <FlexBox alignItems="start" justifyContent="between" nowrap columnGap={2.8}>
@@ -76,7 +75,7 @@ const StationSummaryCard = ({ station, tag, $noPadding }: Props) => {
               </Text>
             </FlexBox>
           </article>
-          {fastChargerCount !== 0 && <ChargingSpeedIcon />}
+          {quickChargerCount !== 0 && <ChargingSpeedIcon />}
         </FlexBox>
       </Button>
     </ListItem>

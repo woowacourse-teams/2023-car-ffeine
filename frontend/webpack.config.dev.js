@@ -3,9 +3,9 @@
 const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const DotEnv = require('dotenv-webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const DotEnv = require('dotenv-webpack');
 
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 const smp = new SpeedMeasurePlugin();
@@ -69,7 +69,13 @@ module.exports = function () {
       }),
       new DotEnv(),
       new CopyWebpackPlugin({
-        patterns: [{ from: 'public/mockServiceWorker.js', to: '.' }],
+        patterns: [
+          { from: 'public/mockServiceWorker.js', to: '.' },
+          { from: 'public/icons', to: './icons' },
+          { from: 'public/manifest.json', to: '.' },
+          { from: 'public/pwabuilder-sw.js', to: '.' },
+          { from: 'public/browserconfig.xml', to: '.' },
+        ],
       }),
       new ForkTsCheckerWebpackPlugin(),
     ],

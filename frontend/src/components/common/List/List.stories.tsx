@@ -1,8 +1,7 @@
 import type { Meta } from '@storybook/react';
 
-import ListItem from '@common/ListItem';
-import Text from '@common/Text';
-
+import ListItem from '../ListItem';
+import Text from '../Text';
 import type { ListProps } from './List';
 import List from './List';
 

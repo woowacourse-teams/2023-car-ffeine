@@ -7,7 +7,7 @@ import { toastActions } from '@stores/layout/toastStore';
 import { memberInfoStore } from '@stores/login/memberInfoStore';
 import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
 
-import { QUERY_KEY_MEMBER_SELECTED_FILTERS, QUERY_KEY_STATIONS } from '@constants/queryKeys';
+import { QUERY_KEY_MEMBER_SELECTED_FILTERS, QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
 
 import type { StationFilters } from '@type';
 
@@ -22,13 +22,13 @@ export const useStationFilters = () => {
     ]);
     resetAllServerStationFilters(stationFilters);
 
-    queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
+    queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_MARKERS] });
 
     showToast('필터 적용에 실패했습니다', 'error');
   };
 
   const handleStationsRefetch = () => {
-    queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATIONS] });
+    queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_MARKERS] });
     showToast('필터가 적용되었습니다');
   };
 

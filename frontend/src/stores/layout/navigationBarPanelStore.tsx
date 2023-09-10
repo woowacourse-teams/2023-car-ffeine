@@ -4,7 +4,7 @@ import { store } from '@utils/external-state';
 
 import StationSearchWindow from '@ui/StationSearchWindow';
 
-interface Panels {
+export interface Panels {
   basePanel: ReactElement | null;
   lastPanel: ReactElement | null;
 }

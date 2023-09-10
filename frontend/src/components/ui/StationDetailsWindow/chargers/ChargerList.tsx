@@ -25,7 +25,10 @@ const ChargerList = ({ chargers, stationId, reportCount }: ChargerListProps) => 
   const [page, setPage] = useState(1);
   const totalChargersSize = chargers.length;
   const availableChargersSize = chargers.filter((charger) => charger.state === 'STANDBY').length;
+  const loadedChargers = chargers.slice(0, page * CHARGER_SIZE);
   const loadedChargersSize = page * CHARGER_SIZE;
+  const isReported = reportCount > 0;
+  const isShowMoreButton = totalChargersSize - loadedChargersSize > 0;
 
   const handleShowMoreChargers = () => {
     setPage((prev) => prev + 1);
@@ -42,7 +45,7 @@ const ChargerList = ({ chargers, stationId, reportCount }: ChargerListProps) => 
         </Text>
         <ChargerReportButton stationId={stationId} />
       </FlexBox>
-      {reportCount > 0 && (
+      {isReported && (
         <Alert
           color="warning"
           text={`충전기 고장 신고가 ${reportCount}번 접수됐어요`}
@@ -50,11 +53,11 @@ const ChargerList = ({ chargers, stationId, reportCount }: ChargerListProps) => 
         />
       )}
       <FlexBox my={3} rowGap={2} justifyContent="between">
-        {chargers.slice(0, page * CHARGER_SIZE).map((charger, index) => (
+        {loadedChargers.map((charger, index) => (
           <ChargerCard key={index} charger={charger} />
         ))}
       </FlexBox>
-      {totalChargersSize - loadedChargersSize > 0 && (
+      {isShowMoreButton && (
         <Button css={MoreButtonContainer} onClick={handleShowMoreChargers}>
           <FlexBox justifyContent="center">
             <Text>더보기</Text>
