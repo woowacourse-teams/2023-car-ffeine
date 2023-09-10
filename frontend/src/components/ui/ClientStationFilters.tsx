@@ -2,7 +2,6 @@ import { css, styled } from 'styled-components';
 
 import { useExternalState, useExternalValue } from '@utils/external-state';
 
-import type { Panels } from '@stores/layout/navigationBarPanelStore';
 import { navigationBarPanelStore } from '@stores/layout/navigationBarPanelStore';
 import { clientStationFiltersStore } from '@stores/station-filters/clientStationFiltersStore';
 
@@ -64,9 +63,9 @@ const ClientStationFilters = () => {
   const screen = useMediaQueries();
 
   return (
-    <Container left={navigationComponentWidth} $basePanel={basePanel}>
+    <Container left={navigationComponentWidth}>
       {screen.get('isMobile') ? <StationSearchBar /> : !basePanel && <StationSearchBar />}
-      <FlexBox css={mobileFilterContainerCss}>
+      <FlexBox css={filterContainerCss}>
         <ClientFilterButton
           onClick={toggleAvailableStation}
           $isChecked={isAvailableStationFilterSelected}
@@ -96,15 +95,15 @@ const ClientStationFilters = () => {
   );
 };
 
-const Container = styled.div<{ left: number; $basePanel: Panels['basePanel'] }>`
+const Container = styled.div<{ left: number }>`
   position: fixed;
-  top: ${({ $basePanel }) => ($basePanel ? '16.5px' : '14px')};
+  top: 14px;
   left: ${({ left }) => left}rem;
   z-index: 998;
   padding: 10px;
 
   display: flex;
-  align-items: center;
+  align-items: start;
   column-gap: 40px;
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
@@ -117,7 +116,6 @@ const Container = styled.div<{ left: number; $basePanel: Panels['basePanel'] }>`
 
 const ClientFilterButton = styled.button<{ $isChecked: boolean }>`
   padding: 0.6rem 1.2rem;
-  margin-right: 0.4rem;
   background: ${({ $isChecked }) => ($isChecked ? '#ccdaff' : '#ffffff')};
   box-shadow:
     0 1px 2px rgba(60, 64, 67, 0.3),
@@ -125,12 +123,8 @@ const ClientFilterButton = styled.button<{ $isChecked: boolean }>`
   border-radius: 16px;
 `;
 
-const mobileFilterContainerCss = css`
-  margin-top: 4px;
-
-  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
-    row-gap: 10px;
-  }
+const filterContainerCss = css`
+  gap: 10px;
 `;
 
 export default ClientStationFilters;
