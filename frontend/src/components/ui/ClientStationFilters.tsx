@@ -87,7 +87,7 @@ const ClientFilterButton = styled.button<{
   $isChecked: boolean;
 }>`
   padding: 0.6rem 1.2rem;
-  background: ${({ $isChecked }) => ($isChecked ? '#ccdaff' : '#ffffff')};
+  background: ${({ $isChecked }) => ($isChecked ? '#ccdaff' : '#fff')};
   box-shadow:
     0 1px 2px rgba(60, 64, 67, 0.3),
     0 1px 3px 1px rgba(60, 64, 67, 0.15);

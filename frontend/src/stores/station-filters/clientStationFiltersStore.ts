@@ -11,6 +11,6 @@ const initialClientStationFilter = {
 
 export type ClientStationFilter = typeof initialClientStationFilter;
 
-export const clientStationFiltersStore = store<typeof initialClientStationFilter>({
+export const clientStationFiltersStore = store<ClientStationFilter>({
   ...initialClientStationFilter,
 });
