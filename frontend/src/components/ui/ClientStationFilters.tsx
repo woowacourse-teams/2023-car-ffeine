@@ -1,6 +1,7 @@
 import { css, styled } from 'styled-components';
 
 import { useExternalState, useExternalValue } from '@utils/external-state';
+import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 
 import { navigationBarPanelStore } from '@stores/layout/navigationBarPanelStore';
 import { toastActions } from '@stores/layout/toastStore';
@@ -48,7 +49,7 @@ const ClientStationFilters = () => {
     <Container left={navigationComponentWidth}>
       {screen.get('isMobile') ? <StationSearchBar /> : !basePanel && <StationSearchBar />}
       <FlexBox css={filterContainerCss}>
-        {Object.keys(filterOptions).map((filterKey: keyof ClientStationFilter) => (
+        {getTypedObjectKeys(filterOptions).map((filterKey) => (
           <ClientFilterButton
             key={filterKey}
             onClick={() => toggleFilterOption(filterKey)}
