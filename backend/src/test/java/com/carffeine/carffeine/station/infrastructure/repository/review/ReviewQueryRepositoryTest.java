@@ -9,7 +9,6 @@ import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.domain.station.StationRepository;
 import com.carffeine.carffeine.station.infrastructure.repository.review.dto.ReviewResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.review.dto.TotalRatingsResponse;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -57,11 +56,6 @@ class ReviewQueryRepositoryTest {
     void setUp() {
         member = memberRepository.save(일반_회원);
         station = stationRepository.save(선릉역_충전소_충전기_2개_사용가능_1개);
-    }
-
-    @AfterEach
-    void afterEach() {
-        entityManager.createNativeQuery("ALTER TABLE review ALTER COLUMN id RESTART WITH 1").executeUpdate();
     }
 
     @Test
