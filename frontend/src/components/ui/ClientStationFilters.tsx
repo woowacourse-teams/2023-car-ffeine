@@ -3,6 +3,7 @@ import { css, styled } from 'styled-components';
 import { useExternalState, useExternalValue } from '@utils/external-state';
 
 import { navigationBarPanelStore } from '@stores/layout/navigationBarPanelStore';
+import { toastActions } from '@stores/layout/toastStore';
 import type { ClientStationFilter } from '@stores/station-filters/clientStationFiltersStore';
 import { clientStationFiltersStore } from '@stores/station-filters/clientStationFiltersStore';
 
@@ -27,13 +28,20 @@ const ClientStationFilters = () => {
     ADDITIONAL_MARGIN;
 
   const toggleFilterOption = (filterKey: keyof ClientStationFilter) => {
-    setFilterOptions((prev) => ({
-      ...prev,
-      [filterKey]: {
-        ...prev[filterKey],
-        isAvailable: !prev[filterKey].isAvailable,
-      },
-    }));
+    setFilterOptions((prev) => {
+      toastActions.showToast(
+        prev[filterKey].isAvailable ? '필터가 해제되었습니다.' : '필터가 적용되었습니다.',
+        'success'
+      );
+
+      return {
+        ...prev,
+        [filterKey]: {
+          ...prev[filterKey],
+          isAvailable: !prev[filterKey].isAvailable,
+        },
+      };
+    });
   };
 
   return (
