@@ -19,7 +19,7 @@ const makeStationIdsChunks = (filteredMarkers: StationMarker[]) => {
   }, []);
 };
 
-export const useFetchStationSummaries = (markers: StationMarker[]) => {
+export const useStationSummaries = (markers: StationMarker[]) => {
   useEffect(() => {
     setPage(0);
   }, [markers]);
@@ -27,7 +27,6 @@ export const useFetchStationSummaries = (markers: StationMarker[]) => {
   const stationIdChunks = makeStationIdsChunks(markers);
 
   const [page, setPage] = useState(0);
-
   const [stationSummaries, setStationSummaries] = useState<StationSummary[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 

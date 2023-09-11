@@ -10,7 +10,7 @@ import StationSummaryCardSkeleton from '@ui/StationList/StationSummaryCardSkelet
 import { MOBILE_BREAKPOINT } from '@constants';
 
 import StationSummaryCard from './StationSummaryCard';
-import { useFetchStationSummaries } from './hooks/useFetchStationSummaries';
+import { useStationSummaries } from './hooks/useStationSummaries';
 
 const StationList = () => {
   const {
@@ -19,7 +19,7 @@ const StationList = () => {
     isLoading: isFilteredMarkersLoading,
   } = useStationMarkers();
 
-  const { isLoading, stationSummaries } = useFetchStationSummaries(filteredMarkers);
+  const { isLoading, stationSummaries } = useStationSummaries(filteredMarkers);
 
   if (
     isFilteredMarkersLoading
