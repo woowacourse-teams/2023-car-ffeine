@@ -12,8 +12,8 @@ import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { clientStationFiltersStore } from '@stores/station-filters/clientStationFiltersStore';
 import {
   selectedCapacitiesFilterStore,
-  selectedConnectorTypesFilterStore,
   selectedCompaniesFilterStore,
+  selectedConnectorTypesFilterStore,
 } from '@stores/station-filters/serverStationFiltersStore';
 
 import { DELIMITER } from '@constants';
@@ -21,7 +21,6 @@ import { COMPANIES } from '@constants/chargers';
 import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
 import { QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
 
-import type { StationSummary } from '@type';
 import type { DisplayPosition, StationMarker } from '@type/stations';
 
 export const fetchStationMarkers = async () => {
@@ -72,10 +71,10 @@ export const fetchStationMarkers = async () => {
 
 export const useStationMarkers = () => {
   const {
-    isAvailableStationFilterSelected,
-    isFastChargeStationFilterSelected,
-    isParkingFreeStationFilterSelected,
-    isPrivateStationFilterSelected,
+    fastChargeStationFilter,
+    privateStationFilter,
+    parkingFreeStationFilter,
+    availableStationFilter,
   } = useExternalValue(clientStationFiltersStore);
 
   return useQuery({
@@ -85,10 +84,10 @@ export const useStationMarkers = () => {
       return data.filter((station) => {
         const { availableCount, isParkingFree, isPrivate, quickChargerCount } = station;
 
-        const isNoAvailable = isAvailableStationFilterSelected && availableCount === 0;
-        const isNoFastCharge = isFastChargeStationFilterSelected && quickChargerCount === 0;
-        const isNoFreeParking = isParkingFreeStationFilterSelected && !isParkingFree;
-        const isNoPublic = isPrivateStationFilterSelected && isPrivate;
+        const isNoAvailable = availableStationFilter.isAvailable && availableCount === 0;
+        const isNoFastCharge = fastChargeStationFilter.isAvailable && quickChargerCount === 0;
+        const isNoFreeParking = parkingFreeStationFilter.isAvailable && !isParkingFree;
+        const isNoPublic = privateStationFilter.isAvailable && isPrivate;
 
         if (isNoAvailable || isNoFastCharge || isNoFreeParking || isNoPublic) {
           return false;
