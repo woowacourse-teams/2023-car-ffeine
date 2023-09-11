@@ -11,20 +11,11 @@ import useMediaQueries from '@hooks/useMediaQueries';
 import FlexBox from '@common/FlexBox';
 
 import { MOBILE_BREAKPOINT, NAVIGATOR_PANEL_WIDTH } from '@constants';
-import { CHARGING_SPEED } from '@constants/chargers';
 
 import StationSearchBar from './StationSearchWindow/StationSearchBar';
 
 const ClientStationFilters = () => {
-  const [
-    {
-      fastChargeStationFilter,
-      availableStationFilter,
-      privateStationFilter,
-      parkingFreeStationFilter,
-    },
-    setFilterOption,
-  ] = useExternalState(clientStationFiltersStore);
+  const [filterOption, setFilterOption] = useExternalState(clientStationFiltersStore);
 
   const ADDITIONAL_MARGIN = 8;
   const { basePanel, lastPanel } = useExternalValue(navigationBarPanelStore);
@@ -49,30 +40,15 @@ const ClientStationFilters = () => {
     <Container left={navigationComponentWidth}>
       {screen.get('isMobile') ? <StationSearchBar /> : !basePanel && <StationSearchBar />}
       <FlexBox css={filterContainerCss}>
-        <ClientFilterButton
-          onClick={() => toggleFilterOption('availableStationFilter')}
-          $isChecked={availableStationFilter.isAvailable}
-        >
-          현재 사용 가능
-        </ClientFilterButton>
-        <ClientFilterButton
-          onClick={() => toggleFilterOption('parkingFreeStationFilter')}
-          $isChecked={parkingFreeStationFilter.isAvailable}
-        >
-          주차 무료
-        </ClientFilterButton>
-        <ClientFilterButton
-          onClick={() => toggleFilterOption('fastChargeStationFilter')}
-          $isChecked={fastChargeStationFilter.isAvailable}
-        >
-          {CHARGING_SPEED.quick}
-        </ClientFilterButton>
-        <ClientFilterButton
-          onClick={() => toggleFilterOption('privateStationFilter')}
-          $isChecked={privateStationFilter.isAvailable}
-        >
-          외부인 개방
-        </ClientFilterButton>
+        {Object.keys(filterOption).map((filterKey: keyof ClientStationFilter) => (
+          <ClientFilterButton
+            key={filterKey}
+            onClick={() => toggleFilterOption(filterKey)}
+            $isChecked={filterOption[filterKey].isAvailable}
+          >
+            {filterOption[filterKey].label}
+          </ClientFilterButton>
+        ))}
       </FlexBox>
     </Container>
   );
