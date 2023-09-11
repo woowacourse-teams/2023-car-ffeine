@@ -188,7 +188,6 @@ public class StationQueryRepository {
                                 .list(constructor(StationInfo.class,
                                         station.stationId,
                                         station.stationName,
-                                        list(charger.type),
                                         station.address,
                                         station.latitude.value,
                                         station.longitude.value

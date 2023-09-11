@@ -197,10 +197,6 @@ class StationControllerTest extends MockBeanInjection {
                                 new StationSearchResponse(
                                         "stationId",
                                         "잠실 충전소",
-                                        List.of(
-                                                "QUICK",
-                                                "STANDARD"
-                                        ),
                                         "address",
                                         BigDecimal.valueOf(37.123456),
                                         BigDecimal.valueOf(127.123456)
@@ -208,9 +204,6 @@ class StationControllerTest extends MockBeanInjection {
                                 new StationSearchResponse(
                                         "stationId2",
                                         "선릉 충전소",
-                                        List.of(
-                                                "QUICK"
-                                        ),
                                         "address2",
                                         BigDecimal.valueOf(37.123456),
                                         BigDecimal.valueOf(127.123456)
@@ -234,8 +227,7 @@ class StationControllerTest extends MockBeanInjection {
                                 fieldWithPath("stations[].stationName").type(JsonFieldType.STRING).description("충전소 이름"),
                                 fieldWithPath("stations[].address").type(JsonFieldType.STRING).description("충전소 주소"),
                                 fieldWithPath("stations[].latitude").type(JsonFieldType.NUMBER).description("위도"),
-                                fieldWithPath("stations[].longitude").type(JsonFieldType.NUMBER).description("경도"),
-                                fieldWithPath("stations[].speed").type(JsonFieldType.ARRAY).description("충전소에 포함되어있는 급속 완속 충전기 종류")
+                                fieldWithPath("stations[].longitude").type(JsonFieldType.NUMBER).description("경도")
                         )
                 ));
     }
