@@ -27,8 +27,10 @@ export const useStationSummaries = (markers: StationMarker[]) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setPage(0);
-    loadStationSummaries(0);
+    if (markers !== undefined) {
+      setPage(0);
+      loadStationSummaries(0);
+    }
   }, [markers]);
 
   useEffect(() => {
@@ -38,13 +40,15 @@ export const useStationSummaries = (markers: StationMarker[]) => {
   const loadStationSummaries = (page: number) => {
     const stationIds = stationIdChunks[page] ?? [];
 
-    setIsLoading(true);
-    fetchStationSummaries(stationIds).then((stationSummaries) => {
-      setStationSummaries((prev) =>
-        page === 0 ? stationSummaries : [...prev, ...stationSummaries]
-      );
-      setIsLoading(false);
-    });
+    if (stationIds.length > 0) {
+      setIsLoading(true);
+      fetchStationSummaries(stationIds).then((stationSummaries) => {
+        setStationSummaries((prev) =>
+          page === 0 ? stationSummaries : [...prev, ...stationSummaries]
+        );
+        setIsLoading(false);
+      });
+    }
   };
 
   const loadMore = () => {
