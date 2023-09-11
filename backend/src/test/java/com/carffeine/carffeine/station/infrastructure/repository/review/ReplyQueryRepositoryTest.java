@@ -111,7 +111,7 @@ class ReplyQueryRepositoryTest {
     void 답글_13개_중_두번째_페이지엔_3개의_답글이_있다() {
         // given
         List<Reply> replyList = 답글_13개(review, member).stream()
-                .map(it -> replyRepository.save(it))
+                .map(replyRepository::save)
                 .toList();
         PageRequest pageable = PageRequest.of(1, 10);
 

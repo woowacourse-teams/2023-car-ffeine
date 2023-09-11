@@ -1,13 +1,14 @@
 package com.carffeine.carffeine.station.infrastructure.repository.review;
 
 import com.carffeine.carffeine.station.infrastructure.repository.review.dto.ReplyResponse;
-import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 import static com.carffeine.carffeine.station.domain.review.QReply.reply;
 import static com.carffeine.carffeine.station.domain.review.QReview.review;
@@ -20,7 +21,7 @@ public class ReplyQueryRepository {
     private final JPAQueryFactory jpaQueryFactory;
 
     public Page<ReplyResponse> findAllReplies(Long reviewId, Pageable pageable) {
-        QueryResults<ReplyResponse> result = jpaQueryFactory.select(constructor(ReplyResponse.class,
+        List<ReplyResponse> result = jpaQueryFactory.select(constructor(ReplyResponse.class,
                         reply.id,
                         reply.review.id,
                         reply.member.id,
@@ -33,7 +34,11 @@ public class ReplyQueryRepository {
                 .orderBy(reply.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
-                .fetchResults();
-        return new PageImpl<>(result.getResults(), pageable, result.getTotal());
+                .fetch();
+        Long totalCount = jpaQueryFactory.select(reply.id.count())
+                .from(reply)
+                .innerJoin(review).on(review.id.eq(reviewId))
+                .fetchOne();
+        return new PageImpl<>(result, pageable, totalCount);
     }
 }
