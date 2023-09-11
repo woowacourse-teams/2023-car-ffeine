@@ -28,17 +28,25 @@ export const useStationSummaries = (markers: StationMarker[]) => {
 
   useEffect(() => {
     setPage(0);
+    setStationSummaries([]);
+    loadStationSummaries(0);
   }, [markers]);
 
   useEffect(() => {
+    loadStationSummaries(page);
+  }, [page]);
+
+  const loadStationSummaries = (page: number) => {
     const stationIds = stationIdChunks[page];
 
     setIsLoading(true);
     fetchStationSummaries(stationIds).then((stationSummaries) => {
-      setStationSummaries((prev) => [...prev, ...stationSummaries]);
+      setStationSummaries((prev) =>
+        page === 0 ? stationSummaries : [...prev, ...stationSummaries]
+      );
       setIsLoading(false);
     });
-  }, [page]);
+  };
 
   const loadMore = () => {
     setPage((prevPage) => prevPage + 1);
