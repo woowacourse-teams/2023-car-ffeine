@@ -21,7 +21,6 @@ import { COMPANIES } from '@constants/chargers';
 import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
 import { QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
 
-import type { StationSummary } from '@type';
 import type { DisplayPosition, StationMarker } from '@type/stations';
 
 export const fetchStationMarkers = async () => {
