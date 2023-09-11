@@ -29,8 +29,6 @@ import static com.carffeine.carffeine.station.exception.review.ReviewExceptionTy
 @Service
 public class ReviewService {
 
-    private static final double DEFAULT_AVERAGE_RATING = 0.0;
-
     private final ReviewRepository reviewRepository;
     private final ReplyRepository replyRepository;
     private final StationRepository stationRepository;
@@ -95,22 +93,5 @@ public class ReviewService {
     public Review findReview(Long reviewId) {
         return reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new ReviewException(REVIEW_NOT_FOUND));
-    }
-
-    @Transactional(readOnly = true)
-    public Double findAverageRatings(String stationId) {
-        Station station = findStation(stationId);
-        return reviewRepository.findAverageRatingsByStation(station)
-                .map(this::parseToOneDecimalPoint)
-                .orElse(DEFAULT_AVERAGE_RATING);
-    }
-
-    private double parseToOneDecimalPoint(Double rating) {
-        return Math.round(rating * 10.0) / 10.0;
-    }
-
-    public long findTotalCount(String stationId) {
-        Station station = findStation(stationId);
-        return reviewRepository.countByStation(station);
     }
 }
