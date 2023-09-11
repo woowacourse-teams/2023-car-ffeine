@@ -47,7 +47,6 @@ const StationList = () => {
   }
 
   return (
-    // isSuccess &&
     isFilteredMarkersSuccess && (
       <List css={searchResultList}>
         {/* 
