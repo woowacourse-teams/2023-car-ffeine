@@ -27,10 +27,8 @@ export const useStationSummaries = (markers: StationMarker[]) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (markers !== undefined) {
-      setPage(0);
-      loadStationSummaries(0);
-    }
+    setPage(0);
+    loadStationSummaries(0);
   }, [markers]);
 
   useEffect(() => {
