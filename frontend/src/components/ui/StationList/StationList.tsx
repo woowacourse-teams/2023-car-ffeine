@@ -2,6 +2,7 @@ import { css } from 'styled-components';
 
 import { useStationMarkers } from '@hooks/tanstack-query/station-markers/useStationMarkers';
 
+import ButtonNext from '@common/ButtonNext';
 import List from '@common/List';
 
 import EmptyStationsNotice from '@ui/StationList/EmptyStationsNotice';
@@ -24,9 +25,9 @@ const StationList = () => {
     stationSummaries,
     loadMore,
     hasNextPage,
-  } = useStationSummaries(filteredMarkers);
+  } = useStationSummaries(filteredMarkers ?? []);
 
-  if (isFilteredMarkersLoading || isStationSummariesLoading) {
+  if (isFilteredMarkersLoading) {
     return (
       <List css={searchResultList}>
         {Array.from({ length: 10 }, (_, index) => (
@@ -34,6 +35,15 @@ const StationList = () => {
         ))}
       </List>
     );
+  }
+
+  // TODO: 초기에 텅 안보이게 하기
+  if (
+    stationSummaries.length === 0 &&
+    isStationSummariesLoading === false &&
+    isFilteredMarkersSuccess
+  ) {
+    return <EmptyStationsNotice />;
   }
 
   return (
@@ -49,13 +59,18 @@ const StationList = () => {
         */}
 
         {/* 새로 수신한 데이터를 보여주기 */}
-        {stationSummaries.length > 0 ? (
+        {isStationSummariesLoading === false ? (
           stationSummaries.map((stationSummary) => (
             <StationSummaryCard key={stationSummary.stationId} station={stationSummary} />
           ))
         ) : (
-          <EmptyStationsNotice />
+          <List css={searchResultList}>
+            {Array.from({ length: 10 }, (_, index) => (
+              <StationSummaryCardSkeleton key={index} />
+            ))}
+          </List>
         )}
+        {hasNextPage && <ButtonNext onClick={loadMore}>더 보 기</ButtonNext>}
       </List>
     )
   );

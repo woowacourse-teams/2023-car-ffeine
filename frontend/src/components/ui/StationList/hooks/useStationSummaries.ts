@@ -36,6 +36,7 @@ export const useStationSummaries = (markers: StationMarker[]) => {
     setIsLoading(true);
     fetchStationSummaries(stationIds).then((stationSummaries) => {
       setStationSummaries((prev) => [...prev, ...stationSummaries]);
+      setIsLoading(false);
     });
   }, [page]);
 
