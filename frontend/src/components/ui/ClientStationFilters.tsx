@@ -14,18 +14,20 @@ import { MOBILE_BREAKPOINT, NAVIGATOR_PANEL_WIDTH } from '@constants';
 
 import StationSearchBar from './StationSearchWindow/StationSearchBar';
 
-const ClientStationFilters = () => {
-  const [filterOption, setFilterOption] = useExternalState(clientStationFiltersStore);
+const ADDITIONAL_MARGIN = 8;
 
-  const ADDITIONAL_MARGIN = 8;
+const ClientStationFilters = () => {
+  const screen = useMediaQueries();
+  const [filterOptions, setFilterOptions] = useExternalState(clientStationFiltersStore);
   const { basePanel, lastPanel } = useExternalValue(navigationBarPanelStore);
+
   const navigationComponentWidth =
     (basePanel === null ? 0 : NAVIGATOR_PANEL_WIDTH) +
     (lastPanel === null ? 0 : NAVIGATOR_PANEL_WIDTH) +
     ADDITIONAL_MARGIN;
 
   const toggleFilterOption = (filterKey: keyof ClientStationFilter) => {
-    setFilterOption((prev) => ({
+    setFilterOptions((prev) => ({
       ...prev,
       [filterKey]: {
         ...prev[filterKey],
@@ -34,19 +36,17 @@ const ClientStationFilters = () => {
     }));
   };
 
-  const screen = useMediaQueries();
-
   return (
     <Container left={navigationComponentWidth}>
       {screen.get('isMobile') ? <StationSearchBar /> : !basePanel && <StationSearchBar />}
       <FlexBox css={filterContainerCss}>
-        {Object.keys(filterOption).map((filterKey: keyof ClientStationFilter) => (
+        {Object.keys(filterOptions).map((filterKey: keyof ClientStationFilter) => (
           <ClientFilterButton
             key={filterKey}
             onClick={() => toggleFilterOption(filterKey)}
-            $isChecked={filterOption[filterKey].isAvailable}
+            $isChecked={filterOptions[filterKey].isAvailable}
           >
-            {filterOption[filterKey].label}
+            {filterOptions[filterKey].label}
           </ClientFilterButton>
         ))}
       </FlexBox>
