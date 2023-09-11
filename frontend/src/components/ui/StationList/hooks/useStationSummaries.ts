@@ -28,7 +28,6 @@ export const useStationSummaries = (markers: StationMarker[]) => {
 
   useEffect(() => {
     setPage(0);
-    setStationSummaries([]);
     loadStationSummaries(0);
   }, [markers]);
 
