@@ -1,4 +1,12 @@
-export const getDisplayPosition = (map: google.maps.Map) => {
+export interface DisplayPosition {
+  longitude: number;
+  latitude: number;
+  longitudeDelta: number;
+  latitudeDelta: number;
+  zoom: number;
+}
+
+export const getDisplayPosition = (map: google.maps.Map): DisplayPosition => {
   const center = map.getCenter();
   const bounds = map.getBounds();
 
@@ -15,8 +23,8 @@ export const getDisplayPosition = (map: google.maps.Map) => {
   return {
     longitude,
     latitude,
-    longitudeDelta: longitudeDelta * 2,
-    latitudeDelta: latitudeDelta * 2,
+    longitudeDelta: longitudeDelta,
+    latitudeDelta: latitudeDelta,
     zoom,
   };
 };
