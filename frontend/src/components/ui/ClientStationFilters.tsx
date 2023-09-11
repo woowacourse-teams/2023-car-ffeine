@@ -1,8 +1,11 @@
 import { css, styled } from 'styled-components';
 
 import { useExternalState, useExternalValue } from '@utils/external-state';
+import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 
 import { navigationBarPanelStore } from '@stores/layout/navigationBarPanelStore';
+import { toastActions } from '@stores/layout/toastStore';
+import type { ClientStationFilter } from '@stores/station-filters/clientStationFiltersStore';
 import { clientStationFiltersStore } from '@stores/station-filters/clientStationFiltersStore';
 
 import useMediaQueries from '@hooks/useMediaQueries';
@@ -10,98 +13,64 @@ import useMediaQueries from '@hooks/useMediaQueries';
 import FlexBox from '@common/FlexBox';
 
 import { MOBILE_BREAKPOINT, NAVIGATOR_PANEL_WIDTH } from '@constants';
-import { CHARGING_SPEED } from '@constants/chargers';
 
 import StationSearchBar from './StationSearchWindow/StationSearchBar';
 
-const ClientStationFilters = () => {
-  const [
-    {
-      isAvailableStationFilterSelected,
-      isFastChargeStationFilterSelected,
-      isParkingFreeStationFilterSelected,
-      isPrivateStationFilterSelected,
-    },
-    setFilterOption,
-  ] = useExternalState(clientStationFiltersStore);
+const ADDITIONAL_MARGIN = 8;
 
-  const ADDITIONAL_MARGIN = 8;
+const ClientStationFilters = () => {
+  const screen = useMediaQueries();
+  const [filterOptions, setFilterOptions] = useExternalState(clientStationFiltersStore);
   const { basePanel, lastPanel } = useExternalValue(navigationBarPanelStore);
+
   const navigationComponentWidth =
     (basePanel === null ? 0 : NAVIGATOR_PANEL_WIDTH) +
     (lastPanel === null ? 0 : NAVIGATOR_PANEL_WIDTH) +
     ADDITIONAL_MARGIN;
 
-  const toggleAvailableStation = () => {
-    setFilterOption((prev) => ({
-      ...prev,
-      isAvailableStationFilterSelected: !prev.isAvailableStationFilterSelected,
-    }));
-  };
+  const toggleFilterOption = (filterKey: keyof ClientStationFilter) => {
+    setFilterOptions((prev) => {
+      toastActions.showToast(
+        prev[filterKey].isAvailable ? '필터가 해제되었습니다.' : '필터가 적용되었습니다.',
+        prev[filterKey].isAvailable ? 'secondary' : 'primary'
+      );
 
-  const toggleParkingFreeStation = () => {
-    setFilterOption((prev) => ({
-      ...prev,
-      isParkingFreeStationFilterSelected: !prev.isParkingFreeStationFilterSelected,
-    }));
+      return {
+        ...prev,
+        [filterKey]: {
+          ...prev[filterKey],
+          isAvailable: !prev[filterKey].isAvailable,
+        },
+      };
+    });
   };
-
-  const toggleFastChargeStation = () => {
-    setFilterOption((prev) => ({
-      ...prev,
-      isFastChargeStationFilterSelected: !prev.isFastChargeStationFilterSelected,
-    }));
-  };
-
-  const togglePrivateStation = () => {
-    setFilterOption((prev) => ({
-      ...prev,
-      isPrivateStationFilterSelected: !prev.isPrivateStationFilterSelected,
-    }));
-  };
-
-  const screen = useMediaQueries();
 
   return (
     <Container left={navigationComponentWidth}>
       {screen.get('isMobile') ? <StationSearchBar /> : !basePanel && <StationSearchBar />}
       <FlexBox css={filterContainerCss}>
-        <ClientFilterButton
-          onClick={toggleAvailableStation}
-          $isChecked={isAvailableStationFilterSelected}
-        >
-          현재 사용 가능
-        </ClientFilterButton>
-        <ClientFilterButton
-          onClick={toggleParkingFreeStation}
-          $isChecked={isParkingFreeStationFilterSelected}
-        >
-          주차 무료
-        </ClientFilterButton>
-        <ClientFilterButton
-          onClick={toggleFastChargeStation}
-          $isChecked={isFastChargeStationFilterSelected}
-        >
-          {CHARGING_SPEED.quick}
-        </ClientFilterButton>
-        <ClientFilterButton
-          onClick={togglePrivateStation}
-          $isChecked={isPrivateStationFilterSelected}
-        >
-          외부인 개방
-        </ClientFilterButton>
+        {getTypedObjectKeys(filterOptions).map((filterKey) => (
+          <ClientFilterButton
+            key={filterKey}
+            onClick={() => toggleFilterOption(filterKey)}
+            $isChecked={filterOptions[filterKey].isAvailable}
+          >
+            {filterOptions[filterKey].label}
+          </ClientFilterButton>
+        ))}
       </FlexBox>
     </Container>
   );
 };
 
-const Container = styled.div<{ left: number }>`
+const Container = styled.div<{
+  left: number;
+}>`
   position: fixed;
   top: 14px;
   left: ${({ left }) => left}rem;
   z-index: 998;
   padding: 10px;
-
   display: flex;
   align-items: start;
   column-gap: 40px;
@@ -114,9 +83,11 @@ const Container = styled.div<{ left: number }>`
   }
 `;
 
-const ClientFilterButton = styled.button<{ $isChecked: boolean }>`
+const ClientFilterButton = styled.button<{
+  $isChecked: boolean;
+}>`
   padding: 0.6rem 1.2rem;
-  background: ${({ $isChecked }) => ($isChecked ? '#ccdaff' : '#ffffff')};
+  background: ${({ $isChecked }) => ($isChecked ? '#ccdaff' : '#fff')};
   box-shadow:
     0 1px 2px rgba(60, 64, 67, 0.3),
     0 1px 3px 1px rgba(60, 64, 67, 0.15);
