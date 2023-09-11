@@ -1,11 +1,4 @@
-import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
-
 import { calculateLatestUpdateTime } from '@utils/index';
-
-import type { ChargerDetails } from '@type';
-
-import ChargerCard from './ChargerCard';
 
 describe('calculateLatestUpdateTime test', () => {
   it('1분 미만의 시간 차이일 때 "방금 전"을 표시합니다', () => {

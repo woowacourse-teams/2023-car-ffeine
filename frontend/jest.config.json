@@ -17,5 +17,5 @@
     "^@assets/(.*)$": "<rootDir>/src/assets/$1",
     "^@type/(.*)$": "<rootDir>/src/types/$1"
   },
-  "setupFiles": ["<rootDir>/src/mocks/node.ts"]
+  "setupFilesAfterEnv": ["<rootDir>/jest.setup.ts"]
 }

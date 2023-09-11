@@ -1,26 +1,46 @@
-import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-import { serverUrlStore } from '@stores/config/serverUrlStore';
+import { useServerStationFilters } from '@hooks/tanstack-query/station-filters/useServerStationFilters';
 
-import ServerStationFilters from '@ui/ServerStationFilters';
+import type { StationFilters } from '@type';
+
+import { CAPACITIES, COMPANIES, CONNECTOR_TYPES } from './../../../constants/chargers';
+import ServerStationFilters from './ServerStationFilters';
 
 const queryClient = new QueryClient();
 
-global.fetch = jest.fn();
+jest.mock('@hooks/tanstack-query/station-filters/useServerStationFilters');
 
 describe('ServerStationFilters 컴포넌트 테스트', () => {
-  it('ServerStationFilters 컴포넌트가 열리면 /fiters에 요청이 발생한다.', () => {
+  it('ServerStationFilters 컴포넌트가 열리면 useServerStationFilters 훅에서 받아온 정보를 화면에 렌더링 한다.', async () => {
+    (useServerStationFilters as jest.Mock).mockReturnValue({
+      data: {
+        capacities: ['100.00', '200.00', '3.00'],
+        companies: ['AM', 'BA', 'BG', 'BK'],
+        connectorTypes: ['AC_3PHASE', 'AC_SLOW', 'DC_COMBO'],
+      } as StationFilters,
+      isLoading: false,
+    });
+
     render(
       <QueryClientProvider client={queryClient}>
         <ServerStationFilters />
       </QueryClientProvider>
     );
 
-    const serverUrl = serverUrlStore.getState();
+    expect(screen.getByText(COMPANIES['AM'])).toBeInTheDocument();
+    expect(screen.getByText(COMPANIES['BA'])).toBeInTheDocument();
+    expect(screen.getByText(COMPANIES['BG'])).toBeInTheDocument();
+    expect(screen.getByText(COMPANIES['BK'])).toBeInTheDocument();
 
-    expect(fetch).toHaveBeenCalledWith(`${serverUrl}/filters`);
+    expect(screen.getByText(CAPACITIES[3])).toBeInTheDocument();
+    expect(screen.getByText(CAPACITIES[0])).toBeInTheDocument();
+    expect(screen.getByText(CAPACITIES[4])).toBeInTheDocument();
+
+    expect(screen.getByText(CONNECTOR_TYPES['AC_3PHASE'])).toBeInTheDocument();
+    expect(screen.getByText(CONNECTOR_TYPES['AC_SLOW'])).toBeInTheDocument();
+    expect(screen.getByText(CONNECTOR_TYPES['DC_COMBO'])).toBeInTheDocument();
   });
 });
