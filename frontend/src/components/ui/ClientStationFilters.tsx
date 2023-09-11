@@ -31,7 +31,7 @@ const ClientStationFilters = () => {
     setFilterOptions((prev) => {
       toastActions.showToast(
         prev[filterKey].isAvailable ? '필터가 해제되었습니다.' : '필터가 적용되었습니다.',
-        prev[filterKey].isAvailable ? 'secondary' : 'success'
+        prev[filterKey].isAvailable ? 'secondary' : 'primary'
       );
 
       return {
