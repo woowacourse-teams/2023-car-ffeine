@@ -1,6 +1,6 @@
 import { store } from '@utils/external-state';
 
-interface StationFilter {
+export interface StationFilter {
   isFastChargeStationFilterSelected: boolean;
   isAvailableStationFilterSelected: boolean;
   isParkingFreeStationFilterSelected: boolean;

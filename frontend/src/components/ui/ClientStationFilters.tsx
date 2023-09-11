@@ -3,6 +3,7 @@ import { css, styled } from 'styled-components';
 import { useExternalState, useExternalValue } from '@utils/external-state';
 
 import { navigationBarPanelStore } from '@stores/layout/navigationBarPanelStore';
+import type { StationFilter } from '@stores/station-filters/clientStationFiltersStore';
 import { clientStationFiltersStore } from '@stores/station-filters/clientStationFiltersStore';
 
 import useMediaQueries from '@hooks/useMediaQueries';
@@ -32,31 +33,10 @@ const ClientStationFilters = () => {
     (lastPanel === null ? 0 : NAVIGATOR_PANEL_WIDTH) +
     ADDITIONAL_MARGIN;
 
-  const toggleAvailableStation = () => {
+  const toggleFilterOption = (filterKey: keyof StationFilter) => {
     setFilterOption((prev) => ({
       ...prev,
-      isAvailableStationFilterSelected: !prev.isAvailableStationFilterSelected,
-    }));
-  };
-
-  const toggleParkingFreeStation = () => {
-    setFilterOption((prev) => ({
-      ...prev,
-      isParkingFreeStationFilterSelected: !prev.isParkingFreeStationFilterSelected,
-    }));
-  };
-
-  const toggleFastChargeStation = () => {
-    setFilterOption((prev) => ({
-      ...prev,
-      isFastChargeStationFilterSelected: !prev.isFastChargeStationFilterSelected,
-    }));
-  };
-
-  const togglePrivateStation = () => {
-    setFilterOption((prev) => ({
-      ...prev,
-      isPrivateStationFilterSelected: !prev.isPrivateStationFilterSelected,
+      [filterKey]: !prev[filterKey],
     }));
   };
 
@@ -67,25 +47,25 @@ const ClientStationFilters = () => {
       {screen.get('isMobile') ? <StationSearchBar /> : !basePanel && <StationSearchBar />}
       <FlexBox css={filterContainerCss}>
         <ClientFilterButton
-          onClick={toggleAvailableStation}
+          onClick={() => toggleFilterOption('isAvailableStationFilterSelected')}
           $isChecked={isAvailableStationFilterSelected}
         >
           현재 사용 가능
         </ClientFilterButton>
         <ClientFilterButton
-          onClick={toggleParkingFreeStation}
+          onClick={() => toggleFilterOption('isParkingFreeStationFilterSelected')}
           $isChecked={isParkingFreeStationFilterSelected}
         >
           주차 무료
         </ClientFilterButton>
         <ClientFilterButton
-          onClick={toggleFastChargeStation}
+          onClick={() => toggleFilterOption('isFastChargeStationFilterSelected')}
           $isChecked={isFastChargeStationFilterSelected}
         >
           {CHARGING_SPEED.quick}
         </ClientFilterButton>
         <ClientFilterButton
-          onClick={togglePrivateStation}
+          onClick={() => toggleFilterOption('isPrivateStationFilterSelected')}
           $isChecked={isPrivateStationFilterSelected}
         >
           외부인 개방
@@ -95,13 +75,14 @@ const ClientStationFilters = () => {
   );
 };
 
-const Container = styled.div<{ left: number }>`
+const Container = styled.div<{
+  left: number;
+}>`
   position: fixed;
   top: 14px;
   left: ${({ left }) => left}rem;
   z-index: 998;
   padding: 10px;
-
   display: flex;
   align-items: start;
   column-gap: 40px;
@@ -114,7 +95,9 @@ const Container = styled.div<{ left: number }>`
   }
 `;
 
-const ClientFilterButton = styled.button<{ $isChecked: boolean }>`
+const ClientFilterButton = styled.button<{
+  $isChecked: boolean;
+}>`
   padding: 0.6rem 1.2rem;
   background: ${({ $isChecked }) => ($isChecked ? '#ccdaff' : '#ffffff')};
   box-shadow:
