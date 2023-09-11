@@ -1,9 +1,15 @@
 spring:
   datasource:
-    url: ENC(39VzRu15C9RFpZa2UDDF/A1U14pWNtc3/2hc1PsYp39cZzZSCEFqMT7AG/u4Ti7mEsS1TwNqTOdMNHroxMa+iFewt5gPspMIKo17JNejHxAFPumoctLbTqYQc0k5AsfD4wm3ojU7sir4SEyKSVRXh+c3VBbwHg7vkpXMsmIxICpMxMH/DCgxpCCqAJDoUOHMqzGS/FTi4Xg=)
-    username: ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    source:
+      jdbc-url: ENC(3K9zebQtWE6VFJBy/M0xlLoJ7/o+SjtHChJl2dYlzAt/Ecg4tf7ir/pBfOIQrwfLisp6mEy8sPNvqtGTmO2ZIQbztJpecgrEEF3SX02YfbrtGh5byqACWrcPWtcTNuZKVWhvje94m/7zq5k5OcA9Fx6LEYPtpd7cBL5O94pV20jMw7g2c5SXKr0aBXuyWzgpWC8IE+iUdHw=)
+      username: ${DATABASE_USERNAME}
+      password: ${DATABASE_PASSWORD}
+      driver-class-name: com.mysql.cj.jdbc.Driver
+    replica:
+      jdbc-url: ENC(M1bKdAvHI4pq/UtSnY7R0EZ2OwwudF5j7S4I0OJNoUoRAjMjiUaijBJZJjTb+NOlS2UJAeEHk1yR2HJoG7jO0jWHdnzKe65O16FK0V6UFsmD7PrdUvf4vNWDooSkAL26SV/SnPAVEoJbBUaCZJgaYFC1BVN8FcQ7F4K2d8EIyBr4JZZkGkF7BPILKAwrLNjpLJR4xXQKx38=)
+      username: ${REPLICA_DATABASE_USERNAME}
+      password: ${REPLICA_DATABASE_PASSWORD}
+      driver-class-name: com.mysql.cj.jdbc.Driver
   flyway:
     enabled: false
 
