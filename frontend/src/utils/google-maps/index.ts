@@ -15,8 +15,8 @@ export const getDisplayPosition = (map: google.maps.Map) => {
   return {
     longitude,
     latitude,
-    longitudeDelta: longitudeDelta,
-    latitudeDelta: latitudeDelta,
+    longitudeDelta: longitudeDelta * 2,
+    latitudeDelta: latitudeDelta * 2,
     zoom,
   };
 };
