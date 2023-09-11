@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 class CongestionIntegrationTest extends CongestionIntegrationTestFixture {
 
     private static final String 충전소_아이디 = "ME101010";
-    private static final int 월요일 = 1;
+    private static final String 월요일 = "monday";
 
     @BeforeEach
     void setup() {

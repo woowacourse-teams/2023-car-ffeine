@@ -13,13 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CongestionController {
 
-    private static final String MONDAY = "1";
-
     private final CongestionService congestionService;
 
     @GetMapping("/stations/{stationId}/statistics")
     public ResponseEntity<StatisticsResponse> showCongestionStatistics(@PathVariable String stationId,
-                                                                       @RequestParam(required = false, defaultValue = MONDAY) int dayOfWeek) {
+                                                                       @RequestParam(required = false, defaultValue = "monday") String dayOfWeek) {
         StatisticsResponse statisticsResponse = congestionService.showCongestionStatistics(stationId, dayOfWeek);
         return ResponseEntity.ok(statisticsResponse);
     }

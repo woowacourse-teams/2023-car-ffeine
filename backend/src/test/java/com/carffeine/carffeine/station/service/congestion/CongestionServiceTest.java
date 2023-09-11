@@ -34,7 +34,7 @@ class CongestionServiceTest {
     @Test
     void 상태값이_없는_데이터일_경우_음수가_반환된다() {
         // given
-        StatisticsResponse statisticsResponse = congestionService.showCongestionStatistics("ME174003", 1);
+        StatisticsResponse statisticsResponse = congestionService.showCongestionStatistics("ME174003", "monday");
         CongestionResponse expected = new CongestionResponse(getCongestions(), getCongestions());
 
         // when & then
@@ -45,7 +45,7 @@ class CongestionServiceTest {
     @Test
     void 월요일부터_일요일이_아닌_요청에_대해서는_예외를_발생한다() {
         // given
-        int notValidDay = 8;
+        String notValidDay = "invalidMonday";
 
         // when & then
         assertThatThrownBy(() -> congestionService.showCongestionStatistics("ME174003", notValidDay))

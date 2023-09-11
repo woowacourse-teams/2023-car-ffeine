@@ -7,7 +7,7 @@ import com.carffeine.carffeine.station.domain.charger.Charger;
 import com.carffeine.carffeine.station.domain.charger.ChargerRepository;
 import com.carffeine.carffeine.station.domain.congestion.PeriodicCongestion;
 import com.carffeine.carffeine.station.domain.congestion.PeriodicCongestionRepository;
-import com.carffeine.carffeine.station.exception.congestion.CongestionException;
+import com.carffeine.carffeine.station.domain.station.DayConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,14 +16,10 @@ import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.carffeine.carffeine.station.exception.congestion.CongestionExceptionType.INVALID_DAY_OF_WEEK;
-
 @RequiredArgsConstructor
 @Service
 public class CongestionService {
 
-    private static final int MONDAY = 1;
-    private static final int SUNDAY = 7;
     private static final int PERIOD_SIZE = 24;
     private static final double DEFAULT_CONGESTION_VALUE = -1;
     private static final int PERCENTAGE = 100;
@@ -32,9 +28,8 @@ public class CongestionService {
     private final ChargerRepository chargerRepository;
 
     @Transactional(readOnly = true)
-    public StatisticsResponse showCongestionStatistics(String stationId, int day) {
-        validateDayOfWeek(day);
-        DayOfWeek dayOfWeek = DayOfWeek.of(day);
+    public StatisticsResponse showCongestionStatistics(String stationId, String day) {
+        DayOfWeek dayOfWeek = DayConverter.from(day);
 
         List<PeriodicCongestion> congestions = periodicCongestionRepository.findAllByStationIdAndDayOfWeek(stationId, dayOfWeek);
         List<Charger> chargers = chargerRepository.findAllByStationId(stationId);
@@ -43,12 +38,6 @@ public class CongestionService {
         List<CongestionInfoResponse> standardSpeedResponse = calculateCongestions(congestions, chargers, false);
 
         return new StatisticsResponse(stationId, new CongestionResponse(standardSpeedResponse, quickSpeedResponse));
-    }
-
-    private void validateDayOfWeek(int day) {
-        if (day < MONDAY || day > SUNDAY) {
-            throw new CongestionException(INVALID_DAY_OF_WEEK);
-        }
     }
 
     private List<CongestionInfoResponse> calculateCongestions(List<PeriodicCongestion> congestions, List<Charger> chargers, boolean isQuick) {

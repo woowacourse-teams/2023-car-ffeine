@@ -18,7 +18,7 @@ import java.util.List;
 
 import static com.carffeine.carffeine.helper.RestDocsHelper.customDocument;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -43,7 +43,7 @@ class CongestionControllerTest extends MockBeanInjection {
         // given
         String stationId = "1";
 
-        given(congestionService.showCongestionStatistics(any(), anyInt()))
+        given(congestionService.showCongestionStatistics(any(), anyString()))
                 .willReturn(
                         new StatisticsResponse("1", new CongestionResponse(
                                 getCongestions(),
@@ -52,7 +52,7 @@ class CongestionControllerTest extends MockBeanInjection {
                 );
 
         mockMvc.perform(get("/stations/{stationId}/statistics", stationId)
-                        .param("dayOfWeek", "1")
+                        .param("dayOfWeek", "monday")
                 ).andExpect(status().isOk())
                 .andExpect(jsonPath("$.stationId").value("1"))
                 .andDo(customDocument("statistics",
@@ -60,7 +60,7 @@ class CongestionControllerTest extends MockBeanInjection {
                                 parameterWithName("stationId").description("충전소 ID")
                         ),
                         requestParameters(
-                                parameterWithName("dayOfWeek").description("요일 (1:월요일 ~ 7:일요일)")
+                                parameterWithName("dayOfWeek").description("요일 (monday ~ sunday)")
                         ),
                         responseFields(
                                 fieldWithPath("stationId").type(JsonFieldType.STRING).description("충전소 ID"),
