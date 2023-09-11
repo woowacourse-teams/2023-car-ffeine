@@ -19,12 +19,14 @@ const StationList = () => {
     isLoading: isFilteredMarkersLoading,
   } = useStationMarkers();
 
-  const { isLoading, stationSummaries } = useStationSummaries(filteredMarkers);
+  const {
+    isLoading: isStationSummariesLoading,
+    stationSummaries,
+    loadMore,
+    hasNextPage,
+  } = useStationSummaries(filteredMarkers);
 
-  if (
-    isFilteredMarkersLoading
-    // || isLoading
-  ) {
+  if (isFilteredMarkersLoading || isStationSummariesLoading) {
     return (
       <List css={searchResultList}>
         {Array.from({ length: 10 }, (_, index) => (
