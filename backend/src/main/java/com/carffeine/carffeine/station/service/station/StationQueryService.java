@@ -60,8 +60,8 @@ public class StationQueryService {
         return stationQueryRepository.findStationsSummary(stationIds);
     }
 
-    public StationsSearchResponse searchStations(String query, Set<String> scope, int page, int limit) {
-        StationSearchResult searchResult = stationQueryRepository.findSearchResult(query, page, limit);
+    public StationsSearchResponse searchStations(String query, Set<String> scope, int limit) {
+        StationSearchResult searchResult = stationQueryRepository.findSearchResult(query, limit);
         List<StationSearchResponse> stationByScope = stationsToScope(searchResult.stations(), scope);
         return new StationsSearchResponse(searchResult.totalCount(), stationByScope);
     }
