@@ -10,6 +10,7 @@ import { memberTokenStore } from '@stores/login/memberTokenStore';
 
 import ButtonNext from '@common/ButtonNext';
 import Skeleton from '@common/Skeleton';
+
 import { EMPTY_MEMBER_TOKEN } from '@constants';
 
 interface Props {
@@ -69,6 +70,7 @@ const buttonCss = css`
   margin-top: 1rem;
 
   &:hover:enabled {
+    font-weight: 500;
     outline: 1.6px solid #555;
     transform: translateY(-2px);
   }
