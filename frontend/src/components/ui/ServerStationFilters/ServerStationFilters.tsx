@@ -17,10 +17,10 @@ import ServerStationFiltersSkeleton from '@ui/ServerStationFilters/ServerStation
 import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
 import { EMPTY_MEMBER_TOKEN, MOBILE_BREAKPOINT, NAVIGATOR_PANEL_WIDTH } from '@constants';
-import { CONNECTOR_TYPES, COMPANIES } from '@constants/chargers';
 
 import type { Capacity } from '@type';
 
+import { CONNECTOR_TYPES, COMPANIES } from '../../../constants/chargers';
 import FilterSection from './FilterOption';
 import { useStationFilters } from './hooks/useStationFilters';
 
