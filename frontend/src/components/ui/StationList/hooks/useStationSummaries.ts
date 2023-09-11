@@ -44,7 +44,7 @@ export const useStationSummaries = (markers: StationMarker[]) => {
     setPage((prevPage) => prevPage + 1);
   };
 
-  const hasNextPage = stationIdChunks[page] !== undefined;
+  const hasNextPage = stationIdChunks[page + 1] !== undefined;
 
   return { isLoading, stationSummaries, loadMore, hasNextPage };
 };

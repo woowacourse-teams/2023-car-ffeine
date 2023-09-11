@@ -59,16 +59,16 @@ const StationList = () => {
         */}
 
         {/* 새로 수신한 데이터를 보여주기 */}
-        {isStationSummariesLoading === false ? (
+        {stationSummaries.length > 0 &&
           stationSummaries.map((stationSummary) => (
             <StationSummaryCard key={stationSummary.stationId} station={stationSummary} />
-          ))
-        ) : (
-          <List css={searchResultList}>
+          ))}
+        {isStationSummariesLoading && (
+          <>
             {Array.from({ length: 10 }, (_, index) => (
               <StationSummaryCardSkeleton key={index} />
             ))}
-          </List>
+          </>
         )}
         {hasNextPage && <ButtonNext onClick={loadMore}>더 보 기</ButtonNext>}
       </List>
