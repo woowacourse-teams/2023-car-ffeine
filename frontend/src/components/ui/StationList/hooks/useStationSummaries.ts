@@ -36,7 +36,7 @@ export const useStationSummaries = (markers: StationMarker[]) => {
   }, [page]);
 
   const loadStationSummaries = (page: number) => {
-    const stationIds = stationIdChunks[page];
+    const stationIds = stationIdChunks[page] ?? [];
 
     setIsLoading(true);
     fetchStationSummaries(stationIds).then((stationSummaries) => {
