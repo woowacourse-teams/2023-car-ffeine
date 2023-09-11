@@ -44,6 +44,8 @@ include::{snippets}/station-controller-test/findChargeStationByInvalidId/respons
 === Request
 
 include::{snippets}/congestion-controller-test/statistics/http-request.adoc[]
+include::{snippets}/congestion-controller-test/statistics/path-parameters.adoc[]
+include::{snippets}/congestion-controller-test/statistics/request-parameters.adoc[]
 
 === Response
 

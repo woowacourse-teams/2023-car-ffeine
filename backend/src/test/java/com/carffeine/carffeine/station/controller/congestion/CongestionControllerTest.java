@@ -15,16 +15,17 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static com.carffeine.carffeine.helper.RestDocsHelper.customDocument;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -42,90 +43,68 @@ class CongestionControllerTest extends MockBeanInjection {
         // given
         String stationId = "1";
 
-        given(congestionService.showCongestionStatistics(any()))
+        given(congestionService.showCongestionStatistics(any(), anyString()))
                 .willReturn(
-                        new StatisticsResponse(
-                                "1",
-                                getExpected())
+                        new StatisticsResponse("1", new CongestionResponse(
+                                getCongestions(),
+                                getCongestions()
+                        ))
                 );
 
-        mockMvc.perform(get("/stations/{stationId}/statistics", stationId))
-                .andExpect(status().isOk())
+        mockMvc.perform(get("/stations/{stationId}/statistics", stationId)
+                        .param("dayOfWeek", "monday")
+                ).andExpect(status().isOk())
                 .andExpect(jsonPath("$.stationId").value("1"))
                 .andDo(customDocument("statistics",
                         pathParameters(
                                 parameterWithName("stationId").description("충전소 ID")
                         ),
+                        requestParameters(
+                                parameterWithName("dayOfWeek").description("요일 (monday ~ sunday)")
+                        ),
                         responseFields(
                                 fieldWithPath("stationId").type(JsonFieldType.STRING).description("충전소 ID"),
                                 fieldWithPath("congestion").type(JsonFieldType.OBJECT).description("혼잡도 정보"),
-                                fieldWithPath("congestion.standard").type(JsonFieldType.OBJECT).description("표준 충전기 혼잡도 정보"),
-                                fieldWithPath("congestion.standard.MON").type(JsonFieldType.ARRAY).description("월요일 혼잡도 정보"),
-                                fieldWithPath("congestion.standard.MON[].hour").type(JsonFieldType.NUMBER).description("시간"),
-                                fieldWithPath("congestion.standard.MON[].ratio").type(JsonFieldType.NUMBER).description("혼잡도"),
-                                fieldWithPath("congestion.standard.TUE").type(JsonFieldType.ARRAY).description("화요일 혼잡도 정보"),
-                                fieldWithPath("congestion.standard.TUE[].hour").type(JsonFieldType.NUMBER).description("시간"),
-                                fieldWithPath("congestion.standard.TUE[].ratio").type(JsonFieldType.NUMBER).description("혼잡도"),
-                                fieldWithPath("congestion.standard.WED").type(JsonFieldType.ARRAY).description("수요일 혼잡도 정보"),
-                                fieldWithPath("congestion.standard.WED[].hour").type(JsonFieldType.NUMBER).description("시간"),
-                                fieldWithPath("congestion.standard.WED[].ratio").type(JsonFieldType.NUMBER).description("혼잡도"),
-                                fieldWithPath("congestion.standard.THU").type(JsonFieldType.ARRAY).description("목요일 혼잡도 정보"),
-                                fieldWithPath("congestion.standard.THU[].hour").type(JsonFieldType.NUMBER).description("시간"),
-                                fieldWithPath("congestion.standard.THU[].ratio").type(JsonFieldType.NUMBER).description("혼잡도"),
-                                fieldWithPath("congestion.standard.FRI").type(JsonFieldType.ARRAY).description("금요일 혼잡도 정보"),
-                                fieldWithPath("congestion.standard.FRI[].hour").type(JsonFieldType.NUMBER).description("시간"),
-                                fieldWithPath("congestion.standard.FRI[].ratio").type(JsonFieldType.NUMBER).description("혼잡도"),
-                                fieldWithPath("congestion.standard.SAT").type(JsonFieldType.ARRAY).description("토요일 혼잡도 정보"),
-                                fieldWithPath("congestion.standard.SAT[].hour").type(JsonFieldType.NUMBER).description("시간"),
-                                fieldWithPath("congestion.standard.SAT[].ratio").type(JsonFieldType.NUMBER).description("혼잡도"),
-                                fieldWithPath("congestion.standard.SUN").type(JsonFieldType.ARRAY).description("일요일 혼잡도 정보"),
-                                fieldWithPath("congestion.standard.SUN[].hour").type(JsonFieldType.NUMBER).description("시간"),
-                                fieldWithPath("congestion.standard.SUN[].ratio").type(JsonFieldType.NUMBER).description("혼잡도"),
-                                fieldWithPath("congestion.quick").type(JsonFieldType.OBJECT).description("급속 충전기 혼잡도 정보"),
-                                fieldWithPath("congestion.quick.MON").type(JsonFieldType.ARRAY).description("월요일 혼잡도 정보"),
-                                fieldWithPath("congestion.quick.MON[].hour").type(JsonFieldType.NUMBER).description("시간"),
-                                fieldWithPath("congestion.quick.MON[].ratio").type(JsonFieldType.NUMBER).description("혼잡도"),
-                                fieldWithPath("congestion.quick.TUE").type(JsonFieldType.ARRAY).description("화요일 혼잡도 정보"),
-                                fieldWithPath("congestion.quick.TUE[].hour").type(JsonFieldType.NUMBER).description("시간"),
-                                fieldWithPath("congestion.quick.TUE[].ratio").type(JsonFieldType.NUMBER).description("혼잡도"),
-                                fieldWithPath("congestion.quick.WED").type(JsonFieldType.ARRAY).description("수요일 혼잡도 정보"),
-                                fieldWithPath("congestion.quick.WED[].hour").type(JsonFieldType.NUMBER).description("시간"),
-                                fieldWithPath("congestion.quick.WED[].ratio").type(JsonFieldType.NUMBER).description("혼잡도"),
-                                fieldWithPath("congestion.quick.THU").type(JsonFieldType.ARRAY).description("목요일 혼잡도 정보"),
-                                fieldWithPath("congestion.quick.THU[].hour").type(JsonFieldType.NUMBER).description("시간"),
-                                fieldWithPath("congestion.quick.THU[].ratio").type(JsonFieldType.NUMBER).description("혼잡도"),
-                                fieldWithPath("congestion.quick.FRI").type(JsonFieldType.ARRAY).description("금요일 혼잡도 정보"),
-                                fieldWithPath("congestion.quick.FRI[].hour").type(JsonFieldType.NUMBER).description("시간"),
-                                fieldWithPath("congestion.quick.FRI[].ratio").type(JsonFieldType.NUMBER).description("혼잡도"),
-                                fieldWithPath("congestion.quick.SAT").type(JsonFieldType.ARRAY).description("토요일 혼잡도 정보"),
-                                fieldWithPath("congestion.quick.SAT[].hour").type(JsonFieldType.NUMBER).description("시간"),
-                                fieldWithPath("congestion.quick.SAT[].ratio").type(JsonFieldType.NUMBER).description("혼잡도"),
-                                fieldWithPath("congestion.quick.SUN").type(JsonFieldType.ARRAY).description("일요일 혼잡도 정보"),
-                                fieldWithPath("congestion.quick.SUN[].hour").type(JsonFieldType.NUMBER).description("시간"),
-                                fieldWithPath("congestion.quick.SUN[].ratio").type(JsonFieldType.NUMBER).description("혼잡도")
+                                fieldWithPath("congestion.standard").type(JsonFieldType.ARRAY).description("표준 충전기 혼잡도 정보"),
+                                fieldWithPath("congestion.standard[].hour").type(JsonFieldType.NUMBER).description("시간"),
+                                fieldWithPath("congestion.standard[].ratio").type(JsonFieldType.NUMBER).description("혼잡도"),
+                                fieldWithPath("congestion.standard[].hour").type(JsonFieldType.NUMBER).description("시간"),
+                                fieldWithPath("congestion.standard[].ratio").type(JsonFieldType.NUMBER).description("혼잡도"),
+                                fieldWithPath("congestion.standard[].hour").type(JsonFieldType.NUMBER).description("시간"),
+                                fieldWithPath("congestion.standard[].ratio").type(JsonFieldType.NUMBER).description("혼잡도"),
+                                fieldWithPath("congestion.standard[].hour").type(JsonFieldType.NUMBER).description("시간"),
+                                fieldWithPath("congestion.standard[].ratio").type(JsonFieldType.NUMBER).description("혼잡도"),
+                                fieldWithPath("congestion.standard[].hour").type(JsonFieldType.NUMBER).description("시간"),
+                                fieldWithPath("congestion.standard[].ratio").type(JsonFieldType.NUMBER).description("혼잡도"),
+                                fieldWithPath("congestion.standard[].hour").type(JsonFieldType.NUMBER).description("시간"),
+                                fieldWithPath("congestion.standard[].ratio").type(JsonFieldType.NUMBER).description("혼잡도"),
+                                fieldWithPath("congestion.standard[].hour").type(JsonFieldType.NUMBER).description("시간"),
+                                fieldWithPath("congestion.standard[].ratio").type(JsonFieldType.NUMBER).description("혼잡도"),
+                                fieldWithPath("congestion.quick").type(JsonFieldType.ARRAY).description("고속 충전기 혼잡도 정보"),
+                                fieldWithPath("congestion.quick[].hour").type(JsonFieldType.NUMBER).description("시간"),
+                                fieldWithPath("congestion.quick[].ratio").type(JsonFieldType.NUMBER).description("혼잡도"),
+                                fieldWithPath("congestion.quick[].hour").type(JsonFieldType.NUMBER).description("시간"),
+                                fieldWithPath("congestion.quick[].ratio").type(JsonFieldType.NUMBER).description("혼잡도"),
+                                fieldWithPath("congestion.quick[].hour").type(JsonFieldType.NUMBER).description("시간"),
+                                fieldWithPath("congestion.quick[].ratio").type(JsonFieldType.NUMBER).description("혼잡도"),
+                                fieldWithPath("congestion.quick[].hour").type(JsonFieldType.NUMBER).description("시간"),
+                                fieldWithPath("congestion.quick[].ratio").type(JsonFieldType.NUMBER).description("혼잡도"),
+                                fieldWithPath("congestion.quick[].hour").type(JsonFieldType.NUMBER).description("시간"),
+                                fieldWithPath("congestion.quick[].ratio").type(JsonFieldType.NUMBER).description("혼잡도"),
+                                fieldWithPath("congestion.quick[].hour").type(JsonFieldType.NUMBER).description("시간"),
+                                fieldWithPath("congestion.quick[].ratio").type(JsonFieldType.NUMBER).description("혼잡도"),
+                                fieldWithPath("congestion.quick[].hour").type(JsonFieldType.NUMBER).description("시간"),
+                                fieldWithPath("congestion.quick[].ratio").type(JsonFieldType.NUMBER).description("혼잡도")
                         )));
     }
 
-    private CongestionResponse getExpected() {
-        List<CongestionInfoResponse> dailyCongestion = new ArrayList<>();
+    private List<CongestionInfoResponse> getCongestions() {
+        List<CongestionInfoResponse> congestions = new ArrayList<>();
+
         for (int i = 0; i < 24; i++) {
-            dailyCongestion.add(new CongestionInfoResponse(i, -1));
+            congestions.add(new CongestionInfoResponse(i, -1));
         }
-        return new CongestionResponse(
-                Map.of("MON", dailyCongestion,
-                        "TUE", dailyCongestion,
-                        "WED", dailyCongestion,
-                        "THU", dailyCongestion,
-                        "FRI", dailyCongestion,
-                        "SAT", dailyCongestion,
-                        "SUN", dailyCongestion),
-                Map.of("MON", dailyCongestion,
-                        "TUE", dailyCongestion,
-                        "WED", dailyCongestion,
-                        "THU", dailyCongestion,
-                        "FRI", dailyCongestion,
-                        "SAT", dailyCongestion,
-                        "SUN", dailyCongestion)
-        );
+
+        return congestions;
     }
 }
