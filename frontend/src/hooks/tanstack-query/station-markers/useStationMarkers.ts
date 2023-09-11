@@ -14,8 +14,8 @@ import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { clientStationFiltersStore } from '@stores/station-filters/clientStationFiltersStore';
 import {
   selectedCapacitiesFilterStore,
-  selectedConnectorTypesFilterStore,
   selectedCompaniesFilterStore,
+  selectedConnectorTypesFilterStore,
 } from '@stores/station-filters/serverStationFiltersStore';
 
 import { DELIMITER } from '@constants';
@@ -47,6 +47,8 @@ export const fetchStationMarkers = async () => {
   };
 
   if (requestPositionParams.zoom < INITIAL_ZOOM_SIZE) {
+    setSessionStorage<DisplayPosition>(SESSION_KEY_LAST_REQUEST_POSITION, null);
+
     return new Promise<StationMarker[]>((resolve) => resolve([]));
   }
 
