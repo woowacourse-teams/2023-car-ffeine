@@ -6,7 +6,8 @@ import StationMarkersContainer from '@marker/StationMarkersContainer';
 
 import { debounce } from '@utils/debounce';
 import { useExternalValue, useSetExternalState } from '@utils/external-state';
-import { setLocalStorage } from '@utils/storage';
+import { getDisplayPosition, type DisplayPosition } from '@utils/google-maps';
+import { getSessionStorage, setLocalStorage } from '@utils/storage';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { warningModalActions } from '@stores/layout/warningModalStore';
@@ -27,7 +28,7 @@ import WarningModalContainer from '@ui/WarningModalContainer';
 
 import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
 import { QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
-import { LOCAL_KEY_LAST_POSITION } from '@constants/storageKeys';
+import { LOCAL_KEY_LAST_POSITION, SESSION_KEY_LAST_REQUEST_POSITION } from '@constants/storageKeys';
 
 const CarFfeineMap = () => {
   return (
@@ -48,6 +49,44 @@ const CarFfeineMap = () => {
   );
 };
 
+const getBounds = (displayPosition: DisplayPosition) => {
+  return {
+    northEast: {
+      latitude: displayPosition.latitude + displayPosition.latitudeDelta,
+      longitude: displayPosition.longitude + displayPosition.longitudeDelta,
+    },
+    southWest: {
+      latitude: displayPosition.latitude - displayPosition.latitudeDelta,
+      longitude: displayPosition.longitude - displayPosition.longitudeDelta,
+    },
+  };
+};
+
+const isCachedRegion = (displayPosition: DisplayPosition) => {
+  const cachedDisplayPosition = getSessionStorage<DisplayPosition | null>(
+    SESSION_KEY_LAST_REQUEST_POSITION,
+    null
+  );
+  if (cachedDisplayPosition === null) {
+    return false;
+  }
+  const cachedBounds = getBounds(cachedDisplayPosition);
+  const bounds = getBounds(displayPosition);
+  if (cachedBounds.northEast.latitude < bounds.northEast.latitude) {
+    return false;
+  }
+  if (cachedBounds.northEast.longitude < bounds.northEast.longitude) {
+    return false;
+  }
+  if (cachedBounds.southWest.latitude > bounds.southWest.latitude) {
+    return false;
+  }
+  if (cachedBounds.southWest.longitude > bounds.southWest.longitude) {
+    return false;
+  }
+  return true;
+};
+
 const CarFfeineMapListener = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
   const queryClient = useQueryClient();
@@ -59,8 +98,11 @@ const CarFfeineMapListener = () => {
     } else {
       warningModalActions.closeModal();
     }
+    const displayPosition = getDisplayPosition(googleMap);
+    if (!isCachedRegion(displayPosition)) {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_MARKERS] });
+    }
 
-    queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_MARKERS] });
     setIsPopupMenuOpen(false);
 
     setLocalStorage<google.maps.LatLngLiteral>(LOCAL_KEY_LAST_POSITION, {
