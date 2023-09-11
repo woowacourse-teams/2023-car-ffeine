@@ -17,6 +17,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ForeignKey;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
@@ -29,6 +30,7 @@ import java.time.DayOfWeek;
 @AllArgsConstructor
 @Entity
 @EqualsAndHashCode(of = {"id"}, callSuper = false)
+@IdClass(PeriodicCongestionPK.class)
 @Table(name = "periodic_congestion", indexes = @Index(name = "idx_station_id_and_day_of_week", columnList = "station_id, day_of_week"))
 public class PeriodicCongestion extends BaseEntity {
 
@@ -38,6 +40,7 @@ public class PeriodicCongestion extends BaseEntity {
     @Id
     private String id;
 
+    @Id
     @Enumerated(EnumType.STRING)
     @Column(name = "day_of_week", nullable = false, length = 10)
     private DayOfWeek dayOfWeek;
