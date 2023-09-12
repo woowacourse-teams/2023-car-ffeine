@@ -1,11 +1,11 @@
 import type {
-  LONG_ENGLISH_DAYS_OF_WEEK,
+  ENGLISH_DAYS_OF_WEEK,
   SHORT_ENGLISH_DAYS_OF_WEEK,
   KOREAN_DAYS_OF_WEEK,
 } from '@constants/congestion';
 
 export type ShortEnglishDaysOfWeek = (typeof SHORT_ENGLISH_DAYS_OF_WEEK)[number];
-export type LongEnglishDaysOfWeek = (typeof LONG_ENGLISH_DAYS_OF_WEEK)[number];
+export type LongEnglishDaysOfWeek = (typeof ENGLISH_DAYS_OF_WEEK)[number];
 export type KoreanDaysOfWeek = (typeof KOREAN_DAYS_OF_WEEK)[number];
 
 export interface Congestion {

@@ -10,7 +10,7 @@ export const SHORT_ENGLISH_DAYS_OF_WEEK = [
   'SAT',
   'SUN',
 ] as const;
-export const LONG_ENGLISH_DAYS_OF_WEEK = [
+export const ENGLISH_DAYS_OF_WEEK = [
   'monday',
   'tuesday',
   'wednesday',
@@ -25,7 +25,7 @@ export const ENGLISH_DAYS_TO_KOREAN_DAYS = getTypedObjectFromEntries(
 );
 export const ENGLISH_DAYS_OF_WEEK_SHORT_TO_LONG = getTypedObjectFromEntries(
   SHORT_ENGLISH_DAYS_OF_WEEK,
-  LONG_ENGLISH_DAYS_OF_WEEK
+  ENGLISH_DAYS_OF_WEEK
 );
 
 /**
