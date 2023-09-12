@@ -7,7 +7,7 @@ import type { Congestion } from '@type';
 import type { GraphProps } from '.';
 
 interface BarContainerProps extends GraphProps {
-  renderBar: (hour: number, ratio: number) => ReactNode;
+  renderBar: (hour: string, ratio: number) => ReactNode;
   statistics: Congestion[];
 }
 
@@ -20,7 +20,7 @@ const BarContainer = ({ align, statistics, renderBar }: BarContainerProps) => {
       width={align === 'column' && '100%'}
       height={align === 'row' && '100%'}
     >
-      {statistics.map(({ hour, ratio }) => renderBar(hour, ratio))}
+      {statistics.map(({ hour, ratio }) => renderBar(`${hour + 1}`.padStart(2, '0'), ratio))}
     </FlexBox>
   );
 };
