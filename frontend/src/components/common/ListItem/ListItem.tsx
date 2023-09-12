@@ -3,7 +3,10 @@ import styled from 'styled-components';
 
 import type { HTMLAttributes, ReactNode } from 'react';
 
-export interface ListItemProps extends HTMLAttributes<HTMLLIElement> {
+import type { SpacingProps } from '@common/systems';
+import { spacing } from '@common/systems';
+
+export interface ListItemProps extends HTMLAttributes<HTMLLIElement>, SpacingProps {
   children: ReactNode;
   divider?: boolean;
   NoLastDivider?: boolean;
@@ -23,6 +26,9 @@ const ListItem = ({ children, tag, ...props }: ListItemProps) => {
 
 const ListItemWrapper = styled.li<ListItemProps>`
   padding: 1rem 2rem;
+
+  ${spacing}
+
   ${({ divider }) => divider && `border-bottom: 0.0625rem solid #ccc;`}
 
   &:last-child {

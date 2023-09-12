@@ -25,7 +25,6 @@ type VariantType = (typeof variantList)[number];
 interface TextProps extends HTMLAttributes<HTMLElement>, SpacingProps {
   tag?: string;
   variant?: VariantType;
-  mb?: number;
   align?: 'center' | 'left' | 'right';
   color?: string;
   lineClamp?: number;
