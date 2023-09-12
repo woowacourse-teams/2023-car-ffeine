@@ -1,4 +1,4 @@
-import CongestionStatisticsSkeleton from '@ui/StationDetailsWindow/congestion/CongestionStatisticsSkeleton';
+import CongestionBarContainerSkeleton from '@ui/StationDetailsWindow/congestion/CongestionBarContainerSkeleton';
 import type { GraphProps } from '@ui/compound/Graph';
 import Graph from '@ui/compound/Graph';
 import type { DayMenusProps } from '@ui/compound/Graph/DayMenus';
@@ -31,7 +31,7 @@ const StatisticsGraph = ({
         )}
       />
       {isLoading ? (
-        <CongestionStatisticsSkeleton />
+        <CongestionBarContainerSkeleton />
       ) : (
         <Graph.BarContainer
           align={align}

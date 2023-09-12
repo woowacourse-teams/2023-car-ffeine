@@ -5,7 +5,7 @@ import FlexBox from '@common/FlexBox';
 import Skeleton from '@common/Skeleton';
 import Text from '@common/Text';
 
-const CongestionStatisticsSkeleton = () => {
+const CongestionBarContainerSkeleton = () => {
   return (
     <FlexBox direction="column" gap={4}>
       <FlexBox direction="column">
@@ -26,4 +26,4 @@ const graphCss = css`
   align-items: center;
 `;
 
-export default CongestionStatisticsSkeleton;
+export default CongestionBarContainerSkeleton;
