@@ -16,6 +16,8 @@ import Text from '@common/Text';
 import ServerStationFiltersSkeleton from '@ui/ServerStationFilters/ServerStationFiltersSkeleton';
 import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
+import { getHoverColor } from '@style';
+
 import { EMPTY_MEMBER_TOKEN, MOBILE_BREAKPOINT, NAVIGATOR_PANEL_WIDTH } from '@constants';
 import { CONNECTOR_TYPES, COMPANIES } from '@constants/chargers';
 
@@ -97,7 +99,7 @@ const ServerStationFilters = () => {
         getIsFilterSelected={getIsCompanySelected}
       />
       <Button
-        background="#0064ff"
+        background={getHoverColor()}
         css={buttonCss}
         noRadius="all"
         onClick={handleApplySelectedFilters}

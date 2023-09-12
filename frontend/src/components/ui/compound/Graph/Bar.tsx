@@ -40,7 +40,7 @@ const getColorByRatio = (ratio: number) => {
     return getHoverColor('secondary');
   }
 
-  return '#0064ff';
+  return '#2a6cd8';
 };
 
 const ProgressBar = styled.progress<{ color: string }>`
