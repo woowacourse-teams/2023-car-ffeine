@@ -19,7 +19,7 @@ import {
 
 import { DELIMITER } from '@constants';
 import { COMPANIES } from '@constants/chargers';
-import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
+import { DELTA_FACTOR, INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
 import { QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
 import { SESSION_KEY_LAST_REQUEST_POSITION } from '@constants/storageKeys';
 
@@ -42,8 +42,8 @@ export const fetchStationMarkers = async () => {
 
   const requestPositionParams: DisplayPosition = {
     ...displayPosition,
-    latitudeDelta: displayPosition.latitudeDelta * 2,
-    longitudeDelta: displayPosition.longitudeDelta * 2,
+    latitudeDelta: displayPosition.latitudeDelta * DELTA_FACTOR,
+    longitudeDelta: displayPosition.longitudeDelta * DELTA_FACTOR,
   };
 
   if (requestPositionParams.zoom < INITIAL_ZOOM_SIZE) {

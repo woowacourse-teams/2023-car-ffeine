@@ -3,3 +3,4 @@ export const DEFAULT_CENTER = {
   lng: 127.05081496722168,
 } as const;
 export const INITIAL_ZOOM_SIZE = 16;
+export const DELTA_FACTOR = 2;
