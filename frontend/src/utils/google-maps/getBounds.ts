@@ -1,6 +1,7 @@
 import type { DisplayPosition } from '@type';
+import type { Bounds } from '@type/map';
 
-export const getBounds = (displayPosition: DisplayPosition) => {
+export const getBounds = (displayPosition: DisplayPosition): Bounds => {
   return {
     northEast: {
       latitude: displayPosition.latitude + displayPosition.latitudeDelta,

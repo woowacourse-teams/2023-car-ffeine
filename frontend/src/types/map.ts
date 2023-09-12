@@ -5,3 +5,14 @@ export interface DisplayPosition {
   latitudeDelta: number;
   zoom: number;
 }
+
+export interface Bounds {
+  northEast: {
+    latitude: number;
+    longitude: number;
+  };
+  southWest: {
+    latitude: number;
+    longitude: number;
+  };
+}

@@ -3,19 +3,11 @@ import { getSessionStorage } from '@utils/storage';
 import { SESSION_KEY_LAST_REQUEST_POSITION } from '@constants/storageKeys';
 
 import type { DisplayPosition } from '@type';
+import type { Bounds } from '@type/map';
 
 import { getBounds } from './getBounds';
 
-export const isCachedRegion = (displayPosition: DisplayPosition) => {
-  const cachedDisplayPosition = getSessionStorage<DisplayPosition | null>(
-    SESSION_KEY_LAST_REQUEST_POSITION,
-    null
-  );
-  if (cachedDisplayPosition === null) {
-    return false;
-  }
-  const cachedBounds = getBounds(cachedDisplayPosition);
-  const bounds = getBounds(displayPosition);
+const isBoundsWithinCachedBounds = (cachedBounds: Bounds, bounds: Bounds) => {
   if (cachedBounds.northEast.latitude < bounds.northEast.latitude) {
     return false;
   }
@@ -29,4 +21,16 @@ export const isCachedRegion = (displayPosition: DisplayPosition) => {
     return false;
   }
   return true;
+};
+export const isCachedRegion = (displayPosition: DisplayPosition) => {
+  const cachedDisplayPosition = getSessionStorage<DisplayPosition | null>(
+    SESSION_KEY_LAST_REQUEST_POSITION,
+    null
+  );
+  if (cachedDisplayPosition === null) {
+    return false;
+  }
+  const cachedBounds = getBounds(cachedDisplayPosition);
+  const bounds = getBounds(displayPosition);
+  return isBoundsWithinCachedBounds(cachedBounds, bounds);
 };
