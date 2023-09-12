@@ -297,7 +297,6 @@ public class StationQueryServiceTest extends IntegrationTest {
     void 총_15개의_충전소_중_관련_검색어에_맞는_충전소가_검색된다() {
         // given
         List<StationSearchResponse> stations = new ArrayList<>();
-        List<StationSearchResponse> expected = new ArrayList<>();
         for (int i = 0; i < 15; i++) {
             String stationId = "stationId" + String.format("%02d", i);
             String stationName = "stationName" + String.format("%02d", i);
@@ -330,11 +329,12 @@ public class StationQueryServiceTest extends IntegrationTest {
                     station.getLatitude().getValue(),
                     station.getLongitude().getValue()
             ));
-            expected = stations.stream().
-                    filter(it -> it.stationName().contains("stationName1"))
-                    .limit(5).toList();
             stationRepository.save(station);
         }
+
+        List<StationSearchResponse> expected = stations.stream().
+                filter(it -> it.stationName().contains("stationName1"))
+                .limit(5).toList();
 
         // when
         StationsSearchResponse result = stationQueryService.searchStations("stationName1", Set.of("stationId", "stationName", "address", "latitude", "longitude"), 1, 12);
@@ -348,7 +348,6 @@ public class StationQueryServiceTest extends IntegrationTest {
     void 총_15개의_충전소_중_관련_검색어에_맞는_충전소가_최대_12개_검색된다() {
         // given
         List<StationSearchResponse> stations = new ArrayList<>();
-        List<StationSearchResponse> expected = new ArrayList<>();
         for (int i = 0; i < 15; i++) {
             String stationId = "stationId" + String.format("%02d", i);
             Station station = Station.builder()
@@ -380,11 +379,12 @@ public class StationQueryServiceTest extends IntegrationTest {
                     station.getLatitude().getValue(),
                     station.getLongitude().getValue()
             ));
-            expected = stations.stream()
-                    .filter(it -> it.stationName().contains("충전소"))
-                    .limit(12).toList();
             stationRepository.save(station);
         }
+
+        List<StationSearchResponse> expected = stations.stream()
+                .filter(it -> it.stationName().contains("충전소"))
+                .limit(12).toList();
 
         // when
         StationsSearchResponse result = stationQueryService.searchStations("충전소", Set.of("stationId", "stationName", "address", "latitude", "longitude"), 1, 12);
