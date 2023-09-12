@@ -22,16 +22,22 @@ export interface ChargerListProps {
 
 const ChargerList = ({ chargers, stationId, reportCount }: ChargerListProps) => {
   const CHARGER_SIZE = 6;
-  const [page, setPage] = useState(1);
+  const INITIAL_PAGE = 1;
+
+  const [page, setPage] = useState(INITIAL_PAGE);
   const totalChargersSize = chargers.length;
   const availableChargersSize = chargers.filter((charger) => charger.state === 'STANDBY').length;
   const loadedChargers = chargers.slice(0, page * CHARGER_SIZE);
   const loadedChargersSize = page * CHARGER_SIZE;
   const isReported = reportCount > 0;
-  const isShowMoreButton = totalChargersSize - loadedChargersSize > 0;
+  const shouldShowMoreButton = totalChargersSize - loadedChargersSize > 0;
 
   const handleShowMoreChargers = () => {
     setPage((prev) => prev + 1);
+  };
+
+  const handleResetChargesPage = () => {
+    setPage(INITIAL_PAGE);
   };
 
   return (
@@ -57,7 +63,11 @@ const ChargerList = ({ chargers, stationId, reportCount }: ChargerListProps) => 
           <ChargerCard key={index} charger={charger} />
         ))}
       </FlexBox>
-      {isShowMoreButton && <ShowHideButton onClick={handleShowMoreChargers} />}
+      {shouldShowMoreButton ? (
+        <ShowHideButton onClick={handleShowMoreChargers} />
+      ) : (
+        page !== INITIAL_PAGE && <ShowHideButton name="닫기" onClick={handleResetChargesPage} />
+      )}
     </Box>
   );
 };
