@@ -36,9 +36,6 @@ const CircleDaySelectButton = ({
     }
   };
 
-  console.log(dayOfWeek);
-  ENGLISH_DAYS_OF_WEEK_LONG_TO_SHORT[dayOfWeek];
-
   return (
     <ButtonNext
       size="sm"

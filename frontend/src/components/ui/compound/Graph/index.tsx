@@ -1,9 +1,6 @@
 import type { PropsWithChildren } from 'react';
-import { useState, createContext } from 'react';
 
 import FlexBox from '@common/FlexBox';
-
-import type { Congestion, EnglishDaysType } from '@type/congestion';
 
 import Bar from './Bar';
 import BarContainer from './BarContainer';
@@ -12,34 +9,13 @@ import DayMenus from './DayMenus';
 
 export interface GraphProps {
   align: 'row' | 'column';
-  statistics: Congestion[];
 }
 
-interface GraphContextType {
-  congestionStatistics: Congestion[];
-  // setCongestionStatistics: (congestionStatistics: Record<EnglishDaysType, Congestion[]>) => void;
-  selectedDay: EnglishDaysType;
-  setSelectedDay: (selectedDays: EnglishDaysType) => void;
-}
-
-export const GraphContext = createContext<GraphContextType>(null);
-
-const Graph = ({ statistics, children }: PropsWithChildren<GraphProps>) => {
-  // const [congestionStatistics, setCongestionStatistics] = useState(statistics);
-  const [selectedDay, setSelectedDay] = useState<EnglishDaysType>('MON');
-
+const Graph = ({ children }: PropsWithChildren<GraphProps>) => {
   return (
-    <GraphContext.Provider
-      value={{
-        /*congestionStatistics, setCongestionStatistics*/ congestionStatistics: statistics,
-        selectedDay,
-        setSelectedDay,
-      }}
-    >
-      <FlexBox direction="column" gap={3} width="100%">
-        {children}
-      </FlexBox>
-    </GraphContext.Provider>
+    <FlexBox direction="column" gap={3} width="100%">
+      {children}
+    </FlexBox>
   );
 };
 

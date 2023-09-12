@@ -12,8 +12,6 @@ import type { CHARGING_SPEED } from '@constants/chargers';
 import { ENGLISH_DAYS_OF_WEEK_SHORT_NAME } from '@constants/congestion';
 import type { ENGLISH_DAYS_OF_WEEK_FULL_NAME } from '@constants/congestion';
 
-import CongestionStatisticsSkeleton from './CongestionStatisticsSkeleton';
-
 interface Props {
   stationId: string;
   setIsStatisticsOpen: (pram: boolean) => void;
@@ -28,19 +26,16 @@ const Statistics = ({ stationId, setIsStatisticsOpen, dayOfWeek, onChangeDayOfWe
   );
   const [chargingSpeed, setChargingSpeed] = useState<keyof typeof CHARGING_SPEED>('standard');
 
-  if (isLoading) {
-    return <CongestionStatisticsSkeleton />;
-  }
-
   return (
     <>
       <FlexBox direction="column" gap={4} mb={3.5}>
         <StatisticsGraph
-          statistics={congestionStatistics.congestion[chargingSpeed]}
+          statistics={congestionStatistics?.congestion[chargingSpeed]}
           menus={[...ENGLISH_DAYS_OF_WEEK_SHORT_NAME]}
           align="column"
           dayOfWeek={dayOfWeek}
           onChangeDayOfWeek={onChangeDayOfWeek}
+          isLoading={isLoading}
         />
         <FlexBox nowrap>
           <ButtonNext

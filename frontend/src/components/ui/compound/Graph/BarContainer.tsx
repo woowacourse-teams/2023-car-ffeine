@@ -2,10 +2,13 @@ import type { ReactNode } from 'react';
 
 import FlexBox from '@common/FlexBox';
 
+import type { Congestion } from '@type';
+
 import { type GraphProps } from '.';
 
 interface BarContainerProps extends GraphProps {
   renderBar: (hour: number, ratio: number) => ReactNode;
+  statistics: Congestion[];
 }
 
 const BarContainer = ({ align, statistics, renderBar }: BarContainerProps) => {
