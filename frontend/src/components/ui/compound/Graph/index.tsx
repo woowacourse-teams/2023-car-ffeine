@@ -12,12 +12,12 @@ import DayMenus from './DayMenus';
 
 export interface GraphProps {
   align: 'row' | 'column';
-  statistics: Record<EnglishDaysType, Congestion[]>;
+  statistics: Congestion[];
 }
 
 interface GraphContextType {
-  congestionStatistics: Record<EnglishDaysType, Congestion[]>;
-  setCongestionStatistics: (congestionStatistics: Record<EnglishDaysType, Congestion[]>) => void;
+  congestionStatistics: Congestion[];
+  // setCongestionStatistics: (congestionStatistics: Record<EnglishDaysType, Congestion[]>) => void;
   selectedDay: EnglishDaysType;
   setSelectedDay: (selectedDays: EnglishDaysType) => void;
 }
@@ -25,12 +25,16 @@ interface GraphContextType {
 export const GraphContext = createContext<GraphContextType>(null);
 
 const Graph = ({ statistics, children }: PropsWithChildren<GraphProps>) => {
-  const [congestionStatistics, setCongestionStatistics] = useState(statistics);
+  // const [congestionStatistics, setCongestionStatistics] = useState(statistics);
   const [selectedDay, setSelectedDay] = useState<EnglishDaysType>('MON');
 
   return (
     <GraphContext.Provider
-      value={{ congestionStatistics, setCongestionStatistics, selectedDay, setSelectedDay }}
+      value={{
+        /*congestionStatistics, setCongestionStatistics*/ congestionStatistics: statistics,
+        selectedDay,
+        setSelectedDay,
+      }}
     >
       <FlexBox direction="column" gap={3} width="100%">
         {children}

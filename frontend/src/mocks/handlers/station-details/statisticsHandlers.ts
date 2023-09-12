@@ -7,7 +7,7 @@ import {
 } from '@constants/congestion';
 import { DEVELOP_SERVER_URL } from '@constants/server';
 
-const ENGLISH_DAYS_OF_WEEK_LONG_TO_SHORT = Object.fromEntries(
+export const ENGLISH_DAYS_OF_WEEK_LONG_TO_SHORT = Object.fromEntries(
   ENGLISH_DAYS_OF_WEEK_FULL_NAME.map((day, index) => [day, ENGLISH_DAYS_OF_WEEK_SHORT_NAME[index]])
 );
 

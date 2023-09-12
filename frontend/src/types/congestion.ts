@@ -15,3 +15,11 @@ export interface CongestionStatistics {
     quick?: Record<EnglishDaysType, Congestion[]>;
   };
 }
+
+export interface CongestionStatisticsFoo {
+  stationId: string;
+  congestion: {
+    standard: Congestion[];
+    quick: Congestion[];
+  };
+}

@@ -6,6 +6,8 @@ import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 
+import type { ENGLISH_DAYS_OF_WEEK_FULL_NAME } from '@constants/congestion';
+
 import Statistics from './Statistics';
 import Title from './Title';
 
@@ -15,12 +17,19 @@ interface CongestionStatisticsProps {
 
 const CongestionStatistics = ({ stationId }: CongestionStatisticsProps) => {
   const [isStatisticsOpen, setIsStatisticsOpen] = useState(false);
+  const [dayOfWeek, setDayOfWeek] =
+    useState<(typeof ENGLISH_DAYS_OF_WEEK_FULL_NAME)[number]>('monday');
 
   return (
     <Box my={5}>
       <Title />
       {isStatisticsOpen ? (
-        <Statistics stationId={stationId} setIsStatisticsOpen={setIsStatisticsOpen} />
+        <Statistics
+          stationId={stationId}
+          setIsStatisticsOpen={setIsStatisticsOpen}
+          dayOfWeek={dayOfWeek}
+          onChangeDayOfWeek={setDayOfWeek}
+        />
       ) : (
         <ButtonNext onClick={() => setIsStatisticsOpen(true)} fullWidth size="sm" p={2}>
           <FlexBox justifyContent="center" alignItems="center" columnGap={2}>

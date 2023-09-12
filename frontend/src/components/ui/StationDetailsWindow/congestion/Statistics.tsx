@@ -10,16 +10,22 @@ import StatisticsGraph from '@ui/StatisticsGraph';
 
 import type { CHARGING_SPEED } from '@constants/chargers';
 import { ENGLISH_DAYS_OF_WEEK_SHORT_NAME } from '@constants/congestion';
+import type { ENGLISH_DAYS_OF_WEEK_FULL_NAME } from '@constants/congestion';
 
 import CongestionStatisticsSkeleton from './CongestionStatisticsSkeleton';
 
 interface Props {
   stationId: string;
   setIsStatisticsOpen: (pram: boolean) => void;
+  dayOfWeek: (typeof ENGLISH_DAYS_OF_WEEK_FULL_NAME)[number];
+  onChangeDayOfWeek: (dayOfWeek: (typeof ENGLISH_DAYS_OF_WEEK_FULL_NAME)[number]) => void;
 }
 
-const Statistics = ({ stationId, setIsStatisticsOpen }: Props) => {
-  const { data: congestionStatistics, isLoading } = useStationCongestionStatistics(stationId);
+const Statistics = ({ stationId, setIsStatisticsOpen, dayOfWeek, onChangeDayOfWeek }: Props) => {
+  const { data: congestionStatistics, isLoading } = useStationCongestionStatistics(
+    stationId,
+    dayOfWeek
+  );
   const [chargingSpeed, setChargingSpeed] = useState<keyof typeof CHARGING_SPEED>('standard');
 
   if (isLoading) {
@@ -33,6 +39,8 @@ const Statistics = ({ stationId, setIsStatisticsOpen }: Props) => {
           statistics={congestionStatistics.congestion[chargingSpeed]}
           menus={[...ENGLISH_DAYS_OF_WEEK_SHORT_NAME]}
           align="column"
+          dayOfWeek={dayOfWeek}
+          onChangeDayOfWeek={onChangeDayOfWeek}
         />
         <FlexBox nowrap>
           <ButtonNext
