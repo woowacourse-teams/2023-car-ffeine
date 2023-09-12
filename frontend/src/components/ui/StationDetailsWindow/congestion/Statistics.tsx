@@ -9,7 +9,7 @@ import ShowHideButton from '@ui/ShowHideButton';
 import StatisticsGraph from '@ui/StatisticsGraph';
 
 import type { CHARGING_SPEED } from '@constants/chargers';
-import { ENGLISH_DAYS } from '@constants/congestion';
+import { ENGLISH_DAYS_OF_WEEK_SHORT_NAME } from '@constants/congestion';
 
 import CongestionStatisticsSkeleton from './CongestionStatisticsSkeleton';
 
@@ -31,7 +31,7 @@ const Statistics = ({ stationId, setIsStatisticsOpen }: Props) => {
       <FlexBox direction="column" gap={4} mb={3.5}>
         <StatisticsGraph
           statistics={congestionStatistics.congestion[chargingSpeed]}
-          menus={[...ENGLISH_DAYS]}
+          menus={[...ENGLISH_DAYS_OF_WEEK_SHORT_NAME]}
           align="column"
         />
         <FlexBox nowrap>
