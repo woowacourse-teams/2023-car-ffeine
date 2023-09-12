@@ -190,7 +190,7 @@ class StationControllerTest extends MockBeanInjection {
 
     @Test
     void 충전소를_검색한다() throws Exception {
-        when(stationQueryService.searchStations(any(), any(), anyInt()))
+        when(stationQueryService.searchStations(any(), any(), anyInt(), anyInt()))
                 .thenReturn(new StationsSearchResponse(
                         2L,
                         List.of(
@@ -211,7 +211,7 @@ class StationControllerTest extends MockBeanInjection {
                         )
                 ));
 
-        mockMvc.perform(RestDocumentationRequestBuilders.get("/stations/search?q=선릉&scope=stationId&scope=stationName&scope=address&scope=latitude&scope=longitude&limit=12"))
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/stations/search?q=선릉&scope=stationId&scope=stationName&scope=address&scope=latitude&scope=longitude&page=1&limit=12"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalCount").value(2))
                 .andExpect(jsonPath("$.stations", hasSize(2)))
@@ -219,6 +219,7 @@ class StationControllerTest extends MockBeanInjection {
                         requestParameters(
                                 parameterWithName("q").description("검색어"),
                                 parameterWithName("scope").description("검색 범위"),
+                                parameterWithName("page").description("페이지 번호"),
                                 parameterWithName("limit").description("검색 결과 개수")
                         ),
                         responseFields(
