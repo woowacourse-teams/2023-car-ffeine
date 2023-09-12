@@ -63,3 +63,15 @@ include::{snippets}/station-controller-test/stationSummary/request-parameters.ad
 
 include::{snippets}/station-controller-test/stationSummary/http-response.adoc[]
 include::{snippets}/station-controller-test/stationSummary/response-fields.adoc[]
+
+== 검색어를 입력하면 관련 충전소를 조회한다 (/stations/search)
+
+=== Request
+
+include::{snippets}/station-controller-test/searchStations/http-request.adoc[]
+include::{snippets}/station-controller-test/searchStations/request-parameters.adoc[]
+
+=== Response
+
+include::{snippets}/station-controller-test/searchStations/http-response.adoc[]
+include::{snippets}/station-controller-test/searchStations/response-fields.adoc[]
