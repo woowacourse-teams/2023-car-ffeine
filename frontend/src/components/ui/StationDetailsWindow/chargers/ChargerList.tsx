@@ -1,13 +1,13 @@
-import { ChevronDownIcon } from '@heroicons/react/24/solid';
 import { css } from 'styled-components';
 
 import { useState } from 'react';
 
 import Alert from '@common/Alert';
-import Button from '@common/Button';
+import Box from '@common/Box';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
+import ShowHideButton from '@ui/ShowHideButton';
 import ChargerCard from '@ui/StationDetailsWindow/chargers/ChargerCard';
 
 import type { Charger } from '@type';
@@ -35,7 +35,7 @@ const ChargerList = ({ chargers, stationId, reportCount }: ChargerListProps) => 
   };
 
   return (
-    <>
+    <Box mb={12}>
       <Text tag="h3" fontSize={1.8} weight="bold" mt={8} mb={1.5}>
         충전기
       </Text>
@@ -57,15 +57,8 @@ const ChargerList = ({ chargers, stationId, reportCount }: ChargerListProps) => 
           <ChargerCard key={index} charger={charger} />
         ))}
       </FlexBox>
-      {isShowMoreButton && (
-        <Button css={MoreButtonContainer} onClick={handleShowMoreChargers}>
-          <FlexBox justifyContent="center">
-            <Text>더보기</Text>
-            <ChevronDownIcon width={20} />
-          </FlexBox>
-        </Button>
-      )}
-    </>
+      {isShowMoreButton && <ShowHideButton onClick={handleShowMoreChargers} />}
+    </Box>
   );
 };
 
@@ -73,14 +66,6 @@ const alertCss = css`
   padding: 1rem 0 1.2rem;
   text-align: center;
   margin-top: 1rem;
-`;
-
-const MoreButtonContainer = css`
-  width: 100%;
-
-  & svg {
-    padding-top: 2px;
-  }
 `;
 
 export default ChargerList;
