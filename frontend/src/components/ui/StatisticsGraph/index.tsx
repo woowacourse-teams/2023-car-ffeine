@@ -5,7 +5,7 @@ import type { DayMenusProps } from '@ui/compound/Graph/DayMenus';
 
 import type { Congestion, EnglishDaysOfWeekLongName } from '@type';
 
-interface StatisticsGraphProps extends GraphProps, Omit<DayMenusProps, 'renderMenuSelectButton'> {
+interface Props extends GraphProps, Omit<DayMenusProps, 'renderMenuSelectButton'> {
   dayOfWeek: EnglishDaysOfWeekLongName;
   onChangeDayOfWeek: (dayOfWeek: EnglishDaysOfWeekLongName) => void;
   isLoading: boolean;
@@ -19,7 +19,7 @@ const StatisticsGraph = ({
   onChangeDayOfWeek,
   dayOfWeek,
   isLoading,
-}: StatisticsGraphProps) => {
+}: Props) => {
   return (
     <Graph align={align}>
       <Graph.DayMenus
