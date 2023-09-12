@@ -9,30 +9,34 @@ import ShowHideButton from '@ui/ShowHideButton';
 import StatisticsGraph from '@ui/StatisticsGraph';
 
 import type { CHARGING_SPEED } from '@constants/chargers';
-import { ENGLISH_DAYS } from '@constants/congestion';
+import { SHORT_ENGLISH_DAYS_OF_WEEK } from '@constants/congestion';
 
-import CongestionStatisticsSkeleton from './CongestionStatisticsSkeleton';
+import type { LongEnglishDaysOfWeek } from '@type';
 
 interface Props {
   stationId: string;
   setIsStatisticsOpen: (pram: boolean) => void;
+  dayOfWeek: LongEnglishDaysOfWeek;
+  onChangeDayOfWeek: (dayOfWeek: LongEnglishDaysOfWeek) => void;
 }
 
-const Statistics = ({ stationId, setIsStatisticsOpen }: Props) => {
-  const { data: congestionStatistics, isLoading } = useStationCongestionStatistics(stationId);
+const Statistics = ({ stationId, setIsStatisticsOpen, dayOfWeek, onChangeDayOfWeek }: Props) => {
+  const { data: congestionStatistics, isLoading } = useStationCongestionStatistics(
+    stationId,
+    dayOfWeek
+  );
   const [chargingSpeed, setChargingSpeed] = useState<keyof typeof CHARGING_SPEED>('standard');
-
-  if (isLoading) {
-    return <CongestionStatisticsSkeleton />;
-  }
 
   return (
     <>
       <FlexBox direction="column" gap={4} mb={3.5}>
         <StatisticsGraph
-          statistics={congestionStatistics.congestion[chargingSpeed]}
-          menus={[...ENGLISH_DAYS]}
+          statistics={congestionStatistics?.congestion[chargingSpeed]}
+          menus={[...SHORT_ENGLISH_DAYS_OF_WEEK]}
           align="column"
+          dayOfWeek={dayOfWeek}
+          onChangeDayOfWeek={onChangeDayOfWeek}
+          isLoading={isLoading}
         />
         <FlexBox nowrap>
           <ButtonNext

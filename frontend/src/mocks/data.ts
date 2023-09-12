@@ -3,12 +3,12 @@ import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 import { generateRandomData, generateRandomToken, getRandomTime } from '@utils/randomDataGenerator';
 
 import { CONNECTOR_TYPES, COMPANIES, CAPACITIES } from '@constants/chargers';
-import { ENGLISH_DAYS } from '@constants/congestion';
+import { SHORT_ENGLISH_DAYS_OF_WEEK } from '@constants/congestion';
 import { MAX_SEARCH_RESULTS } from '@constants/stationSearch';
 
 import type { Car } from '@type/cars';
 import type { Capacity, ChargerDetails } from '@type/chargers';
-import type { Congestion, CongestionStatistics, EnglishDaysType } from '@type/congestion';
+import type { Congestion, ShortEnglishDaysOfWeek } from '@type/congestion';
 import type { CapaCityBigDecimal, ConnectorTypeKey } from '@type/serverStationFilter';
 import type { CompanyName, Reply, Review, Station, StationFilters } from '@type/stations';
 
@@ -99,7 +99,15 @@ export const getSearchedStations = (searchWord: string) => {
     .slice(0, MAX_SEARCH_RESULTS);
 };
 
-export const getCongestionStatistics = (stationId: string): CongestionStatistics => {
+interface CongestionStatisticsMockData {
+  stationId: string;
+  congestion: {
+    standard: Record<ShortEnglishDaysOfWeek, Congestion[]>;
+    quick: Record<ShortEnglishDaysOfWeek, Congestion[]>;
+  };
+}
+
+export const getCongestionStatistics = (stationId: string): CongestionStatisticsMockData => {
   return {
     stationId,
     congestion: {
@@ -109,10 +117,10 @@ export const getCongestionStatistics = (stationId: string): CongestionStatistics
   };
 };
 
-const getCongestions = (): Record<EnglishDaysType, Congestion[]> => {
+const getCongestions = (): Record<ShortEnglishDaysOfWeek, Congestion[]> => {
   return getTypedObjectFromEntries(
-    ENGLISH_DAYS,
-    ENGLISH_DAYS.map(() =>
+    SHORT_ENGLISH_DAYS_OF_WEEK,
+    SHORT_ENGLISH_DAYS_OF_WEEK.map(() =>
       Array.from({ length: 24 }, (_, index) => {
         return {
           hour: index,

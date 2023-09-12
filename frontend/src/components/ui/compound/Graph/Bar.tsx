@@ -9,7 +9,7 @@ import { NO_RATIO } from '@constants/congestion';
 
 interface BarProps {
   ratio: number;
-  hour: number;
+  hour: string;
   align: 'row' | 'column';
 }
 

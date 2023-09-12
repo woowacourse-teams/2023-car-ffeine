@@ -1,24 +1,44 @@
+import CongestionBarContainerSkeleton from '@ui/StationDetailsWindow/congestion/CongestionBarContainerSkeleton';
 import type { GraphProps } from '@ui/compound/Graph';
 import Graph from '@ui/compound/Graph';
 import type { DayMenusProps } from '@ui/compound/Graph/DayMenus';
 
-interface StatisticsGraphProps extends GraphProps, Omit<DayMenusProps, 'renderMenuSelectButton'> {}
+import type { Congestion, LongEnglishDaysOfWeek } from '@type';
 
-const StatisticsGraph = ({ statistics, align, menus }: StatisticsGraphProps) => {
+interface Props extends GraphProps, Omit<DayMenusProps, 'renderMenuSelectButton'> {
+  dayOfWeek: LongEnglishDaysOfWeek;
+  onChangeDayOfWeek: (dayOfWeek: LongEnglishDaysOfWeek) => void;
+  isLoading: boolean;
+  statistics: Congestion[];
+}
+
+const StatisticsGraph = ({
+  statistics,
+  align,
+  menus,
+  onChangeDayOfWeek,
+  dayOfWeek,
+  isLoading,
+}: Props) => {
   return (
-    <Graph statistics={statistics} align={align}>
+    <Graph align={align}>
       <Graph.DayMenus
-        statistics={statistics}
         menus={menus}
         renderMenuSelectButton={(menu: string) => (
-          <Graph.CircleDaySelectButton>{menu}</Graph.CircleDaySelectButton>
+          <Graph.CircleDaySelectButton dayOfWeek={dayOfWeek} onChangeDayOfWeek={onChangeDayOfWeek}>
+            {menu}
+          </Graph.CircleDaySelectButton>
         )}
       />
-      <Graph.BarContainer
-        align={align}
-        statistics={statistics}
-        renderBar={(hour, ratio) => <Graph.Bar hour={hour} ratio={ratio} align={align} />}
-      />
+      {isLoading ? (
+        <CongestionBarContainerSkeleton />
+      ) : (
+        <Graph.BarContainer
+          align={align}
+          statistics={statistics}
+          renderBar={(hour, ratio) => <Graph.Bar hour={hour} ratio={ratio} align={align} />}
+        />
+      )}
     </Graph>
   );
 };

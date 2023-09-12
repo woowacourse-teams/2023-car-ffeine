@@ -1,17 +1,17 @@
 import type { ReactNode } from 'react';
-import { useContext } from 'react';
 
 import FlexBox from '@common/FlexBox';
 
-import { GraphContext, type GraphProps } from '.';
+import type { Congestion } from '@type';
+
+import type { GraphProps } from '.';
 
 interface BarContainerProps extends GraphProps {
-  renderBar: (hour: number, ratio: number) => ReactNode;
+  renderBar: (hour: string, ratio: number) => ReactNode;
+  statistics: Congestion[];
 }
 
 const BarContainer = ({ align, statistics, renderBar }: BarContainerProps) => {
-  const { selectedDay } = useContext(GraphContext);
-
   return (
     <FlexBox
       direction={align}
@@ -20,7 +20,7 @@ const BarContainer = ({ align, statistics, renderBar }: BarContainerProps) => {
       width={align === 'column' && '100%'}
       height={align === 'row' && '100%'}
     >
-      {statistics[selectedDay].map(({ hour, ratio }) => renderBar(hour, ratio))}
+      {statistics.map(({ hour, ratio }) => renderBar(`${hour + 1}`.padStart(2, '0'), ratio))}
     </FlexBox>
   );
 };

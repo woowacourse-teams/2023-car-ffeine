@@ -1,33 +1,47 @@
+import { ENGLISH_DAYS_OF_WEEK_LONG_TO_SHORT } from '@mocks/handlers/station-details/statisticsHandlers';
 import { css } from 'styled-components';
 
-import { useContext, type PropsWithChildren } from 'react';
+import { type PropsWithChildren } from 'react';
 
 import ButtonNext from '@common/ButtonNext';
 
-import { ENGLISH_DAYS, ENGLISH_DAYS_TO_KOREAN_DAYS } from '@constants/congestion';
+import {
+  SHORT_ENGLISH_DAYS_OF_WEEK,
+  ENGLISH_DAYS_OF_WEEK_SHORT_TO_LONG,
+  ENGLISH_DAYS_TO_KOREAN_DAYS,
+} from '@constants/congestion';
 
-import type { EnglishDaysType } from '@type/congestion';
+import type { LongEnglishDaysOfWeek, ShortEnglishDaysOfWeek } from '@type/congestion';
 
-import { GraphContext } from '.';
+interface DaySelectButtonProps extends PropsWithChildren {
+  dayOfWeek: LongEnglishDaysOfWeek;
+  onChangeDayOfWeek: (dayOfWeek: LongEnglishDaysOfWeek) => void;
+}
 
-const isEnglishDays = (day: string): day is EnglishDaysType => {
-  return ENGLISH_DAYS.includes(day as EnglishDaysType);
+const isEnglishDays = (day: string): day is ShortEnglishDaysOfWeek => {
+  return SHORT_ENGLISH_DAYS_OF_WEEK.includes(day as ShortEnglishDaysOfWeek);
 };
 
-const CircleDaySelectButton = ({ children }: PropsWithChildren) => {
-  const { selectedDay, setSelectedDay } = useContext(GraphContext);
-
+const CircleDaySelectButton = ({
+  children,
+  onChangeDayOfWeek,
+  dayOfWeek,
+}: DaySelectButtonProps) => {
   const handleSelectDay = (day: string) => {
     if (isEnglishDays(day)) {
-      setSelectedDay(day);
+      onChangeDayOfWeek(
+        ENGLISH_DAYS_OF_WEEK_SHORT_TO_LONG[day as (typeof SHORT_ENGLISH_DAYS_OF_WEEK)[number]]
+      );
     }
   };
 
   return (
     <ButtonNext
       size="sm"
-      variant={selectedDay === children ? 'contained' : 'outlined'}
-      css={[buttonCss, selectedDay === children && colorCss]}
+      variant={
+        ENGLISH_DAYS_OF_WEEK_LONG_TO_SHORT[dayOfWeek] === children ? 'contained' : 'outlined'
+      }
+      css={[buttonCss, ENGLISH_DAYS_OF_WEEK_LONG_TO_SHORT[dayOfWeek] === children && colorCss]}
       onClick={() => {
         if (typeof children === 'string') {
           handleSelectDay(children);
