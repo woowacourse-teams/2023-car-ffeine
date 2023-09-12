@@ -5,22 +5,21 @@ import { type PropsWithChildren } from 'react';
 
 import ButtonNext from '@common/ButtonNext';
 
-import type { ENGLISH_DAYS_OF_WEEK_FULL_NAME } from '@constants/congestion';
 import {
   ENGLISH_DAYS_OF_WEEK_SHORT_NAME,
   ENGLISH_DAYS_OF_WEEK_SHORT_TO_LONG,
   ENGLISH_DAYS_TO_KOREAN_DAYS,
 } from '@constants/congestion';
 
-import type { EnglishDaysType } from '@type/congestion';
+import type { EnglishDaysOfWeekLongName, EnglishDaysOfWeekShortName } from '@type/congestion';
 
 interface DaySelectButtonProps extends PropsWithChildren {
-  dayOfWeek: (typeof ENGLISH_DAYS_OF_WEEK_FULL_NAME)[number];
-  onChangeDayOfWeek: (dayOfWeek: (typeof ENGLISH_DAYS_OF_WEEK_FULL_NAME)[number]) => void;
+  dayOfWeek: EnglishDaysOfWeekLongName;
+  onChangeDayOfWeek: (dayOfWeek: EnglishDaysOfWeekLongName) => void;
 }
 
-const isEnglishDays = (day: string): day is EnglishDaysType => {
-  return ENGLISH_DAYS_OF_WEEK_SHORT_NAME.includes(day as EnglishDaysType);
+const isEnglishDays = (day: string): day is EnglishDaysOfWeekShortName => {
+  return ENGLISH_DAYS_OF_WEEK_SHORT_NAME.includes(day as EnglishDaysOfWeekShortName);
 };
 
 const CircleDaySelectButton = ({

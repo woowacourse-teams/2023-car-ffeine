@@ -8,7 +8,7 @@ export const ENGLISH_DAYS_OF_WEEK_SHORT_NAME = [
   'SAT',
   'SUN',
 ] as const;
-export const ENGLISH_DAYS_OF_WEEK_FULL_NAME = [
+export const ENGLISH_DAYS_OF_WEEK_LONG_NAME = [
   'monday',
   'tuesday',
   'wednesday',
@@ -21,7 +21,7 @@ export const ENGLISH_DAYS_TO_KOREAN_DAYS = Object.fromEntries(
   ENGLISH_DAYS_OF_WEEK_SHORT_NAME.map((day, index) => [day, KOREAN_DAYS_OF_WEEK[index]])
 );
 export const ENGLISH_DAYS_OF_WEEK_SHORT_TO_LONG = Object.fromEntries(
-  ENGLISH_DAYS_OF_WEEK_SHORT_NAME.map((day, index) => [day, ENGLISH_DAYS_OF_WEEK_FULL_NAME[index]])
+  ENGLISH_DAYS_OF_WEEK_SHORT_NAME.map((day, index) => [day, ENGLISH_DAYS_OF_WEEK_LONG_NAME[index]])
 );
 
 /**

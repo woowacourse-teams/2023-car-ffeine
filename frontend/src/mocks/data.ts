@@ -8,7 +8,7 @@ import { MAX_SEARCH_RESULTS } from '@constants/stationSearch';
 
 import type { Car } from '@type/cars';
 import type { Capacity, ChargerDetails } from '@type/chargers';
-import type { Congestion, EnglishDaysType } from '@type/congestion';
+import type { Congestion, EnglishDaysOfWeekShortName } from '@type/congestion';
 import type { CapaCityBigDecimal, ConnectorTypeKey } from '@type/serverStationFilter';
 import type { CompanyName, Reply, Review, Station, StationFilters } from '@type/stations';
 
@@ -102,8 +102,8 @@ export const getSearchedStations = (searchWord: string) => {
 interface CongestionStatisticsMockData {
   stationId: string;
   congestion: {
-    standard: Record<EnglishDaysType, Congestion[]>;
-    quick: Record<EnglishDaysType, Congestion[]>;
+    standard: Record<EnglishDaysOfWeekShortName, Congestion[]>;
+    quick: Record<EnglishDaysOfWeekShortName, Congestion[]>;
   };
 }
 
@@ -117,7 +117,7 @@ export const getCongestionStatistics = (stationId: string): CongestionStatistics
   };
 };
 
-const getCongestions = (): Record<EnglishDaysType, Congestion[]> => {
+const getCongestions = (): Record<EnglishDaysOfWeekShortName, Congestion[]> => {
   return getTypedObjectFromEntries(
     ENGLISH_DAYS_OF_WEEK_SHORT_NAME,
     ENGLISH_DAYS_OF_WEEK_SHORT_NAME.map(() =>

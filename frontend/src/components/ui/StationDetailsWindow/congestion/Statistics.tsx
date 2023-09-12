@@ -10,13 +10,14 @@ import StatisticsGraph from '@ui/StatisticsGraph';
 
 import type { CHARGING_SPEED } from '@constants/chargers';
 import { ENGLISH_DAYS_OF_WEEK_SHORT_NAME } from '@constants/congestion';
-import type { ENGLISH_DAYS_OF_WEEK_FULL_NAME } from '@constants/congestion';
+
+import type { EnglishDaysOfWeekLongName } from '@type';
 
 interface Props {
   stationId: string;
   setIsStatisticsOpen: (pram: boolean) => void;
-  dayOfWeek: (typeof ENGLISH_DAYS_OF_WEEK_FULL_NAME)[number];
-  onChangeDayOfWeek: (dayOfWeek: (typeof ENGLISH_DAYS_OF_WEEK_FULL_NAME)[number]) => void;
+  dayOfWeek: EnglishDaysOfWeekLongName;
+  onChangeDayOfWeek: (dayOfWeek: EnglishDaysOfWeekLongName) => void;
 }
 
 const Statistics = ({ stationId, setIsStatisticsOpen, dayOfWeek, onChangeDayOfWeek }: Props) => {

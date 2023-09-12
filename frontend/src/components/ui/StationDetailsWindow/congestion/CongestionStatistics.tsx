@@ -6,7 +6,7 @@ import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 
-import type { ENGLISH_DAYS_OF_WEEK_FULL_NAME } from '@constants/congestion';
+import type { EnglishDaysOfWeekLongName } from '@type';
 
 import Statistics from './Statistics';
 import Title from './Title';
@@ -17,8 +17,7 @@ interface CongestionStatisticsProps {
 
 const CongestionStatistics = ({ stationId }: CongestionStatisticsProps) => {
   const [isStatisticsOpen, setIsStatisticsOpen] = useState(false);
-  const [dayOfWeek, setDayOfWeek] =
-    useState<(typeof ENGLISH_DAYS_OF_WEEK_FULL_NAME)[number]>('monday');
+  const [dayOfWeek, setDayOfWeek] = useState<EnglishDaysOfWeekLongName>('monday');
 
   return (
     <Box my={5}>
