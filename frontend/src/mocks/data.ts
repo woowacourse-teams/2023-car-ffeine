@@ -3,7 +3,7 @@ import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 import { generateRandomData, generateRandomToken, getRandomTime } from '@utils/randomDataGenerator';
 
 import { CONNECTOR_TYPES, COMPANIES, CAPACITIES } from '@constants/chargers';
-import { ENGLISH_DAYS_OF_WEEK_SHORT_NAME } from '@constants/congestion';
+import { SHORT_ENGLISH_DAYS_OF_WEEK } from '@constants/congestion';
 import { MAX_SEARCH_RESULTS } from '@constants/stationSearch';
 
 import type { Car } from '@type/cars';
@@ -119,8 +119,8 @@ export const getCongestionStatistics = (stationId: string): CongestionStatistics
 
 const getCongestions = (): Record<EnglishDaysOfWeekShortName, Congestion[]> => {
   return getTypedObjectFromEntries(
-    ENGLISH_DAYS_OF_WEEK_SHORT_NAME,
-    ENGLISH_DAYS_OF_WEEK_SHORT_NAME.map(() =>
+    SHORT_ENGLISH_DAYS_OF_WEEK,
+    SHORT_ENGLISH_DAYS_OF_WEEK.map(() =>
       Array.from({ length: 24 }, (_, index) => {
         return {
           hour: index,

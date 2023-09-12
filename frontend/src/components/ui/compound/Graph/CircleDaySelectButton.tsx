@@ -6,7 +6,7 @@ import { type PropsWithChildren } from 'react';
 import ButtonNext from '@common/ButtonNext';
 
 import {
-  ENGLISH_DAYS_OF_WEEK_SHORT_NAME,
+  SHORT_ENGLISH_DAYS_OF_WEEK,
   ENGLISH_DAYS_OF_WEEK_SHORT_TO_LONG,
   ENGLISH_DAYS_TO_KOREAN_DAYS,
 } from '@constants/congestion';
@@ -19,7 +19,7 @@ interface DaySelectButtonProps extends PropsWithChildren {
 }
 
 const isEnglishDays = (day: string): day is EnglishDaysOfWeekShortName => {
-  return ENGLISH_DAYS_OF_WEEK_SHORT_NAME.includes(day as EnglishDaysOfWeekShortName);
+  return SHORT_ENGLISH_DAYS_OF_WEEK.includes(day as EnglishDaysOfWeekShortName);
 };
 
 const CircleDaySelectButton = ({
@@ -30,7 +30,7 @@ const CircleDaySelectButton = ({
   const handleSelectDay = (day: string) => {
     if (isEnglishDays(day)) {
       onChangeDayOfWeek(
-        ENGLISH_DAYS_OF_WEEK_SHORT_TO_LONG[day as (typeof ENGLISH_DAYS_OF_WEEK_SHORT_NAME)[number]]
+        ENGLISH_DAYS_OF_WEEK_SHORT_TO_LONG[day as (typeof SHORT_ENGLISH_DAYS_OF_WEEK)[number]]
       );
     }
   };

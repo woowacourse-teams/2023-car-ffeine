@@ -1,14 +1,11 @@
 import { getCongestionStatistics } from '@mocks/data';
 import { rest } from 'msw';
 
-import {
-  ENGLISH_DAYS_OF_WEEK_LONG_NAME,
-  ENGLISH_DAYS_OF_WEEK_SHORT_NAME,
-} from '@constants/congestion';
+import { LONG_ENGLISH_DAYS_OF_WEEK, SHORT_ENGLISH_DAYS_OF_WEEK } from '@constants/congestion';
 import { DEVELOP_SERVER_URL } from '@constants/server';
 
 export const ENGLISH_DAYS_OF_WEEK_LONG_TO_SHORT = Object.fromEntries(
-  ENGLISH_DAYS_OF_WEEK_LONG_NAME.map((day, index) => [day, ENGLISH_DAYS_OF_WEEK_SHORT_NAME[index]])
+  LONG_ENGLISH_DAYS_OF_WEEK.map((day, index) => [day, SHORT_ENGLISH_DAYS_OF_WEEK[index]])
 );
 
 export const statisticsHandlers = [
@@ -19,7 +16,7 @@ export const statisticsHandlers = [
       .replace(/\/statistics/, '');
     const dayOfWeek = req.url.searchParams.get(
       'dayOfWeek'
-    ) as (typeof ENGLISH_DAYS_OF_WEEK_SHORT_NAME)[number];
+    ) as (typeof SHORT_ENGLISH_DAYS_OF_WEEK)[number];
 
     const fullCongestionStatistics = getCongestionStatistics(stationId);
     const congestionStatistics = {
