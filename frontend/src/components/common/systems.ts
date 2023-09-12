@@ -21,13 +21,13 @@ export const spacing = css<SpacingProps>`
   ${({ p }) => p && `padding: ${p * 0.4}rem`};
 
   ${({ px }) =>
-    px &&
+    (px || px === 0) &&
     `
       padding-left: ${px * 0.4}rem;
       padding-right: ${px * 0.4}rem;
     `}
   ${({ py }) =>
-    py &&
+    (py || py === 0) &&
     `
       padding-top: ${py * 0.4}rem;
       padding-bottom: ${py * 0.4}rem;
