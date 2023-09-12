@@ -1,6 +1,4 @@
-import type { DisplayPosition } from '@type';
-
-export const getDisplayPosition = (map: google.maps.Map): DisplayPosition => {
+export const getDisplayPosition = (map: google.maps.Map) => {
   const center = map.getCenter();
   const bounds = map.getBounds();
 
@@ -17,8 +15,8 @@ export const getDisplayPosition = (map: google.maps.Map): DisplayPosition => {
   return {
     longitude,
     latitude,
-    longitudeDelta: longitudeDelta,
-    latitudeDelta: latitudeDelta,
+    longitudeDelta: longitudeDelta < 0.008 ? longitudeDelta : 0.008,
+    latitudeDelta: latitudeDelta < 0.004 ? latitudeDelta : 0.004,
     zoom,
   };
 };

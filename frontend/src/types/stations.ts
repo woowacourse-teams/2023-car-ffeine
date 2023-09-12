@@ -83,6 +83,11 @@ export type StationDetails = Pick<
   | 'stationState'
 >;
 
+export interface DisplayPosition extends Pick<Station, 'latitude' | 'longitude'> {
+  longitudeDelta: number;
+  latitudeDelta: number;
+}
+
 export type CompanyName = (typeof COMPANIES)[CompanyKey];
 
 export interface SearchedStation
