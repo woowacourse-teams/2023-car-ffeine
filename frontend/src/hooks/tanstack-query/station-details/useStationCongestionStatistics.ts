@@ -5,7 +5,7 @@ import { serverUrlStore } from '@stores/config/serverUrlStore';
 import { ERROR_MESSAGES } from '@constants/errorMessages';
 import { QUERY_KEY_STATION_CONGESTION_STATISTICS } from '@constants/queryKeys';
 
-import type { CongestionStatistics, EnglishDaysOfWeekLongName } from '@type/congestion';
+import type { CongestionStatistics, LongEnglishDaysOfWeek } from '@type/congestion';
 
 export const fetchStationDetails = async (selectedStationId: string, dayOfWeek: string) => {
   const serverUrl = serverUrlStore.getState();
@@ -30,7 +30,7 @@ export const fetchStationDetails = async (selectedStationId: string, dayOfWeek: 
 
 export const useStationCongestionStatistics = (
   stationId: string,
-  dayOfWeek: EnglishDaysOfWeekLongName
+  dayOfWeek: LongEnglishDaysOfWeek
 ) => {
   return useQuery({
     queryKey: [QUERY_KEY_STATION_CONGESTION_STATISTICS, stationId, dayOfWeek],

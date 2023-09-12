@@ -11,15 +11,15 @@ import {
   ENGLISH_DAYS_TO_KOREAN_DAYS,
 } from '@constants/congestion';
 
-import type { EnglishDaysOfWeekLongName, EnglishDaysOfWeekShortName } from '@type/congestion';
+import type { LongEnglishDaysOfWeek, ShortEnglishDaysOfWeek } from '@type/congestion';
 
 interface DaySelectButtonProps extends PropsWithChildren {
-  dayOfWeek: EnglishDaysOfWeekLongName;
-  onChangeDayOfWeek: (dayOfWeek: EnglishDaysOfWeekLongName) => void;
+  dayOfWeek: LongEnglishDaysOfWeek;
+  onChangeDayOfWeek: (dayOfWeek: LongEnglishDaysOfWeek) => void;
 }
 
-const isEnglishDays = (day: string): day is EnglishDaysOfWeekShortName => {
-  return SHORT_ENGLISH_DAYS_OF_WEEK.includes(day as EnglishDaysOfWeekShortName);
+const isEnglishDays = (day: string): day is ShortEnglishDaysOfWeek => {
+  return SHORT_ENGLISH_DAYS_OF_WEEK.includes(day as ShortEnglishDaysOfWeek);
 };
 
 const CircleDaySelectButton = ({
