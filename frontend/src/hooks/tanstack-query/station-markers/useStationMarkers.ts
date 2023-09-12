@@ -29,14 +29,14 @@ import type { StationMarker } from '@type/stations';
 const isMapLoaded = (displayPosition: DisplayPosition) => {
   const { latitudeDelta, longitudeDelta } = displayPosition;
 
-  return latitudeDelta === 0 && longitudeDelta === 0;
+  return !(latitudeDelta === 0 && longitudeDelta === 0);
 };
 
 export const fetchStationMarkers = async () => {
   const googleMap = getStoreSnapshot(getGoogleMapStore());
   const displayPosition = getDisplayPosition(googleMap);
 
-  if (isMapLoaded(displayPosition)) {
+  if (!isMapLoaded(displayPosition)) {
     throw new Error('지도가 로드되지 않았습니다');
   }
 
