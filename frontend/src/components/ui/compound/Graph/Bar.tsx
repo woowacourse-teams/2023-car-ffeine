@@ -21,7 +21,7 @@ const Bar = ({ ratio, hour, align }: BarProps) => {
       width="100%"
       direction={align === 'column' ? 'row' : 'column'}
       css={align === 'row' && rowAlignCss}
-      alignItems={align === 'row' ? 'center' : 'start'}
+      alignItems="center"
     >
       <Text variant="caption" css={align === 'column' && textCss}>
         {hour}
@@ -37,7 +37,7 @@ const Bar = ({ ratio, hour, align }: BarProps) => {
 
 const getColorByRatio = (ratio: number) => {
   if (ratio === NO_RATIO) {
-    return getHoverColor('secondary');
+    return getHoverColor('disable');
   }
 
   return '#2a6cd8';
