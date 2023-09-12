@@ -7,6 +7,8 @@ import { memberTokenStore } from '@stores/login/memberTokenStore';
 import ModalContainer from '@ui/ModalContainer';
 import NavigationBar from '@ui/compound/NavigationBar';
 
+import { EMPTY_MEMBER_TOKEN } from '@constants';
+
 const queryClient = new QueryClient();
 
 describe('Navigator 컴포넌트 테스트', () => {
@@ -37,5 +39,21 @@ describe('Navigator 컴포넌트 테스트', () => {
 
     expect(screen.getByText('차량등록')).toBeInTheDocument();
     expect(screen.getByText('로그아웃')).toBeInTheDocument();
+  });
+
+  it('로그아웃 버튼을 클릭하면 저장해두었던 멤버 토큰이 지워진다.', () => {
+    memberTokenStore.setState('test-member-token');
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <ModalContainer />
+        <NavigationBar.Menu />
+      </QueryClientProvider>
+    );
+
+    fireEvent.click(screen.getByLabelText('프로필 메뉴 열기'));
+    fireEvent.click(screen.getByText('로그아웃'));
+
+    expect(memberTokenStore.getState()).toBe(EMPTY_MEMBER_TOKEN);
   });
 });
