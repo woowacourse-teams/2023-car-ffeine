@@ -211,14 +211,15 @@ class StationControllerTest extends MockBeanInjection {
                         )
                 ));
 
-        mockMvc.perform(RestDocumentationRequestBuilders.get("/stations/search?q=선릉&scope=stationId&scope=stationName&scope=address&scope=latitude&scope=longitude"))
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/stations/search?q=선릉&scope=stationId&scope=stationName&scope=address&scope=latitude&scope=longitude&limit=12"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalCount").value(2))
                 .andExpect(jsonPath("$.stations", hasSize(2)))
                 .andDo(customDocument("searchStations",
                         requestParameters(
                                 parameterWithName("q").description("검색어"),
-                                parameterWithName("scope").description("검색 범위")
+                                parameterWithName("scope").description("검색 범위"),
+                                parameterWithName("limit").description("검색 결과 개수")
                         ),
                         responseFields(
                                 fieldWithPath("totalCount").type(JsonFieldType.NUMBER).description("검색 결과 전체 개수"),
