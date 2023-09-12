@@ -2,23 +2,30 @@ package com.carffeine.carffeine.station.service.station;
 
 import com.carffeine.carffeine.helper.integration.IntegrationTest;
 import com.carffeine.carffeine.station.domain.charger.ChargerType;
+import com.carffeine.carffeine.station.domain.station.Latitude;
+import com.carffeine.carffeine.station.domain.station.Longitude;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.domain.station.StationRepository;
 import com.carffeine.carffeine.station.exception.StationException;
 import com.carffeine.carffeine.station.exception.StationExceptionType;
+import com.carffeine.carffeine.station.fixture.charger.ChargerFixture;
 import com.carffeine.carffeine.station.fixture.station.StationFixture;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.ChargerSpecificResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSummaryResponse;
 import com.carffeine.carffeine.station.service.station.dto.CoordinateRequest;
+import com.carffeine.carffeine.station.service.station.dto.StationSearchResponse;
+import com.carffeine.carffeine.station.service.station.dto.StationsSearchResponse;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -284,5 +291,106 @@ public class StationQueryServiceTest extends IntegrationTest {
                                 )
                         )
                 );
+    }
+
+    @Test
+    void 총_15개의_충전소_중_관련_검색어에_맞는_충전소가_검색된다() {
+        // given
+        List<StationSearchResponse> stations = new ArrayList<>();
+        List<StationSearchResponse> expected = new ArrayList<>();
+        for (int i = 0; i < 15; i++) {
+            String stationId = "stationId" + String.format("%02d", i);
+            String stationName = "stationName" + String.format("%02d", i);
+            Station station = Station.builder()
+                    .stationId(stationId)
+                    .stationName(stationName)
+                    .companyName("환경부")
+                    .address("천호역 123-22")
+                    .isParkingFree(true)
+                    .operatingTime("24시간 이용가능")
+                    .detailLocation("1층")
+                    .latitude(Latitude.from("37.3994933"))
+                    .longitude(Longitude.from("128.3994933"))
+                    .isPrivate(false)
+                    .contact("02-0202-0882")
+                    .stationState("yyyy-mm-dd일부터 충전소 공사합니다.")
+                    .privateReason("이용 제한 사유 없습니다.")
+                    .chargers(
+                            List.of(
+                                    ChargerFixture.천호역_고속충전기_1번_사용_중,
+                                    ChargerFixture.천호역_충전기_2번_사용_중
+                            )
+                    )
+                    .build();
+
+            stations.add(new StationSearchResponse(
+                    station.getStationId(),
+                    station.getStationName(),
+                    station.getAddress(),
+                    station.getLatitude().getValue(),
+                    station.getLongitude().getValue()
+            ));
+            expected = stations.stream().
+                    filter(it -> it.stationName().contains("stationName1"))
+                    .limit(5).toList();
+            stationRepository.save(station);
+        }
+
+        // when
+        StationsSearchResponse result = stationQueryService.searchStations("stationName1", Set.of("stationId", "stationName", "address", "latitude", "longitude"), 1, 12);
+
+        // then
+        assertThat(result).usingRecursiveComparison()
+                .isEqualTo(new StationsSearchResponse(5L, expected));
+    }
+
+    @Test
+    void 총_15개의_충전소_중_관련_검색어에_맞는_충전소가_최대_12개_검색된다() {
+        // given
+        List<StationSearchResponse> stations = new ArrayList<>();
+        List<StationSearchResponse> expected = new ArrayList<>();
+        for (int i = 0; i < 15; i++) {
+            String stationId = "stationId" + String.format("%02d", i);
+            Station station = Station.builder()
+                    .stationId(stationId)
+                    .stationName("천호역 충전소")
+                    .companyName("환경부")
+                    .address("천호역 123-22")
+                    .isParkingFree(true)
+                    .operatingTime("24시간 이용가능")
+                    .detailLocation("1층")
+                    .latitude(Latitude.from("37.3994933"))
+                    .longitude(Longitude.from("128.3994933"))
+                    .isPrivate(false)
+                    .contact("02-0202-0882")
+                    .stationState("yyyy-mm-dd일부터 충전소 공사합니다.")
+                    .privateReason("이용 제한 사유 없습니다.")
+                    .chargers(
+                            List.of(
+                                    ChargerFixture.천호역_고속충전기_1번_사용_중,
+                                    ChargerFixture.천호역_충전기_2번_사용_중
+                            )
+                    )
+                    .build();
+
+            stations.add(new StationSearchResponse(
+                    station.getStationId(),
+                    station.getStationName(),
+                    station.getAddress(),
+                    station.getLatitude().getValue(),
+                    station.getLongitude().getValue()
+            ));
+            expected = stations.stream()
+                    .filter(it -> it.stationName().contains("충전소"))
+                    .limit(12).toList();
+            stationRepository.save(station);
+        }
+
+        // when
+        StationsSearchResponse result = stationQueryService.searchStations("충전소", Set.of("stationId", "stationName", "address", "latitude", "longitude"), 1, 12);
+
+        // then
+        assertThat(result).usingRecursiveComparison()
+                .isEqualTo(new StationsSearchResponse(15L, expected));
     }
 }
