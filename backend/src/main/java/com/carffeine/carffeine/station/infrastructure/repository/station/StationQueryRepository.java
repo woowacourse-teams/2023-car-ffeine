@@ -178,21 +178,19 @@ public class StationQueryRepository {
     }
 
     public StationSearchResult findSearchResult(String query, int limit) {
-        List<StationInfo> stations = jpaQueryFactory.selectFrom(station)
+        List<StationInfo> stations = jpaQueryFactory
+                .select(constructor(StationInfo.class,
+                        station.stationId,
+                        station.stationName,
+                        station.address,
+                        station.latitude.value,
+                        station.longitude.value))
+                .from(station)
                 .where(station.stationName.contains(query)
                         .or(station.address.contains(query)))
-                .limit(limit)
                 .orderBy(station.stationId.asc())
-                .transform(
-                        groupBy(station.stationId)
-                                .list(constructor(StationInfo.class,
-                                        station.stationId,
-                                        station.stationName,
-                                        station.address,
-                                        station.latitude.value,
-                                        station.longitude.value
-                                ))
-                );
+                .limit(limit)
+                .fetch();
 
         Long totalCount = jpaQueryFactory.select(station.stationId.count())
                 .from(station)
