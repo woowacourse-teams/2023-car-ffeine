@@ -8,7 +8,7 @@ import { MAX_SEARCH_RESULTS } from '@constants/stationSearch';
 
 import type { Car } from '@type/cars';
 import type { Capacity, ChargerDetails } from '@type/chargers';
-import type { Congestion, CongestionStatistics, EnglishDaysType } from '@type/congestion';
+import type { Congestion, EnglishDaysType } from '@type/congestion';
 import type { CapaCityBigDecimal, ConnectorTypeKey } from '@type/serverStationFilter';
 import type { CompanyName, Reply, Review, Station, StationFilters } from '@type/stations';
 
@@ -99,7 +99,15 @@ export const getSearchedStations = (searchWord: string) => {
     .slice(0, MAX_SEARCH_RESULTS);
 };
 
-export const getCongestionStatistics = (stationId: string): CongestionStatistics => {
+interface CongestionStatisticsMockData {
+  stationId: string;
+  congestion: {
+    standard: Record<EnglishDaysType, Congestion[]>;
+    quick: Record<EnglishDaysType, Congestion[]>;
+  };
+}
+
+export const getCongestionStatistics = (stationId: string): CongestionStatisticsMockData => {
   return {
     stationId,
     congestion: {

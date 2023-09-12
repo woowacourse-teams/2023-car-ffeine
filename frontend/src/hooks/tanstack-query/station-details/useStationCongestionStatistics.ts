@@ -6,7 +6,7 @@ import type { ENGLISH_DAYS_OF_WEEK_FULL_NAME } from '@constants/congestion';
 import { ERROR_MESSAGES } from '@constants/errorMessages';
 import { QUERY_KEY_STATION_CONGESTION_STATISTICS } from '@constants/queryKeys';
 
-import type { CongestionStatisticsFoo } from '@type/congestion';
+import type { CongestionStatistics } from '@type/congestion';
 
 export const fetchStationDetails = async (selectedStationId: string, dayOfWeek: string) => {
   const serverUrl = serverUrlStore.getState();
@@ -16,12 +16,12 @@ export const fetchStationDetails = async (selectedStationId: string, dayOfWeek: 
     {
       method: 'GET',
     }
-  ).then<CongestionStatisticsFoo>(async (response) => {
+  ).then<CongestionStatistics>(async (response) => {
     if (!response.ok) {
       throw new Error(ERROR_MESSAGES.STATION_DETAILS_FETCH_ERROR);
     }
 
-    const congestionStatistics: CongestionStatisticsFoo = await response.json();
+    const congestionStatistics: CongestionStatistics = await response.json();
 
     return congestionStatistics;
   });

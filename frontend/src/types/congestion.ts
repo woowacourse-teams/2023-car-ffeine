@@ -11,14 +11,6 @@ export interface Congestion {
 export interface CongestionStatistics {
   stationId: string;
   congestion: {
-    standard?: Record<EnglishDaysType, Congestion[]>;
-    quick?: Record<EnglishDaysType, Congestion[]>;
-  };
-}
-
-export interface CongestionStatisticsFoo {
-  stationId: string;
-  congestion: {
     standard: Congestion[];
     quick: Congestion[];
   };
