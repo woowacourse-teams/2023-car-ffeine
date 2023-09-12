@@ -4,7 +4,6 @@ import { useExternalValue } from '@utils/external-state';
 import { getStoreSnapshot } from '@utils/external-state/tools';
 import { getTypedObjectFromEntries } from '@utils/getTypedObjectFromEntries';
 import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
-import type { DisplayPosition } from '@utils/google-maps';
 import { getDisplayPosition } from '@utils/google-maps';
 import { getQueryFormattedUrl } from '@utils/request-query-params';
 import { setSessionStorage } from '@utils/storage';
@@ -24,6 +23,7 @@ import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
 import { QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
 import { SESSION_KEY_LAST_REQUEST_POSITION } from '@constants/storageKeys';
 
+import type { DisplayPosition } from '@type';
 import type { StationMarker } from '@type/stations';
 
 const isMapLoaded = (displayPosition: DisplayPosition) => {

@@ -1,10 +1,4 @@
-export interface DisplayPosition {
-  longitude: number;
-  latitude: number;
-  longitudeDelta: number;
-  latitudeDelta: number;
-  zoom: number;
-}
+import type { DisplayPosition } from '@type';
 
 export const getDisplayPosition = (map: google.maps.Map): DisplayPosition => {
   const center = map.getCenter();

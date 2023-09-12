@@ -2,7 +2,8 @@ import { getSessionStorage } from '@utils/storage';
 
 import { SESSION_KEY_LAST_REQUEST_POSITION } from '@constants/storageKeys';
 
-import type { DisplayPosition } from '.';
+import type { DisplayPosition } from '@type';
+
 import { getBounds } from './getBounds';
 
 export const isCachedRegion = (displayPosition: DisplayPosition) => {

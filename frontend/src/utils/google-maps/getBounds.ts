@@ -1,4 +1,4 @@
-import type { DisplayPosition } from '.';
+import type { DisplayPosition } from '@type';
 
 export const getBounds = (displayPosition: DisplayPosition) => {
   return {
