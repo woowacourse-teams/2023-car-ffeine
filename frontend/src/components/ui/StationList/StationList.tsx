@@ -11,7 +11,8 @@ import StationSummaryCardSkeleton from '@ui/StationList/StationSummaryCardSkelet
 import { MOBILE_BREAKPOINT } from '@constants';
 
 import StationSummaryCard from './StationSummaryCard';
-import { useStationSummaries } from './hooks/useStationSummaries';
+import { useFetchStationSummaries } from './hooks/useFetchStationSummaries';
+import { cachedStationSummariesActions } from './tools/cachedStationSummaries';
 
 const StationList = () => {
   const {
@@ -22,10 +23,12 @@ const StationList = () => {
 
   const {
     isLoading: isStationSummariesLoading,
-    stationSummaries,
+    // stationSummaries,
     loadMore,
     hasNextPage,
-  } = useStationSummaries(filteredMarkers ?? []);
+  } = useFetchStationSummaries(filteredMarkers ?? []);
+
+  const cachedStationSummaries = cachedStationSummariesActions.get();
 
   if (isFilteredMarkersLoading) {
     return (
@@ -37,11 +40,14 @@ const StationList = () => {
     );
   }
 
+  console.log('cachedStationSummaries', cachedStationSummaries.length);
+
   // TODO: 초기에 텅 안보이게 하기
   if (
-    stationSummaries.length === 0 &&
+    // stationSummaries.length === 0 &&
     isStationSummariesLoading === false &&
-    isFilteredMarkersSuccess
+    isFilteredMarkersSuccess &&
+    cachedStationSummaries.length === 0
   ) {
     return <EmptyStationsNotice />;
   }
@@ -49,19 +55,9 @@ const StationList = () => {
   return (
     isFilteredMarkersSuccess && (
       <List css={searchResultList}>
-        {/* 
-          캐싱된 값을 먼저 보여주기
-            - 10개 제한 없고, 그냥 알고 있는거 다 보여주기
-            - 화면 영역 내에 있는 것만 보여주기
-            - useSyncExternalStore 사용 금지 (상태로 취급 ㄴㄴ)
-            - 
-        */}
-
-        {/* 새로 수신한 데이터를 보여주기 */}
-        {stationSummaries.length > 0 &&
-          stationSummaries.map((stationSummary) => (
-            <StationSummaryCard key={stationSummary.stationId} station={stationSummary} />
-          ))}
+        {cachedStationSummaries.map((stationSummary) => (
+          <StationSummaryCard key={stationSummary.stationId} station={stationSummary} />
+        ))}
         {isStationSummariesLoading && (
           <>
             {Array.from({ length: 10 }, (_, index) => (
