@@ -18,8 +18,8 @@ const Title = () => {
       <Text fontSize={1.8} weight="bold">
         충전소 시간별 혼잡도
       </Text>
-      <Button>
-        <InformationCircleIcon width={24} stroke="#747474" onClick={handleOpenStatisticsHelp} />
+      <Button aria-label="혼잡도 통계 설명 보기" onClick={handleOpenStatisticsHelp}>
+        <InformationCircleIcon width={24} stroke="#747474" />
       </Button>
     </FlexBox>
   );
