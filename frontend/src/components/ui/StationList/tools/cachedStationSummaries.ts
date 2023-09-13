@@ -42,11 +42,11 @@ export const cachedStationSummariesActions = {
       );
     };
 
-    const filteredStationSummaries = Array.from(cachedStationSummaries.values()).filter(
+    const validStationSummaries = Array.from(cachedStationSummaries.values()).filter(
       (station) => isStationLatitudeWithinBounds(station) && isStationLongitudeWithinBounds(station)
     );
 
-    return filteredStationSummaries;
+    return validStationSummaries;
   },
   clear: (stationIds: string[]) => {
     stationIds.forEach((stationId) => cachedStationSummaries.delete(stationId));
