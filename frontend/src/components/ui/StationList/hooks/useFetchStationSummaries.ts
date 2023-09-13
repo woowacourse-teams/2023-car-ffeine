@@ -38,13 +38,13 @@ export const useFetchStationSummaries = (markers: StationMarker[]) => {
 
   const loadStationSummaries = (page: number) => {
     const stationIds = stationIdChunks[page] ?? [];
-    const filteredStationIds = stationIds.filter(
+    const uncachedStationIds = stationIds.filter(
       (stationId) => !cachedStationSummariesActions.has(stationId)
     );
 
-    if (filteredStationIds.length > 0) {
+    if (uncachedStationIds.length > 0) {
       setIsLoading(true);
-      fetchStationSummaries(filteredStationIds).then((stationSummaries) => {
+      fetchStationSummaries(uncachedStationIds).then((stationSummaries) => {
         cachedStationSummariesActions.add(stationSummaries);
         console.log(cachedStationSummariesActions.get());
         setIsLoading(false);
