@@ -18,7 +18,7 @@ import { NO_RATIO } from '@constants/congestion';
 const Help = () => {
   return (
     <Box width="fit-content" px={7} pt={7} pb={13} css={modalContainer}>
-      <Button css={closeButton} onClick={() => modalActions.closeModal()}>
+      <Button aria-label="닫기" css={closeButton} onClick={() => modalActions.closeModal()}>
         <XMarkIcon width={24} />
       </Button>
       <Text variant="subtitle" mb={4}>
@@ -73,7 +73,13 @@ const Help = () => {
           </TableRow>
           <TableRow>
             <td>
-              <Bar ratio={NO_RATIO} hour="06" align="column" />
+              <Bar ratio={100} hour="06" align="column" />
+            </td>
+            <TableData>100%</TableData>
+          </TableRow>
+          <TableRow>
+            <td>
+              <Bar ratio={NO_RATIO} hour="07" align="column" />
             </td>
             <TableData>정보 없음</TableData>
           </TableRow>
