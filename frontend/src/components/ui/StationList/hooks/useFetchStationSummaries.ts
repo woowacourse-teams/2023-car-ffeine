@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react';
 
 import { fetchStationSummaries } from '@hooks/fetch/fetchStationSummaries';
 
-import type { StationMarker, StationSummary } from '@type';
+import type { StationMarker } from '@type';
 
-const makeStationIdsChunks = (filteredMarkers: StationMarker[]) => {
-  return filteredMarkers.reduce((acc: string[][], marker, index) => {
+import { cachedStationSummariesActions } from '../tools/cachedStationSummaries';
+
+const makeStationIdsChunks = (markers: StationMarker[]) => {
+  return markers.reduce((acc: string[][], marker, index) => {
     const REQUEST_CHUNK_SIZE = 10;
     const chunkIndex = Math.floor(index / REQUEST_CHUNK_SIZE);
 
@@ -19,11 +21,10 @@ const makeStationIdsChunks = (filteredMarkers: StationMarker[]) => {
   }, []);
 };
 
-export const useStationSummaries = (markers: StationMarker[]) => {
+export const useFetchStationSummaries = (markers: StationMarker[]) => {
   const stationIdChunks = makeStationIdsChunks(markers);
 
   const [page, setPage] = useState(0);
-  const [stationSummaries, setStationSummaries] = useState<StationSummary[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -37,13 +38,15 @@ export const useStationSummaries = (markers: StationMarker[]) => {
 
   const loadStationSummaries = (page: number) => {
     const stationIds = stationIdChunks[page] ?? [];
+    const filteredStationIds = stationIds.filter(
+      (stationId) => !cachedStationSummariesActions.has(stationId)
+    );
 
-    if (stationIds.length > 0) {
+    if (filteredStationIds.length > 0) {
       setIsLoading(true);
-      fetchStationSummaries(stationIds).then((stationSummaries) => {
-        setStationSummaries((prev) =>
-          page === 0 ? stationSummaries : [...prev, ...stationSummaries]
-        );
+      fetchStationSummaries(filteredStationIds).then((stationSummaries) => {
+        cachedStationSummariesActions.add(stationSummaries);
+        console.log(cachedStationSummariesActions.get());
         setIsLoading(false);
       });
     }
@@ -53,7 +56,10 @@ export const useStationSummaries = (markers: StationMarker[]) => {
     setPage((prevPage) => prevPage + 1);
   };
 
-  const hasNextPage = stationIdChunks[page + 1] !== undefined;
+  const foundCachedStation = markers.filter(
+    (marker) => !cachedStationSummariesActions.has(marker.stationId)
+  );
+  const hasNextPage = foundCachedStation.length > 0;
 
-  return { isLoading, stationSummaries, loadMore, hasNextPage };
+  return { isLoading, loadMore, hasNextPage };
 };
