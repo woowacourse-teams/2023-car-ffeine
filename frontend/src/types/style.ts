@@ -17,6 +17,7 @@ export type Color =
   | 'warning'
   | 'error'
   | 'light'
+  | 'disable'
   | 'dark';
 
 export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';

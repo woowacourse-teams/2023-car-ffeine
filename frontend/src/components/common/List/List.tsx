@@ -3,20 +3,30 @@ import styled from 'styled-components';
 
 import type { HTMLAttributes, ReactNode } from 'react';
 
-export interface ListProps extends HTMLAttributes<HTMLUListElement> {
+import type { SpacingProps } from '@common/systems';
+import { spacing } from '@common/systems';
+
+export interface ListProps extends HTMLAttributes<HTMLUListElement>, SpacingProps {
   children: ReactNode;
-  p?: number;
   border?: boolean;
+  fontSize?: number;
   css?: CSSProp;
 }
 
-const List = ({ children, ...props }: ListProps) => {
-  return <ListWrapper {...props}>{children}</ListWrapper>;
+const List = ({ children, fontSize, ...props }: ListProps) => {
+  return (
+    <ListWrapper $fontSize={fontSize} {...props}>
+      {children}
+    </ListWrapper>
+  );
 };
 
-const ListWrapper = styled.ul<ListProps>`
+const ListWrapper = styled.ul<Omit<ListProps, 'fontSize'> & { $fontSize: number }>`
+  ${spacing}
+
   list-style-type: none;
-  ${({ p }) => p && `padding: ${p * 0.4}rem`};
+  font-size: ${({ $fontSize }) => `${$fontSize}rem`};
+
   ${({ border }) => border && `border: 0.01rem solid #66666666; border-radius:0.4rem;`}
 
   ${({ css }) => css};

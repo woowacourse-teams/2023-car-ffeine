@@ -12,7 +12,7 @@ export interface BoxProps extends HTMLAttributes<HTMLDivElement>, SpacingProps {
   height?: number;
   minHeight?: number;
   maxHeight?: number;
-  width?: number;
+  width?: number | string;
   minWidth?: number;
   maxWidth?: number;
   bgColor?: string;
@@ -34,7 +34,7 @@ const BoxWrapper = styled.div<BoxProps>`
   ${({ minHeight }) => minHeight && `min-height: ${minHeight * 0.4}rem`};
   ${({ maxHeight }) => maxHeight && `max-height: ${maxHeight * 0.4}rem`};
 
-  ${({ width }) => width && `width: ${width * 0.4}rem`};
+  width: ${({ width }) => (typeof width === 'string' ? width : `${width * 0.4}rem`)};
   ${({ minWidth }) => minWidth && `min-height: ${minWidth * 0.4}rem`};
   ${({ maxWidth }) => maxWidth && `max-height: ${maxWidth * 0.4}rem`};
 
