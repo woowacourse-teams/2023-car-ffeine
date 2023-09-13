@@ -10,13 +10,9 @@ const cachedStationSummaries = new Map<string, StationSummary>();
 
 export const cachedStationSummariesActions = {
   add: (stationSummaries: StationSummary[]) => {
-    console.log(`before: ${cachedStationSummaries.size}`);
-
     stationSummaries.forEach((stationSummary) => {
       cachedStationSummaries.set(stationSummary.stationId, stationSummary);
     });
-
-    console.log(`after: ${cachedStationSummaries.size}`);
   },
   get: () => {
     const googleMap = getGoogleMapStore().getState();
@@ -49,8 +45,6 @@ export const cachedStationSummariesActions = {
     const filteredStationSummaries = Array.from(cachedStationSummaries.values()).filter(
       (station) => isStationLatitudeWithinBounds(station) && isStationLongitudeWithinBounds(station)
     );
-
-    console.log(filteredStationSummaries.length);
 
     return filteredStationSummaries;
   },

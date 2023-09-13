@@ -39,8 +39,6 @@ const StationList = () => {
     );
   }
 
-  console.log('cachedStationSummaries', cachedStationSummaries.length);
-
   // TODO: 초기에 텅 안보이게 하기
   if (
     isStationSummariesLoading === false &&
