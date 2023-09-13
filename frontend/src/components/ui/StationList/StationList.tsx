@@ -11,8 +11,7 @@ import StationSummaryCardSkeleton from '@ui/StationList/StationSummaryCardSkelet
 import { MOBILE_BREAKPOINT } from '@constants';
 
 import StationSummaryCard from './StationSummaryCard';
-import { useFetchStationSummaries } from './hooks/useFetchStationSummaries';
-import { cachedStationSummariesActions } from './tools/cachedStationSummaries';
+import { useStationSummaries } from './hooks/useStationSummaries';
 
 const StationList = () => {
   const {
@@ -23,11 +22,10 @@ const StationList = () => {
 
   const {
     isLoading: isStationSummariesLoading,
+    stationSummaries,
     loadMore,
     hasNextPage,
-  } = useFetchStationSummaries(filteredMarkers ?? []);
-
-  const cachedStationSummaries = cachedStationSummariesActions.get();
+  } = useStationSummaries(filteredMarkers ?? []);
 
   if (isFilteredMarkersLoading) {
     return (
@@ -41,9 +39,9 @@ const StationList = () => {
 
   // TODO: 초기에 텅 안보이게 하기
   if (
+    stationSummaries.length === 0 &&
     isStationSummariesLoading === false &&
-    isFilteredMarkersSuccess &&
-    cachedStationSummaries.length === 0
+    isFilteredMarkersSuccess
   ) {
     return <EmptyStationsNotice />;
   }
@@ -51,9 +49,19 @@ const StationList = () => {
   return (
     isFilteredMarkersSuccess && (
       <List css={searchResultList}>
-        {cachedStationSummaries.map((stationSummary) => (
-          <StationSummaryCard key={stationSummary.stationId} station={stationSummary} />
-        ))}
+        {/* 
+          캐싱된 값을 먼저 보여주기
+            - 10개 제한 없고, 그냥 알고 있는거 다 보여주기
+            - 화면 영역 내에 있는 것만 보여주기
+            - useSyncExternalStore 사용 금지 (상태로 취급 ㄴㄴ)
+            - 
+        */}
+
+        {/* 새로 수신한 데이터를 보여주기 */}
+        {stationSummaries.length > 0 &&
+          stationSummaries.map((stationSummary) => (
+            <StationSummaryCard key={stationSummary.stationId} station={stationSummary} />
+          ))}
         {isStationSummariesLoading && (
           <>
             {Array.from({ length: 10 }, (_, index) => (
@@ -61,11 +69,7 @@ const StationList = () => {
             ))}
           </>
         )}
-        {hasNextPage && (
-          <ButtonNext onClick={loadMore} fullWidth>
-            더 보 기
-          </ButtonNext>
-        )}
+        {hasNextPage && <ButtonNext onClick={loadMore}>더 보 기</ButtonNext>}
       </List>
     )
   );
