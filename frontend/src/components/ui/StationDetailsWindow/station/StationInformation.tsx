@@ -44,7 +44,7 @@ const StationInformation = ({ station }: StationInformationProps) => {
           <Text variant="body" weight="bold" mb={2}>
             운영시간
           </Text>
-          <Text variant="label" color="#585858">
+          <Text variant="label" lineHeight={1.3} color="#585858">
             {operatingTime?.length > 0 ? operatingTime : '운영시간 미확인'}
           </Text>
         </Box>
@@ -71,7 +71,7 @@ const StationInformation = ({ station }: StationInformationProps) => {
           <Text variant="body" weight="bold" mb={2}>
             사용 제한 여부
           </Text>
-          <Text variant="label" color="#585858">
+          <Text variant="label" color="#585858" lineHeight={1.4}>
             {isPrivate
               ? `사용 제한됨 (사유: ${privateReason?.length > 0 ? privateReason : '미확인'})`
               : '누구나 사용가능'}
