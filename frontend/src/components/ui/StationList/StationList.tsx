@@ -23,7 +23,6 @@ const StationList = () => {
 
   const {
     isLoading: isStationSummariesLoading,
-    // stationSummaries,
     loadMore,
     hasNextPage,
   } = useFetchStationSummaries(filteredMarkers ?? []);
@@ -44,7 +43,6 @@ const StationList = () => {
 
   // TODO: 초기에 텅 안보이게 하기
   if (
-    // stationSummaries.length === 0 &&
     isStationSummariesLoading === false &&
     isFilteredMarkersSuccess &&
     cachedStationSummaries.length === 0
