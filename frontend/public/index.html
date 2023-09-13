@@ -1,79 +1,83 @@
 <!doctype html>
-<html lang="ko">
+<html lang='ko'>
 
 <head>
-  <meta charset="UTF-8" />
-  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport" />
+  <meta charset='UTF-8' />
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0' name='viewport' />
 
-  <meta name="apple-mobile-web-app-title" content="카페인" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="#0540F2" />
+  <meta content='카페인' name='apple-mobile-web-app-title' />
+  <meta content='yes' name='apple-mobile-web-app-capable' />
+  <meta content='#0540F2' name='apple-mobile-web-app-status-bar-style' />
 
-  <meta name="msapplication-TileColor" content="#fff" />
-  <meta name="msapplication-TileImage" content="icons/144.png" />
-  <meta name="theme-color" content="#fcfcfc" />
+  <meta content='#fff' name='msapplication-TileColor' />
+  <meta content='icons/144.png' name='msapplication-TileImage' />
+  <meta content='#fcfcfc' name='theme-color' />
 
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://carffe.in/" />
-  <meta property="og:title" content="카페인" />
-  <meta property="og:image" content="icons/192.png" />
-  <meta property="og:description" content="편리한 전기차 충전소 지도" />
-  <meta property="og:site_name" content="카페인" />
-  <meta property="og:locale" content="ko_KR" />
+  <meta content='website' property='og:type' />
+  <meta content='https://carffe.in/' property='og:url' />
+  <meta content='카페인' property='og:title' />
+  <meta content='icons/192.png' property='og:image' />
+  <meta content='편리한 전기차 충전소 지도' property='og:description' />
+  <meta content='카페인' property='og:site_name' />
+  <meta content='ko_KR' property='og:locale' />
 
-  <link rel="apple-touch-icon" sizes="57x57" href="icons/ios/apple-icon-57x57.png" />
-  <link rel="apple-touch-icon" sizes="60x60" href="icons/ios/apple-icon-60x60.png" />
-  <link rel="apple-touch-icon" sizes="72x72" href="icons/ios/apple-icon-72x72.png" />
-  <link rel="apple-touch-icon" sizes="76x76" href="icons/ios/apple-icon-76x76.png" />
-  <link rel="apple-touch-icon" sizes="114x114" href="icons/ios/apple-icon-114x114.png" />
-  <link rel="apple-touch-icon" sizes="120x120" href="icons/ios/apple-icon-120x120.png" />
-  <link rel="apple-touch-icon" sizes="144x144" href="icons/ios/apple-icon-144x144.png" />
-  <link rel="apple-touch-icon" sizes="152x152" href="icons/ios/apple-icon-152x152.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="icons/ios/apple-icon-180x180.png" />
+  <link href='icons/ios/apple-icon-57x57.png' rel='apple-touch-icon' sizes='57x57' />
+  <link href='icons/ios/apple-icon-60x60.png' rel='apple-touch-icon' sizes='60x60' />
+  <link href='icons/ios/apple-icon-72x72.png' rel='apple-touch-icon' sizes='72x72' />
+  <link href='icons/ios/apple-icon-76x76.png' rel='apple-touch-icon' sizes='76x76' />
+  <link href='icons/ios/apple-icon-114x114.png' rel='apple-touch-icon' sizes='114x114' />
+  <link href='icons/ios/apple-icon-120x120.png' rel='apple-touch-icon' sizes='120x120' />
+  <link href='icons/ios/apple-icon-144x144.png' rel='apple-touch-icon' sizes='144x144' />
+  <link href='icons/ios/apple-icon-152x152.png' rel='apple-touch-icon' sizes='152x152' />
+  <link href='icons/ios/apple-icon-180x180.png' rel='apple-touch-icon' sizes='180x180' />
 
-  <link rel="icon" type="image/png" sizes="192x192" href="icons/192.png" />
-  <link rel="icon" type="image/png" sizes="96x96" href="icons/96.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="icons/32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="icons/16.png" />
-  <link rel="shortcut icon" href="data:image/x-icon" type="image/x-icon" />
+  <link href='icons/192.png' rel='icon' sizes='192x192' type='image/png' />
+  <link href='icons/96.png' rel='icon' sizes='96x96' type='image/png' />
+  <link href='icons/32.png' rel='icon' sizes='32x32' type='image/png' />
+  <link href='icons/16.png' rel='icon' sizes='16x16' type='image/png' />
+  <link href='data:image/x-icon' rel='shortcut icon' type='image/x-icon' />
 
-  <link rel="manifest" type="application/manifest+json" href="manifest.json" crossorigin="use-credentials" />
+  <link crossorigin='use-credentials' href='manifest.json' rel='manifest' type='application/manifest+json' />
 
-  <link href="https://fonts.googleapis.com" rel="preconnect" />
-  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
-    rel="stylesheet" />
+  <link href='https://fonts.googleapis.com' rel='preconnect' />
+  <link crossorigin href='https://fonts.gstatic.com' rel='preconnect' />
+  <link href='https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap'
+        rel='stylesheet' />
   <title>카페인</title>
 </head>
 
 <body>
-  <div id="root"></div>
+<div id='root'></div>
 
-  <script>
-    function gm_authFailure() {
-      // 구글 맵 로드 실패 시 전역적으로 동작하는 함수입니다.
-      alert('잘못 된 api key 입니다.');
-    }
+<script>
+  function gm_authFailure() {
+    // 구글 맵 로드 실패 시 전역적으로 동작하는 함수입니다.
+    alert('잘못 된 api key 입니다.');
+  }
 
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker
-        .register('pwabuilder-sw.js')
-        .then(function (registration) {
-          registration.scope;
-        })
-        .catch(function (error) {
-          console.log('Service Worker registration failed', error);
-        });
-    }
-  </script>
+  // if ('serviceWorker' in navigator) {
+  //   navigator.serviceWorker
+  //     .register('pwabuilder-sw.js')
+  //     .then(function (registration) {
+  //       registration.scope;
+  //     })
+  //     .catch(function (error) {
+  //       console.log('Service Worker registration failed', error);
+  //     });
+  // }
+</script>
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z5MN0ZWS8M"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
+<!-- Google tag (gtag.js) -->
+<script async src='https://www.googletagmanager.com/gtag/js?id=G-Z5MN0ZWS8M'></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
 
-    gtag('config', 'G-Z5MN0ZWS8M');
-  </script>
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+
+  gtag('js', new Date());
+
+  gtag('config', 'G-Z5MN0ZWS8M');
+</script>
 </body>
