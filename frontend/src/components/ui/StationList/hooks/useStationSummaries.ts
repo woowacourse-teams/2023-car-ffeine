@@ -6,8 +6,9 @@ import type { StationMarker, StationSummary } from '@type';
 
 import { cachedStationSummariesActions } from '../tools/cachedStationSummaries';
 
-const makeStationIdsChunks = (filteredMarkers: StationMarker[]) => {
-  return filteredMarkers.reduce((acc: string[][], marker, index) => {
+const makeStationIdsChunks = (markers: StationMarker[]) => {
+  console.log('markers: ' + markers.length);
+  return markers.reduce((acc: string[][], marker, index) => {
     const REQUEST_CHUNK_SIZE = 10;
     const chunkIndex = Math.floor(index / REQUEST_CHUNK_SIZE);
 
@@ -22,7 +23,9 @@ const makeStationIdsChunks = (filteredMarkers: StationMarker[]) => {
 };
 
 export const useStationSummaries = (markers: StationMarker[]) => {
+  console.log('markers: ' + markers.length);
   const stationIdChunks = makeStationIdsChunks(markers);
+  console.log('stationIdChunks: ' + stationIdChunks.length);
 
   const [page, setPage] = useState(0);
   const [stationSummaries, setStationSummaries] = useState<StationSummary[]>([]);
@@ -31,6 +34,7 @@ export const useStationSummaries = (markers: StationMarker[]) => {
   useEffect(() => {
     setPage(0);
     loadStationSummaries(0);
+    setStationSummaries([]);
   }, [markers]);
 
   useEffect(() => {
@@ -39,12 +43,15 @@ export const useStationSummaries = (markers: StationMarker[]) => {
 
   const loadStationSummaries = (page: number) => {
     const stationIds = stationIdChunks[page] ?? [];
+    const filteredStationIds = stationIds.filter(
+      (stationId) => !cachedStationSummariesActions.has(stationId)
+    );
 
-    if (stationIds.length > 0) {
+    if (filteredStationIds.length > 0) {
       setIsLoading(true);
-      fetchStationSummaries(stationIds).then((stationSummaries) => {
+      fetchStationSummaries(filteredStationIds).then((stationSummaries) => {
         cachedStationSummariesActions.add(stationSummaries);
-        console.log(cachedStationSummariesActions.getAll());
+        console.log(cachedStationSummariesActions.get());
         setStationSummaries((prev) =>
           page === 0 ? stationSummaries : [...prev, ...stationSummaries]
         );
