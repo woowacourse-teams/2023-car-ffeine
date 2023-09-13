@@ -69,7 +69,11 @@ const StationList = () => {
             ))}
           </>
         )}
-        {hasNextPage && <ButtonNext onClick={loadMore}>더 보 기</ButtonNext>}
+        {hasNextPage && (
+          <ButtonNext onClick={loadMore} fullWidth>
+            더 보 기
+          </ButtonNext>
+        )}
       </List>
     )
   );
