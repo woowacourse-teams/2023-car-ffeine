@@ -7,13 +7,19 @@ import { toastActions } from '@stores/layout/toastStore';
 import { memberInfoStore } from '@stores/login/memberInfoStore';
 import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
 
+import useMediaQueries from '@hooks/useMediaQueries';
+
+import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
+
 import { QUERY_KEY_MEMBER_SELECTED_FILTERS, QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
 
 import type { StationFilters } from '@type';
 
 export const useStationFilters = () => {
   const queryClient = useQueryClient();
+  const { closeBasePanel } = useNavigationBar();
   const { showToast } = toastActions;
+  const screen = useMediaQueries();
 
   const fallbackToPreviousFilters = () => {
     const { resetAllServerStationFilters } = serverStationFilterAction;
@@ -29,6 +35,10 @@ export const useStationFilters = () => {
 
   const handleStationsRefetch = () => {
     queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_MARKERS] });
+    if (screen.get('isMobile')) {
+      closeBasePanel();
+    }
+
     showToast('필터가 적용되었습니다');
   };
 
