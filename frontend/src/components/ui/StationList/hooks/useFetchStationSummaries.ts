@@ -38,13 +38,13 @@ export const useFetchStationSummaries = (markers: StationMarker[]) => {
 
   const loadStationSummaries = (page: number) => {
     const stationIds = stationIdChunks[page] ?? [];
-    const uncachedStationIds = stationIds.filter(
+    const uncachedStationSummaryIds = stationIds.filter(
       (stationId) => !cachedStationSummariesActions.has(stationId)
     );
 
-    if (uncachedStationIds.length > 0) {
+    if (uncachedStationSummaryIds.length > 0) {
       setIsLoading(true);
-      fetchStationSummaries(uncachedStationIds).then((stationSummaries) => {
+      fetchStationSummaries(uncachedStationSummaryIds).then((stationSummaries) => {
         cachedStationSummariesActions.add(stationSummaries);
         console.log(cachedStationSummariesActions.get());
         setIsLoading(false);
@@ -56,10 +56,10 @@ export const useFetchStationSummaries = (markers: StationMarker[]) => {
     setPage((prevPage) => prevPage + 1);
   };
 
-  const foundCachedStation = markers.filter(
+  const unknownMarkers = markers.filter(
     (marker) => !cachedStationSummariesActions.has(marker.stationId)
   );
-  const hasNextPage = foundCachedStation.length > 0;
+  const hasNextPage = unknownMarkers.length > 0;
 
   return { isLoading, loadMore, hasNextPage };
 };
