@@ -56,8 +56,10 @@ export const useFetchStationSummaries = (markers: StationMarker[]) => {
     setPage((prevPage) => prevPage + 1);
   };
 
-  const hasNextPage =
-    markers.filter((marker) => !cachedStationSummariesActions.has(marker.stationId)).length > 0;
+  const foundCachedStation = markers.filter(
+    (marker) => !cachedStationSummariesActions.has(marker.stationId)
+  );
+  const hasNextPage = foundCachedStation.length > 0;
 
   return { isLoading, loadMore, hasNextPage };
 };
