@@ -2,8 +2,10 @@ import type { StationSummary } from '@type';
 
 const cachedStationSummaries = new Map<string, StationSummary>();
 export const cachedStationSummariesActions = {
-  add: (stationSummary: StationSummary) => {
-    cachedStationSummaries.set(stationSummary.stationId, stationSummary);
+  add: (stationSummaries: StationSummary[]) => {
+    stationSummaries.forEach((stationSummary) => {
+      cachedStationSummaries.set(stationSummary.stationId, stationSummary);
+    });
   },
   get: (stationIds: string[]) => {
     return stationIds.map((stationId) => cachedStationSummaries.get(stationId));
@@ -14,4 +16,7 @@ export const cachedStationSummariesActions = {
   has: (stationId: string) => {
     return cachedStationSummaries.has(stationId);
   },
+  getAll: () => {
+    return cachedStationSummaries;
+  }
 };

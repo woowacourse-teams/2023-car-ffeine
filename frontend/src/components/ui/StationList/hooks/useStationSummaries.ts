@@ -4,6 +4,8 @@ import { fetchStationSummaries } from '@hooks/fetch/fetchStationSummaries';
 
 import type { StationMarker, StationSummary } from '@type';
 
+import { cachedStationSummariesActions } from '../tools/cachedStationSummaries';
+
 const makeStationIdsChunks = (filteredMarkers: StationMarker[]) => {
   return filteredMarkers.reduce((acc: string[][], marker, index) => {
     const REQUEST_CHUNK_SIZE = 10;
@@ -41,6 +43,8 @@ export const useStationSummaries = (markers: StationMarker[]) => {
     if (stationIds.length > 0) {
       setIsLoading(true);
       fetchStationSummaries(stationIds).then((stationSummaries) => {
+        cachedStationSummariesActions.add(stationSummaries);
+        console.log(cachedStationSummariesActions.getAll());
         setStationSummaries((prev) =>
           page === 0 ? stationSummaries : [...prev, ...stationSummaries]
         );
