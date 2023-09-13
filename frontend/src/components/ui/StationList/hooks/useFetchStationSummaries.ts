@@ -7,7 +7,6 @@ import type { StationMarker } from '@type';
 import { cachedStationSummariesActions } from '../tools/cachedStationSummaries';
 
 const makeStationIdsChunks = (markers: StationMarker[]) => {
-  console.log('markers: ' + markers.length);
   return markers.reduce((acc: string[][], marker, index) => {
     const REQUEST_CHUNK_SIZE = 10;
     const chunkIndex = Math.floor(index / REQUEST_CHUNK_SIZE);
@@ -23,9 +22,7 @@ const makeStationIdsChunks = (markers: StationMarker[]) => {
 };
 
 export const useFetchStationSummaries = (markers: StationMarker[]) => {
-  console.log('markers: ' + markers.length);
   const stationIdChunks = makeStationIdsChunks(markers);
-  console.log('stationIdChunks: ' + stationIdChunks.length);
 
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
