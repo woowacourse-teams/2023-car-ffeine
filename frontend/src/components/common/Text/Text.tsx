@@ -30,18 +30,20 @@ interface TextProps extends HTMLAttributes<HTMLElement>, SpacingProps {
   lineClamp?: number;
   fontSize?: number;
   weight?: 'bolder' | 'bold' | 'regular' | 'normal' | 'lighter';
+  lineHeight?: number | string;
   css?: CSSProp;
 }
 
-export type StyledTextType = Omit<TextProps, 'lineClamp'> & {
+export type StyledTextType = Omit<TextProps, 'lineClamp' | 'lineHeight'> & {
   $lineClamp?: number;
+  $lineHeight?: number | string;
 };
 
-const Text = ({ children, tag, lineClamp, ...props }: TextProps) => {
+const Text = ({ children, tag, lineClamp, lineHeight, ...props }: TextProps) => {
   const changeableTag = tag || 'p';
 
   return (
-    <S.Text as={changeableTag} $lineClamp={lineClamp} {...props}>
+    <S.Text as={changeableTag} $lineHeight={lineHeight} $lineClamp={lineClamp} {...props}>
       {children}
     </S.Text>
   );
@@ -145,7 +147,9 @@ const S = {
         text-overflow: ellipsis;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: ${$lineClamp};
-      `}
+        `}
+
+    line-height:${({ $lineHeight }) => $lineHeight};
 
     ${({ css }) => css}
   `,
