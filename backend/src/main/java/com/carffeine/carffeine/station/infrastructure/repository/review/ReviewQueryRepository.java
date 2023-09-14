@@ -31,8 +31,8 @@ public class ReviewQueryRepository {
                         review.isDeleted,
                         reply.count()))
                 .from(review)
-                .where(review.station.stationId.eq(stationId))
                 .leftJoin(reply).on(review.eq(reply.review))
+                .where(review.station.stationId.eq(stationId))
                 .orderBy(review.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
