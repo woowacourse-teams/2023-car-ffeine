@@ -130,9 +130,9 @@ describe('ServerStationFilters 컴포넌트 테스트', () => {
     expect(selectedCompaniesFilterStore.getState().size === 2).toBeTruthy();
     expect(selectedConnectorTypesFilterStore.getState().size === 1).toBeTruthy();
 
-    fireEvent.click(screen.getByLabelText('모든 필터 지우기 버튼'));
+    fireEvent.click(screen.getByLabelText('모든 필터 해제'));
 
-    // 모든 필터 지우기 버튼을 클릭했을시 전역 상태의 모든 필터 옵션이 지워졌는지 확인
+    // 모든 필터 해제 버튼을 클릭했을시 전역 상태의 모든 필터 옵션이 지워졌는지 확인
     expect(selectedCapacitiesFilterStore.getState().size === 0).toBeTruthy();
     expect(selectedCompaniesFilterStore.getState().size === 0).toBeTruthy();
     expect(selectedConnectorTypesFilterStore.getState().size === 0).toBeTruthy();
