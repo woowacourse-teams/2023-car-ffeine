@@ -10,11 +10,11 @@ export interface BoxProps extends HTMLAttributes<HTMLDivElement>, SpacingProps {
   children?: ReactNode;
   border?: boolean;
   height?: number | string;
-  minHeight?: string;
-  maxHeight?: string;
+  minHeight?: number | string;
+  maxHeight?: number | string;
   width?: number | string;
-  minWidth?: string;
-  maxWidth?: string;
+  minWidth?: number | string;
+  maxWidth?: number | string;
   bgColor?: string;
   color?: string;
   position?: 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky';
@@ -31,12 +31,12 @@ const BoxWrapper = styled.div<BoxProps>`
   ${({ border }) => border && `border: 0.1px solid #66666666; border-radius:0.4rem;`}
 
   height: ${({ height }) => (typeof height === 'string' ? height : `${height * 0.4}rem`)};
-  min-height: ${({ minHeight }) => minHeight};
-  max-height: ${({ maxHeight }) => maxHeight};
+  min-height: ${({ minHeight }) => (typeof minHeight === 'string' ? minHeight : `${minHeight}rem`)};
+  max-height: ${({ maxHeight }) => (typeof maxHeight === 'string' ? maxHeight : `${maxHeight}rem`)};
 
   width: ${({ width }) => (typeof width === 'string' ? width : `${width * 0.4}rem`)};
-  min-width: ${({ minWidth }) => minWidth};
-  max-width: ${({ maxWidth }) => maxWidth};
+  min-width: ${({ minWidth }) => (typeof minWidth === 'string' ? minWidth : `${minWidth}rem`)};
+  max-width: ${({ maxWidth }) => (typeof maxWidth === 'string' ? maxWidth : `${maxWidth}rem`)};
 
   ${({ bgColor }) => bgColor && `background: ${bgColor}`};
   ${({ color }) => color && `color: ${color}`};
