@@ -27,6 +27,9 @@ export const ENGLISH_DAYS_OF_WEEK_SHORT_TO_LONG = getTypedObjectFromEntries(
   SHORT_ENGLISH_DAYS_OF_WEEK,
   ENGLISH_DAYS_OF_WEEK
 );
+export const ENGLISH_DAYS_OF_WEEK_LONG_TO_SHORT = Object.fromEntries(
+  ENGLISH_DAYS_OF_WEEK.map((day, index) => [day, SHORT_ENGLISH_DAYS_OF_WEEK[index]])
+);
 
 /**
  * 혼잡도 정보(RATIO)가 DB에 존재하지 않을 경우

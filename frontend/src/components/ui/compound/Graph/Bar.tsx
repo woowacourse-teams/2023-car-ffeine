@@ -27,7 +27,7 @@ const Bar = ({ ratio, hour, align }: BarProps) => {
         {hour}
       </Text>
       <ProgressBar
-        value={ratio === NO_RATIO ? 100 : ratio}
+        value={ratio === NO_RATIO ? 100 : ratio * 100}
         max={100}
         color={getColorByRatio(ratio)}
       />

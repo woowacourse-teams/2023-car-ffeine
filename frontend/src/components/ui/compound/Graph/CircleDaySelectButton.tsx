@@ -1,4 +1,3 @@
-import { ENGLISH_DAYS_OF_WEEK_LONG_TO_SHORT } from '@mocks/handlers/station-details/statisticsHandlers';
 import { css } from 'styled-components';
 
 import { type PropsWithChildren } from 'react';
@@ -9,6 +8,7 @@ import {
   SHORT_ENGLISH_DAYS_OF_WEEK,
   ENGLISH_DAYS_OF_WEEK_SHORT_TO_LONG,
   ENGLISH_DAYS_TO_KOREAN_DAYS,
+  ENGLISH_DAYS_OF_WEEK_LONG_TO_SHORT,
 } from '@constants/congestion';
 
 import type { LongEnglishDaysOfWeek, ShortEnglishDaysOfWeek } from '@type/congestion';

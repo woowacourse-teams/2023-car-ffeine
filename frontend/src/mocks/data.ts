@@ -124,7 +124,7 @@ const getCongestions = (): Record<ShortEnglishDaysOfWeek, Congestion[]> => {
       Array.from({ length: 24 }, (_, index) => {
         return {
           hour: index,
-          ratio: Math.floor(Math.random() * 102 - 1),
+          ratio: Math.random() > 0.95 ? -1 : Math.random(),
         };
       })
     )
