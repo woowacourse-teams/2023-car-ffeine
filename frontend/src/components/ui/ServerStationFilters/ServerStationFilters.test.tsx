@@ -32,9 +32,7 @@ describe('ServerStationFilters 컴포넌트 테스트', () => {
     serverStationFilterAction.deleteAllServerStationFilters();
     (useMediaQueries as jest.Mock).mockReturnValue({
       screen: {
-        get: (params: string) => {
-          return true;
-        },
+        get: () => true,
       },
     });
   });
