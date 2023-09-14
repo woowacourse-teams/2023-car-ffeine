@@ -41,7 +41,7 @@ const Statistics = ({ stationId, setIsStatisticsOpen, dayOfWeek, onChangeDayOfWe
         message="데이터를 불러오는데 실패했어요."
         subMessage="잠시 후 다시 시도해주세요."
         handleRetry={handleRetry}
-        minHeight={`${493 + 22}px`}
+        minHeight={`${49.3 + 2.2}rem`}
       />
     );
   }
