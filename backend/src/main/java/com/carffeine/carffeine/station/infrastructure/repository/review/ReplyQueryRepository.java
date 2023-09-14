@@ -10,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import static com.carffeine.carffeine.station.domain.review.QReply.reply;
-import static com.carffeine.carffeine.station.domain.review.QReview.review;
 import static com.querydsl.core.types.Projections.constructor;
 
 @RequiredArgsConstructor
@@ -29,7 +28,7 @@ public class ReplyQueryRepository {
                         reply.updatedAt.after(reply.createdAt),
                         reply.isDeleted))
                 .from(reply)
-                .innerJoin(review).on(review.id.eq(reviewId))
+                .where(reply.review.id.eq(reviewId))
                 .orderBy(reply.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
