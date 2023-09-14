@@ -10,6 +10,7 @@ import {
 } from '@stores/station-filters/serverStationFiltersStore';
 
 import { useServerStationFilters } from '@hooks/tanstack-query/station-filters/useServerStationFilters';
+import useMediaQueries from '@hooks/useMediaQueries';
 
 import type { StationFilters } from '@type';
 
@@ -19,10 +20,18 @@ import ServerStationFilters from './ServerStationFilters';
 const queryClient = new QueryClient();
 
 jest.mock('@hooks/tanstack-query/station-filters/useServerStationFilters');
+jest.mock('@hooks/useMediaQueries');
 
 describe('ServerStationFilters 컴포넌트 테스트', () => {
   beforeEach(() => {
     serverStationFilterAction.deleteAllServerStationFilters();
+    (useMediaQueries as jest.Mock).mockReturnValue({
+      screen: {
+        get: (params: string) => {
+          return true;
+        },
+      },
+    });
   });
 
   it('ServerStationFilters 컴포넌트가 열리면 useServerStationFilters 훅에서 받아온 정보를 화면에 렌더링 한다.', () => {

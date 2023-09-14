@@ -1,6 +1,6 @@
 import { store } from '@utils/external-state';
 
-import { CHARGING_SPEED } from '@constants/chargers';
+import { CHARGING_SPEED } from '../../constants/chargers';
 
 const initialClientStationFilter = {
   availableStationFilter: { isAvailable: false, label: '현재 사용 가능' },
