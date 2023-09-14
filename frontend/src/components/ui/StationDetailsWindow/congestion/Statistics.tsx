@@ -5,6 +5,7 @@ import { useStationCongestionStatistics } from '@hooks/tanstack-query/station-de
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 
+import Error from '@ui/Error';
 import ShowHideButton from '@ui/ShowHideButton';
 import StatisticsGraph from '@ui/StatisticsGraph';
 
@@ -35,10 +36,13 @@ const Statistics = ({ stationId, setIsStatisticsOpen, dayOfWeek, onChangeDayOfWe
 
   if (isError) {
     return (
-      <>
-        <p>에러 발생</p>
-        <button onClick={handleRetry}>Retry</button>
-      </>
+      <Error
+        title="앗"
+        message="데이터를 불러오는데 실패했어요."
+        subMessage="잠시 후 다시 시도해주세요."
+        handleRetry={handleRetry}
+        minHeight={`${493 + 22}px`}
+      />
     );
   }
 
