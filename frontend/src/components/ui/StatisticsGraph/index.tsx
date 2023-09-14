@@ -1,4 +1,3 @@
-import CongestionBarContainerSkeleton from '@ui/StationDetailsWindow/congestion/CongestionBarContainerSkeleton';
 import type { GraphProps } from '@ui/compound/Graph';
 import Graph from '@ui/compound/Graph';
 import type { DayMenusProps } from '@ui/compound/Graph/DayMenus';
@@ -30,15 +29,12 @@ const StatisticsGraph = ({
           </Graph.CircleDaySelectButton>
         )}
       />
-      {isLoading ? (
-        <CongestionBarContainerSkeleton />
-      ) : (
-        <Graph.BarContainer
-          align={align}
-          statistics={statistics}
-          renderBar={(hour, ratio) => <Graph.Bar hour={hour} ratio={ratio} align={align} />}
-        />
-      )}
+      <Graph.BarContainer
+        align={align}
+        statistics={statistics}
+        renderBar={(hour, ratio) => <Graph.Bar hour={hour} ratio={ratio} align={align} />}
+        isLoading={isLoading}
+      />
     </Graph>
   );
 };
