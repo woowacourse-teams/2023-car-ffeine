@@ -1,6 +1,7 @@
 import { MinusSmallIcon, PlusSmallIcon } from '@heroicons/react/24/outline';
-import { MapPinIcon } from '@heroicons/react/24/solid';
 import { css } from 'styled-components';
+
+import { BiCurrentLocation } from 'react-icons/bi';
 
 import { useExternalValue } from '@utils/external-state';
 
@@ -46,13 +47,7 @@ const MapController = () => {
         {isFetching ? (
           <Loader css={{ borderBottomColor: 'blue' }} />
         ) : (
-          <MapPinIcon
-            width={24}
-            fill="#0054ff"
-            stroke="#333"
-            type="button"
-            aria-label="내 위치로 이동"
-          />
+          <BiCurrentLocation size={24} color="#0540f2" stroke="#333" aria-label="내 위치로 이동" />
         )}
       </Button>
       <Button
