@@ -12,7 +12,7 @@
     "build-dev": "webpack --config webpack.config.dev.js",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "cypress": "cypress open"
+    "analyze": "webpack-bundle-analyzer ./dist/bundle-report.json --default-sizes gzip"
   },
   "author": "",
   "license": "ISC",
@@ -72,6 +72,7 @@
     "storybook": "^7.0.24",
     "ts-loader": "^9.4.4",
     "typescript": "^5.1.6",
+    "webpack-bundle-analyzer": "^4.9.1",
     "webpack-dev-server": "^4.15.1"
   },
   "msw": {
