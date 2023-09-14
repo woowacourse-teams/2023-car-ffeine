@@ -1,9 +1,4 @@
-import {
-  AdjustmentsHorizontalIcon,
-  Bars3Icon,
-  MagnifyingGlassIcon,
-  UserCircleIcon,
-} from '@heroicons/react/24/outline';
+import { AdjustmentsHorizontalIcon, Bars3Icon, UserCircleIcon } from '@heroicons/react/24/outline';
 import { ArrowRightOnRectangleIcon, PencilSquareIcon } from '@heroicons/react/24/solid';
 import { css } from 'styled-components';
 
@@ -86,10 +81,10 @@ const Menu = () => {
       <LogoIcon width={3} />
       <Button
         css={displayNoneInMobile}
-        aria-label="검색창 열기"
+        aria-label="주변 충전소 목록 열기"
         onClick={() => openBasePanel(<StationSearchWindow />)}
       >
-        <MagnifyingGlassIcon width="2.8rem" stroke="#333" />
+        <Bars3Icon width="2.8rem" stroke="#333" />
       </Button>
       <Button aria-label="필터링 메뉴 열기" onClick={() => openBasePanel(<ServerStationFilters />)}>
         <AdjustmentsHorizontalIcon width="2.8rem" stroke="#333" />
