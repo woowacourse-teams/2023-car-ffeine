@@ -20,11 +20,11 @@ export const FLEX_BOX_ITEM_POSITION = {
 export interface FlexBoxProps extends HTMLAttributes<HTMLDivElement>, SpacingProps {
   tag?: string;
   height?: number | string;
-  minHeight?: string;
-  maxHeight?: string;
+  minHeight?: number | string;
+  maxHeight?: number | string;
   width?: number | string;
-  minWidth?: string;
-  maxWidth?: string;
+  minWidth?: number | string;
+  maxWidth?: number | string;
   justifyContent?: keyof typeof FLEX_BOX_ITEM_POSITION;
   alignItems?: keyof typeof FLEX_BOX_ITEM_POSITION;
   alignContent?: keyof typeof FLEX_BOX_ITEM_POSITION;
@@ -59,10 +59,10 @@ export type StyledFlexBoxType = Omit<
   $justifyContent?: keyof typeof FLEX_BOX_ITEM_POSITION;
   $alignItems?: keyof typeof FLEX_BOX_ITEM_POSITION;
   $alignContent?: keyof typeof FLEX_BOX_ITEM_POSITION;
-  $minHeight?: string;
-  $maxHeight?: string;
-  $minWidth?: string;
-  $maxWidth?: string;
+  $minHeight?: number | string;
+  $maxHeight?: number | string;
+  $minWidth?: number | string;
+  $maxWidth?: number | string;
 };
 
 // TODO: tag가 바뀌었을 때 ref의 타입을 바꾸는 로직을 추가한다.
@@ -119,12 +119,16 @@ const S = {
     ${spacing};
 
     width: ${({ width }) => getSize(width)};
-    min-width: ${({ $minWidth }) => $minWidth};
-    max-width: ${({ $maxWidth }) => $maxWidth};
+    min-width: ${({ $minWidth }) =>
+      typeof $minWidth === 'string' ? $minWidth : `${$minWidth}rem`};
+    max-width: ${({ $maxWidth }) =>
+      typeof $maxWidth === 'string' ? $maxWidth : `${$maxWidth}rem`};
 
     height: ${({ height }) => getSize(height)};
-    min-height: ${({ $minHeight }) => $minHeight};
-    max-height: ${({ $maxHeight }) => $maxHeight};
+    min-height: ${({ $minHeight }) =>
+      typeof $minHeight === 'string' ? $minHeight : `${$minHeight}rem`};
+    max-height: ${({ $maxHeight }) =>
+      typeof $maxHeight === 'string' ? $maxHeight : `${$maxHeight}rem`};
 
     flex-wrap: ${({ nowrap }) => (nowrap ? 'nowrap' : 'wrap')};
     flex-direction: ${({ direction }) => (direction ? direction : 'row')};
