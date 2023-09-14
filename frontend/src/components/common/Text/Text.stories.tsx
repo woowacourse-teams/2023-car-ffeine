@@ -11,7 +11,6 @@ const meta = {
     tag: 'p',
     variant: 'body',
     align: 'left',
-    mb: 0,
     color: '#333',
     lineClamp: 1,
     children: 'You forget a thousand things every day. Make sure this is one of them.',
@@ -47,13 +46,6 @@ const meta = {
       },
       description: '글자 크기 및 두께를 바꿀 수 있습니다. 기본값은 body입니다.',
     },
-    mb: {
-      control: {
-        type: 'number',
-      },
-      description:
-        '숫자를 입력해 글자의 하단 간격을 조절할 수 있습니다. `입력한 숫자 x 4px` 만큼 간격이 늘어납니다.<br> 기본값은 4px 입니다.',
-    },
     align: {
       options: {
         none: false,
@@ -79,6 +71,12 @@ const meta = {
     weight: {
       description:
         '글자 두께를 직접 조절할 수 있습니다.<br>❗글자 두께를 직접 설정할 경우, variant 적용시에도 글자 두께는 변하지 않습니다.',
+    },
+    lineHeight: {
+      control: {
+        type: 'text',
+      },
+      description: '글자의 줄 간격을 조절할 수 있습니다.',
     },
   },
 } satisfies Meta<typeof Text>;

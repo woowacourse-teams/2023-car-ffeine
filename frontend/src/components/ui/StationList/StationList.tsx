@@ -1,8 +1,8 @@
 import { css } from 'styled-components';
 
 import { useStationMarkers } from '@hooks/tanstack-query/station-markers/useStationMarkers';
-import { useStationSummaries } from '@hooks/tanstack-query/station-markers/useStationSummaries';
 
+import ButtonNext from '@common/ButtonNext';
 import List from '@common/List';
 
 import EmptyStationsNotice from '@ui/StationList/EmptyStationsNotice';
@@ -11,6 +11,8 @@ import StationSummaryCardSkeleton from '@ui/StationList/StationSummaryCardSkelet
 import { MOBILE_BREAKPOINT } from '@constants';
 
 import StationSummaryCard from './StationSummaryCard';
+import { useFetchStationSummaries } from './hooks/useFetchStationSummaries';
+import { cachedStationSummariesActions } from './tools/cachedStationSummaries';
 
 const StationList = () => {
   const {
@@ -20,12 +22,14 @@ const StationList = () => {
   } = useStationMarkers();
 
   const {
-    data: stationSummaries,
-    isSuccess,
-    isLoading,
-  } = useStationSummaries(filteredMarkers ?? []);
+    isLoading: isStationSummariesLoading,
+    loadMore,
+    hasNextPage,
+  } = useFetchStationSummaries(filteredMarkers ?? []);
 
-  if (isFilteredMarkersLoading || isLoading) {
+  const cachedStationSummaries = cachedStationSummariesActions.get();
+
+  if (isFilteredMarkersLoading) {
     return (
       <List css={searchResultList}>
         {Array.from({ length: 10 }, (_, index) => (
@@ -35,16 +39,32 @@ const StationList = () => {
     );
   }
 
+  // TODO: 초기에 텅 안보이게 하기
+  if (
+    isStationSummariesLoading === false &&
+    isFilteredMarkersSuccess &&
+    cachedStationSummaries.length === 0
+  ) {
+    return <EmptyStationsNotice />;
+  }
+
   return (
-    isSuccess &&
     isFilteredMarkersSuccess && (
       <List css={searchResultList}>
-        {stationSummaries.length > 0 ? (
-          stationSummaries.map((stationSummary) => (
-            <StationSummaryCard key={stationSummary.stationId} station={stationSummary} />
-          ))
-        ) : (
-          <EmptyStationsNotice />
+        {cachedStationSummaries.map((stationSummary) => (
+          <StationSummaryCard key={stationSummary.stationId} station={stationSummary} />
+        ))}
+        {isStationSummariesLoading && (
+          <>
+            {Array.from({ length: 10 }, (_, index) => (
+              <StationSummaryCardSkeleton key={index} />
+            ))}
+          </>
+        )}
+        {hasNextPage && (
+          <ButtonNext onClick={loadMore} fullWidth>
+            더 보 기
+          </ButtonNext>
         )}
       </List>
     )

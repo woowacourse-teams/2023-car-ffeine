@@ -40,6 +40,7 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js'],
     modules: [path.resolve(__dirname, 'src'), 'node_modules'],
     alias: {
+      '@mocks':path.resolve(__dirname, './src/mocks'),
       '@map': path.resolve(__dirname, './src/components/google-maps/map'),
       '@marker': path.resolve(__dirname, './src/components/google-maps/marker'),
       '@ui': path.resolve(__dirname, './src/components/ui'),

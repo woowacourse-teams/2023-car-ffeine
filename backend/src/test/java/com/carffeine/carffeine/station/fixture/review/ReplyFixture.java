@@ -3,6 +3,7 @@ package com.carffeine.carffeine.station.fixture.review;
 import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.station.domain.review.Reply;
 import com.carffeine.carffeine.station.domain.review.Review;
+import com.carffeine.carffeine.station.infrastructure.repository.review.dto.ReplyResponse;
 import com.carffeine.carffeine.station.service.review.dto.CreateReplyRequest;
 
 import java.time.LocalDateTime;
@@ -15,8 +16,6 @@ import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.리�
 @SuppressWarnings("NonAsciiCharacters")
 public class ReplyFixture {
     public static final CreateReplyRequest 답글_요청_1개 = new CreateReplyRequest("저도 그렇게 생각합니다");
-
-    public static final CreateReplyRequest 답글_수정_요청_1개 = new CreateReplyRequest("저는 그렇게 생각 안해요");
 
     public static final Reply 답글_1개 = Reply.builder()
             .id(1L)
@@ -49,7 +48,7 @@ public class ReplyFixture {
             .isDeleted(false)
             .build();
 
-    public static final List<Reply> 답글_13개(Review review, Member member) {
+    public static List<Reply> 답글_13개(Review review, Member member) {
         List<Reply> replies = new ArrayList<>();
         for (int i = 0; i < 13; i++) {
             Reply reply = Reply.builder()
@@ -71,5 +70,9 @@ public class ReplyFixture {
             createReplyRequests.add(답글_요청_1개);
         }
         return createReplyRequests;
+    }
+
+    public static ReplyResponse 응답_답글() {
+        return new ReplyResponse(1L, 1L, 1L, LocalDateTime.now(), "덕분에 도움이 되었습니다", false, false);
     }
 }

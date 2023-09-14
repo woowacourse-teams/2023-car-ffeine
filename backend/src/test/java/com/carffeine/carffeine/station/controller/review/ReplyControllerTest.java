@@ -4,6 +4,8 @@ import com.carffeine.carffeine.helper.MockBeanInjection;
 import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.station.domain.review.Reply;
 import com.carffeine.carffeine.station.domain.review.Review;
+import com.carffeine.carffeine.station.infrastructure.repository.review.dto.ReplyResponse;
+import com.carffeine.carffeine.station.infrastructure.repository.review.dto.ReplyResponses;
 import com.carffeine.carffeine.station.service.review.dto.CreateReplyRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayNameGeneration;
@@ -12,8 +14,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -26,6 +26,7 @@ import static com.carffeine.carffeine.helper.RestDocsHelper.customDocument;
 import static com.carffeine.carffeine.member.fixture.MemberFixture.일반_회원;
 import static com.carffeine.carffeine.station.fixture.review.ReplyFixture.답글_1개;
 import static com.carffeine.carffeine.station.fixture.review.ReplyFixture.바뀐_답글_1개;
+import static com.carffeine.carffeine.station.fixture.review.ReplyFixture.응답_답글;
 import static com.carffeine.carffeine.station.fixture.review.ReviewFixture.리뷰_별4_15글자;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
@@ -51,7 +52,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SuppressWarnings("NonAsciiCharacters")
 @WebMvcTest(ReplyController.class)
 @AutoConfigureRestDocs
-public class ReplyControllerTest extends MockBeanInjection {
+class ReplyControllerTest extends MockBeanInjection {
 
     @Autowired
     private MockMvc mockMvc;
@@ -92,10 +93,11 @@ public class ReplyControllerTest extends MockBeanInjection {
     void 댓글의_답글을_조회한다() throws Exception {
         // given
         Long reviewId = 1L;
-        Page<Reply> replies = new PageImpl<>(List.of(답글_1개));
+        List<ReplyResponse> replies = List.of(응답_답글());
+        int nextPage = 1;
 
         // when
-        when(replyService.findAllReplies(eq(reviewId), any(Pageable.class))).thenReturn(replies);
+        when(replyQueryService.findAllReplies(eq(reviewId), any(Pageable.class))).thenReturn(new ReplyResponses(replies, nextPage));
 
         // then
         mockMvc.perform(get("/reviews/{reviewId}/replies", reviewId)

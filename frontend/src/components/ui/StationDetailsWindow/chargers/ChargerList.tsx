@@ -1,13 +1,13 @@
-import { ChevronDownIcon } from '@heroicons/react/24/solid';
 import { css } from 'styled-components';
 
 import { useState } from 'react';
 
 import Alert from '@common/Alert';
-import Button from '@common/Button';
+import Box from '@common/Box';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
+import ShowHideButton from '@ui/ShowHideButton';
 import ChargerCard from '@ui/StationDetailsWindow/chargers/ChargerCard';
 
 import type { Charger } from '@type';
@@ -22,20 +22,26 @@ export interface ChargerListProps {
 
 const ChargerList = ({ chargers, stationId, reportCount }: ChargerListProps) => {
   const CHARGER_SIZE = 6;
-  const [page, setPage] = useState(1);
+  const INITIAL_PAGE = 1;
+
+  const [page, setPage] = useState(INITIAL_PAGE);
   const totalChargersSize = chargers.length;
   const availableChargersSize = chargers.filter((charger) => charger.state === 'STANDBY').length;
   const loadedChargers = chargers.slice(0, page * CHARGER_SIZE);
   const loadedChargersSize = page * CHARGER_SIZE;
   const isReported = reportCount > 0;
-  const isShowMoreButton = totalChargersSize - loadedChargersSize > 0;
+  const shouldShowMoreButton = totalChargersSize - loadedChargersSize > 0;
 
   const handleShowMoreChargers = () => {
     setPage((prev) => prev + 1);
   };
 
+  const handleResetChargesPage = () => {
+    setPage(INITIAL_PAGE);
+  };
+
   return (
-    <>
+    <Box mb={12}>
       <Text tag="h3" fontSize={1.8} weight="bold" mt={8} mb={1.5}>
         충전기
       </Text>
@@ -57,15 +63,12 @@ const ChargerList = ({ chargers, stationId, reportCount }: ChargerListProps) => 
           <ChargerCard key={index} charger={charger} />
         ))}
       </FlexBox>
-      {isShowMoreButton && (
-        <Button css={MoreButtonContainer} onClick={handleShowMoreChargers}>
-          <FlexBox justifyContent="center">
-            <Text>더보기</Text>
-            <ChevronDownIcon width={20} />
-          </FlexBox>
-        </Button>
+      {shouldShowMoreButton ? (
+        <ShowHideButton onClick={handleShowMoreChargers} />
+      ) : (
+        page !== INITIAL_PAGE && <ShowHideButton name="닫기" onClick={handleResetChargesPage} />
       )}
-    </>
+    </Box>
   );
 };
 
@@ -73,14 +76,6 @@ const alertCss = css`
   padding: 1rem 0 1.2rem;
   text-align: center;
   margin-top: 1rem;
-`;
-
-const MoreButtonContainer = css`
-  width: 100%;
-
-  & svg {
-    padding-top: 2px;
-  }
 `;
 
 export default ChargerList;

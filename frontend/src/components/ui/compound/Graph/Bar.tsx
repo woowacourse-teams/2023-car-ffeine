@@ -9,7 +9,7 @@ import { NO_RATIO } from '@constants/congestion';
 
 interface BarProps {
   ratio: number;
-  hour: number;
+  hour: string;
   align: 'row' | 'column';
 }
 
@@ -21,13 +21,13 @@ const Bar = ({ ratio, hour, align }: BarProps) => {
       width="100%"
       direction={align === 'column' ? 'row' : 'column'}
       css={align === 'row' && rowAlignCss}
-      alignItems={align === 'row' ? 'center' : 'start'}
+      alignItems="center"
     >
       <Text variant="caption" css={align === 'column' && textCss}>
         {hour}
       </Text>
       <ProgressBar
-        value={ratio === NO_RATIO ? 100 : ratio}
+        value={ratio === NO_RATIO ? 100 : ratio * 100}
         max={100}
         color={getColorByRatio(ratio)}
       />
@@ -37,10 +37,10 @@ const Bar = ({ ratio, hour, align }: BarProps) => {
 
 const getColorByRatio = (ratio: number) => {
   if (ratio === NO_RATIO) {
-    return getHoverColor('secondary');
+    return getHoverColor('disable');
   }
 
-  return '#0064ff';
+  return '#2a6cd8';
 };
 
 const ProgressBar = styled.progress<{ color: string }>`

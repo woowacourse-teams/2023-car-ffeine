@@ -2,6 +2,7 @@ package com.carffeine.carffeine.station.fixture.review;
 
 import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.station.domain.review.Review;
+import com.carffeine.carffeine.station.infrastructure.repository.review.dto.ReviewResponse;
 import com.carffeine.carffeine.station.service.review.dto.CreateReviewRequest;
 
 import java.time.LocalDateTime;
@@ -25,7 +26,7 @@ public class ReviewFixture {
             .isDeleted(false)
             .build();
 
-    public static final Review 저장_전_리뷰(Member member) {
+    public static Review 저장_전_리뷰(Member member) {
         return Review.builder()
                 .station(선릉역_충전소_충전기_2개_사용가능_1개)
                 .member(member)
@@ -35,14 +36,10 @@ public class ReviewFixture {
                 .build();
     }
 
-    public static final Review 저장_전_리뷰2(Member member) {
-        return Review.builder()
-                .station(선릉역_충전소_충전기_2개_사용가능_1개)
-                .member(member)
-                .ratings(2)
-                .content("사람이 많이 없어서 좋네요")
-                .isDeleted(false)
-                .build();
+    public static ReviewResponse 응답_리뷰() {
+        return new ReviewResponse(
+                1L, 1L, LocalDateTime.now(), 4, "감사합니다 감사합니다", false, false, 0
+        );
     }
 
     public static final CreateReviewRequest 리뷰_요청_1개 =

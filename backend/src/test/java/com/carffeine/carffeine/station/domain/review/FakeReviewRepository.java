@@ -73,20 +73,4 @@ public class FakeReviewRepository implements ReviewRepository {
                 .build();
         map.put(any.get(), deletedReview);
     }
-
-    @Override
-    public Optional<Double> findAverageRatingsByStation(Station station) {
-        return Optional.of(map.values().stream()
-                .filter(it -> it.getStation().getStationId().equals(station.getStationId()))
-                .mapToDouble(Review::getRatings)
-                .average()
-                .orElse(0.0));
-    }
-
-    @Override
-    public Long countByStation(Station station) {
-        return map.values().stream()
-                .filter(it -> it.getStation().getStationId().equals(station.getStationId()))
-                .count();
-    }
 }

@@ -1,15 +1,16 @@
 import { store } from '@utils/external-state';
 
-interface StationFilter {
-  isFastChargeStationFilterSelected: boolean;
-  isAvailableStationFilterSelected: boolean;
-  isParkingFreeStationFilterSelected: boolean;
-  isPrivateStationFilterSelected: boolean;
-}
+import { CHARGING_SPEED } from '@constants/chargers';
 
-export const clientStationFiltersStore = store<StationFilter>({
-  isAvailableStationFilterSelected: false,
-  isFastChargeStationFilterSelected: false,
-  isParkingFreeStationFilterSelected: false,
-  isPrivateStationFilterSelected: false,
+const initialClientStationFilter = {
+  availableStationFilter: { isAvailable: false, label: '현재 사용 가능' },
+  fastChargeStationFilter: { isAvailable: false, label: CHARGING_SPEED.quick },
+  parkingFreeStationFilter: { isAvailable: false, label: '주차 무료' },
+  privateStationFilter: { isAvailable: false, label: '외부인 개방' },
+};
+
+export type ClientStationFilter = typeof initialClientStationFilter;
+
+export const clientStationFiltersStore = store<ClientStationFilter>({
+  ...initialClientStationFilter,
 });

@@ -2,33 +2,26 @@ package com.carffeine.carffeine.station.domain.congestion;
 
 import com.carffeine.carffeine.common.domain.BaseEntity;
 import com.carffeine.carffeine.station.config.RequestPeriodConverter;
-import com.carffeine.carffeine.station.domain.charger.Charger;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
-import javax.persistence.ConstraintMode;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.ForeignKey;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
+import javax.persistence.Index;
 import javax.persistence.Table;
 import java.time.DayOfWeek;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Entity
 @EqualsAndHashCode(of = {"id"}, callSuper = false)
-@Table(name = "periodic_congestion")
+@Table(name = "periodic_congestion", indexes = @Index(name = "idx_station_id_and_day_of_week", columnList = "station_id, day_of_week"))
 public class PeriodicCongestion extends BaseEntity {
 
     private static final int DEFAULT_COUNT = 0;
@@ -38,7 +31,7 @@ public class PeriodicCongestion extends BaseEntity {
     private String id;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 10)
+    @Column(name = "day_of_week", nullable = false, length = 10)
     private DayOfWeek dayOfWeek;
 
     @Convert(converter = RequestPeriodConverter.class)
@@ -53,13 +46,6 @@ public class PeriodicCongestion extends BaseEntity {
 
     @Column(nullable = false)
     private double congestion;
-
-    @ManyToOne
-    @JoinColumns(value = {
-            @JoinColumn(name = "station_id", referencedColumnName = "station_id", insertable = false, updatable = false),
-            @JoinColumn(name = "charger_id", referencedColumnName = "charger_id", insertable = false, updatable = false)
-    }, foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
-    private Charger charger;
 
     @Column(name = "station_id", nullable = false)
     private String stationId;
@@ -91,5 +77,9 @@ public class PeriodicCongestion extends BaseEntity {
                 stationId,
                 chargerId
         );
+    }
+
+    public boolean isSameStartTime(int section) {
+        return this.startTime.isSameSection(section);
     }
 }

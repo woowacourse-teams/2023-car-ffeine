@@ -31,7 +31,7 @@ export const getSize = (size: string | number) => {
 export const getColor = (color?: Color) => {
   switch (color) {
     case 'primary':
-      return '#0064ff';
+      return '#2a6cd8';
     case 'secondary':
       return '#212529BF';
     case 'success':
@@ -47,7 +47,7 @@ export const getColor = (color?: Color) => {
     case 'dark':
       return '#212529';
     default:
-      return '#0064ff';
+      return '#2a6cd8';
   }
 };
 
@@ -67,6 +67,8 @@ export const getHoverColor = (color?: Color) => {
       return '#0da8d6';
     case 'light':
       return '#e2e6ea';
+    case 'disable':
+      return '#9a9a9a';
     case 'dark':
       return '#16181b';
     default:

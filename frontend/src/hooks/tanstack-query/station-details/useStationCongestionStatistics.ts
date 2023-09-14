@@ -5,14 +5,17 @@ import { serverUrlStore } from '@stores/config/serverUrlStore';
 import { ERROR_MESSAGES } from '@constants/errorMessages';
 import { QUERY_KEY_STATION_CONGESTION_STATISTICS } from '@constants/queryKeys';
 
-import type { CongestionStatistics } from '@type/congestion';
+import type { CongestionStatistics, LongEnglishDaysOfWeek } from '@type/congestion';
 
-export const fetchStationDetails = async (selectedStationId: string) => {
+export const fetchStationDetails = async (selectedStationId: string, dayOfWeek: string) => {
   const serverUrl = serverUrlStore.getState();
 
-  const stationDetails = await fetch(`${serverUrl}/stations/${selectedStationId}/statistics`, {
-    method: 'GET',
-  }).then<CongestionStatistics>(async (response) => {
+  const stationDetails = await fetch(
+    `${serverUrl}/stations/${selectedStationId}/statistics?dayOfWeek=${dayOfWeek}`,
+    {
+      method: 'GET',
+    }
+  ).then<CongestionStatistics>(async (response) => {
     if (!response.ok) {
       throw new Error(ERROR_MESSAGES.STATION_DETAILS_FETCH_ERROR);
     }
@@ -25,10 +28,13 @@ export const fetchStationDetails = async (selectedStationId: string) => {
   return stationDetails;
 };
 
-export const useStationCongestionStatistics = (stationId: string) => {
+export const useStationCongestionStatistics = (
+  stationId: string,
+  dayOfWeek: LongEnglishDaysOfWeek
+) => {
   return useQuery({
-    queryKey: [QUERY_KEY_STATION_CONGESTION_STATISTICS, stationId],
-    queryFn: () => fetchStationDetails(stationId),
+    queryKey: [QUERY_KEY_STATION_CONGESTION_STATISTICS, stationId, dayOfWeek],
+    queryFn: () => fetchStationDetails(stationId, dayOfWeek),
     enabled: !!stationId,
     refetchOnWindowFocus: false,
   });

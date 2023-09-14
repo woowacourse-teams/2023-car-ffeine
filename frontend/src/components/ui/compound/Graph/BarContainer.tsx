@@ -1,27 +1,36 @@
 import type { ReactNode } from 'react';
-import { useContext } from 'react';
 
 import FlexBox from '@common/FlexBox';
 
-import { GraphContext, type GraphProps } from '.';
+import CongestionBarContainerSkeleton from '@ui/StationDetailsWindow/congestion/CongestionBarContainerSkeleton';
+
+import type { Congestion } from '@type';
+
+import type { GraphProps } from '.';
 
 interface BarContainerProps extends GraphProps {
-  renderBar: (hour: number, ratio: number) => ReactNode;
+  renderBar: (hour: string, ratio: number) => ReactNode;
+  statistics: Congestion[];
+  isLoading: boolean;
 }
 
-const BarContainer = ({ align, statistics, renderBar }: BarContainerProps) => {
-  const { selectedDay } = useContext(GraphContext);
-
+const BarContainer = ({ align, statistics, renderBar, isLoading }: BarContainerProps) => {
   return (
-    <FlexBox
-      direction={align}
-      nowrap
-      alignItems={align === 'row' ? 'end' : 'start'}
-      width={align === 'column' && '100%'}
-      height={align === 'row' && '100%'}
-    >
-      {statistics[selectedDay].map(({ hour, ratio }) => renderBar(hour, ratio))}
-    </FlexBox>
+    <>
+      {isLoading ? (
+        <CongestionBarContainerSkeleton />
+      ) : (
+        <FlexBox
+          direction={align}
+          nowrap
+          alignItems={align === 'row' ? 'end' : 'start'}
+          width={align === 'column' && '100%'}
+          height={align === 'row' && '100%'}
+        >
+          {statistics.map(({ hour, ratio }) => renderBar(`${hour + 1}`.padStart(2, '0'), ratio))}
+        </FlexBox>
+      )}
+    </>
   );
 };
 

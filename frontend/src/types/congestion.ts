@@ -1,7 +1,12 @@
-import type { ENGLISH_DAYS, KOREAN_DAYS } from '@constants/congestion';
+import type {
+  ENGLISH_DAYS_OF_WEEK,
+  SHORT_ENGLISH_DAYS_OF_WEEK,
+  SHORT_KOREAN_DAYS_OF_WEEK,
+} from '@constants/congestion';
 
-export type EnglishDaysType = (typeof ENGLISH_DAYS)[number];
-export type KoreanDaysType = (typeof KOREAN_DAYS)[number];
+export type ShortEnglishDaysOfWeek = (typeof SHORT_ENGLISH_DAYS_OF_WEEK)[number];
+export type LongEnglishDaysOfWeek = (typeof ENGLISH_DAYS_OF_WEEK)[number];
+export type KoreanDaysOfWeek = (typeof SHORT_KOREAN_DAYS_OF_WEEK)[number];
 
 export interface Congestion {
   hour: number;
@@ -11,7 +16,7 @@ export interface Congestion {
 export interface CongestionStatistics {
   stationId: string;
   congestion: {
-    standard?: Record<EnglishDaysType, Congestion[]>;
-    quick?: Record<EnglishDaysType, Congestion[]>;
+    standard: Congestion[];
+    quick: Congestion[];
   };
 }

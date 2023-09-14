@@ -3,13 +3,16 @@ import type { CSSProp } from 'styled-components';
 
 import type { ButtonHTMLAttributes, MouseEventHandler } from 'react';
 
+import type { SpacingProps } from '@common/systems';
+import { spacing } from '@common/systems';
+
 import { borderRadius, getSize, pillStyle } from '@style';
 
 import type { BorderRadiusDirectionType } from '@type/style';
 
 type VariantType = 'pill' | 'label';
 
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, SpacingProps {
   variant?: VariantType;
   width?: string | number;
   height?: string | number;
@@ -65,6 +68,7 @@ const S = {
     border-radius: 1.2rem;
     text-align: center;
 
+    ${spacing}
     ${({ $noRadius }) => $noRadius && borderRadius($noRadius)};
     ${({ variant }) => {
       switch (variant) {
