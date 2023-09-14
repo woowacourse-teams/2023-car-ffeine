@@ -21,11 +21,26 @@ interface Props {
 }
 
 const Statistics = ({ stationId, setIsStatisticsOpen, dayOfWeek, onChangeDayOfWeek }: Props) => {
-  const { data: congestionStatistics, isLoading } = useStationCongestionStatistics(
-    stationId,
-    dayOfWeek
-  );
+  const {
+    data: congestionStatistics,
+    isLoading,
+    isError,
+    refetch,
+  } = useStationCongestionStatistics(stationId, dayOfWeek);
   const [chargingSpeed, setChargingSpeed] = useState<keyof typeof CHARGING_SPEED>('standard');
+
+  const handleRetry = () => {
+    refetch();
+  };
+
+  if (isError) {
+    return (
+      <>
+        <p>에러 발생</p>
+        <button onClick={handleRetry}>Retry</button>
+      </>
+    );
+  }
 
   return (
     <>
