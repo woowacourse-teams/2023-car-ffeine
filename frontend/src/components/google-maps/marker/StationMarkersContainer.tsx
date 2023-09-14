@@ -13,10 +13,10 @@ import type { StationMarker } from '@type';
 
 const createMarkerInstances = (markers: StationMarker[]) => {
   return markers.map((marker) => {
-    const { latitude, longitude, stationName, stationId } = marker;
+    const { latitude: lat, longitude: lng, stationName, stationId } = marker;
 
     const markerInstance = new google.maps.marker.AdvancedMarkerElement({
-      position: { lat: latitude, lng: longitude },
+      position: { lat, lng },
       title: stationName,
     });
 
@@ -36,22 +36,9 @@ const StationMarkersContainer = () => {
     return <></>;
   }
 
-  setMarkerInstances((prevMarkerInstances) => {
-    const markerInstances = createMarkerInstances(stationMarkers);
+  const markerInstances = createMarkerInstances(stationMarkers);
 
-    // const markerInstancesOutOfBoundary = prevMarkerInstances.filter(
-    //   ({ stationId: prevStationId }) =>
-    //     !stationMarkers.some(({ stationId }) => prevStationId === stationId)
-    // );
-
-    // markerInstancesOutOfBoundary.forEach(({ markerInstance }) => {
-    //   markerInstance.map = null;
-    // });
-
-    return markerInstances;
-  });
-
-  markerInstanceStore.getState().forEach(({ markerInstance }, index) => {
+  markerInstances.forEach(({ markerInstance }, index) => {
     const container = document.createElement('div');
 
     markerInstance.content = container;
@@ -60,13 +47,7 @@ const StationMarkersContainer = () => {
     createRoot(container).render(<CarFfeineMarker {...stationMarkers[index]} />);
   });
 
-  // return (
-  //   <>
-  //     {stationMarkers.map((stationMarker) => {
-  //       return <Marker key={stationMarker.stationId} stationMarker={stationMarker} />;
-  //     })}
-  //   </>
-  // );
+  setMarkerInstances(markerInstances);
 };
 
 export default StationMarkersContainer;
