@@ -30,7 +30,7 @@ module.exports = function () {
         {
           test: /\.(ts|tsx)?$/,
           use: 'ts-loader',
-          exclude: /node_modules/,
+          exclude: /node_modules|\.test\.(ts|tsx)?$|\.stories\.(ts|tsx)?$/,
           resolve: {
             extensions: ['.ts', '.tsx', '.js', '.json'],
             fallback: { process: false },

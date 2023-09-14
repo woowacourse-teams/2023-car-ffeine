@@ -5,9 +5,10 @@ import { styled } from 'styled-components';
 import type { ReactElement } from 'react';
 import { useState } from 'react';
 
+import Button from '@common/Button';
+import ButtonNext from '@common/ButtonNext';
+
 import NavigationBar from '.';
-import Button from '../../../common/Button';
-import ButtonNext from '../../../common/ButtonNext';
 
 const meta = {
   title: 'UI/NavigationBar',

@@ -31,7 +31,7 @@ const PopupMenu = ({ menus }: Props) => {
   return (
     <FlexBox css={container} onClick={(event) => event.stopPropagation()}>
       {isOpen && <Menus menus={menus} closeMenu={closePopupMenu} />}
-      <button onClick={toggleOpenPopupMenu}>
+      <button onClick={toggleOpenPopupMenu} aria-label="프로필 메뉴 열기">
         <UserCircleIcon width="2.8rem" stroke="#333" />
       </button>
     </FlexBox>
