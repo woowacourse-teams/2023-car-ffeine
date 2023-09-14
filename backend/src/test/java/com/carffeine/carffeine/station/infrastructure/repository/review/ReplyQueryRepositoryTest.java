@@ -52,12 +52,14 @@ class ReplyQueryRepositoryTest {
 
     private Member member;
     private Review review;
+    private Review otherReview;
 
     @BeforeEach
     void setUp() {
         member = memberRepository.save(일반_회원);
         stationRepository.save(선릉역_충전소_충전기_2개_사용가능_1개);
         review = reviewRepository.save(저장_전_리뷰(member));
+        otherReview = reviewRepository.save(저장_전_리뷰(member));
     }
 
     @Test
@@ -107,6 +109,24 @@ class ReplyQueryRepositoryTest {
         // then
         assertSoftly(softly -> {
             softly.assertThat(allReplies).hasSize(3);
+            softly.assertThat(allReplies.hasNext()).isFalse();
+        });
+    }
+
+    @Test
+    void 리뷰가_다르면_답글도_다르다() {
+        // given
+        for (Reply reply : 답글_13개(review, member)) {
+            replyRepository.save(reply);
+        }
+        PageRequest pageable = PageRequest.of(1, 10);
+
+        // when
+        Page<ReplyResponse> allReplies = replyQueryRepository.findAllReplies(otherReview.getId(), pageable);
+
+        // then
+        assertSoftly(softly -> {
+            softly.assertThat(allReplies).hasSize(0);
             softly.assertThat(allReplies.hasNext()).isFalse();
         });
     }

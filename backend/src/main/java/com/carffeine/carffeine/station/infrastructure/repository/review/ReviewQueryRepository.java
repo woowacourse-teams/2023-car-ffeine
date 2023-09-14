@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 
 import static com.carffeine.carffeine.station.domain.review.QReply.reply;
 import static com.carffeine.carffeine.station.domain.review.QReview.review;
-import static com.carffeine.carffeine.station.domain.station.QStation.station;
 import static com.querydsl.core.types.Projections.constructor;
 
 @RequiredArgsConstructor
@@ -33,7 +32,7 @@ public class ReviewQueryRepository {
                         reply.count()))
                 .from(review)
                 .leftJoin(reply).on(review.eq(reply.review))
-                .innerJoin(station).on(station.stationId.eq(stationId))
+                .where(review.station.stationId.eq(stationId))
                 .orderBy(review.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())

@@ -7,6 +7,7 @@ import com.carffeine.carffeine.station.domain.review.Review;
 import com.carffeine.carffeine.station.domain.review.ReviewRepository;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.domain.station.StationRepository;
+import com.carffeine.carffeine.station.fixture.station.StationFixture;
 import com.carffeine.carffeine.station.infrastructure.repository.review.dto.ReviewResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.review.dto.TotalRatingsResponse;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,11 +50,13 @@ class ReviewQueryRepositoryTest {
 
     private Member member;
     private Station station;
+    private Station otherStation;
 
     @BeforeEach
     void setUp() {
         member = memberRepository.save(일반_회원);
         station = stationRepository.save(선릉역_충전소_충전기_2개_사용가능_1개);
+        otherStation = stationRepository.save(StationFixture.빈_충전소_충전기_0개_사용가능_0개);
     }
 
     @Test
@@ -106,6 +109,29 @@ class ReviewQueryRepositoryTest {
                     .usingRecursiveComparison()
                     .ignoringFieldsOfTypes(LocalDateTime.class)
                     .isEqualTo(expected);
+
+        });
+    }
+
+    @Test
+    void 충전소가_다르면_리뷰도_다르다() {
+        // given
+        List<Review> reviewList = 리뷰_13개(member).stream()
+                .map(it -> reviewRepository.save(it))
+                .toList();
+        PageRequest pageRequest = PageRequest.of(1, 10);
+
+        // when
+        Page<ReviewResponse> allReviews = reviewQueryRepository.findAllReviews(otherStation.getStationId(), pageRequest);
+        List<ReviewResponse> expected = reviewList.stream()
+                .limit(3)
+                .sorted(Comparator.comparing(Review::getId).reversed())
+                .map(it -> new ReviewResponse(it.getId(), it.getMember().getId(), it.getUpdatedAt(), it.getRatings(), it.getContent(), it.getUpdatedAt().isAfter(it.getCreatedAt()), it.isDeleted(), 0))
+                .toList();
+        // then
+        assertSoftly(softly -> {
+            softly.assertThat(allReviews).hasSize(0);
+            softly.assertThat(allReviews.hasNext()).isFalse();
 
         });
     }
