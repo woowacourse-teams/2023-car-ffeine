@@ -8,7 +8,7 @@ export interface ErrorProps {
   message: string;
   subMessage?: string;
   handleRetry?: () => void;
-  minHeight?: string;
+  minHeight?: string | number;
 }
 
 const Error = ({ title, message, subMessage, handleRetry, minHeight }: ErrorProps) => {

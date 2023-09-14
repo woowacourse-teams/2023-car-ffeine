@@ -65,7 +65,6 @@ export type StyledFlexBoxType = Omit<
   $maxWidth?: number | string;
 };
 
-// TODO: tag가 바뀌었을 때 ref의 타입을 바꾸는 로직을 추가한다.
 const FlexBox = ({
   children,
   tag,
