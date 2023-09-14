@@ -5,6 +5,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const DotEnv = require('dotenv-webpack');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   mode: 'production',
@@ -40,7 +41,7 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js'],
     modules: [path.resolve(__dirname, 'src'), 'node_modules'],
     alias: {
-      '@mocks':path.resolve(__dirname, './src/mocks'),
+      '@mocks': path.resolve(__dirname, './src/mocks'),
       '@map': path.resolve(__dirname, './src/components/google-maps/map'),
       '@marker': path.resolve(__dirname, './src/components/google-maps/marker'),
       '@ui': path.resolve(__dirname, './src/components/ui'),
@@ -68,5 +69,10 @@ module.exports = {
       ],
     }),
     new DotEnv(),
+    new BundleAnalyzerPlugin({
+      openAnalyzer: false,
+      generateStatsFile: true,
+      statsFilename: 'bundle-report.json',
+    }),
   ],
 };
