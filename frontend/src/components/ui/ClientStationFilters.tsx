@@ -86,7 +86,7 @@ const Container = styled.div<{
 const ClientFilterButton = styled.button<{
   $isChecked: boolean;
 }>`
-  padding: 0.6rem 1.2rem;
+  padding: 0.6rem 1.6rem;
   background: ${({ $isChecked }) => ($isChecked ? '#ccdaff' : '#fff')};
   box-shadow:
     0 1px 2px rgba(60, 64, 67, 0.3),
@@ -96,6 +96,18 @@ const ClientFilterButton = styled.button<{
 
 const filterContainerCss = css`
   gap: 10px;
+  border-radius: 0;
+
+  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+    flex-wrap: nowrap;
+    width: 100%;
+    padding: 0 0.4rem 1rem;
+    overflow-x: auto;
+
+    & > button {
+      flex: none;
+    }
+  }
 `;
 
 export default ClientStationFilters;

@@ -5,6 +5,7 @@ import { useStationCongestionStatistics } from '@hooks/tanstack-query/station-de
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 
+import Error from '@ui/Error';
 import ShowHideButton from '@ui/ShowHideButton';
 import StatisticsGraph from '@ui/StatisticsGraph';
 
@@ -21,11 +22,29 @@ interface Props {
 }
 
 const Statistics = ({ stationId, setIsStatisticsOpen, dayOfWeek, onChangeDayOfWeek }: Props) => {
-  const { data: congestionStatistics, isLoading } = useStationCongestionStatistics(
-    stationId,
-    dayOfWeek
-  );
+  const {
+    data: congestionStatistics,
+    isLoading,
+    isError,
+    refetch,
+  } = useStationCongestionStatistics(stationId, dayOfWeek);
   const [chargingSpeed, setChargingSpeed] = useState<keyof typeof CHARGING_SPEED>('standard');
+
+  const handleRetry = () => {
+    refetch();
+  };
+
+  if (isError) {
+    return (
+      <Error
+        title="앗"
+        message="데이터를 불러오는데 실패했어요."
+        subMessage="잠시 후 다시 시도해주세요."
+        handleRetry={handleRetry}
+        minHeight={49.3 + 2.2}
+      />
+    );
+  }
 
   return (
     <>

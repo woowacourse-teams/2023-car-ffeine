@@ -73,7 +73,7 @@ const ServerStationFilters = () => {
           <XMarkIcon width="2.8rem" stroke="#333" />
         </ButtonNext>
         <Text variant="h5">필터</Text>
-        <ButtonNext onClick={resetAllFilters} noTheme aria-label="모든 필터 지우기 버튼">
+        <ButtonNext onClick={resetAllFilters} noTheme aria-label="모든 필터 해제">
           <ArrowPathIcon width="2.8rem" stroke="#333" />
         </ButtonNext>
       </FlexBox>

@@ -19,8 +19,12 @@ export const FLEX_BOX_ITEM_POSITION = {
 
 export interface FlexBoxProps extends HTMLAttributes<HTMLDivElement>, SpacingProps {
   tag?: string;
-  width?: string | number;
-  height?: string | number;
+  height?: number | string;
+  minHeight?: number | string;
+  maxHeight?: number | string;
+  width?: number | string;
+  minWidth?: number | string;
+  maxWidth?: number | string;
   justifyContent?: keyof typeof FLEX_BOX_ITEM_POSITION;
   alignItems?: keyof typeof FLEX_BOX_ITEM_POSITION;
   alignContent?: keyof typeof FLEX_BOX_ITEM_POSITION;
@@ -38,17 +42,29 @@ export interface FlexBoxProps extends HTMLAttributes<HTMLDivElement>, SpacingPro
 
 export type StyledFlexBoxType = Omit<
   FlexBoxProps,
-  'noRadius' | 'rowGap' | 'columnGap' | 'justifyContent' | 'alignItems' | 'alignContent'
+  | 'noRadius'
+  | 'rowGap'
+  | 'columnGap'
+  | 'justifyContent'
+  | 'alignItems'
+  | 'alignContent'
+  | 'minHeight'
+  | 'maxHeight'
+  | 'minWidth'
+  | 'maxWidth'
 > & {
-  $noRadius: BorderRadiusDirectionType;
-  $rowGap: number;
-  $columnGap: number;
-  $justifyContent: keyof typeof FLEX_BOX_ITEM_POSITION;
-  $alignItems: keyof typeof FLEX_BOX_ITEM_POSITION;
-  $alignContent: keyof typeof FLEX_BOX_ITEM_POSITION;
+  $noRadius?: BorderRadiusDirectionType;
+  $rowGap?: number;
+  $columnGap?: number;
+  $justifyContent?: keyof typeof FLEX_BOX_ITEM_POSITION;
+  $alignItems?: keyof typeof FLEX_BOX_ITEM_POSITION;
+  $alignContent?: keyof typeof FLEX_BOX_ITEM_POSITION;
+  $minHeight?: number | string;
+  $maxHeight?: number | string;
+  $minWidth?: number | string;
+  $maxWidth?: number | string;
 };
 
-// TODO: tag가 바뀌었을 때 ref의 타입을 바꾸는 로직을 추가한다.
 const FlexBox = ({
   children,
   tag,
@@ -58,6 +74,10 @@ const FlexBox = ({
   justifyContent,
   alignItems,
   alignContent,
+  minHeight,
+  maxHeight,
+  minWidth,
+  maxWidth,
   ...props
 }: FlexBoxProps) => {
   const changeableTag = tag || 'div';
@@ -71,6 +91,10 @@ const FlexBox = ({
       $justifyContent={justifyContent}
       $alignItems={alignItems}
       $alignContent={alignContent}
+      $minHeight={minHeight}
+      $maxHeight={maxHeight}
+      $minWidth={minWidth}
+      $maxWidth={maxWidth}
       {...props}
     >
       {children}
@@ -94,7 +118,17 @@ const S = {
     ${spacing};
 
     width: ${({ width }) => getSize(width)};
+    min-width: ${({ $minWidth }) =>
+      typeof $minWidth === 'string' ? $minWidth : `${$minWidth}rem`};
+    max-width: ${({ $maxWidth }) =>
+      typeof $maxWidth === 'string' ? $maxWidth : `${$maxWidth}rem`};
+
     height: ${({ height }) => getSize(height)};
+    min-height: ${({ $minHeight }) =>
+      typeof $minHeight === 'string' ? $minHeight : `${$minHeight}rem`};
+    max-height: ${({ $maxHeight }) =>
+      typeof $maxHeight === 'string' ? $maxHeight : `${$maxHeight}rem`};
+
     flex-wrap: ${({ nowrap }) => (nowrap ? 'nowrap' : 'wrap')};
     flex-direction: ${({ direction }) => (direction ? direction : 'row')};
     justify-content: ${({ $justifyContent }) => FLEX_BOX_ITEM_POSITION[$justifyContent]};

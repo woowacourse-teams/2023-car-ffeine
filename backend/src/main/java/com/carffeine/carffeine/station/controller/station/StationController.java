@@ -38,8 +38,8 @@ public class StationController {
     @GetMapping("/stations/search")
     public ResponseEntity<StationsSearchResponse> searchStations(@RequestParam(value = "q") String query,
                                                                  @RequestParam(value = "scope") Set<String> scope,
-                                                                 @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-                                                                 @RequestParam(value = "limit", required = false, defaultValue = "12") int limit) {
+                                                                 @RequestParam(value = "page", defaultValue = "1") int page,
+                                                                 @RequestParam(value = "limit", defaultValue = "12") int limit) {
         StationsSearchResponse stationSearchResponse = stationQueryService.searchStations(query, scope, page, limit);
         return ResponseEntity.ok(stationSearchResponse);
     }
