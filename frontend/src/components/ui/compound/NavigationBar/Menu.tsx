@@ -1,13 +1,9 @@
-import {
-  AdjustmentsHorizontalIcon,
-  Bars3Icon,
-  MegaphoneIcon,
-  UserCircleIcon,
-} from '@heroicons/react/24/outline';
+import { AdjustmentsHorizontalIcon, Bars3Icon, UserCircleIcon } from '@heroicons/react/24/outline';
 import { ArrowRightOnRectangleIcon, PencilSquareIcon } from '@heroicons/react/24/solid';
 import { css } from 'styled-components';
 
 import type { PropsWithChildren } from 'react';
+import { HiArrowPath, HiOutlineChatBubbleOvalLeftEllipsis } from 'react-icons/hi2';
 
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -83,7 +79,14 @@ const Menu = () => {
 
   return (
     <FlexBox css={[fixedPositionCss, paddingCss, borderCss, flexCss]} noRadius="all" nowrap>
-      <LogoIcon width={3} />
+      <Button css={displayNoneInMobile} aria-label="새로 고침" onClick={() => location.reload()}>
+        <LogoIcon width={3} />
+      </Button>
+
+      <Button css={displayNoneInWeb} aria-label="새로 고침" onClick={() => location.reload()}>
+        <HiArrowPath size="2.8rem" stroke="#333" />
+      </Button>
+
       <Button
         css={displayNoneInMobile}
         aria-label="주변 충전소 목록 열기"
@@ -112,7 +115,7 @@ const Menu = () => {
         aria-label="설문조사 하기"
         onClick={() => window.open('https://forms.gle/YQKx1zchUifjUJ396')}
       >
-        <MegaphoneIcon width="2.8rem" stroke="#333" />
+        <HiOutlineChatBubbleOvalLeftEllipsis size="2.8rem" stroke="#333" color="#333" />
       </Button>
     </FlexBox>
   );
