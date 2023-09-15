@@ -1,9 +1,10 @@
 import { createRoot } from 'react-dom/client';
 
-import { getStoreSnapshot } from '@utils/external-state/tools';
+import { getStoreSnapshot, useExternalValue } from '@utils/external-state/tools';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import type { StationMarkerInstance } from '@stores/google-maps/markerInstanceStore';
+import { selectedStationIdStore } from '@stores/selectedStationStore';
 
 import { useStationSummary } from '@hooks/google-maps/useStationSummary';
 import useMediaQueries from '@hooks/useMediaQueries';
@@ -20,6 +21,7 @@ export const useRenderStationMarker = () => {
   const { openStationSummary } = useStationSummary();
   const { openLastPanel } = useNavigationBar();
   const screen = useMediaQueries();
+  const selectedStationId = useExternalValue(selectedStationIdStore);
 
   const createNewMarkerInstances = (
     prevMarkerInstances: StationMarkerInstance[],
@@ -86,6 +88,9 @@ export const useRenderStationMarker = () => {
       );
       createRoot(container).render(<CarFfeineMarker {...markerInformation} />);
     });
+
+    // 검색 결과 간단 정보창을 열어주기 위해 필요한 로직입니다. (로직 개선 예정)
+    openSelectedMarkerSummary(newMarkerInstances);
   };
 
   const bindMarkerClickHandler = (markerInstances: StationMarkerInstance[]) => {
@@ -98,6 +103,19 @@ export const useRenderStationMarker = () => {
         }
       });
     });
+  };
+
+  // 검색 결과 간단 정보창을 열어주기 위해 필요한 로직입니다. (로직 개선 예정)
+  const openSelectedMarkerSummary = (markerInstances: StationMarkerInstance[]) => {
+    const selectedMarker = markerInstances.find(({ stationId }) => stationId === selectedStationId);
+
+    if (selectedMarker !== undefined) {
+      openStationSummary(selectedStationId, selectedMarker.markerInstance);
+
+      if (!screen.get('isMobile')) {
+        openLastPanel(<StationDetailsWindow stationId={selectedStationId} />);
+      }
+    }
   };
 
   return {

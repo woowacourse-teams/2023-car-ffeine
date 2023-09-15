@@ -1,11 +1,15 @@
 import { css } from 'styled-components';
 
+import { useEffect } from 'react';
+
 import type { SetStateCallbackType } from '@utils/external-state/StateManager';
 
 import Button from '@common/Button';
 import List from '@common/List';
 import ListItem from '@common/ListItem';
 import Text from '@common/Text';
+
+import Error from '@ui/Error';
 
 import { MOBILE_BREAKPOINT } from '@constants';
 
@@ -17,10 +21,12 @@ export interface SearchResultProps {
   isError: boolean;
   setSelectedStationId: (param: string | SetStateCallbackType<string>) => void;
   showStationDetails: (param: StationPosition) => void;
+  closeResult: () => void;
 }
 
 const SearchResult = (props: SearchResultProps) => {
-  const { stations, isLoading, isError, setSelectedStationId, showStationDetails } = props;
+  const { stations, isLoading, isError, setSelectedStationId, showStationDetails, closeResult } =
+    props;
 
   const handleShowStationDetails = (handlerProps: StationPosition) => {
     const { stationId, latitude, longitude } = handlerProps;
@@ -29,32 +35,60 @@ const SearchResult = (props: SearchResultProps) => {
     showStationDetails({ stationId, latitude, longitude });
   };
 
-  if (isLoading || isError) return <></>;
+  useEffect(() => {
+    document.body.addEventListener('click', closeResult);
 
-  return stations.length ? (
-    <List css={searchResultList}>
-      {stations.map(({ stationId, stationName, address, latitude, longitude }) => (
-        <ListItem divider NoLastDivider key={stationId} css={foundStationList}>
-          <Button
-            width="100%"
-            noRadius="all"
-            background="transparent"
-            onMouseDown={() => handleShowStationDetails({ stationId, latitude, longitude })}
-          >
-            <Text variant="h6" align="left" title={stationName} lineClamp={1}>
-              {stationName}
+    return () => {
+      document.body.removeEventListener('click', closeResult);
+    };
+  }, []);
+
+  if (isLoading) return <></>;
+
+  if (isError)
+    return (
+      <Error
+        title="문제가 발생했어요!"
+        message="예상하지 못한 오류로"
+        subMessage="검색 결과를 가져오지 못했습니다."
+        fontSize="40%"
+      />
+    );
+
+  return (
+    <List aria-live="assertive" mt={1} css={searchResultList}>
+      {stations.length ? (
+        stations.map(({ stationId, stationName, address, latitude, longitude }) => (
+          <ListItem divider NoLastDivider key={stationId} pt={2} pb={3} css={foundStationList}>
+            <Button
+              width="100%"
+              noRadius="all"
+              background="transparent"
+              onMouseDown={() => handleShowStationDetails({ stationId, latitude, longitude })}
+            >
+              <Text variant="h6" align="left" title={stationName} lineClamp={1}>
+                {stationName}
+              </Text>
+              <Text variant="label" align="left" lineClamp={1} color="#585858">
+                {address || '주소 미확인'}
+              </Text>
+            </Button>
+          </ListItem>
+        ))
+      ) : (
+        <>
+          <ListItem mt={3} css={noSearchResult} pb={0}>
+            검색 결과가 없습니다.
+          </ListItem>
+          <ListItem mt={1} mb={5}>
+            <Text variant="subtitle">검색어를 다시 한 번 확인해 주세요.</Text>
+            <Text tag="span" css={{ display: 'block' }}>
+              ·&nbsp; 오타는 없나요?
             </Text>
-            <Text variant="label" align="left" lineClamp={1} color="#585858">
-              {address || '위도 경도로 주소를 알아내자'}
-            </Text>
-          </Button>
-        </ListItem>
-      ))}
-    </List>
-  ) : (
-    <List role="dialog" aria-live="assertive" css={searchResultList}>
-      <ListItem css={noSearchResult}>검색 결과가 없습니다.</ListItem>
-      <ListItem>검색어를 다시 한 번 확인해 주세요.</ListItem>
+            <Text tag="span">·&nbsp; 띄어쓰기가 잘못되진 않았나요?</Text>
+          </ListItem>
+        </>
+      )}
     </List>
   );
 };
@@ -64,38 +98,30 @@ export const searchResultList = css`
   z-index: 9999;
   width: 29.6rem;
   max-height: 46rem;
-  margin-top: 2rem;
   overflow: auto;
   border: 1.5px solid #d9d9da;
   border-radius: 10px;
   background: #fcfcfc;
   box-shadow: 0 3px 10px 0 #d9d9da;
   font-size: 1.5rem;
+  line-height: 2;
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     width: calc(100vw - 2rem);
-    margin-top: 1rem;
 
     max-height: 22.6rem;
   }
 `;
 
 export const foundStationList = css`
-  padding: 0.8rem 1.2rem;
-
   &:hover {
     background: #f5f5f5;
   }
 `;
 
 export const noSearchResult = css`
-  margin-top: 1.2rem;
   font-size: 1.8rem;
   font-weight: 600;
-
-  & + li {
-    margin: 0.4rem 0 1.6rem;
-  }
 `;
 
 export default SearchResult;

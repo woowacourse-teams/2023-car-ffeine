@@ -27,9 +27,9 @@ export const useStationSummary = () => {
 
     setSelectedStationId(stationId);
 
-    // 모바일과 PC에서 UI가 서로 다르기 때문에 마커를 클릭했을 때 지도를 이동하는 위치가 달라지는 것을 반영한 코드입니다.
-    // latitude는 PC에서는 그대로, 모바일에서는 살짝 아래로 밀리도록 계산 (검색창과 간단 정보창이 겹치는 경우 방지)
-    // longitude는 PC에서는 오른쪽으로 밀리도록 (패널과 간단 정보창이 겹치는 경우 방지), 모바일에서는 그대로 계산
+    /* 모바일과 PC에서 UI가 서로 다르기 때문에 마커를 클릭했을 때 지도를 이동하는 위치가 달라지는 것을 반영한 코드입니다.
+    latitude는 PC에서는 그대로, 모바일에서는 살짝 아래로 밀리도록 계산 (검색창과 간단 정보창이 겹치는 경우 방지)
+    longitude는 PC에서는 오른쪽으로 밀리도록 (패널과 간단 정보창이 겹치는 경우 방지), 모바일에서는 그대로 계산 */
     const latitude = screen.get('isMobile') ? lat + latitudeDelta / 3 : lat;
     const longitude = screen.get('isMobile') ? lng : lng - calculatedMapDelta / 2;
 
