@@ -134,10 +134,6 @@ const flexCss = css`
     flex-direction: row;
     gap: 0;
     justify-content: space-around;
-
-    //& > svg:first-child {
-    //  display: none;
-    //}
   }
 `;
 
