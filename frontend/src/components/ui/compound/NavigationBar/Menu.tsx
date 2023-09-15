@@ -83,7 +83,9 @@ const Menu = () => {
 
   return (
     <FlexBox css={[fixedPositionCss, paddingCss, borderCss, flexCss]} noRadius="all" nowrap>
-      <LogoIcon width={3} />
+      <Button onClick={() => location.reload()}>
+        <LogoIcon width={3} />
+      </Button>
       <Button
         css={displayNoneInMobile}
         aria-label="주변 충전소 목록 열기"
@@ -133,9 +135,9 @@ const flexCss = css`
     gap: 0;
     justify-content: space-around;
 
-    & > svg:first-child {
-      display: none;
-    }
+    //& > svg:first-child {
+    //  display: none;
+    //}
   }
 `;
 
