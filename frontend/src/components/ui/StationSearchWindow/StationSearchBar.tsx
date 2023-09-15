@@ -2,14 +2,13 @@ import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { styled } from 'styled-components';
 
 import { useState } from 'react';
-import type { ChangeEvent, FormEvent } from 'react';
+import type { ChangeEvent, FocusEvent, FormEvent, MouseEvent } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 
 import { useExternalValue, useSetExternalState } from '@utils/external-state';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
-import { navigationBarPanelStore } from '@stores/layout/navigationBarPanelStore';
 import { searchWordStore } from '@stores/searchWordStore';
 import { selectedStationIdStore } from '@stores/selectedStationStore';
 
@@ -18,8 +17,6 @@ import { useDebounce } from '@hooks/useDebounce';
 
 import Button from '@common/Button';
 import Loader from '@common/Loader';
-
-import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
 import { pillStyle } from '@style';
 
@@ -30,15 +27,11 @@ import { QUERY_KEY_SEARCHED_STATION, QUERY_KEY_STATION_MARKERS } from '@constant
 import type { StationPosition } from '@type/stations';
 
 import SearchResult from './SearchResult';
-import StationSearchWindow from './StationSearchWindow';
 
 const StationSearchBar = () => {
   const [isFocused, setIsFocused] = useState(false);
   const googleMap = useExternalValue(getGoogleMapStore());
   const setSelectedStationId = useSetExternalState(selectedStationIdStore);
-
-  const { basePanel } = useExternalValue(navigationBarPanelStore);
-  const { openBasePanel } = useNavigationBar();
 
   const [inputValue, setInputValue] = useState('');
   const setSearchWord = useSetExternalState(searchWordStore);
@@ -54,10 +47,20 @@ const StationSearchBar = () => {
 
   const { data: stations, isLoading, isError, isFetching } = useSearchedStations();
 
+  const handleOpenResult = (event: MouseEvent<HTMLInputElement> | FocusEvent<HTMLInputElement>) => {
+    event.stopPropagation();
+    setIsFocused(true);
+  };
+
+  const handleCloseResult = () => {
+    setIsFocused(false);
+  };
+
   const handleSubmitSearchWord = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    handleCloseResult();
 
-    if (stations) {
+    if (stations !== undefined && stations.length > 0) {
       const [{ stationId, latitude, longitude }] = stations;
       showStationDetails({ stationId, latitude, longitude });
     }
@@ -71,7 +74,6 @@ const StationSearchBar = () => {
 
     queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_MARKERS] });
     setSelectedStationId(stationId);
-    !basePanel && openBasePanel(<StationSearchWindow />);
   };
 
   const handleRequestSearchResult = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
@@ -83,23 +85,26 @@ const StationSearchBar = () => {
   return (
     <S.Container>
       <S.Form role="search" onSubmit={handleSubmitSearchWord}>
-        <S.Search
-          type="search"
-          role="searchbox"
-          placeholder="충전소명 또는 지역명을 입력해 주세요"
-          // eslint-disable-next-line jsx-a11y/no-autofocus
-          autoFocus
-          onChange={handleRequestSearchResult}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-        />
-        <Button type="submit" aria-label="검색하기">
-          {isFetching ? (
-            <Loader size="md" />
-          ) : (
-            <MagnifyingGlassIcon width="2.4rem" stroke="#767676" />
-          )}
-        </Button>
+        <label htmlFor="station-search-bar" aria-hidden>
+          <S.Search
+            id="station-search-bar"
+            type="search"
+            role="searchbox"
+            placeholder="충전소명 또는 지역명을 입력해 주세요"
+            // eslint-disable-next-line jsx-a11y/no-autofocus
+            autoFocus
+            onChange={handleRequestSearchResult}
+            onFocus={handleOpenResult}
+            onClick={handleOpenResult}
+          />
+          <Button type="submit" aria-label="검색하기">
+            {isFetching ? (
+              <Loader size="md" />
+            ) : (
+              <MagnifyingGlassIcon width="2.4rem" stroke="#767676" />
+            )}
+          </Button>
+        </label>
       </S.Form>
       {isFocused && stations && (
         <SearchResult
@@ -108,6 +113,7 @@ const StationSearchBar = () => {
           isError={isError}
           setSelectedStationId={setSelectedStationId}
           showStationDetails={showStationDetails}
+          closeResult={handleCloseResult}
         />
       )}
     </S.Container>
@@ -125,6 +131,11 @@ const S = {
 
   Form: styled.form`
     position: relative;
+    min-width: 30rem;
+
+    @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+      min-width: 100%;
+    }
   `,
 
   Search: styled.input`

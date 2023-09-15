@@ -55,12 +55,13 @@ const S = {
           `;
         case 'outlined':
           return css`
-            color: ${disabled ? '#a0a0a0' : color === 'light' ? '#000000' : getColor(color)};
+            color: ${disabled ? '#a0a0a0' : color === 'light' ? '#000' : getColor(color)};
             background: transparent;
             border: 1.5px solid ${disabled ? '#a0a0a0' : getColor(color)};
 
             &:hover {
-              background: ${disabled ? 'transparent' : '#1976d20a'};
+              color: ${disabled ? '#a0a0a0' : '#fff'};
+              background: ${disabled ? 'transparent' : getHoverColor(color)};
             }
           `;
         case 'contained':

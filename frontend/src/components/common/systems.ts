@@ -36,7 +36,7 @@ export const spacing = css<SpacingProps>`
   ${({ pl }) => pl && `padding-left: ${pl * 0.4}rem`};
   ${({ pr }) => pr && `padding-right: ${pr * 0.4}rem`};
   ${({ pt }) => pt && `padding-top: ${pt * 0.4}rem`};
-  ${({ pb }) => pb && `padding-bottom: ${pb * 0.4}rem`};
+  ${({ pb }) => (pb || pb === 0) && `padding-bottom: ${pb * 0.4}rem`};
 
   ${({ m }) => m && `margin: ${m * 0.4}rem`};
 
@@ -56,5 +56,5 @@ export const spacing = css<SpacingProps>`
   ${({ ml }) => ml && `margin-left: ${ml * 0.4}rem`};
   ${({ mr }) => mr && `margin-right: ${mr * 0.4}rem`};
   ${({ mt }) => mt && `margin-top: ${mt * 0.4}rem`};
-  ${({ mb }) => mb && `margin-bottom: ${mb * 0.4}rem`};
+  ${({ mb }) => (mb || mb === 0) && `margin-bottom: ${mb * 0.4}rem`};
 `;
