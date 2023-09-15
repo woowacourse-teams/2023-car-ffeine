@@ -6,7 +6,6 @@ import SummaryButtons from './SummaryButtons';
 
 const meta = {
   title: 'UI/StationSummaryWindow/Buttons',
-  tags: ['autodocs'],
   component: SummaryButtons,
   args: {
     handleCloseStationSummary: () => {
