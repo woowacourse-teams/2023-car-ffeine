@@ -30,7 +30,6 @@ const StationSummaryWindow = ({ stationId }: Props) => {
   const { openLastPanel } = useNavigationBar();
 
   const { isLoading, stationSummary } = useFetchStationSummary(stationId);
-  const { stationName, companyName, address, operatingTime, quickChargerCount } = stationSummary;
 
   const handleOpenStationDetail = () => {
     setSelectedStationId(stationId);
@@ -50,57 +49,57 @@ const StationSummaryWindow = ({ stationId }: Props) => {
     );
   }
 
+  const { stationName, companyName, address, operatingTime, quickChargerCount } = stationSummary;
+
   return (
-    <>
-      <ListItem tag="div" key={stationId} css={padding}>
-        <Button width="100%" shadow css={foundStationButton} onClick={handleOpenStationDetail}>
-          <FlexBox alignItems="start" justifyContent="between" nowrap columnGap={2.8}>
-            <article>
-              <Text
-                tag="h3"
-                align="left"
-                variant="subtitle"
-                title={stationName}
-                lineClamp={1}
-                css={companyNameText}
-              >
-                {companyName}
-              </Text>
-              <Text tag="h3" align="left" variant="h5" title={stationName} lineClamp={1}>
-                {stationName}
-              </Text>
-              <Text variant="body" align="left" lineClamp={1} mb={1} color="#585858">
-                {address === 'null' || !address ? '주소 미확인' : address}
-              </Text>
-              <Text variant="caption" align="left" lineClamp={1} mb={1.8} color="#585858">
-                {operatingTime}
-              </Text>
-            </article>
-            {quickChargerCount !== 0 && <ChargingSpeedIcon />}
-          </FlexBox>
-        </Button>
-        <FlexBox direction="row" justifyContent="between" mb={1.8}>
-          <ButtonNext
-            variant="outlined"
-            size="xs"
-            color="secondary"
-            css={{ width: '28%' }}
-            onClick={handleCloseStationSummary}
-          >
-            닫기
-          </ButtonNext>
-          <ButtonNext
-            variant="contained"
-            size="xs"
-            color="dark"
-            css={{ width: '68%' }}
-            onClick={handleOpenStationDetail}
-          >
-            상세보기
-          </ButtonNext>
+    <ListItem tag="div" key={stationId} css={padding}>
+      <Button width="100%" shadow css={foundStationButton} onClick={handleOpenStationDetail}>
+        <FlexBox alignItems="start" justifyContent="between" nowrap columnGap={2.8}>
+          <article>
+            <Text
+              tag="h3"
+              align="left"
+              variant="subtitle"
+              title={stationName}
+              lineClamp={1}
+              css={companyNameText}
+            >
+              {companyName}
+            </Text>
+            <Text tag="h3" align="left" variant="h5" title={stationName} lineClamp={1}>
+              {stationName}
+            </Text>
+            <Text variant="body" align="left" lineClamp={1} mb={1} color="#585858">
+              {address === 'null' || !address ? '주소 미확인' : address}
+            </Text>
+            <Text variant="caption" align="left" lineClamp={1} mb={1.8} color="#585858">
+              {operatingTime}
+            </Text>
+          </article>
+          {quickChargerCount !== 0 && <ChargingSpeedIcon />}
         </FlexBox>
-      </ListItem>
-    </>
+      </Button>
+      <FlexBox direction="row" justifyContent="between" mb={1.8}>
+        <ButtonNext
+          variant="outlined"
+          size="xs"
+          color="secondary"
+          css={{ width: '28%' }}
+          onClick={handleCloseStationSummary}
+        >
+          닫기
+        </ButtonNext>
+        <ButtonNext
+          variant="contained"
+          size="xs"
+          color="dark"
+          css={{ width: '68%' }}
+          onClick={handleOpenStationDetail}
+        >
+          상세보기
+        </ButtonNext>
+      </FlexBox>
+    </ListItem>
   );
 };
 
