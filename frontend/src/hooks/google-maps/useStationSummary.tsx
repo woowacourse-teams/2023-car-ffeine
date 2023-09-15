@@ -11,7 +11,6 @@ import StationSummaryWindow from '@ui/StationSummaryWindow';
 export const useStationSummary = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
   const infoWindowInstance = useExternalValue(getStationSummaryWindowStore());
-  const stationMarkers = useExternalValue(markerInstanceStore);
   const setSelectedStationId = useSetExternalState(selectedStationIdStore);
 
   const moveMapToStationMarker = (
@@ -30,9 +29,9 @@ export const useStationSummary = () => {
     stationId: string,
     stationMarkerInstance?: google.maps.marker.AdvancedMarkerElement
   ) => {
-    const stationMarker = stationMarkers.find(
-      (stationMarker) => stationMarker.stationId === stationId
-    );
+    const stationMarker = markerInstanceStore
+      .getState()
+      .find((stationMarker) => stationMarker.stationId === stationId);
     const markerInstance = stationMarkerInstance ?? stationMarker.markerInstance;
 
     moveMapToStationMarker(stationId, markerInstance);

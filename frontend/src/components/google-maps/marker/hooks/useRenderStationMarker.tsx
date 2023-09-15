@@ -5,11 +5,23 @@ import { getStoreSnapshot } from '@utils/external-state/tools';
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import type { StationMarkerInstance } from '@stores/google-maps/markerInstanceStore';
 
+import { useStationSummary } from '@hooks/google-maps/useStationSummary';
+import useMediaQueries from '@hooks/useMediaQueries';
+
+import StationDetailsWindow from '@ui/StationDetailsWindow';
+import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
+
 import type { StationMarker } from '@type';
 
 import CarFfeineMarker from '../../../ui/CarFfeineMarker/index';
 
 export const useRenderStationMarker = () => {
+  const googleMap = getStoreSnapshot(getGoogleMapStore());
+
+  const { openStationSummary } = useStationSummary();
+  const { openLastPanel } = useNavigationBar();
+  const screen = useMediaQueries();
+
   const createNewMarkerInstances = (
     prevMarkerInstances: StationMarkerInstance[],
     markers: StationMarker[]
@@ -31,6 +43,8 @@ export const useRenderStationMarker = () => {
         markerInstance,
       };
     });
+
+    bindMarkerClickHandler(newMarkerInstances);
 
     return newMarkerInstances;
   };
@@ -66,12 +80,24 @@ export const useRenderStationMarker = () => {
       const container = document.createElement('div');
 
       markerInstance.content = container;
-      markerInstance.map = getStoreSnapshot(getGoogleMapStore());
+      markerInstance.map = googleMap;
 
       const markerInformation = markers.find(
         (stationMarker) => stationMarker.stationId === stationId
       );
       createRoot(container).render(<CarFfeineMarker {...markerInformation} />);
+    });
+  };
+
+  const bindMarkerClickHandler = (markerInstances: StationMarkerInstance[]) => {
+    markerInstances.forEach(({ markerInstance, stationId }) => {
+      markerInstance.addListener('click', () => {
+        openStationSummary(stationId, markerInstance);
+
+        if (!screen.get('isMobile')) {
+          openLastPanel(<StationDetailsWindow stationId={stationId} />);
+        }
+      });
     });
   };
 
