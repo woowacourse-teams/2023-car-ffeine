@@ -1,4 +1,3 @@
-import { XMarkIcon } from '@heroicons/react/24/outline';
 import { css } from 'styled-components';
 
 import type { MouseEvent } from 'react';
@@ -11,6 +10,7 @@ import { selectedStationIdStore } from '@stores/selectedStationStore';
 import { useFetchStationSummary } from '@hooks/fetch/useFetchStationSummary';
 
 import Button from '@common/Button';
+import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import List from '@common/List';
 import ListItem from '@common/ListItem';
@@ -61,45 +61,68 @@ const StationSummaryWindow = ({ stationId }: Props) => {
   };
 
   return (
-    <ListItem tag="div" key={stationId} css={padding}>
-      <Button width="100%" shadow css={foundStationButton} onClick={handleOpenStationDetail}>
-        <Button onClick={handleCloseStationSummary} css={closeButtonCss}>
-          <XMarkIcon fill="#333" width={24} />
+    <>
+      <ListItem tag="div" key={stationId} css={padding}>
+        <Button width="100%" shadow css={foundStationButton} onClick={handleOpenStationDetail}>
+          {/*<Button onClick={handleCloseStationSummary} css={closeButtonCss}>*/}
+          {/*  <XMarkIcon fill="#333" width={24} />*/}
+          {/*</Button>*/}
+          <FlexBox alignItems="start" justifyContent="between" nowrap columnGap={2.8}>
+            <article>
+              <Text
+                tag="h3"
+                align="left"
+                variant="subtitle"
+                title={stationName}
+                lineClamp={1}
+                css={companyNameText}
+              >
+                {companyName}
+              </Text>
+              <Text tag="h3" align="left" variant="h5" title={stationName} lineClamp={1}>
+                {stationName}
+              </Text>
+              <Text variant="body" align="left" lineClamp={1} mb={1} color="#585858">
+                {address === 'null' || !address ? '주소 미확인' : address}
+              </Text>
+              <Text variant="caption" align="left" lineClamp={1} mb={1.8} color="#585858">
+                {operatingTime}
+              </Text>
+              {/*<FlexBox columnGap={3}>*/}
+              {/*  <Text variant="label" align="left" color="#4b4b4b" css={labelStyle}>*/}
+              {/*    {isPrivate ? '이용 제한' : '외부인 개방'}*/}
+              {/*  </Text>*/}
+              {/*  <Text variant="label" align="left" color="#4b4b4b" css={labelStyle}>*/}
+              {/*    {isParkingFree ? '무료 주차' : '유료 주차'}*/}
+              {/*  </Text>*/}
+              {/*</FlexBox>*/}
+            </article>
+            {quickChargerCount !== 0 && <ChargingSpeedIcon />}
+          </FlexBox>
         </Button>
-        <FlexBox alignItems="start" mr={2} justifyContent="between" nowrap columnGap={2.8}>
-          <article>
-            <Text
-              tag="h3"
-              align="left"
-              variant="subtitle"
-              title={stationName}
-              lineClamp={1}
-              css={companyNameText}
-            >
-              {companyName}
-            </Text>
-            <Text tag="h3" align="left" variant="h5" title={stationName} lineClamp={1}>
-              {stationName}
-            </Text>
-            <Text variant="body" align="left" lineClamp={1} mb={1} color="#585858">
-              {address === 'null' || !address ? '주소 미확인' : address}
-            </Text>
-            <Text variant="caption" align="left" lineClamp={1} mb={3.5} color="#585858">
-              {operatingTime}
-            </Text>
-            <FlexBox columnGap={3}>
-              <Text variant="label" align="left" color="#4b4b4b" css={labelStyle}>
-                {isPrivate ? '이용 제한' : '외부인 개방'}
-              </Text>
-              <Text variant="label" align="left" color="#4b4b4b" css={labelStyle}>
-                {isParkingFree ? '무료 주차' : '유료 주차'}
-              </Text>
-            </FlexBox>
-          </article>
-          {quickChargerCount !== 0 && <ChargingSpeedIcon />}
+        <FlexBox direction="row" justifyContent="between" mb={1.8}>
+          <ButtonNext
+            variant="outlined"
+            size="xs"
+            color="secondary"
+            css={{ width: '28%' }}
+            onClick={handleCloseStationSummary}
+          >
+            닫기
+          </ButtonNext>
+          <ButtonNext
+            variant="contained"
+            size="xs"
+            // fullWidth
+            color="dark"
+            css={{ width: '68%' }}
+            onClick={handleOpenStationDetail}
+          >
+            상세보기
+          </ButtonNext>
         </FlexBox>
-      </Button>
-    </ListItem>
+      </ListItem>
+    </>
   );
 };
 
@@ -112,7 +135,7 @@ const companyNameText = css`
 `;
 
 const foundStationButton = css`
-  padding: 1.6rem 1.2rem;
+  padding: 1.2rem 1.2rem 1.6rem;
   box-shadow: none;
 `;
 
@@ -129,3 +152,5 @@ const closeButtonCss = css`
 `;
 
 export default StationSummaryWindow;
+
+//0.4rem 1.2rem 1.6rem 1.2rem
