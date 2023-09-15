@@ -44,7 +44,7 @@ const SearchResult = (props: SearchResultProps) => {
     );
 
   return (
-    <List aria-live="assertive" mt={5} css={searchResultList}>
+    <List aria-live="assertive" mt={1} css={searchResultList}>
       {stations.length ? (
         stations.map(({ stationId, stationName, address, latitude, longitude }) => (
           <ListItem divider NoLastDivider key={stationId} pt={2} pb={3} css={foundStationList}>
@@ -96,7 +96,6 @@ export const searchResultList = css`
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     width: calc(100vw - 2rem);
-    margin-top: 1rem;
 
     max-height: 22.6rem;
   }
