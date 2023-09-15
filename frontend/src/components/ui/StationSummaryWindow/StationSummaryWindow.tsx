@@ -10,21 +10,21 @@ import { selectedStationIdStore } from '@stores/selectedStationStore';
 import { useFetchStationSummary } from '@hooks/fetch/useFetchStationSummary';
 
 import Button from '@common/Button';
-import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import ListItem from '@common/ListItem';
 import Loader from '@common/Loader';
 import Text from '@common/Text';
 
-import ChargingSpeedIcon from './ChargingSpeedIcon';
-import StationDetailsWindow from './StationDetailsWindow';
-import { useNavigationBar } from './compound/NavigationBar/hooks/useNavigationBar';
+import ChargingSpeedIcon from '../ChargingSpeedIcon';
+import StationDetailsWindow from '../StationDetailsWindow';
+import { useNavigationBar } from '../compound/NavigationBar/hooks/useNavigationBar';
+import SummaryButtons from './SummaryButtons';
 
-interface Props {
+export interface StationSummaryProps {
   stationId: string;
 }
 
-const StationSummaryWindow = ({ stationId }: Props) => {
+const StationSummaryWindow = ({ stationId }: StationSummaryProps) => {
   const infoWindowInstance = useExternalValue(getStationSummaryWindowStore());
   const setSelectedStationId = useSetExternalState(selectedStationIdStore);
   const { openLastPanel } = useNavigationBar();
@@ -79,32 +79,16 @@ const StationSummaryWindow = ({ stationId }: Props) => {
           {quickChargerCount !== 0 && <ChargingSpeedIcon />}
         </FlexBox>
       </Button>
-      <FlexBox direction="row" justifyContent="between" mb={1.8}>
-        <ButtonNext
-          variant="outlined"
-          size="xs"
-          color="secondary"
-          css={{ width: '28%' }}
-          onClick={handleCloseStationSummary}
-        >
-          닫기
-        </ButtonNext>
-        <ButtonNext
-          variant="contained"
-          size="xs"
-          color="dark"
-          css={{ width: '68%' }}
-          onClick={handleOpenStationDetail}
-        >
-          상세보기
-        </ButtonNext>
-      </FlexBox>
+      <SummaryButtons
+        handleCloseStationSummary={handleCloseStationSummary}
+        handleOpenStationDetail={handleOpenStationDetail}
+      />
     </ListItem>
   );
 };
 
 const padding = css`
-  padding: 1.2rem;
+  padding: 2.4rem 2.4rem 1.8rem;
 `;
 
 const companyNameText = css`
@@ -112,7 +96,6 @@ const companyNameText = css`
 `;
 
 const foundStationButton = css`
-  padding: 1.2rem 1.2rem 1.4rem;
   box-shadow: none;
 `;
 

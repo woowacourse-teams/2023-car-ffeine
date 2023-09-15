@@ -66,7 +66,7 @@ export const getHoverColor = (color?: Color) => {
     case 'info':
       return '#0da8d6';
     case 'light':
-      return '#e2e6ea';
+      return '#f8f9fa';
     case 'disable':
       return '#9a9a9a';
     case 'dark':

@@ -34,8 +34,6 @@ const ButtonNext = ({ children, noTheme, ...props }: ButtonNextProps) => {
 
 const S = {
   Button: styled.button<ButtonNextProps>`
-    margin: 1px;
-
     border-radius: 6px;
     ${({ pill }) => pill && 'border-radius: 20px;'}
 
@@ -45,7 +43,7 @@ const S = {
       switch (variant) {
         case 'text':
           return css`
-            color: ${disabled ? '#a0a0a0' : color === 'light' ? '#000000' : getColor(color)};
+            color: ${disabled ? '#a0a0a0' : color === 'light' ? '#000' : getColor(color)};
             background: transparent;
             border: none;
 
@@ -55,19 +53,19 @@ const S = {
           `;
         case 'outlined':
           return css`
-            color: ${disabled ? '#a0a0a0' : color === 'light' ? '#000' : getColor(color)};
+            color: ${disabled ? '#a0a0a0' : color === 'light' ? '#333' : getColor(color)};
             background: transparent;
             border: 1.5px solid ${disabled ? '#a0a0a0' : getColor(color)};
 
             &:hover {
-              color: ${disabled ? '#a0a0a0' : '#fff'};
+              color: ${disabled ? '#a0a0a0' : color === 'light' ? '#333' : '#fff'};
               background: ${disabled ? 'transparent' : getHoverColor(color)};
             }
           `;
         case 'contained':
         default:
           return css`
-            color: ${disabled ? '#a0a0a0' : color === 'light' ? '#000000' : '#ffffff'};
+            color: ${disabled ? '#a0a0a0' : color === 'light' ? '#000' : '#ffffff'};
             background: ${disabled ? '#e0e0e0' : getColor(color)};
             border: 1.5px solid ${disabled ? '#e0e0e0' : getColor(color)};
 
