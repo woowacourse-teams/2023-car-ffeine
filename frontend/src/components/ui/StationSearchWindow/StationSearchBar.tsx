@@ -60,7 +60,7 @@ const StationSearchBar = () => {
     handleCloseResult();
     event.preventDefault();
 
-    if (stations.length > 0) {
+    if (stations !== undefined && stations.length > 0) {
       const [{ stationId, latitude, longitude }] = stations;
       showStationDetails({ stationId, latitude, longitude });
     }
