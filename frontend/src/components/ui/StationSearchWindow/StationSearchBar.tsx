@@ -1,7 +1,7 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { styled } from 'styled-components';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import type { ChangeEvent, FocusEvent, FormEvent, MouseEvent } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
@@ -57,8 +57,8 @@ const StationSearchBar = () => {
   };
 
   const handleSubmitSearchWord = (event: FormEvent<HTMLFormElement>) => {
-    handleCloseResult();
     event.preventDefault();
+    handleCloseResult();
 
     if (stations !== undefined && stations.length > 0) {
       const [{ stationId, latitude, longitude }] = stations;
@@ -81,14 +81,6 @@ const StationSearchBar = () => {
 
     setInputValue(searchWord);
   };
-
-  useEffect(() => {
-    document.body.addEventListener('click', handleCloseResult);
-
-    return () => {
-      document.body.removeEventListener('click', handleCloseResult);
-    };
-  }, []);
 
   return (
     <S.Container>
@@ -121,6 +113,7 @@ const StationSearchBar = () => {
           isError={isError}
           setSelectedStationId={setSelectedStationId}
           showStationDetails={showStationDetails}
+          closeResult={handleCloseResult}
         />
       )}
     </S.Container>

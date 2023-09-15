@@ -1,5 +1,7 @@
 import { css } from 'styled-components';
 
+import { useEffect } from 'react';
+
 import type { SetStateCallbackType } from '@utils/external-state/StateManager';
 
 import Button from '@common/Button';
@@ -19,10 +21,12 @@ export interface SearchResultProps {
   isError: boolean;
   setSelectedStationId: (param: string | SetStateCallbackType<string>) => void;
   showStationDetails: (param: StationPosition) => void;
+  closeResult: () => void;
 }
 
 const SearchResult = (props: SearchResultProps) => {
-  const { stations, isLoading, isError, setSelectedStationId, showStationDetails } = props;
+  const { stations, isLoading, isError, setSelectedStationId, showStationDetails, closeResult } =
+    props;
 
   const handleShowStationDetails = (handlerProps: StationPosition) => {
     const { stationId, latitude, longitude } = handlerProps;
@@ -30,6 +34,14 @@ const SearchResult = (props: SearchResultProps) => {
     setSelectedStationId(stationId);
     showStationDetails({ stationId, latitude, longitude });
   };
+
+  useEffect(() => {
+    document.body.addEventListener('click', closeResult);
+
+    return () => {
+      document.body.removeEventListener('click', closeResult);
+    };
+  }, []);
 
   if (isLoading) return <></>;
 
