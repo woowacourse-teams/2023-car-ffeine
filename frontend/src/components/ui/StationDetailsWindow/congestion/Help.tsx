@@ -49,31 +49,31 @@ const Help = () => {
           </TableRow>
           <TableRow>
             <td>
-              <Bar ratio={20} hour="02" align="column" />
+              <Bar ratio={0.2} hour="02" align="column" />
             </td>
             <TableData>20%</TableData>
           </TableRow>
           <TableRow>
             <td>
-              <Bar ratio={40} hour="03" align="column" />
+              <Bar ratio={0.4} hour="03" align="column" />
             </td>
             <TableData>40%</TableData>
           </TableRow>
           <TableRow>
             <td>
-              <Bar ratio={60} hour="04" align="column" />
+              <Bar ratio={0.6} hour="04" align="column" />
             </td>
             <TableData>60%</TableData>
           </TableRow>
           <TableRow>
             <td>
-              <Bar ratio={80} hour="05" align="column" />
+              <Bar ratio={0.8} hour="05" align="column" />
             </td>
             <TableData>80%</TableData>
           </TableRow>
           <TableRow>
             <td>
-              <Bar ratio={100} hour="06" align="column" />
+              <Bar ratio={1} hour="06" align="column" />
             </td>
             <TableData>100%</TableData>
           </TableRow>
