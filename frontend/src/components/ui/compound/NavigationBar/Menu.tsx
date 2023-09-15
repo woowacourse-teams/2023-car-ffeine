@@ -79,7 +79,9 @@ const Menu = () => {
 
   return (
     <FlexBox css={[fixedPositionCss, paddingCss, borderCss, flexCss]} noRadius="all" nowrap>
-      <LogoIcon width={3} />
+      <Button css={displayNoneInMobile} aria-label="새로 고침" onClick={() => location.reload()}>
+        <LogoIcon width={3} />
+      </Button>
 
       <Button css={displayNoneInWeb} aria-label="새로 고침" onClick={() => location.reload()}>
         <HiArrowPath size="2.8rem" stroke="#333" />
