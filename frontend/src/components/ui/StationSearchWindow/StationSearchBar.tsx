@@ -93,23 +93,26 @@ const StationSearchBar = () => {
   return (
     <S.Container>
       <S.Form role="search" onSubmit={handleSubmitSearchWord}>
-        <S.Search
-          type="search"
-          role="searchbox"
-          placeholder="충전소명 또는 지역명을 입력해 주세요"
-          // eslint-disable-next-line jsx-a11y/no-autofocus
-          autoFocus
-          onChange={handleRequestSearchResult}
-          onFocus={handleOpenResult}
-          onClick={handleOpenResult}
-        />
-        <Button type="submit" aria-label="검색하기">
-          {isFetching ? (
-            <Loader size="md" />
-          ) : (
-            <MagnifyingGlassIcon width="2.4rem" stroke="#767676" />
-          )}
-        </Button>
+        <label htmlFor="station-search-bar" aria-hidden>
+          <S.Search
+            id="station-search-bar"
+            type="search"
+            role="searchbox"
+            placeholder="충전소명 또는 지역명을 입력해 주세요"
+            // eslint-disable-next-line jsx-a11y/no-autofocus
+            autoFocus
+            onChange={handleRequestSearchResult}
+            onFocus={handleOpenResult}
+            onClick={handleOpenResult}
+          />
+          <Button type="submit" aria-label="검색하기">
+            {isFetching ? (
+              <Loader size="md" />
+            ) : (
+              <MagnifyingGlassIcon width="2.4rem" stroke="#767676" />
+            )}
+          </Button>
+        </label>
       </S.Form>
       {isFocused && stations && (
         <SearchResult
@@ -135,6 +138,11 @@ const S = {
 
   Form: styled.form`
     position: relative;
+    min-width: 30rem;
+
+    @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+      min-width: 100%;
+    }
   `,
 
   Search: styled.input`

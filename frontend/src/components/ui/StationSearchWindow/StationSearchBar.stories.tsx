@@ -27,6 +27,7 @@ const meta = {
 
 export default meta;
 
+// TODO: addon으로 googleMap 관련 함수 제외하기
 export const Default = () => {
   const [isFocused, setIsFocused] = useState(false);
   const setSearchWord = useSetExternalState(searchWordStore);
@@ -55,16 +56,18 @@ export const Default = () => {
   return (
     <>
       <S.Form role="search" onSubmit={handleSubmitSearchWord}>
-        <S.Search
-          type="search"
-          role="searchbox"
-          onChange={handleRequestSearchResult}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-        />
-        <Button type="submit" aria-label="검색하기">
-          <MagnifyingGlassIcon width="2.4rem" stroke="#767676" />
-        </Button>
+        <label htmlFor="station-search-bar">
+          <S.Search
+            type="search"
+            role="searchbox"
+            onChange={handleRequestSearchResult}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+          />
+          <Button type="submit" aria-label="검색하기">
+            <MagnifyingGlassIcon width="2.4rem" stroke="#767676" />
+          </Button>
+        </label>
       </S.Form>
       {isFocused && stations && (
         <SearchResult
