@@ -44,7 +44,7 @@ const UserRatings = ({ stationId }: UserRatingsProps) => {
         <Text variant="subtitle" css={ratingCss}>
           <StarIcon width={14} display="inline-block" fill="#fc4c4e" />
           <Text tag="span" color="#3e3e3e" weight="bold">
-            {totalRatings.totalRatings}
+            {parseFloat(totalRatings.totalRatings.toFixed(1))}
           </Text>
           ({totalRatings.totalCount}명)
         </Text>

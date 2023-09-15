@@ -48,7 +48,7 @@ export default function ReviewList({ stationId }: ReviewListProps) {
           충전소 후기 보기
         </Text>
         {status === 'loading' ? (
-          <ReviewCardsLoading count={10} />
+          <ReviewCardsLoading count={1} />
         ) : status === 'error' ? (
           <Text variant="caption" align="center">
             Error: {JSON.stringify(error)}

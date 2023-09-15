@@ -27,10 +27,6 @@ export const GlobalStyle = createGlobalStyle`
     --gray-200-color: #ebebeb;
   }
 
-  #map {
-    overflow: hidden;
-  }
-
   body:has(.modal-open) {
     overflow: hidden;
   }
@@ -38,6 +34,7 @@ export const GlobalStyle = createGlobalStyle`
   button.gm-ui-hover-effect {
     visibility: hidden;
   }
+
   div.gm-style .gm-style-iw-c {
     padding: 0;
   }

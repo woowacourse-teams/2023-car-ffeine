@@ -68,7 +68,7 @@ const ReviewPreview = ({ stationId }: ReviewPreviewProps) => {
               return (
                 <ReviewCard
                   key={i}
-                  stationId={''}
+                  stationId=""
                   review={{
                     content: review.content,
                     isDeleted: review.isDeleted,
