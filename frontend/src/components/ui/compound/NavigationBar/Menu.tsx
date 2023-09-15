@@ -109,7 +109,7 @@ const Menu = () => {
         <Bars3Icon width="2.8rem" stroke="#333" />
       </Button>
       <Button
-        aria-label="설문조사"
+        aria-label="설문조사 하기"
         onClick={() => window.open('https://forms.gle/YQKx1zchUifjUJ396')}
       >
         <MegaphoneIcon width="2.8rem" stroke="#333" />
