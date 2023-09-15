@@ -58,7 +58,7 @@ const SearchResult = (props: SearchResultProps) => {
                 {stationName}
               </Text>
               <Text variant="label" align="left" lineClamp={1} color="#585858">
-                {address || '위도 경도로 주소를 알아내자'}
+                {address || '주소 미확인'}
               </Text>
             </Button>
           </ListItem>
