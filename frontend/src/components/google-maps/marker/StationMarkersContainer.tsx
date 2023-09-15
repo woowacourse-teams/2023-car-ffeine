@@ -8,7 +8,7 @@ const StationMarkersContainer = () => {
   const { data: stationMarkers, isSuccess } = useStationMarkers();
   const {
     createNewMarkerInstances,
-    getRemainMarkerInstances,
+    getRemainedMarkerInstances,
     removeMarkersOutsideBounds,
     renderMarkerInstances,
   } = useRenderStationMarker();
@@ -22,7 +22,7 @@ const StationMarkersContainer = () => {
     stationMarkers
   );
 
-  const remainMarkerInstances = getRemainMarkerInstances(
+  const remainedMarkerInstances = getRemainedMarkerInstances(
     markerInstanceStore.getState(),
     stationMarkers
   );
@@ -30,7 +30,7 @@ const StationMarkersContainer = () => {
   removeMarkersOutsideBounds(markerInstanceStore.getState(), stationMarkers);
   renderMarkerInstances(newMarkerInstances, stationMarkers);
 
-  markerInstanceStore.setState([...remainMarkerInstances, ...newMarkerInstances]);
+  markerInstanceStore.setState([...remainedMarkerInstances, ...newMarkerInstances]);
 
   return <></>;
 };
