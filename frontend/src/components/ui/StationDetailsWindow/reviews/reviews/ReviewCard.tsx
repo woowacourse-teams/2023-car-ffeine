@@ -107,10 +107,13 @@ const ReviewCard = ({ stationId, review, previewMode }: ReviewCardProps) => {
                 {review.isDeleted ? '(삭제된 리뷰입니다.)' : review.content}
               </Text>
             </Box>
-
-            <ButtonNext size="xs" variant="text" onClick={() => setIsRepliesOpen(!isRepliesOpen)}>
-              {isRepliesOpen ? `닫기` : `답글 ${review.replySize > 0 ? review.replySize : '달기'}`}
-            </ButtonNext>
+            {!previewMode && (
+              <ButtonNext size="xs" variant="text" onClick={() => setIsRepliesOpen(!isRepliesOpen)}>
+                {isRepliesOpen
+                  ? `닫기`
+                  : `답글 ${review.replySize > 0 ? review.replySize : '달기'}`}
+              </ButtonNext>
+            )}
           </Box>
 
           {isRepliesOpen && (
