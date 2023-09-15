@@ -13,7 +13,6 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 62.5%;
     /********** hidden scroll **********/
     scrollbar-width: none;
-    overflow: hidden;
   }
 
   &::-webkit-scrollbar {
@@ -26,7 +25,7 @@ export const GlobalStyle = createGlobalStyle`
 
     --gray-200-color: #ebebeb;
   }
-  
+
   body:has(.modal-open) {
     overflow: hidden;
   }
