@@ -1,4 +1,9 @@
-import { AdjustmentsHorizontalIcon, Bars3Icon, UserCircleIcon } from '@heroicons/react/24/outline';
+import {
+  AdjustmentsHorizontalIcon,
+  Bars3Icon,
+  MegaphoneIcon,
+  UserCircleIcon,
+} from '@heroicons/react/24/outline';
 import { ArrowRightOnRectangleIcon, PencilSquareIcon } from '@heroicons/react/24/solid';
 import { css } from 'styled-components';
 
@@ -13,8 +18,8 @@ import { modalActions } from '@stores/layout/modalStore';
 import { memberTokenStore } from '@stores/login/memberTokenStore';
 import {
   selectedCapacitiesFilterStore,
-  selectedConnectorTypesFilterStore,
   selectedCompaniesFilterStore,
+  selectedConnectorTypesFilterStore,
 } from '@stores/station-filters/serverStationFiltersStore';
 
 import Button from '@common/Button';
@@ -102,6 +107,12 @@ const Menu = () => {
         onClick={() => openBasePanel(<StationListWindow />)}
       >
         <Bars3Icon width="2.8rem" stroke="#333" />
+      </Button>
+      <Button
+        aria-label="설문조사"
+        onClick={() => window.open('https://forms.gle/YQKx1zchUifjUJ396')}
+      >
+        <MegaphoneIcon width="2.8rem" stroke="#333" />
       </Button>
     </FlexBox>
   );
