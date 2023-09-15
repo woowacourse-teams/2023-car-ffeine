@@ -2,7 +2,8 @@ import type { Meta } from '@storybook/react';
 
 import Box from '@common/Box';
 
-import { NO_RATIO } from '../../../../constants/congestion';
+import { NO_RATIO } from '@constants/congestion';
+
 import Bar from './Bar';
 
 const meta = {

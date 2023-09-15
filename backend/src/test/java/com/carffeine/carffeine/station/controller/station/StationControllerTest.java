@@ -197,10 +197,6 @@ class StationControllerTest extends MockBeanInjection {
                                 new StationSearchResponse(
                                         "stationId",
                                         "잠실 충전소",
-                                        List.of(
-                                                "QUICK",
-                                                "STANDARD"
-                                        ),
                                         "address",
                                         BigDecimal.valueOf(37.123456),
                                         BigDecimal.valueOf(127.123456)
@@ -208,9 +204,6 @@ class StationControllerTest extends MockBeanInjection {
                                 new StationSearchResponse(
                                         "stationId2",
                                         "선릉 충전소",
-                                        List.of(
-                                                "QUICK"
-                                        ),
                                         "address2",
                                         BigDecimal.valueOf(37.123456),
                                         BigDecimal.valueOf(127.123456)
@@ -218,15 +211,16 @@ class StationControllerTest extends MockBeanInjection {
                         )
                 ));
 
-        mockMvc.perform(RestDocumentationRequestBuilders.get("/stations/search?q=선릉&page=1&scope=stationName&scope=address&scope=speed&scope=latitude&scope=longitude"))
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/stations/search?q=선릉&scope=stationId&scope=stationName&scope=address&scope=latitude&scope=longitude&page=1&limit=12"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalCount").value(2))
                 .andExpect(jsonPath("$.stations", hasSize(2)))
                 .andDo(customDocument("searchStations",
                         requestParameters(
                                 parameterWithName("q").description("검색어"),
+                                parameterWithName("scope").description("검색 범위"),
                                 parameterWithName("page").description("페이지 번호"),
-                                parameterWithName("scope").description("검색 범위")
+                                parameterWithName("limit").description("검색 결과 개수")
                         ),
                         responseFields(
                                 fieldWithPath("totalCount").type(JsonFieldType.NUMBER).description("검색 결과 전체 개수"),
@@ -235,8 +229,7 @@ class StationControllerTest extends MockBeanInjection {
                                 fieldWithPath("stations[].stationName").type(JsonFieldType.STRING).description("충전소 이름"),
                                 fieldWithPath("stations[].address").type(JsonFieldType.STRING).description("충전소 주소"),
                                 fieldWithPath("stations[].latitude").type(JsonFieldType.NUMBER).description("위도"),
-                                fieldWithPath("stations[].longitude").type(JsonFieldType.NUMBER).description("경도"),
-                                fieldWithPath("stations[].speed").type(JsonFieldType.ARRAY).description("충전소에 포함되어있는 급속 완속 충전기 종류")
+                                fieldWithPath("stations[].longitude").type(JsonFieldType.NUMBER).description("경도")
                         )
                 ));
     }

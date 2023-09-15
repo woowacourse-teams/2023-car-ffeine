@@ -61,7 +61,7 @@ public class StationQueryService {
     }
 
     public StationsSearchResponse searchStations(String query, Set<String> scope, int page, int limit) {
-        StationSearchResult searchResult = stationQueryRepository.findSearchResult(query, page, limit);
+        StationSearchResult searchResult = stationQueryRepository.findSearchResult(query, limit);
         List<StationSearchResponse> stationByScope = stationsToScope(searchResult.stations(), scope);
         return new StationsSearchResponse(searchResult.totalCount(), stationByScope);
     }
@@ -86,22 +86,7 @@ public class StationQueryService {
         if (scope.contains("longitude")) {
             builder.longitude(station.longitude());
         }
-        if (scope.contains("speed")) {
-            List<String> speed = station.chargerTypes().stream()
-                    .map(ChargerType::getDefaultCapacity)
-                    .map(this::parseToChargerSpeed)
-                    .distinct()
-                    .toList();
-            builder.speed(speed);
-        }
         builder.stationId(station.stationId());
         return builder.build();
-    }
-
-    private String parseToChargerSpeed(BigDecimal capacity) {
-        if (capacity.compareTo(BigDecimal.valueOf(QUICK_CAPACITY)) >= 0) {
-            return QUICK;
-        }
-        return STANDARD;
     }
 }
