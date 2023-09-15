@@ -1,6 +1,6 @@
 import { store } from '@utils/external-state';
 
-interface StationMarkerInstance {
+export interface StationMarkerInstance {
   stationId: string;
   markerInstance: google.maps.marker.AdvancedMarkerElement;
 }
