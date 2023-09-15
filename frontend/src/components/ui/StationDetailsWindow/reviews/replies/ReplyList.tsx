@@ -22,7 +22,7 @@ const ReplyList = ({ stationId, reviewId, previewMode }: ReplyListProps) => {
   return (
     <>
       {status === 'loading' ? (
-        <ReplyListLoading count={5} />
+        <ReplyListLoading count={1} />
       ) : status === 'error' ? (
         <Text variant="caption" align="center">
           Error: {JSON.stringify(error)}
@@ -47,24 +47,22 @@ const ReplyList = ({ stationId, reviewId, previewMode }: ReplyListProps) => {
               ))}
             </div>
           ))}
-          {isFetchingNextPage && <ReplyListLoading count={5} />}
-          <Box pl={8} pr={4} my={3}>
-            <ButtonNext
-              size="xs"
-              py={2}
-              color="secondary"
-              variant="contained"
-              onClick={() => fetchNextPage()}
-              disabled={!hasNextPage || isFetchingNextPage}
-              fullWidth
-            >
-              {isFetchingNextPage
-                ? '로딩중...'
-                : hasNextPage
-                ? '답글 더 보기'
-                : '더 이상 답글이 없습니다.'}
-            </ButtonNext>
-          </Box>
+          {isFetchingNextPage && <ReplyListLoading count={1} />}
+          {hasNextPage && (
+            <Box pl={8} pr={4} my={3}>
+              <ButtonNext
+                size="xs"
+                py={2}
+                color="secondary"
+                variant="contained"
+                onClick={() => fetchNextPage()}
+                disabled={!hasNextPage || isFetchingNextPage}
+                fullWidth
+              >
+                {isFetchingNextPage ? '로딩중...' : '답글 더 보기'}
+              </ButtonNext>
+            </Box>
+          )}
         </>
       )}
     </>
