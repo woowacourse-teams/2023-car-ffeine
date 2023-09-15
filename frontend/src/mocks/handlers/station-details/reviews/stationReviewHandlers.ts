@@ -11,7 +11,9 @@ export const stationReviewHandlers = [
     const max = 2000;
     return res(
       ctx.json({
-        totalRatings: (validReviews.reduce((a, b) => a + b.ratings, 0) / reviews.length).toFixed(2),
+        totalRatings: parseFloat(
+          (validReviews.reduce((a, b) => a + b.ratings, 0) / reviews.length).toFixed(2)
+        ),
         totalCount: Math.floor(Math.random() * (max - min + 1)) + min,
       }),
       ctx.delay(1000),
