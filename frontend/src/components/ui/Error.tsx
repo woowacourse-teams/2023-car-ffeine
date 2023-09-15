@@ -4,6 +4,7 @@ import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
 export interface ErrorProps {
+  fontSize?: number | string;
   title: string;
   message: string;
   subMessage?: string;
@@ -11,7 +12,7 @@ export interface ErrorProps {
   minHeight?: string | number;
 }
 
-const Error = ({ title, message, subMessage, handleRetry, minHeight }: ErrorProps) => {
+const Error = ({ title, message, subMessage, handleRetry, fontSize, minHeight }: ErrorProps) => {
   return (
     <FlexBox
       width="100%"
@@ -19,9 +20,12 @@ const Error = ({ title, message, subMessage, handleRetry, minHeight }: ErrorProp
       justifyContent="center"
       alignItems="center"
       minHeight={minHeight}
+      css={{
+        fontSize: typeof fontSize === 'string' ? fontSize : `${fontSize}rem`,
+      }}
     >
-      <Box>
-        <Text align="center" css={{ fontSize: '10rem', fontWeight: 'bold' }} mb={7}>
+      <Box css={{ wordBreak: 'keep-all' }}>
+        <Text align="center" css={{ fontSize: '10em', fontWeight: 'bold' }} mb={7}>
           {title}
         </Text>
         <Text align="center" mb={2}>
@@ -29,7 +33,15 @@ const Error = ({ title, message, subMessage, handleRetry, minHeight }: ErrorProp
         </Text>
         <Text align="center">{subMessage}</Text>
         <FlexBox justifyContent="center">
-          <ButtonNext onClick={handleRetry} variant="outlined" color="dark" size="xs" my={2}>
+          <ButtonNext
+            aria-label="다시 시도하기"
+            onClick={handleRetry}
+            variant="outlined"
+            color="dark"
+            size="xs"
+            mt={6}
+            mb={8}
+          >
             다시 시도하기
           </ButtonNext>
         </FlexBox>

@@ -4,6 +4,7 @@ import { reset } from './reset';
 
 export const GlobalStyle = createGlobalStyle`
   ${reset}
+  
   * {
     font-family: 'Noto Sans KR', sans-serif !important;
   }
@@ -13,7 +14,6 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 62.5%;
     /********** hidden scroll **********/
     scrollbar-width: none;
-    overflow: hidden;
   }
 
   &::-webkit-scrollbar {
@@ -25,6 +25,10 @@ export const GlobalStyle = createGlobalStyle`
     --lighter-color: #eef0f5;
 
     --gray-200-color: #ebebeb;
+  }
+
+  #map {
+    overflow: hidden;
   }
 
   body:has(.modal-open) {

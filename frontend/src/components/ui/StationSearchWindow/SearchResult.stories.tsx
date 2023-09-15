@@ -3,10 +3,10 @@ import { styled } from 'styled-components';
 
 import type { SearchResultProps } from './SearchResult';
 import SearchResult from './SearchResult';
-import SearchResultSkeleton from './SearchResultSkeleton';
 
 const meta = {
   title: 'UI/SearchResult',
+  tags: ['autodocs'],
   component: SearchResult,
   args: {
     stations: [
@@ -36,29 +36,57 @@ const meta = {
       ('');
     },
   },
+  argTypes: {
+    stations: {
+      description:
+        '검색된 충전소들입니다.<br /> 검색된 충전소의 개수가 0일 때는 검색 결과가 없습니다.',
+    },
+    isLoading: {
+      description: 'true: 검색 결과를 가져오고 있습니다.<br /> false: 검색 결과를 가져왔습니다.',
+    },
+    isError: {
+      description: 'true: 에러가 발생했습니다.<br /> false: 에러가 발생하지 않았습니다.',
+    },
+    setSelectedStationId: {
+      description: '검색된 충전소를 클릭하면 해당 충전소의 id가 저장됩니다.',
+    },
+    showStationDetails: {
+      description: '검색된 충전소를 클릭하면 해당 충전소로 이동하고, 상세정보가 나타납니다.',
+    },
+  },
 } satisfies Meta<typeof SearchResult>;
 
 export default meta;
 
 export const Default = ({ ...args }: SearchResultProps) => {
   return (
-    <S.Container>
+    <Container>
       <SearchResult {...args} />
-    </S.Container>
+    </Container>
   );
 };
 
-export const Skeleton = ({ ...args }: SearchResultProps) => {
+export const NoResult = () => {
   return (
-    <S.Container>
-      <SearchResult {...args} />
-      <SearchResultSkeleton />
-    </S.Container>
+    <SubContainer>
+      <SearchResult stations={[]} />
+    </SubContainer>
   );
 };
 
-const S = {
-  Container: styled.div`
-    width: 34rem;
-  `,
+export const Error = () => {
+  return (
+    <Container>
+      <SearchResult isError />
+    </Container>
+  );
 };
+
+const Container = styled.div`
+  width: 34rem;
+  height: 16rem;
+`;
+
+const SubContainer = styled(Container)`
+  height: 24rem;
+`;
