@@ -2,9 +2,13 @@ import { css } from 'styled-components';
 
 import { useEffect, useRef } from 'react';
 
+import { debounce } from '@utils/debounce';
+
 import { useStationMarkers } from '@hooks/tanstack-query/station-markers/useStationMarkers';
 
+import FlexBox from '@common/FlexBox';
 import List from '@common/List';
+import Text from '@common/Text';
 
 import EmptyStationsNotice from '@ui/StationList/EmptyStationsNotice';
 import StationSummaryCardSkeleton from '@ui/StationList/StationSummaryCardSkeleton';
@@ -29,13 +33,14 @@ const StationList = () => {
   } = useFetchStationSummaries(filteredMarkers ?? []);
 
   const loadMoreElementRef = useRef(null);
+  const debouncedLoadMore = debounce(loadMore, 500);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting && hasNextPage) {
           console.log('loadMore');
-          loadMore();
+          debouncedLoadMore();
         }
       });
     });
@@ -85,7 +90,13 @@ const StationList = () => {
             ))}
           </>
         )}
-        {hasNextPage && <div ref={loadMoreElementRef} />}
+        {hasNextPage ? (
+          <div ref={loadMoreElementRef} />
+        ) : (
+          <FlexBox justifyContent="center" alignItems="center" my={3}>
+            <Text>주변의 모든 충전소를 불러왔습니다.</Text>
+          </FlexBox>
+        )}
       </List>
     )
   );
