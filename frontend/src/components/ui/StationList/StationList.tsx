@@ -33,13 +33,13 @@ const StationList = () => {
   } = useFetchStationSummaries(filteredMarkers ?? []);
 
   const loadMoreElementRef = useRef(null);
-  const debouncedLoadMore = debounce(loadMore, 500);
+  const loadMoreAfterDebounce = debounce(loadMore, 500);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting && hasNextPage) {
-          debouncedLoadMore();
+          loadMoreAfterDebounce();
         }
       });
     });
