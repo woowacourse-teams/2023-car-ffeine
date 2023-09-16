@@ -1,8 +1,9 @@
 import { css } from 'styled-components';
 
+import { useEffect, useRef } from 'react';
+
 import { useStationMarkers } from '@hooks/tanstack-query/station-markers/useStationMarkers';
 
-import ButtonNext from '@common/ButtonNext';
 import List from '@common/List';
 
 import EmptyStationsNotice from '@ui/StationList/EmptyStationsNotice';
@@ -26,6 +27,29 @@ const StationList = () => {
     loadMore,
     hasNextPage,
   } = useFetchStationSummaries(filteredMarkers ?? []);
+
+  const loadMoreElementRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && hasNextPage) {
+          console.log('loadMore');
+          loadMore();
+        }
+      });
+    });
+
+    if (loadMoreElementRef.current) {
+      observer.observe(loadMoreElementRef.current);
+    }
+
+    return () => {
+      if (loadMoreElementRef.current) {
+        observer.unobserve(loadMoreElementRef.current);
+      }
+    };
+  }, [loadMore, hasNextPage]);
 
   const cachedStationSummaries = cachedStationSummariesActions.get();
 
@@ -61,11 +85,7 @@ const StationList = () => {
             ))}
           </>
         )}
-        {hasNextPage && (
-          <ButtonNext onClick={loadMore} fullWidth>
-            더 보 기
-          </ButtonNext>
-        )}
+        {hasNextPage && <div ref={loadMoreElementRef} />}
       </List>
     )
   );
