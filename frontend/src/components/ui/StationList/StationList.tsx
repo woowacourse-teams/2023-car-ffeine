@@ -39,7 +39,6 @@ const StationList = () => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting && hasNextPage) {
-          console.log('loadMore');
           debouncedLoadMore();
         }
       });

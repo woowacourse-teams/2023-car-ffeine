@@ -46,7 +46,6 @@ export const useFetchStationSummaries = (markers: StationMarker[]) => {
       setIsLoading(true);
       fetchStationSummaries(uncachedStationSummaryIds).then((stationSummaries) => {
         cachedStationSummariesActions.add(stationSummaries);
-        console.log(cachedStationSummariesActions.get());
         setIsLoading(false);
       });
     }
