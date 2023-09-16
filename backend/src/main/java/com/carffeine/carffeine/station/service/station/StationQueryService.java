@@ -4,6 +4,7 @@ import com.carffeine.carffeine.station.domain.charger.ChargerType;
 import com.carffeine.carffeine.station.domain.station.Coordinate;
 import com.carffeine.carffeine.station.exception.StationException;
 import com.carffeine.carffeine.station.exception.StationExceptionType;
+import com.carffeine.carffeine.station.infrastructure.repository.station.StationCacheRepository;
 import com.carffeine.carffeine.station.infrastructure.repository.station.StationQueryRepository;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationInfo;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSearchResult;
@@ -18,8 +19,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @RequiredArgsConstructor
@@ -27,11 +28,8 @@ import java.util.Set;
 @Service
 public class StationQueryService {
 
-    private static final String QUICK = "QUICK";
-    private static final String STANDARD = "STANDARD";
-    private static final int QUICK_CAPACITY = 50;
-
     private final StationQueryRepository stationQueryRepository;
+    private final StationCacheRepository stationCacheRepository;
 
     public StationSpecificResponse findStationById(String stationId) {
         return stationQueryRepository.findStationById(stationId)
@@ -40,8 +38,7 @@ public class StationQueryService {
 
     public List<StationSimpleResponse> findByLocation(CoordinateRequest request, List<String> companyNames, List<ChargerType> chargerTypes, List<BigDecimal> capacities) {
         Coordinate coordinate = Coordinate.of(request.latitude(), request.latitudeDelta(), request.longitude(), request.longitudeDelta());
-
-        List<String> stationIds = stationQueryRepository.findStationIdsByCoordinate(
+        List<StationInfo> stationInfos = stationCacheRepository.findByCoordinate(
                 coordinate.minLatitudeValue(),
                 coordinate.maxLatitudeValue(),
                 coordinate.minLongitudeValue(),
@@ -50,10 +47,10 @@ public class StationQueryService {
                 chargerTypes,
                 capacities
         );
-        if (stationIds.isEmpty()) {
-            return Collections.emptyList();
-        }
-        return stationQueryRepository.findStationByStationIds(stationIds);
+        Map<String, Long> stationByStationIds = stationQueryRepository.findStationByStationIds(stationInfos.stream().map(StationInfo::stationId).toList());
+        return stationInfos.stream()
+                .map(it -> StationSimpleResponse.of(it, stationByStationIds.get(it.stationId())))
+                .toList();
     }
 
     public List<StationSummaryResponse> findStationsSummary(List<String> stationIds) {
@@ -66,13 +63,13 @@ public class StationQueryService {
         return new StationsSearchResponse(searchResult.totalCount(), stationByScope);
     }
 
-    private List<StationSearchResponse> stationsToScope(List<StationInfo> searchResult, Set<String> scope) {
+    private List<StationSearchResponse> stationsToScope(List<StationSearchResult.StationSearchResponse> searchResult, Set<String> scope) {
         return searchResult.stream()
                 .map(it -> stationToScope(it, scope))
                 .toList();
     }
 
-    private StationSearchResponse stationToScope(StationInfo station, Set<String> scope) {
+    private StationSearchResponse stationToScope(StationSearchResult.StationSearchResponse station, Set<String> scope) {
         StationSearchResponse.StationSearchResponseBuilder builder = StationSearchResponse.builder();
         if (scope.contains("stationName")) {
             builder.stationName(station.stationName());

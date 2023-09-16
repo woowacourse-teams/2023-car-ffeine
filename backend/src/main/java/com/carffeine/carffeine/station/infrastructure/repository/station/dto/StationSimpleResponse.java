@@ -12,4 +12,16 @@ public record StationSimpleResponse(
         long availableCount,
         long quickChargerCount
 ) {
+    public static StationSimpleResponse of(StationInfo stationInfo, Long availableCount) {
+        return new StationSimpleResponse(
+                stationInfo.stationId(),
+                stationInfo.stationName(),
+                stationInfo.latitude(),
+                stationInfo.longitude(),
+                stationInfo.isParkingFree(),
+                stationInfo.isPrivate(),
+                availableCount,
+                stationInfo.quickChargerCount()
+        );
+    }
 }

@@ -6,7 +6,7 @@ import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.domain.station.StationRepository;
 import com.carffeine.carffeine.station.fixture.station.StationFixture;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.ChargerSpecificResponse;
-import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.ChargerStatusResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSummaryResponse;
 import org.junit.jupiter.api.DisplayNameGeneration;
@@ -159,19 +159,13 @@ class StationQueryRepositoryTest {
         stationRepository.save(station);
 
         // when
-        List<StationSimpleResponse> result = stationQueryRepository.findStationByStationIds(List.of(station.getStationId()));
+        List<ChargerStatusResponse> result = stationQueryRepository.findStationByStationIds(List.of(station.getStationId()));
 
         // then
         assertThat(result).usingRecursiveComparison()
-                .isEqualTo(List.of(new StationSimpleResponse(
+                .isEqualTo(List.of(new ChargerStatusResponse(
                         station.getStationId(),
-                        station.getStationName(),
-                        station.getLatitude().getValue(),
-                        station.getLongitude().getValue(),
-                        station.isParkingFree(),
-                        station.isPrivate(),
-                        station.getAvailableCount(),
-                        station.getChargers().stream().filter(it -> it.getCapacity().compareTo(BigDecimal.valueOf(50.0)) >= 0).count()
+                        station.getAvailableCount()
                 )));
     }
 

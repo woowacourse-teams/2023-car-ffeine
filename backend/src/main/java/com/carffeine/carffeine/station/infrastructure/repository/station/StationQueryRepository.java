@@ -5,7 +5,6 @@ import com.carffeine.carffeine.station.domain.charger.ChargerType;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.ChargerSpecificResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationInfo;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSearchResult;
-import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSummaryResponse;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -15,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static com.carffeine.carffeine.station.domain.charger.QCharger.charger;
@@ -104,32 +104,13 @@ public class StationQueryRepository {
                 .fetch();
     }
 
-    public List<StationSimpleResponse> findStationByStationIds(List<String> stationIds) {
+    public Map<String, Long> findStationByStationIds(List<String> stationIds) {
         return jpaQueryFactory
-                .select(constructor(StationSimpleResponse.class,
-                        station.stationId,
-                        station.stationName,
-                        station.latitude.value,
-                        station.longitude.value,
-                        station.isParkingFree,
-                        station.isPrivate,
-                        chargerStatus.chargerCondition
-                                .when(ChargerCondition.STANDBY).then(1L).otherwise(0L).sum(),
-                        cases()
-                                .when(charger.capacity.goe(BigDecimal.valueOf(QUICK_CAPACITY)))
-                                .then(1L)
-                                .otherwise(0L)
-                                .sum()
-                ))
-                .from(station)
-                .innerJoin(charger)
-                .on(charger.stationId.eq(station.stationId))
-                .innerJoin(chargerStatus)
-                .on(charger.station.stationId.eq(chargerStatus.stationId)
-                        .and(charger.chargerId.eq(chargerStatus.chargerId)))
-                .where(station.stationId.in(stationIds))
-                .groupBy(station.stationId)
-                .fetch();
+                .from(chargerStatus)
+                .where(chargerStatus.stationId.in(stationIds))
+                .groupBy(chargerStatus.stationId)
+                .transform(groupBy(chargerStatus.stationId).as(chargerStatus.chargerCondition
+                        .when(ChargerCondition.STANDBY).then(1L).otherwise(0L).sum()));
     }
 
     public List<StationSummaryResponse> findStationsSummary(List<String> stationIds) {
@@ -178,8 +159,8 @@ public class StationQueryRepository {
     }
 
     public StationSearchResult findSearchResult(String query, int limit) {
-        List<StationInfo> stations = jpaQueryFactory
-                .select(constructor(StationInfo.class,
+        List<StationSearchResult.StationSearchResponse> stations = jpaQueryFactory
+                .select(constructor(StationSearchResult.StationSearchResponse.class,
                         station.stationId,
                         station.stationName,
                         station.address,
@@ -198,5 +179,33 @@ public class StationQueryRepository {
                         .or(station.address.contains(query)))
                 .fetchOne();
         return new StationSearchResult(totalCount, stations);
+    }
+
+    public List<StationInfo> findAll() {
+        return jpaQueryFactory.selectFrom(station)
+                .innerJoin(station.chargers, charger)
+                .groupBy(station.stationId)
+                .groupBy(charger.type)
+                .groupBy(charger.capacity)
+                .transform(
+                        groupBy(station.stationId)
+                                .list(constructor(StationInfo.class,
+                                        station.stationId,
+                                        station.stationName,
+                                        station.address,
+                                        station.latitude.value,
+                                        station.longitude.value,
+                                        cases()
+                                                .when(charger.capacity.goe(BigDecimal.valueOf(QUICK_CAPACITY)))
+                                                .then(1L)
+                                                .otherwise(0L)
+                                                .sum(),
+                                        station.companyName,
+                                        list(charger.type),
+                                        list(charger.capacity),
+                                        station.isParkingFree,
+                                        station.isPrivate
+                                ))
+                );
     }
 }
