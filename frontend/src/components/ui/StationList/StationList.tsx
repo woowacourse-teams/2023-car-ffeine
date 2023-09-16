@@ -1,9 +1,14 @@
 import { css } from 'styled-components';
 
+import { useEffect, useRef } from 'react';
+
+import { debounce } from '@utils/debounce';
+
 import { useStationMarkers } from '@hooks/tanstack-query/station-markers/useStationMarkers';
 
-import ButtonNext from '@common/ButtonNext';
+import FlexBox from '@common/FlexBox';
 import List from '@common/List';
+import Text from '@common/Text';
 
 import EmptyStationsNotice from '@ui/StationList/EmptyStationsNotice';
 import StationSummaryCardSkeleton from '@ui/StationList/StationSummaryCardSkeleton';
@@ -26,6 +31,29 @@ const StationList = () => {
     loadMore,
     hasNextPage,
   } = useFetchStationSummaries(filteredMarkers ?? []);
+
+  const loadMoreElementRef = useRef(null);
+  const loadMoreAfterDebounce = debounce(loadMore, 500);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && hasNextPage) {
+          loadMoreAfterDebounce();
+        }
+      });
+    });
+
+    if (loadMoreElementRef.current) {
+      observer.observe(loadMoreElementRef.current);
+    }
+
+    return () => {
+      if (loadMoreElementRef.current) {
+        observer.unobserve(loadMoreElementRef.current);
+      }
+    };
+  }, [loadMore, hasNextPage]);
 
   const cachedStationSummaries = cachedStationSummariesActions.get();
 
@@ -61,10 +89,12 @@ const StationList = () => {
             ))}
           </>
         )}
-        {hasNextPage && (
-          <ButtonNext onClick={loadMore} fullWidth>
-            더 보 기
-          </ButtonNext>
+        {hasNextPage ? (
+          <div ref={loadMoreElementRef} />
+        ) : (
+          <FlexBox justifyContent="center" alignItems="center" my={3}>
+            <Text>주변의 모든 충전소를 불러왔습니다.</Text>
+          </FlexBox>
         )}
       </List>
     )
