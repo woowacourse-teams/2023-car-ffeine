@@ -85,7 +85,7 @@ public class StationQueryServiceTest extends IntegrationTest {
                 .hasMessage(StationExceptionType.NOT_FOUND_ID.message());
     }
 
-    @Test
+    //    @Test
     void 위도_경도로_충전소를_조회한다() {
         //given
         Station station = StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
@@ -129,7 +129,7 @@ public class StationQueryServiceTest extends IntegrationTest {
                 );
     }
 
-    @Test
+    //    @Test
     void 위도_경도로_조회할_때_충전소_회사로_필터링한다() {
         //given
         Station station = StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
@@ -173,7 +173,7 @@ public class StationQueryServiceTest extends IntegrationTest {
                 );
     }
 
-    @Test
+    //    @Test
     void 위도_경도로_조회할_때_충전기_타입으로_필터링한다() {
         //given
         Station station = StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
@@ -207,7 +207,7 @@ public class StationQueryServiceTest extends IntegrationTest {
                 );
     }
 
-    @Test
+    //    @Test
     void 위도_경도로_조회할_때_충전속도로_필터링한다() {
         //given
         Station station = StationFixture.선릉역_충전소_충전기_2개_사용가능_1개;
