@@ -28,6 +28,7 @@ const Menu = () => {
   const { openBasePanel } = useNavigationBar();
 
   const memberToken = useExternalValue(memberTokenStore);
+  const isSignIn = memberToken !== EMPTY_MEMBER_TOKEN;
 
   const handleClickLoginIcon = () => {
     modalActions.openModal(<LoginModal />);
@@ -50,16 +51,19 @@ const Menu = () => {
       >
         <Bars3Icon width="2.8rem" stroke="#333" />
       </Button>
+
       <Button aria-label="필터링 메뉴 열기" onClick={() => openBasePanel(<ServerStationFilters />)}>
         <AdjustmentsHorizontalIcon width="2.8rem" stroke="#333" />
       </Button>
-      {memberToken !== EMPTY_MEMBER_TOKEN ? (
+
+      {isSignIn ? (
         <PersonalMenu />
       ) : (
         <Button aria-label="로그인 하기" onClick={handleClickLoginIcon}>
           <UserCircleIcon width="2.8rem" stroke="#333" />
         </Button>
       )}
+
       <Button
         css={displayNoneInWeb}
         aria-label="충전소 리스트 열기"
@@ -67,6 +71,7 @@ const Menu = () => {
       >
         <Bars3Icon width="2.8rem" stroke="#333" />
       </Button>
+
       <Button
         aria-label="설문조사 하기"
         onClick={() => {
