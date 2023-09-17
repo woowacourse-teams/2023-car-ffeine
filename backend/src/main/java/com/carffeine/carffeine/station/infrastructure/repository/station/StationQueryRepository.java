@@ -11,6 +11,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -181,6 +182,7 @@ public class StationQueryRepository {
         return new StationSearchResult(totalCount, stations);
     }
 
+    @Transactional(readOnly = true)
     public List<StationInfo> findAll() {
         return jpaQueryFactory.selectFrom(station)
                 .innerJoin(station.chargers, charger)
