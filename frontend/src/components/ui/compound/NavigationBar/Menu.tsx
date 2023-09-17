@@ -113,7 +113,11 @@ const Menu = () => {
       </Button>
       <Button
         aria-label="설문조사 하기"
-        onClick={() => window.open('https://forms.gle/YQKx1zchUifjUJ396')}
+        onClick={() => {
+          if (confirm('설문조사에 참여하시겠습니까?')) {
+            window.open('https://forms.gle/YQKx1zchUifjUJ396');
+          }
+        }}
       >
         <HiOutlineChatBubbleOvalLeftEllipsis size="2.8rem" stroke="#333" color="#333" />
       </Button>
