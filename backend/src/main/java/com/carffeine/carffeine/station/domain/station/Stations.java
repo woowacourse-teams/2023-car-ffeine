@@ -19,7 +19,7 @@ public class Stations {
         return new Stations(stations);
     }
 
-    private static void filterByCompanyNames(List<Station> stations, List<String> companyNames) {
+    private void filterByCompanyNames(List<Station> stations, List<String> companyNames) {
         if (!companyNames.isEmpty()) {
             stations.removeIf(station -> !companyNames.contains(station.getCompanyName()));
         }
