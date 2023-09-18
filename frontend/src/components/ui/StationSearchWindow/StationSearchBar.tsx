@@ -6,17 +6,23 @@ import type { ChangeEvent, FocusEvent, FormEvent, MouseEvent } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 
+import { useRenderStationMarker } from '@marker/hooks/useRenderStationMarker';
+
 import { useExternalValue, useSetExternalState } from '@utils/external-state';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { searchWordStore } from '@stores/searchWordStore';
-import { selectedStationIdStore } from '@stores/selectedStationStore';
 
+import { fetchStationSummaries } from '@hooks/fetch/fetchStationSummaries';
+import { useStationSummary } from '@hooks/google-maps/useStationSummary';
 import { useSearchedStations } from '@hooks/tanstack-query/useSearchedStations';
 import { useDebounce } from '@hooks/useDebounce';
 
 import Button from '@common/Button';
 import Loader from '@common/Loader';
+
+import StationDetailsWindow from '@ui/StationDetailsWindow';
+import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
 import { pillStyle } from '@style';
 
@@ -31,11 +37,13 @@ import SearchResult from './SearchResult';
 const StationSearchBar = () => {
   const [isFocused, setIsFocused] = useState(false);
   const googleMap = useExternalValue(getGoogleMapStore());
-  const setSelectedStationId = useSetExternalState(selectedStationIdStore);
 
   const [inputValue, setInputValue] = useState('');
   const setSearchWord = useSetExternalState(searchWordStore);
   const queryClient = useQueryClient();
+  const { openLastPanel } = useNavigationBar();
+  const { openStationSummary } = useStationSummary();
+  const { createNewMarkerInstance } = useRenderStationMarker();
 
   useDebounce(
     () => {
@@ -73,7 +81,12 @@ const StationSearchBar = () => {
     googleMap.setZoom(INITIAL_ZOOM_SIZE);
 
     queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_MARKERS] });
-    setSelectedStationId(stationId);
+    openLastPanel(<StationDetailsWindow stationId={stationId} />);
+
+    fetchStationSummaries([stationId]).then((stationSummary) => {
+      const markerInstance = createNewMarkerInstance(stationSummary[0]);
+      openStationSummary(stationId, markerInstance);
+    });
   };
 
   const handleRequestSearchResult = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
@@ -111,7 +124,6 @@ const StationSearchBar = () => {
           stations={stations}
           isLoading={isLoading}
           isError={isError}
-          setSelectedStationId={setSelectedStationId}
           showStationDetails={showStationDetails}
           closeResult={handleCloseResult}
         />

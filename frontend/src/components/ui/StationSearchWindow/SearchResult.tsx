@@ -2,8 +2,6 @@ import { css } from 'styled-components';
 
 import { useEffect } from 'react';
 
-import type { SetStateCallbackType } from '@utils/external-state/StateManager';
-
 import Button from '@common/Button';
 import List from '@common/List';
 import ListItem from '@common/ListItem';
@@ -19,19 +17,16 @@ export interface SearchResultProps {
   stations: SearchedStation[];
   isLoading: boolean;
   isError: boolean;
-  setSelectedStationId: (param: string | SetStateCallbackType<string>) => void;
   showStationDetails: (param: StationPosition) => void;
   closeResult: () => void;
 }
 
 const SearchResult = (props: SearchResultProps) => {
-  const { stations, isLoading, isError, setSelectedStationId, showStationDetails, closeResult } =
-    props;
+  const { stations, isLoading, isError, showStationDetails, closeResult } = props;
 
   const handleShowStationDetails = (handlerProps: StationPosition) => {
     const { stationId, latitude, longitude } = handlerProps;
 
-    setSelectedStationId(stationId);
     showStationDetails({ stationId, latitude, longitude });
   };
 
