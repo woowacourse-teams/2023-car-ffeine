@@ -1,6 +1,8 @@
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { css } from 'styled-components';
 
+import { lazy, Suspense } from 'react';
+
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
@@ -10,7 +12,7 @@ import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigation
 
 import { MOBILE_BREAKPOINT } from '@constants';
 
-import StationList from './StationList';
+const StationList = lazy(() => import('./StationList'));
 
 const StationListWindow = () => {
   const { closeBasePanel } = useNavigationBar();
@@ -23,7 +25,9 @@ const StationListWindow = () => {
       <FlexBox css={headerCss}>
         <Text variant="h5">주변 충전소</Text>
       </FlexBox>
-      <StationList />
+      <Suspense>
+        <StationList />
+      </Suspense>
     </FlexBox>
   );
 };
