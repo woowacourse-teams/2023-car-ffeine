@@ -2,8 +2,8 @@ import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import type { Meta } from '@storybook/react';
 import { styled } from 'styled-components';
 
-import { useState } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
+import { useState } from 'react';
 
 import { useSearchedStations } from '../../../hooks/tanstack-query/useSearchedStations';
 import { searchWordStore } from '../../../stores/searchWordStore';
@@ -76,6 +76,7 @@ export const Default = () => {
           isError={isError}
           setSelectedStationId={setSelectedStationId}
           showStationDetails={showStationDetails}
+          closeResult={() => null}
         />
       )}
     </>
