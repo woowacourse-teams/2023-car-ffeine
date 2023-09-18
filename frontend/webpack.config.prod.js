@@ -11,7 +11,7 @@ module.exports = {
   entry: './src/index.prod.tsx',
   output: {
     path: path.join(__dirname, '/dist'),
-    filename: 'bundle.js',
+    filename: 'bundle.[chunkhash].js',
     publicPath: '/',
   },
   devServer: {
@@ -69,4 +69,9 @@ module.exports = {
     }),
     new DotEnv(),
   ],
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
 };
