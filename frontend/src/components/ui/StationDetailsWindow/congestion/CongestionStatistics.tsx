@@ -22,7 +22,7 @@ const CongestionStatistics = ({ stationId }: CongestionStatisticsProps) => {
   const [dayOfWeek, setDayOfWeek] = useState<LongEnglishDaysOfWeek>(
     ENGLISH_DAYS_OF_WEEK[todayIndex < 0 ? 6 : todayIndex]
   );
-  const [isStatisticsOpen, setIsStatisticsOpen] = useState(false);
+  const [isStatisticsOpen, setIsStatisticsOpen] = useState(true);
 
   return (
     <Box my={5}>
@@ -38,7 +38,7 @@ const CongestionStatistics = ({ stationId }: CongestionStatisticsProps) => {
         <ButtonNext onClick={() => setIsStatisticsOpen(true)} fullWidth size="sm" p={2}>
           <FlexBox justifyContent="center" alignItems="center" columnGap={2}>
             <ChartBarSquareIcon width={24} />
-            <p>시간별 혼잡도 확인 (BETA)</p>
+            <p>요일/시간별 혼잡도 확인</p>
             <ChevronDownIcon width={20} />
           </FlexBox>
         </ButtonNext>
