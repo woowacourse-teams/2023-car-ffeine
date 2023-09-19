@@ -35,13 +35,15 @@ const CongestionStatistics = ({ stationId }: CongestionStatisticsProps) => {
           onChangeDayOfWeek={setDayOfWeek}
         />
       ) : (
-        <ButtonNext onClick={() => setIsStatisticsOpen(true)} fullWidth size="sm" p={2}>
-          <FlexBox justifyContent="center" alignItems="center" columnGap={2}>
-            <ChartBarSquareIcon width={24} />
-            <p>요일/시간별 혼잡도 확인</p>
-            <ChevronDownIcon width={20} />
-          </FlexBox>
-        </ButtonNext>
+        <FlexBox justifyContent="center" alignItems="center" minHeight={`${47.5 + 1.4 + 2.2}rem`}>
+          <ButtonNext onClick={() => setIsStatisticsOpen(true)} fullWidth size="sm" p={2}>
+            <FlexBox justifyContent="center" alignItems="center" columnGap={2}>
+              <ChartBarSquareIcon width={24} />
+              <p>요일/시간별 혼잡도 확인</p>
+              <ChevronDownIcon width={20} />
+            </FlexBox>
+          </ButtonNext>
+        </FlexBox>
       )}
     </Box>
   );
