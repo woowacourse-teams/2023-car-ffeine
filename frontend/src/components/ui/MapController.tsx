@@ -3,11 +3,8 @@ import { css } from 'styled-components';
 
 import { BiCurrentLocation } from 'react-icons/bi';
 
-import { useExternalValue } from '@utils/external-state';
+import { googleMapActions } from '@stores/google-maps/googleMapStore';
 
-import { getGoogleMapStore, googleMapActions } from '@stores/google-maps/googleMapStore';
-
-import { useCurrentPosition } from '@hooks/google-maps/useCurrentPosition';
 import { useStationMarkers } from '@hooks/tanstack-query/station-markers/useStationMarkers';
 
 import Box from '@common/Box';
@@ -15,18 +12,14 @@ import Button from '@common/Button';
 import Loader from '@common/Loader';
 
 import { MOBILE_BREAKPOINT } from '@constants';
-import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
 
 const MapController = () => {
-  const position = useCurrentPosition();
-  const googleMap = useExternalValue(getGoogleMapStore());
   const { isFetching } = useStationMarkers();
 
   const handleCurrentPositionButton = () => {
-    if (isFetching) return;
-
-    googleMap.panTo({ lat: position.lat, lng: position.lng });
-    googleMap.setZoom(INITIAL_ZOOM_SIZE);
+    if (!isFetching) {
+      googleMapActions.moveToCurrentPosition();
+    }
   };
 
   const handleZoomUpButton = () => {

@@ -57,4 +57,20 @@ export const googleMapActions = {
     const prevZoom = googleMap.getZoom();
     googleMap.setZoom(prevZoom - 1);
   },
+  moveToCurrentPosition: () => {
+    const googleMap = getGoogleMapStore().getState();
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        googleMap.panTo({ lat: position.coords.latitude, lng: position.coords.longitude });
+        googleMap.setZoom(INITIAL_ZOOM_SIZE);
+      },
+      () => {
+        alert('위치 권한을 허용해주세요.');
+      },
+      {
+        enableHighAccuracy: true,
+      }
+    );
+  },
 };
