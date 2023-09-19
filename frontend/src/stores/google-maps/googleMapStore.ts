@@ -59,6 +59,7 @@ export const googleMapActions = {
   },
   moveToCurrentPosition: () => {
     const googleMap = getGoogleMapStore().getState();
+
     navigator.geolocation.getCurrentPosition(
       (position) => {
         googleMap.panTo({ lat: position.coords.latitude, lng: position.coords.longitude });
