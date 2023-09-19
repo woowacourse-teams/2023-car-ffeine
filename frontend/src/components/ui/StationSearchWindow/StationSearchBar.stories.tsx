@@ -47,7 +47,7 @@ export const Default = () => {
   };
 
   const showStationDetails = ({ stationId, latitude, longitude }: StationPosition) => {
-    console.log('충전소 간단 정보, 상세 정보를 보여준다.');
+    alert('충전소 간단 정보, 상세 정보를 보여준다.');
   };
 
   const handleRequestSearchResult = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
