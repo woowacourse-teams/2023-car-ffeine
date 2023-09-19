@@ -11,6 +11,7 @@ import { useRenderStationMarker } from '@marker/hooks/useRenderStationMarker';
 import { useExternalValue, useSetExternalState } from '@utils/external-state';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
+import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
 import { searchWordStore } from '@stores/searchWordStore';
 
 import { fetchStationSummaries } from '@hooks/fetch/fetchStationSummaries';
@@ -43,7 +44,8 @@ const StationSearchBar = () => {
   const queryClient = useQueryClient();
   const { openLastPanel } = useNavigationBar();
   const { openStationSummary } = useStationSummary();
-  const { createNewMarkerInstance } = useRenderStationMarker();
+  const { createNewMarkerInstance, renderMarkerInstances } = useRenderStationMarker();
+  const setMarkerInstances = useSetExternalState(markerInstanceStore);
 
   useDebounce(
     () => {
@@ -85,6 +87,9 @@ const StationSearchBar = () => {
 
     fetchStationSummaries([stationId]).then((stationSummary) => {
       const markerInstance = createNewMarkerInstance(stationSummary[0]);
+
+      setMarkerInstances((prev) => [...prev, { stationId, markerInstance }]);
+      renderMarkerInstances([{ stationId, markerInstance }], stationSummary);
       openStationSummary(stationId, markerInstance);
     });
   };
@@ -104,8 +109,6 @@ const StationSearchBar = () => {
             type="search"
             role="searchbox"
             placeholder="충전소명 또는 지역명을 입력해 주세요"
-            // eslint-disable-next-line jsx-a11y/no-autofocus
-            autoFocus
             onChange={handleRequestSearchResult}
             onFocus={handleOpenResult}
             onClick={handleOpenResult}

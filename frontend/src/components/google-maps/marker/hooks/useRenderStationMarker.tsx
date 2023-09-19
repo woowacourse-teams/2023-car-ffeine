@@ -86,7 +86,7 @@ export const useRenderStationMarker = () => {
 
   const renderMarkerInstances = (
     newMarkerInstances: StationMarkerInstance[],
-    markers: StationMarker[]
+    markers: StationMarker[] | StationSummary[]
   ) => {
     newMarkerInstances.forEach(({ markerInstance, stationId }) => {
       const container = document.createElement('div');
