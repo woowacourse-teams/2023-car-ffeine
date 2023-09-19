@@ -85,11 +85,24 @@ const StationSearchBar = () => {
     queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_MARKERS] });
     openLastPanel(<StationDetailsWindow stationId={stationId} />);
 
-    fetchStationSummaries([stationId]).then((stationSummary) => {
-      const markerInstance = createNewMarkerInstance(stationSummary[0]);
+    // 지금 보여지는 화면에 검색한 충전소가 존재할 경우의 처리
+    if (
+      markerInstanceStore
+        .getState()
+        .some(({ stationId: cachedStationId }) => cachedStationId === stationId)
+    ) {
+      openStationSummary(stationId);
+      return;
+    }
+
+    // 지금 보여지는 화면에 충전소가 존재하지 않으면 따로 하나의 충전소만 요청을 발생시켜 마커를 생성
+    // 마커가 없어서 infoWindow를 렌더링 하지 못하는 문제 해결
+    fetchStationSummaries([stationId]).then((stationSummaries) => {
+      const stationSummary = stationSummaries[0];
+      const markerInstance = createNewMarkerInstance(stationSummary);
 
       setMarkerInstances((prev) => [...prev, { stationId, markerInstance }]);
-      renderMarkerInstances([{ stationId, markerInstance }], stationSummary);
+      renderMarkerInstances([{ stationId, markerInstance }], [stationSummary]);
       openStationSummary(stationId, markerInstance);
     });
   };
