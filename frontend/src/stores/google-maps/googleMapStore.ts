@@ -57,7 +57,7 @@ export const googleMapActions = {
     const prevZoom = googleMap.getZoom();
     googleMap.setZoom(prevZoom - 1);
   },
-  goToCurrentPosition: () => {
+  moveToCurrentPosition: () => {
     const googleMap = getGoogleMapStore().getState();
     navigator.geolocation.getCurrentPosition(
       (position) => {

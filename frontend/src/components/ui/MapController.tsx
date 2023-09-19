@@ -18,7 +18,7 @@ const MapController = () => {
 
   const handleCurrentPositionButton = () => {
     if (!isFetching) {
-      googleMapActions.goToCurrentPosition();
+      googleMapActions.moveToCurrentPosition();
     }
   };
 
