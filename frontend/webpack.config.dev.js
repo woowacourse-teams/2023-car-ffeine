@@ -9,6 +9,7 @@ const DotEnv = require('dotenv-webpack');
 
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 const smp = new SpeedMeasurePlugin();
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = function () {
   return smp.wrap({
@@ -16,7 +17,7 @@ module.exports = function () {
     entry: './src/index.tsx',
     output: {
       path: path.join(__dirname, '/dist'),
-      filename: 'bundle.js',
+      filename: 'bundle.[chunkhash].js',
       publicPath: '/',
       clean: true,
     },
@@ -72,6 +73,15 @@ module.exports = function () {
         patterns: [{ from: 'public/mockServiceWorker.js', to: '.' }],
       }),
       new ForkTsCheckerWebpackPlugin(),
+      new BundleAnalyzerPlugin({
+        analyzerMode: 'static',
+        openAnalyzer: false,
+      }),
     ],
+    optimization: {
+      splitChunks: {
+        chunks: 'all',
+      },
+    },
   });
 };
