@@ -1,31 +1,33 @@
-import StationMarkersContainer from '@marker/StationMarkersContainer';
-
-import ToastContainer from '@common/Toast/ToastContainer';
-
-import ClientStationFilters from '@ui/ClientStationFilters';
-import MapController from '@ui/MapController';
-import ModalContainer from '@ui/ModalContainer';
-import Navigator from '@ui/Navigator';
-import WarningModalContainer from '@ui/WarningModalContainer';
+import { lazy, Suspense } from 'react';
 
 import CarFfeineMapListener from './CarFfeineListener';
-import UserFilterListener from './UserFilterListener';
+
+const UserFilterListener = lazy(() => import('./UserFilterListener'));
+const StationMarkersContainer = lazy(() => import('@marker/StationMarkersContainer'));
+const ToastContainer = lazy(() => import('@common/Toast/ToastContainer'));
+const ClientStationFilters = lazy(() => import('@ui/ClientStationFilters'));
+const MapController = lazy(() => import('@ui/MapController'));
+const ModalContainer = lazy(() => import('@ui/ModalContainer'));
+const Navigator = lazy(() => import('@ui/Navigator'));
+const WarningModalContainer = lazy(() => import('@ui/WarningModalContainer'));
 
 const CarFfeineMap = () => {
   return (
     <>
       <CarFfeineMapListener />
-      <UserFilterListener />
+      <Suspense>
+        <UserFilterListener />
 
-      <ToastContainer />
-      <ModalContainer />
+        <ToastContainer />
+        <ModalContainer />
 
-      <Navigator />
-      <ClientStationFilters />
-      <MapController />
+        <Navigator />
+        <ClientStationFilters />
+        <MapController />
 
-      <WarningModalContainer />
-      <StationMarkersContainer />
+        <WarningModalContainer />
+        <StationMarkersContainer />
+      </Suspense>
     </>
   );
 };

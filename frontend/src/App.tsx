@@ -15,8 +15,18 @@ const render = (status: Status) => {
   }
 };
 
-const App = ({ apiKey }: { apiKey: string }) => {
-  return <Wrapper apiKey={apiKey} render={render} libraries={['marker']} />;
+const App = () => {
+  return (
+    <Wrapper
+      apiKey={
+        process.env.NODE_ENV === 'production'
+          ? process.env.GOOGLE_MAPS_API_KEY_PROD
+          : process.env.GOOGLE_MAPS_API_KEY_DEV
+      }
+      render={render}
+      libraries={['marker']}
+    />
+  );
 };
 
 export default App;

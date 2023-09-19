@@ -58,6 +58,8 @@ const meta = {
 
 export default meta;
 
+// TODO: 스토리북 빌드 실패로 임시로 조치해뒀으니 수정 바랍니다.
+
 export const Default = ({ ...args }: SearchResultProps) => {
   return (
     <Container>
@@ -69,7 +71,14 @@ export const Default = ({ ...args }: SearchResultProps) => {
 export const NoResult = () => {
   return (
     <SubContainer>
-      <SearchResult stations={[]} />
+      <SearchResult
+        stations={[]}
+        closeResult={() => null}
+        isError={false}
+        isLoading={false}
+        setSelectedStationId={() => null}
+        showStationDetails={() => null}
+      />
     </SubContainer>
   );
 };
@@ -77,7 +86,14 @@ export const NoResult = () => {
 export const Error = () => {
   return (
     <Container>
-      <SearchResult isError />
+      <SearchResult
+        stations={[]}
+        closeResult={() => null}
+        isError={true}
+        isLoading={false}
+        setSelectedStationId={() => null}
+        showStationDetails={() => null}
+      />
     </Container>
   );
 };

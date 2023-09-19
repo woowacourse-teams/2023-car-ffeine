@@ -1,10 +1,11 @@
 import { css } from 'styled-components';
 
+import { lazy, Suspense } from 'react';
+
 import { useStationDetails } from '@hooks/tanstack-query/station-details/useStationDetails';
 
 import Box from '@common/Box';
 
-import StationDetailsView from '@ui/StationDetailsWindow/StationDetailsView';
 import StationDetailsViewSkeleton from '@ui/StationDetailsWindow/StationDetailsViewSkeleton';
 import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
@@ -13,6 +14,8 @@ import { MOBILE_BREAKPOINT, NAVIGATOR_PANEL_WIDTH } from '@constants';
 export interface Props {
   stationId: string;
 }
+
+const StationDetailsView = lazy(() => import('@ui/StationDetailsWindow/StationDetailsView'));
 
 const StationDetailsWindow = ({ stationId }: Props) => {
   const {
@@ -37,7 +40,9 @@ const StationDetailsWindow = ({ stationId }: Props) => {
 
   return (
     <Box css={stationDetailsWindowCss}>
-      <StationDetailsView station={selectedStation} />
+      <Suspense>
+        <StationDetailsView station={selectedStation} />
+      </Suspense>
     </Box>
   );
 };
