@@ -18,15 +18,17 @@ import { MOBILE_BREAKPOINT } from '@constants';
 import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
 
 const MapController = () => {
-  const position = useCurrentPosition();
+  const { position, getCurrentPosition } = useCurrentPosition();
   const googleMap = useExternalValue(getGoogleMapStore());
   const { isFetching } = useStationMarkers();
 
   const handleCurrentPositionButton = () => {
-    if (isFetching) return;
-
-    googleMap.panTo({ lat: position.lat, lng: position.lng });
-    googleMap.setZoom(INITIAL_ZOOM_SIZE);
+    getCurrentPosition();
+    if (!isFetching) {
+      alert('현재 위치로 이동합니다.');
+      googleMap.panTo({ lat: position.lat, lng: position.lng });
+      googleMap.setZoom(INITIAL_ZOOM_SIZE);
+    }
   };
 
   const handleZoomUpButton = () => {
