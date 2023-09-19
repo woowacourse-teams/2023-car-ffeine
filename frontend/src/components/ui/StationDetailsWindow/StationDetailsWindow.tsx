@@ -17,6 +17,12 @@ export interface Props {
 
 const StationDetailsView = lazy(() => import('@ui/StationDetailsWindow/StationDetailsView'));
 
+const StationDetailSWindowSkeleton = () => (
+  <Box css={stationDetailsWindowCss}>
+    <StationDetailsViewSkeleton />
+  </Box>
+);
+
 const StationDetailsWindow = ({ stationId }: Props) => {
   const {
     data: selectedStation,
@@ -31,16 +37,12 @@ const StationDetailsWindow = ({ stationId }: Props) => {
   }
 
   if (isSelectedStationError || isSelectedStationLoading) {
-    return (
-      <Box css={stationDetailsWindowCss}>
-        <StationDetailsViewSkeleton />
-      </Box>
-    );
+    return <StationDetailSWindowSkeleton />;
   }
 
   return (
     <Box css={stationDetailsWindowCss}>
-      <Suspense>
+      <Suspense fallback={<StationDetailSWindowSkeleton />}>
         <StationDetailsView station={selectedStation} />
       </Suspense>
     </Box>
