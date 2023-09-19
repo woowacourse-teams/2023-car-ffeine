@@ -7,7 +7,6 @@ import { useState } from 'react';
 
 import { useSearchedStations } from '../../../hooks/tanstack-query/useSearchedStations';
 import { searchWordStore } from '../../../stores/searchWordStore';
-import { selectedStationIdStore } from '../../../stores/selectedStationStore';
 import { pillStyle } from '../../../style';
 import type { StationPosition } from '../../../types';
 import { useSetExternalState } from '../../../utils/external-state';
@@ -31,7 +30,6 @@ export default meta;
 export const Default = () => {
   const [isFocused, setIsFocused] = useState(false);
   const setSearchWord = useSetExternalState(searchWordStore);
-  const setSelectedStationId = useSetExternalState(selectedStationIdStore);
 
   const { data: stations, isLoading, isError } = useSearchedStations();
 
@@ -44,8 +42,12 @@ export const Default = () => {
     }
   };
 
+  const handleCloseResults = () => {
+    setIsFocused(false);
+  };
+
   const showStationDetails = ({ stationId, latitude, longitude }: StationPosition) => {
-    setSelectedStationId(stationId);
+    alert('충전소 간단 정보, 상세 정보를 보여준다.');
   };
 
   const handleRequestSearchResult = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
@@ -74,9 +76,8 @@ export const Default = () => {
           stations={stations}
           isLoading={isLoading}
           isError={isError}
-          setSelectedStationId={setSelectedStationId}
           showStationDetails={showStationDetails}
-          closeResult={() => null}
+          closeResult={handleCloseResults}
         />
       )}
     </>

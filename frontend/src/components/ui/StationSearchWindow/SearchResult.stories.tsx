@@ -29,9 +29,6 @@ const meta = {
     ],
     isLoading: false,
     isError: false,
-    setSelectedStationId: () => {
-      ('');
-    },
     showStationDetails: () => {
       ('');
     },
@@ -46,9 +43,6 @@ const meta = {
     },
     isError: {
       description: 'true: 에러가 발생했습니다.<br /> false: 에러가 발생하지 않았습니다.',
-    },
-    setSelectedStationId: {
-      description: '검색된 충전소를 클릭하면 해당 충전소의 id가 저장됩니다.',
     },
     showStationDetails: {
       description: '검색된 충전소를 클릭하면 해당 충전소로 이동하고, 상세정보가 나타납니다.',
@@ -76,7 +70,6 @@ export const NoResult = () => {
         closeResult={() => null}
         isError={false}
         isLoading={false}
-        setSelectedStationId={() => null}
         showStationDetails={() => null}
       />
     </SubContainer>
@@ -91,7 +84,6 @@ export const Error = () => {
         closeResult={() => null}
         isError={true}
         isLoading={false}
-        setSelectedStationId={() => null}
         showStationDetails={() => null}
       />
     </Container>

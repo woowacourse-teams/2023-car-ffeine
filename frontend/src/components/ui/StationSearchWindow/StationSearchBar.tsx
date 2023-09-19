@@ -6,17 +6,24 @@ import type { ChangeEvent, FocusEvent, FormEvent, MouseEvent } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 
+import { useRenderStationMarker } from '@marker/hooks/useRenderStationMarker';
+
 import { useExternalValue, useSetExternalState } from '@utils/external-state';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
+import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
 import { searchWordStore } from '@stores/searchWordStore';
-import { selectedStationIdStore } from '@stores/selectedStationStore';
 
+import { fetchStationSummaries } from '@hooks/fetch/fetchStationSummaries';
+import { useStationSummary } from '@hooks/google-maps/useStationSummary';
 import { useSearchedStations } from '@hooks/tanstack-query/useSearchedStations';
 import { useDebounce } from '@hooks/useDebounce';
 
 import Button from '@common/Button';
 import Loader from '@common/Loader';
+
+import StationDetailsWindow from '@ui/StationDetailsWindow';
+import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
 import { pillStyle } from '@style';
 
@@ -31,11 +38,14 @@ import SearchResult from './SearchResult';
 const StationSearchBar = () => {
   const [isFocused, setIsFocused] = useState(false);
   const googleMap = useExternalValue(getGoogleMapStore());
-  const setSelectedStationId = useSetExternalState(selectedStationIdStore);
 
   const [inputValue, setInputValue] = useState('');
   const setSearchWord = useSetExternalState(searchWordStore);
   const queryClient = useQueryClient();
+  const { openLastPanel } = useNavigationBar();
+  const { openStationSummary } = useStationSummary();
+  const { createNewMarkerInstance, renderMarkerInstances } = useRenderStationMarker();
+  const setMarkerInstances = useSetExternalState(markerInstanceStore);
 
   useDebounce(
     () => {
@@ -73,7 +83,28 @@ const StationSearchBar = () => {
     googleMap.setZoom(INITIAL_ZOOM_SIZE);
 
     queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_MARKERS] });
-    setSelectedStationId(stationId);
+    openLastPanel(<StationDetailsWindow stationId={stationId} />);
+
+    // 지금 보여지는 화면에 검색한 충전소가 존재할 경우의 처리
+    if (
+      markerInstanceStore
+        .getState()
+        .some(({ stationId: cachedStationId }) => cachedStationId === stationId)
+    ) {
+      openStationSummary(stationId);
+      return;
+    }
+
+    // 지금 보여지는 화면에 충전소가 존재하지 않으면 따로 하나의 충전소만 요청을 발생시켜 마커를 생성
+    // 마커가 없어서 infoWindow를 렌더링 하지 못하는 문제 해결
+    fetchStationSummaries([stationId]).then((stationSummaries) => {
+      const stationSummary = stationSummaries[0];
+      const markerInstance = createNewMarkerInstance(stationSummary);
+
+      setMarkerInstances((prev) => [...prev, { stationId, markerInstance }]);
+      renderMarkerInstances([{ stationId, markerInstance }], [stationSummary]);
+      openStationSummary(stationId, markerInstance);
+    });
   };
 
   const handleRequestSearchResult = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
@@ -91,8 +122,6 @@ const StationSearchBar = () => {
             type="search"
             role="searchbox"
             placeholder="충전소명 또는 지역명을 입력해 주세요"
-            // eslint-disable-next-line jsx-a11y/no-autofocus
-            autoFocus
             onChange={handleRequestSearchResult}
             onFocus={handleOpenResult}
             onClick={handleOpenResult}
@@ -111,7 +140,6 @@ const StationSearchBar = () => {
           stations={stations}
           isLoading={isLoading}
           isError={isError}
-          setSelectedStationId={setSelectedStationId}
           showStationDetails={showStationDetails}
           closeResult={handleCloseResult}
         />

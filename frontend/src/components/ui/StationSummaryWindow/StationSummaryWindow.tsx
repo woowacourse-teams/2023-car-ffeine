@@ -2,10 +2,9 @@ import { css } from 'styled-components';
 
 import type { MouseEvent } from 'react';
 
-import { useExternalValue, useSetExternalState } from '@utils/external-state';
+import { useExternalValue } from '@utils/external-state';
 
 import { getStationSummaryWindowStore } from '@stores/google-maps/stationSummaryWindowStore';
-import { selectedStationIdStore } from '@stores/selectedStationStore';
 
 import { useFetchStationSummary } from '@hooks/fetch/useFetchStationSummary';
 
@@ -26,13 +25,11 @@ export interface StationSummaryProps {
 
 const StationSummaryWindow = ({ stationId }: StationSummaryProps) => {
   const infoWindowInstance = useExternalValue(getStationSummaryWindowStore());
-  const setSelectedStationId = useSetExternalState(selectedStationIdStore);
   const { openLastPanel } = useNavigationBar();
 
   const { isLoading, stationSummary } = useFetchStationSummary(stationId);
 
   const handleOpenStationDetail = () => {
-    setSelectedStationId(stationId);
     openLastPanel(<StationDetailsWindow stationId={stationId} />);
   };
 
