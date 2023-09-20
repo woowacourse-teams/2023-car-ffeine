@@ -5,6 +5,7 @@ import com.carffeine.carffeine.station.domain.charger.ChargerStatusCustomReposit
 import com.carffeine.carffeine.station.service.charger.dto.ChargerStateRequest;
 import com.carffeine.carffeine.station.service.charger.dto.ChargerStateUpdateRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class ChargerStateUpdateService {
@@ -30,6 +32,7 @@ public class ChargerStateUpdateService {
             executorService.submit(() -> updateChargerState(pageNo));
         }
         executorService.shutdown();
+        log.info("finish update charger state");
     }
 
     private void updateChargerState(int pageNo) {
@@ -40,5 +43,6 @@ public class ChargerStateUpdateService {
                 .toList();
         chargerStatusCustomRepository.saveAll(chargerStatuses);
         chargerStatusCustomRepository.updateAll(chargerStatuses);
+        log.info("update charger state. pageNo: {}, size: {}", pageNo, chargerStateRequests.size());
     }
 }
