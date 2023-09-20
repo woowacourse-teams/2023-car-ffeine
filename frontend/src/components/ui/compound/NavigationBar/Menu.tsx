@@ -72,7 +72,7 @@ const Menu = () => {
         <Button aria-label="로그인 하기" onClick={handleClickLoginIcon}>
           <UserCircleIcon width="2.8rem" stroke="#555" />
           <Text mt={0.5} variant="caption">
-            로그인
+            내정보
           </Text>
         </Button>
       )}
