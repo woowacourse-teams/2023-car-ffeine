@@ -22,7 +22,7 @@ public class ChargerStateUpdateService {
     private final ChargerStateRequester chargerStateRequester;
     private final ChargerStatusCustomRepository chargerStatusCustomRepository;
 
-    @Scheduled(cron = "0 0/2 * * * *")
+    @Scheduled(cron = "0 0/7 * * * *")
     public void update() {
         ExecutorService executorService = Executors.newFixedThreadPool(THREAD_COUNT);
         for (int page = 1; page <= MAX_PAGE_SIZE; page++) {
