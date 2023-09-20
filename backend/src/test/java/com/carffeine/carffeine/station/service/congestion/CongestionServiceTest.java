@@ -42,14 +42,14 @@ class CongestionServiceTest extends IntegrationTest {
     @Test
     void 상태값이_있는_데이터일_경우_계산_값이_반환된다() {
         // given
-        CongestionInfoResponse expected = new CongestionInfoResponse(1, 0.0);
+        CongestionInfoResponse expected = new CongestionInfoResponse(1, 1.0);
 
         Station savedStation = stationRepository.save(선릉역_충전소_충전기_2개_사용가능_1개);
         List<PeriodicCongestion> congestions = createCongestions(List.of(savedStation.getChargers().get(1).getChargerStatus()), DayOfWeek.MONDAY, RequestPeriod.ONE);
 
         periodicCongestionCustomRepository.saveAllIfNotExist(congestions);
-        periodicCongestionCustomRepository.updateUsingCount(DayOfWeek.MONDAY, RequestPeriod.ONE, List.of(savedStation.getChargers().get(1).getChargerStatus()));
-        periodicCongestionCustomRepository.updateTotalCountByPeriod(DayOfWeek.MONDAY, RequestPeriod.ONE);
+        periodicCongestionCustomRepository.updateUsingCountByIds(List.of(congestions.get(0).getId()));
+        periodicCongestionCustomRepository.updateNotUsingCountByIds(List.of(congestions.get(0).getId()));
 
         // when
         StatisticsResponse monday = congestionService.showCongestionStatistics(savedStation.getStationId(), "monday");

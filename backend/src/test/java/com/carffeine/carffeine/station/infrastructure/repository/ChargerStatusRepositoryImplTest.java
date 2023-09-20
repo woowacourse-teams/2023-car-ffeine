@@ -4,6 +4,7 @@ import com.carffeine.carffeine.station.domain.charger.ChargerCondition;
 import com.carffeine.carffeine.station.domain.charger.ChargerStatus;
 import com.carffeine.carffeine.station.domain.charger.ChargerStatusCustomRepository;
 import com.carffeine.carffeine.station.domain.charger.ChargerStatusRepository;
+import com.carffeine.carffeine.station.infrastructure.repository.charger.ChargerStatusCustomRepositoryImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;

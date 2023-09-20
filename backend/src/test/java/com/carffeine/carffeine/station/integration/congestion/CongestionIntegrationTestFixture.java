@@ -76,8 +76,8 @@ public class CongestionIntegrationTestFixture extends IntegrationTest {
         List<PeriodicCongestion> congestions = createCongestions(List.of(savedStation.getChargers().get(1).getChargerStatus()), DayOfWeek.MONDAY, RequestPeriod.ZERO);
 
         periodicCongestionCustomRepository.saveAllIfNotExist(congestions);
-        periodicCongestionCustomRepository.updateUsingCount(DayOfWeek.MONDAY, RequestPeriod.ZERO, List.of(savedStation.getChargers().get(1).getChargerStatus()));
-        periodicCongestionCustomRepository.updateTotalCountByPeriod(DayOfWeek.MONDAY, RequestPeriod.ZERO);
+        periodicCongestionCustomRepository.updateUsingCountByIds(List.of(congestions.get(0).getId()));
+        periodicCongestionCustomRepository.updateNotUsingCountByIds(List.of(congestions.get(0).getId()));
     }
 
     private List<PeriodicCongestion> createCongestions(List<ChargerStatus> chargerStatuses, DayOfWeek day, RequestPeriod period) {
@@ -99,7 +99,7 @@ public class CongestionIntegrationTestFixture extends IntegrationTest {
     private List<CongestionInfoResponse> getCongestionsWithValue() {
         List<CongestionInfoResponse> congestions = new ArrayList<>();
 
-        congestions.add(new CongestionInfoResponse(0, 0.0));
+        congestions.add(new CongestionInfoResponse(0, 1.0));
         for (int i = 1; i < 24; i++) {
             congestions.add(new CongestionInfoResponse(i, -1));
         }

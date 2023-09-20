@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.station.infrastructure.repository;
+package com.carffeine.carffeine.station.infrastructure.repository.charger;
 
 import com.carffeine.carffeine.station.domain.charger.ChargerStatus;
 import com.carffeine.carffeine.station.domain.charger.ChargerStatusCustomRepository;

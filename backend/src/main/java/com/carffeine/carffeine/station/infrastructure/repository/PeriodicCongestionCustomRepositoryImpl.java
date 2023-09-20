@@ -1,7 +1,5 @@
 package com.carffeine.carffeine.station.infrastructure.repository;
 
-import com.carffeine.carffeine.station.domain.charger.ChargerStatus;
-import com.carffeine.carffeine.station.domain.congestion.IdGenerator;
 import com.carffeine.carffeine.station.domain.congestion.PeriodicCongestion;
 import com.carffeine.carffeine.station.domain.congestion.PeriodicCongestionCustomRepository;
 import com.carffeine.carffeine.station.domain.congestion.RequestPeriod;
@@ -22,34 +20,36 @@ public class PeriodicCongestionCustomRepositoryImpl implements PeriodicCongestio
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
-    public void updateTotalCountByPeriod(DayOfWeek dayOfWeek, RequestPeriod requestPeriod) {
+    public void updateNotUsingCountByIds(List<String> ids) {
         String sql = "UPDATE periodic_congestion " +
                 "SET total_count = total_count + 1, " +
                 "congestion = CASE WHEN total_count = 0 THEN 0 ELSE use_count / total_count END, " +
                 "updated_at = :updatedAt " +
-                "WHERE day_of_week = :dayOfWeek AND start_time = :startTime ";
-        namedParameterJdbcTemplate.update(sql, changeToSqlParameterSource(dayOfWeek, requestPeriod));
-    }
-
-    @Override
-    public void updateUsingCount(DayOfWeek dayOfWeek, RequestPeriod period, List<ChargerStatus> usingChargers) {
-        String sql = "UPDATE periodic_congestion " +
-                "SET use_count = use_count + 1, " +
-                "updated_at = :updatedAt " +
-                "WHERE day_of_week = :dayOfWeek AND start_time = :startTime AND id = :id;";
-        SqlParameterSource[] sqlParameterSources = usingChargers.stream()
-                .map(it -> changeToSqlParameterSource(dayOfWeek, period, it))
+                "WHERE id in (:ids)";
+        SqlParameterSource[] sqlParameterSources = ids.stream()
+                .map(it -> changeToSqlParameterSource(ids))
                 .toArray(SqlParameterSource[]::new);
         namedParameterJdbcTemplate.batchUpdate(sql, sqlParameterSources);
     }
 
-    private Object changeToSqlParameterSource(DayOfWeek dayOfWeek, RequestPeriod period, ChargerStatus it) {
-        String id = IdGenerator.generateId(dayOfWeek, period, it.getStationId(), it.getChargerId());
+    @Override
+    public void updateUsingCountByIds(List<String> ids) {
+        String sql = "UPDATE periodic_congestion " +
+                "SET use_count = use_count + 1, " +
+                "total_count = total_count + 1, " +
+                "congestion = CASE WHEN total_count = 0 THEN 0 ELSE use_count / total_count END, " +
+                "updated_at = :updatedAt " +
+                "WHERE id in (:ids)";
+        SqlParameterSource[] sqlParameterSources = ids.stream()
+                .map(it -> changeToSqlParameterSource(ids))
+                .toArray(SqlParameterSource[]::new);
+        namedParameterJdbcTemplate.batchUpdate(sql, sqlParameterSources);
+    }
+
+    private Object changeToSqlParameterSource(List<String> ids) {
         LocalDateTime now = LocalDateTime.now();
         return new MapSqlParameterSource()
-                .addValue("id", id)
-                .addValue("dayOfWeek", dayOfWeek.name())
-                .addValue("startTime", period.getSection())
+                .addValue("ids", ids)
                 .addValue("updatedAt", now);
     }
 

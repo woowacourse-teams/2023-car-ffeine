@@ -1,15 +1,12 @@
 package com.carffeine.carffeine.station.domain.congestion;
 
-import com.carffeine.carffeine.station.domain.charger.ChargerStatus;
-
-import java.time.DayOfWeek;
 import java.util.List;
 
 public interface PeriodicCongestionCustomRepository {
 
-    void updateTotalCountByPeriod(DayOfWeek dayOfWeek, RequestPeriod requestPeriod);
+    void updateNotUsingCountByIds(List<String> ids);
 
-    void updateUsingCount(DayOfWeek dayOfWeek, RequestPeriod period, List<ChargerStatus> usingChargers);
+    void updateUsingCountByIds(List<String> ids);
 
     void saveAllIfNotExist(List<PeriodicCongestion> periodicCongestions);
 }
