@@ -18,6 +18,7 @@ import { fetchStationSummaries } from '@hooks/fetch/fetchStationSummaries';
 import { useStationSummary } from '@hooks/google-maps/useStationSummary';
 import { useSearchedStations } from '@hooks/tanstack-query/useSearchedStations';
 import { useDebounce } from '@hooks/useDebounce';
+import useMediaQueries from '@hooks/useMediaQueries';
 
 import Button from '@common/Button';
 import Loader from '@common/Loader';
@@ -43,6 +44,7 @@ const StationSearchBar = () => {
   const { openStationSummary } = useStationSummary();
   const { createNewMarkerInstance, renderMarkerInstances } = useRenderStationMarker();
   const setMarkerInstances = useSetExternalState(markerInstanceStore);
+  const screen = useMediaQueries();
 
   useDebounce(
     () => {
@@ -77,9 +79,11 @@ const StationSearchBar = () => {
 
   const showStationDetails = ({ stationId, latitude, longitude }: StationPosition) => {
     googleMapActions.moveTo({ lat: latitude, lng: longitude });
-
     queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_MARKERS] });
-    openLastPanel(<StationDetailsWindow stationId={stationId} />);
+
+    if (!screen.get('isMobile')) {
+      openLastPanel(<StationDetailsWindow stationId={stationId} />);
+    }
 
     // 지금 보여지는 화면에 검색한 충전소가 존재할 경우의 처리
     if (
