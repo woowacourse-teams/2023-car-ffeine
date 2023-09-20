@@ -23,6 +23,7 @@ public class RestTemplateStationRequester implements StationRequester, ChargerSt
     private static final String REQUEST_URL = "/getChargerInfo";
     private static final String REQUEST_STATE_URL = "/getChargerStatus";
     private static final int ROW_SIZE = 9999;
+    private static final int CHARGER_STATE_ROW_SIZE = 5000;
     private static final String DATA_TYPE = "JSON";
     private static final int ONE_SECOND = 1000;
     private static final int PERIOD = 10;
@@ -97,7 +98,7 @@ public class RestTemplateStationRequester implements StationRequester, ChargerSt
                 .path(REQUEST_STATE_URL)
                 .queryParam("serviceKey", serviceKey)
                 .queryParam("pageNo", pageNo)
-                .queryParam("numOfRows", ROW_SIZE)
+                .queryParam("numOfRows", CHARGER_STATE_ROW_SIZE)
                 .queryParam("dataType", DATA_TYPE)
                 .queryParam("period", PERIOD)
                 .encode()

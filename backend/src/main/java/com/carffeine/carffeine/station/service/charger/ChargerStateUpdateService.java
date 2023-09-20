@@ -9,21 +9,27 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @RequiredArgsConstructor
 @Service
 public class ChargerStateUpdateService {
 
-    private static final int MAX_PAGE_SIZE = 4;
+    private static final int MAX_PAGE_SIZE = 8;
+    private static final int THREAD_COUNT = 4;
 
     private final ChargerStateRequester chargerStateRequester;
     private final ChargerStatusCustomRepository chargerStatusCustomRepository;
 
-    @Scheduled(cron = "0 0/7 * * * *")
+    @Scheduled(cron = "0 0/2 * * * *")
     public void update() {
+        ExecutorService executorService = Executors.newFixedThreadPool(THREAD_COUNT);
         for (int page = 1; page <= MAX_PAGE_SIZE; page++) {
-            updateChargerState(page);
+            int pageNo = page;
+            executorService.submit(() -> updateChargerState(pageNo));
         }
+        executorService.shutdown();
     }
 
     private void updateChargerState(int pageNo) {
