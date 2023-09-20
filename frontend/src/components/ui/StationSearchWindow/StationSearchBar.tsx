@@ -12,7 +12,6 @@ import { useExternalValue, useSetExternalState } from '@utils/external-state';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
-import { searchWordStore } from '@stores/searchWordStore';
 
 import { fetchStationSummaries } from '@hooks/fetch/fetchStationSummaries';
 import { useStationSummary } from '@hooks/google-maps/useStationSummary';
@@ -39,8 +38,8 @@ const StationSearchBar = () => {
   const [isFocused, setIsFocused] = useState(false);
   const googleMap = useExternalValue(getGoogleMapStore());
 
-  const [inputValue, setInputValue] = useState('');
-  const setSearchWord = useSetExternalState(searchWordStore);
+  const [searchWord, setSearchWord] = useState('');
+  const [debouncedSearchWord, setDebouncedSearchWord] = useState(searchWord);
   const queryClient = useQueryClient();
   const { openLastPanel } = useNavigationBar();
   const { openStationSummary } = useStationSummary();
@@ -49,13 +48,18 @@ const StationSearchBar = () => {
 
   useDebounce(
     () => {
-      setSearchWord(inputValue);
+      setDebouncedSearchWord(searchWord);
     },
-    [inputValue],
+    [searchWord],
     400
   );
 
-  const { data: stations, isLoading, isError, isFetching } = useSearchedStations();
+  const {
+    data: stations,
+    isLoading,
+    isError,
+    isFetching,
+  } = useSearchedStations(debouncedSearchWord);
 
   const handleOpenResult = (event: MouseEvent<HTMLInputElement> | FocusEvent<HTMLInputElement>) => {
     event.stopPropagation();
@@ -110,7 +114,7 @@ const StationSearchBar = () => {
   const handleRequestSearchResult = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
     const searchWord = encodeURIComponent(value);
 
-    setInputValue(searchWord);
+    setSearchWord(searchWord);
   };
 
   return (

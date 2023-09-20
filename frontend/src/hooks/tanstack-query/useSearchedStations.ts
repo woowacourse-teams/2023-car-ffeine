@@ -1,9 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { useExternalValue } from '@utils/external-state';
-
 import { serverUrlStore } from '@stores/config/serverUrlStore';
-import { searchWordStore } from '@stores/searchWordStore';
 
 import { ERROR_MESSAGES } from '@constants/errorMessages';
 import { QUERY_KEY_SEARCHED_STATION } from '@constants/queryKeys';
@@ -35,9 +32,7 @@ export const fetchSearchedStations = async (searchWord: string) => {
   return searchedStations;
 };
 
-export const useSearchedStations = () => {
-  const searchWord = useExternalValue(searchWordStore);
-
+export const useSearchedStations = (searchWord: string) => {
   return useQuery({
     queryKey: [QUERY_KEY_SEARCHED_STATION, searchWord],
     queryFn: () => fetchSearchedStations(searchWord),
