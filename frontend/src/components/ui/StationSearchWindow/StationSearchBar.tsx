@@ -1,16 +1,16 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { styled } from 'styled-components';
 
-import { useState } from 'react';
 import type { ChangeEvent, FocusEvent, FormEvent, MouseEvent } from 'react';
+import { useState } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 
 import { useRenderStationMarker } from '@marker/hooks/useRenderStationMarker';
 
-import { useExternalValue, useSetExternalState } from '@utils/external-state';
+import { useSetExternalState } from '@utils/external-state';
 
-import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
+import { googleMapActions } from '@stores/google-maps/googleMapStore';
 import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
 import { searchWordStore } from '@stores/searchWordStore';
 
@@ -28,7 +28,6 @@ import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigation
 import { pillStyle } from '@style';
 
 import { MOBILE_BREAKPOINT } from '@constants';
-import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
 import { QUERY_KEY_SEARCHED_STATION, QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
 
 import type { StationPosition } from '@type/stations';
@@ -37,8 +36,6 @@ import SearchResult from './SearchResult';
 
 const StationSearchBar = () => {
   const [isFocused, setIsFocused] = useState(false);
-  const googleMap = useExternalValue(getGoogleMapStore());
-
   const [inputValue, setInputValue] = useState('');
   const setSearchWord = useSetExternalState(searchWordStore);
   const queryClient = useQueryClient();
@@ -79,8 +76,7 @@ const StationSearchBar = () => {
   };
 
   const showStationDetails = ({ stationId, latitude, longitude }: StationPosition) => {
-    googleMap.panTo({ lat: latitude, lng: longitude });
-    googleMap.setZoom(INITIAL_ZOOM_SIZE);
+    googleMapActions.moveTo({ lat: latitude, lng: longitude });
 
     queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_MARKERS] });
     openLastPanel(<StationDetailsWindow stationId={stationId} />);
