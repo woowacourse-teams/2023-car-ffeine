@@ -27,10 +27,6 @@ import java.util.Set;
 @Service
 public class StationQueryService {
 
-    private static final String QUICK = "QUICK";
-    private static final String STANDARD = "STANDARD";
-    private static final int QUICK_CAPACITY = 50;
-
     private final StationQueryRepository stationQueryRepository;
 
     public StationSpecificResponse findStationById(String stationId) {
