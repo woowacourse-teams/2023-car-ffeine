@@ -10,6 +10,7 @@ import { memberTokenStore } from '@stores/login/memberTokenStore';
 
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
+import Text from '@common/Text';
 
 import ServerStationFilters from '@ui/ServerStationFilters';
 import StationListWindow from '@ui/StationList/StationListWindow';
@@ -41,7 +42,10 @@ const Menu = () => {
       </Button>
 
       <Button css={displayNoneInWeb} aria-label="새로 고침" onClick={() => location.reload()}>
-        <HiArrowPath size="2.8rem" stroke="#333" />
+        <HiArrowPath size="2.8rem" fill="#555" />
+        <Text mt={0.5} variant="caption">
+          새로고침
+        </Text>
       </Button>
 
       <Button
@@ -49,18 +53,27 @@ const Menu = () => {
         aria-label="주변 충전소 목록 열기"
         onClick={() => openBasePanel(<StationSearchWindow />)}
       >
-        <Bars3Icon width="2.8rem" stroke="#333" />
+        <Bars3Icon width="2.8rem" stroke="#555" />
+        <Text mt={0.5} variant="caption">
+          목록
+        </Text>
       </Button>
 
       <Button aria-label="필터링 메뉴 열기" onClick={() => openBasePanel(<ServerStationFilters />)}>
-        <AdjustmentsHorizontalIcon width="2.8rem" stroke="#333" />
+        <AdjustmentsHorizontalIcon width="2.8rem" stroke="#555" />
+        <Text mt={0.5} variant="caption">
+          필터
+        </Text>
       </Button>
 
       {isSignIn ? (
         <PersonalMenu />
       ) : (
         <Button aria-label="로그인 하기" onClick={handleClickLoginIcon}>
-          <UserCircleIcon width="2.8rem" stroke="#333" />
+          <UserCircleIcon width="2.8rem" stroke="#555" />
+          <Text mt={0.5} variant="caption">
+            로그인
+          </Text>
         </Button>
       )}
 
@@ -69,7 +82,10 @@ const Menu = () => {
         aria-label="충전소 리스트 열기"
         onClick={() => openBasePanel(<StationListWindow />)}
       >
-        <Bars3Icon width="2.8rem" stroke="#333" />
+        <Bars3Icon width="2.8rem" stroke="#555" />
+        <Text mt={0.5} variant="caption">
+          목록
+        </Text>
       </Button>
 
       <Button
@@ -80,7 +96,10 @@ const Menu = () => {
           }
         }}
       >
-        <HiOutlineChatBubbleOvalLeftEllipsis size="2.8rem" stroke="#333" color="#333" />
+        <HiOutlineChatBubbleOvalLeftEllipsis size="2.8rem" stroke="#555" />
+        <Text mt={0.5} variant="caption">
+          피드백
+        </Text>
       </Button>
     </FlexBox>
   );
@@ -96,8 +115,10 @@ const flexCss = css`
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     width: 100vw;
-    height: 6rem;
+    height: 8.2rem;
+    padding-bottom: 0.8rem;
     flex-direction: row;
+    align-items: center;
     gap: 0;
     justify-content: space-around;
 
