@@ -1,6 +1,7 @@
 import { css } from 'styled-components';
 
 import { useStationSummary } from '@hooks/google-maps/useStationSummary';
+import useMediaQueries from '@hooks/useMediaQueries';
 
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
@@ -20,8 +21,9 @@ interface Props {
 }
 
 const StationSummaryCard = ({ station, tag, $noPadding }: Props) => {
-  const { openLastPanel } = useNavigationBar();
+  const { openLastPanel, closeBasePanel } = useNavigationBar();
   const { openStationSummary } = useStationSummary();
+  const screen = useMediaQueries();
 
   const {
     stationId,
@@ -42,7 +44,11 @@ const StationSummaryCard = ({ station, tag, $noPadding }: Props) => {
         css={foundStationButton}
         onClick={() => {
           openStationSummary(stationId);
-          openLastPanel(<StationDetailsWindow stationId={stationId} />);
+          if (screen.get('isMobile')) {
+            closeBasePanel();
+          } else {
+            openLastPanel(<StationDetailsWindow stationId={stationId} />);
+          }
         }}
       >
         <FlexBox alignItems="start" justifyContent="between" nowrap columnGap={2.8}>
