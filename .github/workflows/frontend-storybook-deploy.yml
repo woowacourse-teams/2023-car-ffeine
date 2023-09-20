@@ -62,10 +62,3 @@ jobs:
         run: |
           rm -rf /home/ubuntu/dist/*
           cp -r ./dist /home/ubuntu
-
-      - name: comment PR
-        uses: thollander/actions-comment-pull-request@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          message: '🚀storybook: https://storybook.carffe.in/'
