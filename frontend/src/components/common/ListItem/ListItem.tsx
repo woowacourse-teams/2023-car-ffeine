@@ -9,7 +9,7 @@ import { spacing } from '@common/systems';
 export interface ListItemProps extends HTMLAttributes<HTMLLIElement>, SpacingProps {
   children: ReactNode;
   divider?: boolean;
-  NoLastDivider?: boolean;
+  noLastDivider?: boolean;
   css?: CSSProp;
   tag?: string;
 }
@@ -30,7 +30,7 @@ const ListItemWrapper = styled.li<{ $style: Omit<ListItemProps, 'children' | 'ta
   ${spacing}
   ${({ $style }) => $style.divider && `border-bottom: 0.0625rem solid #ccc;`}
   &:last-child {
-    border-bottom: ${({ $style }) => $style.NoLastDivider && 0};
+    border-bottom: ${({ $style }) => $style.noLastDivider && 0};
   }
 
   ${({ $style }) => $style.css};

@@ -54,7 +54,7 @@ const SearchResult = (props: SearchResultProps) => {
     <List aria-live="assertive" mt={1} css={searchResultList}>
       {stations.length ? (
         stations.map(({ stationId, stationName, address, latitude, longitude }) => (
-          <ListItem divider NoLastDivider key={stationId} pt={2} pb={3} css={foundStationList}>
+          <ListItem divider noLastDivider key={stationId} pt={2} pb={3} css={foundStationList}>
             <Button
               width="100%"
               noRadius="all"

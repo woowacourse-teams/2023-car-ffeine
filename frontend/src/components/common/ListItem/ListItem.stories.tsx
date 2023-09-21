@@ -12,7 +12,7 @@ const meta = {
   args: {
     children: 'ListItem',
     divider: false,
-    NoLastDivider: false,
+    noLastDivider: false,
   },
   argTypes: {
     children: {
@@ -24,7 +24,7 @@ const meta = {
     divider: {
       description: 'true: 하단에 밑줄을 그을 수 있습니다.',
     },
-    NoLastDivider: {
+    noLastDivider: {
       description: 'true: 마지막 리스트 아이템의 하단 밑줄을 제거할 수 있습니다.',
     },
   },
