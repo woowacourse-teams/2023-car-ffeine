@@ -2,7 +2,6 @@ package com.carffeine.carffeine.station.service.station;
 
 import com.carffeine.carffeine.station.domain.charger.ChargerCondition;
 import com.carffeine.carffeine.station.domain.congestion.IdGenerator;
-import com.carffeine.carffeine.station.domain.congestion.PeriodicCongestion;
 import com.carffeine.carffeine.station.domain.congestion.PeriodicCongestionCustomRepository;
 import com.carffeine.carffeine.station.domain.congestion.RequestPeriod;
 import com.carffeine.carffeine.station.infrastructure.repository.charger.ChargerStatusQueryRepository;
@@ -47,9 +46,6 @@ public class StationService {
             List<String> usingChargerIds = getCongestionIds(usingChargers, day, period);
             List<String> notUsingChargerIds = getCongestionIds(notUsingChargers, day, period);
 
-            List<PeriodicCongestion> congestions = createCongestions(chargerStatuses, day, period);
-
-            periodicCongestionCustomRepository.saveAllIfNotExist(congestions);
             periodicCongestionCustomRepository.updateNotUsingCountByIds(notUsingChargerIds);
             periodicCongestionCustomRepository.updateUsingCountByIds(usingChargerIds);
 
@@ -74,12 +70,6 @@ public class StationService {
     private List<String> getCongestionIds(List<ChargerStatusResponse> usingChargers, DayOfWeek day, RequestPeriod period) {
         return usingChargers.stream()
                 .map(it -> IdGenerator.generateId(day, period, it.stationId(), it.chargerId()))
-                .toList();
-    }
-
-    private List<PeriodicCongestion> createCongestions(List<ChargerStatusResponse> chargerStatuses, DayOfWeek day, RequestPeriod period) {
-        return chargerStatuses.stream()
-                .map(it -> PeriodicCongestion.createDefault(day, period, it.stationId(), it.chargerId()))
                 .toList();
     }
 }

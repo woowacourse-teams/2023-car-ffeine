@@ -41,7 +41,6 @@ public class ChargerStateUpdateService {
         List<ChargerStatus> chargerStatuses = chargerStateRequests.stream()
                 .map(ChargerStateRequest::toChargerStatus)
                 .toList();
-        chargerStatusCustomRepository.saveAll(chargerStatuses);
         chargerStatusCustomRepository.updateAll(chargerStatuses);
         log.info("update charger state. pageNo: {}, size: {}", pageNo, chargerStateRequests.size());
     }
