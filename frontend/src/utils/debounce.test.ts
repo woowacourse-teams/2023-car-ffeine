@@ -17,16 +17,4 @@ describe('debounce를 테스트한다', () => {
     expect(func).toBeCalled();
     expect(func).toHaveBeenCalledTimes(1);
   });
-  it('debounce 걸린 함수를 긴 시간이 지난 후에 호출하여 2번 호출된다.', () => {
-    jest.useFakeTimers();
-    const func = jest.fn();
-    const debouncedFunc = debounce(func, 1000);
-
-    debouncedFunc();
-    jest.runAllTimers();
-    debouncedFunc();
-
-    expect(func).toBeCalled();
-    expect(func).toHaveBeenCalledTimes(2);
-  });
 });

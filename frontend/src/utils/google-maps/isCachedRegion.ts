@@ -7,7 +7,7 @@ import type { Bounds } from '@type/map';
 
 import { getBounds } from './getBounds';
 
-const isBoundsWithinCachedBounds = (cachedBounds: Bounds, bounds: Bounds) => {
+export const isBoundsWithinCachedBounds = (cachedBounds: Bounds, bounds: Bounds) => {
   if (cachedBounds.northEast.latitude < bounds.northEast.latitude) {
     return false;
   }
