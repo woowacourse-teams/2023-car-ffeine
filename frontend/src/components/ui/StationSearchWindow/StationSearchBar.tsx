@@ -15,7 +15,10 @@ import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
 
 import { fetchStationSummaries } from '@hooks/fetch/fetchStationSummaries';
 import { useStationSummary } from '@hooks/google-maps/useStationSummary';
-import { useSearchedStations } from '@hooks/tanstack-query/useSearchedStations';
+import {
+  fetchSearchedStations,
+  useSearchedStations,
+} from '@hooks/tanstack-query/useSearchedStations';
 import { useDebounce } from '@hooks/useDebounce';
 
 import Button from '@common/Button';
@@ -70,12 +73,14 @@ const StationSearchBar = () => {
     setIsFocused(false);
   };
 
-  const handleSubmitSearchWord = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmitSearchWord = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     handleCloseResult();
 
-    if (stations !== undefined && stations.length > 0) {
-      const [{ stationId, latitude, longitude }] = stations;
+    const directSearchedStations = await fetchSearchedStations(searchWord);
+
+    if (directSearchedStations !== undefined && directSearchedStations.length > 0) {
+      const [{ stationId, latitude, longitude }] = directSearchedStations;
       showStationDetails({ stationId, latitude, longitude });
     }
 
