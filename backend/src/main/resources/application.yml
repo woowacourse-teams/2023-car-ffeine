@@ -2,6 +2,13 @@ server:
   port: 8080
   servlet:
     context-path: /api
+  tomcat:
+    threads:
+      max: 150
+  compression:
+    enabled: true
+    mime-types: application/json
+    min-response-size: 500
 
 spring:
   profiles:
