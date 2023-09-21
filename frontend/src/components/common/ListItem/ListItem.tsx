@@ -18,7 +18,7 @@ const ListItem = ({ children, tag, ...props }: ListItemProps) => {
   const changeableTag = tag || 'li';
 
   return (
-    <ListItemWrapper as={changeableTag} $style={{ ...props }}>
+    <ListItemWrapper as={changeableTag} {...props} $style={{ ...props }}>
       {children}
     </ListItemWrapper>
   );

@@ -77,7 +77,11 @@ const AlertContainer = styled.div<{ $style: Omit<AlertProps, 'text'> }>`
 `;
 
 const Alert = ({ ...props }: AlertProps) => {
-  return <AlertContainer $style={{ ...props }}>{props.text}</AlertContainer>;
+  return (
+    <AlertContainer {...props} $style={{ ...props }}>
+      {props.text}
+    </AlertContainer>
+  );
 };
 
 export default Alert;

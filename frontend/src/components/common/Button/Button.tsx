@@ -44,14 +44,14 @@ export const BUTTON_FONT_SIZE = {
 
 const Button = ({ children, ...props }: ButtonProps) => {
   return (
-    <S.Button type="button" $style={{ ...props }}>
+    <S.Button type="button" {...props} $style={{ ...props }}>
       {children}
     </S.Button>
   );
 };
 
 const S = {
-  Button: styled.button<{ $style: Omit<ButtonProps, 'children'> }>`
+  Button: styled.button<{ $style: ButtonProps }>`
     width: ${({ $style }) => getSize($style.width)};
     height: ${({ $style }) => getSize($style.height)};
     padding: ${({ $style }) => BUTTON_PADDING_SIZE[$style.size] || 0};
@@ -64,7 +64,7 @@ const S = {
     border-radius: 1.2rem;
     text-align: center;
 
-    ${spacing}
+    ${spacing};
     ${({ $style }) => $style.noRadius && borderRadius($style.noRadius)};
     ${({ $style }) => {
       switch ($style.variant) {

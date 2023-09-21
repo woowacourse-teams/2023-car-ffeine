@@ -37,7 +37,7 @@ const SkeletonWrapper = styled.div<{ $style: SkeletonProps }>`
 `;
 
 const Skeleton = ({ ...props }: SkeletonProps) => {
-  return <SkeletonWrapper $style={{ ...props }} />;
+  return <SkeletonWrapper {...props} $style={{ ...props }} />;
 };
 
 export default Skeleton;

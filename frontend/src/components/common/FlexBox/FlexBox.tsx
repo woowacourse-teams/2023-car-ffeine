@@ -44,7 +44,7 @@ const FlexBox = ({ children, tag, ...props }: FlexBoxProps) => {
   const changeableTag = tag || 'div';
 
   return (
-    <S.FlexBox as={changeableTag} $style={{ ...props }}>
+    <S.FlexBox as={changeableTag} {...props} $style={{ ...props }}>
       {children}
     </S.FlexBox>
   );

@@ -39,7 +39,7 @@ const Text = ({ children, tag, ...props }: TextProps) => {
   const changeableTag = tag || 'p';
 
   return (
-    <S.Text as={changeableTag} $style={{ ...props }}>
+    <S.Text as={changeableTag} {...props} $style={{ ...props }}>
       {children}
     </S.Text>
   );

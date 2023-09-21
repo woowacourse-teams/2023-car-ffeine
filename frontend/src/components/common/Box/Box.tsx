@@ -57,7 +57,11 @@ const BoxWrapper = styled.div<{ $style: Omit<BoxProps, 'children'> }>`
 `;
 
 const Box = ({ children, ...props }: BoxProps) => {
-  return <BoxWrapper $style={{ ...props }}>{children}</BoxWrapper>;
+  return (
+    <BoxWrapper {...props} $style={{ ...props }}>
+      {children}
+    </BoxWrapper>
+  );
 };
 
 export default Box;

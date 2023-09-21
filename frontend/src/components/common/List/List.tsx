@@ -14,7 +14,11 @@ export interface ListProps extends HTMLAttributes<HTMLUListElement>, SpacingProp
 }
 
 const List = ({ children, ...props }: ListProps) => {
-  return <ListWrapper $style={{ ...props }}>{children}</ListWrapper>;
+  return (
+    <ListWrapper {...props} $style={{ ...props }}>
+      {children}
+    </ListWrapper>
+  );
 };
 
 const ListWrapper = styled.ul<{ $style: Omit<ListProps, 'children'> }>`

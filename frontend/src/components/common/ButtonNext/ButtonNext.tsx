@@ -26,9 +26,13 @@ export interface ButtonNextProps extends SpacingProps, ButtonHTMLAttributes<HTML
 
 const ButtonNext = ({ children, noTheme, ...props }: ButtonNextProps) => {
   return noTheme ? (
-    <S.PureButton $style={{ ...props }}>{children}</S.PureButton>
+    <S.PureButton {...props} $style={{ ...props }}>
+      {children}
+    </S.PureButton>
   ) : (
-    <S.Button $style={{ ...props }}>{children}</S.Button>
+    <S.Button {...props} $style={{ ...props }}>
+      {children}
+    </S.Button>
   );
 };
 
