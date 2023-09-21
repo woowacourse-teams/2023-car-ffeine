@@ -9,9 +9,9 @@ export interface LoaderProps {
   css?: CSSProp;
 }
 
-const Loader = styled.div<{ $style: LoaderProps }>`
-  width: ${({ $style }) => {
-    switch ($style.size) {
+const Loader = styled.div<LoaderProps>`
+  width: ${({ size }) => {
+    switch (size) {
       case 'xs':
         return '1.2rem';
       case 'sm':
@@ -25,11 +25,11 @@ const Loader = styled.div<{ $style: LoaderProps }>`
       case 'xxl':
         return '3.2rem';
       default:
-        return $style.size || '2.0rem';
+        return size || '2.0rem';
     }
   }};
-  height: ${({ $style }) => {
-    switch ($style.size) {
+  height: ${({ size }) => {
+    switch (size) {
       case 'xs':
         return '1.2rem';
       case 'sm':
@@ -43,10 +43,10 @@ const Loader = styled.div<{ $style: LoaderProps }>`
       case 'xxl':
         return '3.2rem';
       default:
-        return $style.size || '2.0rem';
+        return size || '2.0rem';
     }
   }};
-  border: ${({ $style }) => ($style.border ? `${$style.border}px` : '2px')} solid #e9ecef;
+  border: ${({ border }) => (border ? `${border}px` : '2px')} solid #e9ecef;
   border-bottom-color: #212529bf;
   border-radius: 50%;
   display: inline-block;
@@ -62,7 +62,7 @@ const Loader = styled.div<{ $style: LoaderProps }>`
     }
   }
 
-  ${({ $style }) => $style.css}
+  ${({ css }) => css}
 `;
 
 export default Loader;
