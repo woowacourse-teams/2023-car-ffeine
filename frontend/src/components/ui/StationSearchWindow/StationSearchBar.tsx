@@ -12,11 +12,13 @@ import { useSetExternalState } from '@utils/external-state';
 
 import { googleMapActions } from '@stores/google-maps/googleMapStore';
 import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
-import { searchWordStore } from '@stores/searchWordStore';
 
 import { fetchStationSummaries } from '@hooks/fetch/fetchStationSummaries';
 import { useStationSummary } from '@hooks/google-maps/useStationSummary';
-import { useSearchedStations } from '@hooks/tanstack-query/useSearchedStations';
+import {
+  fetchSearchedStations,
+  useSearchedStations,
+} from '@hooks/tanstack-query/useSearchedStations';
 import { useDebounce } from '@hooks/useDebounce';
 import useMediaQueries from '@hooks/useMediaQueries';
 
@@ -37,8 +39,9 @@ import SearchResult from './SearchResult';
 
 const StationSearchBar = () => {
   const [isFocused, setIsFocused] = useState(false);
-  const [inputValue, setInputValue] = useState('');
-  const setSearchWord = useSetExternalState(searchWordStore);
+  const [searchWord, setSearchWord] = useState('');
+  const [debouncedSearchWord, setDebouncedSearchWord] = useState(searchWord);
+
   const queryClient = useQueryClient();
   const { openLastPanel } = useNavigationBar();
   const { openStationSummary } = useStationSummary();
@@ -48,13 +51,18 @@ const StationSearchBar = () => {
 
   useDebounce(
     () => {
-      setSearchWord(inputValue);
+      setDebouncedSearchWord(searchWord);
     },
-    [inputValue],
+    [searchWord],
     400
   );
 
-  const { data: stations, isLoading, isError, isFetching } = useSearchedStations();
+  const {
+    data: stations,
+    isLoading,
+    isError,
+    isFetching,
+  } = useSearchedStations(debouncedSearchWord);
 
   const handleOpenResult = (event: MouseEvent<HTMLInputElement> | FocusEvent<HTMLInputElement>) => {
     event.stopPropagation();
@@ -65,12 +73,14 @@ const StationSearchBar = () => {
     setIsFocused(false);
   };
 
-  const handleSubmitSearchWord = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmitSearchWord = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     handleCloseResult();
 
-    if (stations !== undefined && stations.length > 0) {
-      const [{ stationId, latitude, longitude }] = stations;
+    const searchedStations = await fetchSearchedStations(searchWord);
+
+    if (searchedStations !== undefined && searchedStations.length > 0) {
+      const [{ stationId, latitude, longitude }] = searchedStations;
       showStationDetails({ stationId, latitude, longitude });
     }
 
@@ -107,10 +117,11 @@ const StationSearchBar = () => {
     });
   };
 
-  const handleRequestSearchResult = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeSearchWord = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
     const searchWord = encodeURIComponent(value);
 
-    setInputValue(searchWord);
+    setIsFocused(true);
+    setSearchWord(searchWord);
   };
 
   return (
@@ -122,7 +133,8 @@ const StationSearchBar = () => {
             type="search"
             role="searchbox"
             placeholder="충전소명 또는 지역명을 입력해 주세요"
-            onChange={handleRequestSearchResult}
+            autoComplete="off"
+            onChange={handleChangeSearchWord}
             onFocus={handleOpenResult}
             onClick={handleOpenResult}
           />
