@@ -21,7 +21,7 @@ export const CarFfeineMarker = (station: StationMarker) => {
   const state: StationAvailability = availableCount === 0 ? 'noAvailable' : 'available';
 
   return (
-    <Marker title={stationName} state={state}>
+    <Marker data-testid="carFfeineMarker" title={stationName} state={state}>
       {availableCount}
     </Marker>
   );
