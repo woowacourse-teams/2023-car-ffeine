@@ -18,24 +18,22 @@ const ListItem = ({ children, tag, ...props }: ListItemProps) => {
   const changeableTag = tag || 'li';
 
   return (
-    <ListItemWrapper as={changeableTag} {...props}>
+    <ListItemWrapper as={changeableTag} $style={{ ...props }}>
       {children}
     </ListItemWrapper>
   );
 };
 
-const ListItemWrapper = styled.li<ListItemProps>`
+const ListItemWrapper = styled.li<{ $style: Omit<ListItemProps, 'children' | 'tag'> }>`
   padding: 1rem 2rem;
 
   ${spacing}
-
-  ${({ divider }) => divider && `border-bottom: 0.0625rem solid #ccc;`}
-
+  ${({ $style }) => $style.divider && `border-bottom: 0.0625rem solid #ccc;`}
   &:last-child {
-    border-bottom: ${({ NoLastDivider }) => NoLastDivider && 0};
+    border-bottom: ${({ $style }) => $style.NoLastDivider && 0};
   }
 
-  ${({ css }) => css};
+  ${({ $style }) => $style.css};
 `;
 
 export default ListItem;

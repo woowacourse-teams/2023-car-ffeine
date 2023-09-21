@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components';
 import type { CSSProp } from 'styled-components';
+import styled, { css } from 'styled-components';
 
-import type { HTMLAttributes } from 'react';
+import type { HTMLAttributes, ReactNode } from 'react';
 
 import type { SpacingProps } from '@common/systems';
 import { spacing } from '@common/systems';
@@ -23,6 +23,7 @@ const variantList = [
 type VariantType = (typeof variantList)[number];
 
 interface TextProps extends HTMLAttributes<HTMLElement>, SpacingProps {
+  children: ReactNode;
   tag?: string;
   variant?: VariantType;
   align?: 'center' | 'left' | 'right';
@@ -34,27 +35,22 @@ interface TextProps extends HTMLAttributes<HTMLElement>, SpacingProps {
   css?: CSSProp;
 }
 
-export type StyledTextType = Omit<TextProps, 'lineClamp' | 'lineHeight'> & {
-  $lineClamp?: number;
-  $lineHeight?: number | string;
-};
-
-const Text = ({ children, tag, lineClamp, lineHeight, ...props }: TextProps) => {
+const Text = ({ children, tag, ...props }: TextProps) => {
   const changeableTag = tag || 'p';
 
   return (
-    <S.Text as={changeableTag} $lineHeight={lineHeight} $lineClamp={lineClamp} {...props}>
+    <S.Text as={changeableTag} $style={{ ...props }}>
       {children}
     </S.Text>
   );
 };
 
 const S = {
-  Text: styled.p<StyledTextType>`
+  Text: styled.p<{ $style: Omit<TextProps, 'children' | 'tag'> }>`
     ${spacing};
 
-    ${({ align }) => {
-      switch (align) {
+    ${({ $style }) => {
+      switch ($style.align) {
         case 'center':
           return css`
             text-align: center;
@@ -74,8 +70,8 @@ const S = {
       }
     }}
 
-    ${({ variant }) => {
-      switch (variant) {
+    ${({ $style }) => {
+      switch ($style.variant) {
         case 'h1':
           return css`
             font-size: 4.8rem;
@@ -135,23 +131,23 @@ const S = {
       }
     }}
 
-    font-size: ${({ fontSize }) => fontSize && `${fontSize}rem`};
-    font-weight: ${({ weight }) => (weight === 'regular' ? 500 : weight)};
-    color: ${({ color }) => color};
+    font-size: ${({ $style }) => $style.fontSize && `${$style.fontSize}rem`};
+    font-weight: ${({ $style }) => ($style.weight === 'regular' ? 500 : $style.weight)};
+    color: ${({ $style }) => $style.color};
 
-    ${({ $lineClamp }) =>
-      $lineClamp &&
+    ${({ $style }) =>
+      $style.lineClamp &&
       `
         display: -webkit-box;
         overflow: hidden;
         text-overflow: ellipsis;
         -webkit-box-orient: vertical;
-        -webkit-line-clamp: ${$lineClamp};
+        -webkit-line-clamp: ${$style.lineClamp};
         `}
 
-    line-height:${({ $lineHeight }) => $lineHeight};
+    line-height: ${({ $style }) => $style.lineHeight};
 
-    ${({ css }) => css}
+    ${({ $style }) => $style.css}
   `,
 };
 export default Text;

@@ -13,23 +13,19 @@ export interface ListProps extends HTMLAttributes<HTMLUListElement>, SpacingProp
   css?: CSSProp;
 }
 
-const List = ({ children, fontSize, ...props }: ListProps) => {
-  return (
-    <ListWrapper $fontSize={fontSize} {...props}>
-      {children}
-    </ListWrapper>
-  );
+const List = ({ children, ...props }: ListProps) => {
+  return <ListWrapper $style={{ ...props }}>{children}</ListWrapper>;
 };
 
-const ListWrapper = styled.ul<Omit<ListProps, 'fontSize'> & { $fontSize: number }>`
-  ${spacing}
+const ListWrapper = styled.ul<{ $style: Omit<ListProps, 'children'> }>`
+  ${spacing};
 
   list-style-type: none;
-  font-size: ${({ $fontSize }) => `${$fontSize}rem`};
+  font-size: ${({ $style }) => `${$style.fontSize}rem`};
 
-  ${({ border }) => border && `border: 0.01rem solid #66666666; border-radius:0.4rem;`}
+  ${({ $style }) => $style.border && `border: 0.01rem solid #66666666; border-radius:0.4rem;`}
 
-  ${({ css }) => css};
+  ${({ $style }) => $style.css};
 `;
 
 export default List;

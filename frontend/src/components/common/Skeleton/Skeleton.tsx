@@ -23,25 +23,21 @@ const skeletonAnimation = keyframes`
   }
 `;
 
-export type StyledSkeletonType = Omit<SkeletonProps, 'borderRadius'> & {
-  $borderRadius: string;
-};
-
-const SkeletonWrapper = styled.div<StyledSkeletonType>`
+const SkeletonWrapper = styled.div<{ $style: SkeletonProps }>`
   ${spacing};
 
-  width: ${({ width }) => width || '100%'};
-  height: ${({ height }) => height || '1rem'};
+  width: ${({ $style }) => $style.width || '100%'};
+  height: ${({ $style }) => $style.height || '1rem'};
   background: linear-gradient(-90deg, var(--lighter-color), #fafafa, var(--lighter-color), #fafafa);
   background-size: 400%;
   animation: ${skeletonAnimation} 5s infinite ease-out;
-  border-radius: ${({ $borderRadius }) => $borderRadius || '6px'};
+  border-radius: ${({ $style }) => $style.borderRadius || '6px'};
 
-  ${({ css }) => css}
+  ${({ $style }) => $style.css}
 `;
 
-const Skeleton = ({ borderRadius, ...props }: SkeletonProps) => {
-  return <SkeletonWrapper $borderRadius={borderRadius} {...props} />;
+const Skeleton = ({ ...props }: SkeletonProps) => {
+  return <SkeletonWrapper $style={{ ...props }} />;
 };
 
 export default Skeleton;

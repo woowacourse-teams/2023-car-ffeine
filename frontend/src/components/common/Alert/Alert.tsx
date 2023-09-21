@@ -9,9 +9,9 @@ export interface AlertProps {
   css?: CSSProp;
 }
 
-const AlertContainer = styled.div<AlertProps>`
-  ${({ color }) => {
-    switch (color) {
+const AlertContainer = styled.div<{ $style: Omit<AlertProps, 'text'> }>`
+  ${({ $style }) => {
+    switch ($style.color) {
       case 'primary':
         return css`
           color: #052c65;
@@ -73,11 +73,11 @@ const AlertContainer = styled.div<AlertProps>`
   margin-bottom: 1rem;
   font-size: 1.5rem;
 
-  ${({ css }) => css}
+  ${({ $style }) => $style.css}
 `;
 
 const Alert = ({ ...props }: AlertProps) => {
-  return <AlertContainer {...props}>{props.text}</AlertContainer>;
+  return <AlertContainer $style={{ ...props }}>{props.text}</AlertContainer>;
 };
 
 export default Alert;

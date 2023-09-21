@@ -1,7 +1,7 @@
 import type { CSSProp } from 'styled-components';
 import styled, { css } from 'styled-components';
 
-import type { ButtonHTMLAttributes, ReactNode, MouseEventHandler } from 'react';
+import type { ButtonHTMLAttributes, MouseEventHandler, ReactNode } from 'react';
 import { forwardRef } from 'react';
 
 import type { SpacingProps } from '@common/systems';
@@ -26,58 +26,66 @@ export interface ButtonNextProps extends SpacingProps, ButtonHTMLAttributes<HTML
 
 const ButtonNext = ({ children, noTheme, ...props }: ButtonNextProps) => {
   return noTheme ? (
-    <S.PureButton {...props}>{children}</S.PureButton>
+    <S.PureButton $style={{ ...props }}>{children}</S.PureButton>
   ) : (
-    <S.Button {...props}>{children}</S.Button>
+    <S.Button $style={{ ...props }}>{children}</S.Button>
   );
 };
 
 const S = {
-  Button: styled.button<ButtonNextProps>`
+  Button: styled.button<{ $style: Omit<ButtonNextProps, 'children' | 'noTheme'> }>`
     border-radius: 6px;
-    ${({ pill }) => pill && 'border-radius: 20px;'}
+    ${({ $style }) => $style.pill && 'border-radius: 20px;'}
 
-    ${({ fullWidth }) => fullWidth && 'width: 100%;'}
-    ${({ disabled }) => disabled && `cursor: unset;`}
-    ${({ variant, color, disabled }) => {
-      switch (variant) {
+    ${({ $style }) => $style.fullWidth && 'width: 100%;'}
+    ${({ $style }) => $style.disabled && `cursor: unset;`}
+    ${({ $style }) => {
+      switch ($style.variant) {
         case 'text':
           return css`
-            color: ${disabled ? '#a0a0a0' : color === 'light' ? '#000' : getColor(color)};
+            color: ${$style.disabled
+              ? '#a0a0a0'
+              : $style.color === 'light'
+              ? '#000'
+              : getColor($style.color)};
             background: transparent;
             border: none;
 
             &:hover {
-              background: ${disabled ? 'transparent' : '#1976d20a'};
+              background: ${$style.disabled ? 'transparent' : '#1976d20a'};
             }
           `;
         case 'outlined':
           return css`
-            color: ${disabled ? '#a0a0a0' : color === 'light' ? '#333' : getColor(color)};
+            color: ${$style.disabled
+              ? '#a0a0a0'
+              : $style.color === 'light'
+              ? '#333'
+              : getColor($style.color)};
             background: transparent;
-            border: 1.5px solid ${disabled ? '#a0a0a0' : getColor(color)};
+            border: 1.5px solid ${$style.disabled ? '#a0a0a0' : getColor($style.color)};
 
             &:hover {
-              color: ${disabled ? '#a0a0a0' : color === 'light' ? '#333' : '#fff'};
-              background: ${disabled ? 'transparent' : getHoverColor(color)};
+              color: ${$style.disabled ? '#a0a0a0' : $style.color === 'light' ? '#333' : '#fff'};
+              background: ${$style.disabled ? 'transparent' : getHoverColor($style.color)};
             }
           `;
         case 'contained':
         default:
           return css`
-            color: ${disabled ? '#a0a0a0' : color === 'light' ? '#000' : '#ffffff'};
-            background: ${disabled ? '#e0e0e0' : getColor(color)};
-            border: 1.5px solid ${disabled ? '#e0e0e0' : getColor(color)};
+            color: ${$style.disabled ? '#a0a0a0' : $style.color === 'light' ? '#000' : '#ffffff'};
+            background: ${$style.disabled ? '#e0e0e0' : getColor($style.color)};
+            border: 1.5px solid ${$style.disabled ? '#e0e0e0' : getColor($style.color)};
 
             &:hover {
-              background: ${disabled ? '#e0e0e0' : getHoverColor(color)};
+              background: ${$style.disabled ? '#e0e0e0' : getHoverColor($style.color)};
             }
           `;
       }
     }}
 
-    padding: ${({ size }) => {
-      switch (size) {
+    padding: ${({ $style }) => {
+      switch ($style.size) {
         case 'xs':
           return '2px 8px';
         case 'sm':
@@ -95,8 +103,8 @@ const S = {
       }
     }};
 
-    font-size: ${({ size }) => {
-      switch (size) {
+    font-size: ${({ $style }) => {
+      switch ($style.size) {
         case 'xs':
           return '14px';
         case 'sm':
@@ -116,10 +124,10 @@ const S = {
 
     ${spacing};
 
-    ${({ css }) => css};
+    ${({ $style }) => $style.css};
   `,
-  PureButton: styled.button<ButtonNextProps>`
-    ${({ css }) => css};
+  PureButton: styled.button<{ $style: ButtonNextProps }>`
+    ${({ $style }) => $style.css};
   `,
 };
 

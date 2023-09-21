@@ -25,33 +25,39 @@ export interface BoxProps extends HTMLAttributes<HTMLDivElement>, SpacingProps {
   css?: CSSProp;
 }
 
-const BoxWrapper = styled.div<BoxProps>`
+const BoxWrapper = styled.div<{ $style: Omit<BoxProps, 'children'> }>`
   ${spacing}
 
-  ${({ border }) => border && `border: 0.1px solid #66666666; border-radius:0.4rem;`}
+  ${({ $style }) => $style.border && `border: 0.1px solid #66666666; border-radius:0.4rem;`}
 
-  height: ${({ height }) => (typeof height === 'string' ? height : `${height * 0.4}rem`)};
-  min-height: ${({ minHeight }) => (typeof minHeight === 'string' ? minHeight : `${minHeight}rem`)};
-  max-height: ${({ maxHeight }) => (typeof maxHeight === 'string' ? maxHeight : `${maxHeight}rem`)};
+  height: ${({ $style }) =>
+    typeof $style.height === 'string' ? $style.height : `${$style.height * 0.4}rem`};
+  min-height: ${({ $style }) =>
+    typeof $style.minHeight === 'string' ? $style.minHeight : `${$style.minHeight}rem`};
+  max-height: ${({ $style }) =>
+    typeof $style.maxHeight === 'string' ? $style.maxHeight : `${$style.maxHeight}rem`};
 
-  width: ${({ width }) => (typeof width === 'string' ? width : `${width * 0.4}rem`)};
-  min-width: ${({ minWidth }) => (typeof minWidth === 'string' ? minWidth : `${minWidth}rem`)};
-  max-width: ${({ maxWidth }) => (typeof maxWidth === 'string' ? maxWidth : `${maxWidth}rem`)};
+  width: ${({ $style }) =>
+    typeof $style.width === 'string' ? $style.width : `${$style.width * 0.4}rem`};
+  min-width: ${({ $style }) =>
+    typeof $style.minWidth === 'string' ? $style.minWidth : `${$style.minWidth}rem`};
+  max-width: ${({ $style }) =>
+    typeof $style.maxWidth === 'string' ? $style.maxWidth : `${$style.maxWidth}rem`};
 
-  ${({ bgColor }) => bgColor && `background: ${bgColor}`};
-  ${({ color }) => color && `color: ${color}`};
+  ${({ $style }) => $style.bgColor && `background: ${$style.bgColor}`};
+  ${({ $style }) => $style.color && `color: ${$style.color}`};
 
-  ${({ position }) => position && `position: ${position}`};
-  ${({ top }) => top && `top: ${top * 0.4}rem`};
-  ${({ right }) => right && `right: ${right * 0.4}rem`};
-  ${({ bottom }) => bottom && `bottom: ${bottom * 0.4}rem`};
-  ${({ left }) => left && `left: ${left * 0.4}rem`};
+  ${({ $style }) => $style.position && `position: ${$style.position}`};
+  ${({ $style }) => $style.top && `top: ${$style.top * 0.4}rem`};
+  ${({ $style }) => $style.right && `right: ${$style.right * 0.4}rem`};
+  ${({ $style }) => $style.bottom && `bottom: ${$style.bottom * 0.4}rem`};
+  ${({ $style }) => $style.left && `left: ${$style.left * 0.4}rem`};
 
-  ${({ css }) => css};
+  ${({ $style }) => $style.css};
 `;
 
 const Box = ({ children, ...props }: BoxProps) => {
-  return <BoxWrapper {...props}>{children}</BoxWrapper>;
+  return <BoxWrapper $style={{ ...props }}>{children}</BoxWrapper>;
 };
 
 export default Box;

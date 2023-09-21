@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import type { ChangeEvent, HTMLAttributes } from 'react';
 
 export interface TextFieldProps extends HTMLAttributes<HTMLElement> {
-  // textFieldId: string;
   label?: string;
   width?: number;
   value?: string;
@@ -15,32 +14,11 @@ export interface TextFieldProps extends HTMLAttributes<HTMLElement> {
   cssForInput?: CSSProp;
 }
 
-const TextField = ({
-  // textFieldId,
-  label,
-  value,
-  onChange,
-  supportingText,
-  fullWidth,
-  ...props
-}: TextFieldProps) => {
+const TextField = ({ label, supportingText, ...props }: TextFieldProps) => {
   return (
     <Group>
-      <Input
-        type="text"
-        // id={textFieldId}
-        required
-        value={value}
-        onChange={onChange}
-        fullWidth={fullWidth}
-        {...props}
-      />
-      <Label
-        // htmlFor={textFieldId}
-        {...props}
-      >
-        {label}
-      </Label>
+      <Input type="text" $style={{ ...props }} />
+      <Label $style={{ ...props }}>{label}</Label>
       {supportingText && <HelperText>{supportingText}</HelperText>}
     </Group>
   );
@@ -53,14 +31,16 @@ const Group = styled.div`
   margin: 2rem 0;
 `;
 
-const Input = styled.input<TextFieldProps>`
+const Input = styled.input<{
+  $style: Omit<TextFieldProps, 'label' | 'supportingText' | 'cssForLabel'>;
+}>`
   background: none;
   font-size: 1.8rem;
   padding: 1rem 1rem 1rem 0.5rem;
   display: block;
 
-  ${({ width }) => width && `width: ${width * 0.4}rem`};
-  ${({ fullWidth }) => fullWidth && 'width: 100%;'}
+  ${({ $style }) => $style.width && `width: ${$style.width * 0.4}rem`};
+  ${({ $style }) => $style.fullWidth && 'width: 100%;'}
 
   border: none;
   border-radius: 0;
@@ -77,7 +57,7 @@ const Input = styled.input<TextFieldProps>`
     color: #2196f3;
   }
 
-  ${({ cssForInput }) => cssForInput};
+  ${({ $style }) => $style.cssForInput};
 `;
 
 const HelperText = styled.div`
@@ -86,7 +66,7 @@ const HelperText = styled.div`
   margin-top: 0.5rem;
 `;
 
-const Label = styled.label<TextFieldProps>`
+const Label = styled.label<{ $style: Pick<TextFieldProps, 'cssForLabel'> }>`
   color: #c6c6c6;
   font-size: 1.6rem;
   font-weight: normal;
@@ -96,5 +76,5 @@ const Label = styled.label<TextFieldProps>`
   top: 1rem;
   transition: 300ms ease all;
 
-  ${({ cssForLabel }) => cssForLabel};
+  ${({ $style }) => $style.cssForLabel};
 `;

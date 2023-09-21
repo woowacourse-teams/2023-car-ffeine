@@ -40,63 +40,11 @@ export interface FlexBoxProps extends HTMLAttributes<HTMLDivElement>, SpacingPro
   children: ReactNode;
 }
 
-export type StyledFlexBoxType = Omit<
-  FlexBoxProps,
-  | 'noRadius'
-  | 'rowGap'
-  | 'columnGap'
-  | 'justifyContent'
-  | 'alignItems'
-  | 'alignContent'
-  | 'minHeight'
-  | 'maxHeight'
-  | 'minWidth'
-  | 'maxWidth'
-> & {
-  $noRadius?: BorderRadiusDirectionType;
-  $rowGap?: number;
-  $columnGap?: number;
-  $justifyContent?: keyof typeof FLEX_BOX_ITEM_POSITION;
-  $alignItems?: keyof typeof FLEX_BOX_ITEM_POSITION;
-  $alignContent?: keyof typeof FLEX_BOX_ITEM_POSITION;
-  $minHeight?: number | string;
-  $maxHeight?: number | string;
-  $minWidth?: number | string;
-  $maxWidth?: number | string;
-};
-
-const FlexBox = ({
-  children,
-  tag,
-  noRadius,
-  rowGap,
-  columnGap,
-  justifyContent,
-  alignItems,
-  alignContent,
-  minHeight,
-  maxHeight,
-  minWidth,
-  maxWidth,
-  ...props
-}: FlexBoxProps) => {
+const FlexBox = ({ children, tag, ...props }: FlexBoxProps) => {
   const changeableTag = tag || 'div';
 
   return (
-    <S.FlexBox
-      as={changeableTag}
-      $noRadius={noRadius}
-      $rowGap={rowGap}
-      $columnGap={columnGap}
-      $justifyContent={justifyContent}
-      $alignItems={alignItems}
-      $alignContent={alignContent}
-      $minHeight={minHeight}
-      $maxHeight={maxHeight}
-      $minWidth={minWidth}
-      $maxWidth={maxWidth}
-      {...props}
-    >
+    <S.FlexBox as={changeableTag} $style={{ ...props }}>
       {children}
     </S.FlexBox>
   );
@@ -114,38 +62,38 @@ const getGap = ({ gap, rowGap, columnGap }: Pick<FlexBoxProps, 'gap' | 'rowGap' 
 };
 
 const S = {
-  FlexBox: styled.div<StyledFlexBoxType>`
+  FlexBox: styled.div<{ $style: Omit<FlexBoxProps, 'children' | 'tag'> }>`
     ${spacing};
 
-    width: ${({ width }) => getSize(width)};
-    min-width: ${({ $minWidth }) =>
-      typeof $minWidth === 'string' ? $minWidth : `${$minWidth}rem`};
-    max-width: ${({ $maxWidth }) =>
-      typeof $maxWidth === 'string' ? $maxWidth : `${$maxWidth}rem`};
+    width: ${({ $style }) => getSize($style.width)};
+    min-width: ${({ $style }) =>
+      typeof $style.minWidth === 'string' ? $style.minWidth : `${$style.minWidth}rem`};
+    max-width: ${({ $style }) =>
+      typeof $style.maxWidth === 'string' ? $style.maxWidth : `${$style.maxWidth}rem`};
 
-    height: ${({ height }) => getSize(height)};
-    min-height: ${({ $minHeight }) =>
-      typeof $minHeight === 'string' ? $minHeight : `${$minHeight}rem`};
-    max-height: ${({ $maxHeight }) =>
-      typeof $maxHeight === 'string' ? $maxHeight : `${$maxHeight}rem`};
+    height: ${({ $style }) => getSize($style.height)};
+    min-height: ${({ $style }) =>
+      typeof $style.minHeight === 'string' ? $style.minHeight : `${$style.minHeight}rem`};
+    max-height: ${({ $style }) =>
+      typeof $style.maxHeight === 'string' ? $style.maxHeight : `${$style.maxHeight}rem`};
 
-    flex-wrap: ${({ nowrap }) => (nowrap ? 'nowrap' : 'wrap')};
-    flex-direction: ${({ direction }) => (direction ? direction : 'row')};
-    justify-content: ${({ $justifyContent }) => FLEX_BOX_ITEM_POSITION[$justifyContent]};
-    align-items: ${({ $alignItems }) => FLEX_BOX_ITEM_POSITION[$alignItems]};
-    align-content: ${({ $alignContent }) => FLEX_BOX_ITEM_POSITION[$alignContent]};
-    gap: ${({ gap, $rowGap, $columnGap }) =>
-      getGap({ gap, rowGap: $rowGap, columnGap: $columnGap })};
-    ${({ background }) => background && `background: ${background};`}
-    border: ${({ outlined }) => (outlined ? '0.15rem solid #000' : 'none')};
+    flex-wrap: ${({ $style }) => ($style.nowrap ? 'nowrap' : 'wrap')};
+    flex-direction: ${({ $style }) => ($style.direction ? $style.direction : 'row')};
+    justify-content: ${({ $style }) => FLEX_BOX_ITEM_POSITION[$style.justifyContent]};
+    align-items: ${({ $style }) => FLEX_BOX_ITEM_POSITION[$style.alignItems]};
+    align-content: ${({ $style }) => FLEX_BOX_ITEM_POSITION[$style.alignContent]};
+    gap: ${({ $style }) =>
+      getGap({ gap: $style.gap, rowGap: $style.rowGap, columnGap: $style.columnGap })};
+    ${({ $style }) => $style.background && `background: ${$style.background};`}
+    border: ${({ $style }) => ($style.outlined ? '0.15rem solid #000' : 'none')};
 
     display: flex;
     border-radius: 1rem;
     font-size: 1.5rem;
 
-    ${({ $noRadius }) => $noRadius && borderRadius($noRadius)};
+    ${({ $style }) => $style.noRadius && borderRadius($style.noRadius)};
 
-    ${({ css }) => css};
+    ${({ $style }) => $style.css};
   `,
 };
 

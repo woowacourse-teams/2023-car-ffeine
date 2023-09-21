@@ -1,5 +1,5 @@
-import styled, { css } from 'styled-components';
 import type { CSSProp } from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import type { ButtonHTMLAttributes, MouseEventHandler } from 'react';
 
@@ -42,36 +42,32 @@ export const BUTTON_FONT_SIZE = {
   xl: '2.2rem',
 } as const;
 
-const Button = ({ children, noRadius, ...props }: ButtonProps) => {
+const Button = ({ children, ...props }: ButtonProps) => {
   return (
-    <S.Button type="button" $noRadius={noRadius} {...props}>
+    <S.Button type="button" $style={{ ...props }}>
       {children}
     </S.Button>
   );
 };
 
-export type StyledButtonType = Omit<ButtonProps, 'noRadius'> & {
-  $noRadius: BorderRadiusDirectionType;
-};
-
 const S = {
-  Button: styled.button<StyledButtonType>`
-    width: ${({ width }) => getSize(width)};
-    height: ${({ height }) => getSize(height)};
-    padding: ${({ size }) => BUTTON_PADDING_SIZE[size] || 0};
-    background: ${({ background }) => background || '#fff'};
-    border: ${({ outlined }) => (outlined ? '0.15rem solid #000' : 'none')};
-    font-size: ${({ size }) => BUTTON_FONT_SIZE[size] || 0};
-    box-shadow: ${({ shadow }) => `${shadow ? '0 0.3rem 0.8rem 0 gray' : 'none'}`};
+  Button: styled.button<{ $style: Omit<ButtonProps, 'children'> }>`
+    width: ${({ $style }) => getSize($style.width)};
+    height: ${({ $style }) => getSize($style.height)};
+    padding: ${({ $style }) => BUTTON_PADDING_SIZE[$style.size] || 0};
+    background: ${({ $style }) => $style.background || '#fff'};
+    border: ${({ $style }) => ($style.outlined ? '0.15rem solid #000' : 'none')};
+    font-size: ${({ $style }) => BUTTON_FONT_SIZE[$style.size] || 0};
+    box-shadow: ${({ $style }) => `${$style.shadow ? '0 0.3rem 0.8rem 0 gray' : 'none'}`};
 
     cursor: pointer;
     border-radius: 1.2rem;
     text-align: center;
 
     ${spacing}
-    ${({ $noRadius }) => $noRadius && borderRadius($noRadius)};
-    ${({ variant }) => {
-      switch (variant) {
+    ${({ $style }) => $style.noRadius && borderRadius($style.noRadius)};
+    ${({ $style }) => {
+      switch ($style.variant) {
         case 'pill':
           return pillStyle;
         case 'label':
@@ -82,10 +78,10 @@ const S = {
     }};
 
     &:hover {
-      ${({ hover }) => hover && 'background-color: #f0f0f0'};
+      ${({ $style }) => $style.hover && 'background-color: #f0f0f0'};
     }
 
-    ${({ css }) => css};
+    ${({ $style }) => $style.css};
   `,
 };
 
