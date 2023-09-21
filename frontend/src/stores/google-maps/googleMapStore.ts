@@ -73,4 +73,10 @@ export const googleMapActions = {
       }
     );
   },
+  moveTo: (latLng: google.maps.LatLngLiteral) => {
+    const googleMap = getGoogleMapStore().getState();
+
+    googleMap.panTo(latLng);
+    googleMap.setZoom(INITIAL_ZOOM_SIZE);
+  },
 };

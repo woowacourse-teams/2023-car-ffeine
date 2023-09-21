@@ -1,16 +1,16 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { styled } from 'styled-components';
 
-import { useState } from 'react';
 import type { ChangeEvent, FocusEvent, FormEvent, MouseEvent } from 'react';
+import { useState } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 
 import { useRenderStationMarker } from '@marker/hooks/useRenderStationMarker';
 
-import { useExternalValue, useSetExternalState } from '@utils/external-state';
+import { useSetExternalState } from '@utils/external-state';
 
-import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
+import { googleMapActions } from '@stores/google-maps/googleMapStore';
 import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
 
 import { fetchStationSummaries } from '@hooks/fetch/fetchStationSummaries';
@@ -20,6 +20,7 @@ import {
   useSearchedStations,
 } from '@hooks/tanstack-query/useSearchedStations';
 import { useDebounce } from '@hooks/useDebounce';
+import useMediaQueries from '@hooks/useMediaQueries';
 
 import Button from '@common/Button';
 import Loader from '@common/Loader';
@@ -30,7 +31,6 @@ import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigation
 import { pillStyle } from '@style';
 
 import { MOBILE_BREAKPOINT } from '@constants';
-import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
 import { QUERY_KEY_SEARCHED_STATION, QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
 
 import type { StationPosition } from '@type/stations';
@@ -39,15 +39,15 @@ import SearchResult from './SearchResult';
 
 const StationSearchBar = () => {
   const [isFocused, setIsFocused] = useState(false);
-  const googleMap = useExternalValue(getGoogleMapStore());
-
   const [searchWord, setSearchWord] = useState('');
   const [debouncedSearchWord, setDebouncedSearchWord] = useState(searchWord);
+
   const queryClient = useQueryClient();
   const { openLastPanel } = useNavigationBar();
   const { openStationSummary } = useStationSummary();
   const { createNewMarkerInstance, renderMarkerInstances } = useRenderStationMarker();
   const setMarkerInstances = useSetExternalState(markerInstanceStore);
+  const screen = useMediaQueries();
 
   useDebounce(
     () => {
@@ -88,11 +88,12 @@ const StationSearchBar = () => {
   };
 
   const showStationDetails = ({ stationId, latitude, longitude }: StationPosition) => {
-    googleMap.panTo({ lat: latitude, lng: longitude });
-    googleMap.setZoom(INITIAL_ZOOM_SIZE);
-
+    googleMapActions.moveTo({ lat: latitude, lng: longitude });
     queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_MARKERS] });
-    openLastPanel(<StationDetailsWindow stationId={stationId} />);
+
+    if (!screen.get('isMobile')) {
+      openLastPanel(<StationDetailsWindow stationId={stationId} />);
+    }
 
     // 지금 보여지는 화면에 검색한 충전소가 존재할 경우의 처리
     if (
