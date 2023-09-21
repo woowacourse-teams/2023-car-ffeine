@@ -5,11 +5,8 @@ on:
     types: [labeled]
 
 jobs:
-  build:
-    if: ${{ github.event.label.name == 'FE' }}
-    runs-on: ubuntu-latest
-
   append-storybook-link:
+    if: ${{ github.event.label.name == 'FE' }}
     permissions: write-all
     runs-on: ubuntu-latest
     steps:
