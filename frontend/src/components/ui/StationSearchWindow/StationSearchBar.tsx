@@ -126,6 +126,7 @@ const StationSearchBar = () => {
             type="search"
             role="searchbox"
             placeholder="충전소명 또는 지역명을 입력해 주세요"
+            autoComplete="off"
             onChange={handleRequestSearchResult}
             onFocus={handleOpenResult}
             onClick={handleOpenResult}
