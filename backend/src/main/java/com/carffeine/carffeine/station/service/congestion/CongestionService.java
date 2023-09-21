@@ -71,8 +71,8 @@ public class CongestionService {
     private double getCongestionBySection(List<PeriodicCongestion> collectedCongestions, int section) {
         return collectedCongestions.stream()
                 .filter(it -> it.isSameStartTime(section))
-                .findFirst()
-                .map(PeriodicCongestion::getCongestion)
+                .mapToDouble(PeriodicCongestion::getCongestion)
+                .average()
                 .orElse(DEFAULT_CONGESTION_VALUE);
     }
 }
