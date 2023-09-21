@@ -1,0 +1,33 @@
+name: append-storybook-link
+
+on:
+  pull_request:
+    types: [labeled]
+
+jobs:
+  build:
+    if: ${{ github.event.label.name == 'FE' }}
+    runs-on: ubuntu-latest
+
+  append-storybook-link:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+      - name: append storybook link
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const pr = await github.pulls.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.issue.number
+            });
+            const body = pr.data.body;
+            const newBody = body + "\n\n" + "## 🚀 Storybook \n\n"+ "> https://storybook.carffe.in/";
+            await github.pulls.update({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: context.issue.number,
+                  body: newBody
+              });
