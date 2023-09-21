@@ -76,10 +76,10 @@ export const Default = () => {
     event.preventDefault();
     handleCloseResult();
 
-    const directSearchedStations = await fetchSearchedStations(searchWord);
+    const searchedStations = await fetchSearchedStations(searchWord);
 
-    if (directSearchedStations !== undefined && directSearchedStations.length > 0) {
-      const [{ stationId, latitude, longitude }] = directSearchedStations;
+    if (searchedStations !== undefined && searchedStations.length > 0) {
+      const [{ stationId, latitude, longitude }] = searchedStations;
       showStationDetails({ stationId, latitude, longitude });
     }
 
@@ -91,9 +91,10 @@ export const Default = () => {
     openLastPanel(<StationDetailsWindow stationId={stationId} />);
   };
 
-  const handleRequestSearchResult = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeSearchWord = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
     const searchWord = encodeURIComponent(value);
 
+    setIsFocused(true);
     setSearchWord(searchWord);
   };
 
@@ -107,7 +108,7 @@ export const Default = () => {
             role="searchbox"
             placeholder="충전소명 또는 지역명을 입력해 주세요"
             autoComplete="off"
-            onChange={handleRequestSearchResult}
+            onChange={handleChangeSearchWord}
             onFocus={handleOpenResult}
             onClick={handleOpenResult}
           />
