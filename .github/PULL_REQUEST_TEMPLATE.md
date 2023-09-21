@@ -9,7 +9,3 @@
 ## 🙋🏻 More
 
 >
-
-## 🚀 Storybook
-
-> https://storybook.carffe.in/
