@@ -1,5 +1,4 @@
 import { ChevronLeftIcon } from '@heroicons/react/24/solid';
-import { css } from 'styled-components';
 
 import Button from '@common/Button';
 
@@ -25,7 +24,7 @@ const CloseButton = ({ canDisplay }: Props) => {
       aria-label="검색창 닫기"
       onClick={handleClosePanel}
     >
-      <ChevronLeftIcon width="2.4rem" stroke="#9c9fa7" />
+      <ChevronLeftIcon width="2.4rem" fill="#5b5d62" stroke="#5b5d62" />
     </Button>
   );
 };
