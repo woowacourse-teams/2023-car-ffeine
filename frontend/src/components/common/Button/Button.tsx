@@ -93,7 +93,7 @@ const labelButtonStyle = css`
   position: absolute;
   top: 1.2rem;
   right: -3.8rem;
-  height: 7.8rem;
+  height: 7.6rem;
   padding: 0 0.6rem 0 0.4rem;
   background: #fcfcfc;
   border: 2.2px solid #e1e4eb;
