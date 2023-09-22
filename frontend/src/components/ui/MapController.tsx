@@ -76,7 +76,7 @@ const containerCss = css`
   width: 4.2rem;
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
-    bottom: 8rem;
+    bottom: 9.6rem;
     right: 0.8rem;
   }
 `;

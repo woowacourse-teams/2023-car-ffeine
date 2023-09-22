@@ -53,7 +53,7 @@ const container = css`
     top: -18px;
 
     @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
-      top: -102px;
+      top: -96px;
       left: -43px;
     }
   }

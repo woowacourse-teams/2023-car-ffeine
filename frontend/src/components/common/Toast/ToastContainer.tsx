@@ -8,13 +8,7 @@ import Toast from './Toast';
 const ToastContainer = () => {
   const toastItems = useExternalValue<ToastProps[]>(toastListStore);
 
-  return (
-    <>
-      {toastItems.map((toastItem) => (
-        <Toast key={toastItem.toastId} {...toastItem} />
-      ))}
-    </>
-  );
+  return toastItems.map((toastItem) => <Toast key={toastItem.toastId} {...toastItem} />);
 };
 
 export default ToastContainer;
