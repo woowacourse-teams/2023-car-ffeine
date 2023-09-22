@@ -10,10 +10,10 @@ import { useRenderStationMarker } from '@marker/hooks/useRenderStationMarker';
 
 import { useSetExternalState } from '@utils/external-state';
 
+import { serverUrlStore } from '@stores/config/serverUrlStore';
 import { googleMapActions } from '@stores/google-maps/googleMapStore';
 import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
 
-import { fetchStationSummaries } from '@hooks/fetch/fetchStationSummaries';
 import { useStationSummary } from '@hooks/google-maps/useStationSummary';
 import {
   fetchSearchedStations,
@@ -33,7 +33,7 @@ import { pillStyle } from '@style';
 import { MOBILE_BREAKPOINT } from '@constants';
 import { QUERY_KEY_SEARCHED_STATION, QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
 
-import type { StationPosition } from '@type/stations';
+import type { StationMarker, StationPosition } from '@type/stations';
 
 import SearchResult from './SearchResult';
 
@@ -87,7 +87,7 @@ const StationSearchBar = () => {
     queryClient.invalidateQueries({ queryKey: [QUERY_KEY_SEARCHED_STATION] });
   };
 
-  const showStationDetails = ({ stationId, latitude, longitude }: StationPosition) => {
+  const showStationDetails = async ({ stationId, latitude, longitude }: StationPosition) => {
     googleMapActions.moveTo({ lat: latitude, lng: longitude });
     queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_MARKERS] });
 
@@ -102,19 +102,42 @@ const StationSearchBar = () => {
         .some(({ stationId: cachedStationId }) => cachedStationId === stationId)
     ) {
       openStationSummary(stationId);
-      return;
+    } else {
+      // 지금 보여지는 화면에 검색한 충전소가 존재하지 않을 경우의 처리 (api가 새로 필요할듯 합니다. 일단 급한 버그 잡기를 위해 마구잡이로 이렇게 구현해버립니다.
+      const serverUrl = serverUrlStore.getState();
+      const stationMarkers = await fetch(
+        `${serverUrl}/stations?longitude=${longitude}&latitude=${latitude}&longitudeDelta=0.000000000000000001&latitudeDelta=0.000000000000000001&zoom=16`
+      ).then<StationMarker[]>(async (response) => {
+        const data = await response.json();
+
+        return data.stations;
+      });
+      const stationMarker = stationMarkers.find((station) => station.stationId === stationId);
+      if (stationMarker !== undefined) {
+        const markerInstance = createNewMarkerInstance({
+          address: '',
+          companyName: '',
+          detailLocation: '',
+          operatingTime: '',
+          totalCount: 0,
+          ...stationMarker,
+        });
+        setMarkerInstances((prev) => [...prev, { stationId, markerInstance }]);
+        renderMarkerInstances([{ stationId, markerInstance }], [stationMarker]);
+        openStationSummary(stationId, markerInstance);
+      }
     }
 
     // 지금 보여지는 화면에 충전소가 존재하지 않으면 따로 하나의 충전소만 요청을 발생시켜 마커를 생성
     // 마커가 없어서 infoWindow를 렌더링 하지 못하는 문제 해결
-    fetchStationSummaries([stationId]).then((stationSummaries) => {
-      const stationSummary = stationSummaries[0];
-      const markerInstance = createNewMarkerInstance(stationSummary);
-
-      setMarkerInstances((prev) => [...prev, { stationId, markerInstance }]);
-      renderMarkerInstances([{ stationId, markerInstance }], [stationSummary]);
-      openStationSummary(stationId, markerInstance);
-    });
+    // fetchStationSummaries([stationId]).then((stationSummaries) => {
+    //   const stationSummary = stationSummaries[0];
+    //   const markerInstance = createNewMarkerInstance(stationSummary);
+    //
+    //   setMarkerInstances((prev) => [...prev, { stationId, markerInstance }]);
+    //   renderMarkerInstances([{ stationId, markerInstance }], [stationSummary]);
+    //   openStationSummary(stationId, markerInstance);
+    // });
   };
 
   const handleChangeSearchWord = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
