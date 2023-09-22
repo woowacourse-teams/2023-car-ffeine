@@ -37,11 +37,21 @@ const Menu = () => {
 
   return (
     <FlexBox css={[fixedPositionCss, paddingCss, borderCss, flexCss]} noRadius="all" nowrap>
-      <Button css={displayNoneInMobile} aria-label="새로 고침" onClick={() => location.reload()}>
+      <Button
+        noRadius="all"
+        css={displayNoneInMobile}
+        aria-label="새로 고침"
+        onClick={() => location.reload()}
+      >
         <LogoIcon width={3} />
       </Button>
 
-      <Button css={displayNoneInWeb} aria-label="새로 고침" onClick={() => location.reload()}>
+      <Button
+        noRadius="all"
+        css={displayNoneInWeb}
+        aria-label="새로 고침"
+        onClick={() => location.reload()}
+      >
         <HiArrowPath size="2.8rem" fill="#555" />
         <Text mt={0.5} variant="caption">
           새로고침
@@ -49,6 +59,7 @@ const Menu = () => {
       </Button>
 
       <Button
+        noRadius="all"
         css={displayNoneInMobile}
         aria-label="주변 충전소 목록 열기"
         onClick={() => openBasePanel(<StationSearchWindow />)}
@@ -59,7 +70,11 @@ const Menu = () => {
         </Text>
       </Button>
 
-      <Button aria-label="필터링 메뉴 열기" onClick={() => openBasePanel(<ServerStationFilters />)}>
+      <Button
+        noRadius="all"
+        aria-label="필터링 메뉴 열기"
+        onClick={() => openBasePanel(<ServerStationFilters />)}
+      >
         <AdjustmentsHorizontalIcon width="2.8rem" stroke="#555" />
         <Text mt={0.5} variant="caption">
           필터
@@ -69,7 +84,7 @@ const Menu = () => {
       {isSignIn ? (
         <PersonalMenu />
       ) : (
-        <Button aria-label="로그인 하기" onClick={handleClickLoginIcon}>
+        <Button noRadius="all" aria-label="로그인 하기" onClick={handleClickLoginIcon}>
           <UserCircleIcon width="2.8rem" stroke="#555" />
           <Text mt={0.5} variant="caption">
             내정보
@@ -78,6 +93,7 @@ const Menu = () => {
       )}
 
       <Button
+        noRadius="all"
         css={displayNoneInWeb}
         aria-label="충전소 리스트 열기"
         onClick={() => openBasePanel(<StationListWindow />)}
@@ -89,6 +105,7 @@ const Menu = () => {
       </Button>
 
       <Button
+        noRadius="all"
         aria-label="설문조사 하기"
         onClick={() => {
           if (confirm('설문조사에 참여하시겠습니까?')) {
