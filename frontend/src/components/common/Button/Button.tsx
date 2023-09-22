@@ -92,7 +92,7 @@ const S = {
 const labelButtonStyle = css`
   position: absolute;
   top: 1.2rem;
-  right: -3.8rem;
+  right: -3.68rem;
   height: 7.6rem;
   padding: 0 0.6rem 0 0.4rem;
   background: #fcfcfc;
