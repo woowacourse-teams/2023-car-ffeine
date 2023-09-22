@@ -1,51 +1,75 @@
 package com.carffeine.carffeine.station.service.station;
 
-import com.carffeine.carffeine.station.domain.charger.ChargerStatus;
-import com.carffeine.carffeine.station.domain.charger.ChargerStatusRepository;
-import com.carffeine.carffeine.station.domain.congestion.PeriodicCongestion;
+import com.carffeine.carffeine.station.domain.charger.ChargerCondition;
+import com.carffeine.carffeine.station.domain.congestion.IdGenerator;
 import com.carffeine.carffeine.station.domain.congestion.PeriodicCongestionCustomRepository;
 import com.carffeine.carffeine.station.domain.congestion.RequestPeriod;
+import com.carffeine.carffeine.station.infrastructure.repository.charger.ChargerStatusQueryRepository;
+import com.carffeine.carffeine.station.infrastructure.repository.charger.dto.ChargerStatusResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
-@Transactional
 @Service
 public class StationService {
 
-    private final ChargerStatusRepository chargerStatusRepository;
+    private final ChargerStatusQueryRepository chargerStatusQueryRepository;
     private final PeriodicCongestionCustomRepository periodicCongestionCustomRepository;
 
-    @Scheduled(cron = "* * 0/1 * * *")
+    @Scheduled(cron = "0 0/10 * * * *")
     public void calculateCongestion() {
         LocalDateTime now = LocalDateTime.now();
         DayOfWeek day = now.getDayOfWeek();
         RequestPeriod period = RequestPeriod.from(now.getHour());
+        log.info("calculate congestion. day: {}, period: {}", day, period);
 
-        List<ChargerStatus> chargerStatuses = chargerStatusRepository.findAll();
-        List<PeriodicCongestion> congestions = createCongestions(chargerStatuses, day, period);
-        List<ChargerStatus> usingChargers = findUsingChargers(chargerStatuses);
+        String stationId = null;
+        String chargerId = null;
+        long limit = 1000;
+        long size = limit;
 
-        periodicCongestionCustomRepository.saveAllIfNotExist(congestions);
-        periodicCongestionCustomRepository.updateTotalCountByPeriod(day, period);
-        periodicCongestionCustomRepository.updateUsingCount(day, period, usingChargers);
+        while (limit == size) {
+            List<ChargerStatusResponse> chargerStatuses = chargerStatusQueryRepository.findAllChargerStatus(stationId, chargerId, limit);
+            List<ChargerStatusResponse> usingChargers = new ArrayList<>();
+            List<ChargerStatusResponse> notUsingChargers = new ArrayList<>();
+
+            addChargersByCondition(chargerStatuses, usingChargers, notUsingChargers);
+
+            List<String> usingChargerIds = getCongestionIds(usingChargers, day, period);
+            List<String> notUsingChargerIds = getCongestionIds(notUsingChargers, day, period);
+
+            periodicCongestionCustomRepository.updateNotUsingCountByIds(notUsingChargerIds);
+            periodicCongestionCustomRepository.updateUsingCountByIds(usingChargerIds);
+
+            ChargerStatusResponse chargerStatusResponse = chargerStatuses.get(chargerStatuses.size() - 1);
+            stationId = chargerStatusResponse.stationId();
+            chargerId = chargerStatusResponse.chargerId();
+            size = chargerStatuses.size();
+        }
+        log.info("finish congestion calculation. day: {}, period: {}", day, period);
     }
 
-    private List<PeriodicCongestion> createCongestions(List<ChargerStatus> chargerStatuses, DayOfWeek day, RequestPeriod period) {
-        return chargerStatuses.stream()
-                .map(it -> PeriodicCongestion.createDefault(day, period, it.getStationId(), it.getChargerId()))
-                .toList();
+    private void addChargersByCondition(List<ChargerStatusResponse> chargerStatuses, List<ChargerStatusResponse> usingChargers, List<ChargerStatusResponse> notUsingChargers) {
+        for (ChargerStatusResponse chargerStatus : chargerStatuses) {
+            if (chargerStatus.chargerCondition() == ChargerCondition.CHARGING_IN_PROGRESS) {
+                usingChargers.add(chargerStatus);
+            } else {
+                notUsingChargers.add(chargerStatus);
+            }
+        }
     }
 
-    private List<ChargerStatus> findUsingChargers(List<ChargerStatus> chargerStatuses) {
-        return chargerStatuses.stream()
-                .filter(ChargerStatus::isUsing)
+    private List<String> getCongestionIds(List<ChargerStatusResponse> usingChargers, DayOfWeek day, RequestPeriod period) {
+        return usingChargers.stream()
+                .map(it -> IdGenerator.generateId(day, period, it.stationId(), it.chargerId()))
                 .toList();
     }
 }

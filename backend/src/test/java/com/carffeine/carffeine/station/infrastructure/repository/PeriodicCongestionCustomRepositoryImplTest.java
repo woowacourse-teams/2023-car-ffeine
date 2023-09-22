@@ -1,7 +1,6 @@
 package com.carffeine.carffeine.station.infrastructure.repository;
 
 import com.carffeine.carffeine.helper.integration.IntegrationTest;
-import com.carffeine.carffeine.station.domain.charger.ChargerStatus;
 import com.carffeine.carffeine.station.domain.congestion.PeriodicCongestion;
 import com.carffeine.carffeine.station.domain.congestion.PeriodicCongestionRepository;
 import com.carffeine.carffeine.station.domain.congestion.RequestPeriod;
@@ -60,12 +59,14 @@ class PeriodicCongestionCustomRepositoryImplTest extends IntegrationTest {
     void 요일과_시간을_기준으로_total_count를_업데이트한다() {
         // given
         Station savedStation = stationRepository.save(선릉역_충전소_충전기_2개_사용가능_1개);
+
+        PeriodicCongestion congestion = PeriodicCongestion.createDefault(DayOfWeek.MONDAY, RequestPeriod.ONE, savedStation.getStationId(), "01");
         periodicCongestionCustomRepository.saveAllIfNotExist(List.of(
-                PeriodicCongestion.createDefault(DayOfWeek.MONDAY, RequestPeriod.ONE, savedStation.getStationId(), "01")
+                congestion
         ));
 
         // when
-        periodicCongestionCustomRepository.updateTotalCountByPeriod(DayOfWeek.MONDAY, RequestPeriod.ONE);
+        periodicCongestionCustomRepository.updateNotUsingCountByIds(List.of(congestion.getId()));
 
         // then
         PeriodicCongestion result = periodicCongestionRepository.findAllByStationIdAndDayOfWeek(savedStation.getStationId(), DayOfWeek.MONDAY).get(0);
@@ -80,20 +81,20 @@ class PeriodicCongestionCustomRepositoryImplTest extends IntegrationTest {
         // given
         Station savedStation = stationRepository.save(선릉역_충전소_충전기_2개_사용가능_1개);
 
+        PeriodicCongestion congestion = PeriodicCongestion.createDefault(DayOfWeek.MONDAY, RequestPeriod.ONE, savedStation.getStationId(), "02");
+        PeriodicCongestion congestion1 = PeriodicCongestion.createDefault(DayOfWeek.MONDAY, RequestPeriod.ONE, savedStation.getStationId(), "01");
         periodicCongestionCustomRepository.saveAllIfNotExist(List.of(
-                PeriodicCongestion.createDefault(DayOfWeek.MONDAY, RequestPeriod.ONE, savedStation.getStationId(), "01"),
-                PeriodicCongestion.createDefault(DayOfWeek.MONDAY, RequestPeriod.ONE, savedStation.getStationId(), "02")
+                congestion1,
+                congestion
         ));
 
-        ChargerStatus usingChargerStatus = savedStation.getChargers().get(1).getChargerStatus();
-
         // when
-        periodicCongestionCustomRepository.updateUsingCount(DayOfWeek.MONDAY, RequestPeriod.ONE, List.of(usingChargerStatus));
+        periodicCongestionCustomRepository.updateUsingCountByIds(List.of(congestion.getId()));
 
         // then
         PeriodicCongestion result = periodicCongestionRepository.findAllByStationIdAndDayOfWeek(savedStation.getStationId(), DayOfWeek.MONDAY).get(1);
         assertSoftly(softly -> {
-            softly.assertThat(result.getTotalCount()).isEqualTo(0);
+            softly.assertThat(result.getTotalCount()).isEqualTo(1);
             softly.assertThat(result.getUseCount()).isEqualTo(1);
         });
     }
