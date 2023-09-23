@@ -15,6 +15,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -23,9 +24,16 @@ public class StationService {
 
     private final ChargerStatusQueryRepository chargerStatusQueryRepository;
     private final PeriodicCongestionCustomRepository periodicCongestionCustomRepository;
+    private final AtomicBoolean isRunning = new AtomicBoolean(false);
 
     @Scheduled(cron = "0 0/10 * * * *")
     public void calculateCongestion() {
+        if (isRunning.compareAndSet(false, true)) {
+            updateCongestion();
+        }
+    }
+
+    private void updateCongestion() {
         LocalDateTime now = LocalDateTime.now();
         DayOfWeek day = now.getDayOfWeek();
         RequestPeriod period = RequestPeriod.from(now.getHour());

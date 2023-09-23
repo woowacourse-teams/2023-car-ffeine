@@ -17,6 +17,10 @@ spring:
     hikari:
       minimum-idle: 22
       maximum-pool-size: 22
+  task:
+    scheduling:
+      pool:
+        size: 2
 
 jasypt:
   encryptor:
