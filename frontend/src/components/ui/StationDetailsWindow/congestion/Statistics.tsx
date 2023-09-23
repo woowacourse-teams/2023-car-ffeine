@@ -11,12 +11,12 @@ import StatisticsGraph from '@ui/StatisticsGraph';
 import type { CHARGING_SPEED } from '@constants/chargers';
 import { SHORT_ENGLISH_DAYS_OF_WEEK } from '@constants/congestion';
 
-import type { LongEnglishDaysOfWeek } from '@type';
+import type { EnglishDaysOfWeek } from '@type';
 
 interface Props {
   stationId: string;
-  dayOfWeek: LongEnglishDaysOfWeek;
-  onChangeDayOfWeek: (dayOfWeek: LongEnglishDaysOfWeek) => void;
+  dayOfWeek: EnglishDaysOfWeek;
+  onChangeDayOfWeek: (dayOfWeek: EnglishDaysOfWeek) => void;
 }
 
 const Statistics = ({ stationId, dayOfWeek, onChangeDayOfWeek }: Props) => {

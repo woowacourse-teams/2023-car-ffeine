@@ -11,11 +11,11 @@ import {
   ENGLISH_DAYS_OF_WEEK_LONG_TO_SHORT,
 } from '@constants/congestion';
 
-import type { LongEnglishDaysOfWeek, ShortEnglishDaysOfWeek } from '@type/congestion';
+import type { EnglishDaysOfWeek, ShortEnglishDaysOfWeek } from '@type/congestion';
 
 interface DaySelectButtonProps extends PropsWithChildren {
-  dayOfWeek: LongEnglishDaysOfWeek;
-  onChangeDayOfWeek: (dayOfWeek: LongEnglishDaysOfWeek) => void;
+  dayOfWeek: EnglishDaysOfWeek;
+  onChangeDayOfWeek: (dayOfWeek: EnglishDaysOfWeek) => void;
 }
 
 const isEnglishDays = (day: string): day is ShortEnglishDaysOfWeek => {
