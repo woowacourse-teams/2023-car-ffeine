@@ -87,7 +87,16 @@ export const reset = css`
 
   input::-moz-focus-inner {
     border: 0; 
-    padding: 0; 
+    padding: 0;
     margin: 0;
   }
+
+  progress {
+    border: none;
+    box-shadow: none;
+  }
+  progress[value] { 
+    -webkit-appearance: none; 
+    appearance: none;
+  } 
 `
