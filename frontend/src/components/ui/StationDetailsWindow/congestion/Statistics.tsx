@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useStationCongestionStatistics } from '@hooks/tanstack-query/station-details/useStationCongestionStatistics';
 
@@ -9,7 +9,7 @@ import Error from '@ui/Error';
 import StatisticsGraph from '@ui/StatisticsGraph';
 
 import type { CHARGING_SPEED } from '@constants/chargers';
-import { SHORT_ENGLISH_DAYS_OF_WEEK } from '@constants/congestion';
+import { NO_RATIO, SHORT_ENGLISH_DAYS_OF_WEEK } from '@constants/congestion';
 
 import type { EnglishDaysOfWeek } from '@type';
 
@@ -26,7 +26,22 @@ const Statistics = ({ stationId, dayOfWeek, onChangeDayOfWeek }: Props) => {
     isError,
     refetch,
   } = useStationCongestionStatistics(stationId, dayOfWeek);
+
+  const hasOnlyStandardChargers = congestionStatistics?.congestion['quick'].every(
+    (congestion) => congestion.ratio === NO_RATIO
+  );
+  const hasOnlyQuickChargers = congestionStatistics?.congestion['standard'].every(
+    (congestion) => congestion.ratio === NO_RATIO
+  );
+  const hasOnlyOneChargerType = hasOnlyStandardChargers || hasOnlyQuickChargers;
+
   const [chargingSpeed, setChargingSpeed] = useState<keyof typeof CHARGING_SPEED>('standard');
+
+  useEffect(() => {
+    if (hasOnlyQuickChargers) {
+      setChargingSpeed('quick');
+    }
+  }, [hasOnlyQuickChargers]);
 
   const handleRetry = () => {
     refetch();
@@ -54,24 +69,26 @@ const Statistics = ({ stationId, dayOfWeek, onChangeDayOfWeek }: Props) => {
         onChangeDayOfWeek={onChangeDayOfWeek}
         isLoading={isLoading}
       />
-      <FlexBox nowrap>
-        <ButtonNext
-          variant={chargingSpeed === 'standard' ? 'contained' : 'outlined'}
-          size="xs"
-          onClick={() => setChargingSpeed('standard')}
-          fullWidth
-        >
-          완속 충전기 그룹
-        </ButtonNext>
-        <ButtonNext
-          variant={chargingSpeed === 'quick' ? 'contained' : 'outlined'}
-          size="xs"
-          onClick={() => setChargingSpeed('quick')}
-          fullWidth
-        >
-          급속 충전기 그룹
-        </ButtonNext>
-      </FlexBox>
+      {!isLoading && !hasOnlyOneChargerType && (
+        <FlexBox nowrap>
+          <ButtonNext
+            variant={chargingSpeed === 'standard' ? 'contained' : 'outlined'}
+            size="xs"
+            onClick={() => setChargingSpeed('standard')}
+            fullWidth
+          >
+            완속 충전기 그룹
+          </ButtonNext>
+          <ButtonNext
+            variant={chargingSpeed === 'quick' ? 'contained' : 'outlined'}
+            size="xs"
+            onClick={() => setChargingSpeed('quick')}
+            fullWidth
+          >
+            급속 충전기 그룹
+          </ButtonNext>
+        </FlexBox>
+      )}
     </FlexBox>
   );
 };

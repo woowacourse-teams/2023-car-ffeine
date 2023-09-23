@@ -108,23 +108,29 @@ interface CongestionStatisticsMockData {
 }
 
 export const getCongestionStatistics = (stationId: string): CongestionStatisticsMockData => {
+  const foundStation = stations.find((station) => station.stationId === stationId);
+  const hasOnlyStandardChargers = foundStation.quickChargerCount === 0;
+  const hasOnlyQuickChargers = foundStation.chargers.every(({ capacity }) => capacity >= 50);
+
   return {
-    stationId,
+    stationId: foundStation.stationId,
     congestion: {
-      quick: getCongestions(),
-      standard: getCongestions(),
+      quick: getCongestions(hasOnlyStandardChargers),
+      standard: getCongestions(hasOnlyQuickChargers),
     },
   };
 };
 
-const getCongestions = (): Record<ShortEnglishDaysOfWeek, Congestion[]> => {
+const getCongestions = (
+  hasOnlyOneChargerType: boolean
+): Record<ShortEnglishDaysOfWeek, Congestion[]> => {
   return getTypedObjectFromEntries(
     SHORT_ENGLISH_DAYS_OF_WEEK,
     SHORT_ENGLISH_DAYS_OF_WEEK.map(() =>
       Array.from({ length: 24 }, (_, index) => {
         return {
           hour: index,
-          ratio: Math.random() > 0.95 ? -1 : Math.random(),
+          ratio: hasOnlyOneChargerType || Math.random() > 0.95 ? -1 : Math.random(),
         };
       })
     )
