@@ -6,9 +6,9 @@ import ButtonNext from '@common/ButtonNext';
 
 import {
   SHORT_ENGLISH_DAYS_OF_WEEK,
-  ENGLISH_DAYS_OF_WEEK_SHORT_TO_LONG,
+  ENGLISH_DAYS_OF_WEEK_SHORT_TO_FULL,
   ENGLISH_DAYS_TO_KOREAN_DAYS,
-  ENGLISH_DAYS_OF_WEEK_LONG_TO_SHORT,
+  ENGLISH_DAYS_OF_WEEK_FULL_TO_SHORT,
 } from '@constants/congestion';
 
 import type { EnglishDaysOfWeek, ShortEnglishDaysOfWeek } from '@type/congestion';
@@ -30,7 +30,7 @@ const CircleDaySelectButton = ({
   const handleSelectDay = (day: string) => {
     if (isEnglishDays(day)) {
       onChangeDayOfWeek(
-        ENGLISH_DAYS_OF_WEEK_SHORT_TO_LONG[day as (typeof SHORT_ENGLISH_DAYS_OF_WEEK)[number]]
+        ENGLISH_DAYS_OF_WEEK_SHORT_TO_FULL[day as (typeof SHORT_ENGLISH_DAYS_OF_WEEK)[number]]
       );
     }
   };
@@ -39,9 +39,9 @@ const CircleDaySelectButton = ({
     <ButtonNext
       size="sm"
       variant={
-        ENGLISH_DAYS_OF_WEEK_LONG_TO_SHORT[dayOfWeek] === children ? 'contained' : 'outlined'
+        ENGLISH_DAYS_OF_WEEK_FULL_TO_SHORT[dayOfWeek] === children ? 'contained' : 'outlined'
       }
-      css={[buttonCss, ENGLISH_DAYS_OF_WEEK_LONG_TO_SHORT[dayOfWeek] === children && colorCss]}
+      css={[buttonCss, ENGLISH_DAYS_OF_WEEK_FULL_TO_SHORT[dayOfWeek] === children && colorCss]}
       onClick={() => {
         if (typeof children === 'string') {
           handleSelectDay(children);

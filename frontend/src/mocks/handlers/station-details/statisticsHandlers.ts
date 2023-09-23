@@ -1,7 +1,7 @@
 import { getCongestionStatistics } from '@mocks/data';
 import { rest } from 'msw';
 
-import { ENGLISH_DAYS_OF_WEEK_LONG_TO_SHORT } from '@constants/congestion';
+import { ENGLISH_DAYS_OF_WEEK_FULL_TO_SHORT } from '@constants/congestion';
 import { DEVELOP_SERVER_URL } from '@constants/server';
 
 import type { ShortEnglishDaysOfWeek } from '@type';
@@ -20,12 +20,12 @@ export const statisticsHandlers = [
       congestion: {
         standard: [
           ...fullCongestionStatistics['congestion']['standard'][
-            ENGLISH_DAYS_OF_WEEK_LONG_TO_SHORT[dayOfWeek]
+            ENGLISH_DAYS_OF_WEEK_FULL_TO_SHORT[dayOfWeek]
           ],
         ],
         quick: [
           ...fullCongestionStatistics['congestion']['quick'][
-            ENGLISH_DAYS_OF_WEEK_LONG_TO_SHORT[dayOfWeek]
+            ENGLISH_DAYS_OF_WEEK_FULL_TO_SHORT[dayOfWeek]
           ],
         ],
       },
