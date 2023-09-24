@@ -1,14 +1,11 @@
-import { serverUrlStore } from '@stores/config/serverUrlStore';
-
 import { DELIMITER } from '@constants';
+import { SERVER_URL } from '@constants/server';
 
 import type { StationSummary } from '@type';
 
 export const fetchStationSummaries = async (stationIds: string[]) => {
-  const serverUrl = serverUrlStore.getState();
-
   const stationSummaries = await fetch(
-    `${serverUrl}/stations/summary?stationIds=${stationIds.join(DELIMITER)}`,
+    `${SERVER_URL}/stations/summary?stationIds=${stationIds.join(DELIMITER)}`,
     {
       method: 'GET',
     }

@@ -1,8 +1,9 @@
 import { fetchUtils } from '@utils/fetch';
 
-import { serverUrlStore } from '@stores/config/serverUrlStore';
 import { memberInfoStore } from '@stores/login/memberInfoStore';
 import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
+
+import { SERVER_URL } from '@constants/server';
 
 import type { StationFilters } from '@type';
 import type { Car } from '@type/cars';
@@ -16,10 +17,9 @@ import type { Car } from '@type/cars';
  */
 export const submitMemberCar = async (carName: string, vintage: string): Promise<Car> => {
   const memberId = memberInfoStore.getState()?.memberId;
-  const serverUrl = serverUrlStore.getState();
 
   const memberCarInfo = await fetchUtils.post<Car, Omit<Car, 'carId'>>(
-    `${serverUrl}/members/${memberId}/cars`,
+    `${SERVER_URL}/members/${memberId}/cars`,
     { name: carName, vintage },
     '차량 정보를 등록하는 중에 오류가 발생했습니다'
   );
@@ -34,10 +34,8 @@ export const submitMemberCar = async (carName: string, vintage: string): Promise
  * @returns 차량 필터 정보 { companies, capacities, connectorTypes }
  */
 export const getCarFilters = async (carId: number): Promise<StationFilters> => {
-  const serverUrl = serverUrlStore.getState();
-
   const carFilters = await fetchUtils.get<StationFilters>(
-    `${serverUrl}/cars/${carId}/filters`,
+    `${SERVER_URL}/cars/${carId}/filters`,
     '차량 필터 정보를 불러오는 중에 에러가 발생했습니다'
   );
 
@@ -51,14 +49,13 @@ export const getCarFilters = async (carId: number): Promise<StationFilters> => {
  * @returns member에게 등록된 필터 정보 { companies, capacities, connectorTypes }
  */
 export const submitMemberFilters = async (carFilters: StationFilters) => {
-  const serverUrl = serverUrlStore.getState();
   const memberId = memberInfoStore.getState()?.memberId;
   const { setAllServerStationFilters, getMemberFilterRequestBody } = serverStationFilterAction;
   setAllServerStationFilters(carFilters);
   const memberFilterRequestBody = getMemberFilterRequestBody();
 
   const memberFilters = fetchUtils.post<StationFilters, typeof memberFilterRequestBody>(
-    `${serverUrl}/members/${memberId}/filters`,
+    `${SERVER_URL}/members/${memberId}/filters`,
     memberFilterRequestBody,
     '필터링 정보를 저장하는 중 오류가 발생했습니다'
   );

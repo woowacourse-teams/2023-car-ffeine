@@ -2,7 +2,6 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import { fetchUtils } from '@utils/fetch';
 
-import { serverUrlStore } from '@stores/config/serverUrlStore';
 import { toastActions } from '@stores/layout/toastStore';
 import { memberInfoStore } from '@stores/login/memberInfoStore';
 import { serverStationFilterAction } from '@stores/station-filters/serverStationFiltersStore';
@@ -12,6 +11,7 @@ import useMediaQueries from '@hooks/useMediaQueries';
 import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
 import { QUERY_KEY_MEMBER_SELECTED_FILTERS, QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
+import { SERVER_URL } from '@constants/server';
 
 import type { StationFilters } from '@type';
 
@@ -43,14 +43,13 @@ export const useStationFilters = () => {
   };
 
   const applyMemberFilters = async () => {
-    const serverUrl = serverUrlStore.getState();
     const memberId = memberInfoStore.getState()?.memberId;
 
     const { getMemberFilterRequestBody } = serverStationFilterAction;
     const memberFilterRequestBody = getMemberFilterRequestBody();
 
     return await fetchUtils.post<StationFilters, typeof memberFilterRequestBody>(
-      `${serverUrl}/members/${memberId}/filters`,
+      `${SERVER_URL}/members/${memberId}/filters`,
       memberFilterRequestBody
     );
   };

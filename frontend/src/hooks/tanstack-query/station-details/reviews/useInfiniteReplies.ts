@@ -1,8 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-import { serverUrlStore } from '@stores/config/serverUrlStore';
-
 import { QUERY_KEY_STATION_REPLIES } from '@constants/queryKeys';
+import { SERVER_URL } from '@constants/server';
 
 import type { Reply } from '@type';
 
@@ -15,8 +14,7 @@ export const useInfiniteReplies = (reviewId: number) => {
   return useInfiniteQuery<InfiniteRepliesResponse>(
     [QUERY_KEY_STATION_REPLIES, reviewId],
     async ({ pageParam = 0 }) => {
-      const serverUrl = serverUrlStore.getState();
-      const res = await fetch(`${serverUrl}/reviews/${reviewId}/replies?page=${pageParam}`);
+      const res = await fetch(`${SERVER_URL}/reviews/${reviewId}/replies?page=${pageParam}`);
       const data = await res.json();
       return data;
     },

@@ -1,17 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { serverUrlStore } from '@stores/config/serverUrlStore';
-
 import { ERROR_MESSAGES } from '@constants/errorMessages';
 import { QUERY_KEY_STATION_CONGESTION_STATISTICS } from '@constants/queryKeys';
+import { SERVER_URL } from '@constants/server';
 
 import type { CongestionStatistics, EnglishDaysOfWeek } from '@type/congestion';
 
 export const fetchStationDetails = async (selectedStationId: string, dayOfWeek: string) => {
-  const serverUrl = serverUrlStore.getState();
-
   const stationDetails = await fetch(
-    `${serverUrl}/stations/${selectedStationId}/statistics?dayOfWeek=${dayOfWeek}`,
+    `${SERVER_URL}/stations/${selectedStationId}/statistics?dayOfWeek=${dayOfWeek}`,
     {
       method: 'GET',
     }

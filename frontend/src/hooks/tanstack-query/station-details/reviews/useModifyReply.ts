@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { serverUrlStore } from '@stores/config/serverUrlStore';
 import { toastActions } from '@stores/layout/toastStore';
 import { memberTokenStore } from '@stores/login/memberTokenStore';
 
@@ -9,6 +8,7 @@ import {
   QUERY_KEY_STATION_REPLIES,
   QUERY_KEY_STATION_REVIEWS,
 } from '@constants/queryKeys';
+import { SERVER_URL } from '@constants/server';
 
 export interface FetchModifyReplyRequest {
   replyId: number;
@@ -19,8 +19,7 @@ export interface FetchModifyReplyRequest {
 const fetchModifyReply = async (fetchModifyReplyRequestParams: FetchModifyReplyRequest) => {
   const { replyId, content, reviewId } = fetchModifyReplyRequestParams;
   const memberToken = memberTokenStore.getState();
-  const serverUrl = serverUrlStore.getState();
-  return fetch(`${serverUrl}/reviews/${reviewId}/replies/${replyId}`, {
+  return fetch(`${SERVER_URL}/reviews/${reviewId}/replies/${replyId}`, {
     method: 'PATCH',
     headers: {
       Authorization: `Bearer ${memberToken}`,

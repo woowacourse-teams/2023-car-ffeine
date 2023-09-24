@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { serverUrlStore } from '@stores/config/serverUrlStore';
 import { toastActions } from '@stores/layout/toastStore';
 import { memberTokenStore } from '@stores/login/memberTokenStore';
 
 import { QUERY_KEY_STATION_PREVIEWS, QUERY_KEY_STATION_REVIEWS } from '@constants/queryKeys';
+import { SERVER_URL } from '@constants/server';
 
 export interface FetchCreateReviewRequest {
   stationId: string;
@@ -15,9 +15,8 @@ export interface FetchCreateReviewRequest {
 const fetchCreateReview = async (fetchCreateReviewRequestParams: FetchCreateReviewRequest) => {
   const { stationId, ratings, content } = fetchCreateReviewRequestParams;
   const memberToken = memberTokenStore.getState();
-  const serverUrl = serverUrlStore.getState();
 
-  return fetch(`${serverUrl}/stations/${stationId}/reviews`, {
+  return fetch(`${SERVER_URL}/stations/${stationId}/reviews`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${memberToken}`,

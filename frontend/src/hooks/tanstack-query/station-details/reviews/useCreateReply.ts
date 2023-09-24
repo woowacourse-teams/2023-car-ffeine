@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { serverUrlStore } from '@stores/config/serverUrlStore';
 import { toastActions } from '@stores/layout/toastStore';
 import { memberTokenStore } from '@stores/login/memberTokenStore';
 
 import { QUERY_KEY_STATION_PREVIEWS, QUERY_KEY_STATION_REVIEWS } from '@constants/queryKeys';
+import { SERVER_URL } from '@constants/server';
 
 export interface FetchCreateReplyRequest {
   reviewId: number;
@@ -14,8 +14,7 @@ export interface FetchCreateReplyRequest {
 const fetchCreateReply = async (fetchCreateReplyRequestParams: FetchCreateReplyRequest) => {
   const { reviewId, content } = fetchCreateReplyRequestParams;
   const memberToken = memberTokenStore.getState();
-  const serverUrl = serverUrlStore.getState();
-  return fetch(`${serverUrl}/reviews/${reviewId}/replies`, {
+  return fetch(`${SERVER_URL}/reviews/${reviewId}/replies`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${memberToken}`,

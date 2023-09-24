@@ -1,14 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { serverUrlStore } from '@stores/config/serverUrlStore';
 import { memberInfoStore } from '@stores/login/memberInfoStore';
 
 import { QUERY_KEY_MEMBER_CAR_FILTERS } from '@constants/queryKeys';
+import { SERVER_URL } from '@constants/server';
 
 import type { StationFilters } from '@type';
 
 const fetchCarFilters = async (): Promise<StationFilters> => {
-  const serverUrl = serverUrlStore.getState();
   const memberInfo = memberInfoStore.getState();
 
   if (memberInfo.car === undefined || memberInfo.car === null) {
@@ -22,7 +21,7 @@ const fetchCarFilters = async (): Promise<StationFilters> => {
   }
 
   const carFilters = await fetch(
-    `${serverUrl}/cars/${memberInfo.car.carId}/filters`
+    `${SERVER_URL}/cars/${memberInfo.car.carId}/filters`
   ).then<StationFilters>((response) => response.json());
 
   return carFilters;
