@@ -132,6 +132,7 @@ export const COMPANIES = {
 
 // 충전 속도
 export const CAPACITIES = [3, 7, 50, 100, 200] as const;
+export const QUICK_CHARGER_CAPACITY_THRESHOLD = 50;
 
 export const CHARGING_SPEED = {
   quick: '급속',

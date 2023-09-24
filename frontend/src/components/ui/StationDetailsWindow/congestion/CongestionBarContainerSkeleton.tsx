@@ -12,7 +12,7 @@ const CongestionBarContainerSkeleton = () => {
         {Array.from({ length: 24 }, (_, index) => (
           <Box key={index} css={graphCss}>
             <Text variant="caption">{String(index + 1).padStart(2, '0')}</Text>
-            <Skeleton width="90%" height="1.2rem" />
+            <Skeleton borderRadius="4px 10px 10px 4px" width="92.5%" height="1.2rem" />
           </Box>
         ))}
       </FlexBox>

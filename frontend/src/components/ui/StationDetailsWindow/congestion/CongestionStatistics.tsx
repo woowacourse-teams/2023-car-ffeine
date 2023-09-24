@@ -4,7 +4,7 @@ import Box from '@common/Box';
 
 import { ENGLISH_DAYS_OF_WEEK } from '@constants/congestion';
 
-import type { LongEnglishDaysOfWeek } from '@type';
+import type { EnglishDaysOfWeek } from '@type';
 
 import Statistics from './Statistics';
 import Title from './Title';
@@ -15,7 +15,7 @@ interface CongestionStatisticsProps {
 
 const CongestionStatistics = ({ stationId }: CongestionStatisticsProps) => {
   const todayIndex = new Date().getDay() - 1;
-  const [dayOfWeek, setDayOfWeek] = useState<LongEnglishDaysOfWeek>(
+  const [dayOfWeek, setDayOfWeek] = useState<EnglishDaysOfWeek>(
     ENGLISH_DAYS_OF_WEEK[todayIndex < 0 ? 6 : todayIndex]
   );
 

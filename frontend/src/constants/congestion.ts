@@ -23,11 +23,11 @@ export const ENGLISH_DAYS_TO_KOREAN_DAYS = getTypedObjectFromEntries(
   SHORT_ENGLISH_DAYS_OF_WEEK,
   SHORT_KOREAN_DAYS_OF_WEEK
 );
-export const ENGLISH_DAYS_OF_WEEK_SHORT_TO_LONG = getTypedObjectFromEntries(
+export const ENGLISH_DAYS_OF_WEEK_SHORT_TO_FULL = getTypedObjectFromEntries(
   SHORT_ENGLISH_DAYS_OF_WEEK,
   ENGLISH_DAYS_OF_WEEK
 );
-export const ENGLISH_DAYS_OF_WEEK_LONG_TO_SHORT = Object.fromEntries(
+export const ENGLISH_DAYS_OF_WEEK_FULL_TO_SHORT = Object.fromEntries(
   ENGLISH_DAYS_OF_WEEK.map((day, index) => [day, SHORT_ENGLISH_DAYS_OF_WEEK[index]])
 );
 

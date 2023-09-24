@@ -2,11 +2,11 @@ import type { GraphProps } from '@ui/compound/Graph';
 import Graph from '@ui/compound/Graph';
 import type { DayMenusProps } from '@ui/compound/Graph/DayMenus';
 
-import type { Congestion, LongEnglishDaysOfWeek } from '@type';
+import type { Congestion, EnglishDaysOfWeek } from '@type';
 
 interface Props extends GraphProps, Omit<DayMenusProps, 'renderMenuSelectButton'> {
-  dayOfWeek: LongEnglishDaysOfWeek;
-  onChangeDayOfWeek: (dayOfWeek: LongEnglishDaysOfWeek) => void;
+  dayOfWeek: EnglishDaysOfWeek;
+  onChangeDayOfWeek: (dayOfWeek: EnglishDaysOfWeek) => void;
   isLoading: boolean;
   statistics: Congestion[];
 }

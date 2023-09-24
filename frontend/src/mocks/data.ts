@@ -2,8 +2,13 @@ import { getTypedObjectFromEntries } from '@utils/getTypedObjectFromEntries';
 import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 import { generateRandomData, generateRandomToken, getRandomTime } from '@utils/randomDataGenerator';
 
-import { CONNECTOR_TYPES, COMPANIES, CAPACITIES } from '@constants/chargers';
-import { SHORT_ENGLISH_DAYS_OF_WEEK } from '@constants/congestion';
+import {
+  CONNECTOR_TYPES,
+  COMPANIES,
+  CAPACITIES,
+  QUICK_CHARGER_CAPACITY_THRESHOLD,
+} from '@constants/chargers';
+import { NO_RATIO, SHORT_ENGLISH_DAYS_OF_WEEK } from '@constants/congestion';
 import { MAX_SEARCH_RESULTS } from '@constants/stationSearch';
 
 import type { Car } from '@type/cars';
@@ -46,12 +51,14 @@ const generateRandomStationId = () => {
   return `${randomLetter1}${randomLetter2}${randomNumber}`;
 };
 
-export const stations: Station[] = Array.from({ length: 60000 }, (_, index) => {
+export const stations: Station[] = Array.from({ length: 60000 }, () => {
   const randomStationId = generateRandomStationId();
   const chargers = generateRandomChargers();
   const totalCount = chargers.length;
   const availableCount = chargers.filter(({ state }) => state === 'STANDBY').length;
-  const quickChargerCount = chargers.filter(({ capacity }) => capacity >= 50).length;
+  const quickChargerCount = chargers.filter(
+    ({ capacity }) => capacity >= QUICK_CHARGER_CAPACITY_THRESHOLD
+  ).length;
 
   return {
     stationId: randomStationId,
@@ -89,7 +96,9 @@ export const getSearchedStations = (searchWord: string) => {
     const { stationId, stationName, chargers, address, latitude, longitude } = station;
 
     const onlyCapacity = chargers.map(({ capacity }) => capacity);
-    const speed = onlyCapacity.map((num) => (num >= 50 ? 'QUICK' : 'STANDARD'));
+    const speed = onlyCapacity.map((num) =>
+      num >= QUICK_CHARGER_CAPACITY_THRESHOLD ? 'QUICK' : 'STANDARD'
+    );
 
     return { stationId, stationName, speed, address, latitude, longitude };
   });
@@ -108,23 +117,31 @@ interface CongestionStatisticsMockData {
 }
 
 export const getCongestionStatistics = (stationId: string): CongestionStatisticsMockData => {
+  const foundStation = stations.find((station) => station.stationId === stationId);
+  const hasOnlyStandardChargers = foundStation.quickChargerCount === 0;
+  const hasOnlyQuickChargers = foundStation.chargers.every(
+    ({ capacity }) => capacity >= QUICK_CHARGER_CAPACITY_THRESHOLD
+  );
+
   return {
-    stationId,
+    stationId: foundStation.stationId,
     congestion: {
-      quick: getCongestions(),
-      standard: getCongestions(),
+      quick: getCongestions(hasOnlyStandardChargers),
+      standard: getCongestions(hasOnlyQuickChargers),
     },
   };
 };
 
-const getCongestions = (): Record<ShortEnglishDaysOfWeek, Congestion[]> => {
+const getCongestions = (
+  hasOnlyOneChargerType: boolean
+): Record<ShortEnglishDaysOfWeek, Congestion[]> => {
   return getTypedObjectFromEntries(
     SHORT_ENGLISH_DAYS_OF_WEEK,
     SHORT_ENGLISH_DAYS_OF_WEEK.map(() =>
       Array.from({ length: 24 }, (_, index) => {
         return {
           hour: index,
-          ratio: Math.random() > 0.95 ? -1 : Math.random(),
+          ratio: hasOnlyOneChargerType || Math.random() > 0.95 ? NO_RATIO : Math.random(),
         };
       })
     )

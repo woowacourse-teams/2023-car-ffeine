@@ -5,7 +5,11 @@ import { calculateLatestUpdateTime } from '@utils/index';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-import { CHARGER_STATES, CONNECTOR_TYPES } from '@constants/chargers';
+import {
+  CHARGER_STATES,
+  CONNECTOR_TYPES,
+  QUICK_CHARGER_CAPACITY_THRESHOLD,
+} from '@constants/chargers';
 
 import type { ChargerDetails, ChargerStateType } from '@type/chargers';
 
@@ -48,7 +52,7 @@ const ChargerCard = ({ charger }: ChargerCardProps) => {
         {CONNECTOR_TYPES[type]}
       </Text>
       <Text my={0} variant="label">
-        {capacity >= 50 ? '급속' : '완속'}({capacity}kW)
+        {capacity >= QUICK_CHARGER_CAPACITY_THRESHOLD ? '급속' : '완속'}({capacity}kW)
         {method && (
           <Text tag="span" variant="label" my={1}>
             &nbsp;/&nbsp;{method}
