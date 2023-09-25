@@ -1,5 +1,6 @@
 package com.carffeine.carffeine.config.datasource;
 
+import com.carffeine.carffeine.common.aop.UserHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
@@ -18,6 +19,11 @@ public class RoutingDataSource extends AbstractRoutingDataSource {
 
     @Override
     protected Object determineCurrentLookupKey() {
+        DataSourceType dataSourceType = UserHolder.getDataSourceType();
+        log.info("dataSourceType = " + dataSourceType);
+        if (dataSourceType != null) {
+            return dataSourceType;
+        }
         boolean readOnly = TransactionSynchronizationManager.isCurrentTransactionReadOnly();
         if (readOnly) {
             log.info("Routing to REPLICA");

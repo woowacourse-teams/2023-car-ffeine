@@ -1,5 +1,7 @@
 package com.carffeine.carffeine.station.infrastructure.repository.station;
 
+import com.carffeine.carffeine.common.aop.DataSource;
+import com.carffeine.carffeine.config.datasource.DataSourceType;
 import com.carffeine.carffeine.station.domain.charger.ChargerCondition;
 import com.carffeine.carffeine.station.domain.charger.ChargerType;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.ChargerSpecificResponse;
@@ -104,6 +106,7 @@ public class StationQueryRepository {
                 .fetch();
     }
 
+    @DataSource(DataSourceType.SOURCE)
     public List<StationSimpleResponse> findStationByStationIds(List<String> stationIds) {
         return jpaQueryFactory
                 .select(constructor(StationSimpleResponse.class,
