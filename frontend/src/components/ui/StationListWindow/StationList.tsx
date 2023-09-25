@@ -10,8 +10,8 @@ import FlexBox from '@common/FlexBox';
 import List from '@common/List';
 import Text from '@common/Text';
 
-import EmptyStationsNotice from '@ui/StationList/EmptyStationsNotice';
-import StationSummaryCardSkeleton from '@ui/StationList/StationSummaryCardSkeleton';
+import EmptyStationsNotice from '@ui/StationListWindow/EmptyStationsNotice';
+import StationSummaryCardSkeleton from '@ui/StationListWindow/StationSummaryCardSkeleton';
 
 import { MOBILE_BREAKPOINT } from '@constants';
 
