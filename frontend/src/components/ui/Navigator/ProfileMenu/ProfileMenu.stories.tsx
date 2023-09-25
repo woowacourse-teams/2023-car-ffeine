@@ -3,7 +3,7 @@ import type { Meta } from '@storybook/react';
 import { styled } from 'styled-components';
 
 import Menus from './Menus';
-import ProfileMenu from './index';
+import ProfileMenu from './ProfileMenu';
 
 const meta = {
   title: 'UI/ProfileMenu',
