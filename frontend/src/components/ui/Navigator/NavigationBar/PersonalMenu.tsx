@@ -1,5 +1,5 @@
 import { ArrowRightOnRectangleIcon, PencilSquareIcon } from '@heroicons/react/24/solid';
-import PopupMenu from 'components/ui/Navigator/PopupMenu';
+import ProfileMenu from 'components/ui/Navigator/ProfileMenu';
 
 import type { PropsWithChildren } from 'react';
 
@@ -51,6 +51,6 @@ const PersonalMenu = () => {
     },
   ];
 
-  return <PopupMenu menus={personalMenus} />;
+  return <ProfileMenu menus={personalMenus} />;
 };
 export default PersonalMenu;

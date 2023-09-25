@@ -3,10 +3,10 @@ import type { Meta } from '@storybook/react';
 import { styled } from 'styled-components';
 
 import Menus from './Menus';
-import PopupMenu from './index';
+import ProfileMenu from './index';
 
 const meta = {
-  title: 'UI/HoverMenus',
+  title: 'UI/ProfileMenu',
   component: Menus,
   tags: ['autodocs'],
 } satisfies Meta<typeof Menus>;
@@ -15,7 +15,7 @@ export default meta;
 
 export const Default = () => {
   return (
-    <PopupMenu
+    <ProfileMenu
       menus={[
         {
           children: (
@@ -40,7 +40,7 @@ export const Default = () => {
 
 export const BigTrigger = () => {
   return (
-    <PopupMenu
+    <ProfileMenu
       menus={[
         {
           children: (
@@ -62,10 +62,3 @@ export const BigTrigger = () => {
     />
   );
 };
-
-const Trigger = styled.div`
-  width: 30rem;
-  height: 15rem;
-
-  background-color: blue;
-`;

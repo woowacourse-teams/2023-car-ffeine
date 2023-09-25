@@ -10,7 +10,7 @@ import { setLocalStorage } from '@utils/storage';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { warningModalActions } from '@stores/layout/warningModalStore';
-import { popupMenuOpenStore } from '@stores/popupMenuOpenStore';
+import { profileMenuOpenStore } from '@stores/profileMenuOpenStore';
 
 import ZoomWarningModal from '@common/WarningModal';
 
@@ -21,7 +21,7 @@ import { LOCAL_KEY_LAST_POSITION } from '@constants/storageKeys';
 const CarFfeineMapListener = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
   const queryClient = useQueryClient();
-  const setIsPopupMenuOpen = useSetExternalState(popupMenuOpenStore);
+  const setIsProfileMenuOpen = useSetExternalState(profileMenuOpenStore);
 
   const debouncedIdleHandler = debounce(() => {
     if (googleMap.getZoom() < INITIAL_ZOOM_SIZE) {
@@ -34,7 +34,7 @@ const CarFfeineMapListener = () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_MARKERS] });
     }
 
-    setIsPopupMenuOpen(false);
+    setIsProfileMenuOpen(false);
 
     setLocalStorage<google.maps.LatLngLiteral>(LOCAL_KEY_LAST_POSITION, {
       lat: googleMap.getCenter().lat(),
