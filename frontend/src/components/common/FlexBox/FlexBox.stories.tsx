@@ -1,8 +1,10 @@
 import type { Meta } from '@storybook/react';
 import styled from 'styled-components';
 
+import { FLEX_BOX_ITEM_POSITION } from '@common/FlexBox/FlexBox.style';
+
 import type { FlexBoxProps } from './FlexBox';
-import FlexBox, { FLEX_BOX_ITEM_POSITION } from './FlexBox';
+import FlexBox from './FlexBox';
 
 const Box = styled.div`
   width: 30%;

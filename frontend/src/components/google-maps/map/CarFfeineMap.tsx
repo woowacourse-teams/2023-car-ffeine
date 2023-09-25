@@ -4,7 +4,7 @@ import CarFfeineMapListener from './CarFfeineListener';
 
 const UserFilterListener = lazy(() => import('./UserFilterListener'));
 const StationMarkersContainer = lazy(() => import('@marker/StationMarkersContainer'));
-const ToastContainer = lazy(() => import('@common/Toast/ToastContainer'));
+const ToastContainer = lazy(() => import('@ui/ToastContainer'));
 const ClientStationFilters = lazy(() => import('@ui/ClientStationFilters'));
 const MapController = lazy(() => import('@ui/MapController'));
 const ModalContainer = lazy(() => import('@ui/ModalContainer'));

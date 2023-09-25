@@ -1,8 +1,7 @@
 import { Status, Wrapper } from '@googlemaps/react-wrapper';
+import Loading from 'components/ui/Loading';
 
 import CarFfeineMap from '@map/CarFfeineMap';
-
-import Loading from '@common/Loading';
 
 const render = (status: Status) => {
   switch (status) {

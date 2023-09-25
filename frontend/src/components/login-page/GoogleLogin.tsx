@@ -1,3 +1,5 @@
+import Loading from 'components/ui/Loading';
+
 import { useEffect, useState } from 'react';
 
 import { fetchUtils } from '@utils/fetch';
@@ -8,7 +10,6 @@ import { memberTokenStore } from '@stores/login/memberTokenStore';
 
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
-import Loading from '@common/Loading';
 import Text from '@common/Text';
 
 import { SERVER_URL } from '@constants/server';
