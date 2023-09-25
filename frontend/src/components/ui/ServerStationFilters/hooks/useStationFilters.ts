@@ -8,7 +8,7 @@ import { serverStationFilterAction } from '@stores/station-filters/serverStation
 
 import useMediaQueries from '@hooks/useMediaQueries';
 
-import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
+import { useNavigationBar } from '@ui/Navigator/NavigationBar/hooks/useNavigationBar';
 
 import { QUERY_KEY_MEMBER_SELECTED_FILTERS, QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
 import { SERVER_URL } from '@constants/server';

@@ -14,9 +14,10 @@ import ListItem from '@common/ListItem';
 import Loader from '@common/Loader';
 import Text from '@common/Text';
 
+import { useNavigationBar } from '@ui/Navigator/NavigationBar/hooks/useNavigationBar';
+
 import ChargingSpeedIcon from '../ChargingSpeedIcon';
 import StationDetailsWindow from '../StationDetailsWindow';
-import { useNavigationBar } from '../compound/NavigationBar/hooks/useNavigationBar';
 import SummaryButtons from './SummaryButtons';
 
 export interface StationSummaryProps {

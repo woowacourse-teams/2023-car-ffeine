@@ -7,8 +7,8 @@ import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
+import { useNavigationBar } from '@ui/Navigator/NavigationBar/hooks/useNavigationBar';
 import { containerCss } from '@ui/ServerStationFilters/ServerStationFilters';
-import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
 import { MOBILE_BREAKPOINT } from '@constants';
 

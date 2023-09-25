@@ -9,8 +9,8 @@ import ListItem from '@common/ListItem';
 import Text from '@common/Text';
 
 import ChargingSpeedIcon from '@ui/ChargingSpeedIcon';
+import { useNavigationBar } from '@ui/Navigator/NavigationBar/hooks/useNavigationBar';
 import StationDetailsWindow from '@ui/StationDetailsWindow';
-import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
 import type { StationSummary } from '@type';
 
