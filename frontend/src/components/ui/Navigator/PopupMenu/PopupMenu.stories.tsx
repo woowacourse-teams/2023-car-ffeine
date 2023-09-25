@@ -1,10 +1,9 @@
 import { ArrowRightOnRectangleIcon, PencilSquareIcon } from '@heroicons/react/24/outline';
-import { UserCircleIcon } from '@heroicons/react/24/solid';
 import type { Meta } from '@storybook/react';
 import { styled } from 'styled-components';
 
-import PopupMenu from '.';
 import Menus from './Menus';
+import PopupMenu from './index';
 
 const meta = {
   title: 'UI/HoverMenus',

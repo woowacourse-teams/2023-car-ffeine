@@ -1,4 +1,5 @@
 import { ArrowRightOnRectangleIcon, PencilSquareIcon } from '@heroicons/react/24/solid';
+import PopupMenu from 'components/ui/Navigator/PopupMenu';
 
 import type { PropsWithChildren } from 'react';
 
@@ -13,7 +14,6 @@ import {
   selectedConnectorTypesFilterStore,
 } from '@stores/station-filters/serverStationFiltersStore';
 
-import PopupMenu from '@ui/compound/PopupMenu';
 import CarModal from '@ui/modal/CarModal/CarModal';
 
 import { QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
