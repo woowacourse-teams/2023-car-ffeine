@@ -1,9 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { serverUrlStore } from '@stores/config/serverUrlStore';
-
 import { ERROR_MESSAGES } from '@constants/errorMessages';
 import { QUERY_KEY_SEARCHED_STATION } from '@constants/queryKeys';
+import { SERVER_URL } from '@constants/server';
 import { SEARCH_SCOPE } from '@constants/stationSearch';
 
 import type { SearchedStation } from '@type/stations';
@@ -13,9 +12,8 @@ interface SearchedStationResponse {
 }
 
 export const fetchSearchedStations = async (searchWord: string) => {
-  const serverUrl = serverUrlStore.getState();
   const searchedStations = await fetch(
-    `${serverUrl}/stations/search?q=${searchWord}${SEARCH_SCOPE}`,
+    `${SERVER_URL}/stations/search?q=${searchWord}${SEARCH_SCOPE}`,
     {
       method: 'GET',
     }

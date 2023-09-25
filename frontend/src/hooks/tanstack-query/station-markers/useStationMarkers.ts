@@ -8,7 +8,6 @@ import { getDisplayPosition } from '@utils/google-maps';
 import { getQueryFormattedUrl } from '@utils/request-query-params';
 import { setSessionStorage } from '@utils/storage';
 
-import { serverUrlStore } from '@stores/config/serverUrlStore';
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { clientStationFiltersStore } from '@stores/station-filters/clientStationFiltersStore';
 import {
@@ -21,6 +20,7 @@ import { DELIMITER } from '@constants';
 import { COMPANIES } from '@constants/chargers';
 import { DELTA_FACTOR, INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
 import { QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
+import { SERVER_URL } from '@constants/server';
 import { SESSION_KEY_LAST_REQUEST_POSITION } from '@constants/storageKeys';
 
 import type { DisplayPosition } from '@type';
@@ -74,8 +74,7 @@ export const fetchStationMarkers = async () => {
     chargerTypes: connectorTypeFilters.size > 0 ? [...connectorTypeFilters].join(DELIMITER) : '',
   });
 
-  const serverUrl = serverUrlStore.getState();
-  const stationMarkers = await fetch(`${serverUrl}/stations?${requestQueryParams}`, {
+  const stationMarkers = await fetch(`${SERVER_URL}/stations?${requestQueryParams}`, {
     method: 'GET',
   }).then<StationMarker[]>(async (response) => {
     setSessionStorage<DisplayPosition>(SESSION_KEY_LAST_REQUEST_POSITION, requestPositionParams);

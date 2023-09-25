@@ -10,7 +10,6 @@ import { useRenderStationMarker } from '@marker/hooks/useRenderStationMarker';
 
 import { useSetExternalState } from '@utils/external-state';
 
-import { serverUrlStore } from '@stores/config/serverUrlStore';
 import { googleMapActions } from '@stores/google-maps/googleMapStore';
 import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
 
@@ -32,6 +31,7 @@ import { pillStyle } from '@style';
 
 import { MOBILE_BREAKPOINT } from '@constants';
 import { QUERY_KEY_SEARCHED_STATION, QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
+import { SERVER_URL } from '@constants/server';
 
 import type { StationMarker, StationPosition } from '@type/stations';
 
@@ -104,9 +104,8 @@ const StationSearchBar = () => {
       openStationSummary(stationId);
     } else {
       // 지금 보여지는 화면에 검색한 충전소가 존재하지 않을 경우의 처리 (api가 새로 필요할듯 합니다. 일단 급한 버그 잡기를 위해 마구잡이로 이렇게 구현해버립니다.
-      const serverUrl = serverUrlStore.getState();
       const stationMarkers = await fetch(
-        `${serverUrl}/stations?longitude=${longitude}&latitude=${latitude}&longitudeDelta=0.000000000000000001&latitudeDelta=0.000000000000000001&zoom=16`
+        `${SERVER_URL}/stations?longitude=${longitude}&latitude=${latitude}&longitudeDelta=0.000000000000000001&latitudeDelta=0.000000000000000001&zoom=16`
       ).then<StationMarker[]>(async (response) => {
         const data = await response.json();
 

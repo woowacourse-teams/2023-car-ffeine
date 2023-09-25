@@ -1,15 +1,14 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { serverUrlStore } from '@stores/config/serverUrlStore';
 import { modalActions } from '@stores/layout/modalStore';
 import { memberTokenStore } from '@stores/login/memberTokenStore';
 
 import { QUERY_KEY_STATION_CHARGER_REPORT, QUERY_KEY_STATION_DETAILS } from '@constants/queryKeys';
+import { SERVER_URL } from '@constants/server';
 
 const fetchReportCharger = async (stationId: string) => {
   const memberToken = memberTokenStore.getState();
-  const serverUrl = serverUrlStore.getState();
-  return fetch(`${serverUrl}/stations/${stationId}/reports`, {
+  return fetch(`${SERVER_URL}/stations/${stationId}/reports`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${memberToken}`,

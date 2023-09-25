@@ -4,7 +4,6 @@ import { fetchUtils } from '@utils/fetch';
 import { getMemberToken } from '@utils/login';
 import { setSessionStorage } from '@utils/storage';
 
-import { serverUrlStore } from '@stores/config/serverUrlStore';
 import { memberTokenStore } from '@stores/login/memberTokenStore';
 
 import ButtonNext from '@common/ButtonNext';
@@ -12,6 +11,7 @@ import FlexBox from '@common/FlexBox';
 import Loading from '@common/Loading';
 import Text from '@common/Text';
 
+import { SERVER_URL } from '@constants/server';
 import { SESSION_KEY_MEMBER_INFO, SESSION_KEY_MEMBER_TOKEN } from '@constants/storageKeys';
 
 const GoogleLogin = () => {
@@ -21,13 +21,12 @@ const GoogleLogin = () => {
   useEffect(() => {
     const code = new URLSearchParams(location.search).get('code') ?? '';
     const encodedCode = encodeURIComponent(code);
-    const serverUrl = serverUrlStore.getState();
 
     getMemberToken(encodedCode, 'google')
       .then(async (token) => {
         memberTokenStore.setState(token);
 
-        const memberInfo = await fetchUtils.get(`${serverUrl}/members/me`);
+        const memberInfo = await fetchUtils.get(`${SERVER_URL}/members/me`);
 
         setSessionStorage(SESSION_KEY_MEMBER_TOKEN, token);
         setSessionStorage(SESSION_KEY_MEMBER_INFO, JSON.stringify(memberInfo));

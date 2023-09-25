@@ -1,9 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { serverUrlStore } from '@stores/config/serverUrlStore';
-
 import { ERROR_MESSAGES } from '@constants/errorMessages';
 import { QUERY_KEY_STATION_DETAILS } from '@constants/queryKeys';
+import { SERVER_URL } from '@constants/server';
 
 import type { StationDetails } from '@type';
 
@@ -12,9 +11,7 @@ export const fetchStationDetails = async (stationId: string) => {
     throw new Error('선택된 충전소가 없습니다.');
   }
 
-  const serverUrl = serverUrlStore.getState();
-
-  const stationDetails = await fetch(`${serverUrl}/stations/${stationId}`, {
+  const stationDetails = await fetch(`${SERVER_URL}/stations/${stationId}`, {
     method: 'GET',
   }).then<StationDetails>(async (response) => {
     if (!response.ok) {
