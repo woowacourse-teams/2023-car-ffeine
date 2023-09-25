@@ -23,6 +23,9 @@ public class UserHolder {
     }
 
     private static Context getUserContext() {
+        if (userContext.get() == null) {
+            userContext.set(new Context());
+        }
         return userContext.get();
     }
 
