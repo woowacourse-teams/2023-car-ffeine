@@ -10,7 +10,7 @@ import List from '@common/List';
 import ListItem from '@common/ListItem';
 import Text from '@common/Text';
 
-import Bar from '@ui/compound/Graph/Bar';
+import Bar from '@ui/StatisticsGraph/Graph/Bar';
 
 import { MOBILE_BREAKPOINT } from '@constants';
 import { NO_RATIO } from '@constants/congestion';

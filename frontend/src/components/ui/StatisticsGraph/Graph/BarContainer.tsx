@@ -6,7 +6,7 @@ import CongestionBarContainerSkeleton from '@ui/StationDetailsWindow/congestion/
 
 import type { Congestion } from '@type';
 
-import type { GraphProps } from '.';
+import type { GraphProps } from './index';
 
 interface BarContainerProps extends GraphProps {
   renderBar: (hour: string, ratio: number) => ReactNode;
