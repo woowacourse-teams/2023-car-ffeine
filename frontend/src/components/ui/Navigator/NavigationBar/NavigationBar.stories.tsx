@@ -8,7 +8,7 @@ import { useState } from 'react';
 import Button from '@common/Button';
 import ButtonNext from '@common/ButtonNext';
 
-import NavigationBar from './index';
+import NavigationBar from './NavigationBar';
 
 const meta = {
   title: 'UI/NavigationBar',
