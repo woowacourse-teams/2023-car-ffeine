@@ -2,8 +2,9 @@ import type { CSSProp } from 'styled-components';
 
 import type { HTMLAttributes, ReactNode } from 'react';
 
-import { StyledListItem } from '@common/ListItem/ListItem.style';
 import type { SpacingProps } from '@common/systems';
+
+import { StyledListItem } from './ListItem.style';
 
 export interface ListItemProps extends HTMLAttributes<HTMLLIElement>, SpacingProps {
   children: ReactNode;

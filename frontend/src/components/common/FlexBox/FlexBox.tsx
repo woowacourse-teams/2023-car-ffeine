@@ -2,11 +2,12 @@ import type { CSSProp } from 'styled-components';
 
 import { type HTMLAttributes, type ReactNode } from 'react';
 
-import type { FLEX_BOX_ITEM_POSITION } from '@common/FlexBox/FlexBox.style';
-import { StyledFlexBox } from '@common/FlexBox/FlexBox.style';
 import type { SpacingProps } from '@common/systems';
 
 import type { AxisType, BorderRadiusDirectionType } from '@type/style';
+
+import type { FLEX_BOX_ITEM_POSITION } from './FlexBox.style';
+import { StyledFlexBox } from './FlexBox.style';
 
 export interface FlexBoxProps extends HTMLAttributes<HTMLDivElement>, SpacingProps {
   tag?: string;

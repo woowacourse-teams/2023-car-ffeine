@@ -1,8 +1,8 @@
 import type { CSSProp } from 'styled-components';
 
-import { StyledAlert } from '@common/Alert/Alert.style';
-
 import type { Color } from '@type/style';
+
+import { StyledAlert } from './Alert.style';
 
 export interface AlertProps {
   color: Color;

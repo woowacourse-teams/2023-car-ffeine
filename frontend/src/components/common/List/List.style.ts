@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
-import type { ListProps } from '@common/List/List';
 import { spacing } from '@common/systems';
+
+import type { ListProps } from './List';
 
 export type StyledListType = Omit<ListProps, 'fontSize'> & { $fontSize: number };
 

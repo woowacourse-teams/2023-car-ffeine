@@ -2,11 +2,12 @@ import type { CSSProp } from 'styled-components';
 
 import type { ButtonHTMLAttributes, MouseEventHandler } from 'react';
 
-import type { BUTTON_PADDING_SIZE } from '@common/Button/Button.style';
-import { StyledButton } from '@common/Button/Button.style';
 import type { SpacingProps } from '@common/systems';
 
 import type { BorderRadiusDirectionType } from '@type/style';
+
+import type { BUTTON_PADDING_SIZE } from './Button.style';
+import { StyledButton } from './Button.style';
 
 export type VariantType = 'pill' | 'label';
 

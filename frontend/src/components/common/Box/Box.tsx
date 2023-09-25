@@ -2,8 +2,9 @@ import type { CSSProp } from 'styled-components';
 
 import { type HTMLAttributes, type ReactNode } from 'react';
 
-import { StyledBox } from '@common/Box/Box.style';
 import type { SpacingProps } from '@common/systems';
+
+import { StyledBox } from './Box.style';
 
 export interface BoxProps extends HTMLAttributes<HTMLDivElement>, SpacingProps {
   children?: ReactNode;

@@ -2,8 +2,9 @@ import type { CSSProp } from 'styled-components';
 
 import type { HTMLAttributes } from 'react';
 
-import { StyledText } from '@common/Text/Text.style';
 import type { SpacingProps } from '@common/systems';
+
+import { StyledText } from './Text.style';
 
 const variantList = [
   'h1',

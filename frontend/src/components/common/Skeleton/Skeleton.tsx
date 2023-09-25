@@ -1,7 +1,8 @@
 import type { CSSProp } from 'styled-components';
 
-import { StyledSkeleton } from '@common/Skeleton/Skeleton.style';
 import type { SpacingProps } from '@common/systems';
+
+import { StyledSkeleton } from './Skeleton.style';
 
 export interface SkeletonProps extends SpacingProps {
   width?: string;

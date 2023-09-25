@@ -1,8 +1,8 @@
 import type { CSSProp } from 'styled-components';
 
-import { StyledLoader } from '@common/Loader/Loader.style';
-
 import type { Size } from '@type';
+
+import { StyledLoader } from './Loader.style';
 
 export interface LoaderProps {
   size?: Size | string;

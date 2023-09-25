@@ -2,12 +2,7 @@ import type { CSSProp } from 'styled-components';
 
 import type { ChangeEvent, HTMLAttributes } from 'react';
 
-import {
-  StyledGroup,
-  StyledHelperText,
-  StyledInput,
-  StyledLabel,
-} from '@common/TextField/TextField.style';
+import { StyledGroup, StyledHelperText, StyledInput, StyledLabel } from './TextField.style';
 
 export interface TextFieldProps extends HTMLAttributes<HTMLElement> {
   // textFieldId: string;
