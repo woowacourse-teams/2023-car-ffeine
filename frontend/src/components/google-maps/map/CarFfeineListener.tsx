@@ -1,3 +1,5 @@
+import ZoomWarningModal from 'components/ui/WarningModal';
+
 import { useEffect } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
@@ -11,8 +13,6 @@ import { setLocalStorage } from '@utils/storage';
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { warningModalActions } from '@stores/layout/warningModalStore';
 import { profileMenuOpenStore } from '@stores/profileMenuOpenStore';
-
-import ZoomWarningModal from '@common/WarningModal';
 
 import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
 import { QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';

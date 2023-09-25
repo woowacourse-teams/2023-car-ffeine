@@ -1,10 +1,10 @@
 import type { CSSProp } from 'styled-components';
-import styled from 'styled-components';
 
 import type { HTMLAttributes, ReactNode } from 'react';
 
 import type { SpacingProps } from '@common/systems';
-import { spacing } from '@common/systems';
+
+import { StyledListItem } from './ListItem.style';
 
 export interface ListItemProps extends HTMLAttributes<HTMLLIElement>, SpacingProps {
   children: ReactNode;
@@ -18,24 +18,10 @@ const ListItem = ({ children, tag, ...props }: ListItemProps) => {
   const changeableTag = tag || 'li';
 
   return (
-    <ListItemWrapper as={changeableTag} {...props}>
+    <StyledListItem as={changeableTag} {...props}>
       {children}
-    </ListItemWrapper>
+    </StyledListItem>
   );
 };
-
-const ListItemWrapper = styled.li<ListItemProps>`
-  padding: 1rem 2rem;
-
-  ${spacing}
-
-  ${({ divider }) => divider && `border-bottom: 0.0625rem solid #ccc;`}
-
-  &:last-child {
-    border-bottom: ${({ NoLastDivider }) => NoLastDivider && 0};
-  }
-
-  ${({ css }) => css};
-`;
 
 export default ListItem;

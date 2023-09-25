@@ -1,8 +1,10 @@
 import type { Meta } from '@storybook/react';
 import styled from 'styled-components';
 
-import Button, { BUTTON_PADDING_SIZE } from './Button';
+import { BUTTON_PADDING_SIZE } from '@common/Button/Button.style';
+
 import type { ButtonProps } from './Button';
+import Button from './Button';
 
 const meta = {
   title: 'Components/Button',

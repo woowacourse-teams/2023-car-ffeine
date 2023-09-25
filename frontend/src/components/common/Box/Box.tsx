@@ -1,10 +1,10 @@
 import type { CSSProp } from 'styled-components';
-import styled from 'styled-components';
 
 import { type HTMLAttributes, type ReactNode } from 'react';
 
 import type { SpacingProps } from '@common/systems';
-import { spacing } from '@common/systems';
+
+import { StyledBox } from './Box.style';
 
 export interface BoxProps extends HTMLAttributes<HTMLDivElement>, SpacingProps {
   children?: ReactNode;
@@ -25,33 +25,8 @@ export interface BoxProps extends HTMLAttributes<HTMLDivElement>, SpacingProps {
   css?: CSSProp;
 }
 
-const BoxWrapper = styled.div<BoxProps>`
-  ${spacing}
-
-  ${({ border }) => border && `border: 0.1px solid #66666666; border-radius:0.4rem;`}
-
-  height: ${({ height }) => (typeof height === 'string' ? height : `${height * 0.4}rem`)};
-  min-height: ${({ minHeight }) => (typeof minHeight === 'string' ? minHeight : `${minHeight}rem`)};
-  max-height: ${({ maxHeight }) => (typeof maxHeight === 'string' ? maxHeight : `${maxHeight}rem`)};
-
-  width: ${({ width }) => (typeof width === 'string' ? width : `${width * 0.4}rem`)};
-  min-width: ${({ minWidth }) => (typeof minWidth === 'string' ? minWidth : `${minWidth}rem`)};
-  max-width: ${({ maxWidth }) => (typeof maxWidth === 'string' ? maxWidth : `${maxWidth}rem`)};
-
-  ${({ bgColor }) => bgColor && `background: ${bgColor}`};
-  ${({ color }) => color && `color: ${color}`};
-
-  ${({ position }) => position && `position: ${position}`};
-  ${({ top }) => top && `top: ${top * 0.4}rem`};
-  ${({ right }) => right && `right: ${right * 0.4}rem`};
-  ${({ bottom }) => bottom && `bottom: ${bottom * 0.4}rem`};
-  ${({ left }) => left && `left: ${left * 0.4}rem`};
-
-  ${({ css }) => css};
-`;
-
 const Box = ({ children, ...props }: BoxProps) => {
-  return <BoxWrapper {...props}>{children}</BoxWrapper>;
+  return <StyledBox {...props}>{children}</StyledBox>;
 };
 
 export default Box;

@@ -1,13 +1,15 @@
 import type { Meta } from '@storybook/react';
 import { styled } from 'styled-components';
 
+import { getToastColor } from '@common/Toast/Toast.style';
+
 import { toastActions, toastListStore } from '../../../stores/layout/toastStore';
 import type { Color } from '../../../types';
 import { useExternalValue } from '../../../utils/external-state';
 import ButtonNext from '../ButtonNext';
 import Text from '../Text';
 import type { ToastProps } from './Toast';
-import Toast, { getToastColor } from './Toast';
+import Toast from './Toast';
 
 const meta = {
   title: 'Components/Toast',
