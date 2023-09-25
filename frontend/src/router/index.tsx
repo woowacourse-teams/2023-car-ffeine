@@ -1,7 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 
+import GoogleLogin from '@components/login-page/GoogleLogin';
+
 import App from '../App';
-import GoogleLogin from '../components/login/GoogleLogin';
 
 export const router = createBrowserRouter([
   {
