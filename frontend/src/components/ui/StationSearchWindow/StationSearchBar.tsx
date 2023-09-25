@@ -24,8 +24,8 @@ import useMediaQueries from '@hooks/useMediaQueries';
 import Button from '@common/Button';
 import Loader from '@common/Loader';
 
+import { useNavigationBar } from '@ui/Navigator/NavigationBar/hooks/useNavigationBar';
 import StationDetailsWindow from '@ui/StationDetailsWindow';
-import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
 import { pillStyle } from '@style';
 

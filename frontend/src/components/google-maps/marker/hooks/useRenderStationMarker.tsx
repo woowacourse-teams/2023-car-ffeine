@@ -9,8 +9,8 @@ import { useStationSummary } from '@hooks/google-maps/useStationSummary';
 import useMediaQueries from '@hooks/useMediaQueries';
 
 import CarFfeineMarker from '@ui/CarFfeineMarker/index';
+import { useNavigationBar } from '@ui/Navigator/NavigationBar/hooks/useNavigationBar';
 import StationDetailsWindow from '@ui/StationDetailsWindow';
-import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
 import type { StationMarker, StationSummary } from '@type';
 

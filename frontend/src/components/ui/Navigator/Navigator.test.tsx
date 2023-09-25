@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
+import NavigationBar from 'components/ui/Navigator/NavigationBar';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -7,7 +8,6 @@ import { memberTokenStore } from '@stores/login/memberTokenStore';
 import { useCars } from '@hooks/tanstack-query/car/useCars';
 
 import ModalContainer from '@ui/ModalContainer';
-import NavigationBar from '@ui/compound/NavigationBar';
 
 import { EMPTY_MEMBER_TOKEN } from '@constants';
 

@@ -1,6 +1,7 @@
-import type { GraphProps } from '@ui/compound/Graph';
-import Graph from '@ui/compound/Graph';
-import type { DayMenusProps } from '@ui/compound/Graph/DayMenus';
+import type { GraphProps } from 'components/ui/StatisticsGraph/Graph';
+import Graph from 'components/ui/StatisticsGraph/Graph';
+
+import type { DayMenusProps } from '@ui/StatisticsGraph/Graph/DayMenus';
 
 import type { Congestion, EnglishDaysOfWeek } from '@type';
 

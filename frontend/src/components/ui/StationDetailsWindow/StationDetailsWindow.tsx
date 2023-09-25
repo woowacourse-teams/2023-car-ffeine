@@ -6,8 +6,8 @@ import { useStationDetails } from '@hooks/tanstack-query/station-details/useStat
 
 import Box from '@common/Box';
 
+import { useNavigationBar } from '@ui/Navigator/NavigationBar/hooks/useNavigationBar';
 import StationDetailsViewSkeleton from '@ui/StationDetailsWindow/StationDetailsViewSkeleton';
-import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
 import { MOBILE_BREAKPOINT, NAVIGATOR_PANEL_WIDTH } from '@constants';
 

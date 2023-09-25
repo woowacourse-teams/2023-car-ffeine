@@ -13,8 +13,8 @@ import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
+import { useNavigationBar } from '@ui/Navigator/NavigationBar/hooks/useNavigationBar';
 import ServerStationFiltersSkeleton from '@ui/ServerStationFilters/ServerStationFiltersSkeleton';
-import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
 import { getHoverColor } from '@style';
 
@@ -22,7 +22,7 @@ import { EMPTY_MEMBER_TOKEN, MOBILE_BREAKPOINT, NAVIGATOR_PANEL_WIDTH } from '@c
 
 import type { Capacity } from '@type';
 
-import { CONNECTOR_TYPES, COMPANIES } from '../../../constants/chargers';
+import { COMPANIES, CONNECTOR_TYPES } from '../../../constants/chargers';
 import FilterSection from './FilterOption';
 import { useStationFilters } from './hooks/useStationFilters';
 

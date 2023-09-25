@@ -1,13 +1,12 @@
 import { ArrowRightOnRectangleIcon, PencilSquareIcon } from '@heroicons/react/24/outline';
-import { UserCircleIcon } from '@heroicons/react/24/solid';
 import type { Meta } from '@storybook/react';
 import { styled } from 'styled-components';
 
-import PopupMenu from '.';
 import Menus from './Menus';
+import ProfileMenu from './ProfileMenu';
 
 const meta = {
-  title: 'UI/HoverMenus',
+  title: 'UI/ProfileMenu',
   component: Menus,
   tags: ['autodocs'],
 } satisfies Meta<typeof Menus>;
@@ -16,7 +15,7 @@ export default meta;
 
 export const Default = () => {
   return (
-    <PopupMenu
+    <ProfileMenu
       menus={[
         {
           children: (
@@ -41,7 +40,7 @@ export const Default = () => {
 
 export const BigTrigger = () => {
   return (
-    <PopupMenu
+    <ProfileMenu
       menus={[
         {
           children: (
@@ -63,10 +62,3 @@ export const BigTrigger = () => {
     />
   );
 };
-
-const Trigger = styled.div`
-  width: 30rem;
-  height: 15rem;
-
-  background-color: blue;
-`;

@@ -12,11 +12,11 @@ import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
+import PersonalMenu from '@ui/Navigator/NavigationBar/PersonalMenu';
 import ServerStationFilters from '@ui/ServerStationFilters';
-import StationListWindow from '@ui/StationList/StationListWindow';
+import StationListWindow from '@ui/StationListWindow/StationListWindow';
 import StationSearchWindow from '@ui/StationSearchWindow';
 import LogoIcon from '@ui/Svg/LogoIcon';
-import PersonalMenu from '@ui/compound/NavigationBar/PersonalMenu';
 import LoginModal from '@ui/modal/LoginModal/LoginModal';
 
 import { displayNoneInMobile, displayNoneInWeb } from '@style/mediaQuery';

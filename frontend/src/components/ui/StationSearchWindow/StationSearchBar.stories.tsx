@@ -15,8 +15,8 @@ import { useDebounce } from '@hooks/useDebounce';
 
 import Loader from '@common/Loader';
 
+import { useNavigationBar } from '@ui/Navigator/NavigationBar/hooks/useNavigationBar';
 import StationDetailsWindow from '@ui/StationDetailsWindow';
-import { useNavigationBar } from '@ui/compound/NavigationBar/hooks/useNavigationBar';
 
 import { MOBILE_BREAKPOINT } from '@constants';
 import { QUERY_KEY_SEARCHED_STATION, QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';

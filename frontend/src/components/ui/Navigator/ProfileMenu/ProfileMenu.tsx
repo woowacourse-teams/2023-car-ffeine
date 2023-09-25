@@ -5,7 +5,7 @@ import type { PropsWithChildren } from 'react';
 
 import { useExternalState } from '@utils/external-state';
 
-import { popupMenuOpenStore } from '@stores/popupMenuOpenStore';
+import { profileMenuOpenStore } from '@stores/profileMenuOpenStore';
 
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
@@ -19,21 +19,21 @@ interface Props {
   menus: PropsWithChildren<{ onClick: () => void }>[];
 }
 
-const PopupMenu = ({ menus }: Props) => {
-  const [isOpen, setIsOpen] = useExternalState(popupMenuOpenStore);
+const ProfileMenu = ({ menus }: Props) => {
+  const [isOpen, setIsOpen] = useExternalState(profileMenuOpenStore);
 
-  const closePopupMenu = () => {
+  const closeProfileMenu = () => {
     setIsOpen(false);
   };
 
-  const toggleOpenPopupMenu = () => {
+  const toggleOpenProfileMenu = () => {
     setIsOpen((prev) => !prev);
   };
 
   return (
     <FlexBox css={container} onClick={(event) => event.stopPropagation()}>
-      {isOpen && <Menus menus={menus} closeMenu={closePopupMenu} />}
-      <Button onClick={toggleOpenPopupMenu} aria-label="내 정보 메뉴 열기">
+      {isOpen && <Menus menus={menus} closeMenu={closeProfileMenu} />}
+      <Button onClick={toggleOpenProfileMenu} aria-label="내 정보 메뉴 열기">
         <UserCircleIcon width="2.8rem" stroke="#555" />
         <Text mt={0.5} variant="caption">
           내정보
@@ -59,4 +59,4 @@ const container = css`
   }
 `;
 
-export default PopupMenu;
+export default ProfileMenu;

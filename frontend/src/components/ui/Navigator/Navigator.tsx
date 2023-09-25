@@ -1,8 +1,8 @@
+import NavigationBar from 'components/ui/Navigator/NavigationBar';
+
 import { useExternalValue } from '@utils/external-state';
 
 import { navigationBarPanelStore } from '@stores/layout/navigationBarPanelStore';
-
-import NavigationBar from '@ui/compound/NavigationBar';
 
 const Navigator = () => {
   const { basePanel, lastPanel } = useExternalValue(navigationBarPanelStore);
