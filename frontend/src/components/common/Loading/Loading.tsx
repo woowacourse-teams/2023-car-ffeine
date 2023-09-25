@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 
 import LoadingSvg from '@assets/loading.svg';
 
-function Loading() {
+const Loading = () => {
   return (
     <>
       <Message>
@@ -13,7 +13,7 @@ function Loading() {
       </LoadingSvgContainer>
     </>
   );
-}
+};
 
 const Message = styled.h2`
   width: fit-content;
