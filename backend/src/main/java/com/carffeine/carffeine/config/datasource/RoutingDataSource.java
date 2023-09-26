@@ -20,8 +20,8 @@ public class RoutingDataSource extends AbstractRoutingDataSource {
     @Override
     protected Object determineCurrentLookupKey() {
         DataSourceType dataSourceType = UserHolder.getDataSourceType();
-        log.info("dataSourceType = " + dataSourceType);
         if (dataSourceType != null) {
+            log.info("dataSourceType = " + dataSourceType);
             return dataSourceType;
         }
         boolean readOnly = TransactionSynchronizationManager.isCurrentTransactionReadOnly();

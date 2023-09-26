@@ -10,11 +10,11 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class RepositoryDataSourceAspect {
 
-    @Pointcut("execution(public * com.carffeine.carffeine.*Repository..*.*(..))")
-    private void repository() {
+    @Pointcut("execution(public * com.carffeine.carffeine.*QueryRepository..*.*(..))")
+    private void queryRepository() {
     }
 
-    @Around("repository() && @within(dataSource)")
+    @Around("queryRepository() && @annotation(dataSource)")
     public Object handler(ProceedingJoinPoint joinPoint, DataSource dataSource) throws Throwable {
         UserHolder.setDataSourceType(dataSource.value());
         Object returnType = joinPoint.proceed();
