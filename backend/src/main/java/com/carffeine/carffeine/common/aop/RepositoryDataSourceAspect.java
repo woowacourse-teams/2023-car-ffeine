@@ -14,7 +14,7 @@ public class RepositoryDataSourceAspect {
     private void queryRepository() {
     }
 
-    @Around("queryRepository() && @annotation(dataSource)")
+    @Around("queryRepository() && @within(dataSource)")
     public Object handler(ProceedingJoinPoint joinPoint, DataSource dataSource) throws Throwable {
         UserHolder.setDataSourceType(dataSource.value());
         Object returnType = joinPoint.proceed();

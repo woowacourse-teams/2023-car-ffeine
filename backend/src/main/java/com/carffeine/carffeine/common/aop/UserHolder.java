@@ -12,10 +12,7 @@ public class UserHolder {
 
     public static DataSourceType getDataSourceType() {
         DataSourceType dataSourceType = getUserContext().getDataSourceType();
-        if (dataSourceType != null) {
-            return dataSourceType;
-        }
-        return DataSourceType.SOURCE;
+        return dataSourceType;
     }
 
     public static void setDataSourceType(DataSourceType target) {
