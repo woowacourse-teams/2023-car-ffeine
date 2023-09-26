@@ -61,7 +61,9 @@ const ClientStationFilters = () => {
           </ClientFilterButton>
         ))}
         {process.env.NODE_ENV === 'development' && (
-          <ClientFilterButton $isChecked={false}>Zoom: {zoom}</ClientFilterButton>
+          <ClientFilterButton $isChecked={false}>
+            Zoom: {zoom.level} ({zoom.state})
+          </ClientFilterButton>
         )}
       </FlexBox>
     </Container>
