@@ -12,16 +12,18 @@ export const markerModeStore = store<MarkerModeState>({
   state: ZOOM_STATE.town,
 });
 
+const getZoomState = (newZoom: number) => {
+  if (newZoom < ZOOM_BREAK_POINTS.city) {
+    return ZOOM_STATE.country;
+  }
+  if (newZoom < ZOOM_BREAK_POINTS.town) {
+    return ZOOM_STATE.city;
+  }
+  return ZOOM_STATE.town;
+};
+
 export const markerModeActions = {
   setZoom: (newZoom: number) => {
-    if (newZoom < ZOOM_BREAK_POINTS.country) {
-      markerModeStore.setState({ zoom: newZoom, state: ZOOM_STATE.country });
-      return;
-    }
-    if (newZoom < ZOOM_BREAK_POINTS.city) {
-      markerModeStore.setState({ zoom: newZoom, state: ZOOM_STATE.city });
-      return;
-    }
-    markerModeStore.setState({ zoom: newZoom, state: ZOOM_STATE.town });
+    markerModeStore.setState({ zoom: newZoom, state: getZoomState(newZoom) });
   },
 };

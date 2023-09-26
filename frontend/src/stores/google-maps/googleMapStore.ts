@@ -1,7 +1,12 @@
 import { store } from '@utils/external-state';
 import { getLocalStorage } from '@utils/storage';
 
-import { DEFAULT_CENTER, INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
+import {
+  DEFAULT_CENTER,
+  INITIAL_ZOOM_SIZE,
+  MAX_ZOOM_SIZE,
+  MIN_ZOOM_SIZE,
+} from '@constants/googleMaps';
 import { LOCAL_KEY_LAST_POSITION } from '@constants/storageKeys';
 
 export const getGoogleMapStore = (() => {
@@ -27,8 +32,8 @@ export const getGoogleMapStore = (() => {
         disableDefaultUI: true,
         clickableIcons: false,
         mapId: '92cb7201b7d43b21',
-        minZoom: 8,
-        maxZoom: 20,
+        minZoom: MIN_ZOOM_SIZE,
+        maxZoom: MAX_ZOOM_SIZE,
         gestureHandling: 'greedy',
         restriction: {
           latLngBounds: {
