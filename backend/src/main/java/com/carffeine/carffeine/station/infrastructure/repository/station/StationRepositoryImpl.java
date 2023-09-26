@@ -3,6 +3,7 @@ package com.carffeine.carffeine.station.infrastructure.repository.station;
 import com.carffeine.carffeine.station.domain.station.CustomStationRepository;
 import com.carffeine.carffeine.station.domain.station.Station;
 import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,7 @@ import java.util.List;
 public class StationRepositoryImpl implements CustomStationRepository {
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     @Override
     public void saveAll(Collection<Station> stations) {
