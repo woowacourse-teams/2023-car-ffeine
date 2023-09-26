@@ -11,7 +11,7 @@ import { isCachedRegion } from '@utils/google-maps/isCachedRegion';
 import { setLocalStorage } from '@utils/storage';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
-import { zoomActions } from '@stores/google-maps/zoomStore';
+import { markerModeActions } from '@stores/google-maps/markerModeStore';
 import { warningModalActions } from '@stores/layout/warningModalStore';
 import { profileMenuOpenStore } from '@stores/profileMenuOpenStore';
 
@@ -46,7 +46,7 @@ const CarFfeineMapListener = () => {
   useEffect(() => {
     googleMap.addListener('idle', () => {
       debouncedIdleHandler();
-      zoomActions.setZoom(googleMap.getZoom());
+      markerModeActions.setZoom(googleMap.getZoom());
     });
 
     const initMarkersEvent = googleMap.addListener('bounds_changed', async () => {

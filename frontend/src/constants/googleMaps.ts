@@ -13,6 +13,6 @@ export const ZOOM_STATE = {
   country: 'country',
   city: 'city',
   town: 'town',
-};
+} as const;
 
 export const DELTA_FACTOR = 2;
