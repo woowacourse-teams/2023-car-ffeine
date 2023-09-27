@@ -24,7 +24,7 @@ export const getZoomState = (newZoom: number): ZoomState => {
   return 'high';
 };
 
-export const markerModeActions = {
+export const zoomActions = {
   setZoom: (newZoom: number) => {
     zoomStore.setState({ level: newZoom, state: getZoomState(newZoom) });
   },
