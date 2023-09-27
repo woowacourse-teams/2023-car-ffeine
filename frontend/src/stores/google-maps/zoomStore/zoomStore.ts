@@ -1,8 +1,8 @@
 import { store } from '@utils/external-state';
 
-import { ZOOM_BREAKPOINTS } from '@constants/googleMaps';
+import type { ZoomState } from '@stores/google-maps/zoomStore/types';
 
-export type ZoomState = keyof typeof ZOOM_BREAKPOINTS;
+import { ZOOM_BREAKPOINTS } from '@constants/googleMaps';
 
 export interface ZoomStoreState {
   level: number;
@@ -10,18 +10,18 @@ export interface ZoomStoreState {
 }
 
 export const zoomStore = store<ZoomStoreState>({
-  level: ZOOM_BREAKPOINTS.town,
-  state: 'town',
+  level: ZOOM_BREAKPOINTS.high,
+  state: 'high',
 });
 
 export const getZoomState = (newZoom: number): ZoomState => {
-  if (newZoom < ZOOM_BREAKPOINTS.city) {
-    return 'country';
+  if (newZoom < ZOOM_BREAKPOINTS.middle) {
+    return 'low';
   }
-  if (newZoom < ZOOM_BREAKPOINTS.town) {
-    return 'city';
+  if (newZoom < ZOOM_BREAKPOINTS.high) {
+    return 'middle';
   }
-  return 'town';
+  return 'high';
 };
 
 export const markerModeActions = {

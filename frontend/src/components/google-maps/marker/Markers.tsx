@@ -17,10 +17,10 @@ const Markers = () => {
 
   return (
     <>
-      {markerMode.state === 'town' && <MemoizedStationMarkersContainer />}
+      {markerMode.state === 'high' && <MemoizedStationMarkersContainer />}
       {/* 이 아래는 앞으로 추가될 기능을 미리 대응하는 컴포넌트 */}
-      {markerMode.state === 'city' && <MemoizedServerClusteredMarkersContainer />}
-      {markerMode.state === 'country' && <MemoizedCityClusteredMarkersContainer />}
+      {markerMode.state === 'middle' && <MemoizedServerClusteredMarkersContainer />}
+      {markerMode.state === 'low' && <MemoizedCityClusteredMarkersContainer />}
     </>
   );
 };
