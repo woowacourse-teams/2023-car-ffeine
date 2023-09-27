@@ -2,7 +2,7 @@ import { store } from '@utils/external-state';
 
 import type { ZoomState } from '@stores/google-maps/zoomStore/types';
 
-import { ZOOM_BREAKPOINTS } from '@constants/googleMaps';
+import { ZOOM_BREAKPOINTS } from '../../../constants/googleMaps';
 
 export interface ZoomStoreState {
   level: number;
