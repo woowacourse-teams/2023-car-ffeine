@@ -19,4 +19,4 @@ export const ZOOM_STATE = {
   town: 'town',
 } as const;
 
-export const DELTA_FACTOR = 2;
+export const DELTA_MULTIPLE = 2;
