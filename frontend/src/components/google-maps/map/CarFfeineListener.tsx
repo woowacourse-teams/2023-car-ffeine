@@ -15,7 +15,7 @@ import { zoomActions } from '@stores/google-maps/zoomStore';
 import { warningModalActions } from '@stores/layout/warningModalStore';
 import { profileMenuOpenStore } from '@stores/profileMenuOpenStore';
 
-import { INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
+import { INITIAL_ZOOM_LEVEL } from '@constants/googleMaps';
 import { QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
 import { LOCAL_KEY_LAST_POSITION } from '@constants/storageKeys';
 
@@ -25,7 +25,7 @@ const CarFfeineMapListener = () => {
   const setIsProfileMenuOpen = useSetExternalState(profileMenuOpenStore);
 
   const debouncedIdleHandler = debounce(() => {
-    if (googleMap.getZoom() < INITIAL_ZOOM_SIZE) {
+    if (googleMap.getZoom() < INITIAL_ZOOM_LEVEL) {
       warningModalActions.openModal(<ZoomWarningModal />);
     } else {
       warningModalActions.closeModal();

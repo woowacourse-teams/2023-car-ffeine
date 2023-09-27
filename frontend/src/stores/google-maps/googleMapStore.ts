@@ -3,9 +3,9 @@ import { getLocalStorage } from '@utils/storage';
 
 import {
   DEFAULT_CENTER,
-  INITIAL_ZOOM_SIZE,
-  MAX_ZOOM_SIZE,
-  MIN_ZOOM_SIZE,
+  INITIAL_ZOOM_LEVEL,
+  MAX_ZOOM_LEVEL,
+  MIN_ZOOM_LEVEL,
 } from '@constants/googleMaps';
 import { LOCAL_KEY_LAST_POSITION } from '@constants/storageKeys';
 
@@ -28,12 +28,12 @@ export const getGoogleMapStore = (() => {
 
       googleMap = new window.google.maps.Map(container, {
         center: initialCenter,
-        zoom: INITIAL_ZOOM_SIZE,
+        zoom: INITIAL_ZOOM_LEVEL,
         disableDefaultUI: true,
         clickableIcons: false,
         mapId: '92cb7201b7d43b21',
-        minZoom: MIN_ZOOM_SIZE,
-        maxZoom: MAX_ZOOM_SIZE,
+        minZoom: MIN_ZOOM_LEVEL,
+        maxZoom: MAX_ZOOM_LEVEL,
         gestureHandling: 'greedy',
         restriction: {
           latLngBounds: {
@@ -68,7 +68,7 @@ export const googleMapActions = {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         googleMap.panTo({ lat: position.coords.latitude, lng: position.coords.longitude });
-        googleMap.setZoom(INITIAL_ZOOM_SIZE);
+        googleMap.setZoom(INITIAL_ZOOM_LEVEL);
       },
       () => {
         alert('위치 권한을 허용해주세요.');
@@ -82,6 +82,6 @@ export const googleMapActions = {
     const googleMap = getGoogleMapStore().getState();
 
     googleMap.panTo(latLng);
-    googleMap.setZoom(INITIAL_ZOOM_SIZE);
+    googleMap.setZoom(INITIAL_ZOOM_LEVEL);
   },
 };

@@ -12,7 +12,7 @@ const MemoizedStationMarkersContainer = memo(StationMarkersContainer);
 const MemoizedServerClusteredMarkersContainer = memo(ServerClusteredMarkersContainer);
 const MemoizedCityClusteredMarkersContainer = memo(CityClusteredMarkersContainer);
 
-const Markers = () => {
+const MarkersContainers = () => {
   const markerMode = useExternalValue(zoomStore);
 
   return (
@@ -24,4 +24,4 @@ const Markers = () => {
     </>
   );
 };
-export default Markers;
+export default MarkersContainers;
