@@ -3,6 +3,7 @@ import { css, styled } from 'styled-components';
 import { useExternalState, useExternalValue } from '@utils/external-state';
 import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 
+import { zoomStore } from '@stores/google-maps/zoomStore';
 import { navigationBarPanelStore } from '@stores/layout/navigationBarPanelStore';
 import { toastActions } from '@stores/layout/toastStore';
 import type { ClientStationFilter } from '@stores/station-filters/clientStationFiltersStore';
@@ -22,6 +23,7 @@ const ClientStationFilters = () => {
   const screen = useMediaQueries();
   const [filterOptions, setFilterOptions] = useExternalState(clientStationFiltersStore);
   const { basePanel, lastPanel } = useExternalValue(navigationBarPanelStore);
+  const zoom = useExternalValue(zoomStore);
 
   const navigationComponentWidth =
     (basePanel === null ? 0 : NAVIGATOR_PANEL_WIDTH) +
@@ -58,6 +60,12 @@ const ClientStationFilters = () => {
             {filterOptions[filterKey].label}
           </ClientFilterButton>
         ))}
+        {/*TODO: 추후 삭제될 로직입니다*/}
+        {process.env.NODE_ENV === 'development' && (
+          <ClientFilterButton $isChecked={false}>
+            Zoom: {zoom.level} ({zoom.state})
+          </ClientFilterButton>
+        )}
       </FlexBox>
     </Container>
   );
