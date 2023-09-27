@@ -18,7 +18,7 @@ import {
 
 import { DELIMITER } from '@constants';
 import { COMPANIES } from '@constants/chargers';
-import { DELTA_FACTOR, INITIAL_ZOOM_SIZE } from '@constants/googleMaps';
+import { DELTA_MULTIPLE, INITIAL_ZOOM_LEVEL } from '@constants/googleMaps';
 import { QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
 import { SERVER_URL } from '@constants/server';
 import { SESSION_KEY_LAST_REQUEST_POSITION } from '@constants/storageKeys';
@@ -42,11 +42,11 @@ export const fetchStationMarkers = async () => {
 
   const requestPositionParams: DisplayPosition = {
     ...displayPosition,
-    latitudeDelta: displayPosition.latitudeDelta * DELTA_FACTOR,
-    longitudeDelta: displayPosition.longitudeDelta * DELTA_FACTOR,
+    latitudeDelta: displayPosition.latitudeDelta * DELTA_MULTIPLE,
+    longitudeDelta: displayPosition.longitudeDelta * DELTA_MULTIPLE,
   };
 
-  if (requestPositionParams.zoom < INITIAL_ZOOM_SIZE) {
+  if (requestPositionParams.zoom < INITIAL_ZOOM_LEVEL) {
     setSessionStorage<DisplayPosition>(SESSION_KEY_LAST_REQUEST_POSITION, null);
 
     return new Promise<StationMarker[]>((resolve) => resolve([]));

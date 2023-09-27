@@ -2,7 +2,7 @@ import { getDisplayPosition } from '@utils/google-maps';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 
-import { DELTA_FACTOR } from '@constants/googleMaps';
+import { DELTA_MULTIPLE } from '@constants/googleMaps';
 
 import type { StationSummary } from '@type';
 
@@ -19,13 +19,13 @@ export const cachedStationSummariesActions = {
     const { latitude, latitudeDelta, longitude, longitudeDelta } = getDisplayPosition(googleMap);
 
     const northEastBoundary = {
-      latitude: latitude + latitudeDelta * DELTA_FACTOR,
-      longitude: longitude + longitudeDelta * DELTA_FACTOR,
+      latitude: latitude + latitudeDelta * DELTA_MULTIPLE,
+      longitude: longitude + longitudeDelta * DELTA_MULTIPLE,
     };
 
     const southWestBoundary = {
-      latitude: latitude - latitudeDelta * DELTA_FACTOR,
-      longitude: longitude - longitudeDelta * DELTA_FACTOR,
+      latitude: latitude - latitudeDelta * DELTA_MULTIPLE,
+      longitude: longitude - longitudeDelta * DELTA_MULTIPLE,
     };
 
     const isStationLatitudeWithinBounds = (station: StationSummary) => {
