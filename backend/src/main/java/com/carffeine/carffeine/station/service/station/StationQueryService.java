@@ -5,6 +5,8 @@ import com.carffeine.carffeine.station.domain.station.Coordinate;
 import com.carffeine.carffeine.station.exception.StationException;
 import com.carffeine.carffeine.station.exception.StationExceptionType;
 import com.carffeine.carffeine.station.infrastructure.repository.station.StationQueryRepository;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.Region;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.RegionMarker;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationInfo;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSearchResult;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -84,5 +87,17 @@ public class StationQueryService {
         }
         builder.stationId(station.stationId());
         return builder.build();
+    }
+
+    public List<RegionMarker> findMarkersByRegions(List<String> regions) {
+        if (regions.contains("all")) {
+            List<Region> list = Arrays.stream(Region.values())
+                    .toList();
+            return stationQueryRepository.findCountByRegions(list);
+        }
+        List<Region> list = regions.stream()
+                .map(it -> Region.valueOf(it.toUpperCase()))
+                .toList();
+        return stationQueryRepository.findCountByRegions(list);
     }
 }
