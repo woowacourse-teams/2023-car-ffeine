@@ -1,6 +1,6 @@
 import { store } from '@utils/external-state';
 
-import { ZOOM_BREAKPOINTS } from '../../constants/googleMaps';
+import { ZOOM_BREAKPOINTS } from '@constants/googleMaps';
 
 export type ZoomState = keyof typeof ZOOM_BREAKPOINTS;
 
