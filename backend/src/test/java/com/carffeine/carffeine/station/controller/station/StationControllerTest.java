@@ -293,7 +293,7 @@ class StationControllerTest extends MockBeanInjection {
     void 지역별로_충전소의_개수를_반환한다() throws Exception {
         // when
         when(stationQueryService.findMarkersByRegions(List.of("seoul")))
-                .thenReturn(List.of(new RegionMarker("서울시", BigDecimal.valueOf(37.540705), BigDecimal.valueOf(126.956764), 1)));
+                .thenReturn(List.of(new RegionMarker("서울", BigDecimal.valueOf(37.540705), BigDecimal.valueOf(126.956764), 1)));
         // then
         mockMvc.perform(RestDocumentationRequestBuilders.get("/stations/regions").queryParam("regions", "seoul"))
                 .andExpect(status().isOk())
