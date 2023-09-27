@@ -53,8 +53,6 @@ class CongestionServiceTest extends IntegrationTest {
 
         // when
         StatisticsResponse monday = congestionService.showCongestionStatistics(savedStation.getStationId(), "monday");
-        System.out.println(monday.toString());
-
 
         // then
         assertSoftly(softly -> {
