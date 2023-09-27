@@ -6,6 +6,8 @@ import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.domain.station.StationRepository;
 import com.carffeine.carffeine.station.fixture.station.StationFixture;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.ChargerSpecificResponse;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.Region;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.RegionMarker;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSummaryResponse;
@@ -198,5 +200,34 @@ class StationQueryRepositoryTest {
                         station.getLongitude().getValue(),
                         station.getChargers().stream().filter(it -> it.getCapacity().compareTo(BigDecimal.valueOf(50.0)) >= 0).count()
                 )));
+    }
+
+    @Test
+    void 충전소의_지역별_개수를_반환가다() {
+        // given
+        Station station = StationFixture.선릉역_충전소_충전기_2개_사용가능_1개_완속;
+        Station station1 = StationFixture.천호역_충전소_충전기_2개_사용가능_0개;
+        Station station2 = StationFixture.부산역_충전소_충전기_1개_사용가능_1개;
+        stationRepository.save(station);
+        stationRepository.save(station1);
+        stationRepository.save(station2);
+
+        // when
+        List<RegionMarker> result = stationQueryRepository.findCountByRegions(List.of(Region.SEOUL, Region.BUSAN));
+
+        // then
+        assertThat(result).usingRecursiveComparison()
+                .isEqualTo(List.of(new RegionMarker(
+                                Region.SEOUL.value(),
+                                Region.SEOUL.latitude(),
+                                Region.SEOUL.longitude(),
+                                2
+                        ),
+                        new RegionMarker(
+                                Region.BUSAN.value(),
+                                Region.BUSAN.latitude(),
+                                Region.BUSAN.longitude(),
+                                1
+                        )));
     }
 }

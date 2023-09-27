@@ -3,12 +3,15 @@ package com.carffeine.carffeine.station.infrastructure.repository.station;
 import com.carffeine.carffeine.station.domain.charger.ChargerCondition;
 import com.carffeine.carffeine.station.domain.charger.ChargerType;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.ChargerSpecificResponse;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.Region;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.RegionMarker;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationInfo;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSearchResult;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSummaryResponse;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -198,5 +201,24 @@ public class StationQueryRepository {
                         .or(station.address.contains(query)))
                 .fetchOne();
         return new StationSearchResult(totalCount, stations);
+    }
+
+    public List<RegionMarker> findCountByRegions(List<Region> regions) {
+        return regions.stream()
+                .map(this::getFetch)
+                .toList();
+
+    }
+
+    private RegionMarker getFetch(Region region) {
+        return jpaQueryFactory.select(constructor(RegionMarker.class,
+                        Expressions.asString(region.value()),
+                        Expressions.asNumber(region.latitude()),
+                        Expressions.asNumber(region.longitude()),
+                        station.stationId.count()
+                ))
+                .from(station)
+                .where(station.address.startsWith(region.value()))
+                .fetchOne();
     }
 }
