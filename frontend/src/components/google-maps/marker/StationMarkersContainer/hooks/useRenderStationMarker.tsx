@@ -75,6 +75,12 @@ export const useRenderStationMarker = () => {
     });
   };
 
+  const removeAllMarkers = (prevMarkerInstances: StationMarkerInstance[]) => {
+    prevMarkerInstances.forEach((marker) => {
+      marker.markerInstance.map = null;
+    });
+  };
+
   const getRemainedMarkerInstances = (
     prevMarkerInstances: StationMarkerInstance[],
     currentMarkers: StationMarker[]
@@ -119,5 +125,6 @@ export const useRenderStationMarker = () => {
     removeMarkersOutsideBounds,
     getRemainedMarkerInstances,
     renderMarkerInstances,
+    removeAllMarkers,
   };
 };

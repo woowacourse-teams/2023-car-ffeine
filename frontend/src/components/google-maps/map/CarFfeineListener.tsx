@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 
+import { useRenderStationMarker } from '@marker/StationMarkersContainer/hooks/useRenderStationMarker';
+
 import { debounce } from '@utils/debounce';
 import { useExternalValue, useSetExternalState } from '@utils/external-state';
 import { getDisplayPosition } from '@utils/google-maps';
@@ -11,6 +13,7 @@ import { isCachedRegion } from '@utils/google-maps/isCachedRegion';
 import { setLocalStorage } from '@utils/storage';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
+import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
 import { zoomActions } from '@stores/google-maps/zoomStore';
 import { warningModalActions } from '@stores/layout/warningModalStore';
 import { profileMenuOpenStore } from '@stores/profileMenuOpenStore';
@@ -23,9 +26,12 @@ const CarFfeineMapListener = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
   const queryClient = useQueryClient();
   const setIsProfileMenuOpen = useSetExternalState(profileMenuOpenStore);
+  const { removeAllMarkers } = useRenderStationMarker();
 
   const debouncedIdleHandler = debounce(() => {
     if (googleMap.getZoom() < INITIAL_ZOOM_LEVEL) {
+      removeAllMarkers(markerInstanceStore.getState());
+      queryClient.setQueryData([QUERY_KEY_STATION_MARKERS], () => []);
       warningModalActions.openModal(<ZoomWarningModal />);
     } else {
       warningModalActions.closeModal();
