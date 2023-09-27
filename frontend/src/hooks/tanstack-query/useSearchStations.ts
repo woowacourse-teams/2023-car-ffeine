@@ -30,7 +30,7 @@ export const fetchSearchedStations = async (searchWord: string) => {
   return searchedStations;
 };
 
-export const useSearchedStations = (searchWord: string) => {
+export const useSearchStations = (searchWord: string) => {
   return useQuery({
     queryKey: [QUERY_KEY_SEARCHED_STATION, searchWord],
     queryFn: () => fetchSearchedStations(searchWord),

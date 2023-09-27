@@ -12,7 +12,7 @@ import CarFfeineMarker from '@ui/CarFfeineMarker';
 import { useNavigationBar } from '@ui/Navigator/NavigationBar/hooks/useNavigationBar';
 import StationDetailsWindow from '@ui/StationDetailsWindow';
 
-import type { StationMarker, StationSummary } from '@type';
+import type { StationDetails, StationMarker, StationSummary } from '@type';
 
 export const useRenderStationMarker = () => {
   const googleMap = getStoreSnapshot(getGoogleMapStore());
@@ -21,7 +21,7 @@ export const useRenderStationMarker = () => {
   const { openLastPanel } = useNavigationBar();
   const screen = useMediaQueries();
 
-  const createNewMarkerInstance = (marker: StationSummary) => {
+  const createNewMarkerInstance = (marker: StationDetails) => {
     const { latitude: lat, longitude: lng, stationName, stationId } = marker;
 
     const markerInstance = new google.maps.marker.AdvancedMarkerElement({
