@@ -6,6 +6,7 @@ import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.exception.StationException;
 import com.carffeine.carffeine.station.exception.StationExceptionType;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.ChargerSpecificResponse;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.RegionMarker;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSummaryResponse;
@@ -284,6 +285,27 @@ class StationControllerTest extends MockBeanInjection {
                                 fieldWithPath("stations[].latitude").type(JsonFieldType.NUMBER).description("위도"),
                                 fieldWithPath("stations[].longitude").type(JsonFieldType.NUMBER).description("경도"),
                                 fieldWithPath("stations[].quickChargerCount").type(JsonFieldType.NUMBER).description("급속 충전기 개수")
+                        )
+                ));
+    }
+
+    @Test
+    void 지역별로_충전소의_개수를_반환한다() throws Exception {
+        // when
+        when(stationQueryService.findMarkersByRegions(List.of("seoul")))
+                .thenReturn(List.of(new RegionMarker("서울시", BigDecimal.valueOf(37.540705), BigDecimal.valueOf(126.956764), 1)));
+        // then
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/stations/regions").queryParam("regions", "seoul"))
+                .andExpect(status().isOk())
+                .andDo(customDocument("findMarkerByRegion",
+                        requestParameters(
+                                parameterWithName("regions").description("지역명")
+                        ),
+                        responseFields(
+                                fieldWithPath("[].regionName").type(JsonFieldType.STRING).description("지역명"),
+                                fieldWithPath("[].latitude").type(JsonFieldType.NUMBER).description("위도"),
+                                fieldWithPath("[].longitude").type(JsonFieldType.NUMBER).description("경도"),
+                                fieldWithPath("[].count").type(JsonFieldType.NUMBER).description("충전소 개수")
                         )
                 ));
     }

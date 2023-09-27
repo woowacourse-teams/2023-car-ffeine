@@ -3,6 +3,7 @@ package com.carffeine.carffeine.station.controller.station;
 import com.carffeine.carffeine.station.controller.station.dto.StationsSimpleResponse;
 import com.carffeine.carffeine.station.controller.station.dto.StationsSummaryResponse;
 import com.carffeine.carffeine.station.domain.charger.ChargerType;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.RegionMarker;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSummaryResponse;
@@ -53,5 +54,10 @@ public class StationController {
     public ResponseEntity<StationsSummaryResponse> getStationsSummary(@RequestParam List<String> stationIds) {
         List<StationSummaryResponse> stations = stationQueryService.findStationsSummary(stationIds);
         return ResponseEntity.ok(new StationsSummaryResponse(stations));
+    }
+
+    @GetMapping("/stations/regions")
+    public ResponseEntity<List<RegionMarker>> getMarkerByRegions(@RequestParam List<String> regions) {
+        return ResponseEntity.ok(stationQueryService.findMarkersByRegions(regions));
     }
 }
