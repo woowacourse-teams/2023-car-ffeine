@@ -11,7 +11,7 @@ import { googleMapActions } from '@stores/google-maps/googleMapStore';
 import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
 
 import { useStationSummary } from '@hooks/google-maps/useStationSummary';
-import { fetchSearchedStations } from '@hooks/tanstack-query/useSearch';
+import { fetchSearchedStations } from '@hooks/tanstack-query/useSearchStations';
 import useMediaQueries from '@hooks/useMediaQueries';
 
 import { useNavigationBar } from '@ui/Navigator/NavigationBar/hooks/useNavigationBar';

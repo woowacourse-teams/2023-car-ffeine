@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 
 import { useState } from 'react';
 
-import { useSearch } from '@hooks/tanstack-query/useSearch';
+import { useSearchStations } from '@hooks/tanstack-query/useSearchStations';
 import { useDebounce } from '@hooks/useDebounce';
 
 import Button from '@common/Button';
@@ -36,7 +36,7 @@ const StationSearchBar = () => {
     400
   );
 
-  const { data: stations, isLoading, isError, isFetching } = useSearch(debouncedSearchWord);
+  const { data: stations, isLoading, isError, isFetching } = useSearchStations(debouncedSearchWord);
 
   return (
     <S.Container>
