@@ -30,12 +30,17 @@ import StationDetailsWindow from '@ui/StationDetailsWindow';
 import { pillStyle } from '@style';
 
 import { MOBILE_BREAKPOINT } from '@constants';
-import { QUERY_KEY_SEARCHED_STATION, QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
+import {
+  QUERY_KEY_SEARCHED_STATION,
+  QUERY_KEY_STATION_DETAILS,
+  QUERY_KEY_STATION_MARKERS,
+} from '@constants/queryKeys';
 import { SERVER_URL } from '@constants/server';
 
-import type { StationMarker, StationPosition } from '@type/stations';
+import type { StationDetails, StationPosition } from '@type/stations';
 
 import SearchResult from './SearchResult';
+import { convertStationDetailsToSummary } from './utils/convertStationDetailsToSummary';
 
 const StationSearchBar = () => {
   const [isFocused, setIsFocused] = useState(false);
@@ -103,40 +108,21 @@ const StationSearchBar = () => {
     ) {
       openStationSummary(stationId);
     } else {
-      // 지금 보여지는 화면에 검색한 충전소가 존재하지 않을 경우의 처리 (api가 새로 필요할듯 합니다. 일단 급한 버그 잡기를 위해 마구잡이로 이렇게 구현해버립니다.
-      const stationMarkers = await fetch(
-        `${SERVER_URL}/stations?longitude=${longitude}&latitude=${latitude}&longitudeDelta=0.000000000000000001&latitudeDelta=0.000000000000000001&zoom=16`
-      ).then<StationMarker[]>(async (response) => {
-        const data = await response.json();
+      const stationDetails = await fetch(
+        `${SERVER_URL}/stations/${stationId}`
+      ).then<StationDetails>((response) => response.json());
 
-        return data.stations;
-      });
-      const stationMarker = stationMarkers.find((station) => station.stationId === stationId);
-      if (stationMarker !== undefined) {
-        const markerInstance = createNewMarkerInstance({
-          address: '',
-          companyName: '',
-          detailLocation: '',
-          operatingTime: '',
-          totalCount: 0,
-          ...stationMarker,
-        });
-        setMarkerInstances((prev) => [...prev, { stationId, markerInstance }]);
-        renderMarkerInstances([{ stationId, markerInstance }], [stationMarker]);
-        openStationSummary(stationId, markerInstance);
-      }
+      const markerInstance = createNewMarkerInstance(stationDetails);
+
+      setMarkerInstances((prev) => [...prev, { stationId, markerInstance }]);
+      renderMarkerInstances(
+        [{ stationId, markerInstance }],
+        [convertStationDetailsToSummary(stationDetails)]
+      );
+      openStationSummary(stationId, markerInstance);
+
+      queryClient.setQueryData([QUERY_KEY_STATION_DETAILS, stationId], stationDetails);
     }
-
-    // 지금 보여지는 화면에 충전소가 존재하지 않으면 따로 하나의 충전소만 요청을 발생시켜 마커를 생성
-    // 마커가 없어서 infoWindow를 렌더링 하지 못하는 문제 해결
-    // fetchStationSummaries([stationId]).then((stationSummaries) => {
-    //   const stationSummary = stationSummaries[0];
-    //   const markerInstance = createNewMarkerInstance(stationSummary);
-    //
-    //   setMarkerInstances((prev) => [...prev, { stationId, markerInstance }]);
-    //   renderMarkerInstances([{ stationId, markerInstance }], [stationSummary]);
-    //   openStationSummary(stationId, markerInstance);
-    // });
   };
 
   const handleChangeSearchWord = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
