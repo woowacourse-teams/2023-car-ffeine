@@ -14,10 +14,7 @@ import { googleMapActions } from '@stores/google-maps/googleMapStore';
 import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
 
 import { useStationSummary } from '@hooks/google-maps/useStationSummary';
-import {
-  fetchSearchedStations,
-  useSearchedStations,
-} from '@hooks/tanstack-query/useSearchedStations';
+import { fetchSearchedStations, useSearch } from '@hooks/tanstack-query/useSearch';
 import { useDebounce } from '@hooks/useDebounce';
 import useMediaQueries from '@hooks/useMediaQueries';
 
@@ -62,12 +59,7 @@ const StationSearchBar = () => {
     400
   );
 
-  const {
-    data: stations,
-    isLoading,
-    isError,
-    isFetching,
-  } = useSearchedStations(debouncedSearchWord);
+  const { data: stations, isLoading, isError, isFetching } = useSearch(debouncedSearchWord);
 
   const handleOpenResult = (event: MouseEvent<HTMLInputElement> | FocusEvent<HTMLInputElement>) => {
     event.stopPropagation();

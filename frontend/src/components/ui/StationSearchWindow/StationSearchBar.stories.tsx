@@ -7,10 +7,7 @@ import { useState } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 
-import {
-  fetchSearchedStations,
-  useSearchedStations,
-} from '@hooks/tanstack-query/useSearchedStations';
+import { fetchSearchedStations, useSearch } from '@hooks/tanstack-query/useSearch';
 import { useDebounce } from '@hooks/useDebounce';
 
 import Loader from '@common/Loader';
@@ -56,12 +53,7 @@ export const Default = () => {
     400
   );
 
-  const {
-    data: stations,
-    isLoading,
-    isError,
-    isFetching,
-  } = useSearchedStations(debouncedSearchWord);
+  const { data: stations, isLoading, isError, isFetching } = useSearch(debouncedSearchWord);
 
   const handleOpenResult = (event: MouseEvent<HTMLInputElement> | FocusEvent<HTMLInputElement>) => {
     event.stopPropagation();
