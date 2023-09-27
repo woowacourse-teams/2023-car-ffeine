@@ -26,7 +26,7 @@ import { SERVER_URL } from '@constants/server';
 import type { StationDetails, StationPosition } from '@type';
 
 import StationDetailsWindow from '../../StationDetailsWindow/index';
-import { convertStationDetailsToSummary } from '../utils/convertStationDetailsToSummary';
+import { convertStationDetailsToSummary } from '../tools/convertStationDetailsToSummary';
 
 export const useStationSearchWindow = () => {
   const queryClient = useQueryClient();
