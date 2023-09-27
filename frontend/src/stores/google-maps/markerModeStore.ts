@@ -1,6 +1,6 @@
 import { store } from '@utils/external-state';
 
-import { ZOOM_BREAK_POINTS, ZOOM_STATE } from '../../constants/googleMaps';
+import { ZOOM_BREAKPOINTS, ZOOM_STATE } from '../../constants/googleMaps';
 
 export interface MarkerModeState {
   zoom: number;
@@ -8,15 +8,15 @@ export interface MarkerModeState {
 }
 
 export const markerModeStore = store<MarkerModeState>({
-  zoom: ZOOM_BREAK_POINTS.town,
+  zoom: ZOOM_BREAKPOINTS.town,
   state: ZOOM_STATE.town,
 });
 
 export const getZoomState = (newZoom: number) => {
-  if (newZoom < ZOOM_BREAK_POINTS.city) {
+  if (newZoom < ZOOM_BREAKPOINTS.city) {
     return ZOOM_STATE.country;
   }
-  if (newZoom < ZOOM_BREAK_POINTS.town) {
+  if (newZoom < ZOOM_BREAKPOINTS.town) {
     return ZOOM_STATE.city;
   }
   return ZOOM_STATE.town;
