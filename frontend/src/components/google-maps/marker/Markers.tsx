@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { useExternalValue } from '@utils/external-state';
 
-import { markerModeStore } from '@stores/google-maps/markerModeStore';
+import { zoomStore } from '@stores/google-maps/zoomStore';
 
 import CityClusteredMarkersContainer from './CityClusteredMarkersContainer';
 import ServerClusteredMarkersContainer from './ServerClusteredMarkersContainer';
@@ -13,7 +13,7 @@ const MemoizedServerClusteredMarkersContainer = memo(ServerClusteredMarkersConta
 const MemoizedCityClusteredMarkersContainer = memo(CityClusteredMarkersContainer);
 
 const Markers = () => {
-  const markerMode = useExternalValue(markerModeStore);
+  const markerMode = useExternalValue(zoomStore);
 
   return (
     <>

@@ -11,7 +11,7 @@ import { isCachedRegion } from '@utils/google-maps/isCachedRegion';
 import { setLocalStorage } from '@utils/storage';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
-import { markerModeActions } from '@stores/google-maps/markerModeStore';
+import { markerModeActions } from '@stores/google-maps/zoomStore';
 import { warningModalActions } from '@stores/layout/warningModalStore';
 import { profileMenuOpenStore } from '@stores/profileMenuOpenStore';
 
