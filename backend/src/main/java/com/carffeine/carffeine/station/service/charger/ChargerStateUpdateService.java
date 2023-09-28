@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -23,16 +24,20 @@ public class ChargerStateUpdateService {
 
     private final ChargerStateRequester chargerStateRequester;
     private final ChargerStatusCustomRepository chargerStatusCustomRepository;
+    private final AtomicBoolean isRunning = new AtomicBoolean(false);
 
     @Scheduled(cron = "0 0/7 * * * *")
     public void update() {
-        ExecutorService executorService = Executors.newFixedThreadPool(THREAD_COUNT);
-        for (int page = 1; page <= MAX_PAGE_SIZE; page++) {
-            int pageNo = page;
-            executorService.submit(() -> updateChargerState(pageNo));
+        if (isRunning.compareAndSet(false, true)) {
+            ExecutorService executorService = Executors.newFixedThreadPool(THREAD_COUNT);
+            for (int page = 1; page <= MAX_PAGE_SIZE; page++) {
+                int pageNo = page;
+                executorService.submit(() -> updateChargerState(pageNo));
+            }
+            executorService.shutdown();
+            log.info("finish update charger state");
+            isRunning.set(false);
         }
-        executorService.shutdown();
-        log.info("finish update charger state");
     }
 
     private void updateChargerState(int pageNo) {
