@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
-import { useRenderRegionCountMarker } from './hooks/useRenderRegionCountMarker';
-import type { RegionCount } from './types';
+import { useRenderRegionCountMarker } from '../hooks/useRenderRegionCountMarker';
+import type { RegionCount } from '../types';
 
 export interface RegionMarkerProps {
   regionCount: RegionCount;

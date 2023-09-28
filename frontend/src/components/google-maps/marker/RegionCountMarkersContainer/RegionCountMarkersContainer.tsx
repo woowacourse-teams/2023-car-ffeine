@@ -1,4 +1,4 @@
-import RegionMarker from './RegionMarker';
+import RegionMarker from './components/RegionMarker';
 import { useRegionMarkers } from './hooks/useRegionMarkers';
 
 const RegionCountMarkersContainer = () => {
