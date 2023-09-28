@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import type { RegionCount } from '@marker/CityClusteredMarkersContainer/types';
+import type { RegionCount } from '@marker/RegionCountMarkersContainer/types';
 
 import { QUERY_KEY_REGION_MARKERS } from '@constants/queryKeys';
 import { SERVER_URL } from '@constants/server';

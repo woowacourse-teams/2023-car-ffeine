@@ -1,7 +1,7 @@
 import RegionMarker from './RegionMarker';
 import { useRegionMarkers } from './hooks/useRegionMarkers';
 
-const CityClusteredMarkersContainer = () => {
+const RegionCountMarkersContainer = () => {
   const { data: regionCounts, isSuccess, isError } = useRegionMarkers();
   if (!regionCounts || !isSuccess || isError) {
     return <></>;
@@ -12,4 +12,4 @@ const CityClusteredMarkersContainer = () => {
   ));
 };
 
-export default CityClusteredMarkersContainer;
+export default RegionCountMarkersContainer;

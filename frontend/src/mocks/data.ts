@@ -1,4 +1,4 @@
-import type { RegionCount, RegionName } from '@marker/CityClusteredMarkersContainer/types';
+import type { RegionCount, RegionName } from '@marker/RegionCountMarkersContainer/types';
 
 import { getTypedObjectFromEntries } from '@utils/getTypedObjectFromEntries';
 import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';

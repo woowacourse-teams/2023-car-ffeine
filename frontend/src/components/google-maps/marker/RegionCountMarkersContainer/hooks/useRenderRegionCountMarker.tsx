@@ -4,7 +4,7 @@ import {
   StyledRegionCount,
   StyledRegionCountMarker,
   StyledRegionName,
-} from '@marker/CityClusteredMarkersContainer/RegionCountMarker.style';
+} from '@marker/RegionCountMarkersContainer/RegionCountMarker.style';
 
 import { useExternalValue } from '@utils/external-state';
 
