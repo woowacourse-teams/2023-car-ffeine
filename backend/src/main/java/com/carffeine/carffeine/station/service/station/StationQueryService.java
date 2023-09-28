@@ -89,15 +89,15 @@ public class StationQueryService {
         return builder.build();
     }
 
-    public List<RegionMarker> findMarkersByRegions(List<String> regions) {
-        if (regions.contains("all")) {
-            List<Region> list = Arrays.stream(Region.values())
+    public List<RegionMarker> findMarkersByRegions(List<String> regionNames) {
+        if (regionNames.contains("all")) {
+            List<Region> regions = Arrays.stream(Region.values())
                     .toList();
-            return stationQueryRepository.findCountByRegions(list);
+            return stationQueryRepository.findCountByRegions(regions);
         }
-        List<Region> list = regions.stream()
+        List<Region> regions = regionNames.stream()
                 .map(it -> Region.valueOf(it.toUpperCase()))
                 .toList();
-        return stationQueryRepository.findCountByRegions(list);
+        return stationQueryRepository.findCountByRegions(regions);
     }
 }
