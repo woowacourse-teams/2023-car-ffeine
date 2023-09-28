@@ -2,8 +2,8 @@ package com.carffeine.carffeine.station.infrastructure.repository.station;
 
 import com.carffeine.carffeine.station.domain.charger.ChargerCondition;
 import com.carffeine.carffeine.station.domain.charger.ChargerType;
+import com.carffeine.carffeine.station.domain.station.Region;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.ChargerSpecificResponse;
-import com.carffeine.carffeine.station.infrastructure.repository.station.dto.Region;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.RegionMarker;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationInfo;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSearchResult;

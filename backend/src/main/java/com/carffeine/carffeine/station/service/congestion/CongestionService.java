@@ -5,9 +5,9 @@ import com.carffeine.carffeine.station.controller.congestion.dto.CongestionRespo
 import com.carffeine.carffeine.station.controller.congestion.dto.StatisticsResponse;
 import com.carffeine.carffeine.station.domain.charger.Charger;
 import com.carffeine.carffeine.station.domain.charger.ChargerRepository;
+import com.carffeine.carffeine.station.domain.congestion.DayConverter;
 import com.carffeine.carffeine.station.domain.congestion.PeriodicCongestion;
 import com.carffeine.carffeine.station.domain.congestion.PeriodicCongestionRepository;
-import com.carffeine.carffeine.station.domain.station.DayConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

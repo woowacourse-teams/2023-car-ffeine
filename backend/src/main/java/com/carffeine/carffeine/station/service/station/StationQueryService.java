@@ -2,10 +2,10 @@ package com.carffeine.carffeine.station.service.station;
 
 import com.carffeine.carffeine.station.domain.charger.ChargerType;
 import com.carffeine.carffeine.station.domain.station.Coordinate;
+import com.carffeine.carffeine.station.domain.station.Region;
 import com.carffeine.carffeine.station.exception.StationException;
 import com.carffeine.carffeine.station.exception.StationExceptionType;
 import com.carffeine.carffeine.station.infrastructure.repository.station.StationQueryRepository;
-import com.carffeine.carffeine.station.infrastructure.repository.station.dto.Region;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.RegionMarker;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationInfo;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSearchResult;

@@ -1,8 +1,9 @@
-package com.carffeine.carffeine.station.infrastructure.repository.station.dto;
+package com.carffeine.carffeine.station.domain.station;
 
 import java.math.BigDecimal;
 
 public enum Region {
+
     SEOUL("서울특별시", BigDecimal.valueOf(37.540705), BigDecimal.valueOf(126.956764)),
     INCHEON("인천광역시", BigDecimal.valueOf(37.469221), BigDecimal.valueOf(126.573234)),
     GWANGJU("광주광역시", BigDecimal.valueOf(35.126033), BigDecimal.valueOf(126.831302)),

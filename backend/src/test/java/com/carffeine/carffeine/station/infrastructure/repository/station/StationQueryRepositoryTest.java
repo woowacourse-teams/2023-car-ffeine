@@ -2,11 +2,11 @@ package com.carffeine.carffeine.station.infrastructure.repository.station;
 
 import com.carffeine.carffeine.config.QuerydslConfig;
 import com.carffeine.carffeine.station.domain.charger.ChargerType;
+import com.carffeine.carffeine.station.domain.station.Region;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.domain.station.StationRepository;
 import com.carffeine.carffeine.station.fixture.station.StationFixture;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.ChargerSpecificResponse;
-import com.carffeine.carffeine.station.infrastructure.repository.station.dto.Region;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.RegionMarker;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
