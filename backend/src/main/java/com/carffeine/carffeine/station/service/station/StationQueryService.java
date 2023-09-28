@@ -2,9 +2,11 @@ package com.carffeine.carffeine.station.service.station;
 
 import com.carffeine.carffeine.station.domain.charger.ChargerType;
 import com.carffeine.carffeine.station.domain.station.Coordinate;
+import com.carffeine.carffeine.station.domain.station.Region;
 import com.carffeine.carffeine.station.exception.StationException;
 import com.carffeine.carffeine.station.exception.StationExceptionType;
 import com.carffeine.carffeine.station.infrastructure.repository.station.StationQueryRepository;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.RegionMarker;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationInfo;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSearchResult;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;
@@ -84,5 +86,10 @@ public class StationQueryService {
         }
         builder.stationId(station.stationId());
         return builder.build();
+    }
+
+    public List<RegionMarker> findMarkersByRegions(List<String> regionNames) {
+        List<Region> regions = Region.regions(regionNames);
+        return stationQueryRepository.findCountByRegions(regions);
     }
 }

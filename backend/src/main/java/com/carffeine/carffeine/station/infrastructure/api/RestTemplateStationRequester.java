@@ -26,7 +26,7 @@ public class RestTemplateStationRequester implements StationRequester, ChargerSt
     private static final int CHARGER_STATE_ROW_SIZE = 5000;
     private static final String DATA_TYPE = "JSON";
     private static final int ONE_SECOND = 1000;
-    private static final int PERIOD = 10;
+    private static final int PERIOD = 8;
 
     private final RestTemplate restTemplate;
     private final RandomApiKeySelector randomApiKeySelector;

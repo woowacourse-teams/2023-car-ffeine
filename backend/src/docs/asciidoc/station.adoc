@@ -75,3 +75,15 @@ include::{snippets}/station-controller-test/searchStations/request-parameters.ad
 
 include::{snippets}/station-controller-test/searchStations/http-response.adoc[]
 include::{snippets}/station-controller-test/searchStations/response-fields.adoc[]
+
+== 지역별 충전소 개수를 조회한다 (/stations/regions)
+
+=== Request
+
+include::{snippets}/station-controller-test/findMarkerByRegion/http-request.adoc[]
+include::{snippets}/station-controller-test/findMarkerByRegion/request-parameters.adoc[]
+
+=== Response
+
+include::{snippets}/station-controller-test/findMarkerByRegion/http-response.adoc[]
+include::{snippets}/station-controller-test/findMarkerByRegion/response-fields.adoc[]

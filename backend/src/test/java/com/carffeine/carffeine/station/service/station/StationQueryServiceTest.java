@@ -4,6 +4,7 @@ import com.carffeine.carffeine.helper.integration.IntegrationTest;
 import com.carffeine.carffeine.station.domain.charger.ChargerType;
 import com.carffeine.carffeine.station.domain.station.Latitude;
 import com.carffeine.carffeine.station.domain.station.Longitude;
+import com.carffeine.carffeine.station.domain.station.Region;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.domain.station.StationRepository;
 import com.carffeine.carffeine.station.exception.StationException;
@@ -11,6 +12,7 @@ import com.carffeine.carffeine.station.exception.StationExceptionType;
 import com.carffeine.carffeine.station.fixture.charger.ChargerFixture;
 import com.carffeine.carffeine.station.fixture.station.StationFixture;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.ChargerSpecificResponse;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.RegionMarker;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSummaryResponse;
@@ -24,12 +26,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
@@ -48,34 +50,32 @@ public class StationQueryServiceTest extends IntegrationTest {
 
         StationSpecificResponse result = stationQueryService.findStationById(station.getStationId());
 
-        assertSoftly(softly -> {
-            softly.assertThat(result).usingRecursiveComparison()
-                    .withComparatorForType(BigDecimal::compareTo, BigDecimal.class)
-                    .isEqualTo(new StationSpecificResponse(
-                            station.getStationId(),
-                            station.getStationName(),
-                            station.getCompanyName(),
-                            station.getAddress(),
-                            station.getContact(),
-                            station.isParkingFree(),
-                            station.getOperatingTime(),
-                            station.getDetailLocation(),
-                            station.getLatitude().getValue(),
-                            station.getLongitude().getValue(),
-                            station.isPrivate(),
-                            station.getStationState(),
-                            station.getPrivateReason(),
-                            station.getReportCount(),
-                            station.getChargers().stream()
-                                    .map(it -> new ChargerSpecificResponse(
-                                            it.getType(),
-                                            it.getPrice(),
-                                            it.getCapacity(),
-                                            it.getChargerStatus().getLatestUpdateTime(),
-                                            it.getChargerStatus().getChargerCondition(),
-                                            it.getMethod()
-                                    )).toList()));
-        });
+        assertThat(result).usingRecursiveComparison()
+                .withComparatorForType(BigDecimal::compareTo, BigDecimal.class)
+                .isEqualTo(new StationSpecificResponse(
+                        station.getStationId(),
+                        station.getStationName(),
+                        station.getCompanyName(),
+                        station.getAddress(),
+                        station.getContact(),
+                        station.isParkingFree(),
+                        station.getOperatingTime(),
+                        station.getDetailLocation(),
+                        station.getLatitude().getValue(),
+                        station.getLongitude().getValue(),
+                        station.isPrivate(),
+                        station.getStationState(),
+                        station.getPrivateReason(),
+                        station.getReportCount(),
+                        station.getChargers().stream()
+                                .map(it -> new ChargerSpecificResponse(
+                                        it.getType(),
+                                        it.getPrice(),
+                                        it.getCapacity(),
+                                        it.getChargerStatus().getLatestUpdateTime(),
+                                        it.getChargerStatus().getChargerCondition(),
+                                        it.getMethod()
+                                )).toList()));
     }
 
     @Test
@@ -392,5 +392,47 @@ public class StationQueryServiceTest extends IntegrationTest {
         // then
         assertThat(result).usingRecursiveComparison()
                 .isEqualTo(new StationsSearchResponse(15L, expected));
+    }
+
+    @Test
+    void 충전소의_지역별_개수를_반환한다() {
+        // given
+        Station station = StationFixture.선릉역_충전소_충전기_2개_사용가능_1개_완속;
+        Station station1 = StationFixture.천호역_충전소_충전기_2개_사용가능_0개;
+        Station station2 = StationFixture.부산역_충전소_충전기_1개_사용가능_1개;
+        stationRepository.save(station);
+        stationRepository.save(station1);
+        stationRepository.save(station2);
+
+        // when
+        List<RegionMarker> result = stationQueryService.findMarkersByRegions(List.of("seoul", "busan"));
+
+        // then
+        assertThat(result).usingRecursiveComparison()
+                .isEqualTo(List.of(new RegionMarker(
+                                Region.SEOUL.value(),
+                                Region.SEOUL.latitude(),
+                                Region.SEOUL.longitude(),
+                                2
+                        ),
+                        new RegionMarker(
+                                Region.BUSAN.value(),
+                                Region.BUSAN.latitude(),
+                                Region.BUSAN.longitude(),
+                                1
+                        )));
+    }
+
+    @Test
+    void 모든_지역의_충전소_개수를_반환한다() {
+        // given & when
+        List<RegionMarker> result = stationQueryService.findMarkersByRegions(List.of("all"));
+
+        // then
+        List<RegionMarker> expect = Arrays.stream(Region.values())
+                .map(it -> new RegionMarker(it.value(), it.latitude(), it.longitude(), 0))
+                .toList();
+        assertThat(result).usingRecursiveComparison()
+                .isEqualTo(expect);
     }
 }

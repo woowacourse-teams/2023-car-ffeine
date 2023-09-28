@@ -15,6 +15,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -23,38 +24,42 @@ public class StationService {
 
     private final ChargerStatusQueryRepository chargerStatusQueryRepository;
     private final PeriodicCongestionCustomRepository periodicCongestionCustomRepository;
+    private final AtomicBoolean isRunning = new AtomicBoolean(false);
 
     @Scheduled(cron = "0 0/10 * * * *")
     public void calculateCongestion() {
-        LocalDateTime now = LocalDateTime.now();
-        DayOfWeek day = now.getDayOfWeek();
-        RequestPeriod period = RequestPeriod.from(now.getHour());
-        log.info("calculate congestion. day: {}, period: {}", day, period);
+        if (isRunning.compareAndSet(false, true)) {
+            LocalDateTime now = LocalDateTime.now();
+            DayOfWeek day = now.getDayOfWeek();
+            RequestPeriod period = RequestPeriod.from(now.getHour());
+            log.info("calculate congestion. day: {}, period: {}", day, period);
 
-        String stationId = null;
-        String chargerId = null;
-        long limit = 1000;
-        long size = limit;
+            String stationId = null;
+            String chargerId = null;
+            long limit = 1000;
+            long size = limit;
 
-        while (limit == size) {
-            List<ChargerStatusResponse> chargerStatuses = chargerStatusQueryRepository.findAllChargerStatus(stationId, chargerId, limit);
-            List<ChargerStatusResponse> usingChargers = new ArrayList<>();
-            List<ChargerStatusResponse> notUsingChargers = new ArrayList<>();
+            while (limit == size) {
+                List<ChargerStatusResponse> chargerStatuses = chargerStatusQueryRepository.findAllChargerStatus(stationId, chargerId, limit);
+                List<ChargerStatusResponse> usingChargers = new ArrayList<>();
+                List<ChargerStatusResponse> notUsingChargers = new ArrayList<>();
 
-            addChargersByCondition(chargerStatuses, usingChargers, notUsingChargers);
+                addChargersByCondition(chargerStatuses, usingChargers, notUsingChargers);
 
-            List<String> usingChargerIds = getCongestionIds(usingChargers, day, period);
-            List<String> notUsingChargerIds = getCongestionIds(notUsingChargers, day, period);
+                List<String> usingChargerIds = getCongestionIds(usingChargers, day, period);
+                List<String> notUsingChargerIds = getCongestionIds(notUsingChargers, day, period);
 
-            periodicCongestionCustomRepository.updateNotUsingCountByIds(notUsingChargerIds);
-            periodicCongestionCustomRepository.updateUsingCountByIds(usingChargerIds);
+                periodicCongestionCustomRepository.updateNotUsingCountByIds(notUsingChargerIds);
+                periodicCongestionCustomRepository.updateUsingCountByIds(usingChargerIds);
 
-            ChargerStatusResponse chargerStatusResponse = chargerStatuses.get(chargerStatuses.size() - 1);
-            stationId = chargerStatusResponse.stationId();
-            chargerId = chargerStatusResponse.chargerId();
-            size = chargerStatuses.size();
+                ChargerStatusResponse chargerStatusResponse = chargerStatuses.get(chargerStatuses.size() - 1);
+                stationId = chargerStatusResponse.stationId();
+                chargerId = chargerStatusResponse.chargerId();
+                size = chargerStatuses.size();
+            }
+            log.info("finish congestion calculation. day: {}, period: {}", day, period);
+            isRunning.set(false);
         }
-        log.info("finish congestion calculation. day: {}, period: {}", day, period);
     }
 
     private void addChargersByCondition(List<ChargerStatusResponse> chargerStatuses, List<ChargerStatusResponse> usingChargers, List<ChargerStatusResponse> notUsingChargers) {

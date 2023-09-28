@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.station.domain.station;
+package com.carffeine.carffeine.station.domain.congestion;
 
 import com.carffeine.carffeine.station.exception.congestion.CongestionException;
 import lombok.Getter;
