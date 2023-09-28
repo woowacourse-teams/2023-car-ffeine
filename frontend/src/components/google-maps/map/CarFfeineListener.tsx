@@ -28,7 +28,7 @@ const CarFfeineMapListener = () => {
   const { removeAllMarkers } = useRenderStationMarker();
   const zoom = useExternalValue(zoomStore);
 
-  const debouncedIdleHandler = debounce(() => {
+  const debouncedHighZoomHandler = debounce(() => {
     const displayPosition = getDisplayPosition(googleMap);
     if (!isCachedRegion(displayPosition)) {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_MARKERS] });
@@ -44,7 +44,9 @@ const CarFfeineMapListener = () => {
 
   useEffect(() => {
     googleMap.addListener('idle', () => {
-      debouncedIdleHandler();
+      if (zoom.state === 'high') {
+        debouncedHighZoomHandler();
+      }
       zoomActions.setZoom(googleMap.getZoom());
     });
 
