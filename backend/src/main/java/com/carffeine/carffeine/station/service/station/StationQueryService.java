@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -90,14 +89,7 @@ public class StationQueryService {
     }
 
     public List<RegionMarker> findMarkersByRegions(List<String> regionNames) {
-        if (regionNames.contains("all")) {
-            List<Region> regions = Arrays.stream(Region.values())
-                    .toList();
-            return stationQueryRepository.findCountByRegions(regions);
-        }
-        List<Region> regions = regionNames.stream()
-                .map(it -> Region.valueOf(it.toUpperCase()))
-                .toList();
+        List<Region> regions = Region.regions(regionNames);
         return stationQueryRepository.findCountByRegions(regions);
     }
 }

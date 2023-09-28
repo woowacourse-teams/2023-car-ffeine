@@ -1,6 +1,8 @@
 package com.carffeine.carffeine.station.domain.station;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.List;
 
 public enum Region {
 
@@ -30,6 +32,16 @@ public enum Region {
         this.value = value;
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+
+    public static List<Region> regions(List<String> regionNames) {
+        if (regionNames.contains("all")) {
+            return Arrays.stream(Region.values())
+                    .toList();
+        }
+        return regionNames.stream()
+                .map(it -> Region.valueOf(it.toUpperCase()))
+                .toList();
     }
 
     public String value() {
