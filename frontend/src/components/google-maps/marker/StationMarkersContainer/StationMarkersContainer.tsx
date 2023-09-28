@@ -1,6 +1,6 @@
-import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
+import { useStationMarkers } from '@marker/StationMarkersContainer/hooks/useStationMarkers';
 
-import { useStationMarkers } from '@hooks/tanstack-query/station-markers/useStationMarkers';
+import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
 
 import { useRenderStationMarker } from './hooks/useRenderStationMarker';
 

@@ -2,7 +2,7 @@ import type { Meta } from '@storybook/react';
 
 import type { StationSummary } from '@type';
 
-import { CarFfeineMarker } from './CarFfeineMarker';
+import CarFfeineMarker from './CarFfeineMarker';
 
 const meta = {
   title: 'UI/CarFfeineMarker',
