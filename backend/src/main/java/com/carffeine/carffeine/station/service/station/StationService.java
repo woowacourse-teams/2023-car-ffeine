@@ -26,7 +26,7 @@ public class StationService {
     private final PeriodicCongestionCustomRepository periodicCongestionCustomRepository;
     private final AtomicBoolean isRunning = new AtomicBoolean(false);
 
-    @Scheduled(cron = "0 0/10 * * * *")
+    @Scheduled(cron = "0 0/30 * * * *")
     public void calculateCongestion() {
         if (isRunning.compareAndSet(false, true)) {
             LocalDateTime now = LocalDateTime.now();
