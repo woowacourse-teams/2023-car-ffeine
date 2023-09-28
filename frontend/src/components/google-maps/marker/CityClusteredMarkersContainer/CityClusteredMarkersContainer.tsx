@@ -1,3 +1,5 @@
+import RegionMarker from '@marker/CityClusteredMarkersContainer/RegionMarker';
+
 import { useRegionMarkers } from './useRegionMarkers';
 
 const CityClusteredMarkersContainer = () => {
@@ -6,7 +8,9 @@ const CityClusteredMarkersContainer = () => {
     return <></>;
   }
 
-  return <></>;
+  return regionMarkers.map((regionMarker) => (
+    <RegionMarker key={regionMarker.regionName} region={regionMarker} />
+  ));
 };
 
 export default CityClusteredMarkersContainer;
