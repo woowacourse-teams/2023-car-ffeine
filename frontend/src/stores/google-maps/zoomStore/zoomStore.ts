@@ -26,6 +26,9 @@ export const getZoomState = (newZoom: number): ZoomState => {
 
 export const zoomActions = {
   setZoom: (newZoom: number) => {
-    zoomStore.setState({ level: newZoom, state: getZoomState(newZoom) });
+    const newZoomState = getZoomState(newZoom);
+    if (newZoomState !== zoomStore.getState().state) {
+      zoomStore.setState({ level: newZoom, state: getZoomState(newZoom) });
+    }
   },
 };

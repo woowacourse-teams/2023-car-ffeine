@@ -1,5 +1,3 @@
-import ZoomWarningModal from 'components/ui/WarningModal';
-
 import { useEffect } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
@@ -14,11 +12,12 @@ import { setLocalStorage } from '@utils/storage';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
-import { zoomActions } from '@stores/google-maps/zoomStore';
+import { zoomActions, zoomStore } from '@stores/google-maps/zoomStore';
 import { warningModalActions } from '@stores/layout/warningModalStore';
 import { profileMenuOpenStore } from '@stores/profileMenuOpenStore';
 
-import { INITIAL_ZOOM_LEVEL } from '@constants/googleMaps';
+import ZoomWarningModal from '@ui/WarningModal';
+
 import { QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
 import { LOCAL_KEY_LAST_POSITION } from '@constants/storageKeys';
 
@@ -27,15 +26,9 @@ const CarFfeineMapListener = () => {
   const queryClient = useQueryClient();
   const setIsProfileMenuOpen = useSetExternalState(profileMenuOpenStore);
   const { removeAllMarkers } = useRenderStationMarker();
+  const zoom = useExternalValue(zoomStore);
 
   const debouncedIdleHandler = debounce(() => {
-    if (googleMap.getZoom() < INITIAL_ZOOM_LEVEL) {
-      removeAllMarkers(markerInstanceStore.getState());
-      queryClient.setQueryData([QUERY_KEY_STATION_MARKERS], () => []);
-      warningModalActions.openModal(<ZoomWarningModal />);
-    } else {
-      warningModalActions.closeModal();
-    }
     const displayPosition = getDisplayPosition(googleMap);
     if (!isCachedRegion(displayPosition)) {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_MARKERS] });
@@ -61,6 +54,18 @@ const CarFfeineMapListener = () => {
       google.maps.event.removeListener(initMarkersEvent);
     });
   }, []);
+
+  useEffect(() => {
+    console.log('zoomState: ' + zoom.state);
+    removeAllMarkers(markerInstanceStore.getState());
+    queryClient.setQueryData([QUERY_KEY_STATION_MARKERS], () => []);
+
+    if (zoom.state === 'middle') {
+      warningModalActions.openModal(<ZoomWarningModal />);
+    } else {
+      warningModalActions.closeModal();
+    }
+  }, [zoom.state]);
 
   return <></>;
 };
