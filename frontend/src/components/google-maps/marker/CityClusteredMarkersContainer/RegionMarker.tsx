@@ -1,11 +1,10 @@
-import { RegionMarker } from './types';
+import type { RegionCount } from './types';
 
 export interface RegionMarkerProps {
-  region: RegionMarker;
+  region: RegionCount;
 }
 
 const RegionMarker = ({ region }: RegionMarkerProps) => {
-
   return <></>;
 };
 

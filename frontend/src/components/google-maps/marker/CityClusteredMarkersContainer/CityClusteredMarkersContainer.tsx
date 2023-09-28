@@ -1,5 +1,4 @@
-import RegionMarker from '@marker/CityClusteredMarkersContainer/RegionMarker';
-
+import RegionMarker from './RegionMarker';
 import { useRegionMarkers } from './useRegionMarkers';
 
 const CityClusteredMarkersContainer = () => {

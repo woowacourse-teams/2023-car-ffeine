@@ -1,4 +1,4 @@
-import type { RegionMarker, RegionName } from '@marker/CityClusteredMarkersContainer/types';
+import type { RegionCount, RegionName } from '@marker/CityClusteredMarkersContainer/types';
 
 import { getTypedObjectFromEntries } from '@utils/getTypedObjectFromEntries';
 import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
@@ -238,7 +238,7 @@ export const generateCarFilters = (): StationFilters => {
   };
 };
 
-export const regionCounts: RegionMarker[] = [
+export const regionCounts: RegionCount[] = [
   {
     regionName: '서울특별시',
     latitude: 37.540705,

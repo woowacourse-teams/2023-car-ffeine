@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 
-import type { RegionMarker } from '@marker/CityClusteredMarkersContainer/types';
+import type { RegionCount } from '@marker/CityClusteredMarkersContainer/types';
 
 import { QUERY_KEY_REGION_MARKERS } from '@constants/queryKeys';
 import { SERVER_URL } from '@constants/server';
 
 export const fetchRegionMarkers = async () => {
-  const stationMarkers = await fetch(`${SERVER_URL}/stations/markers/regions`).then<RegionMarker[]>(
+  const stationMarkers = await fetch(`${SERVER_URL}/stations/markers/regions`).then<RegionCount[]>(
     async (response) => {
       const data = await response.json();
       console.log(data);
