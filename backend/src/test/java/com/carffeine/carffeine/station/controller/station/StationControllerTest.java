@@ -294,6 +294,7 @@ class StationControllerTest extends MockBeanInjection {
         // when
         when(stationQueryService.findMarkersByRegions(List.of("seoul")))
                 .thenReturn(List.of(new RegionMarker("서울", BigDecimal.valueOf(37.540705), BigDecimal.valueOf(126.956764), 1)));
+        
         // then
         mockMvc.perform(RestDocumentationRequestBuilders.get("/stations/regions").queryParam("regions", "seoul"))
                 .andExpect(status().isOk())
