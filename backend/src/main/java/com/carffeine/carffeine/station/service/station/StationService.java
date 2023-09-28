@@ -36,7 +36,7 @@ public class StationService {
 
             String stationId = null;
             String chargerId = null;
-            long limit = 1000;
+            long limit = 10000;
             long size = limit;
 
             while (limit == size) {
