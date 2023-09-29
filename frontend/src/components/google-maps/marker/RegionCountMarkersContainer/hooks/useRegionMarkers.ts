@@ -6,13 +6,15 @@ import { SERVER_URL } from '@constants/server';
 import type { RegionCount } from '../types';
 
 export const fetchRegionMarkers = async () => {
-  const stationMarkers = await fetch(`${SERVER_URL}/stations/markers/regions?regions=all`).then<
-    RegionCount[]
-  >(async (response) => {
-    const data = await response.json();
+  const stationMarkers = await fetch(`${SERVER_URL}/stations/markers/regions?regions=all`)
+    .then<RegionCount[]>(async (response) => {
+      const data = await response.json();
 
-    return data;
-  });
+      return data;
+    })
+    .catch((error) => {
+      throw new Error('지역 마커를 수신을 실패했습니다.', error);
+    });
 
   return stationMarkers;
 };
