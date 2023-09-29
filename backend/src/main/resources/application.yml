@@ -9,7 +9,6 @@ server:
     enabled: true
     mime-types: application/json
     min-response-size: 500
-
 spring:
   profiles:
     active: local
@@ -21,6 +20,8 @@ spring:
     scheduling:
       pool:
         size: 10
+  jpa:
+    open-in-view: false
 jasypt:
   encryptor:
     bean: jasyptEncryptor
@@ -41,7 +42,7 @@ management:
 jwt:
   secret: ENC(t6iKCv1Nj+ygRxG2oZCw3l4v9y0ALS2GfQwYIKvO0tRuPzFp4UYRZYfBFdBW+xQl77rOLbfIPJ13tys/tXj3Qw==)
   access-token-expiration-period: ENC(Ua9DcFiPKX/5r0/WGkN5JQ==)
-  refresh-token-expiration-period: ENC(Ua9DcFiPKX/5r0/WGkN5JQ==)
+  refresh-token-expiration-period: ENC(DTClD6YHtMsb1xAL6ZbQcA==)
 
 oauth2:
   provider:
