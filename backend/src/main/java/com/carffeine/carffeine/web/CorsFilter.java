@@ -1,5 +1,6 @@
 package com.carffeine.carffeine.web;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -10,10 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Objects;
 
+@Slf4j
 public class CorsFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String origin = request.getHeader("Referer");
+        String origin = request.getHeader("Origin");
+        log.info("origine ====={}", origin);
         if (origin.endsWith(".carffe.in")) {
             response.setHeader("Access-Control-Allow-Origin", origin);
         }
