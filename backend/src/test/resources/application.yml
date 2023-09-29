@@ -13,6 +13,8 @@ spring:
         format_sql: true
   flyway:
     enabled: false
+  profiles:
+    active: test
 
 jasypt:
   encryptor:

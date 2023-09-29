@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
+@Transactional
 @RequiredArgsConstructor
 @Service
 public class AuthService {
@@ -28,7 +29,6 @@ public class AuthService {
         return oAuthRequester.loginUri(Provider.from(provider), redirectUri);
     }
 
-    @Transactional
     public Tokens generateTokens(OAuthMember oAuthMember) {
         Member member = getMember(oAuthMember);
         String tokenId = UUID.randomUUID().toString();
@@ -55,7 +55,6 @@ public class AuthService {
                 .orElseGet(() -> memberRepository.save(newMember));
     }
 
-    @Transactional(readOnly = true)
     public String renewAccessToken(String refreshToken) {
         String tokenId = tokenProvider.extract(refreshToken);
         return refreshTokenRepository.findByTokenId(tokenId)
