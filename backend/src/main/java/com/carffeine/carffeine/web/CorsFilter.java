@@ -13,7 +13,7 @@ import java.util.Objects;
 public class CorsFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String origin = request.getHeader("origin");
+        String origin = request.getHeader("Referer");
         if (origin.endsWith(".carffe.in")) {
             response.setHeader("Access-Control-Allow-Origin", origin);
         }
