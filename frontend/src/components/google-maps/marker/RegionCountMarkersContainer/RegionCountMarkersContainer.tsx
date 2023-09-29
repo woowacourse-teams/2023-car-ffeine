@@ -1,4 +1,4 @@
-import RegionMarker from './components/RegionMarker';
+import RegionCountMarkerRenderer from './components/RegionCountMarkerRenderer';
 import { useRegionMarkers } from './hooks/useRegionMarkers';
 
 const RegionCountMarkersContainer = () => {
@@ -8,7 +8,7 @@ const RegionCountMarkersContainer = () => {
   }
 
   return regionCounts.map((regionCount) => (
-    <RegionMarker key={regionCount.regionName} regionCount={regionCount} />
+    <RegionCountMarkerRenderer key={regionCount.regionName} regionCount={regionCount} />
   ));
 };
 

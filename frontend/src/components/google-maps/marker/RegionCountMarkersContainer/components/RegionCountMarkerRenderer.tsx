@@ -7,7 +7,7 @@ export interface RegionMarkerProps {
   regionCount: RegionCount;
 }
 
-const RegionMarker = ({ regionCount }: RegionMarkerProps) => {
+const RegionCountMarkerRenderer = ({ regionCount }: RegionMarkerProps) => {
   const { renderRegionCountMarker } = useRenderRegionCountMarker();
 
   useEffect(() => {
@@ -19,4 +19,4 @@ const RegionMarker = ({ regionCount }: RegionMarkerProps) => {
   return <></>;
 };
 
-export default RegionMarker;
+export default RegionCountMarkerRenderer;

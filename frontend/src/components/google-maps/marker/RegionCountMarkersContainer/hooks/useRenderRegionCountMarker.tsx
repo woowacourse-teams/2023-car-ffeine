@@ -1,17 +1,12 @@
 import { createRoot } from 'react-dom/client';
 
-import {
-  StyledRegionCount,
-  StyledRegionCountMarker,
-  StyledRegionName,
-} from '@marker/RegionCountMarkersContainer/components/RegionCountMarker.style';
-
 import { useExternalValue } from '@utils/external-state';
 
 import { getGoogleMapStore, googleMapActions } from '@stores/google-maps/googleMapStore';
 
 import { ZOOM_BREAKPOINTS } from '@constants/googleMaps';
 
+import RegionCountMarker from '../components/RegionCountMarker';
 import type { RegionCount } from '../types';
 
 export const useRenderRegionCountMarker = () => {
@@ -29,12 +24,7 @@ export const useRenderRegionCountMarker = () => {
       content: container,
     });
 
-    createRoot(container).render(
-      <StyledRegionCountMarker>
-        <StyledRegionCount>{regionCount.count}</StyledRegionCount>
-        <StyledRegionName>{regionCount.regionName}</StyledRegionName>
-      </StyledRegionCountMarker>
-    );
+    createRoot(container).render(<RegionCountMarker count={count} regionName={regionName} />);
 
     markerInstance.addListener('click', () => {
       // TODO: 중간 단계 (서버) 클러스터링 구현 이후에 ZOOM_BREAKPOINTS.middle로 변경 예정

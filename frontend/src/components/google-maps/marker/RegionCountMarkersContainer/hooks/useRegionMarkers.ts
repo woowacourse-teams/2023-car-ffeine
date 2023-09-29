@@ -1,15 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 
-import type { RegionCount } from '@marker/RegionCountMarkersContainer/types';
-
 import { QUERY_KEY_REGION_MARKERS } from '@constants/queryKeys';
 import { SERVER_URL } from '@constants/server';
+
+import type { RegionCount } from '../types';
 
 export const fetchRegionMarkers = async () => {
   const stationMarkers = await fetch(`${SERVER_URL}/stations/markers/regions`).then<RegionCount[]>(
     async (response) => {
       const data = await response.json();
-      console.log(data);
 
       return data;
     }
