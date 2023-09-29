@@ -34,4 +34,5 @@ oauth2:
 
 jwt:
   secret: qwertyuiioplkjhgfdsazxcvbnmkjhgfdqwertyuiioplkjhgfdsazxcvbnmkjhgfdqwertyuiioplkjhgfdsazxcvbnmkjhgfd
-  expiration-period: 10000
+  access-token-expiration-period: 10000
+  refresh-token-expiration-period: 10000

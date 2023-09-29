@@ -4,5 +4,7 @@ public interface TokenProvider {
 
     String create(Long id);
 
-    Long extract(String token);
+    String extract(String token);
+
+    String createRefreshToken(String id);
 }

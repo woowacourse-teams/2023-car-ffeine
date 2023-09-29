@@ -23,7 +23,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String token = AuthenticationExtractor.extract(request)
                 .orElseThrow(() -> new AuthException(AuthExceptionType.UNAUTHORIZED));
-        Long memberId = tokenProvider.extract(token);
+        Long memberId = Long.parseLong(tokenProvider.extract(token));
         authenticationContext.setAuthentication(memberId);
         return true;
     }
