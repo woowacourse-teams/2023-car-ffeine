@@ -17,8 +17,11 @@ public class CorsFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String origin = request.getHeader("Origin");
         log.info("origine ====={}", origin);
-        if (origin.endsWith(".carffe.in")) {
+        if (!origin.isBlank() && origin.endsWith(".carffe.in")) {
             response.setHeader("Access-Control-Allow-Origin", origin);
+        }
+        if (origin.isBlank()) {
+            response.setHeader("Access-Control-Allow-Origin", "*");
         }
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Allow-Methods", "*");
