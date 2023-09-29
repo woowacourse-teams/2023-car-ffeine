@@ -8,7 +8,6 @@ import com.carffeine.carffeine.station.infrastructure.repository.charger.Charger
 import com.carffeine.carffeine.station.infrastructure.repository.charger.dto.ChargerStatusResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
@@ -26,7 +25,7 @@ public class StationService {
     private final PeriodicCongestionCustomRepository periodicCongestionCustomRepository;
     private final AtomicBoolean isRunning = new AtomicBoolean(false);
 
-    @Scheduled(cron = "0 0/10 * * * *")
+    //    @Scheduled(cron = "0 0/10 * * * *")
     public void calculateCongestion() {
         if (isRunning.compareAndSet(false, true)) {
             LocalDateTime now = LocalDateTime.now();
