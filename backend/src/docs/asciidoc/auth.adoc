@@ -5,7 +5,7 @@
 :toc: left
 :toclevels: 3
 
-== 충전소의 고장을 신고한다 (/oauth/{provider}/login-uri)
+== 소셜 로그인 주소를 발급받는다 (/oauth/{provider}/login-uri)
 
 === Request
 
@@ -26,3 +26,22 @@ include::{snippets}/auth-controller-test/login/request-fields.adoc[]
 
 include::{snippets}/auth-controller-test/login/http-response.adoc[]
 
+== 새로운 access token을 발급받는다 (/renew)
+
+=== Request
+
+include::{snippets}/auth-controller-test/renew-access-token/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/auth-controller-test/renew-access-token/http-response.adoc[]
+
+== 로그아웃을 한다 (/logout)
+
+=== Request
+
+include::{snippets}/auth-controller-test/logout/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/auth-controller-test/logout/http-response.adoc[]
