@@ -2,7 +2,7 @@ import { render } from '@testing-library/react';
 
 import type { StationMarker } from '@type';
 
-import { CarFfeineMarker } from './CarFfeineMarker';
+import CarFfeineMarker from './CarFfeineMarker';
 
 describe('CarFfeineMarker 컴포넌트 테스트', () => {
   it('CarFfeineMarker 컴포넌트가 렌더링 된다.', () => {

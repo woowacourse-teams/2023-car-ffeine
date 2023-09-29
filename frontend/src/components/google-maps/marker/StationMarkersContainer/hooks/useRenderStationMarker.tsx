@@ -1,5 +1,3 @@
-import CarFfeineMarker from 'components/google-maps/marker/StationMarkersContainer/components/CarFfeineMarker';
-
 import { createRoot } from 'react-dom/client';
 
 import { getStoreSnapshot } from '@utils/external-state/tools';
@@ -14,6 +12,8 @@ import { useNavigationBar } from '@ui/Navigator/NavigationBar/hooks/useNavigatio
 import StationDetailsWindow from '@ui/StationDetailsWindow';
 
 import type { StationDetails, StationMarker, StationSummary } from '@type';
+
+import CarFfeineMarker from '../components/CarFfeineMarker';
 
 export const useRenderStationMarker = () => {
   const googleMap = getStoreSnapshot(getGoogleMapStore());
