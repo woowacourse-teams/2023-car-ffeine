@@ -80,7 +80,6 @@ export const googleMapActions = {
   },
   moveTo: (latLng: google.maps.LatLngLiteral, newZoom?: number) => {
     const googleMap = getGoogleMapStore().getState();
-    console.log(JSON.stringify(latLng));
 
     googleMap.panTo(latLng);
     googleMap.setZoom(newZoom || INITIAL_ZOOM_LEVEL);
