@@ -57,8 +57,10 @@ const CarFfeineMapListener = () => {
     });
   }, []);
 
+  /**
+   * zoom.state가 바뀌었을 때만 1번 실행된다.
+   */
   useEffect(() => {
-    console.log('zoomState: ' + zoom.state);
     removeAllMarkers(markerInstanceStore.getState());
     queryClient.setQueryData([QUERY_KEY_STATION_MARKERS], () => []);
 
