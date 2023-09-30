@@ -5,11 +5,11 @@ import { useExternalValue } from '@utils/external-state';
 import { zoomStore } from '@stores/google-maps/zoomStore';
 
 import HighZoomMarkerContainer from './HighZoomMarkerContainer';
+import MiddleZoomMarkerContainer from './MiddleZoomMarkerContainer';
 import RegionCountMarkersContainer from './RegionCountMarkersContainer';
-import ServerClusteredMarkersContainer from './ServerClusteredMarkersContainer';
 
 const MemoizedHighZoomMarkerContainer = memo(HighZoomMarkerContainer);
-const MemoizedServerClusteredMarkersContainer = memo(ServerClusteredMarkersContainer);
+const MemoizedMiddleZoomMarkerContainer = memo(MiddleZoomMarkerContainer);
 const MemoizedRegionCountMarkersContainer = memo(RegionCountMarkersContainer);
 
 const MarkersContainers = () => {
@@ -19,7 +19,7 @@ const MarkersContainers = () => {
     <>
       {markerMode.state === 'high' && <MemoizedHighZoomMarkerContainer />}
       {/* 이 아래는 앞으로 추가될 기능을 미리 대응하는 컴포넌트 */}
-      {markerMode.state === 'middle' && <MemoizedServerClusteredMarkersContainer />}
+      {markerMode.state === 'middle' && <MemoizedMiddleZoomMarkerContainer />}
       {markerMode.state === 'low' && <MemoizedRegionCountMarkersContainer />}
     </>
   );
