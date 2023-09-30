@@ -2,7 +2,7 @@ import { css } from 'styled-components';
 
 import { useEffect, useRef } from 'react';
 
-import { useStationMarkers } from '@marker/StationMarkersContainer/hooks/useStationMarkers';
+import { useStationMarkers } from '@marker/HighZoomMarkerContainer/hooks/useStationMarkers';
 
 import { debounce } from '@utils/debounce';
 

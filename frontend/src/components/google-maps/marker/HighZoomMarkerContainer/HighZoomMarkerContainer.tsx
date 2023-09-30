@@ -1,10 +1,10 @@
-import { useStationMarkers } from '@marker/StationMarkersContainer/hooks/useStationMarkers';
+import { useStationMarkers } from '@marker/HighZoomMarkerContainer/hooks/useStationMarkers';
 
 import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
 
 import { useRenderStationMarker } from './hooks/useRenderStationMarker';
 
-const StationMarkersContainer = () => {
+const HighZoomMarkerContainer = () => {
   const { data: stationMarkers, isSuccess } = useStationMarkers();
   const {
     createNewMarkerInstances,
@@ -35,4 +35,4 @@ const StationMarkersContainer = () => {
   return <></>;
 };
 
-export default StationMarkersContainer;
+export default HighZoomMarkerContainer;
