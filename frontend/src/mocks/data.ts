@@ -1,4 +1,4 @@
-import type { RegionCount, RegionName } from '@marker/LowZoomMarkerContainer/types';
+import type { Region, RegionName } from '@marker/LowZoomMarkerContainer/types';
 
 import { getTypedObjectFromEntries } from '@utils/getTypedObjectFromEntries';
 import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
@@ -238,7 +238,7 @@ export const generateCarFilters = (): StationFilters => {
   };
 };
 
-export const regionCounts: RegionCount[] = [
+export const regions: Region[] = [
   {
     regionName: '서울특별시',
     latitude: 37.540705,

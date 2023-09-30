@@ -16,7 +16,7 @@ export type RegionName =
   | '전라남도'
   | '제주특별자치도';
 
-export interface RegionCount {
+export interface Region {
   regionName: RegionName;
   latitude: number;
   longitude: number;

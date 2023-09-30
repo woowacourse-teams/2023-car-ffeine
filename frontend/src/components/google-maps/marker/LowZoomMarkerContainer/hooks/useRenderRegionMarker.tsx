@@ -6,14 +6,14 @@ import { getGoogleMapStore, googleMapActions } from '@stores/google-maps/googleM
 
 import { ZOOM_BREAKPOINTS } from '@constants/googleMaps';
 
-import RegionCountMarker from '../components/RegionCountMarker';
-import type { RegionCount } from '../types';
+import RegionMarker from '../components/RegionMarker';
+import type { Region } from '../types';
 
-export const useRenderRegionCountMarker = () => {
+export const useRenderRegionMarker = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
 
-  const renderRegionCountMarker = (regionCount: RegionCount) => {
-    const { latitude, longitude, count, regionName } = regionCount;
+  const renderRegionMarker = (region: Region) => {
+    const { latitude, longitude, count, regionName } = region;
 
     const container = document.createElement('div');
 
@@ -24,7 +24,7 @@ export const useRenderRegionCountMarker = () => {
       content: container,
     });
 
-    createRoot(container).render(<RegionCountMarker count={count} regionName={regionName} />);
+    createRoot(container).render(<RegionMarker count={count} regionName={regionName} />);
 
     markerInstance.addListener('click', () => {
       // TODO: 중간 단계 (서버) 클러스터링 구현 이후에 ZOOM_BREAKPOINTS.middle로 변경 예정
@@ -36,5 +36,5 @@ export const useRenderRegionCountMarker = () => {
     };
   };
 
-  return { renderRegionCountMarker };
+  return { renderRegionMarker };
 };

@@ -1,4 +1,4 @@
-import { getRegionName, regionCounts, stations } from '@mocks/data';
+import { getRegionName, regions, stations } from '@mocks/data';
 import { rest } from 'msw';
 
 import { DELIMITER } from '@constants';
@@ -111,10 +111,10 @@ export const stationMarkerHandlers = [
 
     const region = searchParams.get('regions');
     const regionName = getRegionName(region);
-    const foundRegionCounts =
+    const foundRegions =
       regionName === undefined
-        ? regionCounts
-        : regionCounts.filter((regionCount) => regionCount.regionName === regionName);
-    return res(ctx.delay(1000), ctx.status(200), ctx.json(foundRegionCounts));
+        ? regions
+        : regions.filter((region) => region.regionName === regionName);
+    return res(ctx.delay(1000), ctx.status(200), ctx.json(foundRegions));
   }),
 ];

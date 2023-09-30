@@ -4,12 +4,12 @@ import Text from '@common/Text';
 
 import type { RegionName } from '../types';
 
-export interface RegionCountMarkerProps {
+export interface RegionMarkerProps {
   count: number;
   regionName: RegionName;
 }
 
-const RegionCountMarker = ({ count, regionName }: RegionCountMarkerProps) => {
+const RegionMarker = ({ count, regionName }: RegionMarkerProps) => {
   return (
     <FlexBox
       justifyContent="between"
@@ -41,4 +41,4 @@ const RegionCountMarker = ({ count, regionName }: RegionCountMarkerProps) => {
   );
 };
 
-export default RegionCountMarker;
+export default RegionMarker;
