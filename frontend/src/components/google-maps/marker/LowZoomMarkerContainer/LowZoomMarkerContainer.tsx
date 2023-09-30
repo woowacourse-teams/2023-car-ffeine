@@ -1,7 +1,7 @@
 import RegionCountMarkerRenderer from './components/RegionCountMarkerRenderer';
 import { useRegionMarkers } from './hooks/useRegionMarkers';
 
-const RegionCountMarkersContainer = () => {
+const LowZoomMarkerContainer = () => {
   const { data: regionCounts, isSuccess, isError } = useRegionMarkers();
   if (!regionCounts || !isSuccess || isError) {
     return <></>;
@@ -12,4 +12,4 @@ const RegionCountMarkersContainer = () => {
   ));
 };
 
-export default RegionCountMarkersContainer;
+export default LowZoomMarkerContainer;
