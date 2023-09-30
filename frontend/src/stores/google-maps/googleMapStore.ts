@@ -38,7 +38,7 @@ export const getGoogleMapStore = (() => {
         restriction: {
           latLngBounds: {
             north: 39,
-            south: 33,
+            south: 32,
             east: 132,
             west: 124,
           },
