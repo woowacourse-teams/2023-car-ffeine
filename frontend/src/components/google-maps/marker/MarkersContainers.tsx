@@ -20,7 +20,7 @@ const MarkersContainers = () => {
       {markerMode.state === 'high' && <MemoizedHighZoomMarkerContainer />}
       {/* 이 아래는 앞으로 추가될 기능을 미리 대응하는 컴포넌트 */}
       {markerMode.state === 'middle' && <MemoizedMiddleZoomMarkerContainer />}
-      {markerMode.state === 'low' && <Memoized />}
+      {markerMode.state === 'low' && <MemoizedLowZoomMarkerContainer />}
     </>
   );
 };
