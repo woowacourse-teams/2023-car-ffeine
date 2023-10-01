@@ -7,6 +7,7 @@ import FlexBox from '@common/FlexBox';
 import ListItem from '@common/ListItem';
 import Text from '@common/Text';
 
+import ChargingSpeedIcon from '@ui/ChargingSpeedIcon';
 import SummaryButtons from '@ui/StationInfoWindow/SummaryButtons';
 
 import type { StationDetails } from '@type';
@@ -65,7 +66,9 @@ const StationInfo = ({
               {operatingTime}
             </Text>
           </article>
-          {/*{quickChargerCount !== 0 && <ChargingSpeedIcon />}*/}
+          {chargers.filter((charger) => charger.capacity >= 50).length !== 0 && (
+            <ChargingSpeedIcon />
+          )}
         </FlexBox>
       </Button>
       <SummaryButtons
