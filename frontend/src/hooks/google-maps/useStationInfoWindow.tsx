@@ -10,7 +10,7 @@ import { getStationInfoWindowStore } from '@stores/google-maps/stationInfoWindow
 
 import useMediaQueries from '@hooks/useMediaQueries';
 
-export const useStationSummary = () => {
+export const useStationInfoWindow = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
   const infoWindowInstance = useExternalValue(getStationInfoWindowStore());
   const screen = useMediaQueries();
@@ -29,7 +29,7 @@ export const useStationSummary = () => {
     googleMap.panTo({ lat: latitude, lng: longitude });
   };
 
-  const openStationSummary = (
+  const openStationInfoWindow = (
     stationId: string,
     stationMarkerInstance?: google.maps.marker.AdvancedMarkerElement
   ) => {
@@ -50,5 +50,5 @@ export const useStationSummary = () => {
     );
   };
 
-  return { openStationSummary };
+  return { openStationInfoWindow };
 };

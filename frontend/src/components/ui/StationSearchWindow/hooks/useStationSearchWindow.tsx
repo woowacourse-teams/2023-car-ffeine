@@ -1,4 +1,4 @@
-import type { FormEvent, MouseEvent, FocusEvent, ChangeEvent } from 'react';
+import type { ChangeEvent, FocusEvent, FormEvent, MouseEvent } from 'react';
 import { useState } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
@@ -10,7 +10,7 @@ import { useSetExternalState } from '@utils/external-state';
 import { googleMapActions } from '@stores/google-maps/googleMapStore';
 import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
 
-import { useStationSummary } from '@hooks/google-maps/useStationSummary';
+import { useStationInfoWindow } from '@hooks/google-maps/useStationInfoWindow';
 import { fetchSearchedStations } from '@hooks/tanstack-query/useSearchStations';
 import useMediaQueries from '@hooks/useMediaQueries';
 
@@ -37,7 +37,7 @@ export const useStationSearchWindow = () => {
   const setMarkerInstances = useSetExternalState(markerInstanceStore);
 
   const { openLastPanel } = useNavigationBar();
-  const { openStationSummary } = useStationSummary();
+  const { openStationInfoWindow } = useStationInfoWindow();
   const { createNewMarkerInstance, renderMarkerInstances } = useRenderStationMarker();
 
   const screen = useMediaQueries();
@@ -79,7 +79,7 @@ export const useStationSearchWindow = () => {
         .getState()
         .some(({ stationId: cachedStationId }) => cachedStationId === stationId)
     ) {
-      openStationSummary(stationId);
+      openStationInfoWindow(stationId);
     } else {
       const stationDetails = await fetch(
         `${SERVER_URL}/stations/${stationId}`
@@ -92,7 +92,7 @@ export const useStationSearchWindow = () => {
         [{ stationId, markerInstance }],
         [convertStationDetailsToSummary(stationDetails)]
       );
-      openStationSummary(stationId, markerInstance);
+      openStationInfoWindow(stationId, markerInstance);
 
       queryClient.setQueryData([QUERY_KEY_STATION_DETAILS, stationId], stationDetails);
     }
