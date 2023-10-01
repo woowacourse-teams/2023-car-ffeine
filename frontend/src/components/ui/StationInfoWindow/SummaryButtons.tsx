@@ -10,12 +10,12 @@ import FlexBox from '@common/FlexBox';
 import { MOBILE_BREAKPOINT } from '@constants';
 
 export interface SummaryButtonsProps {
-  handleCloseStationSummary: (event: MouseEvent<HTMLButtonElement>) => void;
+  handleCloseStationWindow: (event: MouseEvent<HTMLButtonElement>) => void;
   handleOpenStationDetail: () => void;
 }
 
 const SummaryButtons = ({
-  handleCloseStationSummary,
+  handleCloseStationWindow,
   handleOpenStationDetail,
 }: SummaryButtonsProps) => {
   const screen = useMediaQueries();
@@ -33,7 +33,7 @@ const SummaryButtons = ({
         size="xs"
         color="secondary"
         css={closeButtonCss}
-        onClick={handleCloseStationSummary}
+        onClick={handleCloseStationWindow}
       >
         닫기
       </ButtonNext>

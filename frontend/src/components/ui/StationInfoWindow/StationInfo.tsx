@@ -15,13 +15,13 @@ import type { StationDetails } from '@type';
 export interface StationInfoProps {
   stationDetails: StationDetails;
   handleOpenStationDetail: () => void;
-  handleCloseStationSummary: (event: MouseEvent<HTMLButtonElement>) => void;
+  handleCloseStationWindow: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
 const StationInfo = ({
   stationDetails,
   handleOpenStationDetail,
-  handleCloseStationSummary,
+  handleCloseStationWindow,
 }: StationInfoProps) => {
   const {
     address,
@@ -72,7 +72,7 @@ const StationInfo = ({
         </FlexBox>
       </Button>
       <SummaryButtons
-        handleCloseStationSummary={handleCloseStationSummary}
+        handleCloseStationWindow={handleCloseStationWindow}
         handleOpenStationDetail={handleOpenStationDetail}
       />
     </ListItem>

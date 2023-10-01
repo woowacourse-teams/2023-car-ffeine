@@ -13,11 +13,11 @@ import { useFetchStationDetatils } from '@ui/StationInfoWindow/useFetchStationDe
 
 import StationDetailsWindow from '../StationDetailsWindow';
 
-export interface StationSummaryProps {
+export interface StationInfoWindowProps {
   selectedStationId: string;
 }
 
-const StationInfoWindow = ({ selectedStationId }: StationSummaryProps) => {
+const StationInfoWindow = ({ selectedStationId }: StationInfoWindowProps) => {
   const infoWindowInstance = useExternalValue(getStationInfoWindowStore());
   const { openLastPanel } = useNavigationBar();
 
@@ -27,7 +27,7 @@ const StationInfoWindow = ({ selectedStationId }: StationSummaryProps) => {
     openLastPanel(<StationDetailsWindow stationId={selectedStationId} />);
   };
 
-  const handleCloseStationSummary = (event: MouseEvent<HTMLButtonElement>) => {
+  const handleCloseStationWindow = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     infoWindowInstance.infoWindowInstance.close();
   };
@@ -48,7 +48,7 @@ const StationInfoWindow = ({ selectedStationId }: StationSummaryProps) => {
     <StationInfo
       stationDetails={stationDetails}
       handleOpenStationDetail={handleOpenStationDetail}
-      handleCloseStationSummary={handleCloseStationSummary}
+      handleCloseStationWindow={handleCloseStationWindow}
     />
   );
 };

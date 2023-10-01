@@ -38,16 +38,16 @@ const meta = {
       stationName: '한국도심공항',
       stationState: '내일부터 공사합니다.',
     } as StationDetails,
-    handleCloseStationSummary: () => {
-      alert('충전소 간단 정보창이 닫혔습니다.');
+    handleCloseStationWindow: () => {
+      alert('마커 위의 충전소 정보창이 닫혔습니다.');
     },
     handleOpenStationDetail: () => {
       alert('충전소 상세 정보창이 열렸습니다.');
     },
   },
   argTypes: {
-    handleCloseStationSummary: {
-      description: '충전소 간단 정보창을 닫을 수 있습니다.',
+    handleCloseStationWindow: {
+      description: '마커 위의 충전소 정보창을 닫을 수 있습니다.',
     },
     handleOpenStationDetail: {
       description: '충전소 상세 정보창을 열 수 있습니다. 모바일에서만 보이는 버튼입니다.',
