@@ -10,6 +10,7 @@ import com.carffeine.carffeine.auth.service.OAuthRequester;
 import com.carffeine.carffeine.auth.service.dto.OAuthLoginRequest;
 import com.carffeine.carffeine.auth.service.dto.Tokens;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import static org.springframework.http.HttpHeaders.SET_COOKIE;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class AuthController {
@@ -45,8 +47,10 @@ public class AuthController {
     ) {
         OAuthMember oAuthMember = oAuthRequester.login(request, provider);
         Tokens tokens = authService.generateTokens(oAuthMember);
+        String cookie = refreshTokenCookieGenerator.createCookie(tokens.refreshToken()).toString();
+        log.info("cookie ={}", cookie);
         return ResponseEntity.ok()
-                .header(SET_COOKIE, refreshTokenCookieGenerator.createCookie(tokens.refreshToken()).toString())
+                .header(SET_COOKIE, cookie)
                 .body(new TokenResponse(tokens.accessToken()));
     }
 

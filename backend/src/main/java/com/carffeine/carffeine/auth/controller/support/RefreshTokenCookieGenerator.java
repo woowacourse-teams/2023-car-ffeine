@@ -19,7 +19,7 @@ public class RefreshTokenCookieGenerator {
 
     public ResponseCookie createCookie(String refreshToken) {
         return ResponseCookie.from(REFRESH_TOKEN, refreshToken)
-                .maxAge(Duration.ofMillis(expireLength))
+                .maxAge(Duration.ofHours(expireLength))
                 .path(VALID_COOKIE_PATH)
                 .sameSite("None")
                 .secure(true)
