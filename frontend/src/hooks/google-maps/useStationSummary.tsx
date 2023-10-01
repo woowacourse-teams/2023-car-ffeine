@@ -4,7 +4,7 @@ import { getCalculatedMapDelta } from '@utils/google-maps/getCalculatedMapDelta'
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
-import { getStationSummaryWindowStore } from '@stores/google-maps/stationSummaryWindowStore';
+import { getStationInfoWindowStore } from '@stores/google-maps/stationInfoWindowStore';
 
 import useMediaQueries from '@hooks/useMediaQueries';
 
@@ -12,7 +12,7 @@ import StationSummaryWindow from '@ui/StationSummaryWindow';
 
 export const useStationSummary = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
-  const infoWindowInstance = useExternalValue(getStationSummaryWindowStore());
+  const infoWindowInstance = useExternalValue(getStationInfoWindowStore());
   const screen = useMediaQueries();
 
   const moveMapToStationMarker = (markerInstance: google.maps.marker.AdvancedMarkerElement) => {
@@ -45,7 +45,7 @@ export const useStationSummary = () => {
       map: googleMap,
     });
 
-    infoWindowInstance.stationSummaryRoot.render(
+    infoWindowInstance.stationInfoWindowRoot.render(
       <StationSummaryWindow selectedStationId={stationId} />
     );
   };

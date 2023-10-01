@@ -4,7 +4,7 @@ import type { MouseEvent } from 'react';
 
 import { useExternalValue } from '@utils/external-state';
 
-import { getStationSummaryWindowStore } from '@stores/google-maps/stationSummaryWindowStore';
+import { getStationInfoWindowStore } from '@stores/google-maps/stationInfoWindowStore';
 
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
@@ -23,7 +23,7 @@ export interface StationSummaryProps {
 }
 
 const StationSummaryWindow = ({ selectedStationId }: StationSummaryProps) => {
-  const infoWindowInstance = useExternalValue(getStationSummaryWindowStore());
+  const infoWindowInstance = useExternalValue(getStationInfoWindowStore());
   const { openLastPanel } = useNavigationBar();
 
   const { stationDetails, isLoading } = useFetchStationDetatils(selectedStationId);
