@@ -1,4 +1,4 @@
-import { stations } from '@mocks/data';
+import { getRegionName, regions, stations } from '@mocks/data';
 import { rest } from 'msw';
 
 import { DELIMITER } from '@constants';
@@ -105,5 +105,16 @@ export const stationMarkerHandlers = [
         stations: foundStations,
       })
     );
+  }),
+  rest.get(`${DEVELOP_SERVER_URL}/stations/markers/regions`, async (req, res, ctx) => {
+    const { searchParams } = req.url;
+
+    const region = searchParams.get('regions');
+    const regionName = getRegionName(region);
+    const foundRegions =
+      regionName === undefined
+        ? regions
+        : regions.filter((region) => region.regionName === regionName);
+    return res(ctx.delay(1000), ctx.status(200), ctx.json(foundRegions));
   }),
 ];

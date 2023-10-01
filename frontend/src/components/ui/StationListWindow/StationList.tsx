@@ -2,9 +2,9 @@ import { css } from 'styled-components';
 
 import { useEffect, useRef } from 'react';
 
-import { debounce } from '@utils/debounce';
+import { useStationMarkers } from '@marker/HighZoomMarkerContainer/hooks/useStationMarkers';
 
-import { useStationMarkers } from '@hooks/tanstack-query/station-markers/useStationMarkers';
+import { debounce } from '@utils/debounce';
 
 import FlexBox from '@common/FlexBox';
 import List from '@common/List';

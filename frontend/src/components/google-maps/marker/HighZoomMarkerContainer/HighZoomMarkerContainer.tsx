@@ -1,10 +1,10 @@
-import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
+import { useStationMarkers } from '@marker/HighZoomMarkerContainer/hooks/useStationMarkers';
 
-import { useStationMarkers } from '@hooks/tanstack-query/station-markers/useStationMarkers';
+import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
 
 import { useRenderStationMarker } from './hooks/useRenderStationMarker';
 
-const StationMarkersContainer = () => {
+const HighZoomMarkerContainer = () => {
   const { data: stationMarkers, isSuccess } = useStationMarkers();
   const {
     createNewMarkerInstances,
@@ -35,4 +35,4 @@ const StationMarkersContainer = () => {
   return <></>;
 };
 
-export default StationMarkersContainer;
+export default HighZoomMarkerContainer;
