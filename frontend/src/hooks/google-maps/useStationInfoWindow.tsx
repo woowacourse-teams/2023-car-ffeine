@@ -1,5 +1,3 @@
-import StationInfoWindow from 'components/ui/StationInfoWindow';
-
 import { useExternalValue } from '@utils/external-state';
 import { getDisplayPosition } from '@utils/google-maps';
 import { getCalculatedMapDelta } from '@utils/google-maps/getCalculatedMapDelta';
@@ -9,6 +7,8 @@ import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
 import { getStationInfoWindowStore } from '@stores/google-maps/stationInfoWindowStore';
 
 import useMediaQueries from '@hooks/useMediaQueries';
+
+import StationInfoWindow from '@ui/StationInfoWindow';
 
 export const useStationInfoWindow = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
