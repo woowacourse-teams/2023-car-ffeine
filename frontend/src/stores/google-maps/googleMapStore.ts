@@ -38,7 +38,7 @@ export const getGoogleMapStore = (() => {
         restriction: {
           latLngBounds: {
             north: 39,
-            south: 33,
+            south: 32,
             east: 132,
             west: 124,
           },
@@ -78,10 +78,13 @@ export const googleMapActions = {
       }
     );
   },
-  moveTo: (latLng: google.maps.LatLngLiteral) => {
+  moveTo: (latLng: google.maps.LatLngLiteral, newZoom?: number) => {
     const googleMap = getGoogleMapStore().getState();
 
+    /**
+     * 아래 메서드의 순서를 바꾸게 되면 지도 경계면에 있는 도시들의 중심을 제대로 잡을 수 없는 문제가 있습니다.
+     */
+    googleMap.setZoom(newZoom || INITIAL_ZOOM_LEVEL);
     googleMap.panTo(latLng);
-    googleMap.setZoom(INITIAL_ZOOM_LEVEL);
   },
 };

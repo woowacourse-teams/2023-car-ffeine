@@ -3,9 +3,9 @@ import { css } from 'styled-components';
 
 import { BiCurrentLocation } from 'react-icons/bi';
 
-import { googleMapActions } from '@stores/google-maps/googleMapStore';
+import { useStationMarkers } from '@marker/HighZoomMarkerContainer/hooks/useStationMarkers';
 
-import { useStationMarkers } from '@hooks/tanstack-query/station-markers/useStationMarkers';
+import { googleMapActions } from '@stores/google-maps/googleMapStore';
 
 import Box from '@common/Box';
 import Button from '@common/Button';

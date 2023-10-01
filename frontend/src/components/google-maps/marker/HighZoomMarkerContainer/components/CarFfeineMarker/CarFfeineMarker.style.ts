@@ -1,8 +1,8 @@
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 
-import type { StationMarker } from '@type';
+import type { StationAvailability } from './CarFfeineMarker';
 
-const MARKER_COLORS = {
+export const MARKER_COLORS = {
   noAvailable: {
     background: '#EA4335',
     border: '#960A0A',
@@ -13,26 +13,7 @@ const MARKER_COLORS = {
   },
 } as const;
 
-type StationAvailability = keyof typeof MARKER_COLORS;
-
-export const CarFfeineMarker = (station: StationMarker) => {
-  const { stationName, availableCount } = station;
-
-  const state: StationAvailability = availableCount === 0 ? 'noAvailable' : 'available';
-
-  return (
-    <Marker
-      data-testid="carFfeineMarker"
-      data-marker-id={`marker-${station.stationId}`}
-      title={stationName}
-      state={state}
-    >
-      {availableCount}
-    </Marker>
-  );
-};
-
-const Marker = styled.div<{ state: StationAvailability }>`
+export const Marker = styled.div<{ state: StationAvailability }>`
   position: relative;
   display: flex;
   justify-content: center;

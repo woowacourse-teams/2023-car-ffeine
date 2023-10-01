@@ -12,6 +12,7 @@ import { stationMarkerHandlers } from './station-markers/stationMarkerHandlers';
 import { stationSearchHandlers } from './stationSearchHandlers';
 
 export const handlers = [
+  ...stationMarkerHandlers, // stationHandlers의 stations/:id에 의해 방해받는 메서드가 있기에 stationMarkerHandlers를 먼저 선언해야 함
   ...memberHandlers,
   ...stationSearchHandlers,
   ...stationHandlers,
@@ -23,5 +24,4 @@ export const handlers = [
   ...stationReviewHandlers,
   ...loginHandlers,
   ...carHandler,
-  ...stationMarkerHandlers,
 ];

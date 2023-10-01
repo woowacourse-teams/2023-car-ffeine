@@ -8,11 +8,12 @@ import type { StationMarkerInstance } from '@stores/google-maps/markerInstanceSt
 import { useStationSummary } from '@hooks/google-maps/useStationSummary';
 import useMediaQueries from '@hooks/useMediaQueries';
 
-import CarFfeineMarker from '@ui/CarFfeineMarker';
 import { useNavigationBar } from '@ui/Navigator/NavigationBar/hooks/useNavigationBar';
 import StationDetailsWindow from '@ui/StationDetailsWindow';
 
 import type { StationDetails, StationMarker, StationSummary } from '@type';
+
+import CarFfeineMarker from '../components/CarFfeineMarker';
 
 export const useRenderStationMarker = () => {
   const googleMap = getStoreSnapshot(getGoogleMapStore());
@@ -75,6 +76,12 @@ export const useRenderStationMarker = () => {
     });
   };
 
+  const removeAllMarkers = (prevMarkerInstances: StationMarkerInstance[]) => {
+    prevMarkerInstances.forEach((marker) => {
+      marker.markerInstance.map = null;
+    });
+  };
+
   const getRemainedMarkerInstances = (
     prevMarkerInstances: StationMarkerInstance[],
     currentMarkers: StationMarker[]
@@ -119,5 +126,6 @@ export const useRenderStationMarker = () => {
     removeMarkersOutsideBounds,
     getRemainedMarkerInstances,
     renderMarkerInstances,
+    removeAllMarkers,
   };
 };
