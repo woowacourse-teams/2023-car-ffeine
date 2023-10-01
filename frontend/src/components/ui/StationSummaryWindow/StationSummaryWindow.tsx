@@ -6,8 +6,6 @@ import { useExternalValue } from '@utils/external-state';
 
 import { getStationSummaryWindowStore } from '@stores/google-maps/stationSummaryWindowStore';
 
-import { useFetchStationSummary } from '@hooks/fetch/useFetchStationSummary';
-
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 import ListItem from '@common/ListItem';
@@ -15,23 +13,23 @@ import Loader from '@common/Loader';
 import Text from '@common/Text';
 
 import { useNavigationBar } from '@ui/Navigator/NavigationBar/hooks/useNavigationBar';
+import { useFetchStationDetatils } from '@ui/StationSummaryWindow/useFetchStationDetatils';
 
-import ChargingSpeedIcon from '../ChargingSpeedIcon';
 import StationDetailsWindow from '../StationDetailsWindow';
 import SummaryButtons from './SummaryButtons';
 
 export interface StationSummaryProps {
-  stationId: string;
+  selectedStationId: string;
 }
 
-const StationSummaryWindow = ({ stationId }: StationSummaryProps) => {
+const StationSummaryWindow = ({ selectedStationId }: StationSummaryProps) => {
   const infoWindowInstance = useExternalValue(getStationSummaryWindowStore());
   const { openLastPanel } = useNavigationBar();
 
-  const { isLoading, stationSummary } = useFetchStationSummary(stationId);
+  const { stationDetails, isLoading } = useFetchStationDetatils(selectedStationId);
 
   const handleOpenStationDetail = () => {
-    openLastPanel(<StationDetailsWindow stationId={stationId} />);
+    openLastPanel(<StationDetailsWindow stationId={selectedStationId} />);
   };
 
   const handleCloseStationSummary = (event: MouseEvent<HTMLButtonElement>) => {
@@ -39,15 +37,35 @@ const StationSummaryWindow = ({ stationId }: StationSummaryProps) => {
     infoWindowInstance.infoWindowInstance.close();
   };
 
-  if (isLoading || stationSummary === null) {
+  /**
+   * TODO: 추후에 스테이션 상세 정보를 불러오는데 실패했을 때의 처리를 추가해야 합니다.
+   */
+
+  if (isLoading || stationDetails === null) {
     return (
-      <FlexBox justifyContent="center" alignItems="center" height="184.39px">
+      <FlexBox justifyContent="center" alignItems="center" height="44.44px">
         <Loader size="xxl" />
       </FlexBox>
     );
   }
 
-  const { stationName, companyName, address, operatingTime, quickChargerCount } = stationSummary;
+  const {
+    address,
+    chargers,
+    companyName,
+    contact,
+    detailLocation,
+    isParkingFree,
+    isPrivate,
+    latitude,
+    longitude,
+    operatingTime,
+    privateReason,
+    reportCount,
+    stationId,
+    stationName,
+    stationState,
+  } = stationDetails;
 
   return (
     <ListItem tag="div" key={stationId} css={padding}>
@@ -74,7 +92,7 @@ const StationSummaryWindow = ({ stationId }: StationSummaryProps) => {
               {operatingTime}
             </Text>
           </article>
-          {quickChargerCount !== 0 && <ChargingSpeedIcon />}
+          {/*{quickChargerCount !== 0 && <ChargingSpeedIcon />}*/}
         </FlexBox>
       </Button>
       <SummaryButtons

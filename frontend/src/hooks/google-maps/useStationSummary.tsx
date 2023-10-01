@@ -45,7 +45,9 @@ export const useStationSummary = () => {
       map: googleMap,
     });
 
-    infoWindowInstance.stationSummaryRoot.render(<StationSummaryWindow stationId={stationId} />);
+    infoWindowInstance.stationSummaryRoot.render(
+      <StationSummaryWindow selectedStationId={stationId} />
+    );
   };
 
   return { openStationSummary };
