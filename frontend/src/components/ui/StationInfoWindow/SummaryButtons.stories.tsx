@@ -5,7 +5,7 @@ import type { SummaryButtonsProps } from './SummaryButtons';
 import SummaryButtons from './SummaryButtons';
 
 const meta = {
-  title: 'UI/StationSummaryWindow/Buttons',
+  title: 'UI/StationInfoWindow/Buttons',
   component: SummaryButtons,
   args: {
     handleCloseStationSummary: () => {

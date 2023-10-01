@@ -13,7 +13,7 @@ import Loader from '@common/Loader';
 import Text from '@common/Text';
 
 import { useNavigationBar } from '@ui/Navigator/NavigationBar/hooks/useNavigationBar';
-import { useFetchStationDetatils } from '@ui/StationSummaryWindow/useFetchStationDetatils';
+import { useFetchStationDetatils } from '@ui/StationInfoWindow/useFetchStationDetatils';
 
 import StationDetailsWindow from '../StationDetailsWindow';
 import SummaryButtons from './SummaryButtons';
@@ -22,7 +22,7 @@ export interface StationSummaryProps {
   selectedStationId: string;
 }
 
-const StationSummaryWindow = ({ selectedStationId }: StationSummaryProps) => {
+const StationInfoWindow = ({ selectedStationId }: StationSummaryProps) => {
   const infoWindowInstance = useExternalValue(getStationInfoWindowStore());
   const { openLastPanel } = useNavigationBar();
 
@@ -115,4 +115,4 @@ const foundStationButton = css`
   box-shadow: none;
 `;
 
-export default StationSummaryWindow;
+export default StationInfoWindow;

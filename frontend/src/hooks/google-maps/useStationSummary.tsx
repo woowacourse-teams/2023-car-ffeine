@@ -1,3 +1,5 @@
+import StationInfoWindow from 'components/ui/StationInfoWindow';
+
 import { useExternalValue } from '@utils/external-state';
 import { getDisplayPosition } from '@utils/google-maps';
 import { getCalculatedMapDelta } from '@utils/google-maps/getCalculatedMapDelta';
@@ -7,8 +9,6 @@ import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
 import { getStationInfoWindowStore } from '@stores/google-maps/stationInfoWindowStore';
 
 import useMediaQueries from '@hooks/useMediaQueries';
-
-import StationSummaryWindow from '@ui/StationSummaryWindow';
 
 export const useStationSummary = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
@@ -46,7 +46,7 @@ export const useStationSummary = () => {
     });
 
     infoWindowInstance.stationInfoWindowRoot.render(
-      <StationSummaryWindow selectedStationId={stationId} />
+      <StationInfoWindow selectedStationId={stationId} />
     );
   };
 
