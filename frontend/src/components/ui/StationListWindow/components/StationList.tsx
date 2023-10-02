@@ -8,6 +8,7 @@ import { debounce } from '@utils/debounce';
 
 import FlexBox from '@common/FlexBox';
 import List from '@common/List';
+import Loader from '@common/Loader';
 import Text from '@common/Text';
 
 import EmptyStationsNotice from '@ui/StationListWindow/components/EmptyStationsNotice';
@@ -67,7 +68,6 @@ const StationList = () => {
     );
   }
 
-  // TODO: 초기에 텅 안보이게 하기
   if (
     filteredMarkers === undefined &&
     isStationSummariesLoading === false &&
@@ -83,14 +83,20 @@ const StationList = () => {
         {cachedStationSummaries.map((stationSummary) => (
           <StationSummaryCard key={stationSummary.stationId} station={stationSummary} />
         ))}
-        {isStationSummariesLoading && (
+        {cachedStationSummaries.length === 0 && isStationSummariesLoading && (
           <>
             {Array.from({ length: 10 }, (_, index) => (
               <StationSummaryCardSkeleton key={index} />
             ))}
           </>
         )}
-        {!isStationSummariesLoading && hasNextPage && <div ref={loadMoreElementRef} />}
+        {!isStationSummariesLoading && hasNextPage && (
+          <div ref={loadMoreElementRef}>
+            <FlexBox justifyContent="center" alignItems="center" my={10}>
+              <Loader size="xxl" />
+            </FlexBox>
+          </div>
+        )}
         {!hasNextPage && (
           <FlexBox justifyContent="center" alignItems="center" my={3}>
             <Text>주변의 모든 충전소를 불러왔습니다.</Text>
