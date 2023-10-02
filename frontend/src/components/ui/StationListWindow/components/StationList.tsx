@@ -31,9 +31,12 @@ const StationList = () => {
   } = useFetchStationSummaries(filteredMarkers ?? []);
 
   const loadMoreElementRef = useRef(null);
-  const isStationSummariesEmpty = data?.pages[0].stations.length === 0;
-  const isEndOfList = data?.pages.length !== 0 && !hasNextPage;
   const cachedStationSummaries = cachedStationSummariesActions.get();
+  const isStationSummariesEmpty =
+    data?.pages[0].stations.length + cachedStationSummaries.length === 0;
+  const isEndOfList = data?.pages.length !== 0 && !hasNextPage;
+  const isAvailableToFetchNextPage =
+    !isStationSummariesLoading && !isFetchingNextPage && hasNextPage;
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -77,9 +80,7 @@ const StationList = () => {
             </div>
           ))}
           {isFetchingNextPage && <StationListSkeletons />}
-          {!isStationSummariesLoading && !isFetchingNextPage && hasNextPage && (
-            <div ref={loadMoreElementRef} />
-          )}
+          {isAvailableToFetchNextPage && <div ref={loadMoreElementRef} />}
 
           {isStationSummariesEmpty ? ( // 첫 페이지에 아무것도 없을 때
             <EmptyStationsNotice />
