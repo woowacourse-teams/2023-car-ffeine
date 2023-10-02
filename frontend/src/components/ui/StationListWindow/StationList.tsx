@@ -89,9 +89,8 @@ const StationList = () => {
             ))}
           </>
         )}
-        {hasNextPage ? (
-          <div ref={loadMoreElementRef} />
-        ) : (
+        {!isStationSummariesLoading && hasNextPage && <div ref={loadMoreElementRef} />}
+        {!hasNextPage && (
           <FlexBox justifyContent="center" alignItems="center" my={3}>
             <Text>주변의 모든 충전소를 불러왔습니다.</Text>
           </FlexBox>
