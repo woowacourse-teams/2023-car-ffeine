@@ -16,8 +16,6 @@ const HighZoomMarkerContainer = () => {
     renderMarkerInstances,
   } = useRenderStationMarker();
 
-  console.log(stationMarkers);
-
   if (stationMarkers === undefined || stationMarkers.length === 0 || !isSuccess) {
     return <></>;
   }
