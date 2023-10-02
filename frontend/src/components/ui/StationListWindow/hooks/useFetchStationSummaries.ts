@@ -1,10 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 
 import { fetchStationSummaries } from '@hooks/fetch/fetchStationSummaries';
 
-import type { StationMarker } from '@type';
+import { cachedStationSummariesActions } from '@ui/StationListWindow/tools/cachedStationSummaries';
 
-import { cachedStationSummariesActions } from '../tools/cachedStationSummaries';
+import type { StationMarker, StationSummary } from '@type';
+
+interface StationSummaryResponse {
+  stations: StationSummary[];
+  nextPage: number;
+}
 
 const makeStationIdsChunks = (markers: StationMarker[]) => {
   return markers.reduce((acc: string[][], marker, index) => {
@@ -22,43 +29,35 @@ const makeStationIdsChunks = (markers: StationMarker[]) => {
 };
 
 export const useFetchStationSummaries = (markers: StationMarker[]) => {
+  const queryClient = useQueryClient();
   const stationIdChunks = makeStationIdsChunks(markers);
 
-  const [page, setPage] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
-
   useEffect(() => {
-    setPage(0);
-    loadStationSummaries(0);
+    console.log(markers.length);
+    queryClient.removeQueries(['stationSummaries']);
   }, [markers]);
 
-  useEffect(() => {
-    loadStationSummaries(page);
-  }, [page]);
+  return useInfiniteQuery<StationSummaryResponse>(
+    ['stationSummaries'],
+    async ({ pageParam = 0 }) => {
+      const stationIds = stationIdChunks[pageParam] ?? [];
+      const uncachedStationSummaryIds = stationIds.filter(
+        (stationId) => !cachedStationSummariesActions.has(stationId)
+      );
 
-  const loadStationSummaries = (page: number) => {
-    const stationIds = stationIdChunks[page] ?? [];
-    const uncachedStationSummaryIds = stationIds.filter(
-      (stationId) => !cachedStationSummariesActions.has(stationId)
-    );
-
-    if (uncachedStationSummaryIds.length > 0) {
-      setIsLoading(true);
-      fetchStationSummaries(uncachedStationSummaryIds).then((stationSummaries) => {
+      if (uncachedStationSummaryIds.length > 0) {
+        const stationSummaries = await fetchStationSummaries(uncachedStationSummaryIds);
         cachedStationSummariesActions.add(stationSummaries);
-        setIsLoading(false);
-      });
+        return { stations: stationSummaries, nextPage: pageParam + 1 };
+      } else {
+        return { stations: [], nextPage: -1 };
+      }
+    },
+    {
+      getNextPageParam: (lastPage) => {
+        return lastPage.nextPage > 0 ? lastPage.nextPage : undefined;
+      },
+      refetchOnWindowFocus: false,
     }
-  };
-
-  const loadMore = () => {
-    setPage((prevPage) => prevPage + 1);
-  };
-
-  const unknownMarkers = markers.filter(
-    (marker) => !cachedStationSummariesActions.has(marker.stationId)
   );
-  const hasNextPage = unknownMarkers.length > 0;
-
-  return { isLoading, loadMore, hasNextPage };
 };

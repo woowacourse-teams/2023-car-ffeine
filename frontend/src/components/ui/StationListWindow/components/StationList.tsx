@@ -4,39 +4,42 @@ import { useEffect, useRef } from 'react';
 
 import { useStationMarkers } from '@marker/HighZoomMarkerContainer/hooks/useStationMarkers';
 
-import { debounce } from '@utils/debounce';
-
 import FlexBox from '@common/FlexBox';
 import List from '@common/List';
-import Loader from '@common/Loader';
 import Text from '@common/Text';
 
 import EmptyStationsNotice from '@ui/StationListWindow/components/EmptyStationsNotice';
-import StationSummaryCardSkeleton from '@ui/StationListWindow/components/StationSummaryCardSkeleton';
+import StationListSkeletons from '@ui/StationListWindow/components/StationListSkeletons';
+import { cachedStationSummariesActions } from '@ui/StationListWindow/tools/cachedStationSummaries';
 
 import { MOBILE_BREAKPOINT } from '@constants';
 
 import { useFetchStationSummaries } from '../hooks/useFetchStationSummaries';
-import { cachedStationSummariesActions } from '../tools/cachedStationSummaries';
 import StationSummaryCard from './StationSummaryCard';
 
 const StationList = () => {
   const { data: filteredMarkers } = useStationMarkers();
 
   const {
+    status,
+    data,
     isLoading: isStationSummariesLoading,
-    loadMore,
+    isFetchingNextPage,
+    fetchNextPage,
     hasNextPage,
+    error,
   } = useFetchStationSummaries(filteredMarkers ?? []);
 
   const loadMoreElementRef = useRef(null);
-  const debouncedLoadMore = debounce(loadMore, 500);
+  const isStationSummariesEmpty = data?.pages[0].stations.length === 0;
+  const isEndOfList = data?.pages.length !== 0 && !hasNextPage;
+  const cachedStationSummaries = cachedStationSummariesActions.get();
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting && hasNextPage) {
-          debouncedLoadMore();
+          fetchNextPage();
         }
       });
     });
@@ -50,41 +53,44 @@ const StationList = () => {
         observer.unobserve(loadMoreElementRef.current);
       }
     };
-  }, [loadMore, hasNextPage]);
-
-  const cachedStationSummaries = cachedStationSummariesActions.get();
-
-  if (
-    filteredMarkers === undefined &&
-    isStationSummariesLoading === false &&
-    cachedStationSummaries.length === 0
-  ) {
-    return <EmptyStationsNotice />;
-  }
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
   return (
     <List css={searchResultList}>
-      {cachedStationSummaries.map((stationSummary) => (
-        <StationSummaryCard key={stationSummary.stationId} station={stationSummary} />
-      ))}
-      {isStationSummariesLoading && (
+      {status === 'loading' ? (
+        <StationListSkeletons />
+      ) : // <></>
+      status === 'error' ? (
+        <Text variant="caption" align="center">
+          Error: {JSON.stringify(error)}
+        </Text>
+      ) : (
         <>
-          {Array.from({ length: 10 }, (_, index) => (
-            <StationSummaryCardSkeleton key={index} />
+          {cachedStationSummaries.map((stationSummary) => (
+            <StationSummaryCard key={stationSummary.stationId} station={stationSummary} />
           ))}
+          {data.pages.map((page) => (
+            <div key={JSON.stringify(page.stations.map((station) => station.stationId))}>
+              {page.stations.map((stationSummary) => (
+                <StationSummaryCard key={stationSummary.stationId} station={stationSummary} />
+              ))}
+            </div>
+          ))}
+          {isFetchingNextPage && <StationListSkeletons />}
+          {!isStationSummariesLoading && !isFetchingNextPage && hasNextPage && (
+            <div ref={loadMoreElementRef} />
+          )}
+
+          {isStationSummariesEmpty ? ( // 첫 페이지에 아무것도 없을 때
+            <EmptyStationsNotice />
+          ) : (
+            isEndOfList && (
+              <FlexBox justifyContent="center" alignItems="center" my={10}>
+                <Text>주변의 모든 충전소를 불러왔습니다.</Text>
+              </FlexBox>
+            )
+          )}
         </>
-      )}
-      {!isStationSummariesLoading && hasNextPage && (
-        <div ref={loadMoreElementRef}>
-          <FlexBox justifyContent="center" alignItems="center" my={10}>
-            <Loader size="xxl" />
-          </FlexBox>
-        </div>
-      )}
-      {!hasNextPage && (
-        <FlexBox justifyContent="center" alignItems="center" my={10}>
-          <Text>주변의 모든 충전소를 불러왔습니다.</Text>
-        </FlexBox>
       )}
     </List>
   );
