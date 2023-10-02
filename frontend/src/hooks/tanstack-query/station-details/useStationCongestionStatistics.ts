@@ -6,7 +6,7 @@ import { SERVER_URL } from '@constants/server';
 
 import type { CongestionStatistics, EnglishDaysOfWeek } from '@type/congestion';
 
-export const fetchStationDetails = async (selectedStationId: string, dayOfWeek: string) => {
+export const fetchStationStatistics = async (selectedStationId: string, dayOfWeek: string) => {
   const stationDetails = await fetch(
     `${SERVER_URL}/stations/${selectedStationId}/statistics?dayOfWeek=${dayOfWeek}`,
     {
@@ -28,7 +28,7 @@ export const fetchStationDetails = async (selectedStationId: string, dayOfWeek: 
 export const useStationCongestionStatistics = (stationId: string, dayOfWeek: EnglishDaysOfWeek) => {
   return useQuery({
     queryKey: [QUERY_KEY_STATION_CONGESTION_STATISTICS, stationId, dayOfWeek],
-    queryFn: () => fetchStationDetails(stationId, dayOfWeek),
+    queryFn: () => fetchStationStatistics(stationId, dayOfWeek),
     enabled: !!stationId,
     refetchOnWindowFocus: false,
   });

@@ -8,10 +8,10 @@ import FlexBox from '@common/FlexBox';
 import Loader from '@common/Loader';
 
 import { useNavigationBar } from '@ui/Navigator/NavigationBar/hooks/useNavigationBar';
-import StationInfo from '@ui/StationInfoWindow/StationInfo';
-import { useFetchStationDetatils } from '@ui/StationInfoWindow/useFetchStationDetatils';
 
 import StationDetailsWindow from '../StationDetailsWindow';
+import StationInfo from './StationInfo';
+import { useFetchStationDetails } from './useFetchStationDetails';
 
 export interface StationInfoWindowProps {
   selectedStationId: string;
@@ -21,7 +21,7 @@ const StationInfoWindow = ({ selectedStationId }: StationInfoWindowProps) => {
   const infoWindowInstance = useExternalValue(getStationInfoWindowStore());
   const { openLastPanel } = useNavigationBar();
 
-  const { stationDetails, isLoading } = useFetchStationDetatils(selectedStationId);
+  const { stationDetails, isLoading } = useFetchStationDetails(selectedStationId);
 
   const handleOpenStationDetail = () => {
     openLastPanel(<StationDetailsWindow stationId={selectedStationId} />);
@@ -38,7 +38,7 @@ const StationInfoWindow = ({ selectedStationId }: StationInfoWindowProps) => {
 
   if (isLoading || stationDetails === null) {
     return (
-      <FlexBox justifyContent="center" alignItems="center" height="44.44px">
+      <FlexBox justifyContent="center" alignItems="center" height="17.52rem">
         <Loader size="xxl" />
       </FlexBox>
     );

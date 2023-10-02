@@ -2,9 +2,9 @@ import { css } from 'styled-components';
 
 import type { MouseEvent } from 'react';
 
+import Box from '@common/Box';
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
-import ListItem from '@common/ListItem';
 import Text from '@common/Text';
 
 import ChargingSpeedIcon from '@ui/ChargingSpeedIcon';
@@ -42,7 +42,7 @@ const StationInfo = ({
   } = stationDetails;
 
   return (
-    <ListItem tag="div" key={stationId} css={padding}>
+    <Box key={stationId} px={6} pt={6} pb={4}>
       <Button width="100%" shadow css={foundStationButton} onClick={handleOpenStationDetail}>
         <FlexBox alignItems="start" justifyContent="between" nowrap columnGap={2.8}>
           <article>
@@ -52,7 +52,7 @@ const StationInfo = ({
               variant="subtitle"
               title={stationName}
               lineClamp={1}
-              css={companyNameText}
+              fontSize={1.3}
             >
               {companyName}
             </Text>
@@ -75,17 +75,9 @@ const StationInfo = ({
         handleCloseStationWindow={handleCloseStationWindow}
         handleOpenStationDetail={handleOpenStationDetail}
       />
-    </ListItem>
+    </Box>
   );
 };
-
-const padding = css`
-  padding: 2.4rem 2.4rem 1.8rem;
-`;
-
-const companyNameText = css`
-  font-size: 1.3rem;
-`;
 
 const foundStationButton = css`
   box-shadow: none;

@@ -4,7 +4,7 @@ import { fetchStationDetails } from '@hooks/tanstack-query/station-details/useSt
 
 import type { StationDetails } from '@type';
 
-export const useFetchStationDetatils = (stationId: string) => {
+export const useFetchStationDetails = (stationId: string) => {
   const [stationDetails, setStationDetails] = useState<StationDetails>(null);
   const [isLoading, setIsLoading] = useState(false);
 
