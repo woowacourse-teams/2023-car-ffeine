@@ -12,7 +12,7 @@ import { containerCss } from '@ui/ServerStationFilters/ServerStationFilters';
 
 import { MOBILE_BREAKPOINT } from '@constants';
 
-const StationList = lazy(() => import('./StationList'));
+const StationList = lazy(() => import('./components/StationList'));
 
 const StationListWindow = () => {
   const { closeBasePanel } = useNavigationBar();

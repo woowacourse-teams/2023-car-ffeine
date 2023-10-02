@@ -10,14 +10,14 @@ import FlexBox from '@common/FlexBox';
 import List from '@common/List';
 import Text from '@common/Text';
 
-import EmptyStationsNotice from '@ui/StationListWindow/EmptyStationsNotice';
-import StationSummaryCardSkeleton from '@ui/StationListWindow/StationSummaryCardSkeleton';
+import EmptyStationsNotice from '@ui/StationListWindow/components/EmptyStationsNotice';
+import StationSummaryCardSkeleton from '@ui/StationListWindow/components/StationSummaryCardSkeleton';
 
 import { MOBILE_BREAKPOINT } from '@constants';
 
+import { useFetchStationSummaries } from '../hooks/useFetchStationSummaries';
+import { cachedStationSummariesActions } from '../tools/cachedStationSummaries';
 import StationSummaryCard from './StationSummaryCard';
-import { useFetchStationSummaries } from './hooks/useFetchStationSummaries';
-import { cachedStationSummariesActions } from './tools/cachedStationSummaries';
 
 const StationList = () => {
   const {
