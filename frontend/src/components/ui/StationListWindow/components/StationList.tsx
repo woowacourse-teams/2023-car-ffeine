@@ -14,7 +14,7 @@ import { cachedStationSummariesActions } from '@ui/StationListWindow/tools/cache
 
 import { MOBILE_BREAKPOINT } from '@constants';
 
-import { useFetchStationSummaries } from '../hooks/useFetchStationSummaries';
+import { useInfiniteStationSummaries } from '../hooks/useInfiniteStationSummaries';
 import StationSummaryCard from './StationSummaryCard';
 
 const StationList = () => {
@@ -28,7 +28,7 @@ const StationList = () => {
     fetchNextPage,
     hasNextPage,
     error,
-  } = useFetchStationSummaries(filteredMarkers ?? []);
+  } = useInfiniteStationSummaries(filteredMarkers ?? []);
 
   const loadMoreElementRef = useRef(null);
   const cachedStationSummaries = cachedStationSummariesActions.get();
@@ -62,8 +62,7 @@ const StationList = () => {
     <List css={searchResultList}>
       {status === 'loading' ? (
         <StationListSkeletons />
-      ) : // <></>
-      status === 'error' ? (
+      ) : status === 'error' ? (
         <Text variant="caption" align="center">
           Error: {JSON.stringify(error)}
         </Text>

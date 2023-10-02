@@ -6,6 +6,8 @@ import { fetchStationSummaries } from '@hooks/fetch/fetchStationSummaries';
 
 import { cachedStationSummariesActions } from '@ui/StationListWindow/tools/cachedStationSummaries';
 
+import { QUERY_KEY_STATION_SUMMARIES } from '@constants/queryKeys';
+
 import type { StationMarker, StationSummary } from '@type';
 
 interface StationSummaryResponse {
@@ -28,17 +30,16 @@ const makeStationIdsChunks = (markers: StationMarker[]) => {
   }, []);
 };
 
-export const useFetchStationSummaries = (markers: StationMarker[]) => {
+export const useInfiniteStationSummaries = (markers: StationMarker[]) => {
   const queryClient = useQueryClient();
   const stationIdChunks = makeStationIdsChunks(markers);
 
   useEffect(() => {
-    console.log(markers.length);
-    queryClient.removeQueries(['stationSummaries']);
+    queryClient.removeQueries([QUERY_KEY_STATION_SUMMARIES]);
   }, [markers]);
 
   return useInfiniteQuery<StationSummaryResponse>(
-    ['stationSummaries'],
+    [QUERY_KEY_STATION_SUMMARIES],
     async ({ pageParam = 0 }) => {
       const stationIds = stationIdChunks[pageParam] ?? [];
       const uncachedStationSummaryIds = stationIds.filter(
