@@ -9,6 +9,7 @@
     "jsx": "react-jsx",
     "allowJs": true,
     "moduleResolution": "node",
+    "jsxImportSource": "@emotion/react",
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./src",
     "paths": {
