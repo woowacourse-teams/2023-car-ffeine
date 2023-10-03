@@ -44,12 +44,9 @@ export const useInfiniteStationSummaries = (markers: StationMarker[]) => {
     [QUERY_KEY_STATION_SUMMARIES],
     async ({ pageParam = 0 }) => {
       const stationIds = stationIdChunks[pageParam] ?? [];
-      const uncachedStationSummaryIds = stationIds.filter(
-        (stationId) => !cachedStationSummariesActions.has(stationId)
-      );
 
-      if (uncachedStationSummaryIds.length > 0) {
-        const stationSummaries = await fetchStationSummaries(uncachedStationSummaryIds);
+      if (stationIds.length > 0) {
+        const stationSummaries = await fetchStationSummaries(stationIds);
         cachedStationSummariesActions.add(stationSummaries);
         return { stations: stationSummaries, nextPage: pageParam + 1 };
       } else {
