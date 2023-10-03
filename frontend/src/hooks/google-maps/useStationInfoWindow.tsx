@@ -4,15 +4,15 @@ import { getCalculatedMapDelta } from '@utils/google-maps/getCalculatedMapDelta'
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
-import { getStationSummaryWindowStore } from '@stores/google-maps/stationSummaryWindowStore';
+import { getStationInfoWindowStore } from '@stores/google-maps/stationInfoWindowStore';
 
 import useMediaQueries from '@hooks/useMediaQueries';
 
-import StationSummaryWindow from '@ui/StationSummaryWindow';
+import StationInfoWindow from '@ui/StationInfoWindow';
 
-export const useStationSummary = () => {
+export const useStationInfoWindow = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
-  const infoWindowInstance = useExternalValue(getStationSummaryWindowStore());
+  const infoWindowInstance = useExternalValue(getStationInfoWindowStore());
   const screen = useMediaQueries();
 
   const moveMapToStationMarker = (markerInstance: google.maps.marker.AdvancedMarkerElement) => {
@@ -29,7 +29,7 @@ export const useStationSummary = () => {
     googleMap.panTo({ lat: latitude, lng: longitude });
   };
 
-  const openStationSummary = (
+  const openStationInfoWindow = (
     stationId: string,
     stationMarkerInstance?: google.maps.marker.AdvancedMarkerElement
   ) => {
@@ -45,8 +45,10 @@ export const useStationSummary = () => {
       map: googleMap,
     });
 
-    infoWindowInstance.stationSummaryRoot.render(<StationSummaryWindow stationId={stationId} />);
+    infoWindowInstance.stationInfoWindowRoot.render(
+      <StationInfoWindow selectedStationId={stationId} />
+    );
   };
 
-  return { openStationSummary };
+  return { openStationInfoWindow };
 };
