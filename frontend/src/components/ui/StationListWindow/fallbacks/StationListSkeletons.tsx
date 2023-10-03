@@ -1,4 +1,4 @@
-import StationSummaryCardSkeleton from '@ui/StationListWindow/components/StationSummaryCardSkeleton';
+import StationSummaryCardSkeleton from '@ui/StationListWindow/fallbacks/StationSummaryCardSkeleton';
 
 const StationListSkeletons = () => {
   return (

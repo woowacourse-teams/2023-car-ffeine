@@ -2,7 +2,7 @@ import { css, styled } from 'styled-components';
 
 import Text from '@common/Text';
 
-import StationList from '@ui/StationListWindow/components/StationList';
+import StationList from '@ui/StationListWindow/StationList';
 
 import { MOBILE_BREAKPOINT, NAVIGATOR_PANEL_WIDTH } from '@constants';
 

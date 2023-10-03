@@ -8,14 +8,14 @@ import FlexBox from '@common/FlexBox';
 import List from '@common/List';
 import Text from '@common/Text';
 
-import EmptyStationsNotice from '@ui/StationListWindow/components/EmptyStationsNotice';
-import StationListSkeletons from '@ui/StationListWindow/components/StationListSkeletons';
+import EmptyStationsNotice from '@ui/StationListWindow/fallbacks/EmptyStationsNotice';
+import StationListSkeletons from '@ui/StationListWindow/fallbacks/StationListSkeletons';
 import { cachedStationSummariesActions } from '@ui/StationListWindow/tools/cachedStationSummaries';
 
 import { MOBILE_BREAKPOINT } from '@constants';
 
-import { useInfiniteStationSummaries } from '../hooks/useInfiniteStationSummaries';
 import StationSummaryCard from './StationSummaryCard';
+import { useInfiniteStationSummaries } from './hooks/useInfiniteStationSummaries';
 
 const StationList = () => {
   const { data: filteredMarkers } = useStationMarkers();
