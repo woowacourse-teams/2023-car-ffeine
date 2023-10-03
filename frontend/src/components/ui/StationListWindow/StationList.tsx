@@ -23,7 +23,7 @@ const StationList = () => {
   const {
     status,
     data,
-    isLoading: isStationSummariesLoading,
+    isLoading: isStationSummaryListLoading,
     isFetchingNextPage,
     fetchNextPage,
     hasNextPage,
@@ -32,11 +32,11 @@ const StationList = () => {
 
   const loadMoreElementRef = useRef(null);
   const cachedStationSummaries = cachedStationSummariesActions.get();
-  const isStationSummariesEmpty =
+  const isStationSummaryListEmpty =
     data?.pages[0].stations.length + cachedStationSummaries.length === 0;
   const isEndOfList = data?.pages.length !== 0 && !hasNextPage;
   const isAvailableToFetchNextPage =
-    !isStationSummariesLoading && !isFetchingNextPage && hasNextPage;
+    !isStationSummaryListLoading && !isFetchingNextPage && hasNextPage;
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -81,7 +81,7 @@ const StationList = () => {
           {isFetchingNextPage && <StationListSkeletons />}
           {isAvailableToFetchNextPage && <div ref={loadMoreElementRef} />}
 
-          {isStationSummariesEmpty ? ( // 첫 페이지에 아무것도 없을 때
+          {isStationSummaryListEmpty ? ( // 첫 페이지에 아무것도 없을 때
             <EmptyStationsNotice />
           ) : (
             isEndOfList && (
