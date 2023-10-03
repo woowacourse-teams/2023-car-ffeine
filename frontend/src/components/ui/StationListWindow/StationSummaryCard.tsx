@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-import { useStationSummary } from '@hooks/google-maps/useStationSummary';
+import { useStationInfoWindow } from '@hooks/google-maps/useStationInfoWindow';
 import useMediaQueries from '@hooks/useMediaQueries';
 
 import Button from '@common/Button';
@@ -22,7 +22,7 @@ interface Props {
 
 const StationSummaryCard = ({ station, tag, $noPadding }: Props) => {
   const { openLastPanel, closeBasePanel } = useNavigationBar();
-  const { openStationSummary } = useStationSummary();
+  const { openStationInfoWindow } = useStationInfoWindow();
   const screen = useMediaQueries();
 
   const {
@@ -43,7 +43,7 @@ const StationSummaryCard = ({ station, tag, $noPadding }: Props) => {
         shadow
         css={foundStationButton}
         onClick={() => {
-          openStationSummary(stationId);
+          openStationInfoWindow(stationId);
           if (screen.get('isMobile')) {
             closeBasePanel();
           } else {
