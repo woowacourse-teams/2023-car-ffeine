@@ -10,7 +10,7 @@ import { QUERY_KEY_STATION_SUMMARIES } from '@constants/queryKeys';
 
 import type { StationMarker, StationSummary } from '@type';
 
-interface StationSummaryResponse {
+export interface StationSummaryResponse {
   stations: StationSummary[];
   nextPage: number;
 }
@@ -19,17 +19,17 @@ const makeStationIdsChunks = (markers: StationMarker[]) => {
   return markers
     .filter((marker) => !cachedStationSummariesActions.has(marker.stationId))
     .reduce((acc: string[][], marker, index) => {
-    const REQUEST_CHUNK_SIZE = 10;
-    const chunkIndex = Math.floor(index / REQUEST_CHUNK_SIZE);
+      const REQUEST_CHUNK_SIZE = 10;
+      const chunkIndex = Math.floor(index / REQUEST_CHUNK_SIZE);
 
-    if (!acc[chunkIndex]) {
-      acc[chunkIndex] = [];
-    }
+      if (!acc[chunkIndex]) {
+        acc[chunkIndex] = [];
+      }
 
-    acc[chunkIndex].push(marker.stationId);
+      acc[chunkIndex].push(marker.stationId);
 
-    return acc;
-  }, []);
+      return acc;
+    }, []);
 };
 
 export const useInfiniteStationSummaries = (markers: StationMarker[]) => {

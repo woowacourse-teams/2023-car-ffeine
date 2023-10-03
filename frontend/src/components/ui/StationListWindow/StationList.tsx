@@ -8,14 +8,13 @@ import FlexBox from '@common/FlexBox';
 import List from '@common/List';
 import Text from '@common/Text';
 
-import EmptyStationsNotice from '@ui/StationListWindow/fallbacks/EmptyStationsNotice';
-import StationListSkeletons from '@ui/StationListWindow/fallbacks/StationListSkeletons';
-import { cachedStationSummariesActions } from '@ui/StationListWindow/tools/cachedStationSummaries';
-
 import { MOBILE_BREAKPOINT } from '@constants';
 
-import StationSummaryCard from './StationSummaryCard';
+import StationSummaryCardList from './StationSummaryCardList';
+import EmptyStationsNotice from './fallbacks/EmptyStationsNotice';
+import StationListSkeletons from './fallbacks/StationListSkeletons';
 import { useInfiniteStationSummaries } from './hooks/useInfiniteStationSummaries';
+import { cachedStationSummariesActions } from './tools/cachedStationSummaries';
 
 const StationList = () => {
   const { data: filteredMarkers } = useStationMarkers();
@@ -62,6 +61,7 @@ const StationList = () => {
     if (status === 'loading') {
       return <StationListSkeletons />;
     }
+
     if (status === 'error') {
       return (
         <Text variant="caption" align="center">
@@ -69,18 +69,10 @@ const StationList = () => {
         </Text>
       );
     }
+
     return (
       <>
-        {cachedStationSummaries.map((stationSummary) => (
-          <StationSummaryCard key={stationSummary.stationId} station={stationSummary} />
-        ))}
-        {data.pages.map((page) => (
-          <div key={JSON.stringify(page.stations.map((station) => station.stationId))}>
-            {page.stations.map((stationSummary) => (
-              <StationSummaryCard key={stationSummary.stationId} station={stationSummary} />
-            ))}
-          </div>
-        ))}
+        <StationSummaryCardList cachedStationSummaries={cachedStationSummaries} data={data} />
         {isFetchingNextPage && <StationListSkeletons />}
         {isAvailableToFetchNextPage && <div ref={loadMoreElementRef} />}
 
