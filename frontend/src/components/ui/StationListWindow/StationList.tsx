@@ -58,42 +58,46 @@ const StationList = () => {
     };
   }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
-  return (
-    <List css={searchResultList}>
-      {status === 'loading' ? (
-        <StationListSkeletons />
-      ) : status === 'error' ? (
+  const renderStationSummaryCards = () => {
+    if (status === 'loading') {
+      return <StationListSkeletons />;
+    }
+    if (status === 'error') {
+      return (
         <Text variant="caption" align="center">
           Error: {JSON.stringify(error)}
         </Text>
-      ) : (
-        <>
-          {cachedStationSummaries.map((stationSummary) => (
-            <StationSummaryCard key={stationSummary.stationId} station={stationSummary} />
-          ))}
-          {data.pages.map((page) => (
-            <div key={JSON.stringify(page.stations.map((station) => station.stationId))}>
-              {page.stations.map((stationSummary) => (
-                <StationSummaryCard key={stationSummary.stationId} station={stationSummary} />
-              ))}
-            </div>
-          ))}
-          {isFetchingNextPage && <StationListSkeletons />}
-          {isAvailableToFetchNextPage && <div ref={loadMoreElementRef} />}
+      );
+    }
+    return (
+      <>
+        {cachedStationSummaries.map((stationSummary) => (
+          <StationSummaryCard key={stationSummary.stationId} station={stationSummary} />
+        ))}
+        {data.pages.map((page) => (
+          <div key={JSON.stringify(page.stations.map((station) => station.stationId))}>
+            {page.stations.map((stationSummary) => (
+              <StationSummaryCard key={stationSummary.stationId} station={stationSummary} />
+            ))}
+          </div>
+        ))}
+        {isFetchingNextPage && <StationListSkeletons />}
+        {isAvailableToFetchNextPage && <div ref={loadMoreElementRef} />}
 
-          {isStationSummaryListEmpty ? ( // 첫 페이지에 아무것도 없을 때
-            <EmptyStationsNotice />
-          ) : (
-            isEndOfList && (
-              <FlexBox justifyContent="center" alignItems="center" my={10}>
-                <Text>주변의 모든 충전소를 불러왔습니다.</Text>
-              </FlexBox>
-            )
-          )}
-        </>
-      )}
-    </List>
-  );
+        {isStationSummaryListEmpty ? (
+          <EmptyStationsNotice />
+        ) : (
+          isEndOfList && (
+            <FlexBox justifyContent="center" alignItems="center" my={10}>
+              <Text>주변의 모든 충전소를 불러왔습니다.</Text>
+            </FlexBox>
+          )
+        )}
+      </>
+    );
+  };
+
+  return <List css={searchResultList}>{renderStationSummaryCards()}</List>;
 };
 
 const searchResultList = css`
