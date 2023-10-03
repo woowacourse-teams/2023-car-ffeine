@@ -16,7 +16,9 @@ interface StationSummaryResponse {
 }
 
 const makeStationIdsChunks = (markers: StationMarker[]) => {
-  return markers.reduce((acc: string[][], marker, index) => {
+  return markers
+    .filter((marker) => !cachedStationSummariesActions.has(marker.stationId))
+    .reduce((acc: string[][], marker, index) => {
     const REQUEST_CHUNK_SIZE = 10;
     const chunkIndex = Math.floor(index / REQUEST_CHUNK_SIZE);
 
