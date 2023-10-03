@@ -13,7 +13,7 @@ import StationDetailsWindow from '@ui/StationDetailsWindow';
 
 import type { StationDetails, StationMarker, StationSummary } from '@type';
 
-import CarFfeineMarker from '../components/CarFfeineMarker';
+import DotMarker from '../components/DotMarker/DotMarker';
 
 export const useRenderStationMarker = () => {
   const googleMap = getStoreSnapshot(getGoogleMapStore());
@@ -104,7 +104,7 @@ export const useRenderStationMarker = () => {
       const markerInformation = markers.find(
         (stationMarker) => stationMarker.stationId === stationId
       );
-      createRoot(container).render(<CarFfeineMarker {...markerInformation} />);
+      createRoot(container).render(<DotMarker station={markerInformation} />);
     });
   };
 
