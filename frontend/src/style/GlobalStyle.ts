@@ -11,7 +11,7 @@ export const GlobalStyle = createGlobalStyle`
 
   html,
   body {
-    font-size: 62.5%;
+    font-size: 62.5% !important;
     /********** hidden scroll **********/
     scrollbar-width: none;
   }
