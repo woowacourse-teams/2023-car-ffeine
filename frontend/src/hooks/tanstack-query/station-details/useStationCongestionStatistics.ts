@@ -7,14 +7,14 @@ import { SERVER_URL } from '@constants/server';
 import type { CongestionStatistics, EnglishDaysOfWeek } from '@type/congestion';
 
 export const fetchStationStatistics = async (selectedStationId: string, dayOfWeek: string) => {
-  const stationDetails = await fetch(
+  const statistics = await fetch(
     `${SERVER_URL}/stations/${selectedStationId}/statistics?dayOfWeek=${dayOfWeek}`,
     {
       method: 'GET',
     }
   ).then<CongestionStatistics>(async (response) => {
     if (!response.ok) {
-      throw new Error(ERROR_MESSAGES.STATION_DETAILS_FETCH_ERROR);
+      throw new Error(ERROR_MESSAGES.STATION_STATISTICS_FETCH_ERROR);
     }
 
     const congestionStatistics: CongestionStatistics = await response.json();
@@ -22,7 +22,7 @@ export const fetchStationStatistics = async (selectedStationId: string, dayOfWee
     return congestionStatistics;
   });
 
-  return stationDetails;
+  return statistics;
 };
 
 export const useStationCongestionStatistics = (stationId: string, dayOfWeek: EnglishDaysOfWeek) => {
