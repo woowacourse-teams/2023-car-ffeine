@@ -16,7 +16,7 @@
   "plugins": ["@emotion", "react-require"],
   "env": {
     "test": {
-      "plugins": ["@babel/plugin-transform-modules-commonjs", "@babel/plugin-transform-runtime"]
+      "plugins": ["@babel/plugin-transform-runtime"]
     }
   }
 }
