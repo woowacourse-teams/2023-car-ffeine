@@ -1,8 +1,6 @@
 import { css } from '@emotion/react';
 
-import type { FourSides } from '@common/types/side';
-
-import type { WidthStyle } from '../Container';
+import type { ContainerProps, WidthStyle } from '../Container';
 
 export const ALIGNMENT = {
   left: '0',
@@ -20,23 +18,51 @@ export const widthStyle = ({ fluid, gutter }: WidthStyle) => css`
   ${fluid && `width: ${gutter ? 'calc(100% - 48px)' : '100%'}`};
 `;
 
-export const borderStyle = (border: boolean | FourSides) => css`
+const addUnitForBorder = (borderProp: number | string) => {
+  return typeof borderProp === 'number' ? `${borderProp}px` : borderProp;
+};
+export const borderStyle = ({
+  border,
+  borderColor,
+  borderWidth,
+  borderRadius,
+}: Pick<ContainerProps, 'border' | 'borderColor' | 'borderWidth' | 'borderRadius'>) => css`
   ${border === true && `border: 0.1px solid #66666666; border-radius: 4px;`}
 
-  ${typeof border !== 'boolean' && `border-${border}: 0.1px solid #66666666;`}
+  ${typeof border !== 'boolean' && `border-${border}: 0.1px solid #66666666`};
+
+  ${borderColor !== undefined && `border-color: ${borderColor}`};
+  ${borderWidth !== undefined && `border-width: ${addUnitForBorder(borderWidth)}`};
+
+  ${borderRadius !== undefined && `border-radius:  ${addUnitForBorder(borderRadius)}`};
 `;
 
 // for Storybook
-export const containerStyleArgTypes = {
+export const borderStyleArgTypes = {
   border: {
     options: [true, false, 'left', 'right', 'top', 'bottom'],
     control: {
       type: 'select',
     },
   },
-  bg: {
+  borderWidth: {
     control: {
-      type: 'color',
+      type: 'text',
     },
+    description: `border 두께 변경 가능, **border가 false가 아닐 때 사용 가능**
+    <br />- [string] 단위까지 적어줘야 함 (ex. 2px, 1%)
+    <br />  🔷 스토리북에서는 string 🔷
+    <br />- [number] 숫자만 적을 경우 px로 자동 변환
+    `,
+  },
+  borderRadius: {
+    control: {
+      type: 'text',
+    },
+    description: `border 곡률 변경 가능
+    <br />- [string] 단위까지 적어줘야 함 (ex. 2px, 1%)
+    <br />  🔷 스토리북에서는 string 🔷
+    <br />- [number] 숫자만 적을 경우 px로 자동 변환
+    `,
   },
 };

@@ -26,13 +26,25 @@ export interface ContainerProps extends WidthStyle, Size, Spacing, CommonProps {
    * @default 'center'
    */
   position?: Alignment;
-  /** 테두리에 둥글고(border-radius: 4px) 얇은 선(0.1px)이 생김
+  /** 테두리에 둥글고(border-radius: 4px) 얇은 선(0.1px, #66666666)이 생김
    * - 특정 방향(ex. 'left')을 넣으면 해당 부분만 얇은 선이 생김
    * @default false
    */
   border?: boolean | FourSides;
+  /** border 색깔 변경 가능, **border가 false가 아닐 때 사용 가능** */
+  borderColor?: string;
+  /** border 두께 변경 가능, **border가 false가 아닐 때 사용 가능**
+   *- [string] 단위까지 적어줘야 함 (ex. 2px, 1%)
+   *- [number] 숫자만 적을 경우 px로 자동 변환
+   */
+  borderWidth?: number | string;
+  /** border 곡률 변경 가능
+   *- [string] 단위까지 적어줘야 함 (ex. 2px, 1%)
+   *- [number] 숫자만 적을 경우 px로 자동 변환
+   */
+  borderRadius?: number | string;
   /** 배경 색상 변경 가능 */
-  bg?: string;
+  bgColor?: string;
 }
 
 const Container = ({
@@ -42,7 +54,10 @@ const Container = ({
   gutter = false,
   children,
   border = false,
-  bg,
+  borderColor,
+  borderWidth,
+  borderRadius,
+  bgColor,
   ...attributes
 }: ContainerProps) => {
   const Tag = tag;
@@ -56,8 +71,8 @@ const Container = ({
           widthStyle({ fluid, gutter }),
           sizeStyle({ ...attributes }),
           spacingStyle({ ...attributes }),
-          borderStyle(border),
-          { background: bg },
+          borderStyle({ border, borderColor, borderWidth, borderRadius }),
+          { background: bgColor },
         ]}
         {...attributes}
       >

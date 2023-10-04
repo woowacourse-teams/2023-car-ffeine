@@ -9,7 +9,7 @@ import { spacingArgTypes } from '@common/styles/spacing';
 
 import type { ContainerProps } from './Container';
 import Container from './Container';
-import { ALIGNMENT, containerStyleArgTypes } from './style/container.style';
+import { ALIGNMENT, borderStyleArgTypes } from './style/container.style';
 
 const meta = {
   title: 'Layout/Container',
@@ -26,7 +26,7 @@ const meta = {
     fluid: false,
     gutter: false,
     border: false,
-    bg: '#d8eaf6',
+    bgColor: '#d8eaf6',
   },
   argTypes: {
     children: {
@@ -38,7 +38,7 @@ const meta = {
     css: {
       description: 'CSS 속성을 직접 입력할 수 있습니다.',
     },
-    ...containerStyleArgTypes,
+    ...borderStyleArgTypes,
     ...sizeArgTypes,
     ...spacingArgTypes,
   },
@@ -82,7 +82,7 @@ export const Position = () => {
             <Text tag="h3" variant="h6" mb={4}>
               {alignment}
             </Text>
-            <ContainerForStorybook bg="#d8eaf6" position={alignment} maxWidth="sm" />
+            <ContainerForStorybook bgColor="#d8eaf6" position={alignment} maxWidth={32} />
           </div>
         );
       })}
@@ -91,9 +91,9 @@ export const Position = () => {
 };
 
 export const Fluid = () => {
-  return <ContainerForStorybook bg="#d8eaf6" fluid />;
+  return <ContainerForStorybook bgColor="#d8eaf6" fluid />;
 };
 
 export const Gutter = () => {
-  return <ContainerForStorybook bg="#d8eaf6" gutter />;
+  return <ContainerForStorybook bgColor="#d8eaf6" gutter />;
 };

@@ -3,7 +3,7 @@ import type { Meta } from '@storybook/react';
 
 import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 
-import { containerStyleArgTypes } from '@common/Container/style/container.style';
+import { borderStyleArgTypes } from '@common/Container/style/container.style';
 import Text from '@common/Text';
 import { sizeArgTypes } from '@common/styles/size';
 import { spacingArgTypes } from '@common/styles/spacing';
@@ -13,7 +13,7 @@ import FlexContainer from './FlexContainer';
 import { LAYOUT } from './styles/flexContainer.style';
 
 const generateChildrenBoxes = () => {
-  const BOX_COUNT = 7;
+  const BOX_COUNT = 6;
 
   const boxes = Array.from({ length: BOX_COUNT }, (_, index) => {
     return <Text key={index}>Box{index + 1}</Text>;
@@ -37,7 +37,7 @@ const meta = {
     wrap: false,
     reverse: false,
     gap: '0px',
-    maxWidth: 'sm',
+    maxWidth: '340px',
     fluid: false,
     gutter: false,
     position: 'center',
@@ -80,7 +80,7 @@ const meta = {
     css: {
       description: 'CSS 속성을 직접 입력할 수 있습니다.',
     },
-    ...containerStyleArgTypes,
+    ...borderStyleArgTypes,
     ...sizeArgTypes,
     ...spacingArgTypes,
   },
@@ -133,7 +133,7 @@ export const Layout = () => {
               <Text tag="h3" variant="h5" mb={2}>
                 {layout}
               </Text>
-              <ContainerForStorybook layout={layout} css={{ minWidth: 200 }}>
+              <ContainerForStorybook layout={layout} minWidth={20}>
                 <Text>Box</Text>
                 <Text>Box</Text>
               </ContainerForStorybook>
@@ -150,7 +150,7 @@ export const Layout = () => {
               <Text tag="h3" variant="h5" mb={7.2}>
                 {layout}
               </Text>
-              <ContainerForStorybook layout={layout} direction="column" css={{ minWidth: 200 }}>
+              <ContainerForStorybook layout={layout} direction="column" minWidth={20}>
                 <Text>Box</Text>
                 <Text>Box</Text>
               </ContainerForStorybook>
