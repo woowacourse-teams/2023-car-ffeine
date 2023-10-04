@@ -4,7 +4,6 @@ import { useEffect, useRef } from 'react';
 
 import { useStationMarkers } from '@marker/HighZoomMarkerContainer/hooks/useStationMarkers';
 
-import FlexBox from '@common/FlexBox';
 import List from '@common/List';
 import Text from '@common/Text';
 
@@ -80,9 +79,9 @@ const StationList = () => {
           <EmptyStationsNotice />
         ) : (
           isEndOfList && (
-            <FlexBox justifyContent="center" alignItems="center" my={10}>
-              <Text>주변의 모든 충전소를 불러왔습니다.</Text>
-            </FlexBox>
+            <Text align="center" my={10}>
+              주변의 모든 충전소를 불러왔습니다.
+            </Text>
           )
         )}
       </>
