@@ -62,6 +62,7 @@ const StationList = () => {
     }
 
     if (status === 'error') {
+      // TODO: Error handling 추후에 보완
       return (
         <Text variant="caption" align="center">
           Error: {JSON.stringify(error)}
