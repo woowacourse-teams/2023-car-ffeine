@@ -1,3 +1,5 @@
+import { Fragment } from 'react';
+
 import type { InfiniteData } from '@tanstack/react-query';
 
 import type { StationSummary } from '@type';
@@ -17,11 +19,11 @@ const StationSummaryCardList = ({ cachedStationSummaries, data }: StationSummary
         <StationSummaryCard key={stationSummary.stationId} station={stationSummary} />
       ))}
       {data.pages.map((page) => (
-        <div key={JSON.stringify(page.stations.map((station) => station.stationId))}>
+        <Fragment key={JSON.stringify(page.stations.map((station) => station.stationId))}>
           {page.stations.map((stationSummary) => (
             <StationSummaryCard key={stationSummary.stationId} station={stationSummary} />
           ))}
-        </div>
+        </Fragment>
       ))}
     </>
   );
