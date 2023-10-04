@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-import type { ContainerProps, WidthStyle } from '../Container';
+import type { ContainerProps } from '../Container';
 
 export const ALIGNMENT = {
   left: '0',
@@ -13,7 +13,7 @@ export const positionStyle = (position: Alignment) => css`
   ${position && `margin: ${ALIGNMENT[position]}`};
 `;
 
-export const widthStyle = ({ fluid, gutter }: WidthStyle) => css`
+export const widthStyle = ({ fluid, gutter }: Pick<ContainerProps, 'fluid' | 'gutter'>) => css`
   ${gutter && 'margin: 0 24px'};
   ${fluid && `width: ${gutter ? 'calc(100% - 48px)' : '100%'}`};
 `;
@@ -35,6 +35,16 @@ export const borderStyle = ({
   ${borderWidth !== undefined && `border-width: ${addUnitForBorder(borderWidth)}`};
 
   ${borderRadius !== undefined && `border-radius:  ${addUnitForBorder(borderRadius)}`};
+`;
+
+export const overflowStyle = ({
+  overflow,
+  overflowX,
+  overflowY,
+}: Pick<ContainerProps, 'overflow' | 'overflowX' | 'overflowY'>) => css`
+  ${overflow !== undefined && `overflow: ${overflow}`};
+  ${overflowX !== undefined && `overflow-x: ${overflowX}`};
+  ${overflowY !== undefined && `overflow-y: ${overflowY}`};
 `;
 
 // for Storybook

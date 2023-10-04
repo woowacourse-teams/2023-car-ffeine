@@ -9,9 +9,9 @@ import type { FourSides } from '@common/types/side';
 
 import type { CommonProps } from '../types/common';
 import type { Alignment } from './style/container.style';
-import { borderStyle, positionStyle, widthStyle } from './style/container.style';
+import { borderStyle, overflowStyle, positionStyle, widthStyle } from './style/container.style';
 
-export interface WidthStyle {
+export interface ContainerProps extends Size, Spacing, CommonProps {
   /** 너비가 부모 박스 너비에 맞춰(100%) 유동적으로 변함
    * @default false
    */
@@ -20,8 +20,6 @@ export interface WidthStyle {
    * @default false
    */
   gutter?: boolean;
-}
-export interface ContainerProps extends WidthStyle, Size, Spacing, CommonProps {
   /** Container의 가로 위치 변경 가능
    * @default 'center'
    */
@@ -45,6 +43,22 @@ export interface ContainerProps extends WidthStyle, Size, Spacing, CommonProps {
   borderRadius?: number | string;
   /** 배경 색상 변경 가능 */
   bgColor?: string;
+  /** overflow 속성 사용 가능
+   * @example overflow="auto hidden"
+   */
+  overflow?: string;
+  /** X축에만 overflow 속성 적용 가능
+   * @example overflowX="auto"
+   */
+  overflowX?: string;
+  /** Y축에만 overflow 속성 적용 가능
+   * @example overflowY="auto"
+   */
+  overflowY?: string;
+  /** display 속성 적용 가능
+   * @example display="block"
+   */
+  display?: string;
 }
 
 const Container = ({
@@ -58,6 +72,10 @@ const Container = ({
   borderWidth,
   borderRadius,
   bgColor,
+  overflow,
+  overflowX,
+  overflowY,
+  display,
   ...attributes
 }: ContainerProps) => {
   const Tag = tag;
@@ -72,7 +90,9 @@ const Container = ({
           sizeStyle({ ...attributes }),
           spacingStyle({ ...attributes }),
           borderStyle({ border, borderColor, borderWidth, borderRadius }),
-          { background: bgColor },
+          overflowStyle({ overflow, overflowX, overflowY }),
+          bgColor && { background: bgColor },
+          display && { display: display },
         ]}
         {...attributes}
       >
