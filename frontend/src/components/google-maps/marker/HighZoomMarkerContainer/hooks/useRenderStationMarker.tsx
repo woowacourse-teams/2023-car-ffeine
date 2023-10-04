@@ -1,5 +1,3 @@
-import { createRoot } from 'react-dom/client';
-
 import { getStoreSnapshot } from '@utils/external-state/tools';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
@@ -13,8 +11,6 @@ import StationDetailsWindow from '@ui/StationDetailsWindow';
 
 import type { StationDetails, StationMarker, StationSummary } from '@type';
 
-import DotMarker from '../components/DotMarker/DotMarker';
-
 export const useRenderStationMarker = () => {
   const googleMap = getStoreSnapshot(getGoogleMapStore());
 
@@ -25,9 +21,14 @@ export const useRenderStationMarker = () => {
   const createNewMarkerInstance = (marker: StationDetails) => {
     const { latitude: lat, longitude: lng, stationName, stationId } = marker;
 
+    const pinViewScaled = new google.maps.marker.PinElement({
+      scale: 0.5,
+    });
+
     const markerInstance = new google.maps.marker.AdvancedMarkerElement({
       position: { lat, lng },
       title: stationName,
+      content: pinViewScaled.element,
     });
 
     bindMarkerClickHandler([{ stationId, markerInstance }]);
@@ -46,9 +47,18 @@ export const useRenderStationMarker = () => {
     const newMarkerInstances = newMarkers.map((marker) => {
       const { latitude: lat, longitude: lng, stationName, stationId } = marker;
 
+      const pinViewScaled = new google.maps.marker.PinElement({
+        scale: 0.6,
+        background: marker.availableCount > 0 ? '#3373DC' : '#EA4335',
+        borderColor: marker.availableCount > 0 ? '#324F8E' : '#B8312F',
+        glyph: '',
+      });
+
       const markerInstance = new google.maps.marker.AdvancedMarkerElement({
+        map: googleMap,
         position: { lat, lng },
         title: stationName,
+        content: pinViewScaled.element,
       });
 
       return {
@@ -96,15 +106,13 @@ export const useRenderStationMarker = () => {
     markers: StationMarker[] | StationSummary[]
   ) => {
     newMarkerInstances.forEach(({ markerInstance, stationId }) => {
-      const container = document.createElement('div');
-
-      markerInstance.content = container;
-      markerInstance.map = googleMap;
-
-      const markerInformation = markers.find(
-        (stationMarker) => stationMarker.stationId === stationId
-      );
-      createRoot(container).render(<DotMarker station={markerInformation} />);
+      // const container = document.createElement('div');
+      // markerInstance.content = container;
+      // markerInstance.map = googleMap;
+      // const markerInformation = markers.find(
+      //   (stationMarker) => stationMarker.stationId === stationId
+      // );
+      // createRoot(container).render(<DotMarker station={markerInformation} />);
     });
   };
 
