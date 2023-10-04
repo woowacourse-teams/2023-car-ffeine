@@ -33,8 +33,7 @@ const StationList = () => {
   const isStationSummaryListEmpty =
     data?.pages[0].stations.length + cachedStationSummaries.length === 0;
   const isEndOfList = data?.pages.length !== 0 && !hasNextPage;
-  const isAvailableToFetchNextPage =
-    !isStationSummaryListLoading && !isFetchingNextPage && hasNextPage;
+  const canFetchNextPage = !isStationSummaryListLoading && !isFetchingNextPage && hasNextPage;
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -74,7 +73,7 @@ const StationList = () => {
       <>
         <StationSummaryCardList cachedStationSummaries={cachedStationSummaries} data={data} />
         {isFetchingNextPage && <StationListSkeletons />}
-        {isAvailableToFetchNextPage && <div ref={loadMoreElementRef} />}
+        {canFetchNextPage && <div ref={loadMoreElementRef} />}
 
         {isStationSummaryListEmpty ? (
           <EmptyStationsNotice />
