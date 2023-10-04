@@ -1,24 +1,20 @@
 import { css } from '@emotion/react';
 
-import { getTypedObjectEntries } from '@utils/getTypedObjectEntries';
-
 import { addUnit } from '@common/utils/addUnit';
-
-import { CONTAINER_WIDTH, type CustomSize } from '../Container/style/container.style';
 
 export interface Size {
   width?: number | string;
   height?: number | string;
-  maxWidth?: CustomSize;
-  minWidth?: CustomSize;
+  maxWidth?: number | string;
+  minWidth?: number | string;
 }
 
 export const sizeStyle = ({ width, height, maxWidth, minWidth }: Size) => css`
   ${width !== undefined && `width: ${addUnit(width)}`};
   ${height !== undefined && `height: ${addUnit(height)}`};
 
-  ${maxWidth && `max-width: ${CONTAINER_WIDTH[maxWidth]}`};
-  ${minWidth && `min-width: ${CONTAINER_WIDTH[minWidth]}`};
+  ${maxWidth !== undefined && `max-width: ${addUnit(maxWidth)}`};
+  ${minWidth !== undefined && `min-width: ${addUnit(minWidth)}`};
 `;
 
 // for Storybook
@@ -41,24 +37,15 @@ export const sizeArgTypes = {
     description: '높이 변경 가능',
   },
   maxWidth: {
-    options: Object.assign(
-      { none: false },
-      ...getTypedObjectEntries(CONTAINER_WIDTH).map(([key, value]) => ({
-        [`${key} (${value})`]: key,
-      }))
-    ),
     control: {
-      type: 'select',
+      type: 'text',
     },
     description: '최대 너비 변경 가능',
   },
   minWidth: {
-    options: Object.assign(
-      { none: false },
-      ...getTypedObjectEntries(CONTAINER_WIDTH).map(([key, value]) => ({
-        [`${key} (${value})`]: key,
-      }))
-    ),
+    control: {
+      type: 'text',
+    },
     description: '최소 너비 변경 가능',
   },
 } as const;
