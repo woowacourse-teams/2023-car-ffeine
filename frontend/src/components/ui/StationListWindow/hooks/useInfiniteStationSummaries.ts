@@ -48,6 +48,7 @@ export const useInfiniteStationSummaries = (markers: StationMarker[]) => {
       if (stationIds.length > 0) {
         const stationSummaries = await fetchStationSummaries(stationIds);
         cachedStationSummariesActions.add(stationSummaries);
+
         return { stations: stationSummaries, nextPage: pageParam + 1 };
       } else {
         return { stations: [], nextPage: -1 };
