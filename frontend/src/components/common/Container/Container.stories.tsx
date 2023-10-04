@@ -78,12 +78,12 @@ export const Position = () => {
     <PositionContainer>
       {alignmentList.map((alignment, index) => {
         return (
-          <div key={index} css={{ padding: 8, border: '2px solid #333' }}>
+          <Container key={index} p={0.8} width="100%" border borderColor="#333" borderWidth={2}>
             <Text tag="h3" variant="h6" mb={4}>
               {alignment}
             </Text>
             <ContainerForStorybook bgColor="#d8eaf6" position={alignment} maxWidth={32} />
-          </div>
+          </Container>
         );
       })}
     </PositionContainer>
