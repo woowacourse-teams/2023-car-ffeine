@@ -19,7 +19,7 @@ const StationSummaryCardList = ({ cachedStationSummaries, data }: StationSummary
         <StationSummaryCard key={stationSummary.stationId} station={stationSummary} />
       ))}
       {data.pages.map((page) => (
-        <Fragment key={JSON.stringify(page.stations.map((station) => station.stationId))}>
+        <Fragment key={page.nextPage}>
           {page.stations.map((stationSummary) => (
             <StationSummaryCard key={stationSummary.stationId} station={stationSummary} />
           ))}

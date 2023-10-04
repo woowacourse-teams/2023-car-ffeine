@@ -18,22 +18,15 @@ import { cachedStationSummariesActions } from './tools/cachedStationSummaries';
 const StationList = () => {
   const { data: filteredMarkers } = useStationMarkers();
 
-  const {
-    status,
-    data,
-    isLoading: isStationSummaryListLoading,
-    isFetchingNextPage,
-    fetchNextPage,
-    hasNextPage,
-    error,
-  } = useInfiniteStationSummaries(filteredMarkers ?? []);
+  const { data, isLoading, isError, isFetchingNextPage, fetchNextPage, hasNextPage, error } =
+    useInfiniteStationSummaries(filteredMarkers ?? []);
 
   const loadMoreElementRef = useRef(null);
   const cachedStationSummaries = cachedStationSummariesActions.get();
   const isStationSummaryListEmpty =
     data?.pages[0].stations.length + cachedStationSummaries.length === 0;
   const isEndOfList = data?.pages.length !== 0 && !hasNextPage;
-  const canFetchNextPage = !isStationSummaryListLoading && !isFetchingNextPage && hasNextPage;
+  const canFetchNextPage = !isLoading && !isFetchingNextPage && hasNextPage;
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -56,11 +49,11 @@ const StationList = () => {
   }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
   const renderStationSummaryCards = () => {
-    if (status === 'loading') {
+    if (isLoading) {
       return <StationListSkeletons />;
     }
 
-    if (status === 'error') {
+    if (isError) {
       // TODO: Error handling 추후에 보완
       return (
         <Text variant="caption" align="center">
