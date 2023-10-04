@@ -37,11 +37,16 @@ export const borderStyle = (border: boolean | FourSides) => css`
 `;
 
 // for Storybook
-export const borderArgTypes = {
+export const containerStyleArgTypes = {
   border: {
     options: [true, false, 'left', 'right', 'top', 'bottom'],
     control: {
       type: 'select',
+    },
+  },
+  bg: {
+    control: {
+      type: 'color',
     },
   },
 };

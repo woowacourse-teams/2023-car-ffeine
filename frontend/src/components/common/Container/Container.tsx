@@ -31,6 +31,8 @@ export interface ContainerProps extends WidthStyle, Size, Spacing, CommonProps {
    * @default false
    */
   border?: boolean | FourSides;
+  /** 배경 색상 변경 가능 */
+  bg?: string;
 }
 
 const Container = ({
@@ -40,6 +42,7 @@ const Container = ({
   gutter = false,
   children,
   border = false,
+  bg,
   ...attributes
 }: ContainerProps) => {
   const Tag = tag;
@@ -54,6 +57,7 @@ const Container = ({
           sizeStyle({ ...attributes }),
           spacingStyle({ ...attributes }),
           borderStyle(border),
+          { background: bg },
         ]}
         {...attributes}
       >

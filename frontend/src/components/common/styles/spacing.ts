@@ -4,72 +4,72 @@ import { addUnit } from '@common/utils/addUnit';
 
 export interface Spacing {
   /** 상하좌우 padding,
-   * - [number] 숫자만 적을 경우 `0.4` 곱한 값으로 계산되며 rem 단위로 자동 변환
+   * - [number] 숫자만 적을 경우 rem 단위로 자동 변환
    * - [string] 단위까지 적어줘야 함 (ex. 0.8rem, 1rem 2rem)
    */
   p?: number | string;
   /** 좌우 padding,
-   * - [number] 숫자만 적을 경우 `0.4` 곱한 값으로 계산되며 rem 단위로 자동 변환
+   * - [number] 숫자만 적을 경우 rem 단위로 자동 변환
    * - [string] 단위까지 적어줘야 함 (ex. 0.8rem, 1rem 2rem)
    */
   px?: number | string;
   /** 상하 padding,
-   * - [number] 숫자만 적을 경우 `0.4` 곱한 값으로 계산되며 rem 단위로 자동 변환
+   * - [number] 숫자만 적을 경우 rem 단위로 자동 변환
    * - [string] 단위까지 적어줘야 함 (ex. 0.8rem, 1rem 2rem)
    */
   py?: number | string;
   /** 왼쪽에 padding,
-   * - [number] 숫자만 적을 경우 `0.4` 곱한 값으로 계산되며 rem 단위로 자동 변환
+   * - [number] 숫자만 적을 경우 rem 단위로 자동 변환
    * - [string] 단위까지 적어줘야 함 (ex. 0.8rem, 1rem 2rem)
    */
   pl?: number | string;
   /** 오른쪽에 padding,
-   * - [number] 숫자만 적을 경우 `0.4` 곱한 값으로 계산되며 rem 단위로 자동 변환
+   * - [number] 숫자만 적을 경우 rem 단위로 자동 변환
    * - [string] 단위까지 적어줘야 함 (ex. 0.8rem, 1rem 2rem)
    */
   pr?: number | string;
   /** 위에 padding,
-   * - [number] 숫자만 적을 경우 `0.4` 곱한 값으로 계산되며 rem 단위로 자동 변환
+   * - [number] 숫자만 적을 경우 rem 단위로 자동 변환
    * - [string] 단위까지 적어줘야 함 (ex. 0.8rem, 1rem 2rem)
    */
   pt?: number | string;
   /** 아래에 padding,
-   * - [number] 숫자만 적을 경우 `0.4` 곱한 값으로 계산되며 rem 단위로 자동 변환
+   * - [number] 숫자만 적을 경우 rem 단위로 자동 변환
    * - [string] 단위까지 적어줘야 함 (ex. 0.8rem, 1rem 2rem)
    */
   pb?: number | string;
   /** 상하좌우 margin,
-   * - [number] 숫자만 적을 경우 `0.4` 곱한 값으로 계산되며 rem 단위로 자동 변환
+   * - [number] 숫자만 적을 경우 rem 단위로 자동 변환
    * - [string] 단위까지 적어줘야 함 (ex. 0.8rem, 1rem 2rem)
    */
   m?: number | string;
   /** 좌우 margin,
-   * - [number] 숫자만 적을 경우 `0.4` 곱한 값으로 계산되며 rem 단위로 자동 변환
+   * - [number] 숫자만 적을 경우 rem 단위로 자동 변환
    * - [string] 단위까지 적어줘야 함 (ex. 0.8rem, 1rem 2rem)
    */
   mx?: number | string;
   /** 상하 margin,
-   * - [number] 숫자만 적을 경우 `0.4` 곱한 값으로 계산되며 rem 단위로 자동 변환
+   * - [number] 숫자만 적을 경우 rem 단위로 자동 변환
    * - [string] 단위까지 적어줘야 함 (ex. 0.8rem, 1rem 2rem)
    */
   my?: number | string;
   /** 왼쪽에 margin,
-   * - [number] 숫자만 적을 경우 `0.4` 곱한 값으로 계산되며 rem 단위로 자동 변환
+   * - [number] 숫자만 적을 경우 rem 단위로 자동 변환
    * - [string] 단위까지 적어줘야 함 (ex. 0.8rem, 1rem 2rem)
    */
   ml?: number | string;
   /** 오른쪽에 margin,
-   * - [number] 숫자만 적을 경우 `0.4` 곱한 값으로 계산되며 rem 단위로 자동 변환
+   * - [number] 숫자만 적을 경우 rem 단위로 자동 변환
    * - [string] 단위까지 적어줘야 함 (ex. 0.8rem, 1rem 2rem)
    */
   mr?: number | string;
   /** 위에 margin,
-   * - [number] 숫자만 적을 경우 `0.4` 곱한 값으로 계산되며 rem 단위로 자동 변환
+   * - [number] 숫자만 적을 경우 rem 단위로 자동 변환
    * - [string] 단위까지 적어줘야 함 (ex. 0.8rem, 1rem 2rem)
    */
   mt?: number | string;
   /** 아래에 margin,
-   * - [number] 숫자만 적을 경우 `0.4` 곱한 값으로 계산되며 rem 단위로 자동 변환
+   * - [number] 숫자만 적을 경우 rem 단위로 자동 변환
    * - [string] 단위까지 적어줘야 함 (ex. 0.8rem, 1rem 2rem)
    */
   mb?: number | string;

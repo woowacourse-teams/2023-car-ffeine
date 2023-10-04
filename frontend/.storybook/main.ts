@@ -9,7 +9,12 @@ interface RuleSetRules {
 }
 
 const config: StorybookConfig = {
-  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  stories: [
+    '../src/**/*.mdx',
+    '../src/common/**/*.mdx',
+    '../src/**/*.stories.@(js|jsx|ts|tsx)',
+    '../src/common/**/*.stories.@(js|jsx|ts|tsx)',
+  ],
   staticDirs: ['../public'],
   addons: [
     '@storybook/addon-links',

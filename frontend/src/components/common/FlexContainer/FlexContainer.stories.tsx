@@ -3,7 +3,7 @@ import type { Meta } from '@storybook/react';
 
 import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 
-import { borderArgTypes } from '@common/Container/style/container.style';
+import { containerStyleArgTypes } from '@common/Container/style/container.style';
 import Text from '@common/Text';
 import { sizeArgTypes } from '@common/styles/size';
 import { spacingArgTypes } from '@common/styles/spacing';
@@ -23,7 +23,7 @@ const generateChildrenBoxes = () => {
 };
 
 const meta = {
-  title: 'Layout/Flex/FlexContainer',
+  title: 'Layout/FlexContainer',
   component: FlexContainer,
   parameters: {
     docs: {
@@ -80,7 +80,7 @@ const meta = {
     css: {
       description: 'CSS 속성을 직접 입력할 수 있습니다.',
     },
-    ...borderArgTypes,
+    ...containerStyleArgTypes,
     ...sizeArgTypes,
     ...spacingArgTypes,
   },
@@ -147,7 +147,7 @@ export const Layout = () => {
         {layoutList.map((layout, index) => {
           return (
             <div key={index}>
-              <Text tag="h3" variant="h5" mb={20}>
+              <Text tag="h3" variant="h5" mb={7.2}>
                 {layout}
               </Text>
               <ContainerForStorybook layout={layout} direction="column" css={{ minWidth: 200 }}>

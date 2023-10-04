@@ -80,9 +80,13 @@ export const reset = css`
   button {
     background-color: transparent; 
     color: inherit;
-    border-width: 0; 
+    border: 0;
+    outline: none;
     padding: 0;
     cursor: pointer;
+  }
+  button:active, button:focus {
+    outline: none;
   }
 
   input::-moz-focus-inner {

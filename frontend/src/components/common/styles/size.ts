@@ -31,7 +31,7 @@ export const sizeArgTypes = {
     <br />아래의 설명은 모든 size props에 해당
     <br />- [string] 단위까지 적어줘야 함 (ex. 8rem, 2rem)
     <br />  🔷 스토리북에서는 string 🔷
-    <br />- [number] 숫자만 적을 경우 px로 자동 변환
+    <br />- [number] 숫자만 적을 경우 rem로 자동 변환
     `,
   },
   height: {
