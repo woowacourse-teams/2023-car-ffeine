@@ -4,42 +4,35 @@ import { useEffect, useRef } from 'react';
 
 import { useStationMarkers } from '@marker/HighZoomMarkerContainer/hooks/useStationMarkers';
 
-import { debounce } from '@utils/debounce';
-
-import FlexBox from '@common/FlexBox';
 import List from '@common/List';
 import Text from '@common/Text';
 
-import EmptyStationsNotice from '@ui/StationListWindow/EmptyStationsNotice';
-import StationSummaryCardSkeleton from '@ui/StationListWindow/StationSummaryCardSkeleton';
-
 import { MOBILE_BREAKPOINT } from '@constants';
 
-import StationSummaryCard from './StationSummaryCard';
-import { useFetchStationSummaries } from './hooks/useFetchStationSummaries';
+import StationSummaryCardList from './StationSummaryCardList';
+import EmptyStationsNotice from './fallbacks/EmptyStationsNotice';
+import StationListSkeletons from './fallbacks/StationListSkeletons';
+import { useInfiniteStationSummaries } from './hooks/useInfiniteStationSummaries';
 import { cachedStationSummariesActions } from './tools/cachedStationSummaries';
 
 const StationList = () => {
-  const {
-    data: filteredMarkers,
-    isSuccess: isFilteredMarkersSuccess,
-    isLoading: isFilteredMarkersLoading,
-  } = useStationMarkers();
+  const { data: filteredMarkers } = useStationMarkers();
 
-  const {
-    isLoading: isStationSummariesLoading,
-    loadMore,
-    hasNextPage,
-  } = useFetchStationSummaries(filteredMarkers ?? []);
+  const { data, isLoading, isError, isFetchingNextPage, fetchNextPage, hasNextPage, error } =
+    useInfiniteStationSummaries(filteredMarkers ?? []);
 
   const loadMoreElementRef = useRef(null);
-  const debouncedLoadMore = debounce(loadMore, 500);
+  const cachedStationSummaries = cachedStationSummariesActions.get();
+  const isStationSummaryListEmpty =
+    data?.pages[0].stations.length + cachedStationSummaries.length === 0;
+  const isEndOfList = data?.pages.length !== 0 && !hasNextPage;
+  const canFetchNextPage = !isLoading && !isFetchingNextPage && hasNextPage;
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting && hasNextPage) {
-          debouncedLoadMore();
+          fetchNextPage();
         }
       });
     });
@@ -53,55 +46,45 @@ const StationList = () => {
         observer.unobserve(loadMoreElementRef.current);
       }
     };
-  }, [loadMore, hasNextPage]);
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
-  const cachedStationSummaries = cachedStationSummariesActions.get();
+  const renderStationSummaryCards = () => {
+    if (isLoading) {
+      return <StationListSkeletons />;
+    }
 
-  if (isFilteredMarkersLoading) {
+    if (isError) {
+      // TODO: Error handling 추후에 보완
+      return (
+        <Text variant="caption" align="center">
+          Error: {JSON.stringify(error)}
+        </Text>
+      );
+    }
+
     return (
-      <List css={searchResultList}>
-        {Array.from({ length: 10 }, (_, index) => (
-          <StationSummaryCardSkeleton key={index} />
-        ))}
-      </List>
-    );
-  }
+      <>
+        <StationSummaryCardList cachedStationSummaries={cachedStationSummaries} data={data} />
+        {isFetchingNextPage && <StationListSkeletons />}
+        {canFetchNextPage && <div ref={loadMoreElementRef} />}
 
-  // TODO: 초기에 텅 안보이게 하기
-  if (
-    isStationSummariesLoading === false &&
-    isFilteredMarkersSuccess &&
-    cachedStationSummaries.length === 0
-  ) {
-    return <EmptyStationsNotice />;
-  }
-
-  return (
-    isFilteredMarkersSuccess && (
-      <List css={searchResultList}>
-        {cachedStationSummaries.map((stationSummary) => (
-          <StationSummaryCard key={stationSummary.stationId} station={stationSummary} />
-        ))}
-        {isStationSummariesLoading && (
-          <>
-            {Array.from({ length: 10 }, (_, index) => (
-              <StationSummaryCardSkeleton key={index} />
-            ))}
-          </>
-        )}
-        {hasNextPage ? (
-          <div ref={loadMoreElementRef} />
+        {isStationSummaryListEmpty ? (
+          <EmptyStationsNotice />
         ) : (
-          <FlexBox justifyContent="center" alignItems="center" my={3}>
-            <Text>주변의 모든 충전소를 불러왔습니다.</Text>
-          </FlexBox>
+          isEndOfList && (
+            <Text align="center" my={10}>
+              주변의 모든 충전소를 불러왔습니다.
+            </Text>
+          )
         )}
-      </List>
-    )
-  );
+      </>
+    );
+  };
+
+  return <List css={stationListCss}>{renderStationSummaryCards()}</List>;
 };
 
-const searchResultList = css`
+const stationListCss = css`
   width: 34rem;
   height: calc(100vh - 14.133rem);
   border-top: 1.2rem solid var(--lighter-color);

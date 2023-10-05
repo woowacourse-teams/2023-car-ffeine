@@ -1,7 +1,8 @@
 import type { Meta } from '@storybook/react';
 import { css } from 'styled-components';
 
-import List from '../../common/List';
+import List from '@common/List';
+
 import StationSummaryCardSkeleton from './StationSummaryCardSkeleton';
 
 const meta = {

@@ -5,7 +5,7 @@ import { getStoreSnapshot } from '@utils/external-state/tools';
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import type { StationMarkerInstance } from '@stores/google-maps/markerInstanceStore';
 
-import { useStationSummary } from '@hooks/google-maps/useStationSummary';
+import { useStationInfoWindow } from '@hooks/google-maps/useStationInfoWindow';
 import useMediaQueries from '@hooks/useMediaQueries';
 
 import { useNavigationBar } from '@ui/Navigator/NavigationBar/hooks/useNavigationBar';
@@ -19,7 +19,7 @@ import { DEFAULT_MARKER_SIZE_RATIO } from '../constants';
 export const useRenderStationMarker = () => {
   const googleMap = getStoreSnapshot(getGoogleMapStore());
 
-  const { openStationSummary } = useStationSummary();
+  const { openStationInfoWindow } = useStationInfoWindow();
   const { openLastPanel } = useNavigationBar();
   const screen = useMediaQueries();
 
@@ -135,7 +135,7 @@ export const useRenderStationMarker = () => {
   const bindMarkerClickHandler = (markerInstances: StationMarkerInstance[]) => {
     markerInstances.forEach(({ markerInstance, stationId }) => {
       markerInstance.addListener('click', () => {
-        openStationSummary(stationId, markerInstance);
+        openStationInfoWindow(stationId, markerInstance);
 
         if (!screen.get('isMobile')) {
           openLastPanel(<StationDetailsWindow stationId={stationId} />);
