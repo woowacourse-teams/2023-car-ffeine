@@ -43,30 +43,12 @@ const CarFfeineMapListener = () => {
   }, 300);
 
   useEffect(() => {
-    // let timerId: NodeJS.Timeout = null;
-
     googleMap.addListener('idle', () => {
       if (zoom.state === 'high') {
         debouncedHighZoomHandler();
       }
+
       zoomActions.setZoom(googleMap.getZoom());
-
-      // if (timerId !== null) {
-      //   console.log('바이');
-      //   clearTimeout(timerId);
-      // }
-
-      // timerId = setTimeout(() => {
-      //   console.log('마커 클러스터 다시 렌더링 됨');
-      //   const markerCluster = new MarkerClusterer({
-      //     map: getGoogleMapStore().getState(),
-      //     markers: markerInstanceStore.getState().map(({ markerInstance }) => markerInstance),
-      //   });
-
-      //   // 이전 마커 클러스터를 지도에서 제거
-      //   markerClusterStore.getState()?.setMap(null);
-      //   markerClusterStore.setState(markerCluster);
-      // }, 500);
     });
 
     const initMarkersEvent = googleMap.addListener('bounds_changed', async () => {
