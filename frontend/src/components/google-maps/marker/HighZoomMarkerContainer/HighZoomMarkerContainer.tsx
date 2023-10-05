@@ -10,7 +10,7 @@ const HighZoomMarkerContainer = () => {
     createNewMarkerInstances,
     getRemainedMarkerInstances,
     removeMarkersOutsideBounds,
-    renderMarkerInstances,
+    renderDefaultMarkers,
   } = useRenderStationMarker();
 
   if (stationMarkers === undefined || !isSuccess) {
@@ -28,7 +28,7 @@ const HighZoomMarkerContainer = () => {
   );
 
   removeMarkersOutsideBounds(markerInstanceStore.getState(), stationMarkers);
-  renderMarkerInstances(newMarkerInstances, stationMarkers);
+  renderDefaultMarkers(newMarkerInstances, stationMarkers);
 
   markerInstanceStore.setState([...remainedMarkerInstances, ...newMarkerInstances]);
 

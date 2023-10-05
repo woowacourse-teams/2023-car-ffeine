@@ -1,3 +1,5 @@
+import { createRoot } from 'react-dom/client';
+
 import { getStoreSnapshot } from '@utils/external-state/tools';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
@@ -10,6 +12,8 @@ import { useNavigationBar } from '@ui/Navigator/NavigationBar/hooks/useNavigatio
 import StationDetailsWindow from '@ui/StationDetailsWindow';
 
 import type { StationDetails, StationMarker, StationSummary } from '@type';
+
+import CarFfeineMarker from '../components/CarFfeineMarker';
 
 export const useRenderStationMarker = () => {
   const googleMap = getStoreSnapshot(getGoogleMapStore());
@@ -47,18 +51,9 @@ export const useRenderStationMarker = () => {
     const newMarkerInstances = newMarkers.map((marker) => {
       const { latitude: lat, longitude: lng, stationName, stationId } = marker;
 
-      const pinViewScaled = new google.maps.marker.PinElement({
-        scale: 0.6,
-        background: marker.availableCount > 0 ? '#3373DC' : '#EA4335',
-        borderColor: marker.availableCount > 0 ? '#324F8E' : '#B8312F',
-        glyph: '',
-      });
-
       const markerInstance = new google.maps.marker.AdvancedMarkerElement({
-        map: googleMap,
         position: { lat, lng },
         title: stationName,
-        content: pinViewScaled.element,
       });
 
       return {
@@ -101,18 +96,44 @@ export const useRenderStationMarker = () => {
     );
   };
 
-  const renderMarkerInstances = (
+  const renderDefaultMarkers = (
+    markerInstances: StationMarkerInstance[],
+    markers: StationMarker[] | StationSummary[]
+  ) => {
+    markers.forEach((marker) => {
+      const markerInstance = markerInstances.find(
+        (markerInstance) => markerInstance.stationId === marker.stationId
+      )?.markerInstance;
+
+      if (markerInstance) {
+        const pinViewScaled = new google.maps.marker.PinElement({
+          scale: 0.6,
+          background: marker.availableCount > 0 ? '#3373DC' : '#EA4335',
+          borderColor: marker.availableCount > 0 ? '#324F8E' : '#B8312F',
+          glyph: '',
+        });
+
+        markerInstance.map = googleMap;
+        markerInstance.content = pinViewScaled.element;
+      }
+    });
+  };
+
+  const renderCarffeineMarkers = (
     newMarkerInstances: StationMarkerInstance[],
     markers: StationMarker[] | StationSummary[]
   ) => {
     newMarkerInstances.forEach(({ markerInstance, stationId }) => {
-      // const container = document.createElement('div');
-      // markerInstance.content = container;
-      // markerInstance.map = googleMap;
-      // const markerInformation = markers.find(
-      //   (stationMarker) => stationMarker.stationId === stationId
-      // );
-      // createRoot(container).render(<DotMarker station={markerInformation} />);
+      const container = document.createElement('div');
+
+      markerInstance.content = container;
+      markerInstance.map = googleMap;
+
+      const markerInformation = markers.find(
+        (stationMarker) => stationMarker.stationId === stationId
+      );
+
+      createRoot(container).render(<CarFfeineMarker {...markerInformation} />);
     });
   };
 
@@ -133,7 +154,8 @@ export const useRenderStationMarker = () => {
     createNewMarkerInstances,
     removeMarkersOutsideBounds,
     getRemainedMarkerInstances,
-    renderMarkerInstances,
+    renderDefaultMarkers,
+    renderCarffeineMarkers,
     removeAllMarkers,
   };
 };
