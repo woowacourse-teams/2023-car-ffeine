@@ -14,6 +14,7 @@ import StationDetailsWindow from '@ui/StationDetailsWindow';
 import type { StationDetails, StationMarker, StationSummary } from '@type';
 
 import CarFfeineMarker from '../components/CarFfeineMarker';
+import { MARKER_COLORS } from '../components/CarFfeineMarker/CarFfeineMarker.style';
 import { DEFAULT_MARKER_SIZE_RATIO } from '../constants';
 
 export const useRenderStationMarker = () => {
@@ -103,8 +104,14 @@ export const useRenderStationMarker = () => {
       if (markerInstance) {
         const defaultMarkerDesign = new google.maps.marker.PinElement({
           scale: DEFAULT_MARKER_SIZE_RATIO,
-          background: marker.availableCount > 0 ? '#3373DC' : '#EA4335',
-          borderColor: marker.availableCount > 0 ? '#324F8E' : '#B8312F',
+          background:
+            marker.availableCount > 0
+              ? MARKER_COLORS.available.background
+              : MARKER_COLORS.noAvailable.background,
+          borderColor:
+            marker.availableCount > 0
+              ? MARKER_COLORS.available.border
+              : MARKER_COLORS.noAvailable.border,
           glyph: '',
         });
 
