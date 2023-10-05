@@ -4,8 +4,10 @@ import { useStationMarkers } from '@marker/HighZoomMarkerContainer/hooks/useStat
 
 import { useExternalValue } from '@utils/external-state';
 
+import type { StationMarkerInstance } from '@stores/google-maps/markerInstanceStore';
 import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
 import { zoomStore } from '@stores/google-maps/zoomStore';
+import type { ZoomBreakpoints } from '@stores/google-maps/zoomStore/types';
 
 import { useRenderStationMarker } from './hooks/useRenderStationMarker';
 
@@ -21,14 +23,21 @@ const HighZoomMarkerContainer = () => {
   } = useRenderStationMarker();
   const { state: zoomState } = useExternalValue(zoomStore);
 
+  const renderMarkerByZoomState = (
+    zoomState: keyof ZoomBreakpoints,
+    markerInstances: StationMarkerInstance[]
+  ) => {
+    if (zoomState === 'max') {
+      renderCarffeineMarkers(markerInstances, stationMarkers);
+    }
+    if (zoomState === 'high') {
+      renderDefaultMarkers(markerInstances, stationMarkers);
+    }
+  };
+
   useEffect(() => {
     if (stationMarkers !== undefined) {
-      if (zoomState === 'max') {
-        renderCarffeineMarkers(markerInstanceStore.getState(), stationMarkers);
-      }
-      if (zoomState === 'high') {
-        renderDefaultMarkers(markerInstanceStore.getState(), stationMarkers);
-      }
+      renderMarkerByZoomState(zoomState, markerInstanceStore.getState());
     }
   }, [zoomState]);
 
@@ -54,12 +63,7 @@ const HighZoomMarkerContainer = () => {
   );
 
   removeMarkersOutsideBounds(markerInstanceStore.getState(), stationMarkers);
-
-  if (zoomState === 'max') {
-    renderCarffeineMarkers(newMarkerInstances, stationMarkers);
-  } else {
-    renderDefaultMarkers(newMarkerInstances, stationMarkers);
-  }
+  renderMarkerByZoomState(zoomState, newMarkerInstances);
 
   markerInstanceStore.setState([...remainedMarkerInstances, ...newMarkerInstances]);
 
