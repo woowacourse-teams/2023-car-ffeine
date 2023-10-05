@@ -25,14 +25,9 @@ export const useRenderStationMarker = () => {
   const createNewMarkerInstance = (marker: StationDetails) => {
     const { latitude: lat, longitude: lng, stationName, stationId } = marker;
 
-    const pinViewScaled = new google.maps.marker.PinElement({
-      scale: 0.5,
-    });
-
     const markerInstance = new google.maps.marker.AdvancedMarkerElement({
       position: { lat, lng },
       title: stationName,
-      content: pinViewScaled.element,
     });
 
     bindMarkerClickHandler([{ stationId, markerInstance }]);
