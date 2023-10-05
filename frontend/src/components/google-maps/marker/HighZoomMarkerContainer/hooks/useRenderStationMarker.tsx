@@ -14,6 +14,7 @@ import StationDetailsWindow from '@ui/StationDetailsWindow';
 import type { StationDetails, StationMarker, StationSummary } from '@type';
 
 import CarFfeineMarker from '../components/CarFfeineMarker';
+import { DEFAULT_MARKER_SIZE_RATIO } from '../constants';
 
 export const useRenderStationMarker = () => {
   const googleMap = getStoreSnapshot(getGoogleMapStore());
@@ -101,15 +102,15 @@ export const useRenderStationMarker = () => {
       )?.markerInstance;
 
       if (markerInstance) {
-        const pinViewScaled = new google.maps.marker.PinElement({
-          scale: 0.6,
+        const defaultMarkerDesign = new google.maps.marker.PinElement({
+          scale: DEFAULT_MARKER_SIZE_RATIO,
           background: marker.availableCount > 0 ? '#3373DC' : '#EA4335',
           borderColor: marker.availableCount > 0 ? '#324F8E' : '#B8312F',
           glyph: '',
         });
 
         markerInstance.map = googleMap;
-        markerInstance.content = pinViewScaled.element;
+        markerInstance.content = defaultMarkerDesign.element;
       }
     });
   };

@@ -3,6 +3,7 @@ import { useStationMarkers } from '@marker/HighZoomMarkerContainer/hooks/useStat
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
 
+import { ZOOM_BREAKPOINT_DEFAULT_TO_CARFFEINE_MARKER } from './constants';
 import { useRenderStationMarker } from './hooks/useRenderStationMarker';
 
 const HighZoomMarkerContainer = () => {
@@ -31,7 +32,7 @@ const HighZoomMarkerContainer = () => {
 
   removeMarkersOutsideBounds(markerInstanceStore.getState(), stationMarkers);
 
-  if (getGoogleMapStore().getState().getZoom() >= 17) {
+  if (getGoogleMapStore().getState().getZoom() >= ZOOM_BREAKPOINT_DEFAULT_TO_CARFFEINE_MARKER) {
     renderCarffeineMarkers(newMarkerInstances, stationMarkers);
   } else {
     renderDefaultMarkers(newMarkerInstances, stationMarkers);
