@@ -20,7 +20,7 @@ export const convertStationDetailsToSummary = (stationDetails: StationDetails): 
   const availableCount = chargers.filter((charger) => charger.state === 'STANDBY').length;
   const totalCount = chargers.length;
   const quickChargerCount = chargers.filter(
-    (charger) => charger.capacity > QUICK_CHARGER_CAPACITY_THRESHOLD
+    (charger) => charger.capacity >= QUICK_CHARGER_CAPACITY_THRESHOLD
   ).length;
 
   return {
