@@ -18,6 +18,7 @@ const variantList = [
   'label',
   'body',
   'caption',
+  'pillbox',
 ] as const;
 
 export type VariantType = (typeof variantList)[number];

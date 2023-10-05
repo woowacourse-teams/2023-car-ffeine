@@ -86,6 +86,14 @@ export const StyledText = styled.p<StyledTextType>`
           font-size: 1.2rem;
           color: #666;
         `;
+      case 'pillbox':
+        return css`
+          font-size: 1.3rem;
+          color: #4b4b4b;
+          padding: 0.2rem 1.2rem 0.3rem;
+          background: var(--light-color);
+          border-radius: 6px;
+        `;
       default:
         return css`
           font-size: 1.5rem;
