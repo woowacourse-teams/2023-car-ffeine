@@ -1,5 +1,6 @@
 import { useStationMarkers } from '@marker/HighZoomMarkerContainer/hooks/useStationMarkers';
 
+import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
 
 import { useRenderStationMarker } from './hooks/useRenderStationMarker';
@@ -11,6 +12,7 @@ const HighZoomMarkerContainer = () => {
     getRemainedMarkerInstances,
     removeMarkersOutsideBounds,
     renderDefaultMarkers,
+    renderCarffeineMarkers,
   } = useRenderStationMarker();
 
   if (stationMarkers === undefined || !isSuccess) {
@@ -28,7 +30,12 @@ const HighZoomMarkerContainer = () => {
   );
 
   removeMarkersOutsideBounds(markerInstanceStore.getState(), stationMarkers);
-  renderDefaultMarkers(newMarkerInstances, stationMarkers);
+
+  if (getGoogleMapStore().getState().getZoom() >= 17) {
+    renderCarffeineMarkers(newMarkerInstances, stationMarkers);
+  } else {
+    renderDefaultMarkers(newMarkerInstances, stationMarkers);
+  }
 
   markerInstanceStore.setState([...remainedMarkerInstances, ...newMarkerInstances]);
 

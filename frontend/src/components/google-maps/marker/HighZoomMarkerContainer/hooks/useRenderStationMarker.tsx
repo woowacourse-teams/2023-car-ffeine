@@ -120,10 +120,10 @@ export const useRenderStationMarker = () => {
   };
 
   const renderCarffeineMarkers = (
-    newMarkerInstances: StationMarkerInstance[],
+    markerInstances: StationMarkerInstance[],
     markers: StationMarker[] | StationSummary[]
   ) => {
-    newMarkerInstances.forEach(({ markerInstance, stationId }) => {
+    markerInstances.forEach(({ markerInstance, stationId }) => {
       const container = document.createElement('div');
 
       markerInstance.content = container;
