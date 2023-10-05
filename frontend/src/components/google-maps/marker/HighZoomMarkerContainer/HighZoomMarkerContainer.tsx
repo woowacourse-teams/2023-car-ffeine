@@ -1,9 +1,12 @@
+import { useEffect } from 'react';
+
 import { useStationMarkers } from '@marker/HighZoomMarkerContainer/hooks/useStationMarkers';
 
-import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
-import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
+import { useExternalValue } from '@utils/external-state';
 
-import { ZOOM_BREAKPOINT_DEFAULT_TO_CARFFEINE_MARKER } from './constants';
+import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
+import { zoomStore } from '@stores/google-maps/zoomStore';
+
 import { useRenderStationMarker } from './hooks/useRenderStationMarker';
 
 const HighZoomMarkerContainer = () => {
@@ -12,9 +15,29 @@ const HighZoomMarkerContainer = () => {
     createNewMarkerInstances,
     getRemainedMarkerInstances,
     removeMarkersOutsideBounds,
+    removeAllMarkers,
     renderDefaultMarkers,
     renderCarffeineMarkers,
   } = useRenderStationMarker();
+  const { state: zoomState } = useExternalValue(zoomStore);
+
+  useEffect(() => {
+    if (stationMarkers !== undefined) {
+      if (zoomState === 'max') {
+        renderCarffeineMarkers(markerInstanceStore.getState(), stationMarkers);
+      }
+      if (zoomState === 'high') {
+        renderDefaultMarkers(markerInstanceStore.getState(), stationMarkers);
+      }
+    }
+  }, [zoomState]);
+
+  useEffect(() => {
+    return () => {
+      // MarkerContainers 컴포넌트에서 HighZoomMarkerContainer 컴포넌트가 unmount될 때 모든 마커를 지워준다.
+      removeAllMarkers(markerInstanceStore.getState());
+    };
+  }, []);
 
   if (stationMarkers === undefined || !isSuccess) {
     return <></>;
@@ -32,7 +55,7 @@ const HighZoomMarkerContainer = () => {
 
   removeMarkersOutsideBounds(markerInstanceStore.getState(), stationMarkers);
 
-  if (getGoogleMapStore().getState().getZoom() >= ZOOM_BREAKPOINT_DEFAULT_TO_CARFFEINE_MARKER) {
+  if (zoomState === 'max') {
     renderCarffeineMarkers(newMarkerInstances, stationMarkers);
   } else {
     renderDefaultMarkers(newMarkerInstances, stationMarkers);

@@ -67,9 +67,8 @@ export const useRenderStationMarker = () => {
     prevMarkerInstances: StationMarkerInstance[],
     currentMarkers: StationMarker[]
   ) => {
-    const markersOutOfBounds = prevMarkerInstances.filter(
-      (prevMarker) =>
-        !currentMarkers.some((currentMarker) => currentMarker.stationId === prevMarker.stationId)
+    const markersOutOfBounds = prevMarkerInstances.filter((prevMarker) =>
+      currentMarkers.every((currentMarker) => currentMarker.stationId !== prevMarker.stationId)
     );
 
     markersOutOfBounds.forEach((marker) => {
