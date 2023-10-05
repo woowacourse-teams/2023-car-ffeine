@@ -1,5 +1,3 @@
-import type { MarkerClusterer } from '@googlemaps/markerclusterer';
-
 import { store } from '@utils/external-state';
 
 export interface StationMarkerInstance {
@@ -8,4 +6,3 @@ export interface StationMarkerInstance {
 }
 
 export const markerInstanceStore = store<StationMarkerInstance[]>([]);
-export const markerClusterStore = store<MarkerClusterer>(null);
