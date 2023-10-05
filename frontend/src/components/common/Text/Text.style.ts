@@ -1,7 +1,7 @@
 import { css, styled } from 'styled-components';
 
 import type { TextProps } from '@common/Text/Text';
-import { spacing } from '@common/systems';
+import { spacing } from '@common/styles/spacing';
 
 export type StyledTextType = Omit<TextProps, 'lineClamp' | 'lineHeight'> & {
   $lineClamp?: number;

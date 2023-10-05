@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-import { addUnit } from './utils/addUnit';
+import { addUnit } from '../utils/addUnit';
 
 export interface SpacingProps {
   /** 상하좌우 padding,

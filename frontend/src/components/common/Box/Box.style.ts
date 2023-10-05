@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 import type { BoxProps } from '@common/Box/Box';
-import { spacing } from '@common/systems';
+import { spacing } from '@common/styles/spacing';
 
 const addUnitForBorder = (borderProp: number | string) => {
   return typeof borderProp === 'number' ? `${borderProp}px` : borderProp;

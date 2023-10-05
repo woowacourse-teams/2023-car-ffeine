@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import type { ListItemProps } from '@common/ListItem/ListItem';
-import { spacing } from '@common/systems';
+import { spacing } from '@common/styles/spacing';
 
 export const StyledListItem = styled.li<ListItemProps>`
   padding: 1rem 2rem;

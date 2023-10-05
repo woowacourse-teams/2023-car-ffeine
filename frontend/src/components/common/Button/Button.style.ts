@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 import type { ButtonProps } from '@common/Button/Button';
-import { spacing } from '@common/systems';
+import { spacing } from '@common/styles/spacing';
 
 import { borderRadius, getSize, pillStyle } from '@style';
 

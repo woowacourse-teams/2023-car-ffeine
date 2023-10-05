@@ -2,7 +2,7 @@ import type { CSSProp } from 'styled-components';
 
 import type { HTMLAttributes, ReactNode, ElementType } from 'react';
 
-import type { SpacingProps } from '@common/systems';
+import type { SpacingProps } from '@common/styles/spacing';
 
 import { StyledBox } from './Box.style';
 

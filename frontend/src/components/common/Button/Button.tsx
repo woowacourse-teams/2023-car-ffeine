@@ -2,7 +2,7 @@ import type { CSSProp } from 'styled-components';
 
 import type { ButtonHTMLAttributes, MouseEventHandler } from 'react';
 
-import type { SpacingProps } from '@common/systems';
+import type { SpacingProps } from '@common/styles/spacing';
 
 import type { BorderRadiusDirectionType } from '@type/style';
 

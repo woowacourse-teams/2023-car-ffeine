@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import type { FlexBoxProps } from '@common/FlexBox/FlexBox';
-import { spacing } from '@common/systems';
+import { spacing } from '@common/styles/spacing';
 
 import { borderRadius, getSize } from '@style';
 
