@@ -14,7 +14,7 @@ export const stationSearchHandlers = [
 
     const searchResult = {
       cities: getCities()
-        .filter((city) => city.name.includes(searchWord))
+        .filter((city) => city.cityName.includes(searchWord))
         .slice(0, 3),
       stations: getSearchedStations(searchWord),
     };

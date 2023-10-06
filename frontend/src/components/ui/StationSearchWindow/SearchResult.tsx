@@ -56,15 +56,11 @@ const SearchResult = ({
 
   return (
     <List aria-live="assertive" mt={1} css={searchResultListCss}>
-      {stations.length ? (
+      {stations.length !== 0 || cities.length !== 0 ? (
         <>
-          <SearchedCityCard
-            city={{
-              cityName: '경기도 하남시',
-              latitude: 37.539,
-              longitude: 127.214,
-            }}
-          />
+          {cities.map((city) => (
+            <SearchedCityCard city={city} key={city.cityName} />
+          ))}
           <>
             {stations.map((station) => (
               <SearchedStationCard
