@@ -90,7 +90,7 @@ export const StyledText = styled.p<StyledTextType>`
         return css`
           font-size: 1.3rem;
           color: #4b4b4b;
-          padding: 0.2rem 1.2rem 0.3rem;
+          padding: 0.2rem 1.2rem 0.4rem;
           background: var(--light-color);
           border-radius: 6px;
         `;
