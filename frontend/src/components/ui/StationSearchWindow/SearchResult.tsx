@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
 
-import Button from '@common/Button';
 import List from '@common/List';
 import ListItem from '@common/ListItem';
 import Text from '@common/Text';
 
 import Error from '@ui/Error';
+import SearchedStationCard from '@ui/StationSearchWindow/SearchedStationCard';
 
 import type { SearchedRegion, SearchedStation, StationPosition } from '@type/stations';
 
-import { foundStationListCss, noSearchResultCss, searchResultListCss } from './SearchResult.style';
+import { noSearchResultCss, searchResultListCss } from './SearchResult.style';
 
 export interface SearchResultProps {
   regions: SearchedRegion[];
@@ -59,29 +59,12 @@ const SearchResult = ({
       {stations.length ? (
         <>
           <>
-            {stations.map(({ stationId, stationName, address, latitude, longitude }) => (
-              <ListItem
-                divider
-                NoLastDivider
-                key={stationId}
-                pt={2}
-                pb={3}
-                css={foundStationListCss}
-              >
-                <Button
-                  width="100%"
-                  noRadius="all"
-                  background="transparent"
-                  onMouseDown={() => handleShowStationDetails({ stationId, latitude, longitude })}
-                >
-                  <Text variant="h6" align="left" title={stationName} lineClamp={1}>
-                    {stationName}
-                  </Text>
-                  <Text variant="label" align="left" lineClamp={1} color="#585858">
-                    {address || '주소 미확인'}
-                  </Text>
-                </Button>
-              </ListItem>
+            {stations.map((station) => (
+              <SearchedStationCard
+                station={station}
+                handleShowStationDetails={handleShowStationDetails}
+                key={station.stationId}
+              />
             ))}
           </>
         </>
