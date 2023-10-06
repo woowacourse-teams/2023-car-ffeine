@@ -1,5 +1,4 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import { styled } from 'styled-components';
 
 import { useState } from 'react';
 
@@ -9,11 +8,8 @@ import { useDebounce } from '@hooks/useDebounce';
 import Button from '@common/Button';
 import Loader from '@common/Loader';
 
-import { pillStyle } from '@style';
-
-import { MOBILE_BREAKPOINT } from '@constants';
-
 import SearchResult from './SearchResult';
+import { StyledContainer, StyledForm, StyledSearch } from './StationSearchBar.style';
 import { useStationSearchWindow } from './hooks/useStationSearchWindow';
 
 const StationSearchBar = () => {
@@ -39,10 +35,10 @@ const StationSearchBar = () => {
   const { data: stations, isLoading, isError, isFetching } = useSearchStations(debouncedSearchWord);
 
   return (
-    <S.Container>
-      <S.Form role="search" onSubmit={handleSubmitSearchWord}>
+    <StyledContainer>
+      <StyledForm role="search" onSubmit={handleSubmitSearchWord}>
         <label htmlFor="station-search-bar" aria-hidden>
-          <S.Search
+          <StyledSearch
             id="station-search-bar"
             type="search"
             role="searchbox"
@@ -60,7 +56,7 @@ const StationSearchBar = () => {
             )}
           </Button>
         </label>
-      </S.Form>
+      </StyledForm>
       {isFocused && stations && (
         <SearchResult
           stations={stations}
@@ -70,50 +66,8 @@ const StationSearchBar = () => {
           closeResult={handleCloseResult}
         />
       )}
-    </S.Container>
+    </StyledContainer>
   );
-};
-
-const S = {
-  Container: styled.div`
-    width: 30rem;
-
-    @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
-      width: 100%;
-    }
-  `,
-
-  Form: styled.form`
-    position: relative;
-    min-width: 30rem;
-
-    @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
-      min-width: 100%;
-    }
-  `,
-
-  Search: styled.input`
-    ${pillStyle}
-
-    background: #fcfcfc;
-    border: 1px solid #d0d2d8;
-
-    width: 100%;
-    padding: 1.9rem 4.6rem 2rem 1.8rem;
-    font-size: 1.3rem;
-
-    & + button {
-      position: absolute;
-      right: 2rem;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    &:focus {
-      box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2);
-      outline: 0;
-    }
-  `,
 };
 
 export default StationSearchBar;
