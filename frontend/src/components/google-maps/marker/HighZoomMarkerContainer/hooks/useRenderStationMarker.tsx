@@ -14,6 +14,8 @@ import StationDetailsWindow from '@ui/StationDetailsWindow';
 import type { StationDetails, StationMarker, StationSummary } from '@type';
 
 import CarFfeineMarker from '../components/CarFfeineMarker';
+import { MARKER_COLORS } from '../components/CarFfeineMarker/CarFfeineMarker.style';
+import { DEFAULT_MARKER_SIZE_RATIO } from '../constants';
 
 export const useRenderStationMarker = () => {
   const googleMap = getStoreSnapshot(getGoogleMapStore());
@@ -30,7 +32,7 @@ export const useRenderStationMarker = () => {
       title: stationName,
     });
 
-    bindMarkerClickHandler([{ stationId, markerInstance }]);
+    bindMarkerClickHandler([{ stationId, instance: markerInstance }]);
 
     return markerInstance;
   };
@@ -53,7 +55,7 @@ export const useRenderStationMarker = () => {
 
       return {
         stationId,
-        markerInstance,
+        instance: markerInstance,
       };
     });
 
@@ -66,19 +68,18 @@ export const useRenderStationMarker = () => {
     prevMarkerInstances: StationMarkerInstance[],
     currentMarkers: StationMarker[]
   ) => {
-    const markersOutOfBounds = prevMarkerInstances.filter(
-      (prevMarker) =>
-        !currentMarkers.some((currentMarker) => currentMarker.stationId === prevMarker.stationId)
+    const markersOutOfBounds = prevMarkerInstances.filter((prevMarker) =>
+      currentMarkers.every((currentMarker) => currentMarker.stationId !== prevMarker.stationId)
     );
 
     markersOutOfBounds.forEach((marker) => {
-      marker.markerInstance.map = null;
+      marker.instance.map = null;
     });
   };
 
   const removeAllMarkers = (prevMarkerInstances: StationMarkerInstance[]) => {
     prevMarkerInstances.forEach((marker) => {
-      marker.markerInstance.map = null;
+      marker.instance.map = null;
     });
   };
 
@@ -91,11 +92,40 @@ export const useRenderStationMarker = () => {
     );
   };
 
-  const renderMarkerInstances = (
-    newMarkerInstances: StationMarkerInstance[],
+  const renderDefaultMarkers = (
+    markerInstances: StationMarkerInstance[],
     markers: StationMarker[] | StationSummary[]
   ) => {
-    newMarkerInstances.forEach(({ markerInstance, stationId }) => {
+    markers.forEach((marker) => {
+      const markerInstance = markerInstances.find(
+        (markerInstance) => markerInstance.stationId === marker.stationId
+      )?.instance;
+
+      if (markerInstance) {
+        const defaultMarkerDesign = new google.maps.marker.PinElement({
+          scale: DEFAULT_MARKER_SIZE_RATIO,
+          background:
+            marker.availableCount > 0
+              ? MARKER_COLORS.available.background
+              : MARKER_COLORS.noAvailable.background,
+          borderColor:
+            marker.availableCount > 0
+              ? MARKER_COLORS.available.border
+              : MARKER_COLORS.noAvailable.border,
+          glyph: '',
+        });
+
+        markerInstance.map = googleMap;
+        markerInstance.content = defaultMarkerDesign.element;
+      }
+    });
+  };
+
+  const renderCarffeineMarkers = (
+    markerInstances: StationMarkerInstance[],
+    markers: StationMarker[] | StationSummary[]
+  ) => {
+    markerInstances.forEach(({ instance: markerInstance, stationId }) => {
       const container = document.createElement('div');
 
       markerInstance.content = container;
@@ -104,12 +134,13 @@ export const useRenderStationMarker = () => {
       const markerInformation = markers.find(
         (stationMarker) => stationMarker.stationId === stationId
       );
+
       createRoot(container).render(<CarFfeineMarker {...markerInformation} />);
     });
   };
 
   const bindMarkerClickHandler = (markerInstances: StationMarkerInstance[]) => {
-    markerInstances.forEach(({ markerInstance, stationId }) => {
+    markerInstances.forEach(({ instance: markerInstance, stationId }) => {
       markerInstance.addListener('click', () => {
         openStationInfoWindow(stationId, markerInstance);
 
@@ -125,7 +156,8 @@ export const useRenderStationMarker = () => {
     createNewMarkerInstances,
     removeMarkersOutsideBounds,
     getRemainedMarkerInstances,
-    renderMarkerInstances,
+    renderDefaultMarkers,
+    renderCarffeineMarkers,
     removeAllMarkers,
   };
 };

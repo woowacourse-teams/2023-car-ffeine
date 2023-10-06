@@ -7,7 +7,7 @@ describe('markerModeStore', () => {
     [12, 'middle'],
     [15, 'middle'],
     [16, 'high'],
-    [20, 'high'],
+    [20, 'max'],
   ])('getZoomState(%s) returns %s', (zoom, expected) => {
     expect(getZoomState(zoom)).toBe(expected);
   });
