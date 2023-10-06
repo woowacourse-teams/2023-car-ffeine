@@ -9,6 +9,18 @@ const meta = {
   tags: ['autodocs'],
   component: SearchResult,
   args: {
+    cities: [
+      {
+        cityName: '서울특별시 강동구 천호동',
+        latitude: 1,
+        longitude: 1,
+      },
+      {
+        cityName: '서울특별시 강동구 명일동',
+        latitude: 1,
+        longitude: 1,
+      },
+    ],
     stations: [
       {
         stationId: '0',
