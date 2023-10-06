@@ -1,15 +1,14 @@
 import { useEffect } from 'react';
 
 import List from '@common/List';
-import ListItem from '@common/ListItem';
-import Text from '@common/Text';
 
 import Error from '@ui/Error';
-import SearchedStationCard from '@ui/StationSearchWindow/SearchedStationCard';
 
 import type { SearchedRegion, SearchedStation, StationPosition } from '@type/stations';
 
-import { noSearchResultCss, searchResultListCss } from './SearchResult.style';
+import NoResult from './NoResult';
+import { searchResultListCss } from './SearchResult.style';
+import SearchedStationCard from './SearchedStationCard';
 
 export interface SearchResultProps {
   regions: SearchedRegion[];
@@ -69,18 +68,7 @@ const SearchResult = ({
           </>
         </>
       ) : (
-        <>
-          <ListItem mt={3} css={noSearchResultCss} pb={0}>
-            검색 결과가 없습니다.
-          </ListItem>
-          <ListItem mt={1} mb={5}>
-            <Text variant="subtitle">검색어를 다시 한 번 확인해 주세요.</Text>
-            <Text tag="span" css={{ display: 'block' }}>
-              ·&nbsp; 오타는 없나요?
-            </Text>
-            <Text tag="span">·&nbsp; 띄어쓰기가 잘못되진 않았나요?</Text>
-          </ListItem>
-        </>
+        <NoResult />
       )}
     </List>
   );
