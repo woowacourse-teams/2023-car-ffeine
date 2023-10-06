@@ -15,7 +15,7 @@ const SearchedStationCard = ({ station, handleShowStationDetails }: SearchedStat
   const { stationId, stationName, address, latitude, longitude } = station;
 
   return (
-    <ListItem divider NoLastDivider key={stationId} pt={2} pb={3} css={foundStationListCss}>
+    <ListItem divider NoLastDivider pt={2} pb={3} css={foundStationListCss}>
       <Button
         width="100%"
         noRadius="all"
