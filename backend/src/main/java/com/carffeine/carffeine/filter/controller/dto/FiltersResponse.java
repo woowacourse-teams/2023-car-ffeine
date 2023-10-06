@@ -15,7 +15,7 @@ public record FiltersResponse(
         return getResponse(filters);
     }
 
-    private static FiltersResponse getResponse(final List<Filter> filters) {
+    private static FiltersResponse getResponse(List<Filter> filters) {
         List<String> companies = filters.stream()
                 .filter(it -> it.getFilterType().isCompanyType())
                 .map(Filter::getName)
