@@ -7,11 +7,11 @@ import Text from '@common/Text';
 
 import type { SearchedCity } from '@type';
 
-export interface SearchedRegionCardProps {
+export interface SearchedCityCardProps {
   city: SearchedCity;
 }
 
-const SearchedCityCard = ({ city }: SearchedRegionCardProps) => {
+const SearchedCityCard = ({ city }: SearchedCityCardProps) => {
   const { cityName, latitude, longitude } = city;
 
   return (

@@ -12,7 +12,7 @@ import { searchResultListCss } from './SearchResult.style';
 import SearchedStationCard from './SearchedStationCard';
 
 export interface SearchResultProps {
-  regions: SearchedCity[];
+  cities: SearchedCity[];
   stations: SearchedStation[];
   isLoading: boolean;
   isError: boolean;
@@ -21,7 +21,7 @@ export interface SearchResultProps {
 }
 
 const SearchResult = ({
-  regions,
+  cities,
   stations,
   isLoading,
   isError,
