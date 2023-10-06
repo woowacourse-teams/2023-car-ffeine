@@ -1,5 +1,7 @@
 import { MapPinIcon } from '@heroicons/react/24/outline';
 
+import { googleMapActions } from '@stores/google-maps/googleMapStore';
+
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 import ListItem from '@common/ListItem';
@@ -21,7 +23,7 @@ const SearchedCityCard = ({ city }: SearchedCityCardProps) => {
           width="100%"
           noRadius="all"
           background="transparent"
-          onMouseDown={() => alert(`${cityName}(으)로 이동합니다. ${latitude}, ${longitude}`)}
+          onMouseDown={() => googleMapActions.moveTo({ lat: latitude, lng: longitude }, 14)}
         >
           <FlexBox justifyContent="between" alignItems="center">
             <FlexBox alignItems="center" gap={2}>
