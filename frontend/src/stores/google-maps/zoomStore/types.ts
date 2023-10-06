@@ -1,8 +1,7 @@
-export interface ZoomBreakpoints {
-  low: number;
-  middle: number;
-  high: number;
-  max: number;
+export interface DeltaAreaBreakpoints {
+  small: number;
+  medium: number;
+  large: number;
 }
 
-export type ZoomState = keyof ZoomBreakpoints;
+export type DeltaAreaState = 'small' | 'medium' | 'large' | 'max';

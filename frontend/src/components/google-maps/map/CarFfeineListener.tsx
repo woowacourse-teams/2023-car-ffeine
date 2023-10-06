@@ -9,7 +9,7 @@ import { isCachedRegion } from '@utils/google-maps/isCachedRegion';
 import { setLocalStorage } from '@utils/storage';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
-import { zoomActions, zoomStore } from '@stores/google-maps/zoomStore';
+import { deltaAreaActions, deltaAreaStore } from '@stores/google-maps/zoomStore';
 import { profileMenuOpenStore } from '@stores/profileMenuOpenStore';
 
 import { QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
@@ -19,7 +19,7 @@ const CarFfeineMapListener = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
   const queryClient = useQueryClient();
   const setIsProfileMenuOpen = useSetExternalState(profileMenuOpenStore);
-  const zoom = useExternalValue(zoomStore);
+  const deltaAreaState = useExternalValue(deltaAreaStore);
 
   const debouncedHighZoomHandler = debounce(() => {
     const displayPosition = getDisplayPosition(googleMap);
@@ -37,15 +37,15 @@ const CarFfeineMapListener = () => {
 
   useEffect(() => {
     googleMap.addListener('idle', () => {
-      if (zoom.state === 'high') {
+      if (deltaAreaState === 'medium' || deltaAreaState === 'small') {
         debouncedHighZoomHandler();
       }
-
-      zoomActions.setZoom(googleMap.getZoom());
 
       const { latitudeDelta, longitudeDelta } = getDisplayPosition(googleMap);
 
       console.log(latitudeDelta * longitudeDelta);
+
+      deltaAreaActions.setDeltaAreaState(latitudeDelta * longitudeDelta);
     });
 
     const initMarkersEvent = googleMap.addListener('bounds_changed', async () => {

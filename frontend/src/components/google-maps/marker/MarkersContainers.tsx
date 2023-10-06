@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { useExternalValue } from '@utils/external-state';
 
-import { zoomStore } from '@stores/google-maps/zoomStore';
+import { deltaAreaStore } from '@stores/google-maps/zoomStore';
 
 import HighZoomMarkerContainer from './HighZoomMarkerContainer';
 import LowZoomMarkerContainer from './LowZoomMarkerContainer';
@@ -13,16 +13,18 @@ const MemoizedMiddleZoomMarkerContainer = memo(MiddleZoomMarkerContainer);
 const MemoizedLowZoomMarkerContainer = memo(LowZoomMarkerContainer);
 
 const MarkersContainers = () => {
-  const markerMode = useExternalValue(zoomStore);
+  const deltaAreaState = useExternalValue(deltaAreaStore);
+
+  console.log(deltaAreaState);
 
   return (
     <>
-      {(markerMode.state === 'high' || markerMode.state === 'max') && (
+      {(deltaAreaState === 'medium' || deltaAreaState === 'small') && (
         <MemoizedHighZoomMarkerContainer />
       )}
       {/* 이 아래는 앞으로 추가될 기능을 미리 대응하는 컴포넌트 */}
-      {markerMode.state === 'middle' && <MemoizedMiddleZoomMarkerContainer />}
-      {markerMode.state === 'low' && <MemoizedLowZoomMarkerContainer />}
+      {deltaAreaState === 'large' && <MemoizedMiddleZoomMarkerContainer />}
+      {deltaAreaState === 'max' && <MemoizedLowZoomMarkerContainer />}
     </>
   );
 };

@@ -1,5 +1,4 @@
-import type { ZoomState } from './types';
-import type { ZoomStoreState } from './zoomStore';
-import { getZoomState, zoomActions, deltaAreaStore } from './zoomStore';
+import { getDeltaAreaState, deltaAreaActions, deltaAreaStore } from './deltaAreaStore';
+import type { DeltaAreaState } from './types';
 
-export { deltaAreaStore as zoomStore, getZoomState, ZoomStoreState, zoomActions, ZoomState };
+export { deltaAreaStore, getDeltaAreaState, deltaAreaActions, DeltaAreaState };
