@@ -109,7 +109,7 @@ const StationInfo = ({
       <Text tag="h3" align="left" variant="h5" title={stationName} lineClamp={1}>
         {stationName}
       </Text>
-      <Text variant="label" align="left" lineClamp={1} mb={3} color="#585858">
+      <Text variant="label" align="left" lineClamp={1} mb={2} color="#585858">
         {address === 'null' || !address ? '주소 미확인' : address}
       </Text>
       <FlexBox columnGap={3}>
