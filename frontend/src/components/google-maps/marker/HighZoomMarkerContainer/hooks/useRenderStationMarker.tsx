@@ -32,7 +32,7 @@ export const useRenderStationMarker = () => {
       title: stationName,
     });
 
-    bindMarkerClickHandler([{ stationId, markerInstance }]);
+    bindMarkerClickHandler([{ stationId, instance: markerInstance }]);
 
     return markerInstance;
   };
@@ -55,7 +55,7 @@ export const useRenderStationMarker = () => {
 
       return {
         stationId,
-        markerInstance,
+        instance: markerInstance,
       };
     });
 
@@ -73,13 +73,13 @@ export const useRenderStationMarker = () => {
     );
 
     markersOutOfBounds.forEach((marker) => {
-      marker.markerInstance.map = null;
+      marker.instance.map = null;
     });
   };
 
   const removeAllMarkers = (prevMarkerInstances: StationMarkerInstance[]) => {
     prevMarkerInstances.forEach((marker) => {
-      marker.markerInstance.map = null;
+      marker.instance.map = null;
     });
   };
 
@@ -99,7 +99,7 @@ export const useRenderStationMarker = () => {
     markers.forEach((marker) => {
       const markerInstance = markerInstances.find(
         (markerInstance) => markerInstance.stationId === marker.stationId
-      )?.markerInstance;
+      )?.instance;
 
       if (markerInstance) {
         const defaultMarkerDesign = new google.maps.marker.PinElement({
@@ -125,7 +125,7 @@ export const useRenderStationMarker = () => {
     markerInstances: StationMarkerInstance[],
     markers: StationMarker[] | StationSummary[]
   ) => {
-    markerInstances.forEach(({ markerInstance, stationId }) => {
+    markerInstances.forEach(({ instance: markerInstance, stationId }) => {
       const container = document.createElement('div');
 
       markerInstance.content = container;
@@ -140,7 +140,7 @@ export const useRenderStationMarker = () => {
   };
 
   const bindMarkerClickHandler = (markerInstances: StationMarkerInstance[]) => {
-    markerInstances.forEach(({ markerInstance, stationId }) => {
+    markerInstances.forEach(({ instance: markerInstance, stationId }) => {
       markerInstance.addListener('click', () => {
         openStationInfoWindow(stationId, markerInstance);
 
