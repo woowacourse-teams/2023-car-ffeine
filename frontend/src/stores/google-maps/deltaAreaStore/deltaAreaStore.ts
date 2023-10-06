@@ -20,12 +20,10 @@ export const getDeltaAreaState = (newDeltaArea: number): DeltaAreaState => {
   return 'small';
 };
 
-/** TODO: deltaAreaActions로 이름 변경?
- * setZoom
- */
 export const deltaAreaActions = {
   setDeltaAreaState: (newDeltaArea: number) => {
     const newDeltaAreaState = getDeltaAreaState(newDeltaArea);
+
     if (newDeltaAreaState !== deltaAreaStore.getState()) {
       deltaAreaStore.setState(newDeltaAreaState);
     }
