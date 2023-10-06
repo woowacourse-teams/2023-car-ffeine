@@ -66,6 +66,7 @@ export const NoResult = () => {
   return (
     <SubContainer>
       <SearchResult
+        cities={[]}
         stations={[]}
         closeResult={() => null}
         isError={false}
@@ -80,6 +81,7 @@ export const Error = () => {
   return (
     <Container>
       <SearchResult
+        cities={[]}
         stations={[]}
         closeResult={() => null}
         isError={true}
