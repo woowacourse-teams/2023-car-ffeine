@@ -53,14 +53,7 @@ const StationSummaryCard = ({ station, tag, $noPadding }: Props) => {
       >
         <FlexBox alignItems="start" justifyContent="between" nowrap columnGap={2.8}>
           <article>
-            <Text
-              tag="h4"
-              align="left"
-              variant="subtitle"
-              title={stationName}
-              lineClamp={1}
-              css={companyNameText}
-            >
+            <Text tag="h4" align="left" title={stationName} lineClamp={1} fontSize={1.3}>
               {companyName}
             </Text>
             <Text tag="h3" align="left" variant="h5" title={stationName} lineClamp={1}>
@@ -73,10 +66,10 @@ const StationSummaryCard = ({ station, tag, $noPadding }: Props) => {
               {operatingTime}
             </Text>
             <FlexBox columnGap={3}>
-              <Text variant="label" align="left" color="#4b4b4b" css={labelStyle}>
+              <Text variant="pillbox" align="left">
                 {isPrivate ? '이용 제한' : '외부인 개방'}
               </Text>
-              <Text variant="label" align="left" color="#4b4b4b" css={labelStyle}>
+              <Text variant="pillbox" align="left">
                 {isParkingFree ? '무료 주차' : '유료 주차'}
               </Text>
             </FlexBox>
@@ -92,20 +85,10 @@ const noPadding = css`
   padding: 0;
 `;
 
-const companyNameText = css`
-  font-size: 1.3rem;
-`;
-
 const foundStationButton = css`
   padding: 1.6rem 1.4rem 1.8rem;
   box-shadow: 0 0.3rem 0.8rem 0 var(--gray-200-color);
   border-radius: 10px;
-`;
-
-const labelStyle = css`
-  padding: 0.2rem 1rem 0.3rem;
-  background: var(--light-color);
-  border-radius: 8px;
 `;
 
 export default StationSummaryCard;

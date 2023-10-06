@@ -1,7 +1,7 @@
 import { css, styled } from 'styled-components';
 
 import type { TextProps } from '@common/Text/Text';
-import { spacing } from '@common/systems';
+import { spacing } from '@common/styles/spacing';
 
 export type StyledTextType = Omit<TextProps, 'lineClamp' | 'lineHeight'> & {
   $lineClamp?: number;
@@ -85,6 +85,14 @@ export const StyledText = styled.p<StyledTextType>`
         return css`
           font-size: 1.2rem;
           color: #666;
+        `;
+      case 'pillbox':
+        return css`
+          font-size: 1.3rem;
+          color: #4b4b4b;
+          padding: 0.2rem 1.2rem 0.4rem;
+          background: var(--light-color);
+          border-radius: 6px;
         `;
       default:
         return css`

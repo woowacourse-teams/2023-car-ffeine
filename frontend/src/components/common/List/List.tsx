@@ -3,7 +3,7 @@ import type { CSSProp } from 'styled-components';
 import type { HTMLAttributes, ReactNode } from 'react';
 
 import { StyledList } from '@common/List/List.style';
-import type { SpacingProps } from '@common/systems';
+import type { SpacingProps } from '@common/styles/spacing';
 
 export interface ListProps extends HTMLAttributes<HTMLUListElement>, SpacingProps {
   children: ReactNode;

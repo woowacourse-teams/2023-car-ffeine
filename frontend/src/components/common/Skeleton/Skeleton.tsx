@@ -1,6 +1,6 @@
 import type { CSSProp } from 'styled-components';
 
-import type { SpacingProps } from '@common/systems';
+import type { SpacingProps } from '@common/styles/spacing';
 
 import { StyledSkeleton } from './Skeleton.style';
 

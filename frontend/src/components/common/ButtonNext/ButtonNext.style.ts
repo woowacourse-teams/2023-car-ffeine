@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 import type { ButtonNextProps } from '@common/ButtonNext/ButtonNext';
-import { spacing } from '@common/systems';
+import { spacing } from '@common/styles/spacing';
 
 import { getColor, getHoverColor } from '@style';
 

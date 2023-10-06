@@ -3,7 +3,7 @@ import type { CSSProp } from 'styled-components';
 import type { ButtonHTMLAttributes, MouseEventHandler, ReactNode } from 'react';
 import { forwardRef } from 'react';
 
-import type { SpacingProps } from '@common/systems';
+import type { SpacingProps } from '@common/styles/spacing';
 
 import type { Color, Size } from '@type/style';
 

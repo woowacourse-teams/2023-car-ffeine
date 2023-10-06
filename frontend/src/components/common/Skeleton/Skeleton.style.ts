@@ -1,7 +1,7 @@
 import styled, { keyframes } from 'styled-components';
 
 import type { SkeletonProps } from '@common/Skeleton/Skeleton';
-import { spacing } from '@common/systems';
+import { spacing } from '@common/styles/spacing';
 
 export const skeletonAnimation = keyframes`
   0% {

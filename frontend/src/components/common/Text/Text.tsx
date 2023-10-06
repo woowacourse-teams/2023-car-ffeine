@@ -2,7 +2,7 @@ import type { CSSProp } from 'styled-components';
 
 import type { HTMLAttributes } from 'react';
 
-import type { SpacingProps } from '@common/systems';
+import type { SpacingProps } from '@common/styles/spacing';
 
 import { StyledText } from './Text.style';
 
@@ -18,6 +18,7 @@ const variantList = [
   'label',
   'body',
   'caption',
+  'pillbox',
 ] as const;
 
 export type VariantType = (typeof variantList)[number];

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { spacing } from '@common/systems';
+import { spacing } from '@common/styles/spacing';
 
 import type { ListProps } from './List';
 

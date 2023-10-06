@@ -1,1 +1,1 @@
-export const DEFAULT_MARKER_SIZE_RATIO = 0.5;
+export const DEFAULT_MARKER_SIZE_RATIO = 0.7;

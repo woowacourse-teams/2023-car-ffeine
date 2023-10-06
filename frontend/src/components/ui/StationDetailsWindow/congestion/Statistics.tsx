@@ -27,21 +27,21 @@ const Statistics = ({ stationId, dayOfWeek, onChangeDayOfWeek }: Props) => {
     refetch,
   } = useStationCongestionStatistics(stationId, dayOfWeek);
 
-  const hasOnlyStandardChargers = congestionStatistics?.congestion['quick'].every(
+  const hasOnlyStandardCharger = congestionStatistics?.congestion['quick'].every(
     (congestion) => congestion.ratio === NO_RATIO
   );
-  const hasOnlyQuickChargers = congestionStatistics?.congestion['standard'].every(
+  const hasOnlyQuickCharger = congestionStatistics?.congestion['standard'].every(
     (congestion) => congestion.ratio === NO_RATIO
   );
-  const hasOnlyOneChargerType = hasOnlyStandardChargers || hasOnlyQuickChargers;
+  const hasOnlyOneChargerType = hasOnlyStandardCharger || hasOnlyQuickCharger;
 
   const [chargingSpeed, setChargingSpeed] = useState<keyof typeof CHARGING_SPEED>('standard');
 
   useEffect(() => {
-    if (hasOnlyQuickChargers) {
+    if (hasOnlyQuickCharger) {
       setChargingSpeed('quick');
     }
-  }, [hasOnlyQuickChargers]);
+  }, [hasOnlyQuickCharger]);
 
   const handleRetry = () => {
     refetch();

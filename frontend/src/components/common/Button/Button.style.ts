@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 import type { ButtonProps } from '@common/Button/Button';
-import { spacing } from '@common/systems';
+import { spacing } from '@common/styles/spacing';
 
 import { borderRadius, getSize, pillStyle } from '@style';
 
@@ -33,7 +33,7 @@ export const StyledButton = styled.button<StyledButtonType>`
   padding: ${({ size }) => BUTTON_PADDING_SIZE[size] || 0};
   background: ${({ background }) => background || '#fff'};
   border: ${({ outlined }) => (outlined ? '0.15rem solid #000' : 'none')};
-  font-size: ${({ size }) => BUTTON_FONT_SIZE[size] || 0};
+  ${({ size }) => `font-size: ${BUTTON_FONT_SIZE[size]}`};
   box-shadow: ${({ shadow }) => `${shadow ? '0 0.3rem 0.8rem 0 gray' : 'none'}`};
 
   cursor: pointer;
@@ -54,7 +54,7 @@ export const StyledButton = styled.button<StyledButtonType>`
   }};
 
   &:hover {
-    ${({ hover }) => hover && 'background-color: #f0f0f0'};
+    ${({ hover }) => hover && 'font-weight: 500'};
   }
 
   ${({ css }) => css};
