@@ -8,7 +8,7 @@ const meta = {
   title: 'UI/StationInfoWindow/Buttons',
   component: SummaryButtons,
   args: {
-    handleCloseStationSummary: () => {
+    handleCloseStationWindow: () => {
       alert('충전소 간단 정보창이 닫혔습니다.');
     },
     handleOpenStationDetail: () => {
@@ -16,7 +16,7 @@ const meta = {
     },
   },
   argTypes: {
-    handleCloseStationSummary: {
+    handleCloseStationWindow: {
       description: '충전소 간단 정보창을 닫을 수 있습니다.',
     },
     handleOpenStationDetail: {

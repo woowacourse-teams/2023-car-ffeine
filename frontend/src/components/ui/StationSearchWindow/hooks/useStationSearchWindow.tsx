@@ -38,7 +38,7 @@ export const useStationSearchWindow = () => {
 
   const { openLastPanel } = useNavigationBar();
   const { openStationInfoWindow } = useStationInfoWindow();
-  const { createNewMarkerInstance, renderMarkerInstances } = useRenderStationMarker();
+  const { createNewMarkerInstance, renderDefaultMarkers } = useRenderStationMarker();
 
   const screen = useMediaQueries();
 
@@ -87,11 +87,13 @@ export const useStationSearchWindow = () => {
 
       const markerInstance = createNewMarkerInstance(stationDetails);
 
-      setMarkerInstances((prev) => [...prev, { stationId, markerInstance }]);
-      renderMarkerInstances(
-        [{ stationId, markerInstance }],
+      setMarkerInstances((prev) => [...prev, { stationId, instance: markerInstance }]);
+
+      renderDefaultMarkers(
+        [{ stationId, instance: markerInstance }],
         [convertStationDetailsToSummary(stationDetails)]
       );
+
       openStationInfoWindow(stationId, markerInstance);
 
       queryClient.setQueryData([QUERY_KEY_STATION_DETAILS, stationId], stationDetails);

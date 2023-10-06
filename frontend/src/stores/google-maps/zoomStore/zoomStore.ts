@@ -21,14 +21,17 @@ export const getZoomState = (newZoom: number): ZoomState => {
   if (newZoom < ZOOM_BREAKPOINTS.high) {
     return 'middle';
   }
-  return 'high';
+  if (newZoom < ZOOM_BREAKPOINTS.max) {
+    return 'high';
+  }
+  return 'max';
 };
 
 export const zoomActions = {
   setZoom: (newZoom: number) => {
     const newZoomState = getZoomState(newZoom);
     if (newZoomState !== zoomStore.getState().state) {
-      zoomStore.setState({ level: newZoom, state: getZoomState(newZoom) });
+      zoomStore.setState({ level: newZoom, state: newZoomState });
     }
   },
 };
