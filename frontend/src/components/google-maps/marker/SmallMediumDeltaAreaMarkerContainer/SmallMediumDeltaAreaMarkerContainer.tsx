@@ -1,17 +1,17 @@
 import { useEffect } from 'react';
 
-import { useStationMarkers } from '@marker/HighZoomMarkerContainer/hooks/useStationMarkers';
+import { useStationMarkers } from '@marker/SmallMediumDeltaAreaMarkerContainer/hooks/useStationMarkers';
 
 import { useExternalValue } from '@utils/external-state';
 
+import { deltaAreaStore } from '@stores/google-maps/deltaAreaStore';
+import type { DeltaAreaState } from '@stores/google-maps/deltaAreaStore/types';
 import type { StationMarkerInstance } from '@stores/google-maps/markerInstanceStore';
 import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
-import { deltaAreaStore } from '@stores/google-maps/zoomStore';
-import type { DeltaAreaState } from '@stores/google-maps/zoomStore/types';
 
 import { useRenderStationMarker } from './hooks/useRenderStationMarker';
 
-const HighZoomMarkerContainer = () => {
+const SmallMediumDeltaAreaMarkerContainer = () => {
   const { data: stationMarkers, isSuccess } = useStationMarkers();
   const {
     createNewMarkerInstances,
@@ -23,7 +23,7 @@ const HighZoomMarkerContainer = () => {
   } = useRenderStationMarker();
   const deltaAreaState = useExternalValue(deltaAreaStore);
 
-  const renderMarkerByZoomState = (
+  const renderMarkerByDeltaAreaState = (
     deltaAreaState: DeltaAreaState,
     markerInstances: StationMarkerInstance[]
   ) => {
@@ -37,7 +37,7 @@ const HighZoomMarkerContainer = () => {
 
   useEffect(() => {
     if (stationMarkers !== undefined) {
-      renderMarkerByZoomState(deltaAreaState, markerInstanceStore.getState());
+      renderMarkerByDeltaAreaState(deltaAreaState, markerInstanceStore.getState());
     }
   }, [deltaAreaState]);
 
@@ -63,11 +63,11 @@ const HighZoomMarkerContainer = () => {
   );
 
   removeMarkersOutsideBounds(markerInstanceStore.getState(), stationMarkers);
-  renderMarkerByZoomState(deltaAreaState, newMarkerInstances);
+  renderMarkerByDeltaAreaState(deltaAreaState, newMarkerInstances);
 
   markerInstanceStore.setState([...remainedMarkerInstances, ...newMarkerInstances]);
 
   return <></>;
 };
 
-export default HighZoomMarkerContainer;
+export default SmallMediumDeltaAreaMarkerContainer;

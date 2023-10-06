@@ -4,4 +4,4 @@ export interface DeltaAreaBreakpoints {
   large: number;
 }
 
-export type DeltaAreaState = 'small' | 'medium' | 'large' | 'max';
+export type DeltaAreaState = keyof DeltaAreaBreakpoints | 'max';

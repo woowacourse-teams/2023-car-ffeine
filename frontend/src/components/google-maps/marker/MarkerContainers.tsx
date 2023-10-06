@@ -2,20 +2,18 @@ import { memo } from 'react';
 
 import { useExternalValue } from '@utils/external-state';
 
-import { deltaAreaStore } from '@stores/google-maps/zoomStore';
+import { deltaAreaStore } from '@stores/google-maps/deltaAreaStore';
 
-import HighZoomMarkerContainer from './HighZoomMarkerContainer';
-import LowZoomMarkerContainer from './LowZoomMarkerContainer';
-import MiddleZoomMarkerContainer from './MiddleZoomMarkerContainer';
+import LargeDeltaAreaMarkerContainer from './LargeDeltaAreaMarkerContainer';
+import MaxDeltaAreaMarkerContainer from './MaxDeltaAreaMarkerContainer';
+import HighZoomMarkerContainer from './SmallMediumDeltaAreaMarkerContainer';
 
 const MemoizedHighZoomMarkerContainer = memo(HighZoomMarkerContainer);
-const MemoizedMiddleZoomMarkerContainer = memo(MiddleZoomMarkerContainer);
-const MemoizedLowZoomMarkerContainer = memo(LowZoomMarkerContainer);
+const MemoizedMiddleZoomMarkerContainer = memo(LargeDeltaAreaMarkerContainer);
+const MemoizedLowZoomMarkerContainer = memo(MaxDeltaAreaMarkerContainer);
 
-const MarkersContainers = () => {
+const MarkerContainers = () => {
   const deltaAreaState = useExternalValue(deltaAreaStore);
-
-  console.log(deltaAreaState);
 
   return (
     <>
@@ -28,4 +26,4 @@ const MarkersContainers = () => {
     </>
   );
 };
-export default MarkersContainers;
+export default MarkerContainers;

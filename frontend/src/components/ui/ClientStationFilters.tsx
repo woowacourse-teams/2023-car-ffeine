@@ -3,7 +3,7 @@ import { css, styled } from 'styled-components';
 import { useExternalState, useExternalValue } from '@utils/external-state';
 import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 
-import { deltaAreaStore } from '@stores/google-maps/zoomStore';
+import { deltaAreaStore } from '@stores/google-maps/deltaAreaStore';
 import { navigationBarPanelStore } from '@stores/layout/navigationBarPanelStore';
 import { toastActions } from '@stores/layout/toastStore';
 import type { ClientStationFilter } from '@stores/station-filters/clientStationFiltersStore';

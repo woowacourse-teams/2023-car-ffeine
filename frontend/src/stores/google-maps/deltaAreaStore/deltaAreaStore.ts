@@ -1,6 +1,6 @@
 import { store } from '@utils/external-state';
 
-import type { DeltaAreaState } from '@stores/google-maps/zoomStore/types';
+import type { DeltaAreaState } from '@stores/google-maps/deltaAreaStore/types';
 
 import { DELTA_AREA_BREAKPOINTS } from '../../../constants/googleMaps';
 

@@ -7,8 +7,8 @@ import { getDisplayPosition } from '@utils/google-maps';
 import { isCachedRegion } from '@utils/google-maps/isCachedRegion';
 import { setLocalStorage } from '@utils/storage';
 
+import { deltaAreaActions, deltaAreaStore } from '@stores/google-maps/deltaAreaStore';
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
-import { deltaAreaActions, deltaAreaStore } from '@stores/google-maps/zoomStore';
 import { profileMenuOpenStore } from '@stores/profileMenuOpenStore';
 
 import { QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';

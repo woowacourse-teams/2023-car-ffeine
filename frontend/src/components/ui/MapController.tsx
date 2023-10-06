@@ -3,7 +3,7 @@ import { css } from 'styled-components';
 
 import { BiCurrentLocation } from 'react-icons/bi';
 
-import { useStationMarkers } from '@marker/HighZoomMarkerContainer/hooks/useStationMarkers';
+import { useStationMarkers } from '@marker/SmallMediumDeltaAreaMarkerContainer/hooks/useStationMarkers';
 
 import { googleMapActions } from '@stores/google-maps/googleMapStore';
 

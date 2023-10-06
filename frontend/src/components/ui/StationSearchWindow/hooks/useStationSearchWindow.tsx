@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 
-import { useRenderStationMarker } from '@marker/HighZoomMarkerContainer/hooks/useRenderStationMarker';
+import { useRenderStationMarker } from '@marker/SmallMediumDeltaAreaMarkerContainer/hooks/useRenderStationMarker';
 
 import { useSetExternalState } from '@utils/external-state';
 

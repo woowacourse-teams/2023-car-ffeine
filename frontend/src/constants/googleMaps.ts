@@ -1,4 +1,4 @@
-import type { DeltaAreaBreakpoints } from '@stores/google-maps/zoomStore/types';
+import type { DeltaAreaBreakpoints } from '@stores/google-maps/deltaAreaStore/types';
 
 export const MIN_ZOOM_LEVEL = 8;
 export const MAX_ZOOM_LEVEL = 20;

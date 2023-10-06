@@ -3,7 +3,7 @@ import { lazy, Suspense } from 'react';
 import CarFfeineMapListener from './CarFfeineListener';
 
 const UserFilterListener = lazy(() => import('./UserFilterListener'));
-const MarkersContainers = lazy(() => import('@marker/MarkersContainers'));
+const MarkersContainers = lazy(() => import('@marker/MarkerContainers'));
 const ToastContainer = lazy(() => import('@ui/ToastContainer'));
 const ClientStationFilters = lazy(() => import('@ui/ClientStationFilters'));
 const MapController = lazy(() => import('@ui/MapController'));
