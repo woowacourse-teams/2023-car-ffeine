@@ -9,7 +9,7 @@ export interface ZoomStoreState {
   state: ZoomState;
 }
 
-export const zoomStore = store<ZoomStoreState>({
+export const deltaAreaStore = store<ZoomStoreState>({
   level: ZOOM_BREAKPOINTS.high,
   state: 'high',
 });
@@ -30,8 +30,8 @@ export const getZoomState = (newZoom: number): ZoomState => {
 export const zoomActions = {
   setZoom: (newZoom: number) => {
     const newZoomState = getZoomState(newZoom);
-    if (newZoomState !== zoomStore.getState().state) {
-      zoomStore.setState({ level: newZoom, state: newZoomState });
+    if (newZoomState !== deltaAreaStore.getState().state) {
+      deltaAreaStore.setState({ level: newZoom, state: newZoomState });
     }
   },
 };

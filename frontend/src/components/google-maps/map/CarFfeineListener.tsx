@@ -42,6 +42,10 @@ const CarFfeineMapListener = () => {
       }
 
       zoomActions.setZoom(googleMap.getZoom());
+
+      const { latitudeDelta, longitudeDelta } = getDisplayPosition(googleMap);
+
+      console.log(latitudeDelta * longitudeDelta);
     });
 
     const initMarkersEvent = googleMap.addListener('bounds_changed', async () => {
