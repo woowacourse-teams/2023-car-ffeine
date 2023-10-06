@@ -3,12 +3,12 @@ import { useEffect } from 'react';
 import List from '@common/List';
 
 import Error from '@ui/Error';
-import SearchedCityCard from '@ui/StationSearchWindow/SearchedCityCard';
 
 import type { SearchedCity, SearchedStation, StationPosition } from '@type/stations';
 
 import NoResult from './NoResult';
 import { searchResultListCss } from './SearchResult.style';
+import SearchedCityCard from './SearchedCityCard';
 import SearchedStationCard from './SearchedStationCard';
 
 export interface SearchResultProps {
@@ -28,6 +28,18 @@ const SearchResult = ({
   showStationDetails,
   closeResult,
 }: SearchResultProps) => {
+  const isExistResults = stations.length !== 0 || cities.length !== 0;
+  const renderResults = [
+    ...cities.map((city) => <SearchedCityCard city={city} key={city.cityName} />),
+    ...stations.map((station) => (
+      <SearchedStationCard
+        station={station}
+        handleShowStationDetails={handleShowStationDetails}
+        key={station.stationId}
+      />
+    )),
+  ];
+
   const handleShowStationDetails = ({ stationId, latitude, longitude }: StationPosition) => {
     showStationDetails({ stationId, latitude, longitude });
   };
@@ -56,26 +68,7 @@ const SearchResult = ({
 
   return (
     <List aria-live="assertive" mt={1} css={searchResultListCss}>
-      {stations.length !== 0 || cities.length !== 0 ? (
-        <>
-          <>
-            {cities.map((city) => (
-              <SearchedCityCard city={city} key={city.cityName} />
-            ))}
-          </>
-          <>
-            {stations.map((station) => (
-              <SearchedStationCard
-                station={station}
-                handleShowStationDetails={handleShowStationDetails}
-                key={station.stationId}
-              />
-            ))}
-          </>
-        </>
-      ) : (
-        <NoResult />
-      )}
+      {isExistResults ? renderResults : <NoResult />}
     </List>
   );
 };
