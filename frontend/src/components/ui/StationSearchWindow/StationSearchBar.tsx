@@ -32,7 +32,7 @@ const StationSearchBar = () => {
     400
   );
 
-  const { data: stations, isLoading, isError, isFetching } = useSearchStations(debouncedSearchWord);
+  const { data, isLoading, isError, isFetching } = useSearchStations(debouncedSearchWord);
 
   return (
     <StyledContainer>
@@ -57,9 +57,9 @@ const StationSearchBar = () => {
           </Button>
         </label>
       </StyledForm>
-      {isFocused && stations && (
+      {isFocused && data?.stations && (
         <SearchResult
-          stations={stations}
+          stations={data.stations}
           isLoading={isLoading}
           isError={isError}
           showStationDetails={showStationDetails}

@@ -1,5 +1,4 @@
-import type { CHARGING_SPEED, COMPANIES } from '@constants/chargers';
-import type { CONNECTOR_TYPES } from '@constants/chargers';
+import type { CHARGING_SPEED, COMPANIES, CONNECTOR_TYPES } from '@constants/chargers';
 
 import type { Capacity, ChargerMethodType, ChargerStateType } from '@type/chargers';
 
@@ -88,6 +87,12 @@ export type CompanyName = (typeof COMPANIES)[CompanyKey];
 export interface SearchedStation
   extends Pick<Station, 'stationId' | 'stationName' | 'address' | 'latitude' | 'longitude'> {
   speed: keyof typeof CHARGING_SPEED;
+}
+
+export interface SearchedRegion {
+  regionName: string;
+  latitude: number;
+  longitude: number;
 }
 
 export type StationPosition = Pick<Station, 'stationId' | 'longitude' | 'latitude'>;
