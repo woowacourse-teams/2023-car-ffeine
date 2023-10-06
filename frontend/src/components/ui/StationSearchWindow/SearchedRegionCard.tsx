@@ -1,4 +1,4 @@
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { MapPinIcon } from '@heroicons/react/24/outline';
 
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
@@ -24,9 +24,11 @@ const SearchedRegionCard = ({ region }: SearchedRegionCardProps) => {
           onMouseDown={() => alert(`${regionName}(으)로 이동합니다. ${latitude}, ${longitude}`)}
         >
           <FlexBox justifyContent="between" alignItems="center">
-            <FlexBox alignItems="center">
-              <MagnifyingGlassIcon width="1.6rem" stroke="#767676" />
-              <Text title={regionName}>{regionName}</Text>
+            <FlexBox alignItems="center" gap={2}>
+              <MapPinIcon width="1.6rem" stroke="#767676" />
+              <Text title={regionName} mb={0.5}>
+                {regionName}
+              </Text>
             </FlexBox>
             <Text variant="caption" color="#585858">
               이동하기
