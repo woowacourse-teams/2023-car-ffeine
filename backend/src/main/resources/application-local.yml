@@ -15,6 +15,10 @@ spring:
       hibernate:
         format_sql: false
         show_sql: false
+
+initialize-city:
+  enabled: true
+
 initialize-charge:
   enabled: false
 
