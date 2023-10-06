@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import List from '@common/List';
 
 import Error from '@ui/Error';
+import SearchedRegionCard from '@ui/StationSearchWindow/SearchedRegionCard';
 
 import type { SearchedRegion, SearchedStation, StationPosition } from '@type/stations';
 
@@ -57,6 +58,13 @@ const SearchResult = ({
     <List aria-live="assertive" mt={1} css={searchResultListCss}>
       {stations.length ? (
         <>
+          <SearchedRegionCard
+            region={{
+              regionName: '경기도 하남시',
+              latitude: 37.539,
+              longitude: 127.214,
+            }}
+          />
           <>
             {stations.map((station) => (
               <SearchedStationCard
