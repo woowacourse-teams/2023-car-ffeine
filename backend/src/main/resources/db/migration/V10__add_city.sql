@@ -6,6 +6,3 @@ create table if not exists city
     longitude       decimal(13, 7) NOT NULL,
     PRIMARY KEY (id),
 ) ENGINE=InnoDB;
-
-create index idx_city_name
-    on city (name);

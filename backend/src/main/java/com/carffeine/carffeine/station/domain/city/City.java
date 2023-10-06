@@ -15,7 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Index;
 import javax.persistence.Table;
 
 @Getter
@@ -24,7 +23,7 @@ import javax.persistence.Table;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EqualsAndHashCode(of = "id", callSuper = false)
 @Entity
-@Table(name = "city", indexes = @Index(name = "idx_city_name", columnList = "name"))
+@Table(name = "city")
 public class City {
 
     @Id
