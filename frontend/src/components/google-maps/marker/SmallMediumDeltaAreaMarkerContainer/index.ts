@@ -1,0 +1,3 @@
+import SmallMediumDeltaAreaMarkerContainer from './SmallMediumDeltaAreaMarkerContainer';
+
+export default SmallMediumDeltaAreaMarkerContainer;

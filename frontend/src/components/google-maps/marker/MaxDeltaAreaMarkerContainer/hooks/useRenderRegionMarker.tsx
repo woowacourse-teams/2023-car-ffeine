@@ -4,7 +4,7 @@ import { useExternalValue } from '@utils/external-state';
 
 import { getGoogleMapStore, googleMapActions } from '@stores/google-maps/googleMapStore';
 
-import { ZOOM_BREAKPOINTS } from '@constants/googleMaps';
+import { DELTA_AREA_BREAKPOINTS } from '@constants/googleMaps';
 
 import RegionMarker from '../components/RegionMarker';
 import type { Region } from '../types';
@@ -28,7 +28,7 @@ export const useRenderRegionMarker = () => {
 
     markerInstance.addListener('click', () => {
       // TODO: 중간 단계 (서버) 클러스터링 구현 이후에 ZOOM_BREAKPOINTS.middle로 변경 예정
-      googleMapActions.moveTo({ lat: latitude, lng: longitude }, ZOOM_BREAKPOINTS.high);
+      googleMapActions.moveTo({ lat: latitude, lng: longitude }, DELTA_AREA_BREAKPOINTS.large);
     });
 
     return () => {

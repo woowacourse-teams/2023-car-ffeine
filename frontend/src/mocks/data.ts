@@ -1,4 +1,4 @@
-import type { Region, RegionName } from '@marker/LowZoomMarkerContainer/types';
+import type { Region, RegionName } from '@marker/MaxDeltaAreaMarkerContainer/types';
 
 import { getTypedObjectFromEntries } from '@utils/getTypedObjectFromEntries';
 import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
