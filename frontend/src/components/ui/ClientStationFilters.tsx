@@ -60,12 +60,6 @@ const ClientStationFilters = () => {
             {filterOptions[filterKey].label}
           </ClientFilterButton>
         ))}
-        {/*TODO: 추후 삭제될 로직입니다*/}
-        {process.env.NODE_ENV === 'development' && (
-          <ClientFilterButton $isChecked={false}>
-            Zoom: {zoom.level} ({zoom.state})
-          </ClientFilterButton>
-        )}
       </FlexBox>
     </Container>
   );
