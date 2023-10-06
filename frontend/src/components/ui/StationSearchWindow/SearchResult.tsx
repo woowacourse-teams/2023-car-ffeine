@@ -58,9 +58,11 @@ const SearchResult = ({
     <List aria-live="assertive" mt={1} css={searchResultListCss}>
       {stations.length !== 0 || cities.length !== 0 ? (
         <>
-          {cities.map((city) => (
-            <SearchedCityCard city={city} key={city.cityName} />
-          ))}
+          <>
+            {cities.map((city) => (
+              <SearchedCityCard city={city} key={city.cityName} />
+            ))}
+          </>
           <>
             {stations.map((station) => (
               <SearchedStationCard
