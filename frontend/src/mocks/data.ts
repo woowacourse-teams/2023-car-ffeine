@@ -375,3 +375,68 @@ export const getRegionName = (regionName: string): RegionName | undefined => {
       return undefined;
   }
 };
+
+export const getCities = () => {
+  return [
+    {
+      name: '서울특별시',
+      latitude: 37.5666103,
+      longitude: 126.9783882,
+    },
+    {
+      name: '서울특별시 강동구',
+      latitude: 37.530126,
+      longitude: 127.1237708,
+    },
+    {
+      name: '서울특별시 강동구 천호동',
+      latitude: 37.5450159,
+      longitude: 127.1368066,
+    },
+    {
+      name: '경기도 하남시 미사동',
+      latitude: 37.560359,
+      longitude: 127.1888042,
+    },
+    {
+      name: '경기도 하남시 망월동',
+      latitude: 37.5696083,
+      longitude: 127.1880625,
+    },
+    {
+      name: '경상남도 진주시 신안동',
+      latitude: 35.1844853,
+      longitude: 128.0689824,
+    },
+    {
+      name: '경상남도 진주시',
+      latitude: 35.180325,
+      longitude: 128.107646,
+    },
+    {
+      name: '경기도 안산시 단원구 선부동',
+      latitude: 37.3342173,
+      longitude: 126.8044133,
+    },
+    {
+      name: '경기도 오산시 부산동',
+      latitude: 37.1527237,
+      longitude: 127.088125,
+    },
+    {
+      name: '부산광역시',
+      latitude: 35.179816,
+      longitude: 129.0750223,
+    },
+    {
+      name: '부산광역시 기장군',
+      latitude: 35.244498,
+      longitude: 129.222312,
+    },
+    {
+      name: '부산광역시 기장군 철마면',
+      latitude: 35.2752833,
+      longitude: 129.1497125,
+    },
+  ];
+};
