@@ -28,18 +28,6 @@ const SearchResult = ({
   showStationDetails,
   closeResult,
 }: SearchResultProps) => {
-  const isExistResults = stations.length !== 0 || cities.length !== 0;
-  const renderResults = [
-    ...cities.map((city) => <SearchedCityCard city={city} key={city.cityName} />),
-    ...stations.map((station) => (
-      <SearchedStationCard
-        station={station}
-        handleShowStationDetails={handleShowStationDetails}
-        key={station.stationId}
-      />
-    )),
-  ];
-
   const handleShowStationDetails = ({ stationId, latitude, longitude }: StationPosition) => {
     showStationDetails({ stationId, latitude, longitude });
   };
@@ -51,6 +39,18 @@ const SearchResult = ({
       document.body.removeEventListener('click', closeResult);
     };
   }, []);
+
+  const isExistResults = stations.length !== 0 || cities.length !== 0;
+  const renderResults = [
+    ...cities.map((city) => <SearchedCityCard city={city} key={city.cityName} />),
+    ...stations.map((station) => (
+      <SearchedStationCard
+        station={station}
+        handleShowStationDetails={handleShowStationDetails}
+        key={station.stationId}
+      />
+    )),
+  ];
 
   if (isLoading) {
     return <></>;
