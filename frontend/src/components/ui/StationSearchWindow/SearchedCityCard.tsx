@@ -5,14 +5,14 @@ import FlexBox from '@common/FlexBox';
 import ListItem from '@common/ListItem';
 import Text from '@common/Text';
 
-import type { SearchedRegion } from '@type';
+import type { SearchedCity } from '@type';
 
 export interface SearchedRegionCardProps {
-  region: SearchedRegion;
+  city: SearchedCity;
 }
 
-const SearchedRegionCard = ({ region }: SearchedRegionCardProps) => {
-  const { regionName, latitude, longitude } = region;
+const SearchedCityCard = ({ city }: SearchedRegionCardProps) => {
+  const { cityName, latitude, longitude } = city;
 
   return (
     <ListItem divider>
@@ -21,13 +21,13 @@ const SearchedRegionCard = ({ region }: SearchedRegionCardProps) => {
           width="100%"
           noRadius="all"
           background="transparent"
-          onMouseDown={() => alert(`${regionName}(으)로 이동합니다. ${latitude}, ${longitude}`)}
+          onMouseDown={() => alert(`${cityName}(으)로 이동합니다. ${latitude}, ${longitude}`)}
         >
           <FlexBox justifyContent="between" alignItems="center">
             <FlexBox alignItems="center" gap={2}>
               <MapPinIcon width="1.6rem" stroke="#767676" />
-              <Text title={regionName} mb={0.5}>
-                {regionName}
+              <Text title={cityName} mb={0.5}>
+                {cityName}
               </Text>
             </FlexBox>
             <Text variant="caption" color="#585858">
@@ -40,4 +40,4 @@ const SearchedRegionCard = ({ region }: SearchedRegionCardProps) => {
   );
 };
 
-export default SearchedRegionCard;
+export default SearchedCityCard;

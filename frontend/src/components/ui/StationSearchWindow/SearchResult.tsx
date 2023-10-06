@@ -3,16 +3,16 @@ import { useEffect } from 'react';
 import List from '@common/List';
 
 import Error from '@ui/Error';
-import SearchedRegionCard from '@ui/StationSearchWindow/SearchedRegionCard';
+import SearchedCityCard from '@ui/StationSearchWindow/SearchedCityCard';
 
-import type { SearchedRegion, SearchedStation, StationPosition } from '@type/stations';
+import type { SearchedCity, SearchedStation, StationPosition } from '@type/stations';
 
 import NoResult from './NoResult';
 import { searchResultListCss } from './SearchResult.style';
 import SearchedStationCard from './SearchedStationCard';
 
 export interface SearchResultProps {
-  regions: SearchedRegion[];
+  regions: SearchedCity[];
   stations: SearchedStation[];
   isLoading: boolean;
   isError: boolean;
@@ -58,9 +58,9 @@ const SearchResult = ({
     <List aria-live="assertive" mt={1} css={searchResultListCss}>
       {stations.length ? (
         <>
-          <SearchedRegionCard
-            region={{
-              regionName: '경기도 하남시',
+          <SearchedCityCard
+            city={{
+              cityName: '경기도 하남시',
               latitude: 37.539,
               longitude: 127.214,
             }}

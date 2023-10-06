@@ -5,11 +5,11 @@ import { QUERY_KEY_SEARCHED_STATION } from '@constants/queryKeys';
 import { SERVER_URL } from '@constants/server';
 import { SEARCH_SCOPE } from '@constants/stationSearch';
 
-import type { SearchedRegion, SearchedStation } from '@type/stations';
+import type { SearchedCity, SearchedStation } from '@type/stations';
 
 interface SearchedStationResponse {
   stations: SearchedStation[];
-  regions: SearchedRegion[];
+  cities: SearchedCity[];
 }
 
 export const fetchSearchedStations = async (searchWord: string) => {

@@ -89,8 +89,8 @@ export interface SearchedStation
   speed: keyof typeof CHARGING_SPEED;
 }
 
-export interface SearchedRegion {
-  regionName: string;
+export interface SearchedCity {
+  cityName: string;
   latitude: number;
   longitude: number;
 }

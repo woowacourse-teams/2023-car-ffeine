@@ -115,7 +115,7 @@ export const Default = () => {
       </S.Form>
       {isFocused && data && (
         <SearchResult
-          regions={data.regions}
+          regions={data.cities}
           stations={data.stations}
           isLoading={isLoading}
           isError={isError}
