@@ -33,7 +33,7 @@ export const StyledButton = styled.button<StyledButtonType>`
   padding: ${({ size }) => BUTTON_PADDING_SIZE[size] || 0};
   background: ${({ background }) => background || '#fff'};
   border: ${({ outlined }) => (outlined ? '0.15rem solid #000' : 'none')};
-  ${({ size }) => `font-size: ${BUTTON_FONT_SIZE[size]}`}
+  ${({ size }) => `font-size: ${BUTTON_FONT_SIZE[size]}`};
   box-shadow: ${({ shadow }) => `${shadow ? '0 0.3rem 0.8rem 0 gray' : 'none'}`};
 
   cursor: pointer;

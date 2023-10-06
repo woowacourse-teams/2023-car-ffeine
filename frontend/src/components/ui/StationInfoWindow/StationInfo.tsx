@@ -1,16 +1,18 @@
-import { css } from 'styled-components';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 
 import type { MouseEvent } from 'react';
+import { HiChevronRight } from 'react-icons/hi2';
+
+import { MARKER_COLORS } from '@marker/HighZoomMarkerContainer/components/CarFfeineMarker/CarFfeineMarker.style';
 
 import Box from '@common/Box';
 import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-import ChargingSpeedIcon from '@ui/ChargingSpeedIcon';
-import SummaryButtons from '@ui/StationInfoWindow/SummaryButtons';
+import { QUICK_CHARGER_CAPACITY_THRESHOLD } from '@constants/chargers';
 
-import type { StationDetails } from '@type';
+import type { Charger, StationDetails } from '@type';
 
 export interface StationInfoProps {
   stationDetails: StationDetails;
@@ -18,69 +20,117 @@ export interface StationInfoProps {
   handleCloseStationWindow: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
+const getChargerCountsAndAvailability = (chargers: Charger[]) => {
+  const isAvailable = chargers.some(({ state }) => state === 'STANDBY');
+
+  const standardChargers = chargers.filter(
+    ({ capacity }) => capacity < QUICK_CHARGER_CAPACITY_THRESHOLD
+  );
+  const quickChargers = chargers.filter(
+    ({ capacity }) => capacity >= QUICK_CHARGER_CAPACITY_THRESHOLD
+  );
+
+  const availableStandardChargerCount = standardChargers.filter(
+    ({ state }) => state === 'STANDBY'
+  ).length;
+  const availableQuickChargerCount = quickChargers.filter(
+    ({ state }) => state === 'STANDBY'
+  ).length;
+
+  const standardChargerCount = standardChargers.length;
+  const quickChargerCount = quickChargers.length;
+
+  return {
+    isAvailable,
+    availableStandardChargerCount,
+    availableQuickChargerCount,
+    standardChargerCount,
+    quickChargerCount,
+  };
+};
+
 const StationInfo = ({
   stationDetails,
   handleOpenStationDetail,
   handleCloseStationWindow,
 }: StationInfoProps) => {
+  const { address, chargers, companyName, isParkingFree, isPrivate, stationId, stationName } =
+    stationDetails;
+
   const {
-    address,
-    chargers,
-    companyName,
-    contact,
-    detailLocation,
-    isParkingFree,
-    isPrivate,
-    latitude,
-    longitude,
-    operatingTime,
-    privateReason,
-    reportCount,
-    stationId,
-    stationName,
-    stationState,
-  } = stationDetails;
+    isAvailable,
+    availableStandardChargerCount,
+    availableQuickChargerCount,
+    standardChargerCount,
+    quickChargerCount,
+  } = getChargerCountsAndAvailability(chargers);
+
+  const availabilityColor = MARKER_COLORS[isAvailable ? 'available' : 'noAvailable'];
 
   return (
-    <Box key={stationId} px={6} pt={6} pb={4}>
-      <Button width="100%" shadow css={foundStationButton} onClick={handleOpenStationDetail}>
-        <FlexBox alignItems="start" justifyContent="between" nowrap columnGap={2.8}>
-          <article>
-            <Text
-              tag="h3"
-              align="left"
-              variant="subtitle"
-              title={stationName}
-              lineClamp={1}
-              fontSize={1.3}
-            >
-              {companyName}
+    <Box tag="article" key={stationId} mt={2} mx={5} mb={3} css={{ fontSize: '10%' }}>
+      <FlexBox justifyContent="between" alignItems="center">
+        <FlexBox alignItems="center">
+          <Box
+            width={3}
+            height={3}
+            mt={0.5}
+            border
+            borderWidth={1.5}
+            borderColor={availabilityColor.border}
+            borderRadius="50%"
+            bgColor={availabilityColor.background}
+          />
+
+          <Text variant="caption" color={availabilityColor.background}>
+            {isAvailable ? '이용 가능' : '이용 불가'}
+          </Text>
+          <Text tag="span">―</Text>
+          {standardChargerCount !== 0 && (
+            <Text fontSize={1.2}>
+              완속 {availableStandardChargerCount}/{standardChargerCount}
             </Text>
-            <Text tag="h3" align="left" variant="h5" title={stationName} lineClamp={1}>
-              {stationName}
+          )}
+          {quickChargerCount !== 0 && (
+            <Text fontSize={1.2}>
+              급속 {availableQuickChargerCount}/{quickChargerCount}
             </Text>
-            <Text variant="body" align="left" lineClamp={1} mb={1} color="#585858">
-              {address === 'null' || !address ? '주소 미확인' : address}
-            </Text>
-            <Text variant="caption" align="left" lineClamp={1} mb={1.8} color="#585858">
-              {operatingTime}
-            </Text>
-          </article>
-          {chargers.filter((charger) => charger.capacity >= 50).length !== 0 && (
-            <ChargingSpeedIcon />
           )}
         </FlexBox>
+
+        <Button mr={-1.5} onClick={handleCloseStationWindow}>
+          <XMarkIcon width={28} />
+        </Button>
+      </FlexBox>
+
+      <Text tag="h4" align="left" title={stationName} lineClamp={1} fontSize={1.3}>
+        {companyName}
+      </Text>
+      <Text tag="h3" align="left" variant="h5" title={stationName} lineClamp={1}>
+        {stationName}
+      </Text>
+      <Text variant="label" align="left" lineClamp={1} mb={3} color="#585858">
+        {address === 'null' || !address ? '주소 미확인' : address}
+      </Text>
+      <FlexBox columnGap={3}>
+        <Text variant="pillbox" align="left">
+          {isPrivate ? '이용 제한' : '외부인 개방'}
+        </Text>
+        <Text variant="pillbox" align="left">
+          {isParkingFree ? '무료 주차' : '유료 주차'}
+        </Text>
+      </FlexBox>
+
+      <Button onClick={handleOpenStationDetail} mt={3} hover>
+        <FlexBox alignItems="center">
+          <Text variant="label" mb={0.75}>
+            상세 정보 보기
+          </Text>
+          <HiChevronRight />
+        </FlexBox>
       </Button>
-      <SummaryButtons
-        handleCloseStationWindow={handleCloseStationWindow}
-        handleOpenStationDetail={handleOpenStationDetail}
-      />
     </Box>
   );
 };
-
-const foundStationButton = css`
-  box-shadow: none;
-`;
 
 export default StationInfo;
