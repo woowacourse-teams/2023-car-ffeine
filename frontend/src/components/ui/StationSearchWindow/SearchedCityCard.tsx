@@ -25,15 +25,10 @@ const SearchedCityCard = ({ city }: SearchedCityCardProps) => {
           background="transparent"
           onMouseDown={() => googleMapActions.moveTo({ lat: latitude, lng: longitude }, 14)}
         >
-          <FlexBox justifyContent="between" alignItems="center">
-            <FlexBox alignItems="center" gap={2}>
-              <MapPinIcon width="1.6rem" stroke="#767676" />
-              <Text title={cityName} mb={0.5}>
-                {cityName}
-              </Text>
-            </FlexBox>
-            <Text variant="caption" color="#585858">
-              이동하기
+          <FlexBox alignItems="center" gap={2}>
+            <MapPinIcon width="1.6rem" stroke="#767676" />
+            <Text title={cityName} mb={0.5} lineClamp={1}>
+              {cityName}
             </Text>
           </FlexBox>
         </Button>
