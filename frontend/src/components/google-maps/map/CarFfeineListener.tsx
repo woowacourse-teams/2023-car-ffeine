@@ -2,14 +2,13 @@ import { useEffect } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 
-import { debounce } from '@utils/debounce';
 import { useExternalValue, useSetExternalState } from '@utils/external-state';
 import { getDisplayPosition } from '@utils/google-maps';
 import { isCachedRegion } from '@utils/google-maps/isCachedRegion';
 import { setLocalStorage } from '@utils/storage';
 
+import { deltaAreaActions, deltaAreaStore } from '@stores/google-maps/deltaAreaStore';
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
-import { zoomActions, zoomStore } from '@stores/google-maps/zoomStore';
 import { profileMenuOpenStore } from '@stores/profileMenuOpenStore';
 
 import { QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
@@ -19,9 +18,9 @@ const CarFfeineMapListener = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
   const queryClient = useQueryClient();
   const setIsProfileMenuOpen = useSetExternalState(profileMenuOpenStore);
-  const zoom = useExternalValue(zoomStore);
+  const deltaAreaState = useExternalValue(deltaAreaStore);
 
-  const debouncedHighZoomHandler = debounce(() => {
+  const requestStationMarkers = () => {
     const displayPosition = getDisplayPosition(googleMap);
     if (!isCachedRegion(displayPosition)) {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_MARKERS] });
@@ -33,15 +32,17 @@ const CarFfeineMapListener = () => {
       lat: googleMap.getCenter().lat(),
       lng: googleMap.getCenter().lng(),
     });
-  }, 300);
+  };
 
   useEffect(() => {
     googleMap.addListener('idle', () => {
-      if (zoom.state === 'high') {
-        debouncedHighZoomHandler();
+      if (deltaAreaState === 'medium' || deltaAreaState === 'small') {
+        requestStationMarkers();
       }
 
-      zoomActions.setZoom(googleMap.getZoom());
+      const { latitudeDelta, longitudeDelta } = getDisplayPosition(googleMap);
+
+      deltaAreaActions.setDeltaAreaState(latitudeDelta * longitudeDelta);
     });
 
     const initMarkersEvent = googleMap.addListener('bounds_changed', async () => {

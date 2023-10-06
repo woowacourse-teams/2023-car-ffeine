@@ -1,17 +1,17 @@
 import { useEffect } from 'react';
 
-import { useStationMarkers } from '@marker/HighZoomMarkerContainer/hooks/useStationMarkers';
+import { useStationMarkers } from '@marker/SmallMediumDeltaAreaMarkerContainer/hooks/useStationMarkers';
 
 import { useExternalValue } from '@utils/external-state';
 
+import { deltaAreaStore } from '@stores/google-maps/deltaAreaStore';
+import type { DeltaAreaState } from '@stores/google-maps/deltaAreaStore/types';
 import type { StationMarkerInstance } from '@stores/google-maps/markerInstanceStore';
 import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
-import { zoomStore } from '@stores/google-maps/zoomStore';
-import type { ZoomBreakpoints } from '@stores/google-maps/zoomStore/types';
 
 import { useRenderStationMarker } from './hooks/useRenderStationMarker';
 
-const HighZoomMarkerContainer = () => {
+const SmallMediumDeltaAreaMarkerContainer = () => {
   const { data: stationMarkers, isSuccess } = useStationMarkers();
   const {
     createNewMarkerInstances,
@@ -21,25 +21,25 @@ const HighZoomMarkerContainer = () => {
     renderDefaultMarkers,
     renderCarffeineMarkers,
   } = useRenderStationMarker();
-  const { state: zoomState } = useExternalValue(zoomStore);
+  const deltaAreaState = useExternalValue(deltaAreaStore);
 
-  const renderMarkerByZoomState = (
-    zoomState: keyof ZoomBreakpoints,
+  const renderMarkerByDeltaAreaState = (
+    deltaAreaState: DeltaAreaState,
     markerInstances: StationMarkerInstance[]
   ) => {
-    if (zoomState === 'max') {
+    if (deltaAreaState === 'small') {
       renderCarffeineMarkers(markerInstances, stationMarkers);
     }
-    if (zoomState === 'high') {
+    if (deltaAreaState === 'medium') {
       renderDefaultMarkers(markerInstances, stationMarkers);
     }
   };
 
   useEffect(() => {
     if (stationMarkers !== undefined) {
-      renderMarkerByZoomState(zoomState, markerInstanceStore.getState());
+      renderMarkerByDeltaAreaState(deltaAreaState, markerInstanceStore.getState());
     }
-  }, [zoomState]);
+  }, [deltaAreaState]);
 
   useEffect(() => {
     return () => {
@@ -63,11 +63,11 @@ const HighZoomMarkerContainer = () => {
   );
 
   removeMarkersOutsideBounds(markerInstanceStore.getState(), stationMarkers);
-  renderMarkerByZoomState(zoomState, newMarkerInstances);
+  renderMarkerByDeltaAreaState(deltaAreaState, newMarkerInstances);
 
   markerInstanceStore.setState([...remainedMarkerInstances, ...newMarkerInstances]);
 
   return <></>;
 };
 
-export default HighZoomMarkerContainer;
+export default SmallMediumDeltaAreaMarkerContainer;
