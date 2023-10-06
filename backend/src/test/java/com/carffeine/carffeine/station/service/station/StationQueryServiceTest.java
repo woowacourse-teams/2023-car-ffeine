@@ -341,7 +341,7 @@ public class StationQueryServiceTest extends IntegrationTest {
 
         // then
         assertThat(result).usingRecursiveComparison()
-                .isEqualTo(new StationsSearchResponse(5L, expected));
+                .isEqualTo(new StationsSearchResponse(5L, List.of(), expected));
     }
 
     @Test
@@ -391,7 +391,7 @@ public class StationQueryServiceTest extends IntegrationTest {
 
         // then
         assertThat(result).usingRecursiveComparison()
-                .isEqualTo(new StationsSearchResponse(15L, expected));
+                .isEqualTo(new StationsSearchResponse(15L, List.of(), expected));
     }
 
     @Test
