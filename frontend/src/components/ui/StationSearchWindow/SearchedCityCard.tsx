@@ -1,4 +1,4 @@
-import { MapPinIcon } from '@heroicons/react/24/outline';
+import { MapPinIcon } from '@heroicons/react/24/solid';
 
 import { googleMapActions } from '@stores/google-maps/googleMapStore';
 
@@ -27,8 +27,8 @@ const SearchedCityCard = ({ city }: SearchedCityCardProps) => {
         >
           <FlexBox justifyContent="between" alignItems="center">
             <FlexBox alignItems="center" gap={2}>
-              <MapPinIcon width="1.6rem" stroke="#767676" />
-              <Text title={cityName} mb={0.5}>
+              <MapPinIcon width="1.6rem" fill="#888" />
+              <Text title={cityName} fontSize={1.3} mb={0.25} color="4b4b4b">
                 {cityName}
               </Text>
             </FlexBox>
