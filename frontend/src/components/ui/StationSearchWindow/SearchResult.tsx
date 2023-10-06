@@ -1,5 +1,3 @@
-import { css } from 'styled-components';
-
 import { useEffect } from 'react';
 
 import Button from '@common/Button';
@@ -9,9 +7,9 @@ import Text from '@common/Text';
 
 import Error from '@ui/Error';
 
-import { MOBILE_BREAKPOINT } from '@constants';
-
 import type { SearchedStation, StationPosition } from '@type/stations';
+
+import { foundStationListCss, noSearchResultCss, searchResultListCss } from './SearchResult.style';
 
 export interface SearchResultProps {
   stations: SearchedStation[];
@@ -51,10 +49,10 @@ const SearchResult = (props: SearchResultProps) => {
     );
 
   return (
-    <List aria-live="assertive" mt={1} css={searchResultList}>
+    <List aria-live="assertive" mt={1} css={searchResultListCss}>
       {stations.length ? (
         stations.map(({ stationId, stationName, address, latitude, longitude }) => (
-          <ListItem divider NoLastDivider key={stationId} pt={2} pb={3} css={foundStationList}>
+          <ListItem divider NoLastDivider key={stationId} pt={2} pb={3} css={foundStationListCss}>
             <Button
               width="100%"
               noRadius="all"
@@ -72,7 +70,7 @@ const SearchResult = (props: SearchResultProps) => {
         ))
       ) : (
         <>
-          <ListItem mt={3} css={noSearchResult} pb={0}>
+          <ListItem mt={3} css={noSearchResultCss} pb={0}>
             검색 결과가 없습니다.
           </ListItem>
           <ListItem mt={1} mb={5}>
@@ -87,36 +85,5 @@ const SearchResult = (props: SearchResultProps) => {
     </List>
   );
 };
-
-export const searchResultList = css`
-  position: absolute;
-  z-index: 9999;
-  width: 29.6rem;
-  max-height: 46rem;
-  overflow: auto;
-  border: 1.5px solid #d9d9da;
-  border-radius: 10px;
-  background: #fcfcfc;
-  box-shadow: 0 3px 10px 0 #d9d9da;
-  font-size: 1.5rem;
-  line-height: 2;
-
-  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
-    width: calc(100vw - 2rem);
-
-    max-height: 22.6rem;
-  }
-`;
-
-export const foundStationList = css`
-  &:hover {
-    background: #f5f5f5;
-  }
-`;
-
-export const noSearchResult = css`
-  font-size: 1.8rem;
-  font-weight: 600;
-`;
 
 export default SearchResult;
