@@ -57,8 +57,9 @@ const StationSearchBar = () => {
           </Button>
         </label>
       </StyledForm>
-      {isFocused && data?.stations && (
+      {isFocused && data && (
         <SearchResult
+          regions={data.regions}
           stations={data.stations}
           isLoading={isLoading}
           isError={isError}

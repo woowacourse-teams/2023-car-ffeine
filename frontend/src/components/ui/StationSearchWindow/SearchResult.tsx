@@ -7,11 +7,12 @@ import Text from '@common/Text';
 
 import Error from '@ui/Error';
 
-import type { SearchedStation, StationPosition } from '@type/stations';
+import type { SearchedRegion, SearchedStation, StationPosition } from '@type/stations';
 
 import { foundStationListCss, noSearchResultCss, searchResultListCss } from './SearchResult.style';
 
 export interface SearchResultProps {
+  regions: SearchedRegion[];
   stations: SearchedStation[];
   isLoading: boolean;
   isError: boolean;
@@ -19,12 +20,15 @@ export interface SearchResultProps {
   closeResult: () => void;
 }
 
-const SearchResult = (props: SearchResultProps) => {
-  const { stations, isLoading, isError, showStationDetails, closeResult } = props;
-
-  const handleShowStationDetails = (handlerProps: StationPosition) => {
-    const { stationId, latitude, longitude } = handlerProps;
-
+const SearchResult = ({
+  regions,
+  stations,
+  isLoading,
+  isError,
+  showStationDetails,
+  closeResult,
+}: SearchResultProps) => {
+  const handleShowStationDetails = ({ stationId, latitude, longitude }: StationPosition) => {
     showStationDetails({ stationId, latitude, longitude });
   };
 
@@ -36,7 +40,9 @@ const SearchResult = (props: SearchResultProps) => {
     };
   }, []);
 
-  if (isLoading) return <></>;
+  if (isLoading) {
+    return <></>;
+  }
 
   if (isError)
     return (
@@ -51,23 +57,34 @@ const SearchResult = (props: SearchResultProps) => {
   return (
     <List aria-live="assertive" mt={1} css={searchResultListCss}>
       {stations.length ? (
-        stations.map(({ stationId, stationName, address, latitude, longitude }) => (
-          <ListItem divider NoLastDivider key={stationId} pt={2} pb={3} css={foundStationListCss}>
-            <Button
-              width="100%"
-              noRadius="all"
-              background="transparent"
-              onMouseDown={() => handleShowStationDetails({ stationId, latitude, longitude })}
-            >
-              <Text variant="h6" align="left" title={stationName} lineClamp={1}>
-                {stationName}
-              </Text>
-              <Text variant="label" align="left" lineClamp={1} color="#585858">
-                {address || '주소 미확인'}
-              </Text>
-            </Button>
-          </ListItem>
-        ))
+        <>
+          <>
+            {stations.map(({ stationId, stationName, address, latitude, longitude }) => (
+              <ListItem
+                divider
+                NoLastDivider
+                key={stationId}
+                pt={2}
+                pb={3}
+                css={foundStationListCss}
+              >
+                <Button
+                  width="100%"
+                  noRadius="all"
+                  background="transparent"
+                  onMouseDown={() => handleShowStationDetails({ stationId, latitude, longitude })}
+                >
+                  <Text variant="h6" align="left" title={stationName} lineClamp={1}>
+                    {stationName}
+                  </Text>
+                  <Text variant="label" align="left" lineClamp={1} color="#585858">
+                    {address || '주소 미확인'}
+                  </Text>
+                </Button>
+              </ListItem>
+            ))}
+          </>
+        </>
       ) : (
         <>
           <ListItem mt={3} css={noSearchResultCss} pb={0}>
