@@ -9,6 +9,8 @@ import Text from '@common/Text';
 
 import type { SearchedCity } from '@type';
 
+import { foundStationListCss } from './SearchResult.style';
+
 export interface SearchedCityCardProps {
   city: SearchedCity;
 }
@@ -17,24 +19,20 @@ const SearchedCityCard = ({ city }: SearchedCityCardProps) => {
   const { cityName, latitude, longitude } = city;
 
   return (
-    <ListItem divider>
-      <FlexBox alignItems="center">
-        <Button
-          width="100%"
-          noRadius="all"
-          background="transparent"
-          onMouseDown={() => googleMapActions.moveTo({ lat: latitude, lng: longitude }, 14)}
-        >
-          <FlexBox justifyContent="between" alignItems="center">
-            <FlexBox alignItems="center" gap={2}>
-              <MapPinIcon width="1.6rem" fill="#888" />
-              <Text title={cityName} fontSize={1.3} mb={0.25} color="4b4b4b">
-                {cityName}
-              </Text>
-            </FlexBox>
-          </FlexBox>
-        </Button>
-      </FlexBox>
+    <ListItem divider NoLastDivider css={foundStationListCss}>
+      <Button
+        width="100%"
+        noRadius="all"
+        background="transparent"
+        onMouseDown={() => googleMapActions.moveTo({ lat: latitude, lng: longitude }, 14)}
+      >
+        <FlexBox alignItems="center" rowGap={2}>
+          <MapPinIcon width="1.6rem" fill="#888" />
+          <Text title={cityName} fontSize={1.3} mb={0.25} color="#585858">
+            {cityName}
+          </Text>
+        </FlexBox>
+      </Button>
     </ListItem>
   );
 };
