@@ -1,4 +1,5 @@
 import { MapPinIcon } from '@heroicons/react/24/solid';
+import { css } from 'styled-components';
 
 import { googleMapActions } from '@stores/google-maps/googleMapStore';
 
@@ -26,9 +27,16 @@ const SearchedCityCard = ({ city }: SearchedCityCardProps) => {
         background="transparent"
         onMouseDown={() => googleMapActions.moveTo({ lat: latitude, lng: longitude }, 14)}
       >
-        <FlexBox alignItems="center" columnGap={2} nowrap>
+        <FlexBox alignItems="center" columnGap={2} nowrap css={iconCss}>
           <MapPinIcon width="1.6rem" fill="#888" />
-          <Text title={cityName} fontSize={1.3} mb={0.25} color="#585858">
+          <Text
+            title={cityName}
+            align="left"
+            lineClamp={1}
+            fontSize={1.3}
+            mb={0.25}
+            color="#585858"
+          >
             {cityName}
           </Text>
         </FlexBox>
@@ -36,5 +44,11 @@ const SearchedCityCard = ({ city }: SearchedCityCardProps) => {
     </ListItem>
   );
 };
+
+const iconCss = css`
+  & > svg {
+    flex-shrink: 0;
+  }
+`;
 
 export default SearchedCityCard;

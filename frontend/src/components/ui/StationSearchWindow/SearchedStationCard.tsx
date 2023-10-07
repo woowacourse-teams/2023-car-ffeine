@@ -31,7 +31,7 @@ const SearchedStationCard = ({ station, handleShowStationDetails }: SearchedStat
         nowrap
         css={iconCss}
       >
-        <RiChargingPile2Fill width="1.6rem" fill="#585858" />
+        <RiChargingPile2Fill size={16} fill="#585858" />
         <div>
           <Text weight="regular" align="left" title={stationName} lineClamp={1}>
             {stationName}
