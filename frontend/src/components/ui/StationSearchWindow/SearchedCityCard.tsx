@@ -26,7 +26,7 @@ const SearchedCityCard = ({ city }: SearchedCityCardProps) => {
         background="transparent"
         onMouseDown={() => googleMapActions.moveTo({ lat: latitude, lng: longitude }, 14)}
       >
-        <FlexBox alignItems="center" columnGap={2}>
+        <FlexBox alignItems="center" columnGap={2} nowrap>
           <MapPinIcon width="1.6rem" fill="#888" />
           <Text title={cityName} fontSize={1.3} mb={0.25} color="#585858">
             {cityName}

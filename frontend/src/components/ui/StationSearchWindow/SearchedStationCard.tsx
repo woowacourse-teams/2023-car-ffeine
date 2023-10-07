@@ -28,6 +28,7 @@ const SearchedStationCard = ({ station, handleShowStationDetails }: SearchedStat
         background="transparent"
         columnGap={2}
         onMouseDown={() => handleShowStationDetails({ stationId, latitude, longitude })}
+        nowrap
         css={css`
           & > svg {
             margin-top: 4px;
