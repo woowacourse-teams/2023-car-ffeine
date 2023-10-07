@@ -39,6 +39,7 @@ const Menu = () => {
   return (
     <FlexBox css={[fixedPositionCss, paddingCss, borderCss, flexCss]} noRadius="all" nowrap>
       <Button
+        height={2.8}
         noRadius="all"
         css={displayNoneInMobile}
         aria-label="새로 고침"
@@ -158,7 +159,7 @@ const fixedPositionCss = css`
 `;
 
 const paddingCss = css`
-  padding-top: 2rem;
+  padding-top: 2.4rem;
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     padding-top: 0;
