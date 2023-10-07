@@ -23,12 +23,9 @@ export const searchResultListCss = css`
 `;
 
 export const foundStationListCss = css`
+  display: flex;
+
   &:hover {
     background: #f5f5f5;
   }
-`;
-
-export const noSearchResultCss = css`
-  font-size: 1.8rem;
-  font-weight: 600;
 `;
