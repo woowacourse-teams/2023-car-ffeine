@@ -53,7 +53,12 @@ export const Default = () => {
     400
   );
 
-  const { data, isLoading, isError, isFetching } = useSearchStations(debouncedSearchWord);
+  const {
+    data: searchResult,
+    isLoading,
+    isError,
+    isFetching,
+  } = useSearchStations(debouncedSearchWord);
 
   const handleOpenResult = (event: MouseEvent<HTMLInputElement> | FocusEvent<HTMLInputElement>) => {
     event.stopPropagation();
@@ -113,10 +118,10 @@ export const Default = () => {
           </Button>
         </label>
       </S.Form>
-      {isFocused && data && (
+      {isFocused && searchResult && (
         <SearchResult
-          cities={data.cities}
-          stations={data.stations}
+          cities={searchResult.cities}
+          stations={searchResult.stations}
           isLoading={isLoading}
           isError={isError}
           showStationDetails={showStationDetails}
