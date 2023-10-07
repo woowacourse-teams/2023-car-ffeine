@@ -21,8 +21,8 @@ export interface SearchResultProps {
 }
 
 const SearchResult = ({
-  cities,
-  stations,
+  cities = [],
+  stations = [],
   isLoading,
   isError,
   showStationDetails,
