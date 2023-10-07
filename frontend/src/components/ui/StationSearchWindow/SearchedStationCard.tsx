@@ -29,11 +29,7 @@ const SearchedStationCard = ({ station, handleShowStationDetails }: SearchedStat
         columnGap={2}
         onMouseDown={() => handleShowStationDetails({ stationId, latitude, longitude })}
         nowrap
-        css={css`
-          & > svg {
-            margin-top: 4px;
-          }
-        `}
+        css={iconCss}
       >
         <RiChargingPile2Fill width="1.6rem" fill="#585858" />
         <div>
@@ -48,5 +44,12 @@ const SearchedStationCard = ({ station, handleShowStationDetails }: SearchedStat
     </ListItem>
   );
 };
+
+const iconCss = css`
+  & > svg {
+    margin-top: 0.4rem;
+    flex-shrink: 0;
+  }
+`;
 
 export default SearchedStationCard;
