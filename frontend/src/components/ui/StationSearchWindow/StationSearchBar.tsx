@@ -48,13 +48,7 @@ const StationSearchBar = () => {
             onFocus={handleOpenResult}
             onClick={handleOpenResult}
           />
-          <FlexBox
-            tag="button"
-            type="submit"
-            aria-label="검색하기"
-            height={2.4}
-            alignItems="center"
-          >
+          <FlexBox tag="button" aria-label="검색하기" height={2.4} alignItems="center">
             {isFetching ? (
               <Loader size="md" />
             ) : (
