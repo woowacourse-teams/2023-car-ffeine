@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useSearchStations } from '@hooks/tanstack-query/useSearchStations';
 import { useDebounce } from '@hooks/useDebounce';
 
-import Button from '@common/Button';
+import FlexBox from '@common/FlexBox';
 import Loader from '@common/Loader';
 
 import SearchResult from './SearchResult';
@@ -48,13 +48,19 @@ const StationSearchBar = () => {
             onFocus={handleOpenResult}
             onClick={handleOpenResult}
           />
-          <Button type="submit" aria-label="검색하기" height={2.4}>
+          <FlexBox
+            tag="button"
+            type="submit"
+            aria-label="검색하기"
+            height={2.4}
+            alignItems="center"
+          >
             {isFetching ? (
               <Loader size="md" />
             ) : (
               <MagnifyingGlassIcon width="2.4rem" stroke="#767676" />
             )}
-          </Button>
+          </FlexBox>
         </label>
       </StyledForm>
       {isFocused && data && (
