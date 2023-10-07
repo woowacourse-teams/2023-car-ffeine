@@ -58,12 +58,16 @@ const SearchResult = ({
 
   if (isError)
     return (
-      <Error
-        title="문제가 발생했어요!"
-        message="예상하지 못한 오류로"
-        subMessage="검색 결과를 가져오지 못했습니다."
-        fontSize="40%"
-      />
+      <List aria-live="assertive" mt={1} css={searchResultListCss}>
+        <Error
+          title="문제가 발생했어요!"
+          message="예상하지 못한 오류로"
+          subMessage="검색 결과를 가져오지 못했습니다."
+          fontSize="20%"
+          pt={6}
+          pb={3}
+        />
+      </List>
     );
 
   return (
