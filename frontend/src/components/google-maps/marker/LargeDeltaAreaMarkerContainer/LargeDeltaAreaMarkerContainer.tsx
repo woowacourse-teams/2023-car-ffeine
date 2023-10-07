@@ -4,7 +4,7 @@ import { warningModalActions } from '@stores/layout/warningModalStore';
 
 import ZoomWarningModal from '@ui/WarningModal';
 
-const MiddleZoomMarkerContainer = () => {
+const LargeDeltaAreaMarkerContainer = () => {
   useEffect(() => {
     warningModalActions.openModal(<ZoomWarningModal />);
 
@@ -15,4 +15,4 @@ const MiddleZoomMarkerContainer = () => {
   return <></>;
 };
 
-export default MiddleZoomMarkerContainer;
+export default LargeDeltaAreaMarkerContainer;

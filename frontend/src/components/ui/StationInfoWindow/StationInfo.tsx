@@ -3,7 +3,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import type { MouseEvent } from 'react';
 import { HiChevronRight } from 'react-icons/hi2';
 
-import { MARKER_COLORS } from '@marker/HighZoomMarkerContainer/components/CarFfeineMarker/CarFfeineMarker.style';
+import { MARKER_COLORS } from '@marker/SmallMediumDeltaAreaMarkerContainer/components/CarFfeineMarker/CarFfeineMarker.style';
 
 import Box from '@common/Box';
 import Button from '@common/Button';

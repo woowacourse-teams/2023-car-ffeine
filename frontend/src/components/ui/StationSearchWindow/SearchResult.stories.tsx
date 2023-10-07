@@ -9,6 +9,18 @@ const meta = {
   tags: ['autodocs'],
   component: SearchResult,
   args: {
+    cities: [
+      {
+        cityName: '서울특별시 강동구 천호동',
+        latitude: 1,
+        longitude: 1,
+      },
+      {
+        cityName: '서울특별시 강동구 명일동',
+        latitude: 1,
+        longitude: 1,
+      },
+    ],
     stations: [
       {
         stationId: '0',
@@ -66,6 +78,7 @@ export const NoResult = () => {
   return (
     <SubContainer>
       <SearchResult
+        cities={[]}
         stations={[]}
         closeResult={() => null}
         isError={false}
@@ -80,6 +93,7 @@ export const Error = () => {
   return (
     <Container>
       <SearchResult
+        cities={[]}
         stations={[]}
         closeResult={() => null}
         isError={true}

@@ -101,17 +101,14 @@ export const useRenderStationMarker = () => {
         (markerInstance) => markerInstance.stationId === marker.stationId
       )?.instance;
 
+      const markerColor =
+        marker.availableCount > 0 ? MARKER_COLORS.available : MARKER_COLORS.noAvailable;
+
       if (markerInstance) {
         const defaultMarkerDesign = new google.maps.marker.PinElement({
           scale: DEFAULT_MARKER_SIZE_RATIO,
-          background:
-            marker.availableCount > 0
-              ? MARKER_COLORS.available.background
-              : MARKER_COLORS.noAvailable.background,
-          borderColor:
-            marker.availableCount > 0
-              ? MARKER_COLORS.available.border
-              : MARKER_COLORS.noAvailable.border,
+          background: markerColor.background,
+          borderColor: markerColor.border,
           glyph: '',
         });
 

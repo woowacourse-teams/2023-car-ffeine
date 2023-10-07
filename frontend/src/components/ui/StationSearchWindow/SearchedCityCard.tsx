@@ -32,9 +32,6 @@ const SearchedCityCard = ({ city }: SearchedCityCardProps) => {
                 {cityName}
               </Text>
             </FlexBox>
-            <Text variant="caption" color="#585858">
-              이동하기
-            </Text>
           </FlexBox>
         </Button>
       </FlexBox>

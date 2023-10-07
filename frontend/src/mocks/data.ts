@@ -1,4 +1,4 @@
-import type { Region, RegionName } from '@marker/LowZoomMarkerContainer/types';
+import type { Region, RegionName } from '@marker/MaxDeltaAreaMarkerContainer/types';
 
 import { getTypedObjectFromEntries } from '@utils/getTypedObjectFromEntries';
 import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
@@ -106,7 +106,9 @@ export const getSearchedStations = (searchWord: string) => {
   });
 
   return searchApiStations
-    .filter((station) => station.stationName.includes(searchWord))
+    .filter(
+      (station) => station.stationName.includes(searchWord) || station.address.includes(searchWord)
+    )
     .slice(0, MAX_SEARCH_RESULTS);
 };
 
