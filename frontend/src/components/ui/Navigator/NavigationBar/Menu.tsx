@@ -16,12 +16,13 @@ import PersonalMenu from '@ui/Navigator/NavigationBar/PersonalMenu';
 import ServerStationFilters from '@ui/ServerStationFilters';
 import StationListWindow from '@ui/StationListWindow';
 import StationSearchWindow from '@ui/StationSearchWindow';
-import LogoIcon from '@ui/Svg/LogoIcon';
 import LoginModal from '@ui/modal/LoginModal/LoginModal';
 
 import { displayNoneInMobile, displayNoneInWeb } from '@style/mediaQuery';
 
 import { EMPTY_MEMBER_TOKEN, MOBILE_BREAKPOINT } from '@constants';
+
+import Logo from '@assets/logo-sm.svg';
 
 import { useNavigationBar } from './hooks/useNavigationBar';
 
@@ -43,7 +44,7 @@ const Menu = () => {
         aria-label="새로 고침"
         onClick={() => location.reload()}
       >
-        <LogoIcon width={3} />
+        <Logo />
       </Button>
 
       <Button
