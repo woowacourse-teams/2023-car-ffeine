@@ -40,7 +40,7 @@ const SearchedStationCard = ({ station, handleShowStationDetails }: SearchedStat
             {stationName}
           </Text>
           <Text fontSize={1.3} align="left" lineClamp={1} color="#585858">
-            {address || '주소 미확인'}
+            {address === 'null' || !address ? '주소 미확인' : address}
           </Text>
         </div>
       </FlexBox>
