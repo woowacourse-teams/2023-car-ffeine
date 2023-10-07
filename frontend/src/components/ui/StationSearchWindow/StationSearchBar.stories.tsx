@@ -53,7 +53,12 @@ export const Default = () => {
     400
   );
 
-  const { data: stations, isLoading, isError, isFetching } = useSearchStations(debouncedSearchWord);
+  const {
+    data: searchResult,
+    isLoading,
+    isError,
+    isFetching,
+  } = useSearchStations(debouncedSearchWord);
 
   const handleOpenResult = (event: MouseEvent<HTMLInputElement> | FocusEvent<HTMLInputElement>) => {
     event.stopPropagation();
@@ -68,10 +73,10 @@ export const Default = () => {
     event.preventDefault();
     handleCloseResult();
 
-    const searchedStations = await fetchSearchedStations(searchWord);
+    const { stations } = await fetchSearchedStations(searchWord);
 
-    if (searchedStations !== undefined && searchedStations.length > 0) {
-      const [{ stationId, latitude, longitude }] = searchedStations;
+    if (stations !== undefined && stations.length > 0) {
+      const [{ stationId, latitude, longitude }] = stations;
       showStationDetails({ stationId, latitude, longitude });
     }
 
@@ -113,9 +118,10 @@ export const Default = () => {
           </Button>
         </label>
       </S.Form>
-      {isFocused && stations && (
+      {isFocused && searchResult && (
         <SearchResult
-          stations={stations}
+          cities={searchResult.cities}
+          stations={searchResult.stations}
           isLoading={isLoading}
           isError={isError}
           showStationDetails={showStationDetails}
@@ -145,7 +151,7 @@ const S = {
   `,
 
   Search: styled.input`
-    ${pillStyle}
+    ${pillStyle};
 
     background: #fcfcfc;
     border: 1px solid #d0d2d8;

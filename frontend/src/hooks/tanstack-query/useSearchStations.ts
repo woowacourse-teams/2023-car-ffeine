@@ -5,26 +5,24 @@ import { QUERY_KEY_SEARCHED_STATION } from '@constants/queryKeys';
 import { SERVER_URL } from '@constants/server';
 import { SEARCH_SCOPE } from '@constants/stationSearch';
 
-import type { SearchedStation } from '@type/stations';
+import type { SearchedCity, SearchedStation } from '@type/stations';
 
 interface SearchedStationResponse {
   stations: SearchedStation[];
+  cities: SearchedCity[];
 }
 
 export const fetchSearchedStations = async (searchWord: string) => {
   const searchedStations = await fetch(
-    `${SERVER_URL}/stations/search?q=${searchWord}${SEARCH_SCOPE}`,
-    {
-      method: 'GET',
-    }
-  ).then<SearchedStation[]>(async (response) => {
+    `${SERVER_URL}/stations/search?q=${searchWord}${SEARCH_SCOPE}`
+  ).then<SearchedStationResponse>(async (response) => {
     if (!response.ok) {
       throw new Error(ERROR_MESSAGES.NO_SEARCH_RESULT);
     }
 
     const data: SearchedStationResponse = await response.json();
 
-    return data.stations;
+    return data;
   });
 
   return searchedStations;

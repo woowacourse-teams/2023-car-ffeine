@@ -57,8 +57,8 @@ export const useStationSearchWindow = () => {
 
     const searchedStations = await fetchSearchedStations(searchWord);
 
-    if (searchedStations !== undefined && searchedStations.length > 0) {
-      const [{ stationId, latitude, longitude }] = searchedStations;
+    if (searchedStations !== undefined && searchedStations.stations.length > 0) {
+      const [{ stationId, latitude, longitude }] = searchedStations.stations;
       showStationDetails({ stationId, latitude, longitude });
     }
 

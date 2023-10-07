@@ -2,8 +2,9 @@ import styled, { css } from 'styled-components';
 
 import type { ButtonProps } from '@common/Button/Button';
 import { spacing } from '@common/styles/spacing';
+import { addUnit } from '@common/utils/addUnit';
 
-import { borderRadius, getSize, pillStyle } from '@style';
+import { borderRadius, pillStyle } from '@style';
 
 import type { BorderRadiusDirectionType } from '@type';
 
@@ -28,8 +29,9 @@ export type StyledButtonType = Omit<ButtonProps, 'noRadius'> & {
 };
 
 export const StyledButton = styled.button<StyledButtonType>`
-  width: ${({ width }) => getSize(width)};
-  height: ${({ height }) => getSize(height)};
+  ${({ width }) => width !== undefined && `width: ${addUnit(width)}`};
+  ${({ height }) => height !== undefined && `height: ${addUnit(height)}`};
+
   padding: ${({ size }) => BUTTON_PADDING_SIZE[size] || 0};
   background: ${({ background }) => background || '#fff'};
   border: ${({ outlined }) => (outlined ? '0.15rem solid #000' : 'none')};

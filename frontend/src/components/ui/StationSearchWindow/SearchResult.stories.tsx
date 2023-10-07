@@ -9,6 +9,23 @@ const meta = {
   tags: ['autodocs'],
   component: SearchResult,
   args: {
+    cities: [
+      {
+        cityName: '서울특별시 강동구 천호동',
+        latitude: 1,
+        longitude: 1,
+      },
+      {
+        cityName: '서울특별시 강동구 명일동',
+        latitude: 1,
+        longitude: 1,
+      },
+      {
+        cityName: '서울특별시 강동구 명일동 413-12번지 카페인 빌딩',
+        latitude: 1,
+        longitude: 1,
+      },
+    ],
     stations: [
       {
         stationId: '0',
@@ -23,6 +40,14 @@ const meta = {
         stationName: '허허',
         speed: 'quick',
         address: '서울시 강남구 테헤란로 411',
+        latitude: 1,
+        longitude: 1,
+      },
+      {
+        stationId: '2',
+        stationName: '완전 엄청나게 이름이 긴 충전소를 테스트',
+        speed: 'standard',
+        address: '서울시 강남구 테헤란로 411 천호빌딩 지하 14층',
         latitude: 1,
         longitude: 1,
       },
@@ -66,6 +91,7 @@ export const NoResult = () => {
   return (
     <SubContainer>
       <SearchResult
+        cities={[]}
         stations={[]}
         closeResult={() => null}
         isError={false}
@@ -80,6 +106,7 @@ export const Error = () => {
   return (
     <Container>
       <SearchResult
+        cities={[]}
         stations={[]}
         closeResult={() => null}
         isError={true}

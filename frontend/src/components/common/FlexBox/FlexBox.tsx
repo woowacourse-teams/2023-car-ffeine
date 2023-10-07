@@ -1,6 +1,6 @@
 import type { CSSProp } from 'styled-components';
 
-import { type HTMLAttributes, type ReactNode } from 'react';
+import type { ReactNode, ComponentPropsWithoutRef, ElementType } from 'react';
 
 import type { SpacingProps } from '@common/styles/spacing';
 
@@ -9,7 +9,7 @@ import type { AxisType, BorderRadiusDirectionType } from '@type/style';
 import type { FLEX_BOX_ITEM_POSITION } from './FlexBox.style';
 import { StyledFlexBox } from './FlexBox.style';
 
-export interface FlexBoxProps extends HTMLAttributes<HTMLDivElement>, SpacingProps {
+export interface FlexBoxProps extends ComponentPropsWithoutRef<ElementType>, SpacingProps {
   tag?: string;
   height?: number | string;
   minHeight?: number | string;
