@@ -47,4 +47,8 @@ public class Longitude {
     public Longitude calculateMaxLongitudeByDelta(BigDecimal delta) {
         return new Longitude(value.add(delta));
     }
+
+    public BigDecimal subtract(Longitude other) {
+        return value.subtract(other.value);
+    }
 }

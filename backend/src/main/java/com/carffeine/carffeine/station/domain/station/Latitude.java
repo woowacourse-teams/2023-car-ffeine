@@ -1,7 +1,5 @@
 package com.carffeine.carffeine.station.domain.station;
 
-import com.carffeine.carffeine.station.exception.StationException;
-import com.carffeine.carffeine.station.exception.StationExceptionType;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -38,7 +36,7 @@ public class Latitude {
 
     private void validateKoreaLatitude(BigDecimal value) {
         if (value.compareTo(KOREA_MIN_LATITUDE) < 0 || value.compareTo(KOREA_MAX_LATITUDE) > 0) {
-            throw new StationException(StationExceptionType.INVALID_LATITUDE);
+//            throw new StationException(StationExceptionType.INVALID_LATITUDE);
         }
     }
 
@@ -48,5 +46,9 @@ public class Latitude {
 
     public Latitude calculateMaxLatitudeByDelta(BigDecimal delta) {
         return new Latitude(value.add(delta));
+    }
+
+    public BigDecimal subtract(Latitude other) {
+        return value.subtract(other.value);
     }
 }
