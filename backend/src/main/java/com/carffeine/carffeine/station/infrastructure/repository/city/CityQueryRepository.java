@@ -28,6 +28,7 @@ public class CityQueryRepository {
                 .from(city)
                 .where(city.name.contains(query))
                 .limit(LIMIT_SIZE_OF_CITY)
+                .orderBy(city.name.asc())
                 .fetch();
     }
 }
