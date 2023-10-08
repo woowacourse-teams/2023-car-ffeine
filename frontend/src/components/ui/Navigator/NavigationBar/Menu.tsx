@@ -16,12 +16,13 @@ import PersonalMenu from '@ui/Navigator/NavigationBar/PersonalMenu';
 import ServerStationFilters from '@ui/ServerStationFilters';
 import StationListWindow from '@ui/StationListWindow';
 import StationSearchWindow from '@ui/StationSearchWindow';
-import LogoIcon from '@ui/Svg/LogoIcon';
 import LoginModal from '@ui/modal/LoginModal/LoginModal';
 
 import { displayNoneInMobile, displayNoneInWeb } from '@style/mediaQuery';
 
 import { EMPTY_MEMBER_TOKEN, MOBILE_BREAKPOINT } from '@constants';
+
+import Logo from '@assets/logo-sm.svg';
 
 import { useNavigationBar } from './hooks/useNavigationBar';
 
@@ -38,12 +39,13 @@ const Menu = () => {
   return (
     <FlexBox css={[fixedPositionCss, paddingCss, borderCss, flexCss]} noRadius="all" nowrap>
       <Button
+        height={2.8}
         noRadius="all"
         css={displayNoneInMobile}
         aria-label="새로 고침"
         onClick={() => location.reload()}
       >
-        <LogoIcon width={3} />
+        <Logo />
       </Button>
 
       <Button
@@ -157,7 +159,7 @@ const fixedPositionCss = css`
 `;
 
 const paddingCss = css`
-  padding-top: 2rem;
+  padding-top: 2.4rem;
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     padding-top: 0;

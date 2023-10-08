@@ -5,5 +5,5 @@ export const addUnit = (prop: number | string, spacing?: number) => {
 
   const defaultSpacing = spacing === undefined ? 1 : spacing;
 
-  return `${prop * defaultSpacing}rem`;
+  return `${(prop * defaultSpacing) / 1}rem`;
 };

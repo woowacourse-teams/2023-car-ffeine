@@ -1,15 +1,16 @@
-import { css, styled } from 'styled-components';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import { styled } from 'styled-components';
 
 import { redirectToLoginPage } from '@utils/login';
 
+import { modalActions } from '@stores/layout/modalStore';
+
+import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-import LogoIcon from '@ui/Svg/LogoIcon';
-
-import { MOBILE_BREAKPOINT } from '@constants';
-
 import GoogleLogo from '@assets/google-logo.svg';
+import Logo from '@assets/logo-md.svg';
 
 const LoginModal = () => {
   const handleLogin = () => {
@@ -18,57 +19,55 @@ const LoginModal = () => {
 
   return (
     <FlexBox
-      tag="article"
+      tag="section"
       direction="column"
       justifyContent="center"
       alignItems="center"
-      css={containerCss}
+      maxWidth={32}
+      width="calc(100vw - 4rem)"
+      height={23.6}
+      px={10}
     >
-      <LogoIcon width={8} />
-      <Text tag="h2" variant="h4" mt={4} mb={2} color="#333">
+      <Button mt={-11} mr={-6} mb={-1} ml="auto" onClick={modalActions.closeModal}>
+        <XMarkIcon width={28} />
+      </Button>
+
+      <Logo />
+      <Text tag="h2" variant="h5" weight="regular" color="#333" mt={2}>
         카페인
       </Text>
-      <Text tag="h3">편리한 전기차 충전소 지도</Text>
+
       <GoogleLogin onClick={handleLogin}>
         <GoogleLogo width="24" />
-        <p>구글 로그인</p>
+        <Text variant="label" weight="regular" color="#666">
+          구글 로그인
+        </Text>
       </GoogleLogin>
     </FlexBox>
   );
 };
 
-const containerCss = css`
-  padding: 4.6rem 4.8rem 6.4rem;
-`;
-
 const GoogleLogin = styled.button`
   display: flex;
   align-items: center;
-  column-gap: 7rem;
 
-  width: 29.2rem;
-  height: 4rem;
-  margin: 3.6rem auto -1rem;
+  width: 100%;
+  max-width: 24rem;
+  height: 4.4rem;
+
+  margin-top: 3.2rem;
+  margin-bottom: -1.6rem;
   padding: 0 1.8rem;
 
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #333;
-
-  border-radius: 24px;
-  box-shadow: 1px 1px 5px 2px #e7e7e7;
+  border-radius: 8px;
+  box-shadow: 1px 1px 5px 2px #e7e7e7db;
 
   &:hover {
-    box-shadow: 0.8px 1px 5px 2px #e2e2e2;
+    box-shadow: 0.8px 1px 5px 2px #e7e7e7;
   }
 
-  & > p {
-    margin: 0.9rem 2.4rem 1.2rem 0;
-  }
-
-  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
-    column-gap: 1.6rem;
-    width: auto;
+  & p {
+    width: calc(100% - 40px);
   }
 `;
 
