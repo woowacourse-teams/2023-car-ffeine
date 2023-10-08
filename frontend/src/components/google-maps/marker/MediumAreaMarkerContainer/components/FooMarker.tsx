@@ -7,12 +7,10 @@ export interface FooMarkerProps {
 
 const FooMarker = ({ count }: FooMarkerProps) => {
   return (
-    <Box p={6} borderRadius="50%" css={fooMarkerCss}>
+    <Box p={6} borderRadius="50%" bgColor="#D9E5FF">
       <Text fontSize={2}>{count}</Text>
     </Box>
   );
 };
-
-const fooMarkerCss = { background: '#D9E5FF' };
 
 export default FooMarker;
