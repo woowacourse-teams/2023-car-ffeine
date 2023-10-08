@@ -19,28 +19,29 @@ const LoginModal = () => {
 
   return (
     <FlexBox
-      tag="article"
+      tag="section"
       direction="column"
       justifyContent="center"
-      alignItems="start"
+      alignItems="center"
       maxWidth={32}
       width="calc(100vw - 4rem)"
-      height={24.8}
+      height={23.6}
       px={10}
     >
-      <Button mt={-11.5} mr={-5.5} mb={1} ml="auto" onClick={modalActions.closeModal}>
+      <Button mt={-11} mr={-6} mb={-1} ml="auto" onClick={modalActions.closeModal}>
         <XMarkIcon width={28} />
       </Button>
-      <FlexBox mt={2} mb={2} columnGap={4} alignItems="center">
-        <Logo />
-        <Text tag="h2" variant="h4" color="#333">
-          카페인
-        </Text>
-      </FlexBox>
-      <Text tag="h3">편리한 전기차 충전소 지도</Text>
+
+      <Logo />
+      <Text tag="h2" variant="h5" weight="regular" color="#333" mt={2}>
+        카페인
+      </Text>
+
       <GoogleLogin onClick={handleLogin}>
         <GoogleLogo width="24" />
-        <Text>구글 로그인</Text>
+        <Text variant="label" weight="regular" color="#666">
+          구글 로그인
+        </Text>
       </GoogleLogin>
     </FlexBox>
   );
@@ -57,10 +58,6 @@ const GoogleLogin = styled.button`
   margin-top: 3.2rem;
   margin-bottom: -1.6rem;
   padding: 0 1.8rem;
-
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: #666;
 
   border-radius: 8px;
   box-shadow: 1px 1px 5px 2px #e7e7e7db;
