@@ -34,7 +34,7 @@ public class CityRequestService {
     public void requestCity() {
         while (true) {
             try {
-                if (cityCustomRepository.isExistAlready()) {
+                if (cityCustomRepository.isExist()) {
                     log.info("지역 정보가 이미 존재합니다");
                     return;
                 }

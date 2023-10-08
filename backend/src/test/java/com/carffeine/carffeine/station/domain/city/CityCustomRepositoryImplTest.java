@@ -37,7 +37,7 @@ class CityCustomRepositoryImplTest extends IntegrationTest {
         cityCustomRepository.saveAll(cities);
 
         // when
-        boolean result = cityCustomRepository.isExistAlready();
+        boolean result = cityCustomRepository.isExist();
 
         // then
         assertThat(result).isTrue();

@@ -38,7 +38,7 @@ public class CityCustomRepositoryImpl implements CityCustomRepository {
     }
 
     @Override
-    public boolean isExistAlready() {
+    public boolean isExist() {
         String sql = "SELECT EXISTS (SELECT 1 FROM city)";
         Integer result = namedParameterJdbcTemplate.queryForObject(sql, Map.of(), Integer.class);
         return result == EXIST_CITY;

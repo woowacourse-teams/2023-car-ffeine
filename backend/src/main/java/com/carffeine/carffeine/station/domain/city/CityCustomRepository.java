@@ -6,5 +6,5 @@ public interface CityCustomRepository {
 
     void saveAll(Collection<City> cities);
 
-    boolean isExistAlready();
+    boolean isExist();
 }
