@@ -1,6 +1,7 @@
 package com.carffeine.carffeine.station.domain.city;
 
 import com.carffeine.carffeine.helper.integration.IntegrationTest;
+import com.carffeine.carffeine.station.infrastructure.repository.city.CityCustomRepository;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;

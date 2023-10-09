@@ -1,5 +1,6 @@
-package com.carffeine.carffeine.station.domain.city;
+package com.carffeine.carffeine.station.infrastructure.repository.city;
 
+import com.carffeine.carffeine.station.domain.city.City;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;

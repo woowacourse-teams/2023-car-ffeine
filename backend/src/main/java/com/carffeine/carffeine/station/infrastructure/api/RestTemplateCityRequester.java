@@ -1,6 +1,7 @@
 package com.carffeine.carffeine.station.infrastructure.api;
 
 import com.carffeine.carffeine.station.domain.city.City;
+import com.carffeine.carffeine.station.service.city.CityRequester;
 import com.carffeine.carffeine.station.service.city.dto.CityRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -16,17 +17,17 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Slf4j
 @Component
-public class RestTemplateCityRequester {
+public class RestTemplateCityRequester implements CityRequester {
 
     private static final String CITY_REQUEST_URL = "https://raw.githubusercontent.com/gabrielyoon7/city-generator/main/data.json";
 
     private final RestTemplate restTemplate;
 
+    @Override
     public List<City> requestCities() {
         restTemplate.getMessageConverters()
                 .add(new StringHttpMessageConverter(StandardCharsets.UTF_8));
