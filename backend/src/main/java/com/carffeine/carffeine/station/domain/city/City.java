@@ -16,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 
 @Getter
 @Builder
@@ -38,4 +39,17 @@ public class City {
 
     @Embedded
     private Longitude longitude;
+
+    public City(String name, Latitude latitude, Longitude longitude) {
+        this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public City update(String name, BigDecimal latitude, BigDecimal longitude) {
+        this.name = name;
+        this.latitude = Latitude.from(latitude);
+        this.longitude = Longitude.from(longitude);
+        return this;
+    }
 }
