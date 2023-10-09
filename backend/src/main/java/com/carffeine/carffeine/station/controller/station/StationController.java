@@ -56,7 +56,7 @@ public class StationController {
         return ResponseEntity.ok(new StationsSummaryResponse(stations));
     }
 
-    @GetMapping("/stations/regions")
+    @GetMapping("/stations/markers/regions")
     public ResponseEntity<List<RegionMarker>> getMarkerByRegions(@RequestParam List<String> regions) {
         return ResponseEntity.ok(stationQueryService.findMarkersByRegions(regions));
     }

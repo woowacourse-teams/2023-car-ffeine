@@ -13,6 +13,8 @@ spring:
         format_sql: true
   flyway:
     enabled: false
+  profiles:
+    active: test
 
 jasypt:
   encryptor:
@@ -34,4 +36,5 @@ oauth2:
 
 jwt:
   secret: qwertyuiioplkjhgfdsazxcvbnmkjhgfdqwertyuiioplkjhgfdsazxcvbnmkjhgfdqwertyuiioplkjhgfdsazxcvbnmkjhgfd
-  expiration-period: 10000
+  access-token-expiration-period: 10000
+  refresh-token-expiration-period: 10000

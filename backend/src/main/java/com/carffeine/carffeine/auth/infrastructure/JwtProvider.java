@@ -33,8 +33,10 @@ public class JwtProvider implements TokenProvider {
 
     @Value("${jwt.secret}")
     private String secret;
-    @Value("${jwt.expiration-period}")
-    private int expirationPeriod;
+    @Value("${jwt.access-token-expiration-period}")
+    private long accessTokenExpirationPeriod;
+    @Value("${jwt.refresh-token-expiration-period}")
+    private long refreshTokenExpirationPeriod;
     private Key key;
 
     @PostConstruct
@@ -45,15 +47,15 @@ public class JwtProvider implements TokenProvider {
     @Override
     public String create(Long id) {
         Claims claims = Jwts.claims();
-        claims.put("id", id);
-        return createToken(claims);
+        claims.put("id", String.valueOf(id));
+        return createToken(claims, accessTokenExpirationPeriod);
     }
 
-    private String createToken(Claims claims) {
+    private String createToken(Claims claims, long expiredPeriod) {
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(issuedAt())
-                .setExpiration(expiredAt())
+                .setExpiration(expiredAt(expiredPeriod))
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -63,19 +65,19 @@ public class JwtProvider implements TokenProvider {
         return Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
     }
 
-    private Date expiredAt() {
+    private Date expiredAt(long expiredPeriod) {
         LocalDateTime now = LocalDateTime.now();
-        return Date.from(now.plusHours(expirationPeriod).atZone(ZoneId.systemDefault()).toInstant());
+        return Date.from(now.plusHours(expiredPeriod).atZone(ZoneId.systemDefault()).toInstant());
     }
 
     @Override
-    public Long extract(String token) {
+    public String extract(String token) {
         try {
             return Jwts.parser()
                     .setSigningKey(secret.getBytes())
                     .parseClaimsJws(token)
                     .getBody()
-                    .get("id", Long.class);
+                    .get("id", String.class);
         } catch (SecurityException e) {
             throw new AuthException(SIGNITURE_NOT_FOUND);
         } catch (MalformedJwtException e) {
@@ -87,5 +89,12 @@ public class JwtProvider implements TokenProvider {
         } catch (IllegalArgumentException e) {
             throw new AuthException(INVALID_TOKEN);
         }
+    }
+
+    @Override
+    public String createRefreshToken(String tokenId) {
+        Claims claims = Jwts.claims();
+        claims.put("id", tokenId);
+        return createToken(claims, refreshTokenExpirationPeriod);
     }
 }
