@@ -110,3 +110,55 @@ include::{snippets}/admin-member-controller-test/update-member-role/request-fiel
 === Response
 
 include::{snippets}/admin-member-controller-test/update-member-role/http-response.adoc[]
+
+== 도시를 모두 조회한다 (/admin/cities)
+
+=== Request
+
+include::{snippets}/admin-city-controller-test/find_all_cities/request-headers.adoc[]
+include::{snippets}/admin-city-controller-test/find_all_cities/request-parameters.adoc[]
+include::{snippets}/admin-city-controller-test/find_all_cities/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/admin-city-controller-test/find_all_cities/response-fields.adoc[]
+include::{snippets}/admin-city-controller-test/find_all_cities/http-response.adoc[]
+
+== 도시를 저장한다 (/admin/cities)
+
+=== Request
+
+include::{snippets}/admin-city-controller-test/create_city/request-headers.adoc[]
+include::{snippets}/admin-city-controller-test/create_city/request-fields.adoc[]
+include::{snippets}/admin-city-controller-test/create_city/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/admin-city-controller-test/create_city/response-fields.adoc[]
+include::{snippets}/admin-city-controller-test/create_city/http-response.adoc[]
+
+== 도시를 업데이트한다 (/admin/cities/{cityId})
+
+=== Request
+
+include::{snippets}/admin-city-controller-test/update_city/request-headers.adoc[]
+include::{snippets}/admin-city-controller-test/update_city/path-parameters.adoc[]
+include::{snippets}/admin-city-controller-test/update_city/request-fields.adoc[]
+include::{snippets}/admin-city-controller-test/update_city/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/admin-city-controller-test/update_city/response-fields.adoc[]
+include::{snippets}/admin-city-controller-test/update_city/http-response.adoc[]
+
+== 도시를 제거한다 (/admin/cities/{cityId})
+
+=== Request
+
+include::{snippets}/admin-city-controller-test/delete_city/request-headers.adoc[]
+include::{snippets}/admin-city-controller-test/delete_city/path-parameters.adoc[]
+include::{snippets}/admin-city-controller-test/delete_city/http-request.adoc[]
+
+=== Response
+
+include::{snippets}/admin-city-controller-test/delete_city/http-response.adoc[]

@@ -5,6 +5,7 @@ import com.carffeine.carffeine.station.domain.charger.ChargerType;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.exception.StationException;
 import com.carffeine.carffeine.station.exception.StationExceptionType;
+import com.carffeine.carffeine.city.infrastructure.repository.dto.CitySearchResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.ChargerSpecificResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.RegionMarker;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;
@@ -195,6 +196,10 @@ class StationControllerTest extends MockBeanInjection {
                 .thenReturn(new StationsSearchResponse(
                         2L,
                         List.of(
+                                new CitySearchResponse("선릉 강변로", BigDecimal.valueOf(37.123456), BigDecimal.valueOf(127.123456)),
+                                new CitySearchResponse("선릉 선릉로", BigDecimal.valueOf(37.123457), BigDecimal.valueOf(127.123457))
+                        ),
+                        List.of(
                                 new StationSearchResponse(
                                         "stationId",
                                         "잠실 충전소",
@@ -225,12 +230,16 @@ class StationControllerTest extends MockBeanInjection {
                         ),
                         responseFields(
                                 fieldWithPath("totalCount").type(JsonFieldType.NUMBER).description("검색 결과 전체 개수"),
-                                fieldWithPath("stations").type(JsonFieldType.ARRAY).description("검색 결과"),
+                                fieldWithPath("cities").type(JsonFieldType.ARRAY).description("지역 검색 결과"),
+                                fieldWithPath("cities[].cityName").type(JsonFieldType.STRING).description("지역명"),
+                                fieldWithPath("cities[].latitude").type(JsonFieldType.NUMBER).description("지역 위도"),
+                                fieldWithPath("cities[].longitude").type(JsonFieldType.NUMBER).description("지역 경도"),
+                                fieldWithPath("stations").type(JsonFieldType.ARRAY).description("충전소 검색 결과"),
                                 fieldWithPath("stations[].stationId").type(JsonFieldType.STRING).description("충전소 ID"),
                                 fieldWithPath("stations[].stationName").type(JsonFieldType.STRING).description("충전소 이름"),
                                 fieldWithPath("stations[].address").type(JsonFieldType.STRING).description("충전소 주소"),
-                                fieldWithPath("stations[].latitude").type(JsonFieldType.NUMBER).description("위도"),
-                                fieldWithPath("stations[].longitude").type(JsonFieldType.NUMBER).description("경도")
+                                fieldWithPath("stations[].latitude").type(JsonFieldType.NUMBER).description("충전소 위도"),
+                                fieldWithPath("stations[].longitude").type(JsonFieldType.NUMBER).description("충전소 경도")
                         )
                 ));
     }
@@ -294,7 +303,7 @@ class StationControllerTest extends MockBeanInjection {
         // when
         when(stationQueryService.findMarkersByRegions(List.of("seoul")))
                 .thenReturn(List.of(new RegionMarker("서울", BigDecimal.valueOf(37.540705), BigDecimal.valueOf(126.956764), 1)));
-        
+
         // then
         mockMvc.perform(RestDocumentationRequestBuilders.get("/stations/regions").queryParam("regions", "seoul"))
                 .andExpect(status().isOk())

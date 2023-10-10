@@ -18,6 +18,9 @@ jpa:
     ddl-auto: validate
   database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
 
+initialize-city:
+  enabled: true
+
 initialize-charge:
   enabled: false
 

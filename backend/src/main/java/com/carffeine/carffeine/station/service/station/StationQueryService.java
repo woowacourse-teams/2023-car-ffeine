@@ -5,6 +5,7 @@ import com.carffeine.carffeine.station.domain.station.Coordinate;
 import com.carffeine.carffeine.station.domain.station.Region;
 import com.carffeine.carffeine.station.exception.StationException;
 import com.carffeine.carffeine.station.exception.StationExceptionType;
+import com.carffeine.carffeine.city.infrastructure.repository.CityQueryRepository;
 import com.carffeine.carffeine.station.infrastructure.repository.station.StationQueryRepository;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.RegionMarker;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationInfo;
@@ -12,6 +13,7 @@ import com.carffeine.carffeine.station.infrastructure.repository.station.dto.Sta
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSummaryResponse;
+import com.carffeine.carffeine.city.infrastructure.repository.dto.CitySearchResponse;
 import com.carffeine.carffeine.station.service.station.dto.CoordinateRequest;
 import com.carffeine.carffeine.station.service.station.dto.StationSearchResponse;
 import com.carffeine.carffeine.station.service.station.dto.StationsSearchResponse;
@@ -30,6 +32,7 @@ import java.util.Set;
 public class StationQueryService {
 
     private final StationQueryRepository stationQueryRepository;
+    private final CityQueryRepository cityQueryRepository;
 
     public StationSpecificResponse findStationById(String stationId) {
         return stationQueryRepository.findStationById(stationId)
@@ -59,9 +62,12 @@ public class StationQueryService {
     }
 
     public StationsSearchResponse searchStations(String query, Set<String> scope, int page, int limit) {
-        StationSearchResult searchResult = stationQueryRepository.findSearchResult(query, limit);
-        List<StationSearchResponse> stationByScope = stationsToScope(searchResult.stations(), scope);
-        return new StationsSearchResponse(searchResult.totalCount(), stationByScope);
+        StationSearchResult stationSearchResult = stationQueryRepository.findSearchResult(query, limit);
+        List<StationSearchResponse> stationByScope = stationsToScope(stationSearchResult.stations(), scope);
+
+        List<CitySearchResponse> citySearchResult = cityQueryRepository.findSearchResult(query);
+
+        return new StationsSearchResponse(stationSearchResult.totalCount(), citySearchResult, stationByScope);
     }
 
     private List<StationSearchResponse> stationsToScope(List<StationInfo> searchResult, Set<String> scope) {
@@ -69,6 +75,7 @@ public class StationQueryService {
                 .map(it -> stationToScope(it, scope))
                 .toList();
     }
+
 
     private StationSearchResponse stationToScope(StationInfo station, Set<String> scope) {
         StationSearchResponse.StationSearchResponseBuilder builder = StationSearchResponse.builder();

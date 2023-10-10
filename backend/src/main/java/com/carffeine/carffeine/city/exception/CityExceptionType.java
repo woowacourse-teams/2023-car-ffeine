@@ -1,17 +1,17 @@
-package com.carffeine.carffeine.admin.exception;
+package com.carffeine.carffeine.city.exception;
 
 import com.carffeine.carffeine.common.exception.ExceptionType;
 import com.carffeine.carffeine.common.exception.Status;
 
-public enum AdminExceptionType implements ExceptionType {
+public enum CityExceptionType implements ExceptionType {
 
-    NOT_ADMIN(Status.FORBIDDEN, 9001, "관리자가 아닙니다");
+    NOT_FOUND(Status.NOT_FOUND, 10001, "요청하신 도시를 찾을 수 없습니다.");
 
     private final Status status;
     private final int exceptionCode;
     private final String message;
 
-    AdminExceptionType(Status status, int exceptionCode, String message) {
+    CityExceptionType(Status status, int exceptionCode, String message) {
         this.status = status;
         this.exceptionCode = exceptionCode;
         this.message = message;
