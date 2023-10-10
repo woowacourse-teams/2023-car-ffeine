@@ -23,7 +23,7 @@ import java.util.List;
 @Component
 public class RestTemplateCityRequester implements CityRequester {
 
-    private static final String CITY_REQUEST_URL = "https://raw.githubusercontent.com/gabrielyoon7/city-generator/main/data.json";
+    private static final String CITY_REQUEST_URL = "https://raw.githubusercontent.com/sosow0212/city/main/data.json";
 
     private final RestTemplate restTemplate;
 
