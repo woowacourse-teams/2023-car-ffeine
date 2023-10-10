@@ -1,8 +1,8 @@
 create table if not exists city
 (
-    id              BIGINT AUTO_INCREMENT,
-    name            VARCHAR(200)   NOT NULL,
+    id              BIGINT AUTO_INCREMENT
+    primary key,
+    name            VARCHAR(255)   NOT NULL,
     latitude        decimal(13, 7) NOT NULL,
-    longitude       decimal(13, 7) NOT NULL,
-    PRIMARY KEY (id),
-) ENGINE=InnoDB;
+    longitude       decimal(13, 7) NOT NULL
+    ) ENGINE=InnoDB;
