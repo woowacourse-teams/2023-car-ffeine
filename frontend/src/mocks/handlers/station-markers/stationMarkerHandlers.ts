@@ -106,7 +106,7 @@ export const stationMarkerHandlers = [
       })
     );
   }),
-  rest.get(`${DEVELOP_SERVER_URL}/stations/markers/regions`, async (req, res, ctx) => {
+  rest.get(`${DEVELOP_SERVER_URL}/stations/regions`, async (req, res, ctx) => {
     const { searchParams } = req.url;
 
     const region = searchParams.get('regions');
