@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.station.domain.city;
+package com.carffeine.carffeine.city.domain;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

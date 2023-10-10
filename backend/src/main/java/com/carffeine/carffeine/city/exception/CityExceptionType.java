@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.station.exception.city;
+package com.carffeine.carffeine.city.exception;
 
 import com.carffeine.carffeine.common.exception.ExceptionType;
 import com.carffeine.carffeine.common.exception.Status;

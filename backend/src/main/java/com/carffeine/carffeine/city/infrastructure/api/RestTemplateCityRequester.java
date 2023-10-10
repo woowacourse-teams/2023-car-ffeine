@@ -1,8 +1,8 @@
-package com.carffeine.carffeine.station.infrastructure.api;
+package com.carffeine.carffeine.city.infrastructure.api;
 
-import com.carffeine.carffeine.station.domain.city.City;
-import com.carffeine.carffeine.station.service.city.CityRequester;
-import com.carffeine.carffeine.station.service.city.dto.CityRequest;
+import com.carffeine.carffeine.city.domain.City;
+import com.carffeine.carffeine.city.service.CityRequester;
+import com.carffeine.carffeine.city.service.dto.CityRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

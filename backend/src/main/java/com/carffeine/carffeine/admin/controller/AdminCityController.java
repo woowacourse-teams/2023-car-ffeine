@@ -6,7 +6,7 @@ import com.carffeine.carffeine.admin.service.AdminCityService;
 import com.carffeine.carffeine.admin.service.dto.CityCreateRequest;
 import com.carffeine.carffeine.admin.service.dto.CityUpdateRequest;
 import com.carffeine.carffeine.auth.controller.support.AuthMember;
-import com.carffeine.carffeine.station.domain.city.City;
+import com.carffeine.carffeine.city.domain.City;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

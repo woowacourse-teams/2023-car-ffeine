@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.station.infrastructure.repository.city.dto;
+package com.carffeine.carffeine.city.infrastructure.repository.dto;
 
 import java.math.BigDecimal;
 

@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.station.domain.city;
+package com.carffeine.carffeine.city.domain;
 
 import com.carffeine.carffeine.station.domain.station.Latitude;
 import com.carffeine.carffeine.station.domain.station.Longitude;

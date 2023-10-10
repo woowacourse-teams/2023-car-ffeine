@@ -1,8 +1,10 @@
 package com.carffeine.carffeine.station.infrastructure.repository.city;
 
+import com.carffeine.carffeine.city.infrastructure.repository.CityCustomRepositoryImpl;
+import com.carffeine.carffeine.city.infrastructure.repository.CityQueryRepository;
 import com.carffeine.carffeine.helper.integration.IntegrationTest;
-import com.carffeine.carffeine.station.domain.city.City;
-import com.carffeine.carffeine.station.infrastructure.repository.city.dto.CitySearchResponse;
+import com.carffeine.carffeine.city.domain.City;
+import com.carffeine.carffeine.city.infrastructure.repository.dto.CitySearchResponse;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;

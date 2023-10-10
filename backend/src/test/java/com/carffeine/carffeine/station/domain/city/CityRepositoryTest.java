@@ -1,5 +1,7 @@
 package com.carffeine.carffeine.station.domain.city;
 
+import com.carffeine.carffeine.city.domain.City;
+import com.carffeine.carffeine.city.domain.CityRepository;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
@@ -65,6 +67,6 @@ class CityRepositoryTest {
         List<City> result = cityRepository.findAll(Pageable.ofSize(1))
                 .getContent();
 
-        assertThat(result).hasSize(0);
+        assertThat(result).isEmpty();
     }
 }

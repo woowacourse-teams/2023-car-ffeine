@@ -1,5 +1,7 @@
 package com.carffeine.carffeine.station.domain.city;
 
+import com.carffeine.carffeine.city.domain.City;
+import com.carffeine.carffeine.city.domain.CityRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;

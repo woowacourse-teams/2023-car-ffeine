@@ -35,7 +35,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
-public class StationQueryServiceTest extends IntegrationTest {
+class StationQueryServiceTest extends IntegrationTest {
 
     @Autowired
     private StationQueryService stationQueryService;

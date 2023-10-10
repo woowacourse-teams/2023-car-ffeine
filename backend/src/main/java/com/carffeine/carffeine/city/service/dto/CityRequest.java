@@ -1,6 +1,6 @@
-package com.carffeine.carffeine.station.service.city.dto;
+package com.carffeine.carffeine.city.service.dto;
 
-import com.carffeine.carffeine.station.domain.city.City;
+import com.carffeine.carffeine.city.domain.City;
 import com.carffeine.carffeine.station.domain.station.Latitude;
 import com.carffeine.carffeine.station.domain.station.Longitude;
 

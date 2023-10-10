@@ -5,7 +5,7 @@ import com.carffeine.carffeine.station.domain.charger.ChargerType;
 import com.carffeine.carffeine.station.domain.station.Station;
 import com.carffeine.carffeine.station.exception.StationException;
 import com.carffeine.carffeine.station.exception.StationExceptionType;
-import com.carffeine.carffeine.station.infrastructure.repository.city.dto.CitySearchResponse;
+import com.carffeine.carffeine.city.infrastructure.repository.dto.CitySearchResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.ChargerSpecificResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.RegionMarker;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;

@@ -3,7 +3,7 @@ package com.carffeine.carffeine.admin.controller;
 import com.carffeine.carffeine.admin.service.dto.CityCreateRequest;
 import com.carffeine.carffeine.admin.service.dto.CityUpdateRequest;
 import com.carffeine.carffeine.helper.MockBeanInjection;
-import com.carffeine.carffeine.station.domain.city.City;
+import com.carffeine.carffeine.city.domain.City;
 import com.carffeine.carffeine.station.domain.station.Latitude;
 import com.carffeine.carffeine.station.domain.station.Longitude;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,7 +24,6 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import static com.carffeine.carffeine.helper.RestDocsHelper.customDocument;
-import static com.carffeine.carffeine.station.fixture.station.CityFixture.서울특별시_송파구_신천동_정보;
 import static com.carffeine.carffeine.station.fixture.station.CityFixture.서울특별시_송파구_잠실동_정보;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;

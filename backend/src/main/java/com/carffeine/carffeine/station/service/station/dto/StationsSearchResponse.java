@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.station.service.station.dto;
 
-import com.carffeine.carffeine.station.infrastructure.repository.city.dto.CitySearchResponse;
+import com.carffeine.carffeine.city.infrastructure.repository.dto.CitySearchResponse;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package com.carffeine.carffeine.station.infrastructure.repository.city;
+package com.carffeine.carffeine.city.infrastructure.repository;
 
-import com.carffeine.carffeine.station.domain.city.City;
+import com.carffeine.carffeine.city.domain.City;
 
 import java.util.Collection;
 

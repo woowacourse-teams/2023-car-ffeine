@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.station.config;
 
-import com.carffeine.carffeine.station.service.city.CityRequestService;
+import com.carffeine.carffeine.city.service.CityRequestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;

@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.admin.controller.dto;
 
-import com.carffeine.carffeine.station.domain.city.City;
+import com.carffeine.carffeine.city.domain.City;
 
 import java.math.BigDecimal;
 

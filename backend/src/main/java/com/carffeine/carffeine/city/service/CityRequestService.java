@@ -1,8 +1,8 @@
-package com.carffeine.carffeine.station.service.city;
+package com.carffeine.carffeine.city.service;
 
-import com.carffeine.carffeine.station.domain.city.City;
-import com.carffeine.carffeine.station.infrastructure.api.RestTemplateCityRequester;
-import com.carffeine.carffeine.station.infrastructure.repository.city.CityCustomRepository;
+import com.carffeine.carffeine.city.domain.City;
+import com.carffeine.carffeine.city.infrastructure.api.RestTemplateCityRequester;
+import com.carffeine.carffeine.city.infrastructure.repository.CityCustomRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

@@ -7,11 +7,11 @@ import com.carffeine.carffeine.member.domain.FakeMemberRepository;
 import com.carffeine.carffeine.member.domain.Member;
 import com.carffeine.carffeine.member.domain.MemberRepository;
 import com.carffeine.carffeine.member.domain.MemberRole;
-import com.carffeine.carffeine.station.domain.city.City;
+import com.carffeine.carffeine.city.domain.City;
 import com.carffeine.carffeine.station.domain.city.CityFakeRepository;
-import com.carffeine.carffeine.station.domain.city.CityRepository;
-import com.carffeine.carffeine.station.exception.city.CityException;
-import com.carffeine.carffeine.station.exception.city.CityExceptionType;
+import com.carffeine.carffeine.city.domain.CityRepository;
+import com.carffeine.carffeine.city.exception.CityException;
+import com.carffeine.carffeine.city.exception.CityExceptionType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -108,7 +108,7 @@ class AdminCityServiceTest {
         // then
         List<City> result = cityRepository.findAll(Pageable.ofSize(1))
                 .getContent();
-        assertThat(result).hasSize(0);
+        assertThat(result).isEmpty();
     }
 
     @Test
