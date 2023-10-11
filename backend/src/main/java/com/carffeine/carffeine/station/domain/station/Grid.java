@@ -1,5 +1,10 @@
 package com.carffeine.carffeine.station.domain.station;
 
+import lombok.Getter;
+import lombok.ToString;
+
+@ToString
+@Getter
 public class Grid {
 
     private Point top;

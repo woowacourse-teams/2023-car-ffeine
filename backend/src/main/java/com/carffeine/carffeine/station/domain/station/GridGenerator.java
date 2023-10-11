@@ -1,6 +1,7 @@
 package com.carffeine.carffeine.station.domain.station;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -16,8 +17,8 @@ public class GridGenerator {
         BigDecimal longInterval = getLongInterval(top, bottom, longitudeDivisionSize);
         for (Latitude latitude : latitudes) {
             for (Longitude longitude : longitudes) {
-                Point topPoint = Point.of(latitude.getValue().longValue(), longitude.getValue().longValue());
-                Point bottomPoint = Point.of(latitude.getValue().add(latInterval).longValue(), longitude.getValue().add(longInterval).longValue());
+                Point topPoint = Point.of(latitude.getValue(), longitude.getValue());
+                Point bottomPoint = Point.of(latitude.getValue().add(latInterval), longitude.getValue().add(longInterval));
                 grids.add(new Grid(topPoint, bottomPoint));
             }
         }
@@ -28,21 +29,21 @@ public class GridGenerator {
         Longitude topLongitude = top.getLongitude();
         Longitude bottomLongitude = bottom.getLongitude();
         BigDecimal length = topLongitude.subtract(bottomLongitude);
-        return length.divide(BigDecimal.valueOf(divisionSize));
+        return length.divide(BigDecimal.valueOf(divisionSize), 4, RoundingMode.HALF_EVEN);
     }
 
     private BigDecimal getLatInterval(Point top, Point bottom, int divisionSize) {
         Latitude topLatitude = top.getLatitude();
         Latitude bottomLatitude = bottom.getLatitude();
         BigDecimal length = topLatitude.subtract(bottomLatitude);
-        return length.divide(BigDecimal.valueOf(divisionSize));
+        return length.divide(BigDecimal.valueOf(divisionSize), 4, RoundingMode.HALF_EVEN);
     }
 
     private List<Longitude> divideLongitude(Point top, Point bottom, int divisionSize) {
         Longitude topLongitude = top.getLongitude();
         Longitude bottomLongitude = bottom.getLongitude();
         BigDecimal length = topLongitude.subtract(bottomLongitude);
-        BigDecimal interval = length.divide(BigDecimal.valueOf(divisionSize));
+        BigDecimal interval = length.divide(BigDecimal.valueOf(divisionSize), 4, RoundingMode.HALF_EVEN);
         return IntStream.range(0, divisionSize)
                 .mapToObj(index -> calculateGridLongitude(index, bottomLongitude, interval))
                 .toList();
@@ -58,7 +59,7 @@ public class GridGenerator {
         Latitude topLatitude = top.getLatitude();
         Latitude bottomLatitude = bottom.getLatitude();
         BigDecimal length = topLatitude.subtract(bottomLatitude);
-        BigDecimal interval = length.divide(BigDecimal.valueOf(divisionSize));
+        BigDecimal interval = length.divide(BigDecimal.valueOf(divisionSize), 4, RoundingMode.HALF_EVEN);
         return IntStream.range(0, divisionSize)
                 .mapToObj(index -> calculateGridLatitude(index, bottomLatitude, interval))
                 .toList();
