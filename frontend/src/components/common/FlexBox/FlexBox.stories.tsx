@@ -36,7 +36,7 @@ const meta = {
     height: 24,
     justifyContent: 'center',
     alignContent: 'center',
-    outlined: true,
+    border: true,
     direction: 'row',
     nowrap: false,
     children: Boxes('li'),
@@ -84,7 +84,7 @@ const meta = {
       },
       description: '특정 방향의 radius 속성을 제거할 수 있습니다.',
     },
-    outlined: {
+    border: {
       control: {
         type: 'boolean',
       },
@@ -136,29 +136,29 @@ export const JustifyContent = () => {
   return (
     <FlexBox nowrap columnGap={4} justifyContent="between">
       <FlexBox direction="column" rowGap={5}>
-        <FlexBox outlined justifyContent="start" height={10}>
+        <FlexBox border justifyContent="start" height={10}>
           {Boxes()}
         </FlexBox>
-        <FlexBox outlined justifyContent="center" height={10}>
+        <FlexBox border justifyContent="center" height={10}>
           {Boxes()}
         </FlexBox>
-        <FlexBox outlined justifyContent="end" height={10}>
+        <FlexBox border justifyContent="end" height={10}>
           {Boxes()}
         </FlexBox>
-        <FlexBox outlined justifyContent="between" height={10}>
+        <FlexBox border justifyContent="between" height={10}>
           {Boxes()}
         </FlexBox>
       </FlexBox>
-      <FlexBox outlined direction="column" justifyContent="start" width={12}>
+      <FlexBox border direction="column" justifyContent="start" width={12}>
         {Boxes()}
       </FlexBox>
-      <FlexBox outlined direction="column" justifyContent="center" width={12}>
+      <FlexBox border direction="column" justifyContent="center" width={12}>
         {Boxes()}
       </FlexBox>
-      <FlexBox outlined direction="column" justifyContent="end" width={12}>
+      <FlexBox border direction="column" justifyContent="end" width={12}>
         {Boxes()}
       </FlexBox>
-      <FlexBox outlined direction="column" justifyContent="between" width={12}>
+      <FlexBox border direction="column" justifyContent="between" width={12}>
         {Boxes()}
       </FlexBox>
     </FlexBox>
@@ -169,29 +169,29 @@ export const AlignItems = () => {
   return (
     <FlexBox nowrap columnGap={4} justifyContent="between">
       <FlexBox direction="column" rowGap={5}>
-        <FlexBox outlined alignContent="start" height={10}>
+        <FlexBox border alignContent="start" height={10}>
           {Boxes()}
         </FlexBox>
-        <FlexBox outlined alignContent="center" height={10}>
+        <FlexBox border alignContent="center" height={10}>
           {Boxes()}
         </FlexBox>
-        <FlexBox outlined alignContent="end" height={10}>
+        <FlexBox border alignContent="end" height={10}>
           {Boxes()}
         </FlexBox>
-        <FlexBox outlined alignContent="between" height={10}>
+        <FlexBox border alignContent="between" height={10}>
           {Boxes()}
         </FlexBox>
       </FlexBox>
-      <FlexBox outlined direction="column" alignContent="start" width={12} height={26}>
+      <FlexBox border direction="column" alignContent="start" width={12} height={26}>
         {Boxes()}
       </FlexBox>
-      <FlexBox outlined direction="column" alignContent="center" width={12} height={26}>
+      <FlexBox border direction="column" alignContent="center" width={12} height={26}>
         {Boxes()}
       </FlexBox>
-      <FlexBox outlined direction="column" alignContent="end" width={12} height={26}>
+      <FlexBox border direction="column" alignContent="end" width={12} height={26}>
         {Boxes()}
       </FlexBox>
-      <FlexBox outlined direction="column" alignContent="between" width={12} height={26}>
+      <FlexBox border direction="column" alignContent="between" width={12} height={26}>
         {Boxes()}
       </FlexBox>
     </FlexBox>

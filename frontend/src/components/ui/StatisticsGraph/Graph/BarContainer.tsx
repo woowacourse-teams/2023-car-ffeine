@@ -25,7 +25,7 @@ const BarContainer = ({ align, statistics, renderBar, isLoading }: BarContainerP
           nowrap
           alignItems={align === 'row' ? 'end' : 'start'}
           width={align === 'column' && '100%'}
-          height={align === 'row' && '100%'}
+          height="auto"
         >
           {statistics.map(({ hour, ratio }) => renderBar(`${hour + 1}`.padStart(2, '0'), ratio))}
         </FlexBox>

@@ -1,6 +1,7 @@
 import { css, styled } from 'styled-components';
 
 import type { TextProps } from '@common/Text/Text';
+import { commonStyle } from '@common/styles/common';
 import { spacing } from '@common/styles/spacing';
 
 export type StyledTextType = Omit<TextProps, 'lineClamp' | 'lineHeight'> & {
@@ -103,7 +104,6 @@ export const StyledText = styled.p<StyledTextType>`
 
   font-size: ${({ fontSize }) => fontSize && `${fontSize}rem`};
   font-weight: ${({ weight }) => (weight === 'regular' ? 500 : weight)};
-  color: ${({ color }) => color};
 
   ${({ $lineClamp }) =>
     $lineClamp &&
@@ -116,6 +116,9 @@ export const StyledText = styled.p<StyledTextType>`
         `}
 
   line-height: ${({ $lineHeight }) => $lineHeight};
+
+  ${({ width, height, maxWidth, minWidth, maxHeight, minHeight, bgColor, color }) =>
+    commonStyle({ width, height, maxWidth, minWidth, maxHeight, minHeight, bgColor, color })}
 
   ${({ css }) => css}
 `;

@@ -1,8 +1,8 @@
 import type { CSSProp } from 'styled-components';
 
-import type { HTMLAttributes } from 'react';
-
+import type { CommonStyleProps } from '@common/styles/common';
 import type { SpacingProps } from '@common/styles/spacing';
+import type { BaseProps } from '@common/types/base';
 
 import { StyledText } from './Text.style';
 
@@ -23,11 +23,9 @@ const variantList = [
 
 export type VariantType = (typeof variantList)[number];
 
-export interface TextProps extends HTMLAttributes<HTMLElement>, SpacingProps {
-  tag?: string;
+export interface TextProps extends CommonStyleProps, SpacingProps, BaseProps {
   variant?: VariantType;
   align?: 'center' | 'left' | 'right';
-  color?: string;
   lineClamp?: number;
   fontSize?: number;
   weight?: 'bolder' | 'bold' | 'regular' | 'normal' | 'lighter';

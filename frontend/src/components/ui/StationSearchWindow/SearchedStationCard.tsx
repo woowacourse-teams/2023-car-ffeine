@@ -25,7 +25,7 @@ const SearchedStationCard = ({ station, handleShowStationDetails }: SearchedStat
         type="button"
         width="100%"
         noRadius="all"
-        background="transparent"
+        bgColor="transparent"
         columnGap={2}
         onMouseDown={() => handleShowStationDetails({ stationId, latitude, longitude })}
         nowrap

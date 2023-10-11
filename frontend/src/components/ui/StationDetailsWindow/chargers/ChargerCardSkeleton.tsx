@@ -4,7 +4,7 @@ import Skeleton from '@common/Skeleton';
 
 const ChargerCardSkeleton = () => {
   return (
-    <Box border px={2} py={5} width={39}>
+    <Box border px={2} py={5} width={15.6}>
       <Skeleton width="100%" height="2.8rem" mb={1} />
       <Skeleton width="5rem" height="1.2rem" mb={1} />
       <Skeleton width="5rem" height="1.2rem" mb={1} />

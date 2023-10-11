@@ -2,6 +2,9 @@ import styled, { css } from 'styled-components';
 
 import type { BoxProps } from '@common/Box/Box';
 import { spacing } from '@common/styles/spacing';
+import { addUnit } from '@common/utils/addUnit';
+
+import { commonStyle } from '../styles/common';
 
 const addUnitForBorder = (borderProp: number | string) => {
   return typeof borderProp === 'number' ? `${borderProp}px` : borderProp;
@@ -28,22 +31,14 @@ export const StyledBox = styled.div<BoxProps>`
   ${({ border, borderColor, borderWidth, borderRadius }) =>
     borderStyle({ border, borderColor, borderWidth, borderRadius })}
 
-  height: ${({ height }) => (typeof height === 'string' ? height : `${height * 0.4}rem`)};
-  min-height: ${({ minHeight }) => (typeof minHeight === 'string' ? minHeight : `${minHeight}rem`)};
-  max-height: ${({ maxHeight }) => (typeof maxHeight === 'string' ? maxHeight : `${maxHeight}rem`)};
-
-  width: ${({ width }) => (typeof width === 'string' ? width : `${width * 0.4}rem`)};
-  min-width: ${({ minWidth }) => (typeof minWidth === 'string' ? minWidth : `${minWidth}rem`)};
-  max-width: ${({ maxWidth }) => (typeof maxWidth === 'string' ? maxWidth : `${maxWidth}rem`)};
-
-  ${({ bgColor }) => bgColor && `background: ${bgColor}`};
-  ${({ color }) => color && `color: ${color}`};
+    ${({ width, height, maxWidth, minWidth, maxHeight, minHeight, bgColor, color }) =>
+    commonStyle({ width, height, maxWidth, minWidth, maxHeight, minHeight, bgColor, color })}
 
   ${({ position }) => position && `position: ${position}`};
-  ${({ top }) => top && `top: ${top * 0.4}rem`};
-  ${({ right }) => right && `right: ${right * 0.4}rem`};
-  ${({ bottom }) => bottom && `bottom: ${bottom * 0.4}rem`};
-  ${({ left }) => left && `left: ${left * 0.4}rem`};
+  ${({ top }) => top !== undefined && `top: ${addUnit(top)}`};
+  ${({ right }) => right !== undefined && `right: ${addUnit(right)}`};
+  ${({ bottom }) => bottom !== undefined && `bottom: ${addUnit(bottom)}`};
+  ${({ left }) => left !== undefined && `left: ${addUnit(left)}`};
 
   ${({ css }) => css};
 `;
