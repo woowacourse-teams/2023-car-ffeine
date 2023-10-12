@@ -72,8 +72,8 @@ const StationInfo = ({
       <FlexBox justifyContent="between" alignItems="center">
         <FlexBox alignItems="center">
           <Box
-            width={3}
-            height={3}
+            width={1.2}
+            height={1.2}
             mt={0.5}
             border
             borderWidth={1.5}
@@ -98,7 +98,7 @@ const StationInfo = ({
           )}
         </FlexBox>
 
-        <Button mr={-1.5} onClick={handleCloseStationWindow}>
+        <Button mr={-3} onClick={handleCloseStationWindow}>
           <XMarkIcon width={28} />
         </Button>
       </FlexBox>

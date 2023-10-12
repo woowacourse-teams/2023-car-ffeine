@@ -1,5 +1,5 @@
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { styled } from 'styled-components';
+import { css } from 'styled-components';
 
 import { redirectToLoginPage } from '@utils/login';
 
@@ -37,37 +37,37 @@ const LoginModal = () => {
         카페인
       </Text>
 
-      <GoogleLogin onClick={handleLogin}>
+      <FlexBox
+        tag="button"
+        type="button"
+        aria-label="구글 로그인"
+        alignItems="center"
+        width="100%"
+        nowrap
+        maxWidth={24}
+        height={4.4}
+        mt={8}
+        mb={-4}
+        px={4.5}
+        borderRadius={8}
+        gap={0}
+        css={googleLoginCss}
+        onClick={handleLogin}
+      >
         <GoogleLogo width="24" />
-        <Text variant="label" weight="regular" color="#666">
+        <Text variant="label" weight="regular" color="#666" width="calc(100% - 4rem)">
           구글 로그인
         </Text>
-      </GoogleLogin>
+      </FlexBox>
     </FlexBox>
   );
 };
 
-const GoogleLogin = styled.button`
-  display: flex;
-  align-items: center;
-
-  width: 100%;
-  max-width: 24rem;
-  height: 4.4rem;
-
-  margin-top: 3.2rem;
-  margin-bottom: -1.6rem;
-  padding: 0 1.8rem;
-
-  border-radius: 8px;
+const googleLoginCss = css`
   box-shadow: 1px 1px 5px 2px #e7e7e7db;
 
   &:hover {
     box-shadow: 0.8px 1px 5px 2px #e7e7e7;
-  }
-
-  & p {
-    width: calc(100% - 40px);
   }
 `;
 

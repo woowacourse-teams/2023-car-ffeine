@@ -1,6 +1,9 @@
 import type { Preview } from '@storybook/react';
 import { initialize, mswDecorator } from 'msw-storybook-addon';
 
+import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { handlers } from '../src/mocks/handlers';
@@ -64,12 +67,14 @@ const preview: Preview = {
   },
   decorators: [
     (Story) => (
-      <>
+      <React.Fragment>
         <QueryClientProvider client={queryClient}>
           <GlobalStyle />
-          <Story />
+          <MemoryRouter initialEntries={['/']}>
+            <Story />
+          </MemoryRouter>
         </QueryClientProvider>
-      </>
+      </React.Fragment>
     ),
     mswDecorator,
   ],

@@ -18,7 +18,7 @@ export default meta;
 
 export const Default = (args: UserRatingsProps) => {
   return (
-    <Box width={80} border p={4}>
+    <Box width={32} border p={4}>
       <UserRatings {...args} />
     </Box>
   );

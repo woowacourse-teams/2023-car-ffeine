@@ -37,7 +37,7 @@ export default meta;
 
 export const Default = (args: ReviewCardProps) => {
   return (
-    <Box width={80}>
+    <Box width={32}>
       <ReviewCard {...args} />
       <ReviewCard {...args} />
       <ReviewCard {...args} />
@@ -47,7 +47,7 @@ export const Default = (args: ReviewCardProps) => {
 
 export const Skeleton = (args: ReviewCardProps) => {
   return (
-    <Box width={80}>
+    <Box width={32}>
       <ReviewCard {...args} />
       <ReviewCardSkeleton />
     </Box>
