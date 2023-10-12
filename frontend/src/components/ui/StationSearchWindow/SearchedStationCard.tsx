@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import styled from 'styled-components';
 
 import { RiChargingPile2Fill } from 'react-icons/ri';
 
@@ -29,9 +29,8 @@ const SearchedStationCard = ({ station, handleShowStationDetails }: SearchedStat
         columnGap={2}
         onMouseDown={() => handleShowStationDetails({ stationId, latitude, longitude })}
         nowrap
-        css={iconCss}
       >
-        <RiChargingPile2Fill size={16} fill="#585858" />
+        <ChargingStationIcon size={16} fill="#585858" />
         <div>
           <Text weight="regular" align="left" title={stationName} lineClamp={1}>
             {stationName}
@@ -45,11 +44,9 @@ const SearchedStationCard = ({ station, handleShowStationDetails }: SearchedStat
   );
 };
 
-const iconCss = css`
-  & > svg {
-    margin-top: 0.4rem;
-    flex-shrink: 0;
-  }
+const ChargingStationIcon = styled(RiChargingPile2Fill)`
+  margin-top: 0.4rem;
+  flex-shrink: 0;
 `;
 
 export default SearchedStationCard;

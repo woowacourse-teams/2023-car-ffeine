@@ -18,6 +18,8 @@ const borderStyle = ({
   ${border === true && `border: 0.1px solid #66666666; border-radius: 4px;`}
 
   ${typeof border !== 'boolean' && `border-${border}: 0.1px solid #66666666`};
+  ${border === 'x' && `border-right: 0.1px solid #66666666; border-left: 0.1px solid #66666666;`}
+  ${border === 'y' && `border-top: 0.1px solid #66666666; border-bottom: 0.1px solid #66666666;`}
 
   ${borderColor !== undefined && `border-color: ${borderColor}`};
   ${borderWidth !== undefined && `border-width: ${addUnitForBorder(borderWidth)}`};

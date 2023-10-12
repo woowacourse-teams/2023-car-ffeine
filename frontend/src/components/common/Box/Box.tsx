@@ -6,14 +6,14 @@ import type { BaseProps } from '@common/types/base';
 import type { CommonStyleProps } from '../styles/common';
 import { StyledBox } from './Box.style';
 
-type FourSides = 'left' | 'right' | 'top' | 'bottom';
+type Sides = 'left' | 'right' | 'top' | 'bottom' | 'x' | 'y';
 
 export interface BoxProps extends CommonStyleProps, SpacingProps, BaseProps {
   /** 테두리에 둥글고(border-radius: 4px) 얇은 선(0.1px, #66666666)이 생김
    * - 특정 방향(ex. 'left')을 넣으면 해당 부분만 얇은 선이 생김
    * @default false
    */
-  border?: boolean | FourSides;
+  border?: boolean | Sides;
   /** border 색깔 변경 가능, **border가 false가 아닐 때 사용 가능** */
   borderColor?: string;
   /** border 두께 변경 가능, **border가 false가 아닐 때 사용 가능**

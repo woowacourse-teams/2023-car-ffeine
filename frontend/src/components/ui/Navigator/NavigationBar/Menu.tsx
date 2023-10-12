@@ -140,10 +140,6 @@ const flexCss = css`
     align-items: center;
     gap: 0;
     justify-content: space-around;
-
-    & > svg:first-child {
-      display: none;
-    }
   }
 `;
 

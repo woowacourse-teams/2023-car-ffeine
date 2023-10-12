@@ -42,16 +42,26 @@ const ChargerCard = ({ charger }: ChargerCardProps) => {
   const { type, price, capacity, latestUpdateTime, state, method } = charger;
 
   return (
-    <FlexBox tag="article" outlined nowrap direction="column" width="49%" p={2} css={borderCss}>
+    <FlexBox
+      tag="article"
+      outlined
+      nowrap
+      direction="column"
+      width="49%"
+      height={14.4}
+      p={2}
+      border
+      borderWidth={0.4}
+    >
       <SquareBox heavyColor={statusLightColor(state)} lightColor={statusHeavyColor(state)}>
         <FlexBox py={0.8} justifyContent="center" alignItems="center">
           <Text css={regularFontWeight}>{CHARGER_STATES[state].state}</Text>
         </FlexBox>
       </SquareBox>
-      <Text mt={2} my={0} mb={1.5}>
+      <Text mt={2} mb={1.5}>
         {CONNECTOR_TYPES[type]}
       </Text>
-      <Text my={0} variant="label">
+      <Text my={0} fontSize={1.3}>
         {capacity >= QUICK_CHARGER_CAPACITY_THRESHOLD ? '급속' : '완속'}({capacity}kW)
         {method && (
           <Text tag="span" variant="label" my={1}>
@@ -67,11 +77,6 @@ const ChargerCard = ({ charger }: ChargerCardProps) => {
     </FlexBox>
   );
 };
-
-const borderCss = css`
-  border: 0.4px solid #66666666;
-  height: 142px;
-`;
 
 const SquareBox = styled.div<{ heavyColor: string; lightColor: string }>`
   padding: 0.4rem;

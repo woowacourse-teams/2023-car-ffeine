@@ -6,12 +6,24 @@ import { stationDetailsViewContainerCss } from '@ui/StationDetailsWindow/Station
 import ChargerCardSkeleton from '@ui/StationDetailsWindow/chargers/ChargerCardSkeleton';
 import StationInformationSkeleton from '@ui/StationDetailsWindow/station/StationInformationSkeleton';
 
+import { NAVIGATOR_PANEL_WIDTH } from '@constants';
+
 const StationDetailsViewSkeleton = () => {
   return (
-    <Box px={2} py={10} css={stationDetailsViewContainerCss}>
+    <Box
+      px={5}
+      pt={6}
+      width={NAVIGATOR_PANEL_WIDTH}
+      height="100vh"
+      bgColor="#fff"
+      border="x"
+      borderWidth="0.5px"
+      borderColor="#e1e4eb"
+      css={stationDetailsViewContainerCss}
+    >
       <StationInformationSkeleton />
       <FlexBox justifyContent="center" my={3}>
-        <Skeleton width="90%" height="3rem" />
+        <Skeleton height="3rem" />
       </FlexBox>
       <FlexBox>
         {Array.from({ length: 10 }, (_, index) => (
