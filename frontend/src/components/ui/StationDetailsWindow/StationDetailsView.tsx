@@ -64,7 +64,7 @@ export const stationDetailsViewContainerCss = css`
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     width: 100vw;
-    padding-bottom: 8rem;
+    padding-bottom: 10rem;
   }
 `;
 
