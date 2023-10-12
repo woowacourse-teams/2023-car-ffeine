@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { StyledBox } from '@common/Box/Box.style';
 import type { FlexBoxProps } from '@common/FlexBox/FlexBox';
@@ -29,14 +29,64 @@ export type StyledFlexBoxType = Omit<
 
 const getGap = ({ gap, rowGap, columnGap }: Pick<FlexBoxProps, 'gap' | 'rowGap' | 'columnGap'>) => {
   if (gap !== undefined) {
-    return `${gap * 0.4}rem`;
+    return `${(gap * 4) / 10}rem`;
   }
 
-  const row = rowGap !== undefined ? rowGap * 0.4 : 0.4;
-  const column = columnGap !== undefined ? columnGap * 0.4 : 0.4;
+  const row = rowGap !== undefined ? (rowGap * 4) / 10 : 0.4;
+  const column = columnGap !== undefined ? (columnGap * 4) / 10 : 0.4;
 
   return `${row}rem ${column}rem`;
 };
+
+export const LAYOUT = {
+  topLeft: {
+    justify: 'start',
+    align: 'start',
+  },
+  topCenter: {
+    justify: 'center',
+    align: 'start',
+  },
+  topRight: {
+    justify: 'end',
+    align: 'start',
+  },
+  centerLeft: {
+    justify: 'start',
+    align: 'center',
+  },
+  center: {
+    justify: 'center',
+    align: 'center',
+  },
+  centerRight: {
+    justify: 'end',
+    align: 'center',
+  },
+  bottomLeft: {
+    justify: 'start',
+    align: 'end',
+  },
+  bottomCenter: {
+    justify: 'center',
+    align: 'end',
+  },
+  bottomRight: {
+    justify: 'end',
+    align: 'end',
+  },
+} as const;
+export type Layout = keyof typeof LAYOUT;
+
+export const layoutStyle = ({
+  direction,
+  layout,
+}: Required<Pick<FlexBoxProps, 'direction' | 'layout'>>) => css`
+  ${layout &&
+  `justify-content: ${direction === 'row' ? LAYOUT[layout].justify : LAYOUT[layout].align}`};
+  ${layout &&
+  `align-items: ${direction === 'row' ? LAYOUT[layout].align : LAYOUT[layout].justify}`};
+`;
 
 export const StyledFlexBox = styled(StyledBox)<StyledFlexBoxType>`
   ${spacing};
@@ -53,6 +103,7 @@ export const StyledFlexBox = styled(StyledBox)<StyledFlexBoxType>`
   font-size: 1.5rem;
 
   ${({ $noRadius }) => $noRadius && borderRadius($noRadius)};
+  ${({ direction, layout }) => layoutStyle({ direction, layout })};
 
   ${({ css }) => css};
 `;

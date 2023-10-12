@@ -2,7 +2,7 @@ import type { BoxProps } from '@common/Box/Box';
 
 import type { AxisType, BorderRadiusDirectionType } from '@type/style';
 
-import type { FLEX_BOX_ITEM_POSITION } from './FlexBox.style';
+import type { FLEX_BOX_ITEM_POSITION, Layout } from './FlexBox.style';
 import { StyledFlexBox } from './FlexBox.style';
 
 export interface FlexBoxProps extends BoxProps {
@@ -15,6 +15,7 @@ export interface FlexBoxProps extends BoxProps {
   gap?: number;
   rowGap?: number;
   columnGap?: number;
+  layout?: Layout;
 }
 
 const FlexBox = ({

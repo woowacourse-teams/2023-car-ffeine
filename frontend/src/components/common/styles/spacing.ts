@@ -75,26 +75,32 @@ export interface SpacingProps {
   mb?: number | string;
 }
 
+const SPACING_UNIT = 4;
+
 export const spacing = css<SpacingProps>`
-  ${({ p }) => p !== undefined && `padding: ${addUnit(p, 0.4)}`};
+  ${({ p }) => p !== undefined && `padding: ${addUnit(p, SPACING_UNIT)}`};
   ${({ px }) =>
-    px !== undefined && `padding-left: ${addUnit(px, 0.4)}; padding-right: ${addUnit(px, 0.4)}`};
+    px !== undefined &&
+    `padding-left: ${addUnit(px, SPACING_UNIT)}; padding-right: ${addUnit(px, SPACING_UNIT)}`};
   ${({ py }) =>
-    py !== undefined && `padding-top: ${addUnit(py, 0.4)}; padding-bottom: ${addUnit(py, 0.4)}`};
+    py !== undefined &&
+    `padding-top: ${addUnit(py, SPACING_UNIT)}; padding-bottom: ${addUnit(py, SPACING_UNIT)}`};
 
-  ${({ pt }) => pt !== undefined && `padding-top: ${addUnit(pt, 0.4)}`};
-  ${({ pr }) => pr !== undefined && `padding-right: ${addUnit(pr, 0.4)}`};
-  ${({ pb }) => pb !== undefined && `padding-bottom: ${addUnit(pb, 0.4)}`};
-  ${({ pl }) => pl !== undefined && `padding-left: ${addUnit(pl, 0.4)}`};
+  ${({ pt }) => pt !== undefined && `padding-top: ${addUnit(pt, SPACING_UNIT)}`};
+  ${({ pr }) => pr !== undefined && `padding-right: ${addUnit(pr, SPACING_UNIT)}`};
+  ${({ pb }) => pb !== undefined && `padding-bottom: ${addUnit(pb, SPACING_UNIT)}`};
+  ${({ pl }) => pl !== undefined && `padding-left: ${addUnit(pl, SPACING_UNIT)}`};
 
-  ${({ m }) => m !== undefined && `margin: ${addUnit(m, 0.4)}`};
+  ${({ m }) => m !== undefined && `margin: ${addUnit(m, SPACING_UNIT)}`};
   ${({ mx }) =>
-    mx !== undefined && `margin-left: ${addUnit(mx, 0.4)}; margin-right: ${addUnit(mx, 0.4)}`};
+    mx !== undefined &&
+    `margin-left: ${addUnit(mx, SPACING_UNIT)}; margin-right: ${addUnit(mx, SPACING_UNIT)}`};
   ${({ my }) =>
-    my !== undefined && `margin-top: ${addUnit(my, 0.4)}; margin-bottom: ${addUnit(my, 0.4)}`};
+    my !== undefined &&
+    `margin-top: ${addUnit(my, SPACING_UNIT)}; margin-bottom: ${addUnit(my, SPACING_UNIT)}`};
 
-  ${({ mt }) => mt !== undefined && `margin-top: ${addUnit(mt, 0.4)}`};
-  ${({ mr }) => mr !== undefined && `margin-right: ${addUnit(mr, 0.4)}`};
-  ${({ mb }) => mb !== undefined && `margin-bottom: ${addUnit(mb, 0.4)}`};
-  ${({ ml }) => ml !== undefined && `margin-left: ${addUnit(ml, 0.4)}`};
+  ${({ mt }) => mt !== undefined && `margin-top: ${addUnit(mt, SPACING_UNIT)}`};
+  ${({ mr }) => mr !== undefined && `margin-right: ${addUnit(mr, SPACING_UNIT)}`};
+  ${({ mb }) => mb !== undefined && `margin-bottom: ${addUnit(mb, SPACING_UNIT)}`};
+  ${({ ml }) => ml !== undefined && `margin-left: ${addUnit(ml, SPACING_UNIT)}`};
 `;

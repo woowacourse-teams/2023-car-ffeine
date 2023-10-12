@@ -26,10 +26,12 @@ export const commonStyle = ({
 }: CommonStyleProps) => css`
   ${width !== undefined && `width: ${addUnit(width)}`};
   ${height !== undefined && `height: ${addUnit(height)}`};
+
   ${maxWidth !== undefined && `max-width: ${addUnit(maxWidth)}`};
+  ${maxHeight !== undefined && `max-height: ${addUnit(maxHeight)}`};
+
   ${minWidth !== undefined && `min-width: ${addUnit(minWidth)}`};
-  ${maxHeight !== undefined && `max-width: ${addUnit(maxHeight)}`};
-  ${minHeight !== undefined && `min-width: ${addUnit(minHeight)}`};
+  ${minHeight !== undefined && `min-height: ${addUnit(minHeight)}`};
 
   ${bgColor && `background: ${bgColor}`};
   ${color && `color: ${color}`};
