@@ -17,8 +17,8 @@ interface Props {
  */
 const ShowHideButton = ({ name = '더보기', onClick }: Props) => {
   return (
-    <Button css={buttonContainer} onClick={onClick}>
-      <FlexBox justifyContent="center">
+    <Button width="100%" css={buttonContainer} onClick={onClick}>
+      <FlexBox layout="center">
         <Text>{name}</Text>
         {name === '더보기' ? <ChevronDownIcon width={20} /> : <ChevronUpIcon width={20} />}
       </FlexBox>
@@ -27,8 +27,6 @@ const ShowHideButton = ({ name = '더보기', onClick }: Props) => {
 };
 
 const buttonContainer = css`
-  width: 100%;
-
   & svg {
     padding-top: 2px;
   }

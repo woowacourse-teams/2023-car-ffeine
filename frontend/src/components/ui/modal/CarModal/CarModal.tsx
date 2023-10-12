@@ -15,9 +15,8 @@ import { useCars } from '@hooks/tanstack-query/car/useCars';
 
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
+import Loader from '@common/Loader';
 import Text from '@common/Text';
-
-import LogoIcon from '@ui/Svg/LogoIcon';
 
 import { QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
 
@@ -80,8 +79,7 @@ const CarModal = () => {
   if (isLoading || cars === undefined) {
     return (
       <FlexBox direction="column" alignItems="center">
-        <LogoIcon width={10} />
-        <Text variant="h5">로딩중...</Text>
+        <Loader size="xxl" />
       </FlexBox>
     );
   }

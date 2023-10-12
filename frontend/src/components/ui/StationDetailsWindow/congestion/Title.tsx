@@ -16,9 +16,9 @@ const Title = () => {
   return (
     <FlexBox justifyContent="between" alignItems="center" mb={3}>
       <Text fontSize={1.8} weight="bold">
-        충전소 시간별 혼잡도
+        충전소 시간별 사용량
       </Text>
-      <Button aria-label="혼잡도 통계 설명 보기" onClick={handleOpenStatisticsHelp}>
+      <Button height={2.4} aria-label="사용량 그래프 설명 보기" onClick={handleOpenStatisticsHelp}>
         <InformationCircleIcon width={24} stroke="#747474" />
       </Button>
     </FlexBox>

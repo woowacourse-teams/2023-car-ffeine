@@ -32,13 +32,23 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
   };
 
   return (
-    <Box p={5} css={stationDetailsViewContainerCss}>
-      <Button css={xIconCss} onClick={handleCloseDetail}>
+    <Box
+      px={5}
+      pt={6}
+      width={NAVIGATOR_PANEL_WIDTH}
+      height="100vh"
+      bgColor="#fff"
+      border="x"
+      borderWidth="0.5px"
+      borderColor="#e1e4eb"
+      css={stationDetailsViewContainerCss}
+    >
+      <Button noRadius="all" css={xIconCss} onClick={handleCloseDetail}>
         <XMarkIcon width={32} />
       </Button>
-      <Box mt={4}>
-        <StationInformation station={station} />
-      </Box>
+
+      <StationInformation station={station} />
+
       <StationReportButton station={station} />
 
       <ChargerList chargers={chargers} stationId={stationId} reportCount={reportCount} />
@@ -49,12 +59,7 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
 };
 
 export const stationDetailsViewContainerCss = css`
-  width: ${NAVIGATOR_PANEL_WIDTH}rem;
-  height: 100vh;
-  background-color: white;
   box-shadow: 1px 1px 2px gray;
-  border-left: 0.5px solid #e1e4eb;
-  border-right: 0.5px solid #e1e4eb;
   overflow: scroll;
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
@@ -64,14 +69,16 @@ export const stationDetailsViewContainerCss = css`
 `;
 
 const xIconCss = css`
-  @media screen and (min-width: ${MOBILE_BREAKPOINT}px) {
-    display: none;
-  }
+  display: none;
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+    display: block;
     position: absolute;
-    right: 1rem;
-    top: 1rem;
+    right: 0.8rem;
+    top: 0;
+
+    padding: 1.2rem 0.8rem;
+    background: rgba(255, 255, 255, 0.8);
   }
 `;
 

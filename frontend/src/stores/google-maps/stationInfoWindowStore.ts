@@ -19,7 +19,7 @@ export const getStationInfoWindowStore = (() => {
       const infoWindowInstance = new google.maps.InfoWindow({
         content: container,
         maxWidth: 320,
-        minWidth: 320,
+        minWidth: 300,
       });
 
       const initialStationInfoWindow: StationInfoWindowStore = {

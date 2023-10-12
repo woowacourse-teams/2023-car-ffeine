@@ -1,5 +1,8 @@
 import type { Meta } from '@storybook/react';
 
+import FlexBox from '@common/FlexBox';
+import Loader from '@common/Loader';
+
 import CarModal from './CarModal';
 
 const meta = {
@@ -12,4 +15,12 @@ export default meta;
 
 export const Default = () => {
   return <CarModal />;
+};
+
+export const Loading = () => {
+  return (
+    <FlexBox direction="column" alignItems="center">
+      <Loader size="xxl" />
+    </FlexBox>
+  );
 };

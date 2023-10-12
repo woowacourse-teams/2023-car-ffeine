@@ -84,7 +84,7 @@ const StationList = () => {
   return <List css={stationListCss}>{renderStationSummaryCards()}</List>;
 };
 
-const stationListCss = css`
+export const stationListCss = css`
   width: 34rem;
   height: calc(100vh - 14.133rem);
   border-top: 1.2rem solid var(--lighter-color);

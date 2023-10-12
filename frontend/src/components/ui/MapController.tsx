@@ -40,7 +40,7 @@ const MapController = () => {
         {isFetching ? (
           <Loader css={{ borderBottomColor: 'blue' }} />
         ) : (
-          <BiCurrentLocation size={24} color="#0540f2" stroke="#333" aria-label="내 위치로 이동" />
+          <BiCurrentLocation size={24} color="#4D6CD0" stroke="#333" aria-label="내 위치로 이동" />
         )}
       </Button>
       <Button

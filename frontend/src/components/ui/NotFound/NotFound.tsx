@@ -24,7 +24,7 @@ const NotFound = () => {
     >
       <Image alt="404 이미지" />
       <GoHome to="/">
-        <ImHome />
+        <HomeIcon />
         홈으로 돌아가기
       </GoHome>
     </FlexBox>
@@ -52,11 +52,6 @@ const GoHome = styled(Link)`
   font-weight: 500;
   font-size: 16px;
 
-  & > svg {
-    margin-right: 0.8rem;
-    vertical-align: bottom;
-  }
-
   &:hover {
     background: #333;
     color: #fff;
@@ -66,6 +61,11 @@ const GoHome = styled(Link)`
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     margin: auto 0 12rem;
   }
+`;
+
+const HomeIcon = styled(ImHome)`
+  margin-right: 0.8rem;
+  vertical-align: bottom;
 `;
 
 export default NotFound;

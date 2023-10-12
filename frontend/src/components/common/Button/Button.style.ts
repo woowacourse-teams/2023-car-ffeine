@@ -43,6 +43,7 @@ export const StyledButton = styled.button<StyledButtonType>`
   text-align: center;
 
   ${spacing}
+
   ${({ $noRadius }) => $noRadius && borderRadius($noRadius)};
   ${({ variant }) => {
     switch (variant) {
