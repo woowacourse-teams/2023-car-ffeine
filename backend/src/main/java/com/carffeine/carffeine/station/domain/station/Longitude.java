@@ -53,4 +53,12 @@ public class Longitude {
     public BigDecimal subtract(Longitude other) {
         return value.subtract(other.value);
     }
+
+    public int compareTo(Longitude other) {
+        return this.value.compareTo(other.value);
+    }
+
+    public BigDecimal add(Longitude other) {
+        return this.value.add(other.value);
+    }
 }

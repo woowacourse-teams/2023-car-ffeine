@@ -53,4 +53,12 @@ public class Latitude {
     public BigDecimal subtract(Latitude other) {
         return value.subtract(other.value);
     }
+
+    public int compareTo(Latitude other) {
+        return this.value.compareTo(other.value);
+    }
+
+    public BigDecimal add(Latitude other) {
+        return this.value.add(other.value);
+    }
 }

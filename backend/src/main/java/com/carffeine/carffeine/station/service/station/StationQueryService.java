@@ -9,6 +9,7 @@ import com.carffeine.carffeine.city.infrastructure.repository.CityQueryRepositor
 import com.carffeine.carffeine.station.infrastructure.repository.station.StationQueryRepository;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.RegionMarker;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationInfo;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationPoint;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSearchResult;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
@@ -98,5 +99,9 @@ public class StationQueryService {
     public List<RegionMarker> findMarkersByRegions(List<String> regionNames) {
         List<Region> regions = Region.regions(regionNames);
         return stationQueryRepository.findCountByRegions(regions);
+    }
+
+    public List<StationPoint> findStationPoint(int page, int size) {
+        return stationQueryRepository.findStationPoints(page, size);
     }
 }

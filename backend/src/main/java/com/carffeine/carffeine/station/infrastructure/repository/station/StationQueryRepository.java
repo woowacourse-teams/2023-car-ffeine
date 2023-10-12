@@ -6,6 +6,7 @@ import com.carffeine.carffeine.station.domain.station.Region;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.ChargerSpecificResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.RegionMarker;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationInfo;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationPoint;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSearchResult;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
@@ -220,5 +221,16 @@ public class StationQueryRepository {
                 .from(station)
                 .where(station.address.startsWith(region.value()))
                 .fetchOne();
+    }
+
+    public List<StationPoint> findStationPoints(int page, int size) {
+        return jpaQueryFactory.select(constructor(StationPoint.class,
+                        station.latitude.value,
+                        station.longitude.value
+                ))
+                .from(station)
+                .offset(size * page)
+                .limit(size)
+                .fetch();
     }
 }

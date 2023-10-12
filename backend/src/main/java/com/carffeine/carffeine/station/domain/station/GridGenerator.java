@@ -8,6 +8,11 @@ import java.util.stream.IntStream;
 
 public class GridGenerator {
 
+    private static final BigDecimal TOP_LATITUDE = BigDecimal.valueOf(38.6341);
+    private static final BigDecimal TOP_LONGITUDE = BigDecimal.valueOf(124.5377);
+    private static final BigDecimal BOTTOM_LATITUDE = BigDecimal.valueOf(33.1906);
+    private static final BigDecimal BOTTOM_LONGITUDE = BigDecimal.valueOf(131.8795);
+
     public List<Grid> create(Point top, Point bottom, int latitudeDivisionSize, int longitudeDivisionSize) {
 
         List<Grid> grids = new ArrayList<>();
@@ -68,5 +73,11 @@ public class GridGenerator {
     private Latitude calculateGridLatitude(int index, Latitude latitude, BigDecimal interval) {
         BigDecimal distance = interval.multiply(new BigDecimal(index));
         return Latitude.from(latitude.getValue().add(distance));
+    }
+
+    public List<Grid> createKorea() {
+        Point top = new Point(Latitude.from(TOP_LATITUDE), Longitude.from(TOP_LONGITUDE));
+        Point bottom = new Point(Latitude.from(BOTTOM_LATITUDE), Longitude.from(BOTTOM_LONGITUDE));
+        return create(top, bottom, 19, 30);
     }
 }
