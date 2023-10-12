@@ -43,7 +43,7 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
       borderColor="#e1e4eb"
       css={stationDetailsViewContainerCss}
     >
-      <Button width="100%" noRadius="all" css={xIconCss} onClick={handleCloseDetail}>
+      <Button noRadius="all" css={xIconCss} onClick={handleCloseDetail}>
         <XMarkIcon width={32} />
       </Button>
 
@@ -72,14 +72,12 @@ const xIconCss = css`
   display: none;
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
-    display: flex;
-    justify-content: end;
-
+    display: block;
     position: absolute;
-    right: 1.32rem;
+    right: 0.8rem;
     top: 0;
 
-    padding: 1rem 0;
+    padding: 1.2rem 0.8rem;
     background: rgba(255, 255, 255, 0.8);
   }
 `;
