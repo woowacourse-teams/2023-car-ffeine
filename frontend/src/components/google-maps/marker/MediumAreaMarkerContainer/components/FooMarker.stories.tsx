@@ -1,5 +1,7 @@
 import type { Meta } from '@storybook/react';
 
+import Box from '@common/Box';
+
 import type { FooMarkerProps } from './FooMarker';
 import FooMarker from './FooMarker';
 
@@ -12,7 +14,7 @@ const meta = {
   },
   argTypes: {
     count: {
-      description: '특정 영역의 충전소 갯수입니다.',
+      description: '특정 영역의 충전소 개수입니다.',
     },
   },
 } satisfies Meta<typeof FooMarker>;
@@ -21,8 +23,8 @@ export default meta;
 
 export const Default = (args: FooMarkerProps) => {
   return (
-    <div style={{ width: 'fit-content' }}>
+    <Box width="fit-content">
       <FooMarker {...args} />
-    </div>
+    </Box>
   );
 };
