@@ -77,7 +77,7 @@ const xIconCss = css`
     right: 0.8rem;
     top: 0;
 
-    padding: 1.2rem 0.8rem;
+    padding: 0.8rem 0.6rem;
     background: rgba(255, 255, 255, 0.8);
   }
 `;
