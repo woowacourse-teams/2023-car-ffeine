@@ -34,6 +34,6 @@ export const clusteringHandler = [
       }
     }
 
-    return res(ctx.json(mockCluster), ctx.status(200));
+    return res(ctx.json(mockCluster), ctx.status(200), ctx.delay(1000));
   }),
 ];
