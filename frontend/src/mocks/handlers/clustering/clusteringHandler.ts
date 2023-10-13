@@ -3,7 +3,7 @@ import { rest } from 'msw';
 import { DEVELOP_SERVER_URL } from '@constants/server';
 
 export const clusteringHandler = [
-  rest.get(`${DEVELOP_SERVER_URL}/clustering`, (req, res, ctx) => {
+  rest.get(`${DEVELOP_SERVER_URL}/stations/clusters`, (req, res, ctx) => {
     const { searchParams } = req.url;
 
     const latitude = Number(searchParams.get('latitude'));
