@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { StyledBox } from '@common/Box/Box.style';
 import type { FlexBoxProps } from '@common/FlexBox/FlexBox';
 import { spacing } from '@common/styles/spacing';
+import { addUnit } from '@common/utils/addUnit';
 
 import { borderRadius } from '@style';
 
@@ -29,13 +30,13 @@ export type StyledFlexBoxType = Omit<
 
 const getGap = ({ gap, rowGap, columnGap }: Pick<FlexBoxProps, 'gap' | 'rowGap' | 'columnGap'>) => {
   if (gap !== undefined) {
-    return `${(gap * 4) / 10}rem`;
+    return addUnit(gap, 4);
   }
 
-  const row = rowGap !== undefined ? (rowGap * 4) / 10 : 0.4;
-  const column = columnGap !== undefined ? (columnGap * 4) / 10 : 0.4;
+  const row = rowGap !== undefined ? addUnit(rowGap, 4) : '0.4rem';
+  const column = columnGap !== undefined ? addUnit(columnGap, 4) : '0.4rem';
 
-  return `${row}rem ${column}rem`;
+  return `${row} ${column}`;
 };
 
 export const LAYOUT = {

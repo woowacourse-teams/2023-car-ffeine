@@ -4,11 +4,16 @@ import type { SpacingProps } from '@common/styles/spacing';
 import type { BaseProps } from '@common/types/base';
 
 import type { CommonStyleProps } from '../styles/common';
+import type { Alignment } from './Box.style';
 import { StyledBox } from './Box.style';
 
 type Sides = 'left' | 'right' | 'top' | 'bottom' | 'x' | 'y';
 
 export interface BoxProps extends CommonStyleProps, SpacingProps, BaseProps {
+  /** Box 자체의 가로 위치 변경 가능
+   * @default 'center'
+   */
+  alignment?: Alignment;
   /** 테두리에 둥글고(border-radius: 4px) 얇은 선(0.1px, #66666666)이 생김
    * - 특정 방향(ex. 'left')을 넣으면 해당 부분만 얇은 선이 생김
    * @default false
