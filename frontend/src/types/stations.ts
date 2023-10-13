@@ -130,3 +130,10 @@ export interface StationFilters {
   connectorTypes: ConnectorTypeKey[];
   capacities: CapaCityBigDecimal[];
 }
+
+export interface ClusterMarker {
+  id: string;
+  latitude: number;
+  longitude: number;
+  count: number;
+}

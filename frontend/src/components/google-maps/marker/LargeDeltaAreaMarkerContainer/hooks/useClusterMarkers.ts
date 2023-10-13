@@ -12,7 +12,7 @@ import { DELTA_MULTIPLE } from '@constants/googleMaps';
 import { QUERY_KEY_CLUSTER_MARKERS } from '@constants/queryKeys';
 import { SERVER_URL } from '@constants/server';
 
-import type { DisplayPosition } from '@type';
+import type { ClusterMarker, DisplayPosition } from '@type';
 
 const isMapLoaded = (displayPosition: DisplayPosition) => {
   const { latitudeDelta, longitudeDelta } = displayPosition;
@@ -51,7 +51,7 @@ export const fetchClusterMarkers = async () => {
 
   const clusterMarkers = await fetch(`${SERVER_URL}/stations/clusters?${requestQueryParams}`, {
     method: 'GET',
-  }).then<any[]>(async (response) => {
+  }).then<ClusterMarker[]>(async (response) => {
     const data = await response.json();
 
     return data;
