@@ -53,45 +53,51 @@ const generateRandomStationId = () => {
   return `${randomLetter1}${randomLetter2}${randomNumber}`;
 };
 
-export const stations: Station[] = Array.from({ length: 60000 }, () => {
-  const randomStationId = generateRandomStationId();
-  const chargers = generateRandomChargers();
-  const totalCount = chargers.length;
-  const availableCount = chargers.filter(({ state }) => state === 'STANDBY').length;
-  const quickChargerCount = chargers.filter(
-    ({ capacity }) => capacity >= QUICK_CHARGER_CAPACITY_THRESHOLD
-  ).length;
+const generateStations = () => {
+  return Array.from({ length: 60000 }, () => {
+    const randomStationId = generateRandomStationId();
+    const chargers = generateRandomChargers();
+    const totalCount = chargers.length;
+    const availableCount = chargers.filter(({ state }) => state === 'STANDBY').length;
+    const quickChargerCount = chargers.filter(
+      ({ capacity }) => capacity >= QUICK_CHARGER_CAPACITY_THRESHOLD
+    ).length;
 
-  return {
-    stationId: randomStationId,
-    stationName: `충전소 ${randomStationId}`,
-    companyName: generateRandomData<CompanyName>(Object.values(COMPANIES)),
-    contact: generateRandomData(['', '010-1234-5678', '02-000-0000']),
-    chargers: chargers,
-    isParkingFree: generateRandomData<boolean>([true, false]),
-    operatingTime: generateRandomData<string>([
-      '24시간',
-      '09:00 ~ 19:00',
-      '평일 09:00~19:00 / 주말 미운영',
-    ]),
-    address: generateRandomData([
-      '서울시 송파구 신천동 7-22',
-      '서울시 강남구 테헤란로 411',
-      '서울시 종로구 관철동 13-22',
-      'null',
-    ]),
-    detailLocation: generateRandomData<string>(['지상 1층', '지하 1층', '지하 2층', '']),
-    latitude: 37 + 0.25 + 9999 * Math.random() * 0.00005,
-    longitude: 127 - 0.25 + 9999 * Math.random() * 0.00005,
-    isPrivate: generateRandomData<boolean>([true, false]),
-    totalCount,
-    availableCount,
-    quickChargerCount,
-    stationState: generateRandomData(['yyyy-mm-dd일부터 충전소 공사합니다.', 'null', null]),
-    privateReason: generateRandomData(['아파트', 'null', null]),
-    reportCount: generateRandomData([0, 0, Math.floor(Math.random() * 99)]),
-  };
-});
+    const newStation: Station = {
+      stationId: randomStationId,
+      stationName: `충전소 ${randomStationId}`,
+      companyName: generateRandomData<CompanyName>(Object.values(COMPANIES)),
+      contact: generateRandomData(['', '010-1234-5678', '02-000-0000']),
+      chargers: chargers,
+      isParkingFree: generateRandomData<boolean>([true, false]),
+      operatingTime: generateRandomData<string>([
+        '24시간',
+        '09:00 ~ 19:00',
+        '평일 09:00~19:00 / 주말 미운영',
+      ]),
+      address: generateRandomData([
+        '서울시 송파구 신천동 7-22',
+        '서울시 강남구 테헤란로 411',
+        '서울시 종로구 관철동 13-22',
+        'null',
+      ]),
+      detailLocation: generateRandomData<string>(['지상 1층', '지하 1층', '지하 2층', '']),
+      latitude: 37 + 0.25 + 9999 * Math.random() * 0.00005,
+      longitude: 127 - 0.25 + 9999 * Math.random() * 0.00005,
+      isPrivate: generateRandomData<boolean>([true, false]),
+      totalCount,
+      availableCount,
+      quickChargerCount,
+      stationState: generateRandomData(['yyyy-mm-dd일부터 충전소 공사합니다.', 'null', null]),
+      privateReason: generateRandomData(['아파트', 'null', null]),
+      reportCount: generateRandomData([0, 0, Math.floor(Math.random() * 99)]),
+    };
+
+    return newStation;
+  });
+};
+
+export const stations: Station[] = generateStations();
 
 export const getSearchedStations = (searchWord: string) => {
   const searchApiStations = stations.map((station) => {
