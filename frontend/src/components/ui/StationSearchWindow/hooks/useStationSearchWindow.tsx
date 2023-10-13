@@ -77,7 +77,7 @@ export const useStationSearchWindow = () => {
     if (
       markerInstanceStore
         .getState()
-        .some(({ stationId: cachedStationId }) => cachedStationId === stationId)
+        .some(({ id: cachedStationId }) => cachedStationId === stationId)
     ) {
       openStationInfoWindow(stationId);
     } else {
@@ -87,10 +87,10 @@ export const useStationSearchWindow = () => {
 
       const markerInstance = createNewMarkerInstance(stationDetails);
 
-      setMarkerInstances((prev) => [...prev, { stationId, instance: markerInstance }]);
+      setMarkerInstances((prev) => [...prev, { id: stationId, instance: markerInstance }]);
 
       renderDefaultMarkers(
-        [{ stationId, instance: markerInstance }],
+        [{ id: stationId, instance: markerInstance }],
         [convertStationDetailsToSummary(stationDetails)]
       );
 

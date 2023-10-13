@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { getStoreSnapshot } from '@utils/external-state/tools';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
-import type { StationMarkerInstance } from '@stores/google-maps/markerInstanceStore';
+import type { MarkerInstance } from '@stores/google-maps/markerInstanceStore';
 
 import { useStationInfoWindow } from '@hooks/google-maps/useStationInfoWindow';
 import useMediaQueries from '@hooks/useMediaQueries';
@@ -32,21 +32,21 @@ export const useRenderStationMarker = () => {
       title: stationName,
     });
 
-    bindMarkerClickHandler([{ stationId, instance: markerInstance }]);
+    bindMarkerClickHandler([{ id: stationId, instance: markerInstance }]);
 
     return markerInstance;
   };
 
   const createNewMarkerInstances = (
-    prevMarkerInstances: StationMarkerInstance[],
+    prevMarkerInstances: MarkerInstance[],
     markers: StationMarker[]
   ) => {
     const newMarkers = markers.filter((marker) =>
-      prevMarkerInstances.every((prevMarker) => prevMarker.stationId !== marker.stationId)
+      prevMarkerInstances.every((prevMarker) => prevMarker.id !== marker.stationId)
     );
 
     const newMarkerInstances = newMarkers.map((marker) => {
-      const { latitude: lat, longitude: lng, stationName, stationId } = marker;
+      const { latitude: lat, longitude: lng, stationName, stationId: id } = marker;
 
       const markerInstance = new google.maps.marker.AdvancedMarkerElement({
         position: { lat, lng },
@@ -54,7 +54,7 @@ export const useRenderStationMarker = () => {
       });
 
       return {
-        stationId,
+        id,
         instance: markerInstance,
       };
     });
@@ -65,11 +65,11 @@ export const useRenderStationMarker = () => {
   };
 
   const removeMarkersOutsideBounds = (
-    prevMarkerInstances: StationMarkerInstance[],
+    prevMarkerInstances: MarkerInstance[],
     currentMarkers: StationMarker[]
   ) => {
     const markersOutOfBounds = prevMarkerInstances.filter((prevMarker) =>
-      currentMarkers.every((currentMarker) => currentMarker.stationId !== prevMarker.stationId)
+      currentMarkers.every((currentMarker) => currentMarker.stationId !== prevMarker.id)
     );
 
     markersOutOfBounds.forEach((marker) => {
@@ -77,28 +77,28 @@ export const useRenderStationMarker = () => {
     });
   };
 
-  const removeAllMarkers = (prevMarkerInstances: StationMarkerInstance[]) => {
+  const removeAllMarkers = (prevMarkerInstances: MarkerInstance[]) => {
     prevMarkerInstances.forEach((marker) => {
       marker.instance.map = null;
     });
   };
 
   const getRemainedMarkerInstances = (
-    prevMarkerInstances: StationMarkerInstance[],
+    prevMarkerInstances: MarkerInstance[],
     currentMarkers: StationMarker[]
   ) => {
     return prevMarkerInstances.filter((markerInstance) =>
-      currentMarkers.some((marker) => marker.stationId === markerInstance.stationId)
+      currentMarkers.some((marker) => marker.stationId === markerInstance.id)
     );
   };
 
   const renderDefaultMarkers = (
-    markerInstances: StationMarkerInstance[],
+    markerInstances: MarkerInstance[],
     markers: StationMarker[] | StationSummary[]
   ) => {
     markers.forEach((marker) => {
       const markerInstance = markerInstances.find(
-        (markerInstance) => markerInstance.stationId === marker.stationId
+        (markerInstance) => markerInstance.id === marker.stationId
       )?.instance;
 
       const markerColor =
@@ -119,10 +119,10 @@ export const useRenderStationMarker = () => {
   };
 
   const renderCarffeineMarkers = (
-    markerInstances: StationMarkerInstance[],
+    markerInstances: MarkerInstance[],
     markers: StationMarker[] | StationSummary[]
   ) => {
-    markerInstances.forEach(({ instance: markerInstance, stationId }) => {
+    markerInstances.forEach(({ instance: markerInstance, id: stationId }) => {
       const container = document.createElement('div');
 
       markerInstance.content = container;
@@ -136,8 +136,8 @@ export const useRenderStationMarker = () => {
     });
   };
 
-  const bindMarkerClickHandler = (markerInstances: StationMarkerInstance[]) => {
-    markerInstances.forEach(({ instance: markerInstance, stationId }) => {
+  const bindMarkerClickHandler = (markerInstances: MarkerInstance[]) => {
+    markerInstances.forEach(({ instance: markerInstance, id: stationId }) => {
       markerInstance.addListener('click', () => {
         openStationInfoWindow(stationId, markerInstance);
 

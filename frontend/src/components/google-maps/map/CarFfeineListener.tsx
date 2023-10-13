@@ -11,17 +11,17 @@ import { deltaAreaActions, deltaAreaStore } from '@stores/google-maps/deltaAreaS
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { profileMenuOpenStore } from '@stores/profileMenuOpenStore';
 
-import { QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
+import { QUERY_KEY_CLUSTER_MARKERS, QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
 import { LOCAL_KEY_LAST_POSITION } from '@constants/storageKeys';
 
 const CarFfeineMapListener = () => {
   const googleMap = useExternalValue(getGoogleMapStore());
   const queryClient = useQueryClient();
   const setIsProfileMenuOpen = useSetExternalState(profileMenuOpenStore);
-  const deltaAreaState = useExternalValue(deltaAreaStore);
 
   const requestStationMarkers = () => {
     const displayPosition = getDisplayPosition(googleMap);
+
     if (!isCachedRegion(displayPosition)) {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_MARKERS] });
     }
@@ -34,10 +34,27 @@ const CarFfeineMapListener = () => {
     });
   };
 
+  const requestClusterMarkers = () => {
+    const displayPosition = getDisplayPosition(googleMap);
+
+    if (!isCachedRegion(displayPosition)) {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_CLUSTER_MARKERS] });
+    }
+
+    setLocalStorage<google.maps.LatLngLiteral>(LOCAL_KEY_LAST_POSITION, {
+      lat: googleMap.getCenter().lat(),
+      lng: googleMap.getCenter().lng(),
+    });
+  };
+
   useEffect(() => {
     googleMap.addListener('idle', () => {
-      if (deltaAreaState === 'medium' || deltaAreaState === 'small') {
+      if (deltaAreaStore.getState() === 'medium' || deltaAreaStore.getState() === 'small') {
         requestStationMarkers();
+      }
+
+      if (deltaAreaStore.getState() === 'large') {
+        requestClusterMarkers();
       }
 
       const { latitudeDelta, longitudeDelta } = getDisplayPosition(googleMap);

@@ -3,6 +3,7 @@ import { css } from 'styled-components';
 
 import { BiCurrentLocation } from 'react-icons/bi';
 
+import { useClusterMarkers } from '@marker/LargeDeltaAreaMarkerContainer/hooks/useClusterMarkers';
 import { useStationMarkers } from '@marker/SmallMediumDeltaAreaMarkerContainer/hooks/useStationMarkers';
 
 import { googleMapActions } from '@stores/google-maps/googleMapStore';
@@ -14,10 +15,13 @@ import Loader from '@common/Loader';
 import { MOBILE_BREAKPOINT } from '@constants';
 
 const MapController = () => {
-  const { isFetching } = useStationMarkers();
+  const { isFetching: isStationMarkerFetching } = useStationMarkers();
+  const { isFetching: isClusterMarkerFetching } = useClusterMarkers();
+
+  const isMarkerFetching = isStationMarkerFetching || isClusterMarkerFetching;
 
   const handleCurrentPositionButton = () => {
-    if (!isFetching) {
+    if (!isMarkerFetching) {
       googleMapActions.moveToCurrentPosition();
     }
   };
@@ -37,7 +41,7 @@ const MapController = () => {
         css={[buttonCss, currentPositionIconCss]}
         onClick={handleCurrentPositionButton}
       >
-        {isFetching ? (
+        {isMarkerFetching ? (
           <Loader css={{ borderBottomColor: 'blue' }} />
         ) : (
           <BiCurrentLocation size={24} color="#4D6CD0" stroke="#333" aria-label="내 위치로 이동" />
