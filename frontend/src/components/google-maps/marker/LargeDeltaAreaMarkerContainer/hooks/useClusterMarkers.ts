@@ -5,12 +5,14 @@ import { getTypedObjectFromEntries } from '@utils/getTypedObjectFromEntries';
 import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 import { getDisplayPosition } from '@utils/google-maps';
 import { getQueryFormattedUrl } from '@utils/request-query-params';
+import { setSessionStorage } from '@utils/storage';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 
 import { DELTA_MULTIPLE } from '@constants/googleMaps';
 import { QUERY_KEY_CLUSTER_MARKERS } from '@constants/queryKeys';
 import { SERVER_URL } from '@constants/server';
+import { SESSION_KEY_LAST_REQUEST_POSITION } from '@constants/storageKeys';
 
 import type { ClusterMarker, DisplayPosition } from '@type';
 
@@ -52,6 +54,8 @@ export const fetchClusterMarkers = async () => {
   const clusterMarkers = await fetch(`${SERVER_URL}/stations/clusters?${requestQueryParams}`, {
     method: 'GET',
   }).then<ClusterMarker[]>(async (response) => {
+    setSessionStorage<DisplayPosition>(SESSION_KEY_LAST_REQUEST_POSITION, requestPositionParams);
+
     const data = await response.json();
 
     return data;

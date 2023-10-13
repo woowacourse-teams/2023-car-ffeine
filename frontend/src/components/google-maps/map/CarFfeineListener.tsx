@@ -21,6 +21,7 @@ const CarFfeineMapListener = () => {
 
   const requestStationMarkers = () => {
     const displayPosition = getDisplayPosition(googleMap);
+
     if (!isCachedRegion(displayPosition)) {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_MARKERS] });
     }
