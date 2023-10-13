@@ -1,4 +1,5 @@
 import { carHandler } from './car/carHandler';
+import { clusteringHandler } from './clustering/clusteringHandler';
 import { loginHandlers } from './login/loginHandlers';
 import { memberHandlers } from './memberHandlers';
 import { stationReportHandlers } from './station-details/reports/stationReportHandlers';
@@ -16,6 +17,7 @@ export const handlers = [
   ...memberHandlers,
   ...stationSearchHandlers,
   ...stationHandlers,
+  ...clusteringHandler,
   ...stationDetailHandlers,
   ...statisticsHandlers,
   ...memberFilterHandlers,

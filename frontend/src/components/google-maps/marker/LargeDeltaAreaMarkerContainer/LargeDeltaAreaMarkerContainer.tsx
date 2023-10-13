@@ -1,17 +1,10 @@
-import { useEffect } from 'react';
-
-import { warningModalActions } from '@stores/layout/warningModalStore';
-
-import ZoomWarningModal from '@ui/WarningModal';
+import { useClusterMarkers } from './hooks/useClusterMarkers';
 
 const LargeDeltaAreaMarkerContainer = () => {
-  useEffect(() => {
-    warningModalActions.openModal(<ZoomWarningModal />);
+  const { data: clusterMarkers, isSuccess } = useClusterMarkers();
 
-    return () => {
-      warningModalActions.closeModal();
-    };
-  }, []);
+  if (isSuccess) console.log('cluster', clusterMarkers);
+
   return <></>;
 };
 
