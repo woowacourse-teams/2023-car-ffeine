@@ -4,4 +4,4 @@
 .husky
 yarn-error.log
 /storybook-static/
-/src/mocks/assets/
+#/src/mocks/assets/
