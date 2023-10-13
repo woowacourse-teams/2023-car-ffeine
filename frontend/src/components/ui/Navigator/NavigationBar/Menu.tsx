@@ -26,6 +26,8 @@ import Logo from '@assets/logo-sm.svg';
 
 import { useNavigationBar } from './hooks/useNavigationBar';
 
+// TODO: 모바일 오류 (미디어 쿼리) 개선
+
 const Menu = () => {
   const { openBasePanel } = useNavigationBar();
 
