@@ -1,4 +1,4 @@
-import { getCongestionStatistics } from '@mocks/data';
+import { getCongestionStatistics } from '@mocks/data/congestions';
 import { rest } from 'msw';
 
 import { ENGLISH_DAYS_OF_WEEK_FULL_TO_SHORT } from '@constants/congestion';

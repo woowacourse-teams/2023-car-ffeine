@@ -1,4 +1,4 @@
-import { stations } from '@mocks/data';
+import { stations } from '@mocks/data/stations';
 import { rest } from 'msw';
 
 import { DELIMITER } from '@constants';

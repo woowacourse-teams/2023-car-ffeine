@@ -1,4 +1,5 @@
-import { getCities, getSearchedStations, stations } from '@mocks/data';
+import { getCities, getSearchedStations } from '@mocks/data/search';
+import { stations } from '@mocks/data/stations';
 import { rest } from 'msw';
 
 import { ERROR_MESSAGES } from '@constants/errorMessages';

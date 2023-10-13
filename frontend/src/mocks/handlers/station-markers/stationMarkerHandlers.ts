@@ -1,4 +1,5 @@
-import { getRegionName, regions, stations } from '@mocks/data';
+import { getRegionName, regions } from '@mocks/data/regions';
+import { stations } from '@mocks/data/stations';
 import { rest } from 'msw';
 
 import { DELIMITER } from '@constants';

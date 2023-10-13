@@ -1,4 +1,4 @@
-import { stations } from '@mocks/data';
+import { stations } from '@mocks/data/stations';
 import { rest } from 'msw';
 
 import { ERROR_MESSAGES } from '@constants/errorMessages';

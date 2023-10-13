@@ -1,4 +1,4 @@
-import { generateReplies, generateReviews } from '@mocks/data';
+import { generateReplies, generateReviews } from '@mocks/data/reviews';
 import { rest } from 'msw';
 
 import { DEVELOP_SERVER_URL } from '@constants/server';
