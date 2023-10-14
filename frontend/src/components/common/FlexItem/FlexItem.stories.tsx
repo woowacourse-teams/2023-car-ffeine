@@ -1,5 +1,5 @@
-import styled from '@emotion/styled';
 import type { Meta } from '@storybook/react';
+import styled from 'styled-components';
 
 import FlexBox from '@common/FlexBox';
 import { sizeArgTypes } from '@common/styles/common';
