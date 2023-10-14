@@ -9,7 +9,7 @@ import type { BorderRadiusDirectionType } from '@type/style';
 import type { BUTTON_PADDING_SIZE } from './Button.style';
 import { StyledButton } from './Button.style';
 
-export type VariantType = 'pill' | 'label';
+export type VariantType = 'pill' | 'label' | 'contained' | 'outlined';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, SpacingProps {
   variant?: VariantType;

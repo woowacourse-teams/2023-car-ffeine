@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+import { StyledBox } from '@common/Box/Box.style';
 import type { FlexBasicLayout } from '@common/FlexBox/FlexBox';
 import type { CommonStyleProps } from '@common/styles/common';
 import type { SpacingProps } from '@common/styles/spacing';
@@ -32,7 +33,7 @@ const FlexItem = ({ tag = 'div', children, ...attributes }: FlexItemProps) => {
   );
 };
 
-const Item = styled.div<FlexItemProps>`
+const Item = styled(StyledBox)<FlexItemProps>`
   ${({ order, shrink, grow, flex, alignSelf }) =>
     flexItemStyle({ order, shrink, grow, flex, alignSelf })}
 `;

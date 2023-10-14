@@ -14,7 +14,7 @@ const Title = () => {
   };
 
   return (
-    <FlexBox justifyContent="between" alignItems="center" mb={3}>
+    <FlexBox justifyContent="between" alignItems="center" mb={2}>
       <Text fontSize={1.8} weight="bold">
         충전소 시간별 사용량
       </Text>

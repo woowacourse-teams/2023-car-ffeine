@@ -36,7 +36,7 @@ const UserRatings = ({ stationId }: UserRatingsProps) => {
   }
 
   return (
-    <Box mt={12} mb={5}>
+    <Box mt={13} mb={5}>
       <FlexBox justifyContent="between" alignItems="center">
         <Text fontSize={1.8} weight="bold">
           충전소 후기

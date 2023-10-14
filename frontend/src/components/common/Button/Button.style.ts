@@ -51,6 +51,10 @@ export const StyledButton = styled.button<StyledButtonType>`
         return pillStyle;
       case 'label':
         return labelButtonStyle;
+      case 'contained':
+        return containedButtonStyle;
+      case 'outlined':
+        return outlinedButtonStyle;
       default:
         return;
     }
@@ -74,4 +78,22 @@ const labelButtonStyle = css`
   border-left: 0.2px solid #e1e4eb;
 
   ${borderRadius('left')}
+`;
+
+const containedButtonStyle = css`
+  width: 100%;
+  padding: 0.4rem 0;
+  text-align: center;
+  color: #fff;
+  background: #3e5ab6;
+  font-size: 1.4rem;
+  border: 1.4px solid #3e5ab6;
+  border-radius: 4px;
+`;
+
+const outlinedButtonStyle = css`
+  ${containedButtonStyle}
+
+  background: #fff;
+  color: #3e5ab6;
 `;

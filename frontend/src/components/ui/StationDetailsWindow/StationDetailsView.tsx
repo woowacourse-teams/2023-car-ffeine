@@ -52,7 +52,10 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
       <StationReportButton station={station} />
 
       <ChargerList chargers={chargers} stationId={stationId} reportCount={reportCount} />
+
+      {/* TODO: 충전소 사용량 */}
       <CongestionStatistics stationId={stationId} />
+
       <ReviewPreview stationId={stationId} />
     </Box>
   );

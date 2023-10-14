@@ -20,13 +20,16 @@ export interface MenuProps extends ComponentPropsWithoutRef<'button'>, BaseProps
   iconPosition?: IconPosition;
   /** 탭 메뉴의 항목, 원하는 내용의 항목과 일치시켜야 함 */
   index: number;
+  /** 탭 메뉴를 눌렀을 때 발생시킬 이벤트 */
+  onClick?: () => void;
 }
 
-const Menu = ({ label, icon, index, iconPosition = 'left', ...attributes }: MenuProps) => {
+const Menu = ({ label, icon, index, iconPosition = 'left', onClick, ...attributes }: MenuProps) => {
   const { id, activeTab, setActiveTab } = useContext(TabContext);
 
   const handleSelectMenu = () => {
     setActiveTab(`menu-${index}`);
+    onClick();
   };
 
   return (

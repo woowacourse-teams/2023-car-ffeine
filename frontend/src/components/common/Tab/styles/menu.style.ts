@@ -9,6 +9,7 @@ export const tabMenuStyle = css`
 
   color: #555;
   text-align: center;
+  font-size: inherit;
 
   background: transparent;
   border: none;
