@@ -4,7 +4,7 @@ import type { AlertProps } from './Alert';
 import Alert from './Alert';
 
 const meta = {
-  title: 'Components/Alert',
+  title: 'Notice/Alert',
   component: Alert,
   tags: ['autodocs'],
   args: {

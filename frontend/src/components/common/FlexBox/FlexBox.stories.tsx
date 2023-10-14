@@ -27,7 +27,7 @@ const Boxes = (tag?: 'li') => {
 };
 
 const meta = {
-  title: 'Components/FlexBox',
+  title: 'Layout/Flex/FlexBox',
   component: FlexBox,
   tags: ['autodocs'],
   args: {
