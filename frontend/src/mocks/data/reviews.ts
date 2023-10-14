@@ -17,7 +17,7 @@ export const generateReviews = (): Review[] => {
         '손잡이가 드러워요',
         '비매너 사용자들이 많아요',
         '자리가 넉넉해요',
-        '비매너 사용자들이 많아요비매너 사용자들이 많아요비매너 사용자들이 많아요비매너 사용자들이 많아요비매너 사용자들이 많아요비매너 사용자들이 많아요',
+        '비매너 사용자들이 많아요 비매너 사용자들이 많아요 비매너 사용자들이 많아요 비매너 사용자들이 많아요 비매너 사용자들이 많아요 비매너 사용자들이 많아요',
       ]),
       isUpdated: generateRandomData([true, false]),
       isDeleted: generateRandomData([true, false]),

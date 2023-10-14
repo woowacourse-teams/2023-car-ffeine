@@ -28,8 +28,6 @@
       "@assets/*": ["assets/*"],
       "@type": ["types/index"],
       "@type/*": ["types/*"]
-    },
-    "esModuleInterop": true,
-    "resolveJsonModule": true
+    }
   }
 }

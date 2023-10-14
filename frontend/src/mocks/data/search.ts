@@ -7,9 +7,8 @@ export const getSearchedStations = (searchWord: string) => {
   const searchApiStations = stations.map((station) => {
     const { stationId, stationName, chargers, address, latitude, longitude } = station;
 
-    const onlyCapacity = chargers.map(({ capacity }) => capacity);
-    const speed = onlyCapacity.map((num) =>
-      num >= QUICK_CHARGER_CAPACITY_THRESHOLD ? 'QUICK' : 'STANDARD'
+    const speed = chargers.map(({ capacity }) =>
+      capacity >= QUICK_CHARGER_CAPACITY_THRESHOLD ? 'QUICK' : 'STANDARD'
     );
 
     return { stationId, stationName, speed, address, latitude, longitude };
