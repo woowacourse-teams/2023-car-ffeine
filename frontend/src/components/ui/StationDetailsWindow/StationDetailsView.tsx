@@ -43,7 +43,7 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
       borderColor="#e1e4eb"
       css={stationDetailsViewContainerCss}
     >
-      <Button noRadius="all" css={xIconCss} onClick={handleCloseDetail}>
+      <Button aria-label="닫기" noRadius="all" css={xIconCss} onClick={handleCloseDetail}>
         <XMarkIcon width={32} />
       </Button>
 
@@ -53,7 +53,6 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
 
       <ChargerList chargers={chargers} stationId={stationId} reportCount={reportCount} />
 
-      {/* TODO: 충전소 사용량 */}
       <CongestionStatistics stationId={stationId} />
 
       <ReviewPreview stationId={stationId} />

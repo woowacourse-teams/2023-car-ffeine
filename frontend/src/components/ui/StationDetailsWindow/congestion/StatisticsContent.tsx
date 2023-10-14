@@ -6,7 +6,6 @@ import { NO_RATIO } from '@constants/congestion';
 import type { CongestionStatistics } from '@type';
 
 import ChargingSpeedButtons from './ChargingSpeedButtons';
-import ChargingSpeedButtonsSkeleton from './ChargingSpeedButtonsSkeleton';
 import Bar from './bars/Bar';
 import BarContainer from './bars/BarContainer';
 
@@ -36,12 +35,8 @@ const StatisticsContent = ({ congestionStatistics, isLoading }: StatisticsConten
         isLoading={isLoading}
       />
 
-      {isLoading ? (
-        <ChargingSpeedButtonsSkeleton />
-      ) : (
-        !hasOnlyOneChargerType && (
-          <ChargingSpeedButtons chargingSpeed={chargingSpeed} setChargingSpeed={setChargingSpeed} />
-        )
+      {!isLoading && !hasOnlyOneChargerType && (
+        <ChargingSpeedButtons chargingSpeed={chargingSpeed} setChargingSpeed={setChargingSpeed} />
       )}
     </>
   );

@@ -14,12 +14,14 @@ const ChargingSpeedButtons = ({ chargingSpeed, setChargingSpeed }: ChargingSpeed
   return (
     <FlexBox nowrap mt={4} columnGap={2}>
       <Button
+        aria-label="완속 충전기 기준 시간별 사용량 보기"
         variant={chargingSpeed === 'standard' ? 'contained' : 'outlined'}
         onClick={() => setChargingSpeed('standard')}
       >
         완속 충전기
       </Button>
       <Button
+        aria-label="급속 충전기 기준 시간별 사용량 보기"
         variant={chargingSpeed === 'quick' ? 'contained' : 'outlined'}
         onClick={() => setChargingSpeed('quick')}
       >

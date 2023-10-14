@@ -61,7 +61,7 @@ const ReviewPreview = ({ stationId }: ReviewPreviewProps) => {
       <Box mt={5} mb={8}>
         <UserRatings stationId={stationId} />
         {aliveReviews.length === 0 ? (
-          <Box p={5}>등록된 리뷰가 없습니다.</Box>
+          <Text p={5}>등록된 리뷰가 없습니다.</Text>
         ) : (
           <>
             {aliveReviews.slice(0, 3).map((review, i) => {
