@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import type { CHARGING_SPEED } from '@constants/chargers';
 import { NO_RATIO } from '@constants/congestion';
@@ -23,9 +23,13 @@ const StatisticsContent = ({ congestionStatistics, isLoading }: StatisticsConten
   );
   const hasOnlyOneChargerType = hasOnlyStandardCharger || hasOnlyQuickCharger;
 
-  const [chargingSpeed, setChargingSpeed] = useState<keyof typeof CHARGING_SPEED>(
-    hasOnlyQuickCharger ? 'quick' : 'standard'
-  );
+  const [chargingSpeed, setChargingSpeed] = useState<keyof typeof CHARGING_SPEED>('standard');
+
+  useEffect(() => {
+    if (hasOnlyQuickCharger) {
+      setChargingSpeed('quick');
+    }
+  }, [hasOnlyQuickCharger]);
 
   return (
     <>
