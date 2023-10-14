@@ -1,6 +1,5 @@
-import { getTypedObjectFromEntries } from '@utils/getTypedObjectFromEntries';
-
 export const SHORT_KOREAN_DAYS_OF_WEEK = ['월', '화', '수', '목', '금', '토', '일'] as const;
+
 export const SHORT_ENGLISH_DAYS_OF_WEEK = [
   'MON',
   'TUE',
@@ -10,6 +9,7 @@ export const SHORT_ENGLISH_DAYS_OF_WEEK = [
   'SAT',
   'SUN',
 ] as const;
+
 export const ENGLISH_DAYS_OF_WEEK = [
   'monday',
   'tuesday',
@@ -19,14 +19,7 @@ export const ENGLISH_DAYS_OF_WEEK = [
   'saturday',
   'sunday',
 ] as const;
-export const ENGLISH_DAYS_TO_KOREAN_DAYS = getTypedObjectFromEntries(
-  SHORT_ENGLISH_DAYS_OF_WEEK,
-  SHORT_KOREAN_DAYS_OF_WEEK
-);
-export const ENGLISH_DAYS_OF_WEEK_SHORT_TO_FULL = getTypedObjectFromEntries(
-  SHORT_ENGLISH_DAYS_OF_WEEK,
-  ENGLISH_DAYS_OF_WEEK
-);
+
 export const ENGLISH_DAYS_OF_WEEK_FULL_TO_SHORT = Object.fromEntries(
   ENGLISH_DAYS_OF_WEEK.map((day, index) => [day, SHORT_ENGLISH_DAYS_OF_WEEK[index]])
 );
