@@ -74,14 +74,13 @@ const MapController = () => {
 const containerCss = css`
   position: fixed;
   bottom: 3.2rem;
-  right: 0.8rem;
+  right: 1.6rem;
   z-index: 99;
 
   width: 4.2rem;
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     bottom: 9.6rem;
-    right: 0.8rem;
   }
 `;
 
