@@ -1,3 +1,5 @@
+import type { IndexedDBDataType } from '@utils/IndexedDBUtil';
+import IndexedDBUtil from '@utils/IndexedDBUtil';
 import { getTypedObjectKeys } from '@utils/getTypedObjectKeys';
 import { generateRandomData, getRandomTime } from '@utils/randomDataGenerator';
 
@@ -84,4 +86,25 @@ const generateStations = () => {
   });
 };
 
-export const stations: Station[] = generateStations();
+export const stations: Station[] = [];
+
+export const getStations = (() => {
+  let stationsData: Station[] | IndexedDBDataType<string, Station[]>[] = null;
+
+  return async () => {
+    if (stationsData === null) {
+      const dbUtil = new IndexedDBUtil<string, Station[]>('carffeineDB', 1);
+      try {
+        stationsData = await dbUtil.open().then(() => {
+          return dbUtil.getAllData('stations');
+        });
+        if (stationsData.length === 0) {
+          stationsData = generateStations();
+        }
+      } finally {
+        dbUtil.close();
+      }
+    }
+    return stationsData as Station[];
+  };
+})();

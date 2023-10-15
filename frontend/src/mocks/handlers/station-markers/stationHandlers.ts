@@ -1,4 +1,4 @@
-import { stations } from '@mocks/data/stations';
+import { getStations } from '@mocks/data/stations';
 import { rest } from 'msw';
 
 import { DELIMITER } from '@constants';
@@ -8,6 +8,7 @@ import type { StationSummary } from '@type';
 
 export const stationHandlers = [
   rest.get(`${DEVELOP_SERVER_URL}/stations/summary`, async (req, res, ctx) => {
+    const stations = await getStations();
     const { searchParams } = req.url;
     // ?stationIds=PE123456,PE123457,PE123465 ==> 대략 10개, 검사는 안함
     const stationIdsParam = searchParams.get('stationIds');

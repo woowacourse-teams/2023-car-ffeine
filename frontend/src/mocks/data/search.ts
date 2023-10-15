@@ -1,10 +1,13 @@
-import { stations } from '@mocks/data/stations';
-
 import { QUICK_CHARGER_CAPACITY_THRESHOLD } from '@constants/chargers';
 import { MAX_SEARCH_RESULTS } from '@constants/stationSearch';
 
-export const getSearchedStations = (searchWord: string) => {
-  const searchApiStations = stations.map((station) => {
+import type { Station } from '@type';
+
+export const getSearchedStations = async (stations: Station[], searchWord: string) => {
+  const filteredStation = stations.filter(
+    (station) => station.stationName.includes(searchWord) || station.address.includes(searchWord)
+  );
+  const searchApiStations = filteredStation.map((station) => {
     const { stationId, stationName, chargers, address, latitude, longitude } = station;
 
     const speed = chargers.map(({ capacity }) =>
@@ -14,11 +17,7 @@ export const getSearchedStations = (searchWord: string) => {
     return { stationId, stationName, speed, address, latitude, longitude };
   });
 
-  return searchApiStations
-    .filter(
-      (station) => station.stationName.includes(searchWord) || station.address.includes(searchWord)
-    )
-    .slice(0, MAX_SEARCH_RESULTS);
+  return searchApiStations.slice(0, MAX_SEARCH_RESULTS);
 };
 
 export const getCities = () => {

@@ -1,11 +1,9 @@
-import { stations } from '@mocks/data/stations';
-
 import { getTypedObjectFromEntries } from '@utils/getTypedObjectFromEntries';
 
 import { QUICK_CHARGER_CAPACITY_THRESHOLD } from '@constants/chargers';
 import { NO_RATIO, SHORT_ENGLISH_DAYS_OF_WEEK } from '@constants/congestion';
 
-import type { Congestion, ShortEnglishDaysOfWeek } from '@type';
+import type { Congestion, ShortEnglishDaysOfWeek, Station } from '@type';
 
 export interface CongestionStatisticsMockData {
   stationId: string;
@@ -15,7 +13,10 @@ export interface CongestionStatisticsMockData {
   };
 }
 
-export const getCongestionStatistics = (stationId: string): CongestionStatisticsMockData => {
+export const getCongestionStatistics = (
+  stations: Station[],
+  stationId: string
+): CongestionStatisticsMockData => {
   const foundStation = stations.find((station) => station.stationId === stationId);
   const hasOnlyStandardChargers = foundStation.quickChargerCount === 0;
   const hasOnlyQuickChargers = foundStation.chargers.every(
