@@ -1,4 +1,4 @@
-import { css, styled } from 'styled-components';
+import { styled } from 'styled-components';
 
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
@@ -8,22 +8,18 @@ import { getHoverColor } from '@style';
 import { NO_RATIO } from '@constants/congestion';
 
 interface BarProps {
+  /** 0 ~ 1 사이의 숫자를 입력해 바 색상 채우기 가능
+   * @example 0.2 = 20%
+   */
   ratio: number;
+  /** 그래프 옆에 표시될 시간 */
   hour: string;
-  align: 'row' | 'column';
 }
 
-const Bar = ({ ratio, hour, align }: BarProps) => {
+const Bar = ({ ratio, hour }: BarProps) => {
   return (
-    <FlexBox
-      tag="li"
-      nowrap
-      width="100%"
-      direction={align === 'column' ? 'row' : 'column'}
-      css={align === 'row' && rowAlignCss}
-      alignItems="center"
-    >
-      <Text variant="caption" css={align === 'column' && textCss}>
+    <FlexBox tag="li" nowrap width="100%" alignItems="center">
+      <Text variant="caption" fontSize={1.3} width={2}>
         {hour}
       </Text>
       <ProgressBar
@@ -40,18 +36,18 @@ const getColorByRatio = (ratio: number) => {
     return getHoverColor('disable');
   }
 
-  return '#2a6cd8';
+  return '#4D6CD0';
 };
 
 const ProgressBar = styled.progress<{ color: string }>`
   width: 100%;
-  height: 1.2rem;
+  height: 1rem;
 
   -webkit-appearance: none;
   appearance: none;
 
   &::-webkit-progress-bar {
-    background-color: #eee;
+    background-color: #eff1f9;
 
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
@@ -67,14 +63,6 @@ const ProgressBar = styled.progress<{ color: string }>`
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
   }
-`;
-
-const rowAlignCss = css`
-  flex-direction: column-reverse;
-`;
-
-const textCss = css`
-  width: 2rem;
 `;
 
 export default Bar;

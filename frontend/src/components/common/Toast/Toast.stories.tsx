@@ -12,7 +12,7 @@ import type { ToastProps } from './Toast';
 import Toast from './Toast';
 
 const meta = {
-  title: 'Components/Toast',
+  title: 'Notice/Toast',
   component: Toast,
   tags: ['autodocs'],
   args: {

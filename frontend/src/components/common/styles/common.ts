@@ -36,3 +36,36 @@ export const commonStyle = ({
   ${bgColor && `background: ${bgColor}`};
   ${color && `color: ${color}`};
 `;
+
+// for Storybook
+export const sizeArgTypes = {
+  width: {
+    control: {
+      type: 'text',
+    },
+    description: `너비 변경 가능
+    <br />아래의 설명은 모든 size props에 해당
+    <br />- [string] 단위까지 적어줘야 함 (ex. 8px, 10px 20px)
+    <br />  🔷 스토리북에서는 string 🔷
+    <br />- [number] 숫자만 적을 경우 px로 자동 변환
+    `,
+  },
+  height: {
+    control: {
+      type: 'text',
+    },
+    description: '높이 변경 가능',
+  },
+  maxWidth: {
+    control: {
+      type: 'text',
+    },
+    description: '최대 너비 변경 가능',
+  },
+  minWidth: {
+    control: {
+      type: 'text',
+    },
+    description: '최소 너비 변경 가능',
+  },
+} as const;

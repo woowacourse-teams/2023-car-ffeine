@@ -10,10 +10,10 @@ import List from '@common/List';
 import ListItem from '@common/ListItem';
 import Text from '@common/Text';
 
-import Bar from '@ui/StatisticsGraph/Graph/Bar';
-
 import { MOBILE_BREAKPOINT } from '@constants';
 import { NO_RATIO } from '@constants/congestion';
+
+import Bar from './bar/Bar';
 
 const Help = () => {
   return (
@@ -28,14 +28,11 @@ const Help = () => {
         </Text>
         , 막대 그래프는&nbsp;
         <Text tag="span" weight="bold">
-          혼잡도
+          사용량
         </Text>
-        (%)를 나타냅니다.
+        (%)을 나타냅니다.
       </Text>
-      <Text mb={2}>
-        해당 시간대에 사용중인 충전기가
-        <br /> 몇 퍼센트인지 예측하여 혼잡도를 표시합니다.
-      </Text>
+      <Text mb={2}>해당 시간대에 몇 퍼센트의 충전기가 사용중일지를 예측하여 표시합니다.</Text>
       <Text variant="caption" fontSize={1.3} mb={5}>
         예시) 2시에 보유 충전기의 20%(총 10대 중 2대)가 사용중일 확률이 높습니다.
       </Text>
@@ -43,43 +40,43 @@ const Help = () => {
         <table>
           <TableRow>
             <td>
-              <Bar ratio={0} hour="01" align="column" />
+              <Bar ratio={0} hour="01" />
             </td>
             <TableData>0%</TableData>
           </TableRow>
           <TableRow>
             <td>
-              <Bar ratio={0.2} hour="02" align="column" />
+              <Bar ratio={0.2} hour="02" />
             </td>
             <TableData>20%</TableData>
           </TableRow>
           <TableRow>
             <td>
-              <Bar ratio={0.4} hour="03" align="column" />
+              <Bar ratio={0.4} hour="03" />
             </td>
             <TableData>40%</TableData>
           </TableRow>
           <TableRow>
             <td>
-              <Bar ratio={0.6} hour="04" align="column" />
+              <Bar ratio={0.6} hour="04" />
             </td>
             <TableData>60%</TableData>
           </TableRow>
           <TableRow>
             <td>
-              <Bar ratio={0.8} hour="05" align="column" />
+              <Bar ratio={0.8} hour="05" />
             </td>
             <TableData>80%</TableData>
           </TableRow>
           <TableRow>
             <td>
-              <Bar ratio={1} hour="06" align="column" />
+              <Bar ratio={1} hour="06" />
             </td>
             <TableData>100%</TableData>
           </TableRow>
           <TableRow>
             <td>
-              <Bar ratio={NO_RATIO} hour="07" align="column" />
+              <Bar ratio={NO_RATIO} hour="07" />
             </td>
             <TableData>정보 없음</TableData>
           </TableRow>
@@ -89,31 +86,31 @@ const Help = () => {
         <ListItem px={0} py={0} pb={2}>
           0~19%
           <Text tag="span" variant="label" weight="bold" ml={2}>
-            아주 여유
+            충전기 사용 가능할 확률이 매우 높음
           </Text>
         </ListItem>
         <ListItem px={0} py={0} pb={2}>
           20~39%
           <Text tag="span" variant="label" weight="bold" ml={2}>
-            여유
+            충전기 사용 가능할 확률이 높음
           </Text>
         </ListItem>
         <ListItem px={0} py={0} pb={2}>
           40~59%
           <Text tag="span" variant="label" weight="bold" ml={2}>
-            보통
+            충전기 사용 가능할 확률이 보통
           </Text>
         </ListItem>
         <ListItem px={0} py={0} pb={2}>
           60~79%
           <Text tag="span" variant="label" weight="bold" ml={2}>
-            혼잡
+            충전기 사용 가능할 확률이 낮음
           </Text>
         </ListItem>
         <ListItem px={0} py={0}>
           80~100%
           <Text tag="span" variant="label" weight="bold" ml={2}>
-            매우 혼잡
+            충전기 사용 가능할 확률이 매우 낮음
           </Text>
         </ListItem>
       </List>

@@ -48,7 +48,7 @@ const ClientStationFilters = () => {
   return (
     <Container left={navigationComponentWidth}>
       {screen.get('isMobile') ? <StationSearchBar /> : !basePanel && <StationSearchBar />}
-      <FlexBox css={filterContainerCss}>
+      <FlexBox gap={3} noRadius="all" css={filterContainerCss}>
         {getTypedObjectKeys(filterOptions).map((filterKey) => (
           <ClientFilterButton
             key={filterKey}
@@ -70,12 +70,13 @@ const Container = styled.div<{
   top: 14px;
   left: ${({ left }) => left}rem;
   z-index: 998;
-  padding: 10px;
+  padding: 1rem 0 0 1rem;
   display: flex;
   align-items: start;
   column-gap: 40px;
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+    padding: 1rem 1.6rem 0;
     left: 0;
     gap: 10px;
     flex-direction: column;
@@ -92,17 +93,16 @@ const ClientFilterButton = styled.button<{
     0 1px 2px rgba(60, 64, 67, 0.3),
     0 1px 3px 1px rgba(60, 64, 67, 0.15);
   border-radius: 16px;
+  font-size: 1.3rem;
 `;
 
 const filterContainerCss = css`
-  gap: 10px;
-  border-radius: 0;
-
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     flex-wrap: nowrap;
     width: 100%;
-    padding: 0 0.4rem 1rem;
+    padding: 0.2rem 0.1rem;
     overflow-x: auto;
+    column-gap: 0.8rem;
 
     & > button {
       flex: none;

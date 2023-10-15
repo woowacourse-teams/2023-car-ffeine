@@ -1,10 +1,8 @@
-import Box from '@common/Box';
-
 import type { SkeletonProps } from './Skeleton';
 import Skeleton from './Skeleton';
 
 const meta = {
-  title: 'Components/Skeleton',
+  title: 'Loader/Skeleton',
   component: Skeleton,
   tags: ['autodocs'],
   args: {

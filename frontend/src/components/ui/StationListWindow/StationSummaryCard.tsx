@@ -74,6 +74,7 @@ const StationSummaryCard = ({ station, tag, $noPadding }: Props) => {
               </Text>
             </FlexBox>
           </article>
+          {/* TODO: 디자인 변경 및 flex가 아닌 position으로 변경 */}
           {quickChargerCount !== 0 && <ChargingSpeedIcon />}
         </FlexBox>
       </Button>

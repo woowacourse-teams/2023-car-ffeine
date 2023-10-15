@@ -87,12 +87,16 @@ const StationList = () => {
 export const stationListCss = css`
   width: 34rem;
   height: calc(100vh - 14.133rem);
-  border-top: 1.2rem solid var(--lighter-color);
+  border-top: 2.2rem solid var(--lighter-color);
   border-bottom: 3.6rem solid var(--lighter-color);
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   background: var(--lighter-color);
   overflow: auto;
+
+  & > li:first-of-type {
+    padding-top: 0;
+  }
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
     width: 100%;

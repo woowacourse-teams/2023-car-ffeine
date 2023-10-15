@@ -10,9 +10,7 @@ interface Props {
   onClick: () => void;
 }
 /**
- *
  * @param name [기본값] 더보기
- * @param direction [기본값] DOWN
  * @returns 더보기 버튼 | 닫기 버튼
  */
 const ShowHideButton = ({ name = '더보기', onClick }: Props) => {

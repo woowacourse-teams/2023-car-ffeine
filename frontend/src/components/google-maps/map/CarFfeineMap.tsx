@@ -1,5 +1,7 @@
 import { lazy, Suspense } from 'react';
 
+import DataDownloader from '@ui/DataDownloader';
+
 import CarFfeineMapListener from './CarFfeineListener';
 
 const UserFilterListener = lazy(() => import('./UserFilterListener'));
@@ -27,6 +29,8 @@ const CarFfeineMap = () => {
         <MapController />
 
         <MarkersContainers />
+
+        <DataDownloader />
       </Suspense>
     </>
   );

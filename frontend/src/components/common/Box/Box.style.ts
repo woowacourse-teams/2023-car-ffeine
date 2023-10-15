@@ -44,3 +44,10 @@ export const StyledBox = styled.div<BoxProps>`
 
   ${({ css }) => css};
 `;
+
+export const ALIGNMENT = {
+  left: '0',
+  center: '0 auto',
+  right: '0 0 0 auto',
+};
+export type Alignment = keyof typeof ALIGNMENT;
