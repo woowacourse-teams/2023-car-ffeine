@@ -8,7 +8,11 @@ import { getHoverColor } from '@style';
 import { NO_RATIO } from '@constants/congestion';
 
 interface BarProps {
+  /** 0 ~ 1 사이의 숫자를 입력해 바 색상 채우기 가능
+   * @example 0.2 = 20%
+   */
   ratio: number;
+  /** 그래프 옆에 표시될 시간 */
   hour: string;
 }
 

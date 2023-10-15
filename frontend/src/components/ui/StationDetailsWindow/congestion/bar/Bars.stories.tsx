@@ -11,6 +11,10 @@ const meta = {
   title: 'UI/Bars',
   component: Bar,
   tags: ['autodocs'],
+  args: {
+    ratio: 0.2,
+    hour: '02',
+  },
   decorators: [
     (Story) => (
       <Box width={34} px={6}>
@@ -22,7 +26,11 @@ const meta = {
 
 export default meta;
 
-export const Default = () => {
+export const DefaultBar = ({ ...args }) => {
+  return <Bar ratio={args.ratio} hour={args.hour} />;
+};
+
+export const SeveralBars = () => {
   return Array.from({ length: 25 }, (_, index) => (
     <Box key={index} my={1}>
       <Bar ratio={index / 24} hour={`${index + 1}`.padStart(2, '0')} />
