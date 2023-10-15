@@ -86,8 +86,6 @@ const generateStations = () => {
   });
 };
 
-export const stations: Station[] = [];
-
 export const getStations = (() => {
   let stationsData: Station[] | IndexedDBDataType<string, Station[]>[] = null;
 
