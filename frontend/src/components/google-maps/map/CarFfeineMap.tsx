@@ -29,6 +29,7 @@ const CarFfeineMap = () => {
         <MapController />
 
         <MarkersContainers />
+
         <DataDownloader />
       </Suspense>
     </>
