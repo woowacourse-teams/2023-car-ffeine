@@ -6,7 +6,7 @@ import FlexBox from '../../common/FlexBox';
 import type { StationDetailsViewProps } from './StationDetailsView';
 import StationDetailsView from './StationDetailsView';
 import StationDetailsViewSkeleton from './StationDetailsViewSkeleton';
-import BarContainerSkeleton from './congestion/bars/BarContainerSkeleton';
+import BarsSkeleton from './congestion/bars/BarsSkeleton';
 
 const meta = {
   title: 'UI/StationDetailsView',
@@ -97,7 +97,7 @@ export const Skeleton = (args: StationDetailsViewProps) => {
 export const StatisticsSkeleton = () => {
   return (
     <Box css={containerCss}>
-      <BarContainerSkeleton />
+      <BarsSkeleton />
     </Box>
   );
 };

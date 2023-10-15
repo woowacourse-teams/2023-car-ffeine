@@ -15,21 +15,21 @@ interface StatisticsContentProps {
 }
 
 const StatisticsContent = ({ congestionStatistics }: StatisticsContentProps) => {
-  const hasOnlyStandardCharger = congestionStatistics?.congestion['quick'].every(
+  const hasOnlyStandardChargers = congestionStatistics?.congestion['quick'].every(
     (congestion) => congestion.ratio === NO_RATIO
   );
-  const hasOnlyQuickCharger = congestionStatistics?.congestion['standard'].every(
+  const hasOnlyQuickChargers = congestionStatistics?.congestion['standard'].every(
     (congestion) => congestion.ratio === NO_RATIO
   );
-  const hasOnlyOneChargerType = hasOnlyStandardCharger || hasOnlyQuickCharger;
+  const hasOnlyOneChargerType = hasOnlyStandardChargers || hasOnlyQuickChargers;
 
   const [chargingSpeed, setChargingSpeed] = useState<keyof typeof CHARGING_SPEED>('standard');
 
   useEffect(() => {
-    if (hasOnlyQuickCharger) {
+    if (hasOnlyQuickChargers) {
       setChargingSpeed('quick');
     }
-  }, [hasOnlyQuickCharger]);
+  }, [hasOnlyQuickChargers]);
 
   return (
     <>
