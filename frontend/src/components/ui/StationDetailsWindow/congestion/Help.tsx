@@ -30,7 +30,7 @@ const Help = () => {
         <Text tag="span" weight="bold">
           사용량
         </Text>
-        (%)를 나타냅니다.
+        (%)을 나타냅니다.
       </Text>
       <Text mb={2}>해당 시간대에 몇 퍼센트의 충전기가 사용중일지를 예측하여 표시합니다.</Text>
       <Text variant="caption" fontSize={1.3} mb={5}>
