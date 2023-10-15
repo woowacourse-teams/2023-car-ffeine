@@ -54,8 +54,12 @@ public class Latitude {
         return value.subtract(other.value);
     }
 
-    public int compareTo(Latitude other) {
-        return this.value.compareTo(other.value);
+    public boolean isHigher(Latitude other) {
+        return this.value.compareTo(other.value) > 0;
+    }
+
+    public boolean isBetween(Latitude top, Latitude bottom) {
+        return this.value.compareTo(top.value) <= 0 && this.value.compareTo(bottom.value) >= 0;
     }
 
     public BigDecimal add(Latitude other) {

@@ -58,6 +58,10 @@ public class Longitude {
         return this.value.compareTo(other.value);
     }
 
+    public boolean isBetween(Longitude top, Longitude bottom) {
+        return this.value.compareTo(top.value) >= 0 && this.value.compareTo(bottom.value) <= 0;
+    }
+
     public BigDecimal add(Longitude other) {
         return this.value.add(other.value);
     }

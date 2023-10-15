@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class GridTest {
 
     @Test
-    void 범위에_포함되면_true를_반환한다() {
+    void 범위에_포함되면_true를_반환한다_top_down() {
         Grid grid = new Grid(Point.of(3, 0), Point.of(0, 3));
         Point point = Point.of(1, 1);
 
@@ -21,7 +21,7 @@ class GridTest {
     }
 
     @Test
-    void 범위에_포함되면_true를_반환합니다() {
+    void 범위에_포함되면_true를_반환한다_down_top() {
         Grid grid = new Grid(Point.of(0, 3), Point.of(3, 0));
         Point point = Point.of(1, 1);
 

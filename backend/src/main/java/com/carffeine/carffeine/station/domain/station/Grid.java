@@ -25,16 +25,17 @@ public class Grid {
     }
 
     public boolean isContain(Point point) {
-        if (top.getLatitude().compareTo(bottom.getLatitude()) > 0) {
-            if (point.getLatitude().compareTo(top.getLatitude()) <= 0 && point.getLatitude().compareTo(bottom.getLatitude()) >= 0) {
-                return point.getLongitude().compareTo(top.getLongitude()) >= 0 && point.getLongitude().compareTo(bottom.getLongitude()) <= 0;
-            }
-        } else {
-            if (point.getLatitude().compareTo(top.getLatitude()) >= 0 && point.getLatitude().compareTo(bottom.getLatitude()) <= 0) {
-                return point.getLongitude().compareTo(top.getLongitude()) <= 0 && point.getLongitude().compareTo(bottom.getLongitude()) >= 0;
-            }
+        Latitude topLatitude = top.getLatitude();
+        Latitude bottomLatitude = bottom.getLatitude();
+        Latitude pointLatitude = point.getLatitude();
+        Longitude topLongitude = top.getLongitude();
+        Longitude bottomLongitude = bottom.getLongitude();
+        Longitude pointLongitude = point.getLongitude();
+
+        if (topLatitude.isHigher(bottomLatitude) && (pointLatitude.isBetween(topLatitude, bottomLatitude))) {
+            return pointLongitude.isBetween(topLongitude, bottomLongitude);
         }
-        return false;
+        return pointLongitude.isBetween(bottomLongitude, topLongitude);
     }
 
     public void addPoint(Point point) {
