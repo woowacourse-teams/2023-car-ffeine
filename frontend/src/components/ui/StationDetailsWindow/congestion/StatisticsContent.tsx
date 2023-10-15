@@ -9,14 +9,12 @@ import type { CongestionStatistics } from '@type';
 
 import ChargingSpeedButtons from './ChargingSpeedButtons';
 import Bar from './bars/Bar';
-import BarContainerSkeleton from './bars/BarContainerSkeleton';
 
 interface StatisticsContentProps {
   congestionStatistics: CongestionStatistics;
-  isLoading: boolean;
 }
 
-const StatisticsContent = ({ congestionStatistics, isLoading }: StatisticsContentProps) => {
+const StatisticsContent = ({ congestionStatistics }: StatisticsContentProps) => {
   const hasOnlyStandardCharger = congestionStatistics?.congestion['quick'].every(
     (congestion) => congestion.ratio === NO_RATIO
   );
@@ -32,8 +30,6 @@ const StatisticsContent = ({ congestionStatistics, isLoading }: StatisticsConten
       setChargingSpeed('quick');
     }
   }, [hasOnlyQuickCharger]);
-
-  if (isLoading) return <BarContainerSkeleton />;
 
   return (
     <>

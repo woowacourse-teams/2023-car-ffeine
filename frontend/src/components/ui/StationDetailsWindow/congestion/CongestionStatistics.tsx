@@ -13,6 +13,7 @@ import type { EnglishDaysOfWeek } from '@type';
 
 import StatisticsContent from './StatisticsContent';
 import Title from './Title';
+import BarContainerSkeleton from './bars/BarContainerSkeleton';
 
 interface CongestionStatisticsProps {
   stationId: string;
@@ -64,10 +65,11 @@ const CongestionStatistics = ({ stationId }: CongestionStatisticsProps) => {
         ) : (
           SHORT_KOREAN_DAYS_OF_WEEK.map((day, index) => (
             <Tab.Content key={`${day}-statistics-content`} index={index} width="100%">
-              <StatisticsContent
-                isLoading={isLoading}
-                congestionStatistics={congestionStatistics}
-              />
+              {isLoading ? (
+                <BarContainerSkeleton />
+              ) : (
+                <StatisticsContent congestionStatistics={congestionStatistics} />
+              )}
             </Tab.Content>
           ))
         )}
