@@ -6,7 +6,7 @@ import { useExternalValue } from '@utils/external-state';
 
 import { deltaAreaStore } from '@stores/google-maps/deltaAreaStore';
 import type { DeltaAreaState } from '@stores/google-maps/deltaAreaStore/types';
-import type { StationMarkerInstance } from '@stores/google-maps/markerInstanceStore';
+import type { MarkerInstance } from '@stores/google-maps/markerInstanceStore';
 import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
 
 import { useRenderStationMarker } from './hooks/useRenderStationMarker';
@@ -25,7 +25,7 @@ const SmallMediumDeltaAreaMarkerContainer = () => {
 
   const renderMarkerByDeltaAreaState = (
     deltaAreaState: DeltaAreaState,
-    markerInstances: StationMarkerInstance[]
+    markerInstances: MarkerInstance[]
   ) => {
     if (deltaAreaState === 'small') {
       renderCarffeineMarkers(markerInstances, stationMarkers);

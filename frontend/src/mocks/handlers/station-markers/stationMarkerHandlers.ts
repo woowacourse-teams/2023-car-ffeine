@@ -1,4 +1,5 @@
-import { getRegionName, regions, stations } from '@mocks/data';
+import { getRegionName, regions } from '@mocks/data/regions';
+import { getStations } from '@mocks/data/stations';
 import { rest } from 'msw';
 
 import { DELIMITER } from '@constants';
@@ -10,6 +11,7 @@ import type { CompanyKey } from '@type/serverStationFilter';
 
 export const stationMarkerHandlers = [
   rest.get(`${DEVELOP_SERVER_URL}/stations`, async (req, res, ctx) => {
+    const stations = await getStations();
     const { searchParams } = req.url;
 
     const latitude = Number(searchParams.get('latitude'));
@@ -99,7 +101,7 @@ export const stationMarkerHandlers = [
     console.log('찾은 충전소 갯수: ' + foundStations.length);
 
     return res(
-      ctx.delay(1000),
+      // ctx.delay(1000),
       ctx.status(200),
       ctx.json({
         stations: foundStations,

@@ -35,7 +35,7 @@ export const useStationInfoWindow = () => {
   ) => {
     const stationMarker = markerInstanceStore
       .getState()
-      .find((stationMarker) => stationMarker.stationId === stationId);
+      .find((stationMarker) => stationMarker.id === stationId);
     const markerInstance = stationMarkerInstance ?? stationMarker.instance;
 
     moveMapToStationMarker(markerInstance);

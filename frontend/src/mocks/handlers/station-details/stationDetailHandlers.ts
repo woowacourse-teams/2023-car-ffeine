@@ -1,4 +1,4 @@
-import { stations } from '@mocks/data';
+import { getStations } from '@mocks/data/stations';
 import { rest } from 'msw';
 
 import { ERROR_MESSAGES } from '@constants/errorMessages';
@@ -6,6 +6,7 @@ import { DEVELOP_SERVER_URL } from '@constants/server';
 
 export const stationDetailHandlers = [
   rest.get(`${DEVELOP_SERVER_URL}/stations/:id`, async (req, res, ctx) => {
+    const stations = await getStations();
     const stationId = req.params.id;
     const selectedStation = stations.find((station) => station.stationId === stationId);
 
