@@ -78,6 +78,6 @@ public class GridGenerator {
     public List<Grid> createKorea() {
         Point top = new Point(Latitude.from(TOP_LATITUDE), Longitude.from(TOP_LONGITUDE));
         Point bottom = new Point(Latitude.from(BOTTOM_LATITUDE), Longitude.from(BOTTOM_LONGITUDE));
-        return create(top, bottom, 19, 30);
+        return create(top, bottom, 300, 240);
     }
 }
