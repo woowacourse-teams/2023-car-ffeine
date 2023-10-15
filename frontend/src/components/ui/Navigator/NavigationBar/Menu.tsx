@@ -1,7 +1,8 @@
 import { AdjustmentsHorizontalIcon, Bars3Icon, UserCircleIcon } from '@heroicons/react/24/outline';
+import * as process from 'process';
 import { css } from 'styled-components';
 
-import { HiArrowPath, HiOutlineChatBubbleOvalLeftEllipsis } from 'react-icons/hi2';
+import { HiArrowPath, HiCircleStack, HiOutlineChatBubbleOvalLeftEllipsis } from 'react-icons/hi2';
 
 import { useExternalValue } from '@utils/external-state';
 
@@ -16,6 +17,7 @@ import PersonalMenu from '@ui/Navigator/NavigationBar/PersonalMenu';
 import ServerStationFilters from '@ui/ServerStationFilters';
 import StationListWindow from '@ui/StationListWindow';
 import StationSearchWindow from '@ui/StationSearchWindow';
+import DeveloperModeModal from '@ui/modal/DeveloperModeModal';
 import LoginModal from '@ui/modal/LoginModal/LoginModal';
 
 import { displayNoneInMobile, displayNoneInWeb } from '@style/mediaQuery';
@@ -34,6 +36,10 @@ const Menu = () => {
 
   const handleClickLoginIcon = () => {
     modalActions.openModal(<LoginModal />);
+  };
+
+  const handleClickDeveloperMode = () => {
+    modalActions.openModal(<DeveloperModeModal />);
   };
 
   return (
@@ -120,6 +126,15 @@ const Menu = () => {
           피드백
         </Text>
       </Button>
+
+      {process.env.NODE_ENV === 'development' && (
+        <Button noRadius="all" onClick={handleClickDeveloperMode}>
+          <HiCircleStack size="2.8rem" stroke="#555" />
+          <Text mt={0.5} variant="caption">
+            개발자 모드
+          </Text>
+        </Button>
+      )}
     </FlexBox>
   );
 };

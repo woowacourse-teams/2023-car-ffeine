@@ -1,4 +1,4 @@
-import { generateCars, generateCarFilters } from '@mocks/data';
+import { generateCarFilters, generateCars } from '@mocks/data/cars';
 import { rest } from 'msw';
 
 import { DEVELOP_SERVER_URL } from '@constants/server';
