@@ -8,7 +8,7 @@ import { NO_RATIO } from '@constants/congestion';
 import type { CongestionStatistics } from '@type';
 
 import ChargingSpeedButtons from './ChargingSpeedButtons';
-import Bar from './bars/Bar';
+import Bar from './bar/Bar';
 
 interface StatisticsContentProps {
   congestionStatistics: CongestionStatistics;

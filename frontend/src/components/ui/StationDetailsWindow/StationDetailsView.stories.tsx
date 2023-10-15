@@ -6,7 +6,7 @@ import FlexBox from '../../common/FlexBox';
 import type { StationDetailsViewProps } from './StationDetailsView';
 import StationDetailsView from './StationDetailsView';
 import StationDetailsViewSkeleton from './StationDetailsViewSkeleton';
-import BarsSkeleton from './congestion/bars/BarsSkeleton';
+import BarsSkeleton from './congestion/bar/BarsSkeleton';
 
 const meta = {
   title: 'UI/StationDetailsView',

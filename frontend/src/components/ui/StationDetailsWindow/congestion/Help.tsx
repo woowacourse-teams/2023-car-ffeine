@@ -13,7 +13,7 @@ import Text from '@common/Text';
 import { MOBILE_BREAKPOINT } from '@constants';
 import { NO_RATIO } from '@constants/congestion';
 
-import Bar from './bars/Bar';
+import Bar from './bar/Bar';
 
 const Help = () => {
   return (

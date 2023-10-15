@@ -13,7 +13,7 @@ import type { EnglishDaysOfWeek } from '@type';
 
 import StatisticsContent from './StatisticsContent';
 import Title from './Title';
-import BarsSkeleton from './bars/BarsSkeleton';
+import BarsSkeleton from './bar/BarsSkeleton';
 
 interface CongestionStatisticsProps {
   stationId: string;
