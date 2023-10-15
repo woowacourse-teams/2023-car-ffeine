@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+import FlexBox from '@common/FlexBox';
+
 import type { CHARGING_SPEED } from '@constants/chargers';
 import { NO_RATIO } from '@constants/congestion';
 
@@ -7,7 +9,7 @@ import type { CongestionStatistics } from '@type';
 
 import ChargingSpeedButtons from './ChargingSpeedButtons';
 import Bar from './bars/Bar';
-import BarContainer from './bars/BarContainer';
+import BarContainerSkeleton from './bars/BarContainerSkeleton';
 
 interface StatisticsContentProps {
   congestionStatistics: CongestionStatistics;
@@ -31,15 +33,17 @@ const StatisticsContent = ({ congestionStatistics, isLoading }: StatisticsConten
     }
   }, [hasOnlyQuickCharger]);
 
+  if (isLoading) return <BarContainerSkeleton />;
+
   return (
     <>
-      <BarContainer
-        statistics={congestionStatistics?.congestion[chargingSpeed]}
-        renderBar={(hour, ratio) => <Bar hour={hour} ratio={ratio} />}
-        isLoading={isLoading}
-      />
+      <FlexBox tag="ul" direction="column" nowrap alignItems="start" width="100%" height="auto">
+        {congestionStatistics?.congestion[chargingSpeed].map(({ hour, ratio }) => (
+          <Bar key={`statistics-${hour}`} hour={`${hour + 1}`.padStart(2, '0')} ratio={ratio} />
+        ))}
+      </FlexBox>
 
-      {!isLoading && !hasOnlyOneChargerType && (
+      {!hasOnlyOneChargerType && (
         <ChargingSpeedButtons chargingSpeed={chargingSpeed} setChargingSpeed={setChargingSpeed} />
       )}
     </>
