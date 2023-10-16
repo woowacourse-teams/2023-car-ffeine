@@ -53,6 +53,7 @@ module.exports = {
       '@assets': path.resolve(__dirname, './src/assets'),
       '@style': path.resolve(__dirname, './src/style'),
       '@type': path.resolve(__dirname, './src/types'),
+      '@tools': path.resolve(__dirname, './src/tools'),
     },
   },
   plugins: [
