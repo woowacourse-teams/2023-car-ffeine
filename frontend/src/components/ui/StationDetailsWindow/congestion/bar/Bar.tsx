@@ -1,9 +1,7 @@
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
-
-import { getHoverColor } from '@style';
 
 import { NO_RATIO } from '@constants/congestion';
 
@@ -17,26 +15,31 @@ interface BarProps {
 }
 
 const Bar = ({ ratio, hour }: BarProps) => {
+  const isRatioUnknown = ratio === NO_RATIO;
+  const barValue = ratio * 100;
+
+  const gradient = {
+    start: `#4D6CD0 ${100 - barValue}%`,
+    middle: `#9274A3 ${150 - barValue}%`,
+    end: `#FC5C5C ${200 - barValue}%`,
+  } as const;
+
   return (
     <FlexBox tag="li" nowrap width="100%" alignItems="center">
       <Text variant="caption" fontSize={1.3} width={2}>
         {hour}
       </Text>
       <ProgressBar
-        value={ratio === NO_RATIO ? 100 : ratio * 100}
+        value={isRatioUnknown ? 100 : barValue}
         max={100}
-        color={getColorByRatio(ratio)}
+        color={
+          isRatioUnknown
+            ? '#ebebeb'
+            : `linear-gradient(${`0.25turn, ${gradient.start}, ${gradient.middle}, ${gradient.end}`})`
+        }
       />
     </FlexBox>
   );
-};
-
-const getColorByRatio = (ratio: number) => {
-  if (ratio === NO_RATIO) {
-    return getHoverColor('disable');
-  }
-
-  return '#4D6CD0';
 };
 
 const ProgressBar = styled.progress<{ color: string }>`
@@ -56,7 +59,7 @@ const ProgressBar = styled.progress<{ color: string }>`
   }
 
   &::-webkit-progress-value {
-    background-color: ${({ color }) => color};
+    background: ${({ color }) => color};
 
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
