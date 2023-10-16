@@ -61,12 +61,6 @@ const CarFfeineMapListener = () => {
 
       deltaAreaActions.setDeltaAreaState(latitudeDelta * longitudeDelta);
     });
-
-    const initMarkersEvent = googleMap.addListener('bounds_changed', async () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_MARKERS] });
-
-      google.maps.event.removeListener(initMarkersEvent);
-    });
   }, []);
 
   return <></>;
