@@ -16,25 +16,34 @@ public class StationGridService {
     public List<Grid> assignStationGrids(List<Grid> grids, List<StationPoint> stations) {
         for (Grid grid : grids) {
             for (StationPoint station : stations) {
-                Point point = Point.of(station.latitude(), station.longitude());
-                if (grid.isContain(point)) {
-                    grid.addPoint(point);
-                }
+                addPointToGrid(grid, station);
             }
         }
         return grids;
     }
 
+
+    private void addPointToGrid(Grid grid, StationPoint station) {
+        Point point = Point.of(station.latitude(), station.longitude());
+        if (grid.isContain(point)) {
+            grid.addPoint(point);
+        }
+    }
+
     public List<Grid> assignStationGridsWithCount(List<Grid> grids, List<GridWithCount> gridWithCounts) {
         for (Grid grid : grids) {
             for (GridWithCount gridWithCount : gridWithCounts) {
-                Point point = Point.of(gridWithCount.latitude(), gridWithCount.longitude());
-                if (grid.isContain(point)) {
-                    grid.addCount(gridWithCount.count());
-                }
+                addCountToGrid(grid, gridWithCount);
             }
         }
         return grids;
+    }
+
+    private void addCountToGrid(Grid grid, GridWithCount gridWithCount) {
+        Point point = Point.of(gridWithCount.latitude(), gridWithCount.longitude());
+        if (grid.isContain(point)) {
+            grid.addCount(gridWithCount.count());
+        }
     }
 
 }
