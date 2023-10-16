@@ -53,7 +53,7 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
 
       <ChargerList chargers={chargers} stationId={stationId} reportCount={reportCount} />
 
-      <CongestionStatistics stationId={stationId} />
+      <CongestionStatistics stationId={stationId} chargers={chargers} />
 
       <ReviewPreview stationId={stationId} />
     </Box>

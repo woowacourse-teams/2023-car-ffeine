@@ -12,7 +12,7 @@ interface ChargingSpeedButtonsProps {
 
 const ChargingSpeedButtons = ({ chargingSpeed, setChargingSpeed }: ChargingSpeedButtonsProps) => {
   return (
-    <FlexBox nowrap mt={4} columnGap={2}>
+    <FlexBox nowrap columnGap={2}>
       <Button
         aria-label="완속 충전기 기준 시간별 사용량 보기"
         variant={chargingSpeed === 'standard' ? 'contained' : 'outlined'}
