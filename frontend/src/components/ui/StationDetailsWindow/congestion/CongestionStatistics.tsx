@@ -1,4 +1,4 @@
-import { getChargerCountsAndAvailability } from 'tools/getChargerCountsAndAvailability';
+import { getChargerCountsAndAvailability } from '@tools/getChargerCountsAndAvailability';
 
 import { useState } from 'react';
 

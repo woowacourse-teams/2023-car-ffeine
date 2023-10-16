@@ -1,5 +1,5 @@
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { getChargerCountsAndAvailability } from 'tools/getChargerCountsAndAvailability';
+import { getChargerCountsAndAvailability } from '@tools/getChargerCountsAndAvailability';
 
 import type { MouseEvent } from 'react';
 import { HiChevronRight } from 'react-icons/hi2';
