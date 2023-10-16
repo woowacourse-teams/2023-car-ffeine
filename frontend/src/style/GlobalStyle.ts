@@ -41,4 +41,8 @@ export const GlobalStyle = createGlobalStyle`
   div.gm-style .gm-style-iw-c {
     padding: 0;
   }
+
+  button:focus, button:active {
+    outline: none;
+  }
 `;

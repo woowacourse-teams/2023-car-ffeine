@@ -5,7 +5,7 @@ import type { BoxProps } from './Box';
 import Box from './Box';
 
 const meta = {
-  title: 'Components/Box',
+  title: 'Layout/Box',
   component: Box,
   tags: ['autodocs'],
   args: {

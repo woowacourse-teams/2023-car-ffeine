@@ -6,7 +6,7 @@ import type { ListItemProps } from './ListItem';
 import ListItem from './index';
 
 const meta = {
-  title: 'Components/ListItem',
+  title: 'Layout/List/ListItem',
   component: ListItem,
   tags: ['autodocs'],
   args: {

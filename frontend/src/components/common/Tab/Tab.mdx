@@ -1,0 +1,53 @@
+import { Canvas, Controls, Description, Meta, Source } from '@storybook/blocks';
+
+import * as TabStories from './Tab.stories.tsx';
+
+<Meta of={TabStories} />
+
+# Tab
+
+<Description />
+
+<Canvas of={TabStories.Default} sourceState="shown" />
+
+## Props
+
+<Controls exclude="children" />
+
+## Preview
+
+<br />
+
+### Vertical
+
+<Canvas of={TabStories.Vertical} />
+
+### Initial Index Changed
+
+<Canvas of={TabStories.InitialIndex} />
+
+### Several Tabs
+
+<Canvas of={TabStories.SeveralTabs} />
+
+## Example
+
+<br />
+
+### Tab With Layout Prop (CenterLeft)
+
+<p>
+  Tab의 높이는 `탭 메뉴들과 내용`에 맞춰져 있기 때문에 높이를 지정해줘야 `layout` 속성에 따른 변화가
+  눈에 보입니다.
+</p>
+<p>
+  `vertical`이 적용되지 않은 Menus는 너비가 100%이기 때문에 `layout` 속성에 맞춰 배치가 달라지지
+  않습니다.
+</p>
+<p>따라서 Tab의 너비보다 작은 값을 Menus에 줘야 `layout`에 따라 Menus의 가로 위치가 변합니다.</p>
+<p>
+  Content의 `alignSelf` 속성 기본값이 `center`이기 때문에 Content의 가로 위치를 변경하려면
+  `alignSelf`를 변경해줘야 합니다.
+</p>
+
+<Canvas of={TabStories.TabWithLayoutProp} />

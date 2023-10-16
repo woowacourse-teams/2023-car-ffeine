@@ -64,7 +64,7 @@ const ChargerCard = ({ charger }: ChargerCardProps) => {
       <Text my={0} fontSize={1.3}>
         {capacity >= QUICK_CHARGER_CAPACITY_THRESHOLD ? '급속' : '완속'}({capacity}kW)
         {method && (
-          <Text tag="span" variant="label" my={1}>
+          <Text tag="span" fontSize={1.3} my={1}>
             &nbsp;/&nbsp;{method}
           </Text>
         )}

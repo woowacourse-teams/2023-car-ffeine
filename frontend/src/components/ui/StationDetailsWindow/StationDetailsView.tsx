@@ -43,7 +43,7 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
       borderColor="#e1e4eb"
       css={stationDetailsViewContainerCss}
     >
-      <Button noRadius="all" css={xIconCss} onClick={handleCloseDetail}>
+      <Button aria-label="닫기" noRadius="all" css={xIconCss} onClick={handleCloseDetail}>
         <XMarkIcon width={32} />
       </Button>
 
@@ -52,7 +52,9 @@ const StationDetailsView = ({ station }: StationDetailsViewProps) => {
       <StationReportButton station={station} />
 
       <ChargerList chargers={chargers} stationId={stationId} reportCount={reportCount} />
+
       <CongestionStatistics stationId={stationId} />
+
       <ReviewPreview stationId={stationId} />
     </Box>
   );
@@ -77,7 +79,7 @@ const xIconCss = css`
     right: 0.8rem;
     top: 0;
 
-    padding: 1.2rem 0.8rem;
+    padding: 0.8rem 0.6rem;
     background: rgba(255, 255, 255, 0.8);
   }
 `;

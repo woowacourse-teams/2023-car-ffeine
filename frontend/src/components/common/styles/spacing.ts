@@ -104,3 +104,97 @@ export const spacing = css<SpacingProps>`
   ${({ mb }) => mb !== undefined && `margin-bottom: ${addUnit(mb, SPACING_UNIT)}`};
   ${({ ml }) => ml !== undefined && `margin-left: ${addUnit(ml, SPACING_UNIT)}`};
 `;
+
+// for Storybook
+export const spacingArgTypes = {
+  p: {
+    control: {
+      type: 'text',
+    },
+    description: `상하좌우 padding
+    <br />**아래의 설명은 모든 spacing props에 해당**
+    <br />- [string] 단위까지 적어줘야 함 (ex. 8px, 10px 20px)
+    <br />&nbsp; 🔷 스토리북에서는 string 🔷
+    <br />- [number] 숫자만 적을 경우 px로 자동 변환
+    `,
+  },
+  py: {
+    control: {
+      type: 'text',
+    },
+    description: `상하 padding`,
+  },
+  px: {
+    control: {
+      type: 'text',
+    },
+    description: `좌우 padding`,
+  },
+  pt: {
+    control: {
+      type: 'text',
+    },
+    description: `위에 padding`,
+  },
+  pr: {
+    control: {
+      type: 'text',
+    },
+    description: `오른쪽에 padding`,
+  },
+  pb: {
+    control: {
+      type: 'text',
+    },
+    description: `아래에 padding`,
+  },
+  pl: {
+    control: {
+      type: 'text',
+    },
+    description: `왼쪽에 padding`,
+  },
+
+  m: {
+    control: {
+      type: 'text',
+    },
+    description: `상하좌우 margin`,
+  },
+  my: {
+    control: {
+      type: 'text',
+    },
+    description: `상하 margin`,
+  },
+  mx: {
+    control: {
+      type: 'text',
+    },
+    description: `좌우 margin`,
+  },
+  mt: {
+    control: {
+      type: 'text',
+    },
+    description: `위에 margin`,
+  },
+  mr: {
+    control: {
+      type: 'text',
+    },
+    description: `오른쪽에 margin`,
+  },
+  mb: {
+    control: {
+      type: 'text',
+    },
+    description: `아래에 margin`,
+  },
+  ml: {
+    control: {
+      type: 'text',
+    },
+    description: `왼쪽에 margin`,
+  },
+} as const;

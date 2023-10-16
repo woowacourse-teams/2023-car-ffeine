@@ -1,0 +1,23 @@
+import { Canvas, Controls, Description, Meta, Source } from '@storybook/blocks';
+
+import * as FlexItemStories from './FlexItem.stories.tsx';
+
+<Meta of={FlexItemStories} />
+
+# FlexItem
+
+<Description />
+
+<Canvas of={FlexItemStories.Default} sourceState="shown" />
+
+## Props
+
+<Controls exclude="children" />
+
+## Preview
+
+<br />
+
+### DirectionColumn
+
+<Canvas of={FlexItemStories.DirectionColumn} />

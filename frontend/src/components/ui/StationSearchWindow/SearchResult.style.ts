@@ -16,9 +16,9 @@ export const searchResultListCss = css`
   line-height: 2;
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
-    width: calc(100vw - 2rem);
+    width: calc(100vw - 3.2rem);
 
-    max-height: 22.6rem;
+    max-height: 22.8rem;
   }
 `;
 

@@ -6,7 +6,7 @@ import type { ListProps } from './List';
 import List from './List';
 
 const meta = {
-  title: 'Components/List',
+  title: 'Layout/List/List',
   component: List,
   tags: ['autodocs'],
   args: {

@@ -3,6 +3,7 @@ import { css, styled } from 'styled-components';
 import type { TextProps } from '@common/Text/Text';
 import { commonStyle } from '@common/styles/common';
 import { spacing } from '@common/styles/spacing';
+import { lineClampStyle } from '@common/styles/text';
 
 export type StyledTextType = Omit<TextProps, 'lineClamp' | 'lineHeight'> & {
   $lineClamp?: number;
@@ -105,15 +106,7 @@ export const StyledText = styled.p<StyledTextType>`
   font-size: ${({ fontSize }) => fontSize && `${fontSize}rem`};
   font-weight: ${({ weight }) => (weight === 'regular' ? 500 : weight)};
 
-  ${({ $lineClamp }) =>
-    $lineClamp &&
-    `
-        display: -webkit-box;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: ${$lineClamp};
-        `}
+  ${({ $lineClamp }) => $lineClamp && lineClampStyle($lineClamp)}
 
   line-height: ${({ $lineHeight }) => $lineHeight};
 
