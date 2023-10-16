@@ -26,7 +26,7 @@ export const useRenderStationMarker = () => {
   const intersectionObserver = new IntersectionObserver((entries) => {
     for (const entry of entries) {
       if (entry.isIntersecting) {
-        entry.target.classList.add('drop');
+        entry.target.classList.add('marker-animation');
         intersectionObserver.unobserve(entry.target);
       }
     }
@@ -123,7 +123,7 @@ export const useRenderStationMarker = () => {
         markerInstance.map = googleMap;
         defaultMarkerDesign.element.style.opacity = '0';
         defaultMarkerDesign.element.addEventListener('animationend', (event) => {
-          defaultMarkerDesign.element.classList.remove('drop');
+          defaultMarkerDesign.element.classList.remove('marker-animation');
           defaultMarkerDesign.element.style.opacity = '1';
         });
         intersectionObserver.observe(defaultMarkerDesign.element);

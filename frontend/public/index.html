@@ -93,6 +93,29 @@
         overflow: hidden;
     }
 
+    @keyframes grow {
+        0% {
+            transform: translateY(0) scaleY(0.1);
+            opacity: 0;
+        }
+        5% {
+            opacity: 0.7;
+        }
+        30% {
+            transform: translateY(0) scaleY(0.5);
+            opacity: 1;
+        }
+        50% {
+            transform: translateY(0) scaleY(1.2);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(0) scaleY(1);
+            opacity: 1;
+        }
+    }
+
+
     @keyframes drop {
         0% {
             transform: translateY(-200px) scaleY(0.9);
@@ -119,8 +142,8 @@
         }
     }
 
-    .drop {
-        animation: drop 0.3s linear forwards 1s;
+    .marker-animation {
+        animation: grow 300ms ease-out 0s;
     }
 </style>
 </html>
