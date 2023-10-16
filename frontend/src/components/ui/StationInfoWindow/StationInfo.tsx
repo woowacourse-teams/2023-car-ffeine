@@ -1,4 +1,5 @@
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { getChargerCountsAndAvailability } from 'tools/getChargerCountsAndAvailability';
 
 import type { MouseEvent } from 'react';
 import { HiChevronRight } from 'react-icons/hi2';
@@ -10,44 +11,13 @@ import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-import { QUICK_CHARGER_CAPACITY_THRESHOLD } from '@constants/chargers';
-
-import type { Charger, StationDetails } from '@type';
+import type { StationDetails } from '@type';
 
 export interface StationInfoProps {
   stationDetails: StationDetails;
   handleOpenStationDetail: () => void;
   handleCloseStationWindow: (event: MouseEvent<HTMLButtonElement>) => void;
 }
-
-const getChargerCountsAndAvailability = (chargers: Charger[]) => {
-  const isAvailable = chargers.some(({ state }) => state === 'STANDBY');
-
-  const standardChargers = chargers.filter(
-    ({ capacity }) => capacity < QUICK_CHARGER_CAPACITY_THRESHOLD
-  );
-  const quickChargers = chargers.filter(
-    ({ capacity }) => capacity >= QUICK_CHARGER_CAPACITY_THRESHOLD
-  );
-
-  const availableStandardChargerCount = standardChargers.filter(
-    ({ state }) => state === 'STANDBY'
-  ).length;
-  const availableQuickChargerCount = quickChargers.filter(
-    ({ state }) => state === 'STANDBY'
-  ).length;
-
-  const standardChargerCount = standardChargers.length;
-  const quickChargerCount = quickChargers.length;
-
-  return {
-    isAvailable,
-    availableStandardChargerCount,
-    availableQuickChargerCount,
-    standardChargerCount,
-    quickChargerCount,
-  };
-};
 
 const StationInfo = ({
   stationDetails,
