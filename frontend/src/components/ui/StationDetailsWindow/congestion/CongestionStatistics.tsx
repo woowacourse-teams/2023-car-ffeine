@@ -1,16 +1,21 @@
+import { getChargerCountsAndAvailability } from '@tools/getChargerCountsAndAvailability';
+
 import { useState } from 'react';
 
 import { useStationCongestionStatistics } from '@hooks/tanstack-query/station-details/useStationCongestionStatistics';
+import { useStationDetails } from '@hooks/tanstack-query/station-details/useStationDetails';
 
 import Box from '@common/Box';
 import Tab from '@common/Tab';
 
 import Error from '@ui/Error';
 
+import type { CHARGING_SPEED } from '@constants/chargers';
 import { ENGLISH_DAYS_OF_WEEK, SHORT_KOREAN_DAYS_OF_WEEK } from '@constants/congestion';
 
 import type { EnglishDaysOfWeek } from '@type';
 
+import ChargingSpeedButtons from './ChargingSpeedButtons';
 import StatisticsContent from './StatisticsContent';
 import Title from './Title';
 import BarsSkeleton from './bar/BarsSkeleton';
@@ -31,6 +36,10 @@ const CongestionStatistics = ({ stationId }: CongestionStatisticsProps) => {
     refetch,
   } = useStationCongestionStatistics(stationId, dayOfWeek);
 
+  const {
+    data: { chargers },
+  } = useStationDetails(stationId);
+
   const handleRetry = () => {
     refetch();
   };
@@ -38,6 +47,17 @@ const CongestionStatistics = ({ stationId }: CongestionStatisticsProps) => {
   const handleSelectDay = (index: number) => {
     setDayOfWeek(ENGLISH_DAYS_OF_WEEK[index]);
   };
+
+  const { standardChargerCount, quickChargerCount } = getChargerCountsAndAvailability(chargers);
+
+  const hasOnlyStandardChargers = quickChargerCount === 0;
+  const hasOnlyQuickChargers = standardChargerCount === 0;
+
+  const hasOnlyOneChargerType = hasOnlyStandardChargers || hasOnlyQuickChargers;
+
+  const [chargingSpeed, setChargingSpeed] = useState<keyof typeof CHARGING_SPEED>(
+    hasOnlyStandardChargers ? 'standard' : 'quick'
+  );
 
   return (
     <Box my={5}>
@@ -63,15 +83,24 @@ const CongestionStatistics = ({ stationId }: CongestionStatisticsProps) => {
             minHeight={40.4}
           />
         ) : (
-          SHORT_KOREAN_DAYS_OF_WEEK.map((day, index) => (
-            <Tab.Content key={`${day}-statistics-content`} index={index} width="100%">
-              {isLoading ? (
-                <BarsSkeleton />
-              ) : (
-                <StatisticsContent congestionStatistics={congestionStatistics} />
-              )}
-            </Tab.Content>
-          ))
+          <>
+            {SHORT_KOREAN_DAYS_OF_WEEK.map((day, index) => (
+              <Tab.Content key={`${day}-statistics-content`} index={index} width="100%">
+                {isLoading ? (
+                  <BarsSkeleton />
+                ) : (
+                  <StatisticsContent congestion={congestionStatistics.congestion[chargingSpeed]} />
+                )}
+              </Tab.Content>
+            ))}
+
+            {!hasOnlyOneChargerType && (
+              <ChargingSpeedButtons
+                chargingSpeed={chargingSpeed}
+                setChargingSpeed={setChargingSpeed}
+              />
+            )}
+          </>
         )}
       </Tab>
     </Box>
