@@ -15,7 +15,8 @@
     "^@constants": "<rootDir>/src/constants/index.ts",
     "^@constants/(.*)$": "<rootDir>/src/constants/$1",
     "^@assets/(.*)$": "<rootDir>/fileMock.ts",
-    "^@type/(.*)$": "<rootDir>/src/types/$1"
+    "^@type/(.*)$": "<rootDir>/src/types/$1",
+    "^@tools/(.*)$": "<rootDir>/src/tools/$1"
   },
   "setupFilesAfterEnv": ["<rootDir>/jest.setup.ts"]
 }

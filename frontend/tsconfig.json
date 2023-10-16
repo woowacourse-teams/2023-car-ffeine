@@ -27,7 +27,8 @@
       "@style/*": ["style/*"],
       "@assets/*": ["assets/*"],
       "@type": ["types/index"],
-      "@type/*": ["types/*"]
+      "@type/*": ["types/*"],
+      "@tools/*": ["tools/*"]
     }
   }
 }
