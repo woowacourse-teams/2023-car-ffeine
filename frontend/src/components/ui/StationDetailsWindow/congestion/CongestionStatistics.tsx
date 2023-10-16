@@ -3,6 +3,7 @@ import { getChargerCountsAndAvailability } from '@tools/getChargerCountsAndAvail
 import { useState } from 'react';
 
 import { useStationCongestionStatistics } from '@hooks/tanstack-query/station-details/useStationCongestionStatistics';
+import { useStationDetails } from '@hooks/tanstack-query/station-details/useStationDetails';
 
 import Box from '@common/Box';
 import Tab from '@common/Tab';
@@ -12,7 +13,7 @@ import Error from '@ui/Error';
 import type { CHARGING_SPEED } from '@constants/chargers';
 import { ENGLISH_DAYS_OF_WEEK, SHORT_KOREAN_DAYS_OF_WEEK } from '@constants/congestion';
 
-import type { Charger, EnglishDaysOfWeek } from '@type';
+import type { EnglishDaysOfWeek } from '@type';
 
 import ChargingSpeedButtons from './ChargingSpeedButtons';
 import StatisticsContent from './StatisticsContent';
@@ -21,10 +22,9 @@ import BarsSkeleton from './bar/BarsSkeleton';
 
 interface CongestionStatisticsProps {
   stationId: string;
-  chargers: Charger[];
 }
 
-const CongestionStatistics = ({ stationId, chargers }: CongestionStatisticsProps) => {
+const CongestionStatistics = ({ stationId }: CongestionStatisticsProps) => {
   const todayIndex = (new Date().getDay() + 6) % 7; // 월요일 0 ~ 일요일 6
 
   const [dayOfWeek, setDayOfWeek] = useState<EnglishDaysOfWeek>(ENGLISH_DAYS_OF_WEEK[todayIndex]);
@@ -35,6 +35,10 @@ const CongestionStatistics = ({ stationId, chargers }: CongestionStatisticsProps
     isError,
     refetch,
   } = useStationCongestionStatistics(stationId, dayOfWeek);
+
+  const {
+    data: { chargers },
+  } = useStationDetails(stationId);
 
   const handleRetry = () => {
     refetch();
