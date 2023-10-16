@@ -55,6 +55,7 @@ const config: StorybookConfig = {
         '@constants': path.resolve(__dirname, '../src/constants'),
         '@assets': path.resolve(__dirname, '../src/assets'),
         '@type': path.resolve(__dirname, '../src/types'),
+        '@tools': path.resolve(__dirname, '../src/tools'),
       };
     }
 
