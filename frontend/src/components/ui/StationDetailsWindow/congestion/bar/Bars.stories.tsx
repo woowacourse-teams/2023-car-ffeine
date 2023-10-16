@@ -33,7 +33,7 @@ export const DefaultBar = ({ ...args }) => {
 export const SeveralBars = () => {
   return Array.from({ length: 25 }, (_, index) => (
     <Box key={index} my={1}>
-      <Bar ratio={index / 24} hour={`${index + 1}`.padStart(2, '0')} />
+      <Bar ratio={index !== 1 ? index / 24 : NO_RATIO} hour={`${index + 1}`.padStart(2, '0')} />
     </Box>
   ));
 };
