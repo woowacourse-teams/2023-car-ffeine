@@ -24,7 +24,7 @@ export const StyledSkeleton = styled.div<StyledSkeletonType>`
 
   width: ${({ width }) => width || '100%'};
   height: ${({ height }) => height || '1rem'};
-  background: linear-gradient(-90deg, var(--lighter-color), #fafafa, var(--lighter-color), #fafafa);
+  background: linear-gradient(-90deg, #c6cbd9, #fafafa, #c6cbd9, #fafafa);
   background-size: 400%;
   animation: ${skeletonAnimation} 5s infinite ease-out;
   border-radius: ${({ $borderRadius }) => $borderRadius || '6px'};
