@@ -18,11 +18,13 @@ import { LOCAL_KEY_LAST_POSITION } from '@constants/storageKeys';
 import type { DisplayPosition } from '@type';
 
 /**
- * 모든 idle 상태에 따라 변화해야 하는 지도의 중심 좌표는 googleMapStore에서 가져오고,
+ * idle 이벤트 발생에 따라 항상 변화해야 하는 지도의 중심 좌표는 googleMapStore에서 가져오고,
+ *
  * 특정 상태에 따라 변경되어야 하는 지도의 줌 레벨은 외부에서 받아온다.
+ *
  * 이 함수를 이용해 지도의 중심 좌표와 외부에서 받아온 줌 레벨을 로컬스토리지에 저장한다.
  *
- * @param zoom 현재 지도 영역의 줌 레벨을 로컬 스토리지에 저장한다.
+ * @param zoom 현재 지도 영역의 줌 레벨
  */
 const setDisplayPositionInLocalStorage = (zoom: number) => {
   const googleMapCenter = getGoogleMapStore().getState().getCenter();
