@@ -47,8 +47,8 @@ export const fetchClusterMarkers = async () => {
   // TODO: 가로 몇개, 세로 몇개로 나누어서 요청을 보낼지 정해야됨
   const requestQueryParams = getQueryFormattedUrl({
     ...displayPositionString,
-    latitudeDivisionSize: '3',
-    longitudeDivisionSize: '4',
+    latitudeDivisionSize: '8',
+    longitudeDivisionSize: '12',
   });
 
   const clusterMarkers = await fetch(`${SERVER_URL}/stations/clusters?${requestQueryParams}`, {
