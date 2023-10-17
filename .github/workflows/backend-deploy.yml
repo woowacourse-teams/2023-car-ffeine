@@ -80,10 +80,18 @@ jobs:
 
           script: |
             sudo docker pull woowacarffeine/backend:latest
-            sudo docker stop backend || true
-            sudo docker container prune -f
+
+            if sudo docker ps | grep ":8080"; then
+              BEFORE_PORT=8080
+              NEW_PORT=8081
+              NEW_ACTUATOR_PORT=8088
+            else
+              BEFORE_PORT=8081
+              NEW_PORT=8080
+              NEW_ACTUATOR_PORT=8089
+            fi
             
-            sudo docker run -d -p 8080:8080 -p 8088:8088 \
+            sudo docker run -d -p $NEW_PORT:8080 -p $NEW_ACTUATOR_PORT:8088 \
             -e "SPRING_PROFILE=prod" \
             -e "ENCRYPT_KEY=${{secrets.JASYPT_KEY}}" \
             -e "DATABASE_USERNAME=${{secrets.DATABASE_USERNAME}}" \
@@ -93,5 +101,12 @@ jobs:
             -e "SLACK_WEBHOOK_URL=${{secrets.SLACK_WEBHOOK_URL}}" \
             --name backend \
             woowacarffeine/backend:latest
-            
-            sudo docker image prune -a -f
+
+
+      - name: Execute bluegreen.sh
+        run: ./bluegreen.sh
+        env:
+          NEW_PORT: $NEW_PORT
+          NEW_ACTUATOR_PORT: $NEW_ACTUATOR_PORT
+          BEFORE_PORT: $BEFORE_PORT
+        shell: bash
