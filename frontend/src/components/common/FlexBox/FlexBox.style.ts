@@ -100,7 +100,11 @@ export const StyledFlexBox = styled(StyledBox)<StyledFlexBoxType>`
   gap: ${({ gap, $rowGap, $columnGap }) => getGap({ gap, rowGap: $rowGap, columnGap: $columnGap })};
 
   display: flex;
-  border-radius: 10px;
+  ${({ $borderRadius }) =>
+    $borderRadius &&
+    `border-radius: ${
+      typeof $borderRadius === 'number' ? `${$borderRadius}px` : `${$borderRadius};`
+    }`}
   font-size: 1.5rem;
 
   ${({ $noRadius }) => $noRadius && borderRadius($noRadius)};
