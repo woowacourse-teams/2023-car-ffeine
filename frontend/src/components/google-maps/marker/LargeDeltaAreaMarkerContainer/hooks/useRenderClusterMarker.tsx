@@ -2,8 +2,10 @@ import { createRoot } from 'react-dom/client';
 
 import { getStoreSnapshot } from '@utils/external-state/tools';
 
-import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
+import { getGoogleMapStore, googleMapActions } from '@stores/google-maps/googleMapStore';
 import type { MarkerInstance } from '@stores/google-maps/markerInstanceStore';
+
+import { INITIAL_ZOOM_LEVEL } from '@constants/googleMaps';
 
 import type { ClusterMarker } from '@type';
 
@@ -34,8 +36,7 @@ export const useRenderClusterMarkers = () => {
       };
     });
 
-    // TODO: 구현하면 주석 풀기
-    // bindMarkerClickHandler(newMarkerInstances);
+    bindMarkerClickHandler(newMarkerInstances, newMarkers);
 
     return newMarkerInstances;
   };
@@ -68,9 +69,16 @@ export const useRenderClusterMarkers = () => {
     );
   };
 
-  const renderFooMarkers = (markerInstances: MarkerInstance[], markers: ClusterMarker[]) => {
+  const renderClusterMarkers = (markerInstances: MarkerInstance[], markers: ClusterMarker[]) => {
     markerInstances.forEach(({ instance: markerInstance, id }) => {
       const container = document.createElement('div');
+
+      container.style.opacity = '0';
+      container.classList.add('marker-animation');
+      container.addEventListener('animationend', () => {
+        container.classList.remove('marker-animation');
+        container.style.opacity = '1';
+      });
 
       markerInstance.content = container;
       markerInstance.map = googleMap;
@@ -81,16 +89,26 @@ export const useRenderClusterMarkers = () => {
     });
   };
 
-  const bindMarkerClickHandler = (markerInstances: MarkerInstance[]) => {
-    // TODO: 클릭시 발생할 이벤트 구현
-    console.log('아직 클릭 이벤트는 뭘 할지 정하지 않았어요!');
+  const bindMarkerClickHandler = (
+    markerInstances: MarkerInstance[],
+    newMarkers: ClusterMarker[]
+  ) => {
+    markerInstances.forEach(({ instance: markerInstance, id: stationId }) => {
+      markerInstance.addListener('click', () => {
+        const targetMarker = newMarkers.find((marker) => marker.id === stationId);
+        googleMapActions.moveTo(
+          { lat: targetMarker.latitude, lng: targetMarker.longitude },
+          INITIAL_ZOOM_LEVEL
+        );
+      });
+    });
   };
 
   return {
     createNewMarkerInstances,
     removeMarkersOutsideBounds,
     getRemainedMarkerInstances,
-    renderFooMarkers,
+    renderClusterMarkers,
     removeAllMarkers,
   };
 };

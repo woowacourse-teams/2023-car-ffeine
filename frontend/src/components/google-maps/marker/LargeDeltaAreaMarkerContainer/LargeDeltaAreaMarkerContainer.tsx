@@ -13,7 +13,7 @@ const LargeDeltaAreaMarkerContainer = () => {
     getRemainedMarkerInstances,
     removeMarkersOutsideBounds,
     removeAllMarkers,
-    renderFooMarkers,
+    renderClusterMarkers,
   } = useRenderClusterMarkers();
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const LargeDeltaAreaMarkerContainer = () => {
   );
 
   removeMarkersOutsideBounds(markerInstanceStore.getState(), clusterMarkers);
-  renderFooMarkers(newMarkerInstances, clusterMarkers);
+  renderClusterMarkers(newMarkerInstances, clusterMarkers);
 
   markerInstanceStore.setState([...remainedMarkerInstances, ...newMarkerInstances]);
 
