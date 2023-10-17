@@ -1,5 +1,5 @@
 import { store } from '@utils/external-state';
-import { getLocalStorage } from '@utils/storage';
+import { getLocalStorage, setLocalStorage } from '@utils/storage';
 
 import {
   DEFAULT_CENTER,
@@ -21,10 +21,16 @@ export const getGoogleMapStore = (() => {
 
   return () => {
     if (!googleMap) {
-      const initialCenter = getLocalStorage<google.maps.LatLngLiteral>(
+      const initialCenter = getLocalStorage<google.maps.LatLngLiteral & { zoom: number }>(
         LOCAL_KEY_LAST_POSITION,
-        DEFAULT_CENTER
+        { ...DEFAULT_CENTER, zoom: INITIAL_ZOOM_LEVEL }
       );
+
+      // 서비스 시작시 줌 레벨을 INITIAL_ZOOM_LEVEL로 고정한다.
+      setLocalStorage<google.maps.LatLngLiteral & { zoom: number }>(LOCAL_KEY_LAST_POSITION, {
+        ...initialCenter,
+        zoom: INITIAL_ZOOM_LEVEL,
+      });
 
       googleMap = new window.google.maps.Map(container, {
         center: initialCenter,
