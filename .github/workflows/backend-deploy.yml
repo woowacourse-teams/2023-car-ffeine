@@ -71,6 +71,7 @@ jobs:
           JASYPT_KEY: ${{ secrets.JASYPT_KEY }}
           DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
           DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          BLUE_GREEN_SCRIPT: ${{ secrets.BLUE_GREEN_SCRIPT }}
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
@@ -107,9 +108,7 @@ jobs:
 
 
       - name: Execute bluegreen.sh
-        run: /home/ubuntu/bluegreen.sh
-        env:
-          NEW_PORT: $NEW_PORT
-          NEW_ACTUATOR_PORT: $NEW_ACTUATOR_PORT
-          BEFORE_PORT: $BEFORE_PORT
-        shell: bash
+        run: |
+          echo "$BLUE_GREEN_SCRIPT" > bluegreen.sh
+          chmod 700 bluegreen.sh
+          sudo ./bluegreen.sh
