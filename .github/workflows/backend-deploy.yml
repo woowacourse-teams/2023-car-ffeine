@@ -37,9 +37,9 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-
-      - name: Build for asciiDoc
-        run: ./gradlew bootjar
+#
+#      - name: Build for asciiDoc
+#        run: ./gradlew bootjar
 
       - name: Build with Gradle
         run: ./gradlew bootjar
@@ -84,11 +84,11 @@ jobs:
             if sudo docker ps | grep ":8080"; then
               BEFORE_PORT=8080
               NEW_PORT=8081
-              NEW_ACTUATOR_PORT=8088
+              NEW_ACTUATOR_PORT=8089
             else
               BEFORE_PORT=8081
               NEW_PORT=8080
-              NEW_ACTUATOR_PORT=8089
+              NEW_ACTUATOR_PORT=8088
             fi
             echo "디버깅 before port $BEFORE_PORT"
             echo "디버깅 new port $NEW_PORT"
