@@ -20,7 +20,7 @@ import { LOCAL_KEY_LAST_POSITION } from '@constants/storageKeys';
  *
  * @param zoom 현재 지도 영역의 줌 레벨을 로컬 스토리지에 저장한다.
  */
-const setDisplayPositionToLocalStorage = (zoom: number) => {
+const setDisplayPositionInLocalStorage = (zoom: number) => {
   const googleMapCenter = getGoogleMapStore().getState().getCenter();
 
   setLocalStorage<google.maps.LatLngLiteral & { zoom: number }>(LOCAL_KEY_LAST_POSITION, {
@@ -43,7 +43,7 @@ const CarFfeineMapListener = () => {
     }
 
     setIsProfileMenuOpen(false);
-    setDisplayPositionToLocalStorage(googleMap.getZoom());
+    setDisplayPositionInLocalStorage(googleMap.getZoom());
   };
 
   const requestClusterMarkers = () => {
@@ -59,7 +59,7 @@ const CarFfeineMapListener = () => {
     if (!isCachedRegion(displayPosition)) {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY_CLUSTER_MARKERS] });
 
-      setDisplayPositionToLocalStorage(googleMap.getZoom());
+      setDisplayPositionInLocalStorage(googleMap.getZoom());
       return;
     }
 
@@ -67,11 +67,11 @@ const CarFfeineMapListener = () => {
     if (Math.abs(googleMap.getZoom() - prevDisplayPosition.zoom) >= 1) {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY_CLUSTER_MARKERS] });
 
-      setDisplayPositionToLocalStorage(googleMap.getZoom());
+      setDisplayPositionInLocalStorage(googleMap.getZoom());
       return;
     }
 
-    setDisplayPositionToLocalStorage(prevDisplayPosition.zoom);
+    setDisplayPositionInLocalStorage(prevDisplayPosition.zoom);
   };
 
   useEffect(() => {
