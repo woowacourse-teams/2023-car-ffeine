@@ -106,4 +106,4 @@ jobs:
             --name backend$NEW_PORT \
             woowacarffeine/backend:latest
             
-            sh /home/ubuntu/bluegreen.sh
+            sudo sh /home/ubuntu/bluegreen.sh
