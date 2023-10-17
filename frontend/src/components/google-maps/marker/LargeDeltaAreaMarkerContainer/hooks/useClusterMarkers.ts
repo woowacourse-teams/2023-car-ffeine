@@ -14,7 +14,7 @@ import { QUERY_KEY_CLUSTER_MARKERS } from '@constants/queryKeys';
 import { SERVER_URL } from '@constants/server';
 import { SESSION_KEY_LAST_REQUEST_POSITION } from '@constants/storageKeys';
 
-import type { ClusterMarker, DisplayPosition } from '@type';
+import type { ClusterMarkerType, DisplayPosition } from '@type';
 
 const isMapLoaded = (displayPosition: DisplayPosition) => {
   const { latitudeDelta, longitudeDelta } = displayPosition;
@@ -53,7 +53,7 @@ export const fetchClusterMarkers = async () => {
 
   const clusterMarkers = await fetch(`${SERVER_URL}/stations/clusters?${requestQueryParams}`, {
     method: 'GET',
-  }).then<ClusterMarker[]>(async (response) => {
+  }).then<ClusterMarkerType[]>(async (response) => {
     setSessionStorage<DisplayPosition>(SESSION_KEY_LAST_REQUEST_POSITION, requestPositionParams);
 
     const data = await response.json();
