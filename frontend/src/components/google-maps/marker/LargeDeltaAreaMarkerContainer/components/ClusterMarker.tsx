@@ -5,13 +5,6 @@ export interface ClusterMarkerProps {
   count: number;
 }
 
-const truncateTo9999Plus = (count: number) => {
-  if (count > 9999) {
-    return '9999+';
-  }
-  return count.toString();
-};
-
 const ClusterMarker = ({ count }: ClusterMarkerProps) => {
   return (
     <FlexBox
@@ -24,7 +17,7 @@ const ClusterMarker = ({ count }: ClusterMarkerProps) => {
       alignItems="center"
       css={{ border: '1px solid #3366FF' }}
     >
-      <Text fontSize={2}>{truncateTo9999Plus(count)}</Text>
+      <Text fontSize={2}>{count}</Text>
     </FlexBox>
   );
 };
