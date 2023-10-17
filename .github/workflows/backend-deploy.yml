@@ -101,7 +101,7 @@ jobs:
             -e "REPLICA_DATABASE_USERNAME=${{secrets.REPLICA_DB_USER_NAME}}" \
             -e "REPLICA_DATABASE_PASSWORD=${{secrets.REPLICA_DB_USER_PASSWORD}}" \
             -e "SLACK_WEBHOOK_URL=${{secrets.SLACK_WEBHOOK_URL}}" \
-            --name backend_$NEW_PORT \
+            --name backend$NEW_PORT \
             woowacarffeine/backend:latest
 
 
