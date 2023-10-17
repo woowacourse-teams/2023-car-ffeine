@@ -1,118 +1,124 @@
 <!doctype html>
 <html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport" />
+    <meta name="description" content="편리한 전기차 충전소 지도" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport" />
-  <meta name="description" content="편리한 전기차 충전소 지도" />
+    <meta name="apple-mobile-web-app-title" content="카페인" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="#5E6AD7" />
 
-  <meta name="apple-mobile-web-app-title" content="카페인" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="#5E6AD7" />
+    <meta name="msapplication-TileColor" content="#fff" />
+    <meta name="msapplication-TileImage" content="icons/144.png" />
+    <meta name="theme-color" content="#fcfcfc" />
 
-  <meta name="msapplication-TileColor" content="#fff" />
-  <meta name="msapplication-TileImage" content="icons/144.png" />
-  <meta name="theme-color" content="#fcfcfc" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://carffe.in/" />
+    <meta property="og:title" content="카페인" />
+    <meta property="og:image" content="icons/192.png" />
+    <meta property="og:description" content="편리한 전기차 충전소 지도" />
+    <meta property="og:site_name" content="카페인" />
+    <meta property="og:locale" content="ko_KR" />
 
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://carffe.in/" />
-  <meta property="og:title" content="카페인" />
-  <meta property="og:image" content="icons/192.png" />
-  <meta property="og:description" content="편리한 전기차 충전소 지도" />
-  <meta property="og:site_name" content="카페인" />
-  <meta property="og:locale" content="ko_KR" />
+    <link rel="apple-touch-icon" sizes="57x57" href="icons/ios/apple-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="60x60" href="icons/ios/apple-icon-60x60.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="icons/ios/apple-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="icons/ios/apple-icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="icons/ios/apple-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="icons/ios/apple-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="icons/ios/apple-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="icons/ios/apple-icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/ios/apple-icon-180x180.png" />
 
-  <link rel="apple-touch-icon" sizes="57x57" href="icons/ios/apple-icon-57x57.png" />
-  <link rel="apple-touch-icon" sizes="60x60" href="icons/ios/apple-icon-60x60.png" />
-  <link rel="apple-touch-icon" sizes="72x72" href="icons/ios/apple-icon-72x72.png" />
-  <link rel="apple-touch-icon" sizes="76x76" href="icons/ios/apple-icon-76x76.png" />
-  <link rel="apple-touch-icon" sizes="114x114" href="icons/ios/apple-icon-114x114.png" />
-  <link rel="apple-touch-icon" sizes="120x120" href="icons/ios/apple-icon-120x120.png" />
-  <link rel="apple-touch-icon" sizes="144x144" href="icons/ios/apple-icon-144x144.png" />
-  <link rel="apple-touch-icon" sizes="152x152" href="icons/ios/apple-icon-152x152.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="icons/ios/apple-icon-180x180.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/192.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="icons/96.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/16.png" />
+    <link rel="shortcut icon" href="data:image/x-icon" type="image/x-icon" />
 
-  <link rel="icon" type="image/png" sizes="192x192" href="icons/192.png" />
-  <link rel="icon" type="image/png" sizes="96x96" href="icons/96.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="icons/32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="icons/16.png" />
-  <link rel="shortcut icon" href="data:image/x-icon" type="image/x-icon" />
+    <link
+      rel="manifest"
+      type="application/manifest+json"
+      href="manifest.json"
+      crossorigin="use-credentials"
+    />
 
-  <link rel="manifest" type="application/manifest+json" href="manifest.json" crossorigin="use-credentials" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>카페인</title>
+  </head>
 
-  <link href="https://fonts.googleapis.com" rel="preconnect" />
-  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
-  <title>카페인</title>
-</head>
+  <body>
+    <div id="root"></div>
 
-<body>
-  <div id="root"></div>
+    <script>
+      function gm_authFailure() {
+        // 구글 맵 로드 실패 시 전역적으로 동작하는 함수입니다.
+        alert('잘못 된 api key 입니다.');
+      }
 
-  <script>
-    function gm_authFailure() {
-      // 구글 맵 로드 실패 시 전역적으로 동작하는 함수입니다.
-      alert('잘못 된 api key 입니다.');
+      // if ('serviceWorker' in navigator) {
+      //   navigator.serviceWorker
+      //     .register('pwabuilder-sw.js')
+      //     .then(function (registration) {
+      //       registration.scope;
+      //     })
+      //     .catch(function (error) {
+      //       console.log('Service Worker registration failed', error);
+      //     });
+      // }
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z5MN0ZWS8M"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'G-Z5MN0ZWS8M');
+    </script>
+  </body>
+  <style>
+    body {
+      overflow: hidden;
     }
 
-    // if ('serviceWorker' in navigator) {
-    //   navigator.serviceWorker
-    //     .register('pwabuilder-sw.js')
-    //     .then(function (registration) {
-    //       registration.scope;
-    //     })
-    //     .catch(function (error) {
-    //       console.log('Service Worker registration failed', error);
-    //     });
-    // }
-  </script>
+    @keyframes grow {
+      0% {
+        transform: translateY(0) scaleY(0.1);
+        opacity: 0;
+      }
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z5MN0ZWS8M"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
+      5% {
+        opacity: 0.7;
+      }
 
-    gtag('config', 'G-Z5MN0ZWS8M');
-  </script>
-</body>
-<style>
-  body {
-    overflow: hidden;
-  }
+      30% {
+        transform: translateY(0) scaleY(0.5);
+        opacity: 1;
+      }
 
-  @keyframes grow {
-    0% {
-      transform: translateY(0) scaleY(0.1);
-      opacity: 0;
+      50% {
+        transform: translateY(0) scaleY(1.2);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(0) scaleY(1);
+        opacity: 1;
+      }
     }
 
-    5% {
-      opacity: 0.7;
+    .marker-animation {
+      animation: grow 300ms ease-out 0s;
     }
-
-    30% {
-      transform: translateY(0) scaleY(0.5);
-      opacity: 1;
-    }
-
-    50% {
-      transform: translateY(0) scaleY(1.2);
-      opacity: 1;
-    }
-
-    100% {
-      transform: translateY(0) scaleY(1);
-      opacity: 1;
-    }
-  }
-
-  .marker-animation {
-    animation: grow 300ms ease-out 0s;
-  }
-</style>
-
+  </style>
 </html>
