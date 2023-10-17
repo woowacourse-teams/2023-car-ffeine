@@ -34,7 +34,7 @@ const Bar = ({ ratio, hour }: BarProps) => {
         max={100}
         color={
           isRatioUnknown
-            ? '#ebebeb'
+            ? '#c8c8c8'
             : `linear-gradient(${`0.25turn, ${gradient.start}, ${gradient.middle}, ${gradient.end}`})`
         }
       />
