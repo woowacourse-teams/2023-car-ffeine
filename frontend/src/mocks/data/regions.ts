@@ -9,8 +9,8 @@ export const regions: Region[] = [
   },
   {
     regionName: '인천광역시',
-    latitude: 37.469221,
-    longitude: 126.573234,
+    latitude: 37.3865,
+    longitude: 126.647,
     count: 2665,
   },
   {
@@ -45,8 +45,8 @@ export const regions: Region[] = [
   },
   {
     regionName: '경기도',
-    latitude: 37.567167,
-    longitude: 127.190292,
+    latitude: 37.2895,
+    longitude: 127.0535,
     count: 14710,
   },
   {
