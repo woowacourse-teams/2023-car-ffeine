@@ -90,6 +90,8 @@ jobs:
               NEW_PORT=8080
               NEW_ACTUATOR_PORT=8089
             fi
+            echo "디버깅 before port $BEFORE_PORT"
+            echo "디버깅 new port $NEW_PORT"
             
             sudo docker run -d -p $NEW_PORT:8080 -p $NEW_ACTUATOR_PORT:8088 \
             -e "SPRING_PROFILE=prod" \
