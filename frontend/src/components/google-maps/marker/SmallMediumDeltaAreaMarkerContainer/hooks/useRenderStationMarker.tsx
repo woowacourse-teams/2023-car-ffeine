@@ -23,14 +23,6 @@ export const useRenderStationMarker = () => {
   const { openStationInfoWindow } = useStationInfoWindow();
   const { openLastPanel } = useNavigationBar();
   const screen = useMediaQueries();
-  const intersectionObserver = new IntersectionObserver((entries) => {
-    for (const entry of entries) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('marker-animation');
-        intersectionObserver.unobserve(entry.target);
-      }
-    }
-  });
 
   const createNewMarkerInstance = (marker: StationDetails) => {
     const { latitude: lat, longitude: lng, stationName, stationId } = marker;
@@ -122,11 +114,11 @@ export const useRenderStationMarker = () => {
 
         markerInstance.map = googleMap;
         defaultMarkerDesign.element.style.opacity = '0';
+        defaultMarkerDesign.element.classList.add('marker-animation');
         defaultMarkerDesign.element.addEventListener('animationend', (event) => {
           defaultMarkerDesign.element.classList.remove('marker-animation');
           defaultMarkerDesign.element.style.opacity = '1';
         });
-        intersectionObserver.observe(defaultMarkerDesign.element);
         markerInstance.content = defaultMarkerDesign.element;
       }
     });
