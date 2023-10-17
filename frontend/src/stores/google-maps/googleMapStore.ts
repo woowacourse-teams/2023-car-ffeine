@@ -9,6 +9,8 @@ import {
 } from '@constants/googleMaps';
 import { LOCAL_KEY_LAST_POSITION } from '@constants/storageKeys';
 
+import type { DisplayPosition } from '@type';
+
 export const getGoogleMapStore = (() => {
   let googleMap: google.maps.Map;
 
@@ -21,16 +23,18 @@ export const getGoogleMapStore = (() => {
 
   return () => {
     if (!googleMap) {
-      const initialCenter = getLocalStorage<google.maps.LatLngLiteral & { zoom: number }>(
-        LOCAL_KEY_LAST_POSITION,
-        { ...DEFAULT_CENTER, zoom: INITIAL_ZOOM_LEVEL }
-      );
+      const initialCenter = getLocalStorage<
+        google.maps.LatLngLiteral & Pick<DisplayPosition, 'zoom'>
+      >(LOCAL_KEY_LAST_POSITION, { ...DEFAULT_CENTER, zoom: INITIAL_ZOOM_LEVEL });
 
       // 서비스 시작시 줌 레벨을 INITIAL_ZOOM_LEVEL로 고정한다.
-      setLocalStorage<google.maps.LatLngLiteral & { zoom: number }>(LOCAL_KEY_LAST_POSITION, {
-        ...initialCenter,
-        zoom: INITIAL_ZOOM_LEVEL,
-      });
+      setLocalStorage<google.maps.LatLngLiteral & Pick<DisplayPosition, 'zoom'>>(
+        LOCAL_KEY_LAST_POSITION,
+        {
+          ...initialCenter,
+          zoom: INITIAL_ZOOM_LEVEL,
+        }
+      );
 
       googleMap = new window.google.maps.Map(container, {
         center: initialCenter,

@@ -15,19 +15,26 @@ import { DEFAULT_CENTER, INITIAL_ZOOM_LEVEL } from '@constants/googleMaps';
 import { QUERY_KEY_CLUSTER_MARKERS, QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
 import { LOCAL_KEY_LAST_POSITION } from '@constants/storageKeys';
 
+import type { DisplayPosition } from '@type';
+
 /**
- * 지도의 center에 해당하는 위도, 경도 좌표는 googleMapStore에서 가져오고, 줌 레벨은 특정 상태에 따라 변경되어야 하므로 외부에서 받아온다.
+ * 모든 idle 상태에 따라 변화해야 하는 지도의 중심 좌표는 googleMapStore에서 가져오고,
+ * 특정 상태에 따라 변경되어야 하는 지도의 줌 레벨은 외부에서 받아온다.
+ * 이 함수를 이용해 지도의 중심 좌표와 외부에서 받아온 줌 레벨을 로컬스토리지에 저장한다.
  *
  * @param zoom 현재 지도 영역의 줌 레벨을 로컬 스토리지에 저장한다.
  */
 const setDisplayPositionInLocalStorage = (zoom: number) => {
   const googleMapCenter = getGoogleMapStore().getState().getCenter();
 
-  setLocalStorage<google.maps.LatLngLiteral & { zoom: number }>(LOCAL_KEY_LAST_POSITION, {
-    lat: googleMapCenter.lat(),
-    lng: googleMapCenter.lng(),
-    zoom: zoom,
-  });
+  setLocalStorage<google.maps.LatLngLiteral & Pick<DisplayPosition, 'zoom'>>(
+    LOCAL_KEY_LAST_POSITION,
+    {
+      lat: googleMapCenter.lat(),
+      lng: googleMapCenter.lng(),
+      zoom: zoom,
+    }
+  );
 };
 
 const CarFfeineMapListener = () => {
@@ -48,10 +55,9 @@ const CarFfeineMapListener = () => {
 
   const requestClusterMarkers = () => {
     const displayPosition = getDisplayPosition(googleMap);
-    const prevDisplayPosition = getLocalStorage<google.maps.LatLngLiteral & { zoom: number }>(
-      LOCAL_KEY_LAST_POSITION,
-      { ...DEFAULT_CENTER, zoom: INITIAL_ZOOM_LEVEL }
-    );
+    const prevDisplayPosition = getLocalStorage<
+      google.maps.LatLngLiteral & Pick<DisplayPosition, 'zoom'>
+    >(LOCAL_KEY_LAST_POSITION, { ...DEFAULT_CENTER, zoom: INITIAL_ZOOM_LEVEL });
 
     setIsProfileMenuOpen(false);
 
