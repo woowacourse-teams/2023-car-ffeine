@@ -37,9 +37,9 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-#
-#      - name: Build for asciiDoc
-#        run: ./gradlew bootjar
+      #
+      #      - name: Build for asciiDoc
+      #        run: ./gradlew bootjar
 
       - name: Build with Gradle
         run: ./gradlew bootjar
@@ -71,7 +71,6 @@ jobs:
           JASYPT_KEY: ${{ secrets.JASYPT_KEY }}
           DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
           DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-          BLUE_GREEN_SCRIPT: ${{ secrets.BLUE_GREEN_SCRIPT }}
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
@@ -83,14 +82,15 @@ jobs:
             sudo docker pull woowacarffeine/backend:latest
 
             if sudo docker ps | grep ":8080"; then
-              BEFORE_PORT=8080
-              NEW_PORT=8081
-              NEW_ACTUATOR_PORT=8089
+              export BEFORE_PORT=8080
+              export NEW_PORT=8081
+              export NEW_ACTUATOR_PORT=8089
             else
-              BEFORE_PORT=8081
-              NEW_PORT=8080
-              NEW_ACTUATOR_PORT=8088
+              export BEFORE_PORT=8081
+              export NEW_PORT=8080
+              export NEW_ACTUATOR_PORT=8088
             fi
+            
             echo "디버깅 before port $BEFORE_PORT"
             echo "디버깅 new port $NEW_PORT"
             echo "디버깅 new actuator $NEW_ACTUATOR_PORT"
@@ -105,10 +105,5 @@ jobs:
             -e "SLACK_WEBHOOK_URL=${{secrets.SLACK_WEBHOOK_URL}}" \
             --name backend$NEW_PORT \
             woowacarffeine/backend:latest
-
-
-      - name: Execute bluegreen.sh
-        run: |
-          echo "$BLUE_GREEN_SCRIPT" > bluegreen.sh
-          chmod 700 bluegreen.sh
-          sudo ./bluegreen.sh
+            
+            sh /home/ubuntu/bluegreen.sh
