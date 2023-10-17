@@ -36,7 +36,6 @@ export const useRenderClusterMarkers = () => {
       };
     });
 
-    // TODO: 구현하면 주석 풀기
     bindMarkerClickHandler(newMarkerInstances, newMarkers);
 
     return newMarkerInstances;
@@ -73,12 +72,14 @@ export const useRenderClusterMarkers = () => {
   const renderClusterMarkers = (markerInstances: MarkerInstance[], markers: ClusterMarker[]) => {
     markerInstances.forEach(({ instance: markerInstance, id }) => {
       const container = document.createElement('div');
+
       container.style.opacity = '0';
       container.classList.add('marker-animation');
       container.addEventListener('animationend', () => {
         container.classList.remove('marker-animation');
         container.style.opacity = '1';
       });
+
       markerInstance.content = container;
       markerInstance.map = googleMap;
 
