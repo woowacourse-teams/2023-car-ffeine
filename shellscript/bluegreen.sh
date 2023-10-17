@@ -35,8 +35,6 @@ envsubst '${BACKEND_PORT}' < backend.template > backend.conf
 sudo mv backend.conf /etc/nginx/conf.d/
 sudo nginx -s reload
 
-if sudo docker ps | grep ${BEFORE_PORT}; then
-  sudo docker stop $(docker ps -q --filter "expose=${BEFORE_PORT}")
-fi
+docker stop backend$BEFORE_PORT
 
 sudo docker container prune -f
