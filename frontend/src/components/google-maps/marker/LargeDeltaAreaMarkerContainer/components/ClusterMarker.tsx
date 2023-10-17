@@ -1,11 +1,11 @@
 import Box from '@common/Box';
 import Text from '@common/Text';
 
-export interface FooMarkerProps {
+export interface ClusterMarkerProps {
   count: number;
 }
 
-const FooMarker = ({ count }: FooMarkerProps) => {
+const ClusterMarker = ({ count }: ClusterMarkerProps) => {
   return (
     <Box p={6} borderRadius="50%" bgColor="#D9E5FF">
       <Text fontSize={2}>{count}</Text>
@@ -13,4 +13,4 @@ const FooMarker = ({ count }: FooMarkerProps) => {
   );
 };
 
-export default FooMarker;
+export default ClusterMarker;

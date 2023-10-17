@@ -2,12 +2,12 @@ import type { Meta } from '@storybook/react';
 
 import Box from '@common/Box';
 
-import type { FooMarkerProps } from './FooMarker';
-import FooMarker from './FooMarker';
+import type { ClusterMarkerProps } from './ClusterMarker';
+import ClusterMarker from './ClusterMarker';
 
 const meta = {
-  title: 'UI/FooMarker',
-  component: FooMarker,
+  title: 'UI/ClusterMarker',
+  component: ClusterMarker,
   tags: ['autodocs'],
   args: {
     count: 99,
@@ -17,14 +17,14 @@ const meta = {
       description: '특정 영역의 충전소 개수입니다.',
     },
   },
-} satisfies Meta<typeof FooMarker>;
+} satisfies Meta<typeof ClusterMarker>;
 
 export default meta;
 
-export const Default = (args: FooMarkerProps) => {
+export const Default = (args: ClusterMarkerProps) => {
   return (
     <Box width="fit-content">
-      <FooMarker {...args} />
+      <ClusterMarker {...args} />
     </Box>
   );
 };

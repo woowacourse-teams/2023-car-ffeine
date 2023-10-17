@@ -1,5 +1,7 @@
 import { createRoot } from 'react-dom/client';
 
+import ClusterMarker from '@marker/LargeDeltaAreaMarkerContainer/components/ClusterMarker';
+
 import { getStoreSnapshot } from '@utils/external-state/tools';
 
 import { getGoogleMapStore, googleMapActions } from '@stores/google-maps/googleMapStore';
@@ -7,16 +9,14 @@ import type { MarkerInstance } from '@stores/google-maps/markerInstanceStore';
 
 import { INITIAL_ZOOM_LEVEL } from '@constants/googleMaps';
 
-import type { ClusterMarker } from '@type';
-
-import FooMarker from '../components/FooMarker';
+import type { ClusterMarkerType } from '@type';
 
 export const useRenderClusterMarkers = () => {
   const googleMap = getStoreSnapshot(getGoogleMapStore());
 
   const createNewMarkerInstances = (
     prevMarkerInstances: MarkerInstance[],
-    markers: ClusterMarker[]
+    markers: ClusterMarkerType[]
   ) => {
     const newMarkers = markers.filter((marker) =>
       prevMarkerInstances.every((prevMarker) => prevMarker.id !== marker.id)
@@ -43,7 +43,7 @@ export const useRenderClusterMarkers = () => {
 
   const removeMarkersOutsideBounds = (
     prevMarkerInstances: MarkerInstance[],
-    currentMarkers: ClusterMarker[]
+    currentMarkers: ClusterMarkerType[]
   ) => {
     const markersOutOfBounds = prevMarkerInstances.filter((prevMarker) =>
       currentMarkers.every((currentMarker) => currentMarker.id !== prevMarker.id)
@@ -62,14 +62,17 @@ export const useRenderClusterMarkers = () => {
 
   const getRemainedMarkerInstances = (
     prevMarkerInstances: MarkerInstance[],
-    currentMarkers: ClusterMarker[]
+    currentMarkers: ClusterMarkerType[]
   ) => {
     return prevMarkerInstances.filter((markerInstance) =>
       currentMarkers.some((marker) => marker.id === markerInstance.id)
     );
   };
 
-  const renderClusterMarkers = (markerInstances: MarkerInstance[], markers: ClusterMarker[]) => {
+  const renderClusterMarkers = (
+    markerInstances: MarkerInstance[],
+    markers: ClusterMarkerType[]
+  ) => {
     markerInstances.forEach(({ instance: markerInstance, id }) => {
       const container = document.createElement('div');
 
@@ -85,13 +88,13 @@ export const useRenderClusterMarkers = () => {
 
       const markerInformation = markers.find((clusterMarker) => clusterMarker.id === id);
 
-      createRoot(container).render(<FooMarker count={markerInformation.count} />);
+      createRoot(container).render(<ClusterMarker count={markerInformation.count} />);
     });
   };
 
   const bindMarkerClickHandler = (
     markerInstances: MarkerInstance[],
-    newMarkers: ClusterMarker[]
+    newMarkers: ClusterMarkerType[]
   ) => {
     markerInstances.forEach(({ instance: markerInstance, id: stationId }) => {
       markerInstance.addListener('click', () => {
