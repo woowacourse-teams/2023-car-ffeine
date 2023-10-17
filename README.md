@@ -1,14 +1,14 @@
 # 2023 우아한테크코스 5기 카페인 팀
 
-<div style="text-align:center">
+<p align="center">
   실시간 전기자동차 충전소 지도 및 사용 통계 조회 서비스
-</div>
-<div style="text-align:center">
+</p>
+<p align="center">
   <img src="./frontend/public/icons/192.png"/>
-</div>
-<div style="text-align:center">
+</p>
+<p align="center">
   <a href="https://carffe.in">카페인 바로가기</a>
-</div>
+</p>
 
 ## 프로젝트 소개
 
