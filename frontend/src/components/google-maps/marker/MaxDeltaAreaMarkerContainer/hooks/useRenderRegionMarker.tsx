@@ -17,6 +17,13 @@ export const useRenderRegionMarker = () => {
 
     const container = document.createElement('div');
 
+    container.style.opacity = '0';
+    container.classList.add('marker-animation');
+    container.addEventListener('animationend', () => {
+      container.classList.remove('marker-animation');
+      container.style.opacity = '1';
+    });
+
     const markerInstance = new google.maps.marker.AdvancedMarkerElement({
       position: { lat: latitude, lng: longitude },
       map: googleMap,

@@ -115,7 +115,7 @@ export const useRenderStationMarker = () => {
         markerInstance.map = googleMap;
         defaultMarkerDesign.element.style.opacity = '0';
         defaultMarkerDesign.element.classList.add('marker-animation');
-        defaultMarkerDesign.element.addEventListener('animationend', (event) => {
+        defaultMarkerDesign.element.addEventListener('animationend', () => {
           defaultMarkerDesign.element.classList.remove('marker-animation');
           defaultMarkerDesign.element.style.opacity = '1';
         });
@@ -130,7 +130,12 @@ export const useRenderStationMarker = () => {
   ) => {
     markerInstances.forEach(({ instance: markerInstance, id: stationId }) => {
       const container = document.createElement('div');
-
+      container.style.opacity = '0';
+      container.classList.add('marker-animation');
+      container.addEventListener('animationend', () => {
+        container.classList.remove('marker-animation');
+        container.style.opacity = '1';
+      });
       markerInstance.content = container;
       markerInstance.map = googleMap;
 

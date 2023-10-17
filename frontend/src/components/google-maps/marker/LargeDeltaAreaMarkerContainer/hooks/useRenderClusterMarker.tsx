@@ -71,7 +71,12 @@ export const useRenderClusterMarkers = () => {
   const renderFooMarkers = (markerInstances: MarkerInstance[], markers: ClusterMarker[]) => {
     markerInstances.forEach(({ instance: markerInstance, id }) => {
       const container = document.createElement('div');
-
+      container.style.opacity = '0';
+      container.classList.add('marker-animation');
+      container.addEventListener('animationend', () => {
+        container.classList.remove('marker-animation');
+        container.style.opacity = '1';
+      });
       markerInstance.content = container;
       markerInstance.map = googleMap;
 
