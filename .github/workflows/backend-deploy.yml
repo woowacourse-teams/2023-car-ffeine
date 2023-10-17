@@ -107,7 +107,7 @@ jobs:
 
 
       - name: Execute bluegreen.sh
-        run: ./home/ubuntu/bluegreen.sh
+        run: /home/ubuntu/bluegreen.sh
         env:
           NEW_PORT: $NEW_PORT
           NEW_ACTUATOR_PORT: $NEW_ACTUATOR_PORT
