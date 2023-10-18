@@ -8,14 +8,12 @@ import App from '../App';
 
 export const router = createBrowserRouter([
   {
+    path: '/google',
+    element: <GoogleLogin />,
+  },
+  {
     path: '/',
     element: <App />,
     errorElement: <NotFound />,
-    children: [
-      {
-        path: '/google',
-        element: <GoogleLogin />,
-      },
-    ],
   },
 ]);
