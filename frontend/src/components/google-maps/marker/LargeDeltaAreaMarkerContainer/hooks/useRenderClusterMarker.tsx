@@ -1,5 +1,7 @@
 import { createRoot } from 'react-dom/client';
 
+import StyledClusterMarker from '@marker/LargeDeltaAreaMarkerContainer/components/StyledClusterMarker';
+
 import { getStoreSnapshot } from '@utils/external-state/tools';
 
 import { getGoogleMapStore, googleMapActions } from '@stores/google-maps/googleMapStore';
@@ -8,8 +10,6 @@ import type { MarkerInstance } from '@stores/google-maps/markerInstanceStore';
 import { INITIAL_ZOOM_LEVEL } from '@constants/googleMaps';
 
 import type { ClusterMarker } from '@type';
-
-import FooMarker from '../components/FooMarker';
 
 export const useRenderClusterMarkers = () => {
   const googleMap = getStoreSnapshot(getGoogleMapStore());
@@ -85,7 +85,7 @@ export const useRenderClusterMarkers = () => {
 
       const markerInformation = markers.find((clusterMarker) => clusterMarker.id === id);
 
-      createRoot(container).render(<FooMarker count={markerInformation.count} />);
+      createRoot(container).render(<StyledClusterMarker count={markerInformation.count} />);
     });
   };
 
