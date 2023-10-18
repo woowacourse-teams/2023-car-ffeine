@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -23,23 +26,32 @@ public class StationGridFacadeService {
     private final StationGridService stationGridService;
     private final StationQueryService stationQueryService;
     private final StationGridCacheService stationGridCacheService;
+    private final ExecutorService executor = Executors.newFixedThreadPool(5);
 
     public List<GridWithCount> createGridWithCounts() {
         GridGenerator gridGenerator = new GridGenerator();
         List<Grid> grids = gridGenerator.createKorea();
+        List<CompletableFuture<Void>> futures = new ArrayList<>();
+
         int size = 1000;
         int page = 0;
         while (size == 1000) {
-            log.info("page : {}", page);
-            List<StationPoint> stationPoint = stationQueryService.findStationPoint(page, size);
-            stationGridService.assignStationGrids(grids, stationPoint);
+            int finalPage = page;
+            List<StationPoint> stationPoints = stationQueryService.findStationPoint(finalPage, size);
+            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> stationGridService.assignStationGrids(grids, stationPoints), executor);
+
+            futures.add(future);
             page++;
-            size = stationPoint.size();
+            size = stationPoints.size();
         }
+        futures.forEach(CompletableFuture::join);
+        executor.shutdown();
+
         List<GridWithCount> list = grids.stream()
                 .filter(Grid::hasStation)
                 .map(it -> GridWithCount.createCenterPoint(it, it.stationSize()))
                 .toList();
+
         return new ArrayList<>(list);
     }
 
