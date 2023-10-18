@@ -13,6 +13,8 @@ import Text from '@common/Text';
 
 import type { StationDetails } from '@type';
 
+import PathFinding from './PathFinding';
+
 export interface StationInfoProps {
   stationDetails: StationDetails;
   handleOpenStationDetail: () => void;
@@ -24,8 +26,17 @@ const StationInfo = ({
   handleOpenStationDetail,
   handleCloseStationWindow,
 }: StationInfoProps) => {
-  const { address, chargers, companyName, isParkingFree, isPrivate, stationId, stationName } =
-    stationDetails;
+  const {
+    address,
+    chargers,
+    companyName,
+    isParkingFree,
+    isPrivate,
+    stationId,
+    stationName,
+    longitude,
+    latitude,
+  } = stationDetails;
 
   const {
     isAvailable,
@@ -91,14 +102,17 @@ const StationInfo = ({
         </Text>
       </FlexBox>
 
-      <Button onClick={handleOpenStationDetail} mt={3} hover>
-        <FlexBox alignItems="center">
-          <Text variant="label" mb={0.75}>
-            상세 정보 보기
-          </Text>
-          <HiChevronRight />
-        </FlexBox>
-      </Button>
+      <FlexBox mt={3} justifyContent="between">
+        <Button onClick={handleOpenStationDetail} hover>
+          <FlexBox alignItems="center">
+            <Text variant="label" mb={0.75}>
+              상세 정보 보기
+            </Text>
+            <HiChevronRight />
+          </FlexBox>
+        </Button>
+        <PathFinding address={address} latitude={latitude} longitude={longitude} />
+      </FlexBox>
     </Box>
   );
 };
