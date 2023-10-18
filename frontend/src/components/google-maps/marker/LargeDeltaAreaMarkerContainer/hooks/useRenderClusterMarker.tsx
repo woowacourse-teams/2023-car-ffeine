@@ -1,6 +1,6 @@
 import { createRoot } from 'react-dom/client';
 
-import ClusterMarker from '@marker/LargeDeltaAreaMarkerContainer/components/ClusterMarker';
+import StyledClusterMarker from '@marker/LargeDeltaAreaMarkerContainer/components/StyledClusterMarker';
 
 import { getStoreSnapshot } from '@utils/external-state/tools';
 
@@ -88,7 +88,7 @@ export const useRenderClusterMarkers = () => {
 
       const markerInformation = markers.find((clusterMarker) => clusterMarker.id === id);
 
-      createRoot(container).render(<ClusterMarker count={markerInformation.count} />);
+      createRoot(container).render(<StyledClusterMarker count={markerInformation.count} />);
     });
   };
 

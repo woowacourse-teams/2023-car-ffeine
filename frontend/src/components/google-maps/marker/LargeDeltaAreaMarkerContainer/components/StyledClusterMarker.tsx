@@ -1,11 +1,11 @@
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
-export interface ClusterMarkerProps {
+export interface StyledClusterMarkerProps {
   count: number;
 }
 
-const ClusterMarker = ({ count }: ClusterMarkerProps) => {
+const StyledClusterMarker = ({ count }: StyledClusterMarkerProps) => {
   return (
     <FlexBox
       p={4}
@@ -26,4 +26,4 @@ const ClusterMarker = ({ count }: ClusterMarkerProps) => {
   );
 };
 
-export default ClusterMarker;
+export default StyledClusterMarker;
