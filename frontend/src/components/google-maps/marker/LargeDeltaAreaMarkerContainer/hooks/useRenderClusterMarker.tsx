@@ -9,14 +9,14 @@ import type { MarkerInstance } from '@stores/google-maps/markerInstanceStore';
 
 import { INITIAL_ZOOM_LEVEL } from '@constants/googleMaps';
 
-import type { ClusterMarkerInterface } from '@type';
+import type { ClusterMarker } from '@type';
 
 export const useRenderClusterMarkers = () => {
   const googleMap = getStoreSnapshot(getGoogleMapStore());
 
   const createNewMarkerInstances = (
     prevMarkerInstances: MarkerInstance[],
-    markers: ClusterMarkerInterface[]
+    markers: ClusterMarker[]
   ) => {
     const newMarkers = markers.filter((marker) =>
       prevMarkerInstances.every((prevMarker) => prevMarker.id !== marker.id)
@@ -43,7 +43,7 @@ export const useRenderClusterMarkers = () => {
 
   const removeMarkersOutsideBounds = (
     prevMarkerInstances: MarkerInstance[],
-    currentMarkers: ClusterMarkerInterface[]
+    currentMarkers: ClusterMarker[]
   ) => {
     const markersOutOfBounds = prevMarkerInstances.filter((prevMarker) =>
       currentMarkers.every((currentMarker) => currentMarker.id !== prevMarker.id)
@@ -62,17 +62,14 @@ export const useRenderClusterMarkers = () => {
 
   const getRemainedMarkerInstances = (
     prevMarkerInstances: MarkerInstance[],
-    currentMarkers: ClusterMarkerInterface[]
+    currentMarkers: ClusterMarker[]
   ) => {
     return prevMarkerInstances.filter((markerInstance) =>
       currentMarkers.some((marker) => marker.id === markerInstance.id)
     );
   };
 
-  const renderClusterMarkers = (
-    markerInstances: MarkerInstance[],
-    markers: ClusterMarkerInterface[]
-  ) => {
+  const renderClusterMarkers = (markerInstances: MarkerInstance[], markers: ClusterMarker[]) => {
     markerInstances.forEach(({ instance: markerInstance, id }) => {
       const container = document.createElement('div');
 
@@ -94,7 +91,7 @@ export const useRenderClusterMarkers = () => {
 
   const bindMarkerClickHandler = (
     markerInstances: MarkerInstance[],
-    newMarkers: ClusterMarkerInterface[]
+    newMarkers: ClusterMarker[]
   ) => {
     markerInstances.forEach(({ instance: markerInstance, id: stationId }) => {
       markerInstance.addListener('click', () => {

@@ -131,7 +131,7 @@ export interface StationFilters {
   capacities: CapaCityBigDecimal[];
 }
 
-export interface ClusterMarkerInterface {
+export interface ClusterMarker {
   id: string;
   latitude: number;
   longitude: number;
