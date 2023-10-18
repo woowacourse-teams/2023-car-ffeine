@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { useSearchStations } from '@hooks/tanstack-query/useSearchStations';
 import { useDebounce } from '@hooks/useDebounce';
 
-import Box from '@common/Box';
 import FlexBox from '@common/FlexBox';
 import Loader from '@common/Loader';
 
