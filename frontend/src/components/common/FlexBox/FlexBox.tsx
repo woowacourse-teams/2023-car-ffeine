@@ -61,7 +61,6 @@ const FlexBox = ({
   justifyContent,
   alignItems,
   alignContent,
-  borderRadius,
   ...props
 }: FlexBoxProps) => {
   const changeableTag = tag || 'div';
@@ -75,7 +74,6 @@ const FlexBox = ({
       $justifyContent={justifyContent}
       $alignItems={alignItems}
       $alignContent={alignContent}
-      $borderRadius={borderRadius}
       {...props}
     >
       {children}

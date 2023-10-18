@@ -15,7 +15,9 @@ const ClusterMarker = ({ count }: ClusterMarkerProps) => {
       height="70px"
       justifyContent="center"
       alignItems="center"
-      css={{ border: '1px solid #3366FF' }}
+      border={true}
+      borderColor="#3366FF"
+      borderWidth="1px"
     >
       <Text tag="span" fontSize={2}>
         {count}
