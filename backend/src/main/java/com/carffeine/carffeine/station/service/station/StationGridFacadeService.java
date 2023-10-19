@@ -28,6 +28,13 @@ public class StationGridFacadeService {
     private final StationGridCacheService stationGridCacheService;
     private final ExecutorService executor = Executors.newFixedThreadPool(5);
 
+    private static List<GridWithCount> createCenterPointWhereHasStation(List<Grid> grids) {
+        return grids.stream()
+                .filter(Grid::hasStation)
+                .map(it -> GridWithCount.createCenterPoint(it, it.stationSize()))
+                .toList();
+    }
+
     public List<GridWithCount> createGridWithCounts() {
         GridGenerator gridGenerator = new GridGenerator();
         List<Grid> grids = gridGenerator.createKorea();
@@ -47,11 +54,7 @@ public class StationGridFacadeService {
         futures.forEach(CompletableFuture::join);
         executor.shutdown();
 
-        List<GridWithCount> list = grids.stream()
-                .filter(Grid::hasStation)
-                .map(it -> GridWithCount.createCenterPoint(it, it.stationSize()))
-                .toList();
-
+        List<GridWithCount> list = createCenterPointWhereHasStation(grids);
         return new ArrayList<>(list);
     }
 
