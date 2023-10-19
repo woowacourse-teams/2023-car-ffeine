@@ -11,10 +11,10 @@ import java.util.UUID;
 @Getter
 public class Grid {
 
+    private final Point top;
+    private final Point bottom;
+    private final List<Point> points;
     private String id;
-    private Point top;
-    private Point bottom;
-    private List<Point> points;
     private int count;
 
     public Grid(Point top, Point bottom) {
