@@ -41,6 +41,7 @@ const FilterSection = ({
             size="sm"
             onClick={() => toggleSelectFilter(filterOptionValues[index])}
             pill
+            css={{ '&:hover': { background: '#cfe2ff', color: '#2a6cd8' } }}
           >
             <Text variant={'subtitle'}>{filterOption}</Text>
           </ButtonNext>
