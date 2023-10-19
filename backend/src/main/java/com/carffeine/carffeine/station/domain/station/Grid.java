@@ -52,6 +52,12 @@ public class Grid {
         return topLongitude.add(bottomLongitude).divide(BigDecimal.valueOf(2), 4, RoundingMode.CEILING);
     }
 
+    public Point randomPoint() {
+        int size = points.size();
+        int randomIndex = (int) (Math.random() * size);
+        return points.get(randomIndex);
+    }
+
     public void addPoint(Point point) {
         points.add(point);
     }

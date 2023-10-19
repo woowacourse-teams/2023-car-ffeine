@@ -30,19 +30,12 @@ public class StationGridFacadeService {
     private final StationGridCacheService stationGridCacheService;
     private final ExecutorService executor = Executors.newFixedThreadPool(5);
 
-    private static List<GridWithCount> createCenterPointWhereHasStation(List<Grid> grids) {
-        return grids.stream()
-                .filter(Grid::hasStation)
-                .map(it -> GridWithCount.createCenterPoint(it, it.stationSize()))
-                .toList();
-    }
-
     public List<GridWithCount> createGridWithCounts() {
         GridGenerator gridGenerator = new GridGenerator();
         List<Grid> grids = gridGenerator.createKorea();
         List<CompletableFuture<Void>> futures = new ArrayList<>();
 
-        int loopSize = stationQueryService.findStationCount().intValue() / BATCH_SIZE;
+        long loopSize = stationQueryService.findStationCount() / BATCH_SIZE + 1;
 
         int page = 0;
         for (int i = 0; i < loopSize; i++) {
@@ -58,8 +51,15 @@ public class StationGridFacadeService {
         futures.forEach(CompletableFuture::join);
         executor.shutdown();
 
-        List<GridWithCount> list = createCenterPointWhereHasStation(grids);
+        List<GridWithCount> list = createRandomPointWhereHasStation(grids);
         return new ArrayList<>(list);
+    }
+
+    private List<GridWithCount> createRandomPointWhereHasStation(List<Grid> grids) {
+        return grids.stream()
+                .filter(Grid::hasStation)
+                .map(it -> GridWithCount.createRandom(it, it.stationSize(), it.randomPoint()))
+                .toList();
     }
 
     public List<GridWithCount> counts(ClusterRequest request) {
@@ -68,7 +68,7 @@ public class StationGridFacadeService {
         List<Grid> grids = stationGridService.assignStationGridsWithCount(displayGrid, gridWithCounts);
         List<GridWithCount> list = grids.stream()
                 .filter(Grid::existsCount)
-                .map(it -> GridWithCount.createCenterPoint(it, it.getCount()))
+                .map(it -> GridWithCount.createRandom(it, it.getCount(), it.randomPoint()))
                 .toList();
         return new ArrayList<>(list);
     }
