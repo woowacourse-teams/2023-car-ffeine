@@ -178,6 +178,11 @@ export const filterHeaderCss = css`
   top: 0;
   background-color: #fff;
   flex-shrink: 0;
+  padding: 0 20px;
+
+  @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+    padding: 0;
+  }
 `;
 
 export default ServerStationFilters;
