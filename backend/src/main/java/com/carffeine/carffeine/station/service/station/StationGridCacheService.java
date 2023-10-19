@@ -14,6 +14,9 @@ import java.util.List;
 @Service
 public class StationGridCacheService {
 
+    private static final int START_INDEX = 0;
+    private static final int NO_LATITUDE_FOUND = -1;
+
     private final List<GridWithCount> gridWithCounts;
 
     public void initialize(List<GridWithCount> gridWithCounts) {
@@ -37,11 +40,15 @@ public class StationGridCacheService {
     }
 
     private List<GridWithCount> findByCoordinate(BigDecimal minLatitude, BigDecimal maxLatitude, BigDecimal minLongitude, BigDecimal maxLongitude) {
-        int lowerBound = binarySearch(minLatitude, 0);
-        int upperBound = binarySearch(maxLatitude, lowerBound);
-        if (lowerBound == -1 || upperBound == -1) {
+        int lowerBound = searchBoundaryLatitude(minLatitude, START_INDEX);
+        int upperBound = searchBoundaryLatitude(maxLatitude, lowerBound);
+        if (lowerBound == NO_LATITUDE_FOUND || upperBound == NO_LATITUDE_FOUND) {
             return Collections.emptyList();
         }
+        return findBetweenLongitudes(minLongitude, maxLongitude, lowerBound, upperBound);
+    }
+
+    private List<GridWithCount> findBetweenLongitudes(BigDecimal minLongitude, BigDecimal maxLongitude, int lowerBound, int upperBound) {
         return gridWithCounts.stream()
                 .skip(lowerBound)
                 .limit(upperBound - lowerBound + 1)
@@ -49,7 +56,7 @@ public class StationGridCacheService {
                 .toList();
     }
 
-    private int binarySearch(BigDecimal latitude, int startIndex) {
+    private int searchBoundaryLatitude(BigDecimal latitude, int startIndex) {
         int left = startIndex;
         int right = gridWithCounts.size() - 1;
         int result = -1;
