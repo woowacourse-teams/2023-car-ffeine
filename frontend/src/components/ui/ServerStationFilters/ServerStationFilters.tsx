@@ -69,10 +69,12 @@ const ServerStationFilters = () => {
         alignItems="center"
         css={[filterHeaderCss, filterContainerCss]}
       >
-        <ButtonNext onClick={resetAllFilters} noTheme aria-label="모든 필터 해제">
+        <ButtonNext onClick={resetAllFilters} height={28} noTheme aria-label="모든 필터 해제">
           <ArrowPathIcon width="2.8rem" stroke="#333" />
         </ButtonNext>
-        <Text variant="h5">필터</Text>
+        <Text variant="h5" mb={1}>
+          필터
+        </Text>
         <ButtonNext onClick={closeBasePanel} noTheme aria-label="필터 선택창 닫기">
           <XMarkIcon width="2.8rem" stroke="#333" />
         </ButtonNext>
@@ -132,7 +134,7 @@ export const filterContainerCss = css`
   align-items: center;
 
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
-    width: calc(100vw - 2rem);
+    width: calc(100vw - 4.8rem);
   }
 `;
 
@@ -176,7 +178,6 @@ export const filterHeaderCss = css`
   top: 0;
   background-color: #fff;
   flex-shrink: 0;
-  padding: 0 2rem;
 `;
 
 export default ServerStationFilters;

@@ -53,7 +53,7 @@ const FilterSection = ({
 
 const containerCss = css`
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
-    width: calc(100vw - 4rem);
+    width: calc(100vw - 4.8rem);
   }
 `;
 
