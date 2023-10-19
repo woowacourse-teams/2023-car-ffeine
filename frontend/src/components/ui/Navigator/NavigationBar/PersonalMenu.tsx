@@ -1,4 +1,4 @@
-import { ArrowRightOnRectangleIcon, PencilSquareIcon } from '@heroicons/react/24/solid';
+import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/solid';
 
 import type { PropsWithChildren } from 'react';
 
@@ -14,7 +14,6 @@ import {
 } from '@stores/station-filters/serverStationFiltersStore';
 
 import ProfileMenu from '@ui/Navigator/ProfileMenu';
-import CarModal from '@ui/modal/CarModal/CarModal';
 
 import { QUERY_KEY_STATION_MARKERS } from '@constants/queryKeys';
 
@@ -23,16 +22,16 @@ const PersonalMenu = () => {
   const { openModal } = modalActions;
 
   const personalMenus: PropsWithChildren<{ onClick: () => void }>[] = [
-    {
-      children: (
-        <>
-          <PencilSquareIcon width="1.8rem" color="#333" /> 차량등록
-        </>
-      ),
-      onClick: () => {
-        openModal(<CarModal />);
-      },
-    },
+    // {
+    //   children: (
+    //     <>
+    //       <PencilSquareIcon width="1.8rem" color="#333" /> 차량등록
+    //     </>
+    //   ),
+    //   onClick: () => {
+    //     openModal(<CarModal />);
+    //   },
+    // },
     {
       children: (
         <>
