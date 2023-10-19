@@ -14,10 +14,27 @@
 yarn
 ```
 
+### 컨벤션 자동화
+
+- Mac
+
+```bash
+make
+```
+
+- Window
+
+```bash
+git config core.hooksPath .githooks
+
+husky:win
+```
+
 ### 실행 모드
 
 - development mode
-    - `yarn dev`
+
+  - `yarn dev`
 
 - production mode
-    - `yarn start`
+  - `yarn start`

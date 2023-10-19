@@ -12,7 +12,8 @@
     "build-dev": "webpack --config webpack.config.dev.js",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "husky": "cd .. && husky install frontend/.husky && chmod +x frontend/.husky/*"
+    "husky": "cd .. && husky install frontend/.husky && chmod +x frontend/.husky/*",
+    "husky:win": "cd .. && husky install frontend/.husky && cd frontend"
   },
   "author": "",
   "license": "ISC",
