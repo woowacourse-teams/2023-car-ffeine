@@ -13,6 +13,8 @@ import java.util.UUID;
 @Getter
 public class Grid {
 
+    private static final BigDecimal HALF = BigDecimal.valueOf(2);
+
     private final Point top;
     private final Point bottom;
     private final List<Point> points;
@@ -43,13 +45,15 @@ public class Grid {
     public BigDecimal calculateCenterLatitude() {
         Latitude topLatitude = top.getLatitude();
         Latitude bottomLatitude = bottom.getLatitude();
-        return topLatitude.add(bottomLatitude).divide(BigDecimal.valueOf(2), 4, RoundingMode.CEILING);
+        BigDecimal latitudeDistance = topLatitude.add(bottomLatitude);
+        return latitudeDistance.divide(HALF, 4, RoundingMode.CEILING);
     }
 
     public BigDecimal calculateCenterLongitude() {
         Longitude topLongitude = top.getLongitude();
         Longitude bottomLongitude = bottom.getLongitude();
-        return topLongitude.add(bottomLongitude).divide(BigDecimal.valueOf(2), 4, RoundingMode.CEILING);
+        BigDecimal longitudeDistance = topLongitude.add(bottomLongitude);
+        return longitudeDistance.divide(HALF, 4, RoundingMode.CEILING);
     }
 
     public Point randomPoint() {
