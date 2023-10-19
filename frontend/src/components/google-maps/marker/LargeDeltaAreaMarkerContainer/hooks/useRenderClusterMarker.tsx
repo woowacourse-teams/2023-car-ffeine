@@ -95,6 +95,7 @@ export const useRenderClusterMarkers = () => {
       markerInstance.addListener('click', () => {
         const targetMarker = newMarkers.find((marker) => marker.id === stationId);
         const currentZoom = googleMap.getZoom();
+
         googleMapActions.moveTo(
           { lat: targetMarker.latitude, lng: targetMarker.longitude },
           currentZoom + 1
