@@ -27,7 +27,6 @@ public class StationGridFacadeService {
     public List<GridWithCount> createGridWithCounts() {
         GridGenerator gridGenerator = new GridGenerator();
         List<Grid> grids = gridGenerator.createKorea();
-
         int size = 1000;
         int page = 0;
         while (size == 1000) {
@@ -37,16 +36,11 @@ public class StationGridFacadeService {
             page++;
             size = stationPoint.size();
         }
-
-        List<GridWithCount> list = createCenterPointWhereHasStation(grids);
-        return new ArrayList<>(list);
-    }
-
-    private List<GridWithCount> createCenterPointWhereHasStation(List<Grid> grids) {
-        return grids.stream()
+        List<GridWithCount> list = grids.stream()
                 .filter(Grid::hasStation)
                 .map(it -> GridWithCount.createCenterPoint(it, it.stationSize()))
                 .toList();
+        return new ArrayList<>(list);
     }
 
     public List<GridWithCount> counts(ClusterRequest request) {
@@ -55,7 +49,7 @@ public class StationGridFacadeService {
         List<Grid> grids = stationGridService.assignStationGridsWithCount(displayGrid, gridWithCounts);
         List<GridWithCount> list = grids.stream()
                 .filter(Grid::existsCount)
-                .map(it -> GridWithCount.createRandom(it, it.getCount(), it.randomPoint()))
+                .map(it -> GridWithCount.createCenterPoint(it, it.getCount()))
                 .toList();
         return new ArrayList<>(list);
     }

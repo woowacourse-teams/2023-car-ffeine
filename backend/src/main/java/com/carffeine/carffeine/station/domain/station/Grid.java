@@ -17,10 +17,10 @@ public class Grid {
     private static final BigDecimal HALF = BigDecimal.valueOf(2);
     private static final Random RANDOM = new Random();
 
+    private final String id;
     private final Point top;
     private final Point bottom;
     private final List<Point> points;
-    private String id;
     private int count;
 
     public Grid(Point top, Point bottom) {
