@@ -40,5 +40,4 @@ class StationGridServiceTest {
         assertThat(assignedGrids).map(it -> it.getPoints().size())
                 .isEqualTo(List.of(0, 0, 0, 1, 0, 0, 0, 0, 0));
     }
-
 }
