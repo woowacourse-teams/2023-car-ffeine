@@ -69,12 +69,12 @@ const ServerStationFilters = () => {
         alignItems="center"
         css={[filterHeaderCss, filterContainerCss]}
       >
-        <ButtonNext onClick={closeBasePanel} noTheme aria-label="필터 선택창 닫기">
-          <XMarkIcon width="2.8rem" stroke="#333" />
-        </ButtonNext>
-        <Text variant="h5">필터</Text>
         <ButtonNext onClick={resetAllFilters} noTheme aria-label="모든 필터 해제">
           <ArrowPathIcon width="2.8rem" stroke="#333" />
+        </ButtonNext>
+        <Text variant="h5">필터</Text>
+        <ButtonNext onClick={closeBasePanel} noTheme aria-label="필터 선택창 닫기">
+          <XMarkIcon width="2.8rem" stroke="#333" />
         </ButtonNext>
       </FlexBox>
       <FilterSection
