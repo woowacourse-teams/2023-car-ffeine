@@ -7,8 +7,6 @@ import { getStoreSnapshot } from '@utils/external-state/tools';
 import { getGoogleMapStore, googleMapActions } from '@stores/google-maps/googleMapStore';
 import type { MarkerInstance } from '@stores/google-maps/markerInstanceStore';
 
-import { INITIAL_ZOOM_LEVEL } from '@constants/googleMaps';
-
 import type { ClusterMarker } from '@type';
 
 export const useRenderClusterMarkers = () => {
@@ -96,9 +94,11 @@ export const useRenderClusterMarkers = () => {
     markerInstances.forEach(({ instance: markerInstance, id: stationId }) => {
       markerInstance.addListener('click', () => {
         const targetMarker = newMarkers.find((marker) => marker.id === stationId);
+        const currentZoom = googleMap.getZoom();
+
         googleMapActions.moveTo(
           { lat: targetMarker.latitude, lng: targetMarker.longitude },
-          INITIAL_ZOOM_LEVEL
+          currentZoom + 1
         );
       });
     });
