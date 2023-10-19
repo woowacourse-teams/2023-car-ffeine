@@ -11,7 +11,7 @@ export const DEFAULT_CENTER = {
 
 export const DELTA_AREA_BREAKPOINTS: DeltaAreaBreakpoints = {
   small: 0.0000085,
-  medium: 0.000145,
+  medium: 0.0005,
   large: 0.137,
 };
 
