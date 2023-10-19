@@ -11,7 +11,8 @@
     "build": "webpack --config webpack.config.prod.js",
     "build-dev": "webpack --config webpack.config.dev.js",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "postinstall": "cd .. && husky install frontend/.husky && chmod +x frontend/.husky/*"
   },
   "author": "",
   "license": "ISC",
@@ -79,8 +80,8 @@
     "workerDirectory": "public"
   },
   "lint-staged": {
-    "**/*.{js,jsx,ts,tsx,json}": [
-      "eslint --fix",
+    "**/*.{ts,tsx}": [
+      "eslint --cache --fix",
       "prettier --write"
     ]
   }
