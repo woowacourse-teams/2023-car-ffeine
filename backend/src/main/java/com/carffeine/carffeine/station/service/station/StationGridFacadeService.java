@@ -14,42 +14,29 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
 public class StationGridFacadeService {
 
-    private static final int BATCH_SIZE = 1000;
-
     private final StationGridService stationGridService;
     private final StationQueryService stationQueryService;
     private final StationGridCacheService stationGridCacheService;
-    private final ExecutorService executor = Executors.newFixedThreadPool(5);
 
     public List<GridWithCount> createGridWithCounts() {
         GridGenerator gridGenerator = new GridGenerator();
         List<Grid> grids = gridGenerator.createKorea();
-        List<CompletableFuture<Void>> futures = new ArrayList<>();
 
-        long loopSize = stationQueryService.findStationCount() / BATCH_SIZE + 1;
-
+        int size = 1000;
         int page = 0;
-        for (int i = 0; i < loopSize; i++) {
-            int finalPage = page;
-            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
-                List<StationPoint> stationPoints = stationQueryService.findStationPoint(finalPage, BATCH_SIZE);
-                stationGridService.assignStationGrids(grids, stationPoints);
-            }, executor);
-            futures.add(future);
+        while (size == 1000) {
+            log.info("page : {}", page);
+            List<StationPoint> stationPoint = stationQueryService.findStationPoint(page, size);
+            stationGridService.assignStationGrids(grids, stationPoint);
             page++;
+            size = stationPoint.size();
         }
-
-        futures.forEach(CompletableFuture::join);
-        executor.shutdown();
 
         List<GridWithCount> list = createRandomPointWhereHasStation(grids);
         return new ArrayList<>(list);
