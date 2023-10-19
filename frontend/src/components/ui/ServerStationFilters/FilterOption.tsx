@@ -26,9 +26,9 @@ const FilterSection = ({
   getIsFilterSelected,
 }: FilterSectionProps) => {
   return (
-    <FlexBox width={30} direction="column" mb={6} css={containerCss}>
+    <FlexBox width={30} direction="column" mb={8} css={containerCss}>
       <FlexBox justifyContent="between">
-        <Text variant={'h6'} mb={2}>
+        <Text variant="h6" mb={3}>
           {title}
         </Text>
         <Text variant="caption">중복선택 가능</Text>
@@ -41,9 +41,9 @@ const FilterSection = ({
             size="sm"
             onClick={() => toggleSelectFilter(filterOptionValues[index])}
             pill
-            css={{ '&:hover': { background: '#cfe2ff', color: '#2a6cd8' } }}
+            css={{ borderRadius: '12px' }}
           >
-            <Text variant={'subtitle'}>{filterOption}</Text>
+            <Text variant="subtitle">{filterOption}</Text>
           </ButtonNext>
         ))}
       </FlexBox>
@@ -53,7 +53,7 @@ const FilterSection = ({
 
 const containerCss = css`
   @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
-    width: calc(100vw - 6rem);
+    width: calc(100vw - 4rem);
   }
 `;
 
