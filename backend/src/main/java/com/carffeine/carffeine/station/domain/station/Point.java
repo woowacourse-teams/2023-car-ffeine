@@ -1,12 +1,14 @@
 package com.carffeine.carffeine.station.domain.station;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
 import java.math.BigDecimal;
 
 @ToString
+@EqualsAndHashCode
 @Getter
 @AllArgsConstructor
 public class Point {
