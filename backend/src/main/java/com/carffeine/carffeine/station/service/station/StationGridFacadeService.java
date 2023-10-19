@@ -38,14 +38,14 @@ public class StationGridFacadeService {
             size = stationPoint.size();
         }
 
-        List<GridWithCount> list = createRandomPointWhereHasStation(grids);
+        List<GridWithCount> list = createCenterPointWhereHasStation(grids);
         return new ArrayList<>(list);
     }
 
-    private List<GridWithCount> createRandomPointWhereHasStation(List<Grid> grids) {
+    private List<GridWithCount> createCenterPointWhereHasStation(List<Grid> grids) {
         return grids.stream()
                 .filter(Grid::hasStation)
-                .map(it -> GridWithCount.createRandom(it, it.stationSize(), it.randomPoint()))
+                .map(it -> GridWithCount.createCenterPoint(it, it.stationSize()))
                 .toList();
     }
 

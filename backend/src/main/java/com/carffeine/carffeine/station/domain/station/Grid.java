@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 @ToString
@@ -14,6 +15,7 @@ import java.util.UUID;
 public class Grid {
 
     private static final BigDecimal HALF = BigDecimal.valueOf(2);
+    private static final Random RANDOM = new Random();
 
     private final Point top;
     private final Point bottom;
@@ -57,8 +59,8 @@ public class Grid {
     }
 
     public Point randomPoint() {
-        int size = points.size();
-        int randomIndex = (int) (Math.random() * size);
+        int randomIndex = RANDOM.nextInt(points.size());
+
         return points.get(randomIndex);
     }
 
