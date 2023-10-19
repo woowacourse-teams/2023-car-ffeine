@@ -23,6 +23,8 @@ import java.util.concurrent.Executors;
 @Service
 public class StationGridFacadeService {
 
+    private static final int BATCH_SIZE = 1000;
+
     private final StationGridService stationGridService;
     private final StationQueryService stationQueryService;
     private final StationGridCacheService stationGridCacheService;
@@ -40,17 +42,19 @@ public class StationGridFacadeService {
         List<Grid> grids = gridGenerator.createKorea();
         List<CompletableFuture<Void>> futures = new ArrayList<>();
 
-        int size = 1000;
-        int page = 0;
-        while (size == 1000) {
-            int finalPage = page;
-            List<StationPoint> stationPoints = stationQueryService.findStationPoint(finalPage, size);
-            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> stationGridService.assignStationGrids(grids, stationPoints), executor);
+        int loopSize = stationQueryService.findStationCount().intValue() / BATCH_SIZE;
 
+        int page = 0;
+        for (int i = 0; i < loopSize; i++) {
+            int finalPage = page;
+            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+                List<StationPoint> stationPoints = stationQueryService.findStationPoint(finalPage, BATCH_SIZE);
+                stationGridService.assignStationGrids(grids, stationPoints);
+            }, executor);
             futures.add(future);
             page++;
-            size = stationPoints.size();
         }
+
         futures.forEach(CompletableFuture::join);
         executor.shutdown();
 

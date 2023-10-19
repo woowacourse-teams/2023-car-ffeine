@@ -233,4 +233,10 @@ public class StationQueryRepository {
                 .limit(size)
                 .fetch();
     }
+
+    public Long findStationCount() {
+        return jpaQueryFactory.select(station.stationId.count())
+                .from(station)
+                .fetchOne();
+    }
 }
