@@ -30,6 +30,7 @@ public class StationGridService {
             for (GridWithCount gridWithCount : gridWithCounts) {
                 Point point = Point.of(gridWithCount.latitude(), gridWithCount.longitude());
                 if (grid.isContain(point)) {
+                    grid.addPoint(point);
                     grid.addCount(gridWithCount.count());
                 }
             }

@@ -49,7 +49,7 @@ public class StationGridFacadeService {
         List<Grid> grids = stationGridService.assignStationGridsWithCount(displayGrid, gridWithCounts);
         List<GridWithCount> list = grids.stream()
                 .filter(Grid::existsCount)
-                .map(it -> GridWithCount.createCenterPoint(it, it.getCount()))
+                .map(it -> GridWithCount.creatRandomPoint(it, it.getCount(), it.randomPoint()))
                 .toList();
         return new ArrayList<>(list);
     }

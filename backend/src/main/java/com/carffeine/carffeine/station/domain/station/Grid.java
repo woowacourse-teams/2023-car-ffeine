@@ -5,16 +5,19 @@ import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 @ToString
 @Getter
 public class Grid {
 
-    private String id;
-    private Point top;
-    private Point bottom;
-    private List<Point> points;
+    private static final Random random = new Random();
+
+    private final String id;
+    private final Point top;
+    private final Point bottom;
+    private final List<Point> points;
     private int count;
 
     public Grid(Point top, Point bottom) {
@@ -55,5 +58,10 @@ public class Grid {
 
     public void addCount(int count) {
         this.count += count;
+    }
+
+    public Point randomPoint() {
+        int random = Grid.random.nextInt(points.size());
+        return points.get(random);
     }
 }
