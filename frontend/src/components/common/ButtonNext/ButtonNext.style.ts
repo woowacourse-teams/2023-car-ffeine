@@ -11,6 +11,7 @@ export const StyledButtonNext = styled.button<ButtonNextProps>`
 
   ${({ fullWidth }) => fullWidth && 'width: 100%;'}
   ${({ disabled }) => disabled && `cursor: unset;`}
+
   ${({ variant, color, disabled }) => {
     switch (variant) {
       case 'text':
@@ -19,8 +20,10 @@ export const StyledButtonNext = styled.button<ButtonNextProps>`
           background: transparent;
           border: none;
 
-          &:hover {
-            background: ${disabled ? 'transparent' : '#1976d20a'};
+          @media (hover: hover) and (pointer: fine) {
+            &:hover {
+              background: ${disabled ? 'transparent' : '#1976d20a'};
+            }
           }
         `;
       case 'outlined':
@@ -29,9 +32,11 @@ export const StyledButtonNext = styled.button<ButtonNextProps>`
           background: transparent;
           border: 1.5px solid ${disabled ? '#a0a0a0' : getColor(color)};
 
-          &:hover {
-            color: ${disabled ? '#a0a0a0' : color === 'light' ? '#333' : '#fff'};
-            background: ${disabled ? 'transparent' : getHoverColor(color)};
+          @media (hover: hover) and (pointer: fine) {
+            &:hover {
+              color: ${disabled ? '#a0a0a0' : color === 'light' ? '#333' : '#fff'};
+              background: ${disabled ? 'transparent' : getHoverColor(color)};
+            }
           }
         `;
       case 'contained':
@@ -41,8 +46,10 @@ export const StyledButtonNext = styled.button<ButtonNextProps>`
           background: ${disabled ? '#e0e0e0' : getColor(color)};
           border: 1.5px solid ${disabled ? '#e0e0e0' : getColor(color)};
 
-          &:hover {
-            background: ${disabled ? '#e0e0e0' : getHoverColor(color)};
+          @media (hover: hover) and (pointer: fine) {
+            &:hover {
+              background: ${disabled ? '#e0e0e0' : getHoverColor(color)};
+            }
           }
         `;
     }

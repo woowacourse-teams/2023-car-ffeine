@@ -68,6 +68,9 @@ export const StyledButton = styled.button<StyledButtonType>`
 `;
 
 const labelButtonStyle = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   position: absolute;
   top: 1.2rem;
   right: -3.68rem;
