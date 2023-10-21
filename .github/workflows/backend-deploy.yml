@@ -37,9 +37,8 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-
-      - name: Build for asciiDoc
-        run: ./gradlew bootjar
+            - name: Build for asciiDoc
+              run: ./gradlew bootjar
 
       - name: Build with Gradle
         run: ./gradlew bootjar
@@ -80,10 +79,22 @@ jobs:
 
           script: |
             sudo docker pull woowacarffeine/backend:latest
-            sudo docker stop backend || true
-            sudo docker container prune -f
+
+            if sudo docker ps | grep ":8080"; then
+              export BEFORE_PORT=8080
+              export NEW_PORT=8081
+              export NEW_ACTUATOR_PORT=8089
+            else
+              export BEFORE_PORT=8081
+              export NEW_PORT=8080
+              export NEW_ACTUATOR_PORT=8088
+            fi
             
-            sudo docker run -d -p 8080:8080 -p 8088:8088 \
+            echo "디버깅 before port $BEFORE_PORT"
+            echo "디버깅 new port $NEW_PORT"
+            echo "디버깅 new actuator $NEW_ACTUATOR_PORT"
+            
+            sudo docker run -d -p $NEW_PORT:8080 -p $NEW_ACTUATOR_PORT:8088 \
             -e "SPRING_PROFILE=prod" \
             -e "ENCRYPT_KEY=${{secrets.JASYPT_KEY}}" \
             -e "DATABASE_USERNAME=${{secrets.DATABASE_USERNAME}}" \
@@ -91,7 +102,7 @@ jobs:
             -e "REPLICA_DATABASE_USERNAME=${{secrets.REPLICA_DB_USER_NAME}}" \
             -e "REPLICA_DATABASE_PASSWORD=${{secrets.REPLICA_DB_USER_PASSWORD}}" \
             -e "SLACK_WEBHOOK_URL=${{secrets.SLACK_WEBHOOK_URL}}" \
-            --name backend \
+            --name backend$NEW_PORT \
             woowacarffeine/backend:latest
             
-            sudo docker image prune -a -f
+            sudo sh /home/ubuntu/bluegreen.sh $BEFORE_PORT $NEW_PORT $NEW_ACTUATOR_PORT 

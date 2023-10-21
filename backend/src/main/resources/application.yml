@@ -1,5 +1,6 @@
 server:
   port: 8080
+  shutdown: graceful
   servlet:
     context-path: /api
   tomcat:
@@ -36,7 +37,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: prometheus
+        include: prometheus, health
 
 jwt:
   secret: ENC(t6iKCv1Nj+ygRxG2oZCw3l4v9y0ALS2GfQwYIKvO0tRuPzFp4UYRZYfBFdBW+xQl77rOLbfIPJ13tys/tXj3Qw==)

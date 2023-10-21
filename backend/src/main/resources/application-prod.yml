@@ -19,7 +19,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
 
 initialize-city:
-  enabled: true
+  enabled: false
 
 initialize-charge:
   enabled: false
