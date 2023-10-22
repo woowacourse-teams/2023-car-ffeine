@@ -29,7 +29,7 @@ import { useNavigationBar } from './hooks/useNavigationBar';
 // TODO: 모바일 오류 (미디어 쿼리) 개선
 
 const Menu = () => {
-  const { openBasePanel } = useNavigationBar();
+  const { toggleBasePanel } = useNavigationBar();
 
   const memberToken = useExternalValue(memberTokenStore);
   const isSignIn = memberToken !== EMPTY_MEMBER_TOKEN;
@@ -66,7 +66,7 @@ const Menu = () => {
         noRadius="all"
         css={displayNoneInMobile}
         aria-label="주변 충전소 목록 열기"
-        onClick={() => openBasePanel(<StationSearchWindow />)}
+        onClick={() => toggleBasePanel(<StationSearchWindow key="base-panel-list" />)}
       >
         <Bars3Icon width="2.8rem" stroke="#555" />
         <Text mt={0.5} variant="caption">
@@ -77,7 +77,7 @@ const Menu = () => {
       <Button
         noRadius="all"
         aria-label="필터링 메뉴 열기"
-        onClick={() => openBasePanel(<ServerStationFilters />)}
+        onClick={() => toggleBasePanel(<ServerStationFilters key="base-panel-filter" />)}
       >
         <AdjustmentsHorizontalIcon width="2.8rem" stroke="#555" />
         <Text mt={0.5} variant="caption">
@@ -100,7 +100,7 @@ const Menu = () => {
         noRadius="all"
         css={displayNoneInWeb}
         aria-label="충전소 리스트 열기"
-        onClick={() => openBasePanel(<StationListWindow />)}
+        onClick={() => toggleBasePanel(<StationListWindow key="base-panel-list" />)}
       >
         <Bars3Icon width="2.8rem" stroke="#555" />
         <Text mt={0.5} variant="caption">

@@ -7,10 +7,12 @@ import { navigationBarPanelStore } from '@stores/layout/navigationBarPanelStore'
 export const useNavigationBar = () => {
   const [navigationBarPanel, setNavigationBarPanel] = useExternalState(navigationBarPanelStore);
 
-  const openBasePanel = (basePanel: ReactElement) => {
+  const toggleBasePanel = (basePanel: ReactElement) => {
+    const isAlreadyOpen = navigationBarPanel.basePanel?.key === basePanel.key;
+
     setNavigationBarPanel((prev) => ({
       ...prev,
-      basePanel,
+      basePanel: isAlreadyOpen ? null : basePanel,
     }));
   };
 
@@ -44,7 +46,7 @@ export const useNavigationBar = () => {
   };
 
   return {
-    openBasePanel,
+    toggleBasePanel,
     openLastPanel,
     closeBasePanel,
     closeLastPanel,
