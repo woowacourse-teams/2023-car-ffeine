@@ -11,7 +11,9 @@
     "build": "webpack --config webpack.config.prod.js",
     "build-dev": "webpack --config webpack.config.dev.js",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "husky": "cd .. && husky install frontend/.husky && chmod +x frontend/.husky/*",
+    "husky:win": "cd .. && husky install frontend/.husky && cd frontend"
   },
   "author": "",
   "license": "ISC",
@@ -63,9 +65,10 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-storybook": "^0.6.12",
     "fork-ts-checker-webpack-plugin": "^8.0.0",
+    "husky": "^8.0.3",
     "jest": "^29.6.2",
     "jest-environment-jsdom": "^29.6.2",
-    "lint-staged": "^13.2.3",
+    "lint-staged": "^15.0.1",
     "msw": "^1.2.3",
     "msw-storybook-addon": "^1.8.0",
     "prettier": "^3.0.1",
@@ -80,7 +83,7 @@
     "workerDirectory": "public"
   },
   "lint-staged": {
-    "**/*.{js,jsx,ts,tsx,json}": [
+    "**/*.{ts,tsx}": [
       "eslint --fix",
       "prettier --write"
     ]

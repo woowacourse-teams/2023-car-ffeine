@@ -1,0 +1,17 @@
+#!/bin/bash
+
+COMMIT_MESSAGE_FILE_PATH=$1
+MESSAGE=$(cat "$COMMIT_MESSAGE_FILE_PATH")
+
+if [[ $(head -1 "$COMMIT_MESSAGE_FILE_PATH") == '' ]]; then
+  exit 0
+fi
+
+POSTFIX=$(git branch | grep '\*' | sed 's/* //' | sed 's/^.*\///' | sed 's/^\([^-]*-[^-]*\).*/\1/')
+
+COMMIT_SOURCE=$2
+CURRENT_BRANCH=$(git branch --show-current)
+
+if [[ "$CURRENT_BRANCH" != "$POSTFIX" ]] && [ "$COMMIT_SOURCE" != "merge" ] && [[ "$MESSAGE" != *"[#$POSTFIX]"* ]]; then
+  printf "%s\n\n[#%s]" "$MESSAGE" "$POSTFIX" > "$COMMIT_MESSAGE_FILE_PATH"
+fi
