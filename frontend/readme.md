@@ -19,15 +19,17 @@ yarn
 - Mac
 
 ```bash
-make
+make // 2023-car-ffeine 폴더 에서
+
+husky // frontend 폴더에서
 ```
 
 - Window
 
 ```bash
-git config core.hooksPath .githooks
+git config core.hooksPath .githooks // 2023-car-ffeine 폴더 에서
 
-husky:win
+husky:win // frontend 폴더에서
 ```
 
 ### 실행 모드
