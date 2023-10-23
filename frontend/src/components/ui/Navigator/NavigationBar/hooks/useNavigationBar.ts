@@ -8,11 +8,11 @@ export const useNavigationBar = () => {
   const [navigationBarPanel, setNavigationBarPanel] = useExternalState(navigationBarPanelStore);
 
   const toggleBasePanel = (basePanel: ReactElement) => {
-    const isAlreadyOpen = navigationBarPanel.basePanel?.key === basePanel.key;
+    const isBasePanelAlreadyOpen = navigationBarPanel.basePanel?.key === basePanel.key;
 
     setNavigationBarPanel((prev) => ({
       ...prev,
-      basePanel: isAlreadyOpen ? null : basePanel,
+      basePanel: isBasePanelAlreadyOpen ? null : basePanel,
     }));
   };
 
