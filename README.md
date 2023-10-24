@@ -101,7 +101,7 @@
 <table>
   <tr>
     <td align="center">
-        <img src="./docs/pc.png" alt="PC" />
+        <img src="docs/pc.png" alt="PC" />
     </td>
     <td align="center">
         <img src="./docs/mobile.png" alt="Mobile" />
@@ -229,10 +229,9 @@
   </tr>
 </table>
 
-## 사용자 유치 전략
+## 사용자 유치
 
-- 모집 시도
-- 방문자 수 통계
+[확인하기](./ga4/ga4.md)
 
 ## 더보기
 
