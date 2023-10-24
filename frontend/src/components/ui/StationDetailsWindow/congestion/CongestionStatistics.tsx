@@ -1,4 +1,5 @@
 import { getChargerCountsAndAvailability } from '@tools/getChargerCountsAndAvailability';
+import { Tab } from 'car-ffeine-design-system';
 
 import { useState } from 'react';
 
@@ -6,7 +7,6 @@ import { useStationCongestionStatistics } from '@hooks/tanstack-query/station-de
 import { useStationDetails } from '@hooks/tanstack-query/station-details/useStationDetails';
 
 import Box from '@common/Box';
-import Tab from '@common/Tab';
 
 import Error from '@ui/Error';
 

@@ -3,13 +3,17 @@ import type { CSSProp } from 'styled-components';
 import type { ButtonHTMLAttributes, MouseEventHandler, ReactNode } from 'react';
 import { forwardRef } from 'react';
 
+import type { CommonStyleProps } from '@common/styles/common';
 import type { SpacingProps } from '@common/styles/spacing';
 
 import type { Color, Size } from '@type/style';
 
 import { StyledButtonNext, StyledPureButton } from './ButtonNext.style';
 
-export interface ButtonNextProps extends SpacingProps, ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonNextProps
+  extends SpacingProps,
+    CommonStyleProps,
+    ButtonHTMLAttributes<HTMLButtonElement> {
   noTheme?: boolean;
   variant?: 'text' | 'outlined' | 'contained';
   size?: Size;

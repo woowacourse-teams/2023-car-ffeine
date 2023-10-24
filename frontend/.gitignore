@@ -1,6 +1,5 @@
 /node_modules/
 /dist/
 .env
-.husky
 yarn-error.log
 /storybook-static/

@@ -38,7 +38,7 @@ const StationInfoWindow = ({ selectedStationId }: StationInfoWindowProps) => {
 
   if (isLoading || stationDetails === null) {
     return (
-      <FlexBox justifyContent="center" alignItems="center" height="17.52rem">
+      <FlexBox justifyContent="center" alignItems="center" height="18.7rem">
         <Loader size="xxl" />
       </FlexBox>
     );

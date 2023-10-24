@@ -31,7 +31,7 @@ export const getSize = (size: string | number) => {
 export const getColor = (color?: Color) => {
   switch (color) {
     case 'primary':
-      return '#2a6cd8';
+      return '#4D6CD0';
     case 'secondary':
       return '#212529BF';
     case 'success':
@@ -47,14 +47,14 @@ export const getColor = (color?: Color) => {
     case 'dark':
       return '#212529';
     default:
-      return '#2a6cd8';
+      return '#4D6CD0';
   }
 };
 
 export const getHoverColor = (color?: Color) => {
   switch (color) {
     case 'primary':
-      return '#0b5ed7';
+      return '#3e5ab7';
     case 'secondary':
       return '#495057';
     case 'success':
@@ -72,7 +72,7 @@ export const getHoverColor = (color?: Color) => {
     case 'dark':
       return '#16181b';
     default:
-      return '#0b5ed7';
+      return '#3e5ab7';
   }
 };
 
@@ -84,7 +84,6 @@ export const getPopupAnimation = (position: ToastPositionProps, duration: number
     ${position.includes('left') && 'left: 0'};
     ${position.includes('right') && 'right: 0'};
     ${position.includes('center') && 'left: 50%; transform: translateX(-50%);'};
-
     animation:
       fadeIn ${duration}s,
       PopUp 1s forwards;

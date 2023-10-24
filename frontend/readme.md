@@ -14,10 +14,29 @@
 yarn
 ```
 
+### 컨벤션 자동화
+
+- Mac
+
+```bash
+make // 2023-car-ffeine 폴더 에서
+
+husky // frontend 폴더에서
+```
+
+- Window
+
+```bash
+git config core.hooksPath .githooks // 2023-car-ffeine 폴더 에서
+
+husky:win // frontend 폴더에서
+```
+
 ### 실행 모드
 
 - development mode
-    - `yarn dev`
+
+  - `yarn dev`
 
 - production mode
-    - `yarn start`
+  - `yarn start`
