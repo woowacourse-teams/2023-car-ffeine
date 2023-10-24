@@ -45,39 +45,58 @@
 
 ## 주요 기능 소개
 
-- 충전소 조회
-    - 지도
-        - 마커
-          ![station_marker_big](./docs/station_marker_big.png)
-          ![station_marker](./docs/station_marker.png)
-          ![cluster_region](./docs/cluster_region.png)
-          ![cluster_city](./docs/cluster_city.png)
+### 충전소 조회
 
-        - 충전소 필터링
-          ![filter_server](./docs/filter_server.gif)
+- 지도
+    - 마커
+      ![station_marker_big](./docs/station_marker_big.png)
+      ![station_marker](./docs/station_marker.png)
+      ![cluster_region](./docs/cluster_region.png)
+      ![cluster_city](./docs/cluster_city.png)
 
-        - 검색
-          ![search](./docs/search.gif)
-            - 전국의 충전소와 도시 검색이 가능합니다.
-    - 충전소 정보 조회
-        - 마커를 통한 간단한 정보 조회
-          ![station_info](./docs/station_info.png)
-        - 상세정보
-            - 충전소 정보
-              ![station_details](./docs/station_details.png)
-            - 충전기 개별 상태
-              ![station_chargers](./docs/station_chargers.png)
-            - 혼잡도
-              ![statistics](./docs/statistics.png)
-            - 충전소/충전기 신고
-              ![reports](./docs/reports.png)
-            - 후기
-              ![reviews](./docs/reviews.png)
-- 지원 플랫폼
-    - PC
-      ![pc](./docs/pc.png)
-    - 모바일
-      ![mobile](./docs/mobile.png)
+    - 충전소 필터링
+      ![filter_server](./docs/filter_server.gif)
+
+    - 검색
+      ![search](./docs/search.gif)
+        - 전국의 충전소와 도시 검색이 가능합니다.
+
+### 충전소 정보 조회
+
+- 마커를 통한 간단한 정보 조회
+  ![station_info](./docs/station_info.png)
+- 상세정보
+    - 충전소 정보
+      ![station_details](./docs/station_details.png)
+    - 충전기 개별 상태
+      ![station_chargers](./docs/station_chargers.png)
+    - 혼잡도
+      ![statistics](./docs/statistics.png)
+    - 충전소/충전기 신고
+      ![reports](./docs/reports.png)
+    - 후기
+      ![reviews](./docs/reviews.png)
+
+### 지원 플랫폼
+
+<table>
+  <tr>
+    <td align="center">
+        <img src="./docs/pc.png" alt="가브리엘(윤주현) 프로필" />
+    </td>
+    <td align="center">
+        <img src="./docs/mobile.png" alt="센트(김영우) 프로필" />
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+        PC
+    </td>
+    <td align="center">
+        Mobile
+    </td>
+  </tr>
+</table>
 
 ## 프로젝트 구조
 
