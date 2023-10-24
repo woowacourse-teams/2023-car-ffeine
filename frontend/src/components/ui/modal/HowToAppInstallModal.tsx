@@ -26,7 +26,7 @@ const HowToAppInstallModal = () => {
       pb={10}
       direction="column"
     >
-      <Button mt={1} mr={0} mb={-6} ml="auto" onClick={modalActions.closeModal}>
+      <Button mt={-1} mr={-3} mb={-2} ml="auto" onClick={modalActions.closeModal}>
         <XMarkIcon width={28} />
       </Button>
       {screen.get('isMobile') ? (
