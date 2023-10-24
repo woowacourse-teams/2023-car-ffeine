@@ -47,6 +47,9 @@
 
 ### 충전소 조회
 
+<img src="./docs/main.png" alt="main" />
+
+
 <table>
   <tr>
     <td><img src="./docs/station_marker_big.png" alt="station_marker_big" /></td>
