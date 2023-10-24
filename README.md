@@ -47,45 +47,61 @@
 
 ### 충전소 조회
 
-- 지도
-    - 마커
-      ![station_marker_big](./docs/station_marker_big.png)
-      ![station_marker](./docs/station_marker.png)
-      ![cluster_region](./docs/cluster_region.png)
-      ![cluster_city](./docs/cluster_city.png)
+<table>
+  <tr>
+    <td><img src="./docs/station_marker_big.png" alt="station_marker_big" /></td>
+    <td><img src="./docs/station_marker.png" alt="station_marker" /></td>
+  </tr>
+</table>
 
-    - 충전소 필터링
-      ![filter_server](./docs/filter_server.gif)
+<table>
+  <tr>
+    <td><img src="./docs/cluster_region.png" alt="cluster_region" /></td>
+    <td><img src="./docs/cluster_city.png" alt="cluster_city" /></td>
+  </tr>
+</table>
 
-    - 검색
-      ![search](./docs/search.gif)
-        - 전국의 충전소와 도시 검색이 가능합니다.
+### 전국 충전소 검색 및 필터링
+
+<table>
+  <tr>
+    <td><img src="./docs/search.gif" alt="search" /></td>
+    <td><img src="./docs/filter_server.gif" alt="filter_server" /></td>
+  </tr>
+</table>
 
 ### 충전소 정보 조회
 
-- 마커를 통한 간단한 정보 조회
-  ![station_info](./docs/station_info.png)
-- 상세정보
-    - 충전소 정보
-      ![station_details](./docs/station_details.png)
-    - 충전기 개별 상태
-      ![station_chargers](./docs/station_chargers.png)
-    - 혼잡도
-      ![statistics](./docs/statistics.png)
-    - 충전소/충전기 신고
-      ![reports](./docs/reports.png)
-    - 후기
-      ![reviews](./docs/reviews.png)
+<table>
+  <tr>
+    <td><img src="./docs/station_info.png" alt="station_info" /></td>
+    <td><img src="./docs/station_details.png" alt="station_details" /></td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td><img src="./docs/station_chargers.png" alt="station_chargers" /></td>
+    <td><img src="./docs/statistics.png" alt="statistics" /></td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td><img src="./docs/reports.png" alt="reports" /></td>
+    <td><img src="./docs/reviews.png" alt="reviews" /></td>
+  </tr>
+</table>
 
 ### 지원 플랫폼
 
 <table>
   <tr>
     <td align="center">
-        <img src="./docs/pc.png" alt="가브리엘(윤주현) 프로필" />
+        <img src="./docs/pc.png" alt="PC" />
     </td>
     <td align="center">
-        <img src="./docs/mobile.png" alt="센트(김영우) 프로필" />
+        <img src="./docs/mobile.png" alt="Mobile" />
     </td>
   </tr>
   <tr>
