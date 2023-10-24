@@ -235,4 +235,4 @@
 
 ## 더보기
 
-- 팀 블로그
+- [카페인팀 블로그](https://car-ffeine.github.io/archive)
