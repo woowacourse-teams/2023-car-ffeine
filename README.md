@@ -1,13 +1,15 @@
+![title](./docs/title.png)
+
 # 2023 우아한테크코스 5기 카페인 팀
 
-<p align="center" style="font-size: larger;">
-  실시간 전기자동차 충전소 지도 및 사용 통계 조회 서비스
-</p>
 <p align="center">
   <img src="./frontend/public/icons/192.png"/>
 </p>
 <p align="center" style="font-size: larger;">
   <a href="https://carffe.in">카페인 바로가기</a>
+</p>
+<p align="center" style="font-size: xx-small;">
+  실시간 전기자동차 충전소 지도 및 사용 통계 조회 서비스
 </p>
 
 ## 프로젝트 소개
@@ -24,7 +26,8 @@
 
 ### 기존의 웹 서비스를 대체합니다.
 
-기존에 출시된 전기자동차 충전소 조회 웹 서비스들은 굉장히 느리고 불편합니다. 카페인에서는 `사용자 경험을 네이티브 앱 환경만큼 크게 개선`하였습니다. 전국 충전소를 검색할 수 있는 것은 물론이고, 원하시는 지역을 검색하여 바로 이동할 수도 있습니다.
+기존에 출시된 전기자동차 충전소 조회 웹 서비스들은 굉장히 느리고 불편합니다. 카페인에서는 `사용자 경험을 네이티브 앱 환경만큼 크게 개선`하였습니다. 전국 충전소를 검색할 수 있는 것은 물론이고, 원하시는 지역을
+검색하여 바로 이동할 수도 있습니다.
 
 <br>
 
@@ -40,50 +43,63 @@
 
 <br>
 
-### 차량 맞춤 충전소 정보 제공
-
-소유하신 차량에 맞는 충전소만을 검색하실 수 있습니다.
-
 ## 주요 기능 소개
 
-```json
-사진(png or gif) + 기능 설명
-```
-
 - 충전소 조회
-  - 지도
-    - 마커
-      - 줌 레벨 따라 다르게 보이는 마커 상태
-      - 영역 제한을 통한 서버 보호
-    - 준상세정보
-    - 클라이언트 필터링
-      - 외부인개방
-      - 급속
-      - 현재사용가능
-      - 주차비 무료
-    - 검색
-      - 도시검색
-      - 충전소+주소 검색
-  - 충전소 정보 조회
-    - 간단정보
-    - 상세정보
-      - 충전소 정보
-      - 충전기 개별 상태
-      - 혼잡도
-      - 충전소 신고
-      - 충전기 신고
-      - 후기
-        - 별점
-        - 댓글
-        - 답글
-  - 서버 필터링
-    - 단자, 속도, 회사
-    - 차량 별 필터링 메뉴 (개방)
+    - 지도
+        - 마커
+          ![station_marker_big](./docs/station_marker_big.png)
+          ![station_marker](./docs/station_marker.png)
+          ![cluster_region](./docs/cluster_region.png)
+          ![cluster_city](./docs/cluster_city.png)
+
+        - 충전소 필터링
+          ![filter_server](./docs/filter_server.gif)
+
+        - 검색
+          ![search](./docs/search.gif)
+            - 전국의 충전소와 도시 검색이 가능합니다.
+    - 충전소 정보 조회
+        - 마커를 통한 간단한 정보 조회
+          ![station_info](./docs/station_info.png)
+        - 상세정보
+            - 충전소 정보
+              ![station_details](./docs/station_details.png)
+            - 충전기 개별 상태
+              ![station_chargers](./docs/station_chargers.png)
+            - 혼잡도
+              ![statistics](./docs/statistics.png)
+            - 충전소/충전기 신고
+              ![reports](./docs/reports.png)
+            - 후기
+              ![reviews](./docs/reviews.png)
+- 지원 플랫폼
+    - PC
+      ![pc](./docs/pc.png)
+    - 모바일
+      ![mobile](./docs/mobile.png)
 
 ## 프로젝트 구조
 
 - CI/CD
-- 사용한 기술?
+    - GitHub Actions
+    - Docker
+- 기술
+    - Frontend
+        - React + Typescript
+        - Tanstack Query
+        - Google Maps API
+        - webpack
+        - styled-components
+        - Storybook
+        - Jest
+        - React Testing Library
+        - Eslint / Prettier
+        - GitHub Actions
+        - AWS S3 (예정)
+        - AWS CloudFront (예정)
+    - Backend
+        - ?
 
 ## 팀원 소개
 
