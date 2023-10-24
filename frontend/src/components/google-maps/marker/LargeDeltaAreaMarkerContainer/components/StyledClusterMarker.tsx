@@ -10,12 +10,12 @@ const StyledClusterMarker = ({ count }: StyledClusterMarkerProps) => {
     <FlexBox
       p={4}
       borderRadius="50%"
-      bgColor="#D9E5FF"
+      bgColor="#d9e5ffcb"
       width="70px"
       height="70px"
       justifyContent="center"
       alignItems="center"
-      border={true}
+      border
       borderColor="#3366FF"
       borderWidth="1px"
     >

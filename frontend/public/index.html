@@ -62,16 +62,18 @@
         alert('잘못 된 api key 입니다.');
       }
 
-      // if ('serviceWorker' in navigator) {
-      //   navigator.serviceWorker
-      //     .register('pwabuilder-sw.js')
-      //     .then(function (registration) {
-      //       registration.scope;
-      //     })
-      //     .catch(function (error) {
-      //       console.log('Service Worker registration failed', error);
-      //     });
-      // }
+      (function () {
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker
+            .register('pwabuilder-sw.js')
+            .then(function (registration) {
+              registration.scope;
+            })
+            .catch(function (error) {
+              console.log('Service Worker registration failed', error);
+            });
+        }
+      })();
     </script>
 
     <!-- Google tag (gtag.js) -->

@@ -3,12 +3,14 @@ import Loading from 'components/ui/Loading';
 
 import CarFfeineMap from '@map/CarFfeineMap';
 
+import NotFound from '@ui/NotFound';
+
 const render = (status: Status) => {
   switch (status) {
     case Status.LOADING:
       return <Loading />;
     case Status.FAILURE:
-      return <>에러 발생</>;
+      return <NotFound />;
     case Status.SUCCESS:
       return <CarFfeineMap />;
   }
