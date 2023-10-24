@@ -23,7 +23,7 @@ const HowToAppInstallModal = () => {
       rowGap={2}
       pt={4}
       px={6}
-      pb={9}
+      pb={10}
       direction="column"
     >
       <Button mt={1} mr={0} mb={-6} ml="auto" onClick={modalActions.closeModal}>
