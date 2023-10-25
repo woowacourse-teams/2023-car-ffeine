@@ -16,4 +16,8 @@ export const router = createBrowserRouter([
     element: <App />,
     errorElement: <NotFound />,
   },
+  {
+    path: '/maps',
+    element: <div>maps</div>,
+  },
 ]);
