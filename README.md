@@ -1,6 +1,7 @@
 ![title](./docs/title.png)
 
 # 2023 우아한테크코스 5기 카페인 팀
+
 <a href="https://carffe.in">
   <p align="center">
     <img src="./frontend/public/icons/192.png"/>
@@ -123,6 +124,7 @@
 - CI/CD
     - GitHub Actions
     - Docker
+    - (작성 예정)
 - 기술
     - Frontend
         - React + Typescript
@@ -138,7 +140,7 @@
         - AWS S3 (예정)
         - AWS CloudFront (예정)
     - Backend
-        - ?
+        - (작성 예정)
 
 ## 팀원 소개
 
@@ -232,7 +234,7 @@
 
 ## 사용자 유치
 
-[확인하기](./ga4/ga4.md)
+[확인하기](./docs/ga4/ga4.md)
 
 ## 더보기
 
