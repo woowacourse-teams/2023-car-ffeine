@@ -1,12 +1,12 @@
+import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
-
-import CarFfeineMap from '@map/CarFfeineMap';
-
-import GoogleLogin from '@components/login-page/GoogleLogin';
 
 import NotFound from '@ui/NotFound';
 
 import App from '../App';
+
+const GoogleLogin = lazy(() => import('@components/login-page/GoogleLogin'));
+const CarFfeineMap = lazy(() => import('@map/CarFfeineMap'));
 
 export const router = createBrowserRouter([
   {
