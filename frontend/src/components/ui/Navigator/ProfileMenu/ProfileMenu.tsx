@@ -31,7 +31,7 @@ const ProfileMenu = ({ menus }: Props) => {
   };
 
   return (
-    <FlexBox css={container} onClick={(event) => event.stopPropagation()}>
+    <FlexBox css={container} onClick={(event: MouseEvent) => event.stopPropagation()}>
       {isOpen && <Menus menus={menus} closeMenu={closeProfileMenu} />}
       <Button onClick={toggleOpenProfileMenu} aria-label="내 정보 메뉴 열기">
         <UserCircleIcon width="2.8rem" stroke="#555" />
