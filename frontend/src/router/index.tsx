@@ -21,6 +21,6 @@ export const router = createBrowserRouter([
   {
     path: '/maps',
     element: <CarFfeineMap />,
-    // errorElement: <App />,
+    errorElement: <NotFound />,
   },
 ]);
