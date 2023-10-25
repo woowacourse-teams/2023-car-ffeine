@@ -1,7 +1,7 @@
 import { Status, Wrapper } from '@googlemaps/react-wrapper';
 import Loading from 'components/ui/Loading';
 
-import CarFfeineMap from '@map/CarFfeineMap';
+import RedirectToMap from '@map/RedirectToMap';
 
 import NotFound from '@ui/NotFound';
 
@@ -12,7 +12,7 @@ const render = (status: Status) => {
     case Status.FAILURE:
       return <NotFound />;
     case Status.SUCCESS:
-      return <CarFfeineMap />;
+      return <RedirectToMap />;
   }
 };
 

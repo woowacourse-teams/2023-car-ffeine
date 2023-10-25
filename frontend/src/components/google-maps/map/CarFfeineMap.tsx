@@ -1,4 +1,5 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import DataDownloader from '@ui/DataDownloader';
 
@@ -14,26 +15,38 @@ const Navigator = lazy(() => import('@ui/Navigator'));
 const WarningModalContainer = lazy(() => import('@ui/WarningModalContainer'));
 
 const CarFfeineMap = () => {
-  return (
-    <>
-      <CarFfeineMapListener />
-      <Suspense>
-        <UserFilterListener />
+  const navigate = useNavigate();
+  const location = useLocation();
 
-        <ToastContainer />
-        <ModalContainer />
-        <WarningModalContainer />
+  useEffect(() => {
+    if (!window.google && location.pathname === '/maps') {
+      navigate('/');
+    }
+  }, []);
 
-        <Navigator />
-        <ClientStationFilters />
-        <MapController />
+  if (window.google) {
+    return (
+      <>
+        <CarFfeineMapListener />
+        <Suspense>
+          <UserFilterListener />
 
-        <MarkersContainers />
+          <ToastContainer />
+          <ModalContainer />
+          <WarningModalContainer />
 
-        <DataDownloader />
-      </Suspense>
-    </>
-  );
+          <Navigator />
+          <ClientStationFilters />
+          <MapController />
+
+          <MarkersContainers />
+
+          <DataDownloader />
+        </Suspense>
+      </>
+    );
+  }
+  return <></>;
 };
 
 export default CarFfeineMap;

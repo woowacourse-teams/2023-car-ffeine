@@ -1,5 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 
+import CarFfeineMap from '@map/CarFfeineMap';
+
 import GoogleLogin from '@components/login-page/GoogleLogin';
 
 import NotFound from '@ui/NotFound';
@@ -18,6 +20,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '/maps',
-    element: <div>maps</div>,
+    element: <CarFfeineMap />,
+    // errorElement: <App />,
   },
 ]);
