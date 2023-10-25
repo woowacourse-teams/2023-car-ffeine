@@ -1,7 +1,7 @@
 import { css } from 'styled-components';
 
-import { useEffect } from 'react';
 import type { PropsWithChildren } from 'react';
+import { useEffect } from 'react';
 
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
@@ -28,7 +28,7 @@ const Menus = ({ menus, closeMenu }: Props) => {
       alignItems="center"
       gap={0}
       css={containerCss}
-      onClick={(event) => event.stopPropagation()}
+      onClick={(event: MouseEvent) => event.stopPropagation()}
     >
       {menus.map(({ children, onClick }, index) => (
         <FlexBox key={index} tag="li">
