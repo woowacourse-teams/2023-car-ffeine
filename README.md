@@ -1,13 +1,14 @@
 ![title](./docs/title.png)
 
 # 2023 우아한테크코스 5기 카페인 팀
-
-<p align="center">
-  <img src="./frontend/public/icons/192.png"/>
-</p>
-<p align="center" style="font-size: larger;">
-  <a href="https://carffe.in">카페인 바로가기</a>
-</p>
+<a href="https://carffe.in">
+  <p align="center">
+    <img src="./frontend/public/icons/192.png"/>
+  </p>
+  <p align="center" style="font-size: larger;">
+    카페인 바로가기
+  </p>
+</a>
 <p align="center" style="font-size: xx-small;">
   실시간 전기자동차 충전소 지도 및 사용 통계 조회 서비스
 </p>
