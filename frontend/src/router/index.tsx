@@ -3,16 +3,11 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import NotFound from '@ui/NotFound';
 
-import App from '../App';
-
+const App = lazy(() => import('../App'));
 const GoogleLogin = lazy(() => import('@components/login-page/GoogleLogin'));
 const CarFfeineMap = lazy(() => import('@map/CarFfeineMap'));
 
 export const router = createBrowserRouter([
-  {
-    path: '/google',
-    element: <GoogleLogin />,
-  },
   {
     path: '/',
     element: <App />,
@@ -22,5 +17,9 @@ export const router = createBrowserRouter([
     path: '/maps',
     element: <CarFfeineMap />,
     errorElement: <NotFound />,
+  },
+  {
+    path: '/google',
+    element: <GoogleLogin />,
   },
 ]);
