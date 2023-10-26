@@ -49,9 +49,15 @@
 
 ### 충전소 조회
 
-<img src="docs/home/main.png" alt="main" />
-<img src="docs/home/cf-move.gif" alt="cf-move" />
-<img src="docs/home/cf-zoom.gif" alt="cf-zoom" />
+<p align="center" >
+  <img src="docs/home/main.png" alt="main" />
+</p>
+<p align="center" >
+  <img src="docs/home/cf-move.gif" alt="cf-move" />
+</p>
+<p align="center" >
+  <img src="docs/home/cf-zoom.gif" alt="cf-zoom" />
+</p>
 
 <table>
   <tr>
