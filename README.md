@@ -53,10 +53,10 @@
   <img src="docs/home/main.png" alt="main" />
 </p>
 <p align="center" >
-  <img src="docs/home/cf-move.gif" alt="cf-move" />
+  <img src="docs/home/cf-zoom.gif" alt="cf-zoom" />
 </p>
 <p align="center" >
-  <img src="docs/home/cf-zoom.gif" alt="cf-zoom" />
+  <img src="docs/home/cf-move.gif" alt="cf-move" />
 </p>
 
 <table>
