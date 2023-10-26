@@ -1,4 +1,4 @@
-![title](./docs/title.png)
+![title](docs/home/title.png)
 
 # 2023 우아한테크코스 5기 카페인 팀
 
@@ -49,20 +49,27 @@
 
 ### 충전소 조회
 
-<img src="./docs/main.png" alt="main" />
-
+<p align="center" >
+  <img src="docs/home/main.png" alt="main" />
+</p>
+<p align="center" >
+  <img src="docs/home/cf-zoom.gif" alt="cf-zoom" />
+</p>
+<p align="center" >
+  <img src="docs/home/cf-move.gif" alt="cf-move" />
+</p>
 
 <table>
   <tr>
-    <td><img src="./docs/station_marker_big.png" alt="station_marker_big" /></td>
-    <td><img src="./docs/station_marker.png" alt="station_marker" /></td>
+    <td><img src="docs/home/station_marker_big.png" alt="station_marker_big" /></td>
+    <td><img src="docs/home/station_marker.png" alt="station_marker" /></td>
   </tr>
 </table>
 
 <table>
   <tr>
-    <td><img src="./docs/cluster_region.png" alt="cluster_region" /></td>
-    <td><img src="./docs/cluster_city.png" alt="cluster_city" /></td>
+    <td><img src="docs/home/cluster_region.png" alt="cluster_region" /></td>
+    <td><img src="docs/home/cluster_city.png" alt="cluster_city" /></td>
   </tr>
 </table>
 
@@ -70,8 +77,8 @@
 
 <table>
   <tr>
-    <td><img src="./docs/search.gif" alt="search" /></td>
-    <td><img src="./docs/filter_server.gif" alt="filter_server" /></td>
+    <td><img src="docs/home/search.gif" alt="search" /></td>
+    <td><img src="docs/home/filter_server.gif" alt="filter_server" /></td>
   </tr>
 </table>
 
@@ -79,22 +86,22 @@
 
 <table>
   <tr>
-    <td><img src="./docs/station_info.png" alt="station_info" /></td>
-    <td><img src="./docs/station_details.png" alt="station_details" /></td>
+    <td><img src="docs/home/station_info.png" alt="station_info" /></td>
+    <td><img src="docs/home/station_details.png" alt="station_details" /></td>
   </tr>
 </table>
 
 <table>
   <tr>
-    <td><img src="./docs/station_chargers.png" alt="station_chargers" /></td>
-    <td><img src="./docs/statistics.png" alt="statistics" /></td>
+    <td><img src="docs/home/station_chargers.png" alt="station_chargers" /></td>
+    <td><img src="docs/home/statistics.png" alt="statistics" /></td>
   </tr>
 </table>
 
 <table>
   <tr>
-    <td><img src="./docs/reports.png" alt="reports" /></td>
-    <td><img src="./docs/reviews.png" alt="reviews" /></td>
+    <td><img src="docs/home/reports.png" alt="reports" /></td>
+    <td><img src="docs/home/reviews.png" alt="reviews" /></td>
   </tr>
 </table>
 
@@ -103,10 +110,10 @@
 <table>
   <tr>
     <td align="center">
-        <img src="docs/pc.png" alt="PC" />
+        <img src="docs/home/pc.png" alt="PC" />
     </td>
     <td align="center">
-        <img src="./docs/mobile.png" alt="Mobile" />
+        <img src="docs/home/mobile.png" alt="Mobile" />
     </td>
   </tr>
   <tr>
