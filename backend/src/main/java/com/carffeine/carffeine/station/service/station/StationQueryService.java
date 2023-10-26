@@ -1,19 +1,20 @@
 package com.carffeine.carffeine.station.service.station;
 
+import com.carffeine.carffeine.city.infrastructure.repository.CityQueryRepository;
+import com.carffeine.carffeine.city.infrastructure.repository.dto.CitySearchResponse;
 import com.carffeine.carffeine.station.domain.charger.ChargerType;
 import com.carffeine.carffeine.station.domain.station.Coordinate;
 import com.carffeine.carffeine.station.domain.station.Region;
 import com.carffeine.carffeine.station.exception.StationException;
 import com.carffeine.carffeine.station.exception.StationExceptionType;
-import com.carffeine.carffeine.city.infrastructure.repository.CityQueryRepository;
 import com.carffeine.carffeine.station.infrastructure.repository.station.StationQueryRepository;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.RegionMarker;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationInfo;
+import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationPoint;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSearchResult;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSummaryResponse;
-import com.carffeine.carffeine.city.infrastructure.repository.dto.CitySearchResponse;
 import com.carffeine.carffeine.station.service.station.dto.CoordinateRequest;
 import com.carffeine.carffeine.station.service.station.dto.StationSearchResponse;
 import com.carffeine.carffeine.station.service.station.dto.StationsSearchResponse;
@@ -98,5 +99,13 @@ public class StationQueryService {
     public List<RegionMarker> findMarkersByRegions(List<String> regionNames) {
         List<Region> regions = Region.regions(regionNames);
         return stationQueryRepository.findCountByRegions(regions);
+    }
+
+    public List<StationPoint> findStationPoint(int page, int size) {
+        return stationQueryRepository.findStationPoints(page, size);
+    }
+
+    public Long findStationCount() {
+        return stationQueryRepository.findStationCount();
     }
 }

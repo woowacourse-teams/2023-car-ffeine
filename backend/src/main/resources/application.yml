@@ -16,8 +16,7 @@ spring:
     active: local
   datasource:
     hikari:
-      minimum-idle: 22
-      maximum-pool-size: 22
+      maximum-pool-size: 5
   task:
     scheduling:
       pool:

@@ -4,11 +4,13 @@ import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.math.BigDecimal;
 
+@ToString
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EqualsAndHashCode(of = "value")
@@ -46,5 +48,21 @@ public class Longitude {
 
     public Longitude calculateMaxLongitudeByDelta(BigDecimal delta) {
         return new Longitude(value.add(delta));
+    }
+
+    public BigDecimal subtract(Longitude other) {
+        return value.subtract(other.value);
+    }
+
+    public int compareTo(Longitude other) {
+        return this.value.compareTo(other.value);
+    }
+
+    public boolean isBetween(Longitude top, Longitude bottom) {
+        return this.value.compareTo(top.value) >= 0 && this.value.compareTo(bottom.value) <= 0;
+    }
+
+    public BigDecimal add(Longitude other) {
+        return this.value.add(other.value);
     }
 }

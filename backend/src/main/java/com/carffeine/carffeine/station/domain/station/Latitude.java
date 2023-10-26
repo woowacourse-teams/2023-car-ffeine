@@ -1,16 +1,16 @@
 package com.carffeine.carffeine.station.domain.station;
 
-import com.carffeine.carffeine.station.exception.StationException;
-import com.carffeine.carffeine.station.exception.StationExceptionType;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.math.BigDecimal;
 
+@ToString
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EqualsAndHashCode(of = "value")
@@ -38,7 +38,7 @@ public class Latitude {
 
     private void validateKoreaLatitude(BigDecimal value) {
         if (value.compareTo(KOREA_MIN_LATITUDE) < 0 || value.compareTo(KOREA_MAX_LATITUDE) > 0) {
-            throw new StationException(StationExceptionType.INVALID_LATITUDE);
+//            throw new StationException(StationExceptionType.INVALID_LATITUDE);
         }
     }
 
@@ -48,5 +48,21 @@ public class Latitude {
 
     public Latitude calculateMaxLatitudeByDelta(BigDecimal delta) {
         return new Latitude(value.add(delta));
+    }
+
+    public BigDecimal subtract(Latitude other) {
+        return value.subtract(other.value);
+    }
+
+    public boolean isHigher(Latitude other) {
+        return this.value.compareTo(other.value) > 0;
+    }
+
+    public boolean isBetween(Latitude top, Latitude bottom) {
+        return this.value.compareTo(top.value) <= 0 && this.value.compareTo(bottom.value) >= 0;
+    }
+
+    public BigDecimal add(Latitude other) {
+        return this.value.add(other.value);
     }
 }

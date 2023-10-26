@@ -7,8 +7,12 @@ import com.carffeine.carffeine.station.infrastructure.repository.station.dto.Reg
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSimpleResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSpecificResponse;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationSummaryResponse;
+import com.carffeine.carffeine.station.service.station.StationGridCacheService;
+import com.carffeine.carffeine.station.service.station.StationGridFacadeService;
 import com.carffeine.carffeine.station.service.station.StationQueryService;
+import com.carffeine.carffeine.station.service.station.dto.ClusterRequest;
 import com.carffeine.carffeine.station.service.station.dto.CoordinateRequest;
+import com.carffeine.carffeine.station.service.station.dto.GridWithCount;
 import com.carffeine.carffeine.station.service.station.dto.StationsSearchResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +30,7 @@ import java.util.Set;
 public class StationController {
 
     private final StationQueryService stationQueryService;
+    private final StationGridFacadeService stationGridFacadeService;
 
     @GetMapping("/stations")
     public ResponseEntity<StationsSimpleResponse> getStations(CoordinateRequest request,
@@ -34,6 +39,12 @@ public class StationController {
                                                               @RequestParam(required = false, defaultValue = "") List<BigDecimal> capacities) {
         List<StationSimpleResponse> simpleResponses = stationQueryService.findByLocation(request, companyNames, chargerTypes, capacities);
         return ResponseEntity.ok(new StationsSimpleResponse(simpleResponses));
+    }
+
+    @GetMapping("/stations/clusters")
+    public ResponseEntity<List<GridWithCount>> getStationsClusters(ClusterRequest request) {
+        List<GridWithCount> counts = stationGridFacadeService.counts(request);
+        return ResponseEntity.ok(counts);
     }
 
     @GetMapping("/stations/search")

@@ -22,6 +22,7 @@ import com.carffeine.carffeine.station.service.review.ReplyQueryService;
 import com.carffeine.carffeine.station.service.review.ReplyService;
 import com.carffeine.carffeine.station.service.review.ReviewQueryService;
 import com.carffeine.carffeine.station.service.review.ReviewService;
+import com.carffeine.carffeine.station.service.station.StationGridFacadeService;
 import com.carffeine.carffeine.station.service.station.StationQueryService;
 import com.carffeine.carffeine.station.service.station.StationService;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -78,4 +79,6 @@ public class MockBeanInjection {
     protected StationQueryService stationQueryService;
     @MockBean
     protected AdminCityService adminCityService;
+    @MockBean
+    protected StationGridFacadeService stationGridFacadeService;
 }
