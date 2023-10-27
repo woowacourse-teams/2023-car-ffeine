@@ -66,6 +66,7 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         { from: 'public', globOptions: { ignore: ['**/mockServiceWorker.js', '**/index.html'] } },
+        { from: 'public/robots.txt', to: '.' },
       ],
     }),
     new DotEnv(),
