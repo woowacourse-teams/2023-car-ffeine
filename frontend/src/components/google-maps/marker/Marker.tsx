@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 
 import { useGoogleMap } from '@hooks/google-maps/useGoogleMap';
 
@@ -11,7 +11,7 @@ interface Props {
 const Marker = ({ stationMarker }: Props) => {
   const { renderStationMarker } = useGoogleMap();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const unmountStationMarker = renderStationMarker(stationMarker);
 
     return unmountStationMarker;
