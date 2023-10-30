@@ -7,55 +7,54 @@ on:
       - prod/frontend
 
 jobs:
-  deploy:
-    runs-on: self-hosted
+  build:
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: ./frontend
     steps:
-      - name: Log in to Docker Hub
-        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - uses: actions/checkout@v3
-      - name: Add Enviromnet
+      - name: Add Environment
         run: |
-          cd frontend          
           touch .env
           echo "${{ secrets.GOOGLE_MAPS_API_KEY }}" >> .env
 
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+      - name: Set up Node
+        uses: actions/setup-node@v3
         with:
-          images: woowacarffeine/frontend
-      - name: Build and push Docker image
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+          node-version: 18.16.0
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Cache node_modules
+        id: cache
+        uses: actions/cache@v3
         with:
-          context: ./frontend
-          file: ./frontend/Dockerfile
-          push: true
-          tags: woowacarffeine/frontend:latest
-          labels: ${{ steps.meta.outputs.labels }}
+          path: '**/node_modules'
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
-      - name: Join EC2 dev server
-        uses: appleboy/ssh-action@master
+      - name: Build
+        run: npm run build
+
+      - name: Upload build files
+        uses: actions/upload-artifact@v3
         with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          key: ${{ secrets.SERVER_KEY }}
-          port: ${{ secrets.SERVER_PORT }}
+          name: Prod
+          path: frontend/dist
 
-          script: |
-            sudo docker stop frontend || true
-            sudo docker container prune -f
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Download the built file to AWS
+        uses: actions/download-artifact@v3
+        with:
+          name: Prod
+          path: frontend/prod/dist
 
-            sudo docker pull woowacarffeine/frontend:latest
-
-            sudo docker run -d -p 3000:80 \
-            --name frontend \
-            woowacarffeine/frontend:latest
-
-            sudo docker image prune -a -f
-      - name: clean overlay
+      - name: Upload to S3
         run: |
-          sudo docker image prune -f
-          sudo docker system prune -a -f
+          aws s3 sync frontend/prod/* s3://2023-team-project/2023-car-ffeine/prod --delete
