@@ -17,7 +17,6 @@ jobs:
       - name: Add Environment
         run: |
           pwd
-          touch .env
           echo "${{ secrets.GOOGLE_MAPS_API_KEY }}" >> .env
 
       - name: Set up Node
