@@ -17,8 +17,8 @@ jobs:
       - name: Add Environment
         run: |
           pwd
-          sudo touch .env
-          sudo echo "${{ secrets.GOOGLE_MAPS_API_KEY }}" >> .env
+          touch .env
+          echo "${{ secrets.GOOGLE_MAPS_API_KEY }}" >> .env
 
       - name: Set up Node
         uses: actions/setup-node@v3
