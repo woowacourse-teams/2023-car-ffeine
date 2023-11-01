@@ -1,9 +1,7 @@
 package com.carffeine.carffeine.station.service.station;
 
-import com.carffeine.carffeine.station.domain.station.Coordinate;
 import com.carffeine.carffeine.station.domain.station.Grid;
 import com.carffeine.carffeine.station.domain.station.GridGenerator;
-import com.carffeine.carffeine.station.domain.station.Point;
 import com.carffeine.carffeine.station.infrastructure.repository.station.dto.StationPoint;
 import com.carffeine.carffeine.station.service.station.dto.ClusterRequest;
 import com.carffeine.carffeine.station.service.station.dto.GridWithCount;
@@ -11,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +17,8 @@ import java.util.List;
 @Service
 public class StationGridFacadeService {
 
+    private static final int CHUNK_SIZE = 1000;
+
     private final StationGridService stationGridService;
     private final StationQueryService stationQueryService;
     private final StationGridCacheService stationGridCacheService;
@@ -27,7 +26,7 @@ public class StationGridFacadeService {
     public List<GridWithCount> createGridWithCounts() {
         GridGenerator gridGenerator = new GridGenerator();
         List<Grid> grids = gridGenerator.createKorea();
-        int size = 1000;
+        int size = CHUNK_SIZE;
         int page = 0;
         while (size == 1000) {
             log.info("page : {}", page);
@@ -45,22 +44,11 @@ public class StationGridFacadeService {
 
     public List<GridWithCount> counts(ClusterRequest request) {
         List<GridWithCount> gridWithCounts = stationGridCacheService.findGrids(request);
-        List<Grid> displayGrid = createDisplayGrid(request);
-        List<Grid> grids = stationGridService.assignStationGridsWithCount(displayGrid, gridWithCounts);
+        List<Grid> grids = stationGridService.assignStationGridsWithCount(gridWithCounts, request);
         List<GridWithCount> list = grids.stream()
                 .filter(Grid::existsCount)
                 .map(it -> GridWithCount.createCenterPoint(it, it.getCount()))
                 .toList();
         return new ArrayList<>(list);
-    }
-
-    private List<Grid> createDisplayGrid(ClusterRequest request) {
-        GridGenerator gridGenerator = new GridGenerator();
-        Coordinate coordinate = Coordinate.of(request.latitude(), request.latitudeDelta(), request.longitude(), request.longitudeDelta());
-        BigDecimal maxLatitude = coordinate.maxLatitudeValue();
-        BigDecimal minLongitude = coordinate.minLongitudeValue();
-        BigDecimal minLatitude = coordinate.minLatitudeValue();
-        BigDecimal maxLongitude = coordinate.maxLongitudeValue();
-        return gridGenerator.create(Point.of(maxLatitude, minLongitude), Point.of(minLatitude, maxLongitude), request.latitudeDivisionSize(), request.longitudeDivisionSize());
     }
 }

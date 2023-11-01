@@ -77,7 +77,6 @@ public class StationQueryService {
                 .toList();
     }
 
-
     private StationSearchResponse stationToScope(StationInfo station, Set<String> scope) {
         StationSearchResponse.StationSearchResponseBuilder builder = StationSearchResponse.builder();
         if (scope.contains("stationName")) {
@@ -103,9 +102,5 @@ public class StationQueryService {
 
     public List<StationPoint> findStationPoint(int page, int size) {
         return stationQueryRepository.findStationPoints(page, size);
-    }
-
-    public Long findStationCount() {
-        return stationQueryRepository.findStationCount();
     }
 }
