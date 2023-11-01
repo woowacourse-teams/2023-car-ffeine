@@ -17,6 +17,7 @@ import com.carffeine.carffeine.member.domain.MemberRepository;
 import com.carffeine.carffeine.station.domain.review.ReplyRepository;
 import com.carffeine.carffeine.station.domain.review.ReviewRepository;
 import com.carffeine.carffeine.station.service.congestion.CongestionService;
+import com.carffeine.carffeine.station.service.congestion.CongestionUpdateService;
 import com.carffeine.carffeine.station.service.report.ReportService;
 import com.carffeine.carffeine.station.service.review.ReplyQueryService;
 import com.carffeine.carffeine.station.service.review.ReplyService;
@@ -24,7 +25,6 @@ import com.carffeine.carffeine.station.service.review.ReviewQueryService;
 import com.carffeine.carffeine.station.service.review.ReviewService;
 import com.carffeine.carffeine.station.service.station.StationGridFacadeService;
 import com.carffeine.carffeine.station.service.station.StationQueryService;
-import com.carffeine.carffeine.station.service.station.StationService;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 
@@ -38,7 +38,7 @@ public class MockBeanInjection {
     @MockBean
     protected TokenProvider tokenProvider;
     @MockBean
-    protected StationService stationService;
+    protected CongestionUpdateService congestionUpdateService;
     @MockBean
     protected MemberRepository memberRepository;
     @MockBean

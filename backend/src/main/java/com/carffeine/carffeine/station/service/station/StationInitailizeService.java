@@ -19,7 +19,7 @@ import java.util.concurrent.Executors;
 @RequiredArgsConstructor
 @Service
 @Slf4j
-public class ScrapperService {
+public class StationInitailizeService {
 
     private static final int THREAD_COUNT = 8;
     private static final int MAX_PAGE_SIZE = 24;

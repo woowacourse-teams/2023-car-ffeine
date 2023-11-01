@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.station.config;
 
-import com.carffeine.carffeine.station.service.station.ScrapperService;
+import com.carffeine.carffeine.station.service.station.StationInitailizeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -12,10 +12,10 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnProperty(name = "initialize-charge.enabled", havingValue = "true")
 public class InitialStationLoader implements ApplicationRunner {
 
-    private final ScrapperService scrapperService;
+    private final StationInitailizeService stationInitailizeService;
 
     @Override
     public void run(ApplicationArguments args) {
-        scrapperService.scrap();
+        stationInitailizeService.scrap();
     }
 }

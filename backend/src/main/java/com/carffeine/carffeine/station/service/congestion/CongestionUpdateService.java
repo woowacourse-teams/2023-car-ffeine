@@ -1,4 +1,4 @@
-package com.carffeine.carffeine.station.service.station;
+package com.carffeine.carffeine.station.service.congestion;
 
 import com.carffeine.carffeine.station.domain.charger.ChargerCondition;
 import com.carffeine.carffeine.station.domain.congestion.IdGenerator;
@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class StationService {
+public class CongestionUpdateService {
 
     private final ChargerStatusQueryRepository chargerStatusQueryRepository;
     private final PeriodicCongestionCustomRepository periodicCongestionCustomRepository;
