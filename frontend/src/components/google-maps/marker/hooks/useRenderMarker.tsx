@@ -6,7 +6,7 @@ import { DEFAULT_MARKER_SIZE_RATIO } from '@marker/SmallMediumDeltaAreaMarkerCon
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 
-import type { Station } from '@type';
+import type { StationMarker } from '@type';
 
 const getMarkerDesign = (isAvailable: boolean) => {
   const markerColor = isAvailable ? MARKER_COLORS.available : MARKER_COLORS.noAvailable;
@@ -38,7 +38,7 @@ const getMarkerInstance = (latitude: number, longitude: number) => {
 };
 
 export const useMarker = () => {
-  const renderDefaultMarker = (station: Station) => {
+  const renderDefaultMarker = (station: StationMarker) => {
     const { latitude, longitude } = station;
 
     const defaultMarkerDesign = getMarkerDesign(station.availableCount > 0);
@@ -51,7 +51,7 @@ export const useMarker = () => {
     };
   };
 
-  const renderCarffeineMarker = (station: Station) => {
+  const renderCarffeineMarker = (station: StationMarker) => {
     const { latitude, longitude } = station;
     const markerInstance = getMarkerInstance(latitude, longitude);
 
