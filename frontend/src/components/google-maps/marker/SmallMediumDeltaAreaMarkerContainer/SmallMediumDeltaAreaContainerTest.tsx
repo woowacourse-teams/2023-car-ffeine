@@ -2,8 +2,8 @@ import { useExternalValue } from '@utils/external-state';
 
 import { deltaAreaStore } from '@stores/google-maps/deltaAreaStore';
 
-import CarffeineMarkerRenderer from './CarffeineMarkerRenderer';
-import DefaultMarkerRenderer from './DefaultMarkerRenderer';
+import CarffeineMarkerRenderer from './components/marker/CarffeineMarkerRenderer';
+import DefaultMarkerRenderer from './components/marker/DefaultMarkerRenderer';
 import { useStationMarkers } from './hooks/useStationMarkers';
 
 const SmallMediumDeltaAreaMarkerContainerTest = () => {

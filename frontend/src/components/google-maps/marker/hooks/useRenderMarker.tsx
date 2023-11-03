@@ -5,8 +5,74 @@ import { MARKER_COLORS } from '@marker/SmallMediumDeltaAreaMarkerContainer/compo
 import { DEFAULT_MARKER_SIZE_RATIO } from '@marker/SmallMediumDeltaAreaMarkerContainer/constants';
 
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
+import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
+
+import { useStationInfoWindow } from '@hooks/google-maps/useStationInfoWindow';
+import useMediaQueries from '@hooks/useMediaQueries';
+
+import { useNavigationBar } from '@ui/Navigator/NavigationBar/hooks/useNavigationBar';
+import StationDetailsWindow from '@ui/StationDetailsWindow';
 
 import type { StationMarker } from '@type';
+
+export const useMarker = () => {
+  const screen = useMediaQueries();
+  const { openLastPanel } = useNavigationBar();
+  const { openStationInfoWindow } = useStationInfoWindow();
+
+  const renderDefaultMarker = (station: StationMarker) => {
+    const { latitude, longitude, stationId } = station;
+
+    const defaultMarkerDesign = getMarkerDesign(station.availableCount > 0);
+    const markerInstance = createMarkerInstance(latitude, longitude);
+
+    markerInstance.content = defaultMarkerDesign.element;
+
+    bindStationMarkerClickEvent(markerInstance, stationId);
+    addMarkerInstanceToExternalStore(markerInstance, stationId);
+
+    return () => {
+      markerInstance.map = null;
+      removeMarkerInstanceFromExternalStore(stationId);
+    };
+  };
+
+  const renderCarffeineMarker = (station: StationMarker) => {
+    const { latitude, longitude, stationId } = station;
+    const markerInstance = createMarkerInstance(latitude, longitude);
+    const container = createCarffeinMarkerDomElement();
+
+    markerInstance.content = container;
+
+    bindStationMarkerClickEvent(markerInstance, stationId);
+    addMarkerInstanceToExternalStore(markerInstance, stationId);
+
+    createRoot(container).render(<CarFfeineMarker {...station} />);
+
+    return () => {
+      markerInstance.map = null;
+      removeMarkerInstanceFromExternalStore(stationId);
+    };
+  };
+
+  const bindStationMarkerClickEvent = (
+    markerInstance: google.maps.marker.AdvancedMarkerElement,
+    stationId: string
+  ) => {
+    markerInstance.addListener('click', () => {
+      openStationInfoWindow(stationId, markerInstance);
+
+      if (!screen.get('isMobile')) {
+        openLastPanel(<StationDetailsWindow stationId={stationId} />);
+      }
+    });
+  };
+
+  return {
+    renderDefaultMarker,
+    renderCarffeineMarker,
+  };
+};
 
 const getMarkerDesign = (isAvailable: boolean) => {
   const markerColor = isAvailable ? MARKER_COLORS.available : MARKER_COLORS.noAvailable;
@@ -28,7 +94,20 @@ const getMarkerDesign = (isAvailable: boolean) => {
   return defaultMarkerDesign;
 };
 
-const getMarkerInstance = (latitude: number, longitude: number) => {
+const createCarffeinMarkerDomElement = () => {
+  const container = document.createElement('div');
+
+  container.style.opacity = '0';
+  container.classList.add('marker-animation');
+  container.addEventListener('animationend', () => {
+    container.classList.remove('marker-animation');
+    container.style.opacity = '1';
+  });
+
+  return container;
+};
+
+const createMarkerInstance = (latitude: number, longitude: number) => {
   const markerInstance = new google.maps.marker.AdvancedMarkerElement({
     position: new google.maps.LatLng(latitude, longitude),
     map: getGoogleMapStore().getState(),
@@ -37,43 +116,13 @@ const getMarkerInstance = (latitude: number, longitude: number) => {
   return markerInstance;
 };
 
-export const useMarker = () => {
-  const renderDefaultMarker = (station: StationMarker) => {
-    const { latitude, longitude } = station;
+const addMarkerInstanceToExternalStore = (
+  instance: google.maps.marker.AdvancedMarkerElement,
+  id: string
+) => {
+  markerInstanceStore.setState((prev) => [...prev, { id, instance }]);
+};
 
-    const defaultMarkerDesign = getMarkerDesign(station.availableCount > 0);
-    const markerInstance = getMarkerInstance(latitude, longitude);
-
-    markerInstance.content = defaultMarkerDesign.element;
-
-    return () => {
-      markerInstance.map = null;
-    };
-  };
-
-  const renderCarffeineMarker = (station: StationMarker) => {
-    const { latitude, longitude } = station;
-    const markerInstance = getMarkerInstance(latitude, longitude);
-
-    const container = document.createElement('div');
-    container.style.opacity = '0';
-    container.classList.add('marker-animation');
-    container.addEventListener('animationend', () => {
-      container.classList.remove('marker-animation');
-      container.style.opacity = '1';
-    });
-
-    markerInstance.content = container;
-
-    createRoot(container).render(<CarFfeineMarker {...station} />);
-
-    return () => {
-      markerInstance.map = null;
-    };
-  };
-
-  return {
-    renderDefaultMarker,
-    renderCarffeineMarker,
-  };
+const removeMarkerInstanceFromExternalStore = (id: string) => {
+  markerInstanceStore.setState((prev) => prev.filter((markerInstance) => markerInstance.id !== id));
 };
