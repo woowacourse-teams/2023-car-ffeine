@@ -1,7 +1,6 @@
 package com.carffeine.carffeine.station.domain.congestion;
 
 import com.carffeine.carffeine.common.domain.BaseEntity;
-import com.carffeine.carffeine.station.config.RequestPeriodConverter;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

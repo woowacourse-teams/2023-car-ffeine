@@ -1,7 +1,7 @@
 package com.carffeine.carffeine.city.domain;
 
-import com.carffeine.carffeine.station.domain.station.Latitude;
-import com.carffeine.carffeine.station.domain.station.Longitude;
+import com.carffeine.carffeine.station.domain.Latitude;
+import com.carffeine.carffeine.station.domain.Longitude;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,23 +33,21 @@ public class City {
 
     @Column(nullable = false)
     private String name;
-
     @Embedded
     private Latitude latitude;
-
     @Embedded
     private Longitude longitude;
 
-    public City(String name, Latitude latitude, Longitude longitude) {
-        this.name = name;
-        this.latitude = latitude;
-        this.longitude = longitude;
-    }
-
-    public City update(String name, BigDecimal latitude, BigDecimal longitude) {
+    public City(String name, BigDecimal latitude, BigDecimal longitude) {
         this.name = name;
         this.latitude = Latitude.from(latitude);
         this.longitude = Longitude.from(longitude);
+    }
+
+    public City update(String name, Latitude latitude, Longitude longitude) {
+        this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
         return this;
     }
 }

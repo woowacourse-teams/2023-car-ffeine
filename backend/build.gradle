@@ -3,6 +3,7 @@ plugins {
     id 'org.springframework.boot' version '2.7.13'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
     id 'org.asciidoctor.jvm.convert' version '3.3.2'
+
 }
 
 
@@ -10,7 +11,7 @@ allprojects {
     apply plugin: 'java'
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'org.springframework.boot'
-    apply plugin: 'org.asciidoctor.jvm.convert'
+    apply plugin: 'java-test-fixtures'
 
     group = 'com.carffeine'
     version = '0.0.1-SNAPSHOT'
@@ -28,82 +29,90 @@ allprojects {
     }
 
     dependencies {
+        // api
         implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        implementation 'com.codingapi.springboot:springboot-framework:1.0.5'
         runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
-        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
         implementation 'org.springframework.boot:spring-boot-starter-validation'
         implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation 'io.jsonwebtoken:jjwt-api:0.10.5'
         runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.10.5'
         runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.10.5'
-        implementation 'org.flywaydb:flyway-core'
-        implementation 'org.flywaydb:flyway-mysql'
-        implementation "com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3"
-        compileOnly 'org.projectlombok:lombok'
-        runtimeOnly 'com.h2database:h2'
-        runtimeOnly 'com.mysql:mysql-connector-j'
-        annotationProcessor 'org.projectlombok:lombok'
-        testImplementation 'org.springframework.boot:spring-boot-starter-test'
         testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
         testImplementation 'io.rest-assured:rest-assured:4.4.0'
         annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
-
         asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
-
         implementation 'com.querydsl:querydsl-jpa:5.0.0'
+        annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa"
+        // core
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+        implementation 'org.flywaydb:flyway-core'
+        implementation 'org.flywaydb:flyway-mysql'
+
         annotationProcessor "javax.persistence:javax.persistence-api"
         annotationProcessor "javax.annotation:javax.annotation-api"
-        annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa"
-    }
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-    ext {
-        set('snippetsDir', file("build/generated-snippets"))
-    }
+        // core
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        runtimeOnly 'com.h2database:h2'
+        runtimeOnly 'com.mysql:mysql-connector-j'
+        implementation "com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3"
+        testImplementation 'io.rest-assured:rest-assured:4.4.0'
 
-
-    def generated = 'src/main/generated'
-    sourceSets {
-        main.java.srcDirs += [generated]
-    }
-
-    tasks.withType(JavaCompile) {
-        options.annotationProcessorGeneratedSourcesDirectory = file(generated)
-    }
-
-    clean.doLast {
-        file(generated).deleteDir()
-    }
-
-    tasks.named('test') {
-        outputs.dir snippetsDir
-        useJUnitPlatform()
-    }
-
-    tasks.named('asciidoctor') {
-        inputs.dir snippetsDir
-        dependsOn test
-    }
-
-    asciidoctor {
-        dependsOn test
-        configurations 'asciidoctorExt'
-        baseDirFollowsSourceFile()
-    }
-
-
-    tasks.register('copyApiDocument', Copy) {
-        dependsOn asciidoctor
-        doFirst {
-            delete file("src/main/resources/static/docs") // 기존 문서 삭제
-        }
-
-        from asciidoctor.outputDir
-        into file("src/main/resources/static/docs")
-    }
-
-    bootJar {
-        dependsOn copyApiDocument
+        testFixturesImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testFixturesImplementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     }
 
 }
 
+
+ext {
+    set('snippetsDir', file("build/generated-snippets"))
+}
+
+
+def generated = 'src/main/generated'
+sourceSets {
+    main.java.srcDirs += [generated]
+}
+
+tasks.withType(JavaCompile) {
+    options.annotationProcessorGeneratedSourcesDirectory = file(generated)
+}
+
+clean.doLast {
+    file(generated).deleteDir()
+}
+
+tasks.named('test') {
+    outputs.dir snippetsDir
+    useJUnitPlatform()
+}
+
+tasks.named('asciidoctor') {
+    inputs.dir snippetsDir
+    dependsOn test
+}
+
+asciidoctor {
+    dependsOn test
+    configurations 'asciidoctorExt'
+    baseDirFollowsSourceFile()
+}
+
+
+tasks.register('copyApiDocument', Copy) {
+    dependsOn asciidoctor
+    doFirst {
+        delete file("src/main/resources/static/docs") // 기존 문서 삭제
+    }
+
+    from asciidoctor.outputDir
+    into file("src/main/resources/static/docs")
+}
+
+bootJar {
+    dependsOn copyApiDocument
+}

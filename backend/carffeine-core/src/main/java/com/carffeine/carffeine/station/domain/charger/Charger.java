@@ -1,7 +1,7 @@
 package com.carffeine.carffeine.station.domain.charger;
 
 import com.carffeine.carffeine.common.domain.BaseEntity;
-import com.carffeine.carffeine.station.domain.station.Station;
+import com.carffeine.carffeine.station.domain.Station;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

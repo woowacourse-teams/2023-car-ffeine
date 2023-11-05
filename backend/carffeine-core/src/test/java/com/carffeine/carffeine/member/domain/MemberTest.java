@@ -1,6 +1,6 @@
 package com.carffeine.carffeine.member.domain;
 
-import com.carffeine.carffeine.member.fixture.MemberFixture;
+import com.carffeine.carffeine.fixture.member.MemberFixture;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;

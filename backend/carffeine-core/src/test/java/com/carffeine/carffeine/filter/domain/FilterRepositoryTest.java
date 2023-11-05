@@ -1,10 +1,10 @@
 package com.carffeine.carffeine.filter.domain;
 
-import com.carffeine.carffeine.helper.integration.IntegrationTest;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
 
@@ -12,7 +12,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
-class FilterRepositoryTest extends IntegrationTest {
+@DataJpaTest
+class FilterRepositoryTest {
 
     @Autowired
     private FilterRepository filterRepository;

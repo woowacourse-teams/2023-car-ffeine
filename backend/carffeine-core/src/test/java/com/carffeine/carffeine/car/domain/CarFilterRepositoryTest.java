@@ -2,24 +2,25 @@ package com.carffeine.carffeine.car.domain;
 
 import com.carffeine.carffeine.filter.domain.Filter;
 import com.carffeine.carffeine.filter.domain.FilterRepository;
-import com.carffeine.carffeine.helper.integration.IntegrationTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
 
-import static com.carffeine.carffeine.filter.fixture.FilterFixture.createCapacityFilter;
-import static com.carffeine.carffeine.filter.fixture.FilterFixture.createCompanyFilter;
-import static com.carffeine.carffeine.filter.fixture.FilterFixture.createConnectorTypeFilter;
+import static com.carffeine.carffeine.fixture.filter.FilterFixture.createCapacityFilter;
+import static com.carffeine.carffeine.fixture.filter.FilterFixture.createCompanyFilter;
+import static com.carffeine.carffeine.fixture.filter.FilterFixture.createConnectorTypeFilter;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
-class CarFilterRepositoryTest extends IntegrationTest {
+@DataJpaTest
+class CarFilterRepositoryTest {
 
     @Autowired
     private CarFilterRepository carFilterRepository;

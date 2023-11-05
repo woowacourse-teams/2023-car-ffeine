@@ -1,11 +1,11 @@
 package com.carffeine.carffeine.car.domain;
 
-import com.carffeine.carffeine.helper.integration.IntegrationTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
 
@@ -13,7 +13,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SuppressWarnings("NonAsciiCharacters")
-class CarRepositoryTest extends IntegrationTest {
+@DataJpaTest
+class CarRepositoryTest {
 
     @Autowired
     private CarRepository carRepository;
@@ -75,7 +76,7 @@ class CarRepositoryTest extends IntegrationTest {
     @Test
     void 차량을_제거한다() {
         // when
-        carRepository.deleteById(1L);
+        carRepository.deleteById(savedCar.getId());
 
         // then
         assertThat(carRepository.findAll().size()).isEqualTo(0);
