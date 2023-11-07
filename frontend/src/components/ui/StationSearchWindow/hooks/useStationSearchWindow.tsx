@@ -1,11 +1,11 @@
+import { getChargerCountsAndAvailability } from '@tools/getChargerCountsAndAvailability';
+
 import type { ChangeEvent, FocusEvent, FormEvent, MouseEvent } from 'react';
 import { useState } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 
-import { useRenderStationMarker } from '@marker/SmallMediumDeltaAreaMarkerContainer/hooks/useRenderStationMarker';
-
-import { useSetExternalState } from '@utils/external-state';
+import { useMarker } from '@marker/hooks/useRenderMarker';
 
 import { googleMapActions } from '@stores/google-maps/googleMapStore';
 import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
@@ -16,17 +16,12 @@ import useMediaQueries from '@hooks/useMediaQueries';
 
 import { useNavigationBar } from '@ui/Navigator/NavigationBar/hooks/useNavigationBar';
 
-import {
-  QUERY_KEY_SEARCHED_STATION,
-  QUERY_KEY_STATION_DETAILS,
-  QUERY_KEY_STATION_MARKERS,
-} from '@constants/queryKeys';
+import { QUERY_KEY_SEARCHED_STATION } from '@constants/queryKeys';
 import { SERVER_URL } from '@constants/server';
 
 import type { StationDetails, StationPosition } from '@type';
 
 import StationDetailsWindow from '../../StationDetailsWindow/index';
-import { convertStationDetailsToSummary } from '../tools/convertStationDetailsToSummary';
 
 export const useStationSearchWindow = () => {
   const queryClient = useQueryClient();
@@ -34,11 +29,10 @@ export const useStationSearchWindow = () => {
   const [isFocused, setIsFocused] = useState(false);
   const [searchWord, setSearchWord] = useState('');
 
-  const setMarkerInstances = useSetExternalState(markerInstanceStore);
+  const { renderDefaultMarker } = useMarker();
 
   const { openLastPanel } = useNavigationBar();
   const { openStationInfoWindow } = useStationInfoWindow();
-  const { createNewMarkerInstance, renderDefaultMarkers } = useRenderStationMarker();
 
   const screen = useMediaQueries();
 
@@ -67,7 +61,6 @@ export const useStationSearchWindow = () => {
 
   const showStationDetails = async ({ stationId, latitude, longitude }: StationPosition) => {
     googleMapActions.moveTo({ lat: latitude, lng: longitude });
-    queryClient.invalidateQueries({ queryKey: [QUERY_KEY_STATION_MARKERS] });
 
     if (!screen.get('isMobile')) {
       openLastPanel(<StationDetailsWindow stationId={stationId} />);
@@ -84,19 +77,22 @@ export const useStationSearchWindow = () => {
       const stationDetails = await fetch(
         `${SERVER_URL}/stations/${stationId}`
       ).then<StationDetails>((response) => response.json());
+      const { availableQuickChargerCount, availableStandardChargerCount, quickChargerCount } =
+        getChargerCountsAndAvailability(stationDetails.chargers);
+      const { stationName, latitude, longitude, isParkingFree, isPrivate } = stationDetails;
 
-      const markerInstance = createNewMarkerInstance(stationDetails);
+      renderDefaultMarker({
+        stationId,
+        stationName,
+        latitude,
+        longitude,
+        isParkingFree,
+        isPrivate,
+        availableCount: availableQuickChargerCount + availableStandardChargerCount,
+        quickChargerCount,
+      });
 
-      setMarkerInstances((prev) => [...prev, { id: stationId, instance: markerInstance }]);
-
-      renderDefaultMarkers(
-        [{ id: stationId, instance: markerInstance }],
-        [convertStationDetailsToSummary(stationDetails)]
-      );
-
-      openStationInfoWindow(stationId, markerInstance);
-
-      queryClient.setQueryData([QUERY_KEY_STATION_DETAILS, stationId], stationDetails);
+      openStationInfoWindow(stationId);
     }
   };
 
