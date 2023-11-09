@@ -1,6 +1,8 @@
 import { createRoot } from 'react-dom/client';
 
 import StyledClusterMarker from '@marker/components/LargeDeltaAreaMarkerContainer/components/StyledClusterMarker';
+import RegionMarker from '@marker/components/MaxDeltaAreaMarkerContainer/components/RegionMarker';
+import type { Region } from '@marker/components/MaxDeltaAreaMarkerContainer/types';
 import CarFfeineMarker from '@marker/components/SmallMediumDeltaAreaMarkerContainer/components/CarFfeineMarker';
 import {
   addMarkerInstanceToExternalStore,
@@ -76,6 +78,23 @@ export const useMarker = () => {
     };
   };
 
+  const renderRegionMarker = (region: Region) => {
+    const { latitude, longitude, count, regionName } = region;
+
+    const markerInstance = createMarkerInstance(latitude, longitude);
+    const container = createMarkerDomElement();
+
+    markerInstance.title = regionName;
+    markerInstance.content = container;
+
+    bindRegionMarkerClickEvent(markerInstance, region);
+    createRoot(container).render(<RegionMarker count={count} regionName={regionName} />);
+
+    return () => {
+      markerInstance.map = null;
+    };
+  };
+
   const bindStationMarkerClickEvent = (
     markerInstance: google.maps.marker.AdvancedMarkerElement,
     stationId: string
@@ -102,9 +121,21 @@ export const useMarker = () => {
     });
   };
 
+  const bindRegionMarkerClickEvent = (
+    markerInstance: google.maps.marker.AdvancedMarkerElement,
+    region: Region
+  ) => {
+    const { latitude, longitude } = region;
+
+    markerInstance.addListener('click', () => {
+      googleMapActions.moveTo({ lat: latitude, lng: longitude }, 12);
+    });
+  };
+
   return {
     renderDefaultMarker,
     renderCarffeineMarker,
     renderClusterMarker,
+    renderRegionMarker,
   };
 };

@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 
-import { useRenderRegionMarker } from '../hooks/useRenderRegionMarker';
+import { useMarker } from '@marker/hooks/useRenderMarker';
+
 import type { Region } from '../types';
 
 export interface RegionMarkerProps {
@@ -8,12 +9,12 @@ export interface RegionMarkerProps {
 }
 
 const RegionMarkerRenderer = ({ region }: RegionMarkerProps) => {
-  const { renderRegionMarker } = useRenderRegionMarker();
+  const { renderRegionMarker } = useMarker();
 
-  useEffect(() => {
-    const unmountRegionMarker = renderRegionMarker(region);
+  useLayoutEffect(() => {
+    const unmount = renderRegionMarker(region);
 
-    return unmountRegionMarker;
+    return unmount;
   }, []);
 
   return <></>;
