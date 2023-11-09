@@ -2,7 +2,7 @@ import { css } from 'styled-components';
 
 import { useEffect, useRef } from 'react';
 
-import { useStationMarkers } from '@marker/SmallMediumDeltaAreaMarkerContainer/hooks/useStationMarkers';
+import { useStationMarkers } from '@marker/components/SmallMediumDeltaAreaMarkerContainer/hooks/useStationMarkers';
 
 import List from '@common/List';
 import Text from '@common/Text';

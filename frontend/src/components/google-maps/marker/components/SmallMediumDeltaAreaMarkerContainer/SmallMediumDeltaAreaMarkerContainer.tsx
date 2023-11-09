@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { useStationMarkers } from '@marker/SmallMediumDeltaAreaMarkerContainer/hooks/useStationMarkers';
+import { useStationMarkers } from '@marker/components/SmallMediumDeltaAreaMarkerContainer/hooks/useStationMarkers';
 
 import { useExternalValue } from '@utils/external-state';
 

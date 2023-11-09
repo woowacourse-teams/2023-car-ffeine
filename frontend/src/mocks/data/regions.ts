@@ -1,4 +1,4 @@
-import type { Region, RegionName } from '@marker/MaxDeltaAreaMarkerContainer/types';
+import type { Region, RegionName } from '@marker/components/MaxDeltaAreaMarkerContainer/types';
 
 export const regions: Region[] = [
   {

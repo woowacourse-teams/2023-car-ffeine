@@ -2,9 +2,9 @@ import { useExternalValue } from '@utils/external-state';
 
 import { deltaAreaStore } from '@stores/google-maps/deltaAreaStore';
 
-import LargeDeltaAreaMarkerContainer from './LargeDeltaAreaMarkerContainer';
-import MaxDeltaAreaMarkerContainer from './MaxDeltaAreaMarkerContainer';
-import SmallMediumDeltaAreaMarkerContainerTest from './SmallMediumDeltaAreaMarkerContainer/SmallMediumDeltaAreaContainerTest';
+import LargeDeltaAreaMarkerContainer from '../LargeDeltaAreaMarkerContainer';
+import MaxDeltaAreaMarkerContainer from '../MaxDeltaAreaMarkerContainer';
+import SmallMediumDeltaAreaMarkerContainerTest from '../SmallMediumDeltaAreaMarkerContainer/SmallMediumDeltaAreaContainerTest';
 
 const MarkerContainers = () => {
   const deltaAreaState = useExternalValue(deltaAreaStore);

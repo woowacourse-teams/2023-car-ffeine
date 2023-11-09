@@ -4,7 +4,7 @@ import { getChargerCountsAndAvailability } from '@tools/getChargerCountsAndAvail
 import type { MouseEvent } from 'react';
 import { HiChevronRight } from 'react-icons/hi2';
 
-import { MARKER_COLORS } from '@marker/SmallMediumDeltaAreaMarkerContainer/components/CarFfeineMarker/CarFfeineMarker.style';
+import { MARKER_COLORS } from '@marker/components/SmallMediumDeltaAreaMarkerContainer/components/CarFfeineMarker/CarFfeineMarker.style';
 
 import Box from '@common/Box';
 import Button from '@common/Button';

@@ -1,12 +1,16 @@
 import { createRoot } from 'react-dom/client';
 
-import StyledClusterMarker from '@marker/LargeDeltaAreaMarkerContainer/components/StyledClusterMarker';
-import CarFfeineMarker from '@marker/SmallMediumDeltaAreaMarkerContainer/components/CarFfeineMarker';
-import { MARKER_COLORS } from '@marker/SmallMediumDeltaAreaMarkerContainer/components/CarFfeineMarker/CarFfeineMarker.style';
-import { DEFAULT_MARKER_SIZE_RATIO } from '@marker/SmallMediumDeltaAreaMarkerContainer/constants';
+import StyledClusterMarker from '@marker/components/LargeDeltaAreaMarkerContainer/components/StyledClusterMarker';
+import CarFfeineMarker from '@marker/components/SmallMediumDeltaAreaMarkerContainer/components/CarFfeineMarker';
+import {
+  addMarkerInstanceToExternalStore,
+  createMarkerDomElement,
+  createMarkerInstance,
+  getDefaultMarkerDesign,
+  removeMarkerInstanceFromExternalStore,
+} from '@marker/utils';
 
 import { getGoogleMapStore, googleMapActions } from '@stores/google-maps/googleMapStore';
-import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
 
 import { useStationInfoWindow } from '@hooks/google-maps/useStationInfoWindow';
 import useMediaQueries from '@hooks/useMediaQueries';
@@ -24,7 +28,7 @@ export const useMarker = () => {
   const renderDefaultMarker = (station: StationMarker) => {
     const { latitude, longitude, stationId } = station;
 
-    const defaultMarkerDesign = getMarkerDesign(station.availableCount > 0);
+    const defaultMarkerDesign = getDefaultMarkerDesign(station.availableCount > 0);
     const markerInstance = createMarkerInstance(latitude, longitude);
 
     markerInstance.content = defaultMarkerDesign.element;
@@ -103,57 +107,4 @@ export const useMarker = () => {
     renderCarffeineMarker,
     renderClusterMarker,
   };
-};
-
-const getMarkerDesign = (isAvailable: boolean) => {
-  const markerColor = isAvailable ? MARKER_COLORS.available : MARKER_COLORS.noAvailable;
-
-  const defaultMarkerDesign = new google.maps.marker.PinElement({
-    scale: DEFAULT_MARKER_SIZE_RATIO,
-    background: markerColor.background,
-    borderColor: markerColor.border,
-    glyph: '',
-  });
-
-  defaultMarkerDesign.element.style.opacity = '0';
-  defaultMarkerDesign.element.classList.add('marker-animation');
-  defaultMarkerDesign.element.addEventListener('animationend', () => {
-    defaultMarkerDesign.element.classList.remove('marker-animation');
-    defaultMarkerDesign.element.style.opacity = '1';
-  });
-
-  return defaultMarkerDesign;
-};
-
-const createMarkerDomElement = () => {
-  const container = document.createElement('div');
-
-  container.style.opacity = '0';
-  container.classList.add('marker-animation');
-  container.addEventListener('animationend', () => {
-    container.classList.remove('marker-animation');
-    container.style.opacity = '1';
-  });
-
-  return container;
-};
-
-const createMarkerInstance = (latitude: number, longitude: number) => {
-  const markerInstance = new google.maps.marker.AdvancedMarkerElement({
-    position: new google.maps.LatLng(latitude, longitude),
-    map: getGoogleMapStore().getState(),
-  });
-
-  return markerInstance;
-};
-
-const addMarkerInstanceToExternalStore = (
-  instance: google.maps.marker.AdvancedMarkerElement,
-  id: string
-) => {
-  markerInstanceStore.setState((prev) => [...prev, { id, instance }]);
-};
-
-const removeMarkerInstanceFromExternalStore = (id: string) => {
-  markerInstanceStore.setState((prev) => prev.filter((markerInstance) => markerInstance.id !== id));
 };
