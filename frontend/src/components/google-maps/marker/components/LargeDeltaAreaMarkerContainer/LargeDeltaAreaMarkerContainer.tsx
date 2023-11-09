@@ -1,8 +1,8 @@
 import ClusterMarkerRenderer from './components/ClusterMarkerRenderer';
-import { useClusterMarkers } from './hooks/useClusterMarkers';
+import { useClusterMarkersQuery } from './hooks/useClusterMarkersQuery';
 
 const LargeDeltaAreaMarkerContainer = () => {
-  const { data: clusterMarkers, isSuccess } = useClusterMarkers();
+  const { data: clusterMarkers, isSuccess } = useClusterMarkersQuery();
 
   if (clusterMarkers === undefined || !isSuccess) {
     return <></>;

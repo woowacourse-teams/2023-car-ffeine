@@ -3,8 +3,8 @@ import { css } from 'styled-components';
 
 import { BiCurrentLocation } from 'react-icons/bi';
 
-import { useClusterMarkers } from '@marker/components/LargeDeltaAreaMarkerContainer/hooks/useClusterMarkers';
-import { useStationMarkers } from '@marker/components/SmallMediumDeltaAreaMarkerContainer/hooks/useStationMarkers';
+import { useClusterMarkersQuery } from '@marker/components/LargeDeltaAreaMarkerContainer/hooks/useClusterMarkersQuery';
+import { useStationMarkersQuery } from '@marker/components/SmallMediumDeltaAreaMarkerContainer/hooks/useStationMarkersQuery';
 
 import { googleMapActions } from '@stores/google-maps/googleMapStore';
 
@@ -15,8 +15,8 @@ import Loader from '@common/Loader';
 import { MOBILE_BREAKPOINT } from '@constants';
 
 const MapController = () => {
-  const { isFetching: isStationMarkerFetching } = useStationMarkers();
-  const { isFetching: isClusterMarkerFetching } = useClusterMarkers();
+  const { isFetching: isStationMarkerFetching } = useStationMarkersQuery();
+  const { isFetching: isClusterMarkerFetching } = useClusterMarkersQuery();
 
   const isMarkerFetching = isStationMarkerFetching || isClusterMarkerFetching;
 

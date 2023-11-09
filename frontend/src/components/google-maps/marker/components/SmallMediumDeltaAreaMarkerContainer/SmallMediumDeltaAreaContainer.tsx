@@ -4,10 +4,10 @@ import { deltaAreaStore } from '@stores/google-maps/deltaAreaStore';
 
 import CarffeineMarkerRenderer from './components/marker/CarffeineMarkerRenderer';
 import DefaultMarkerRenderer from './components/marker/DefaultMarkerRenderer';
-import { useStationMarkers } from './hooks/useStationMarkers';
+import { useStationMarkersQuery } from './hooks/useStationMarkersQuery';
 
-const SmallMediumDeltaAreaMarkerContainerTest = () => {
-  const { data: stationMarkers, isSuccess } = useStationMarkers();
+const SmallMediumDeltaAreaMarkerContainer = () => {
+  const { data: stationMarkers, isSuccess } = useStationMarkersQuery();
   const deltaAreaState = useExternalValue(deltaAreaStore);
 
   if (!isSuccess) {
@@ -28,4 +28,4 @@ const SmallMediumDeltaAreaMarkerContainerTest = () => {
   );
 };
 
-export default SmallMediumDeltaAreaMarkerContainerTest;
+export default SmallMediumDeltaAreaMarkerContainer;

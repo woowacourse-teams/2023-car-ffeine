@@ -2,7 +2,7 @@ import { css } from 'styled-components';
 
 import { useEffect, useRef } from 'react';
 
-import { useStationMarkers } from '@marker/components/SmallMediumDeltaAreaMarkerContainer/hooks/useStationMarkers';
+import { useStationMarkersQuery } from '@marker/components/SmallMediumDeltaAreaMarkerContainer/hooks/useStationMarkersQuery';
 
 import List from '@common/List';
 import Text from '@common/Text';
@@ -16,7 +16,7 @@ import { useInfiniteStationSummaries } from './hooks/useInfiniteStationSummaries
 import { cachedStationSummariesActions } from './tools/cachedStationSummaries';
 
 const StationList = () => {
-  const { data: filteredMarkers } = useStationMarkers();
+  const { data: filteredMarkers } = useStationMarkersQuery();
 
   const { data, isLoading, isError, isFetchingNextPage, fetchNextPage, hasNextPage, error } =
     useInfiniteStationSummaries(filteredMarkers ?? []);

@@ -64,7 +64,7 @@ export const fetchClusterMarkers = async () => {
   return clusterMarkers;
 };
 
-export const useClusterMarkers = () => {
+export const useClusterMarkersQuery = () => {
   return useQuery({
     queryKey: [QUERY_KEY_CLUSTER_MARKERS],
     queryFn: fetchClusterMarkers,

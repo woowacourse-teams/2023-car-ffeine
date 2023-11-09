@@ -4,7 +4,7 @@ import { deltaAreaStore } from '@stores/google-maps/deltaAreaStore';
 
 import LargeDeltaAreaMarkerContainer from '../LargeDeltaAreaMarkerContainer';
 import MaxDeltaAreaMarkerContainer from '../MaxDeltaAreaMarkerContainer';
-import SmallMediumDeltaAreaMarkerContainerTest from '../SmallMediumDeltaAreaMarkerContainer/SmallMediumDeltaAreaContainerTest';
+import SmallMediumDeltaAreaMarkerContainer from '../SmallMediumDeltaAreaMarkerContainer/SmallMediumDeltaAreaContainer';
 
 const MarkerContainers = () => {
   const deltaAreaState = useExternalValue(deltaAreaStore);
@@ -12,7 +12,7 @@ const MarkerContainers = () => {
   return (
     <>
       {(deltaAreaState === 'medium' || deltaAreaState === 'small') && (
-        <SmallMediumDeltaAreaMarkerContainerTest />
+        <SmallMediumDeltaAreaMarkerContainer />
       )}
       {/* 이 아래는 앞으로 추가될 기능을 미리 대응하는 컴포넌트 */}
       {deltaAreaState === 'large' && <LargeDeltaAreaMarkerContainer />}
