@@ -16,9 +16,9 @@ const DefaultMarkerRenderer = ({ station }: Props) => {
   useLayoutEffect(() => {
     // 검색 결과로 강제 생성한 마커에 대해선 새로운 마커 생성을 시도하지 않도록 한다.
     if (markerInstanceStore.getState().every(({ id }) => id !== station.stationId)) {
-      const unMount = renderDefaultMarker(station);
+      const unmount = renderDefaultMarker(station);
 
-      return unMount;
+      return unmount;
     }
   }, []);
 

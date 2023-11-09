@@ -12,9 +12,9 @@ const CarffeineMarkerRenderer = ({ station }: Props) => {
   const { renderCarffeineMarker } = useMarker();
 
   useLayoutEffect(() => {
-    const unMount = renderCarffeineMarker(station);
+    const unmount = renderCarffeineMarker(station);
 
-    return unMount;
+    return unmount;
   }, []);
 
   return <></>;
