@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 
-import { useMarker } from '@marker/hooks/useRenderMarker';
+import { useMarker } from '@marker/hooks/useMarker';
 
 import { googleMapActions } from '@stores/google-maps/googleMapStore';
 import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';

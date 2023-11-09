@@ -1,6 +1,6 @@
 import { useLayoutEffect } from 'react';
 
-import { useMarker } from '@marker/hooks/useRenderMarker';
+import { useMarker } from '@marker/hooks/useMarker';
 
 import type { Region } from '../types';
 
