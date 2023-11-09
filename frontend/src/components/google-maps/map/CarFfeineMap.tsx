@@ -5,9 +5,7 @@ import DataDownloader from '@ui/DataDownloader';
 import CarFfeineMapListener from './CarFfeineListener';
 
 const UserFilterListener = lazy(() => import('./UserFilterListener'));
-const MarkersContainers = lazy(
-  () => import('@marker/components/MarkerContainers/MarkerContainers')
-);
+const MarkersContainers = lazy(() => import('@marker/components/MarkerContainers'));
 const ToastContainer = lazy(() => import('@ui/ToastContainer'));
 const ClientStationFilters = lazy(() => import('@ui/ClientStationFilters'));
 const MapController = lazy(() => import('@ui/MapController'));
