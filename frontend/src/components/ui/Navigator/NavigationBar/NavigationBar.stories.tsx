@@ -1,5 +1,6 @@
 import { ChevronLeftIcon } from '@heroicons/react/24/solid';
 import type { Meta } from '@storybook/react';
+import { FlexBox } from 'car-ffeine-design-system';
 import { styled } from 'styled-components';
 
 import type { ReactElement } from 'react';
@@ -40,14 +41,14 @@ export const Default = () => {
           <ChevronLeftIcon width="2.4rem" stroke="#9c9fa7" />
         </Button>
       </NavigationBar>
-      <div style={{ display: 'flex', flexDirection: 'column', position: 'fixed', right: 0 }}>
+      <FlexBox direction="column" position="fixed" right={0}>
         <ButtonNext onClick={() => setBasePanel(<BaseContainerBlue />)}>
           openBlueBasePanel
         </ButtonNext>
         <ButtonNext onClick={() => setBasePanel(<BaseContainerRed />)}>openRedBasePanel</ButtonNext>
         <ButtonNext onClick={() => setBasePanel(<BaseContainer />)}>openWhiteBasePanel</ButtonNext>
         <ButtonNext onClick={() => setLastPanel(<LastContainer />)}>openLastPanel</ButtonNext>
-      </div>
+      </FlexBox>
     </>
   );
 };

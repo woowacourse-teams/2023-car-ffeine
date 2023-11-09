@@ -1,4 +1,5 @@
 import type { Meta } from '@storybook/react';
+import { Box } from 'car-ffeine-design-system';
 
 import List from '../List';
 import Text from '../Text';
@@ -43,7 +44,7 @@ export const Default = (args: ListItemProps) => {
 
 export const Menu = () => {
   return (
-    <div style={{ width: '150px' }}>
+    <Box css={{ width: '150px' }}>
       <List border>
         <ListItem>
           <Text variant="body">메뉴1</Text>
@@ -58,6 +59,6 @@ export const Menu = () => {
           <Text variant="body">로그아웃</Text>
         </ListItem>
       </List>
-    </div>
+    </Box>
   );
 };
