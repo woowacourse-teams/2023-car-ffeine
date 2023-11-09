@@ -4,6 +4,16 @@ import { DEFAULT_MARKER_SIZE_RATIO } from '@marker/components/SmallMediumDeltaAr
 import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
 import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
 
+const animateMarkers = (marker: HTMLElement) => {
+  marker.style.opacity = '0';
+  marker.classList.add('marker-animation');
+
+  marker.addEventListener('animationend', () => {
+    marker.classList.remove('marker-animation');
+    marker.style.opacity = '1';
+  });
+};
+
 export const getDefaultMarkerDesign = (isAvailable: boolean) => {
   const markerColor = isAvailable ? MARKER_COLORS.available : MARKER_COLORS.noAvailable;
 
@@ -14,12 +24,7 @@ export const getDefaultMarkerDesign = (isAvailable: boolean) => {
     glyph: '',
   });
 
-  defaultMarkerDesign.element.style.opacity = '0';
-  defaultMarkerDesign.element.classList.add('marker-animation');
-  defaultMarkerDesign.element.addEventListener('animationend', () => {
-    defaultMarkerDesign.element.classList.remove('marker-animation');
-    defaultMarkerDesign.element.style.opacity = '1';
-  });
+  animateMarkers(defaultMarkerDesign.element);
 
   return defaultMarkerDesign;
 };
@@ -27,12 +32,7 @@ export const getDefaultMarkerDesign = (isAvailable: boolean) => {
 export const createMarkerDomElement = () => {
   const container = document.createElement('div');
 
-  container.style.opacity = '0';
-  container.classList.add('marker-animation');
-  container.addEventListener('animationend', () => {
-    container.classList.remove('marker-animation');
-    container.style.opacity = '1';
-  });
+  animateMarkers(container);
 
   return container;
 };
