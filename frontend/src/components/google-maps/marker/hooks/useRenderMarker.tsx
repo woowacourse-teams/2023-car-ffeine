@@ -10,7 +10,7 @@ import {
   createMarkerInstance,
   getDefaultMarkerDesign,
   removeMarkerInstanceFromExternalStore,
-} from '@marker/utils';
+} from '@marker/tools';
 
 import { getGoogleMapStore, googleMapActions } from '@stores/google-maps/googleMapStore';
 
