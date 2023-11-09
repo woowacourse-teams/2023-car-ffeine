@@ -1,8 +1,8 @@
 import RegionMarkerRenderer from './components/RegionMarkerRenderer';
-import { useRegionMarkers } from './hooks/useRegionMarkers';
+import { useRegionMarkersQuery } from './hooks/useRegionMarkersQuery';
 
 const MaxDeltaAreaMarkerContainer = () => {
-  const { data: regions, isSuccess, isError } = useRegionMarkers();
+  const { data: regions, isSuccess, isError } = useRegionMarkersQuery();
   if (!regions || !isSuccess || isError) {
     return <></>;
   }

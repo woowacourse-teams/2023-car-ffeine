@@ -90,7 +90,7 @@ export const fetchStationMarkers = async () => {
   return stationMarkers;
 };
 
-export const useStationMarkers = () => {
+export const useStationMarkersQuery = () => {
   const {
     fastChargeStationFilter,
     privateStationFilter,

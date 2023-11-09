@@ -20,7 +20,7 @@ export const fetchRegionMarkers = async () => {
   return stationMarkers;
 };
 
-export const useRegionMarkers = () => {
+export const useRegionMarkersQuery = () => {
   return useQuery({
     queryKey: [QUERY_KEY_REGION_MARKERS],
     queryFn: fetchRegionMarkers,
