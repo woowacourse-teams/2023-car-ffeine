@@ -1,10 +1,11 @@
 import { createRoot } from 'react-dom/client';
 
+import StyledClusterMarker from '@marker/LargeDeltaAreaMarkerContainer/components/StyledClusterMarker';
 import CarFfeineMarker from '@marker/SmallMediumDeltaAreaMarkerContainer/components/CarFfeineMarker';
 import { MARKER_COLORS } from '@marker/SmallMediumDeltaAreaMarkerContainer/components/CarFfeineMarker/CarFfeineMarker.style';
 import { DEFAULT_MARKER_SIZE_RATIO } from '@marker/SmallMediumDeltaAreaMarkerContainer/constants';
 
-import { getGoogleMapStore } from '@stores/google-maps/googleMapStore';
+import { getGoogleMapStore, googleMapActions } from '@stores/google-maps/googleMapStore';
 import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
 
 import { useStationInfoWindow } from '@hooks/google-maps/useStationInfoWindow';
@@ -13,7 +14,7 @@ import useMediaQueries from '@hooks/useMediaQueries';
 import { useNavigationBar } from '@ui/Navigator/NavigationBar/hooks/useNavigationBar';
 import StationDetailsWindow from '@ui/StationDetailsWindow';
 
-import type { StationMarker } from '@type';
+import type { ClusterMarker, StationMarker } from '@type';
 
 export const useMarker = () => {
   const screen = useMediaQueries();
@@ -40,7 +41,7 @@ export const useMarker = () => {
   const renderCarffeineMarker = (station: StationMarker) => {
     const { latitude, longitude, stationId } = station;
     const markerInstance = createMarkerInstance(latitude, longitude);
-    const container = createCarffeinMarkerDomElement();
+    const container = createMarkerDomElement();
 
     markerInstance.content = container;
 
@@ -52,6 +53,22 @@ export const useMarker = () => {
     return () => {
       markerInstance.map = null;
       removeMarkerInstanceFromExternalStore(stationId);
+    };
+  };
+
+  const renderClusterMarker = (cluster: ClusterMarker) => {
+    const { latitude, longitude, count } = cluster;
+
+    const markerInstance = createMarkerInstance(latitude, longitude);
+    const container = createMarkerDomElement();
+
+    markerInstance.content = container;
+
+    bindClusterMarkerClickEvent(markerInstance, cluster);
+    createRoot(container).render(<StyledClusterMarker count={count} />);
+
+    return () => {
+      markerInstance.map = null;
     };
   };
 
@@ -68,9 +85,23 @@ export const useMarker = () => {
     });
   };
 
+  const bindClusterMarkerClickEvent = (
+    markerInstance: google.maps.marker.AdvancedMarkerElement,
+    cluster: ClusterMarker
+  ) => {
+    const { latitude, longitude } = cluster;
+
+    markerInstance.addListener('click', () => {
+      const currentZoom = getGoogleMapStore().getState().getZoom();
+
+      googleMapActions.moveTo({ lat: latitude, lng: longitude }, currentZoom + 1);
+    });
+  };
+
   return {
     renderDefaultMarker,
     renderCarffeineMarker,
+    renderClusterMarker,
   };
 };
 
@@ -94,7 +125,7 @@ const getMarkerDesign = (isAvailable: boolean) => {
   return defaultMarkerDesign;
 };
 
-const createCarffeinMarkerDomElement = () => {
+const createMarkerDomElement = () => {
   const container = document.createElement('div');
 
   container.style.opacity = '0';
