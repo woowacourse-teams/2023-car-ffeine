@@ -1,8 +1,6 @@
-import { css } from 'styled-components';
+import { Box } from 'car-ffeine-design-system';
 
 import type { ReactElement } from 'react';
-
-import FlexBox from '@common/FlexBox';
 
 interface Props {
   component: ReactElement | null;
@@ -10,14 +8,10 @@ interface Props {
 
 const LastPanel = ({ component }: Props) => {
   return (
-    <FlexBox width="fit-content" css={containerCss}>
+    <Box position="relative" css={{ zIndex: 99 }}>
       {component !== null && <>{component}</>}
-    </FlexBox>
+    </Box>
   );
 };
-
-const containerCss = css`
-  position: relative;
-`;
 
 export default LastPanel;

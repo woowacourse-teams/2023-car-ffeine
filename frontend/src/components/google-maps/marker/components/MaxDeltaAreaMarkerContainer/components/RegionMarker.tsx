@@ -16,7 +16,7 @@ const RegionMarker = ({ count, regionName }: RegionMarkerProps) => {
       alignItems="center"
       gap={1}
       p={1}
-      style={{
+      css={{
         background: '#fff',
         borderRadius: '8px',
         border: '1px solid #2a6cd8',

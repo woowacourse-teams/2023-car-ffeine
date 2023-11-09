@@ -37,7 +37,7 @@ const Menu = ({ label, icon, index, iconPosition = 'left', onClick, ...attribute
       role="tab"
       id={`${id}-tab-${index}`}
       aria-controls={`${id}-panel-${index}`}
-      aria-selected={activeTab === `menu-${index}` ? true : false}
+      aria-selected={activeTab === `menu-${index}`}
       className={activeTab === `menu-${index}` ? 'active' : ''}
       title={label}
       icon={icon}

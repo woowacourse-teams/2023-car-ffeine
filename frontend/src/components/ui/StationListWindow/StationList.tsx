@@ -7,6 +7,8 @@ import { useStationMarkersQuery } from '@marker/components/SmallMediumDeltaAreaM
 import List from '@common/List';
 import Text from '@common/Text';
 
+import StationSummaryCard from '@ui/StationListWindow/StationSummaryCard';
+
 import { MOBILE_BREAKPOINT } from '@constants';
 
 import StationSummaryCardList from './StationSummaryCardList';
@@ -64,7 +66,7 @@ const StationList = () => {
 
     return (
       <>
-        <StationSummaryCardList cachedStationSummaries={cachedStationSummaries} data={data} />
+        <StationSummaryCardList data={data} />
         {isFetchingNextPage && <StationListSkeletons />}
         {canFetchNextPage && <div ref={loadMoreElementRef} />}
 
@@ -81,7 +83,14 @@ const StationList = () => {
     );
   };
 
-  return <List css={stationListCss}>{renderStationSummaryCards()}</List>;
+  return (
+    <List css={stationListCss}>
+      {cachedStationSummaries.map((stationSummary) => (
+        <StationSummaryCard key={stationSummary.stationId} station={stationSummary} />
+      ))}
+      {renderStationSummaryCards()}
+    </List>
+  );
 };
 
 export const stationListCss = css`

@@ -46,6 +46,7 @@ export const useNavigationBar = () => {
   };
 
   return {
+    navigationBarPanel,
     toggleBasePanel,
     openLastPanel,
     closeBasePanel,

@@ -11,6 +11,8 @@ import Button from '@common/Button';
 import FlexBox from '@common/FlexBox';
 import Text from '@common/Text';
 
+import { useNavigationBar } from '@ui/Navigator/NavigationBar/hooks/useNavigationBar';
+
 import type { StationDetails } from '@type';
 
 import PathFinding from './PathFinding';
@@ -45,6 +47,8 @@ const StationInfo = ({
     standardChargerCount,
     quickChargerCount,
   } = getChargerCountsAndAvailability(chargers);
+
+  const { navigationBarPanel } = useNavigationBar();
 
   const availabilityColor = MARKER_COLORS[isAvailable ? 'available' : 'noAvailable'];
 
@@ -102,16 +106,17 @@ const StationInfo = ({
         </Text>
       </FlexBox>
 
-      <FlexBox mt={3} justifyContent="between">
-        <Button onClick={handleOpenStationDetail} hover>
-          <FlexBox alignItems="center">
-            <Text variant="label" mb={0.75}>
-              상세 정보 보기
-            </Text>
-            <HiChevronRight />
-          </FlexBox>
-        </Button>
+      <FlexBox mt={3} justifyContent="between" mb={0.75}>
         <PathFinding address={address} latitude={latitude} longitude={longitude} />
+
+        {navigationBarPanel.lastPanel === null && (
+          <Button onClick={handleOpenStationDetail} hover>
+            <FlexBox alignItems="center">
+              <Text variant="label">상세 정보 보기</Text>
+              <HiChevronRight />
+            </FlexBox>
+          </Button>
+        )}
       </FlexBox>
     </Box>
   );
