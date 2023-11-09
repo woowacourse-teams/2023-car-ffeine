@@ -77,8 +77,9 @@ export const useStationSearchWindow = () => {
       const stationDetails = await fetch(
         `${SERVER_URL}/stations/${stationId}`
       ).then<StationDetails>((response) => response.json());
-      const { availableQuickChargerCount, availableStandardChargerCount, quickChargerCount } =
-        getChargerCountsAndAvailability(stationDetails.chargers);
+      const { quickChargerCount, availableCount } = getChargerCountsAndAvailability(
+        stationDetails.chargers
+      );
       const { stationName, latitude, longitude, isParkingFree, isPrivate } = stationDetails;
 
       renderDefaultMarker({
@@ -88,7 +89,7 @@ export const useStationSearchWindow = () => {
         longitude,
         isParkingFree,
         isPrivate,
-        availableCount: availableQuickChargerCount + availableStandardChargerCount,
+        availableCount,
         quickChargerCount,
       });
 

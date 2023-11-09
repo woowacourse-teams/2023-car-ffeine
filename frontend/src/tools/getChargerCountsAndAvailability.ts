@@ -18,6 +18,7 @@ export const getChargerCountsAndAvailability = (chargers: Charger[]) => {
   const availableQuickChargerCount = quickChargers.filter(
     ({ state }) => state === 'STANDBY'
   ).length;
+  const availableCount = availableStandardChargerCount + availableQuickChargerCount;
 
   const standardChargerCount = standardChargers.length;
   const quickChargerCount = quickChargers.length;
@@ -28,5 +29,6 @@ export const getChargerCountsAndAvailability = (chargers: Charger[]) => {
     availableQuickChargerCount,
     standardChargerCount,
     quickChargerCount,
+    availableCount,
   };
 };
