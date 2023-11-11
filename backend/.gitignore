@@ -36,9 +36,9 @@ out/
 ### VS Code ###
 .vscode/
 
-src/main/resources/encryptKey.txt
+**/src/main/resources/encryptKey.txt
 
 mysql
 
-/src/main/resources/static/docs/
-/src/main/generated
+**/src/main/resources/static/docs/
+**/src/main/generated
