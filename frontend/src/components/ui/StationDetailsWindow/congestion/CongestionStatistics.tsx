@@ -77,7 +77,7 @@ const CongestionStatistics = ({ stationId }: CongestionStatisticsProps) => {
         {isError ? (
           <Error
             title="앗"
-            message="데이터를 불러오는데 실패했어요"
+            message="충전소 사용량을 가져오지 못 했어요"
             subMessage="잠시 후 다시 시도해주세요"
             handleRetry={handleRetry}
             minHeight={40.4}
