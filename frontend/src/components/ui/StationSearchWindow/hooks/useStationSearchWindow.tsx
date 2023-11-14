@@ -29,6 +29,23 @@ export const useStationSearchWindow = () => {
 
   const [isFocused, setIsFocused] = useState(false);
 
+  const queryClient = useQueryClient();
+
+  const [searchWord, setSearchWord] = useState('');
+  const [debouncedSearchWord, setDebouncedSearchWord] = useState(searchWord);
+
+  const { openLastPanel } = useNavigationBar();
+  const { openStationInfoWindow } = useStationInfoWindow();
+  const { renderDefaultMarker } = useMarker();
+
+  useDebounce(
+    () => {
+      setDebouncedSearchWord(searchWord);
+    },
+    [searchWord],
+    400
+  );
+
   const handleOpenResult = (
     event?: MouseEvent<HTMLInputElement> | FocusEvent<HTMLInputElement>
   ) => {
@@ -42,19 +59,6 @@ export const useStationSearchWindow = () => {
   const handleCloseResult = () => {
     setIsFocused(false);
   };
-
-  const queryClient = useQueryClient();
-
-  const [searchWord, setSearchWord] = useState('');
-  const [debouncedSearchWord, setDebouncedSearchWord] = useState(searchWord);
-
-  useDebounce(
-    () => {
-      setDebouncedSearchWord(searchWord);
-    },
-    [searchWord],
-    400
-  );
 
   const handleSubmitSearchWord = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -80,10 +84,6 @@ export const useStationSearchWindow = () => {
 
     queryClient.invalidateQueries({ queryKey: [QUERY_KEY_SEARCHED_STATION] });
   };
-
-  const { openLastPanel } = useNavigationBar();
-  const { openStationInfoWindow } = useStationInfoWindow();
-  const { renderDefaultMarker } = useMarker();
 
   const showStationDetails = async ({ stationId, latitude, longitude }: StationPosition) => {
     googleMapActions.moveTo({ lat: latitude, lng: longitude });
