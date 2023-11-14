@@ -12,6 +12,7 @@ import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
 
 import { useStationInfoWindow } from '@hooks/google-maps/useStationInfoWindow';
 import { fetchSearchedStations } from '@hooks/tanstack-query/useSearchStations';
+import { useDebounce } from '@hooks/useDebounce';
 import useMediaQueries from '@hooks/useMediaQueries';
 
 import { useNavigationBar } from '@ui/Navigator/NavigationBar/hooks/useNavigationBar';
@@ -24,20 +25,17 @@ import type { StationDetails, StationPosition } from '@type';
 import StationDetailsWindow from '../../StationDetailsWindow/index';
 
 export const useStationSearchWindow = () => {
-  const queryClient = useQueryClient();
-
-  const [isFocused, setIsFocused] = useState(false);
-  const [searchWord, setSearchWord] = useState('');
-
-  const { renderDefaultMarker } = useMarker();
-
-  const { openLastPanel } = useNavigationBar();
-  const { openStationInfoWindow } = useStationInfoWindow();
-
   const screen = useMediaQueries();
 
-  const handleOpenResult = (event: MouseEvent<HTMLInputElement> | FocusEvent<HTMLInputElement>) => {
-    event.stopPropagation();
+  const [isFocused, setIsFocused] = useState(false);
+
+  const handleOpenResult = (
+    event?: MouseEvent<HTMLInputElement> | FocusEvent<HTMLInputElement>
+  ) => {
+    if (event !== undefined) {
+      event.stopPropagation();
+    }
+
     setIsFocused(true);
   };
 
@@ -45,19 +43,47 @@ export const useStationSearchWindow = () => {
     setIsFocused(false);
   };
 
+  const queryClient = useQueryClient();
+
+  const [searchWord, setSearchWord] = useState('');
+  const [debouncedSearchWord, setDebouncedSearchWord] = useState(searchWord);
+
+  useDebounce(
+    () => {
+      setDebouncedSearchWord(searchWord);
+    },
+    [searchWord],
+    400
+  );
+
   const handleSubmitSearchWord = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const searchWordFromForm = new FormData(event.currentTarget).get('station-search');
+
+    if (encodeURIComponent(String(searchWordFromForm)) === searchWord) {
+      handleOpenResult();
+
+      return;
+    }
+
     handleCloseResult();
 
     const searchedStations = await fetchSearchedStations(searchWord);
+    const isSearchedStationExisting =
+      searchedStations !== undefined && searchedStations.stations.length > 0;
 
-    if (searchedStations !== undefined && searchedStations.stations.length > 0) {
+    if (isSearchedStationExisting) {
       const [{ stationId, latitude, longitude }] = searchedStations.stations;
       showStationDetails({ stationId, latitude, longitude });
     }
 
     queryClient.invalidateQueries({ queryKey: [QUERY_KEY_SEARCHED_STATION] });
   };
+
+  const { openLastPanel } = useNavigationBar();
+  const { openStationInfoWindow } = useStationInfoWindow();
+  const { renderDefaultMarker } = useMarker();
 
   const showStationDetails = async ({ stationId, latitude, longitude }: StationPosition) => {
     googleMapActions.moveTo({ lat: latitude, lng: longitude });
@@ -66,12 +92,11 @@ export const useStationSearchWindow = () => {
       openLastPanel(<StationDetailsWindow stationId={stationId} />);
     }
 
-    // 지금 보여지는 화면에 검색한 충전소가 존재할 경우의 처리
-    if (
-      markerInstanceStore
-        .getState()
-        .some(({ id: cachedStationId }) => cachedStationId === stationId)
-    ) {
+    const isStationInDisplayPosition = markerInstanceStore
+      .getState()
+      .some(({ id: cachedStationId }) => cachedStationId === stationId);
+
+    if (isStationInDisplayPosition) {
       openStationInfoWindow(stationId);
     } else {
       const stationDetails = await fetch(
@@ -100,7 +125,7 @@ export const useStationSearchWindow = () => {
   const handleChangeSearchWord = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
     const searchWord = encodeURIComponent(value);
 
-    setIsFocused(true);
+    handleOpenResult();
     setSearchWord(searchWord);
   };
 
@@ -111,6 +136,6 @@ export const useStationSearchWindow = () => {
     handleCloseResult,
     showStationDetails,
     isFocused,
-    searchWord,
+    debouncedSearchWord,
   };
 };
