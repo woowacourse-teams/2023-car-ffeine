@@ -1,7 +1,5 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
-import { useSearchStations } from '@hooks/tanstack-query/useSearchStations';
-
 import FlexBox from '@common/FlexBox';
 import Loader from '@common/Loader';
 
@@ -17,15 +15,11 @@ const StationSearchBar = () => {
     handleCloseResult,
     showStationDetails,
     isFocused,
-    debouncedSearchWord,
-  } = useStationSearchWindow();
-
-  const {
-    data: searchResult,
+    searchResult,
     isLoading,
     isError,
     isFetching,
-  } = useSearchStations(debouncedSearchWord);
+  } = useStationSearchWindow();
 
   return (
     <StyledContainer>

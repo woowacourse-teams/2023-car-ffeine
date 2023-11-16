@@ -7,7 +7,7 @@ import { SEARCH_SCOPE } from '@constants/stationSearch';
 
 import type { SearchedCity, SearchedStation } from '@type/stations';
 
-interface SearchedStationResponse {
+export interface SearchedStationResponse {
   stations: SearchedStation[];
   cities: SearchedCity[];
 }

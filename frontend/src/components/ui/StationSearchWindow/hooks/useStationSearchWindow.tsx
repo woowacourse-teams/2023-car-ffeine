@@ -11,7 +11,8 @@ import { googleMapActions } from '@stores/google-maps/googleMapStore';
 import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
 
 import { useStationInfoWindow } from '@hooks/google-maps/useStationInfoWindow';
-import { fetchSearchedStations } from '@hooks/tanstack-query/useSearchStations';
+import type { SearchedStationResponse } from '@hooks/tanstack-query/useSearchStations';
+import { fetchSearchedStations, useSearchStations } from '@hooks/tanstack-query/useSearchStations';
 import { useDebounce } from '@hooks/useDebounce';
 import useMediaQueries from '@hooks/useMediaQueries';
 
@@ -33,6 +34,8 @@ export const useStationSearchWindow = () => {
 
   const [searchWord, setSearchWord] = useState('');
   const [debouncedSearchWord, setDebouncedSearchWord] = useState(searchWord);
+  const [userSearchWord, setUserSearchWord] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const { openLastPanel } = useNavigationBar();
   const { openStationInfoWindow } = useStationInfoWindow();
@@ -43,8 +46,16 @@ export const useStationSearchWindow = () => {
       setDebouncedSearchWord(searchWord);
     },
     [searchWord],
-    400
+    400,
+    isSubmitted
   );
+
+  const {
+    data: searchResult,
+    isLoading,
+    isError,
+    isFetching,
+  } = useSearchStations(debouncedSearchWord);
 
   const handleOpenResult = (
     event?: MouseEvent<HTMLInputElement> | FocusEvent<HTMLInputElement>
@@ -58,31 +69,6 @@ export const useStationSearchWindow = () => {
 
   const handleCloseResult = () => {
     setIsFocused(false);
-  };
-
-  const handleSubmitSearchWord = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const searchWordFromForm = new FormData(event.currentTarget).get('station-search');
-
-    if (encodeURIComponent(String(searchWordFromForm)) === searchWord) {
-      handleOpenResult();
-
-      return;
-    }
-
-    handleCloseResult();
-
-    const searchedStations = await fetchSearchedStations(searchWord);
-    const isSearchedStationExisting =
-      searchedStations !== undefined && searchedStations.stations.length > 0;
-
-    if (isSearchedStationExisting) {
-      const [{ stationId, latitude, longitude }] = searchedStations.stations;
-      showStationDetails({ stationId, latitude, longitude });
-    }
-
-    queryClient.invalidateQueries({ queryKey: [QUERY_KEY_SEARCHED_STATION] });
   };
 
   const showStationDetails = async ({ stationId, latitude, longitude }: StationPosition) => {
@@ -122,9 +108,47 @@ export const useStationSearchWindow = () => {
     }
   };
 
+  const showStationDetailsIfFound = (searchedStations: SearchedStationResponse) => {
+    const isSearchedStationExisting = searchedStations?.stations.length > 0;
+
+    if (isSearchedStationExisting) {
+      const [{ stationId, latitude, longitude }] = searchedStations.stations;
+      showStationDetails({ stationId, latitude, longitude });
+      handleCloseResult();
+
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_SEARCHED_STATION] });
+    }
+  };
+
+  const handleSubmitSearchWord = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    handleCloseResult();
+    setIsSubmitted(true);
+
+    const searchWordFromForm = new FormData(event.currentTarget).get('station-search');
+    const encodedSearchWord = encodeURIComponent(String(searchWordFromForm));
+    const isSameAsPreviousSearchWord = encodedSearchWord === userSearchWord;
+
+    if (isSameAsPreviousSearchWord) {
+      return;
+    }
+
+    setUserSearchWord(encodedSearchWord);
+
+    if (searchWord === debouncedSearchWord) {
+      showStationDetailsIfFound(searchResult);
+
+      return;
+    }
+
+    const searchedStations = await fetchSearchedStations(encodedSearchWord);
+    showStationDetailsIfFound(searchedStations);
+  };
+
   const handleChangeSearchWord = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
     const searchWord = encodeURIComponent(value);
 
+    setIsSubmitted(false);
     handleOpenResult();
     setSearchWord(searchWord);
   };
@@ -137,5 +161,9 @@ export const useStationSearchWindow = () => {
     showStationDetails,
     isFocused,
     debouncedSearchWord,
+    searchResult,
+    isLoading,
+    isError,
+    isFetching,
   };
 };
