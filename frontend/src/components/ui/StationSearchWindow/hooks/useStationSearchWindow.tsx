@@ -35,7 +35,6 @@ export const useStationSearchWindow = () => {
   const [searchWord, setSearchWord] = useState('');
   const [debouncedSearchWord, setDebouncedSearchWord] = useState(searchWord);
   const [userSearchWord, setUserSearchWord] = useState('');
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const { openLastPanel } = useNavigationBar();
   const { openStationInfoWindow } = useStationInfoWindow();
@@ -46,8 +45,7 @@ export const useStationSearchWindow = () => {
       setDebouncedSearchWord(searchWord);
     },
     [searchWord],
-    400,
-    isSubmitted
+    400
   );
 
   const {
@@ -123,7 +121,6 @@ export const useStationSearchWindow = () => {
   const handleSubmitSearchWord = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     handleCloseResult();
-    setIsSubmitted(true);
 
     const searchWordFromForm = new FormData(event.currentTarget).get('station-search');
     const encodedSearchWord = encodeURIComponent(String(searchWordFromForm));
@@ -148,7 +145,6 @@ export const useStationSearchWindow = () => {
   const handleChangeSearchWord = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
     const searchWord = encodeURIComponent(value);
 
-    setIsSubmitted(false);
     handleOpenResult();
     setSearchWord(searchWord);
   };
