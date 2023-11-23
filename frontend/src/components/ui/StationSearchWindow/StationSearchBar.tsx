@@ -1,10 +1,5 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
-import { useState } from 'react';
-
-import { useSearchStations } from '@hooks/tanstack-query/useSearchStations';
-import { useDebounce } from '@hooks/useDebounce';
-
 import FlexBox from '@common/FlexBox';
 import Loader from '@common/Loader';
 
@@ -20,24 +15,11 @@ const StationSearchBar = () => {
     handleCloseResult,
     showStationDetails,
     isFocused,
-    searchWord,
-  } = useStationSearchWindow();
-  const [debouncedSearchWord, setDebouncedSearchWord] = useState(searchWord);
-
-  useDebounce(
-    () => {
-      setDebouncedSearchWord(searchWord);
-    },
-    [searchWord],
-    400
-  );
-
-  const {
-    data: searchResult,
+    searchResult,
     isLoading,
     isError,
     isFetching,
-  } = useSearchStations(debouncedSearchWord);
+  } = useStationSearchWindow();
 
   return (
     <StyledContainer>
@@ -45,6 +27,7 @@ const StationSearchBar = () => {
         <label htmlFor="station-search-bar" aria-hidden>
           <StyledSearch
             id="station-search-bar"
+            name="station-search"
             type="search"
             role="searchbox"
             placeholder="충전소명 또는 지역명을 입력해 주세요"

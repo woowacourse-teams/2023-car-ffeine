@@ -11,7 +11,9 @@ import { googleMapActions } from '@stores/google-maps/googleMapStore';
 import { markerInstanceStore } from '@stores/google-maps/markerInstanceStore';
 
 import { useStationInfoWindow } from '@hooks/google-maps/useStationInfoWindow';
-import { fetchSearchedStations } from '@hooks/tanstack-query/useSearchStations';
+import type { SearchedStationResponse } from '@hooks/tanstack-query/useSearchStations';
+import { fetchSearchedStations, useSearchStations } from '@hooks/tanstack-query/useSearchStations';
+import { useDebounce } from '@hooks/useDebounce';
 import useMediaQueries from '@hooks/useMediaQueries';
 
 import { useNavigationBar } from '@ui/Navigator/NavigationBar/hooks/useNavigationBar';
@@ -24,39 +26,47 @@ import type { StationDetails, StationPosition } from '@type';
 import StationDetailsWindow from '../../StationDetailsWindow/index';
 
 export const useStationSearchWindow = () => {
-  const queryClient = useQueryClient();
+  const screen = useMediaQueries();
 
   const [isFocused, setIsFocused] = useState(false);
-  const [searchWord, setSearchWord] = useState('');
 
-  const { renderDefaultMarker } = useMarker();
+  const queryClient = useQueryClient();
+
+  const [searchWord, setSearchWord] = useState('');
+  const [debouncedSearchWord, setDebouncedSearchWord] = useState(searchWord);
+  const [userSearchWord, setUserSearchWord] = useState('');
 
   const { openLastPanel } = useNavigationBar();
   const { openStationInfoWindow } = useStationInfoWindow();
+  const { renderDefaultMarker } = useMarker();
 
-  const screen = useMediaQueries();
+  useDebounce(
+    () => {
+      setDebouncedSearchWord(searchWord);
+    },
+    [searchWord],
+    400
+  );
 
-  const handleOpenResult = (event: MouseEvent<HTMLInputElement> | FocusEvent<HTMLInputElement>) => {
-    event.stopPropagation();
+  const {
+    data: searchResult,
+    isLoading,
+    isError,
+    isFetching,
+  } = useSearchStations(debouncedSearchWord);
+
+  const handleOpenResult = (
+    event?: MouseEvent<HTMLInputElement> | FocusEvent<HTMLInputElement>
+  ) => {
+    if (event !== undefined) {
+      event.stopPropagation();
+    }
+
     setIsFocused(true);
   };
 
   const handleCloseResult = () => {
     setIsFocused(false);
-  };
-
-  const handleSubmitSearchWord = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    handleCloseResult();
-
-    const searchedStations = await fetchSearchedStations(searchWord);
-
-    if (searchedStations !== undefined && searchedStations.stations.length > 0) {
-      const [{ stationId, latitude, longitude }] = searchedStations.stations;
-      showStationDetails({ stationId, latitude, longitude });
-    }
-
-    queryClient.invalidateQueries({ queryKey: [QUERY_KEY_SEARCHED_STATION] });
   };
 
   const showStationDetails = async ({ stationId, latitude, longitude }: StationPosition) => {
@@ -66,12 +76,11 @@ export const useStationSearchWindow = () => {
       openLastPanel(<StationDetailsWindow stationId={stationId} />);
     }
 
-    // 지금 보여지는 화면에 검색한 충전소가 존재할 경우의 처리
-    if (
-      markerInstanceStore
-        .getState()
-        .some(({ id: cachedStationId }) => cachedStationId === stationId)
-    ) {
+    const isStationInDisplayPosition = markerInstanceStore
+      .getState()
+      .some(({ id: cachedStationId }) => cachedStationId === stationId);
+
+    if (isStationInDisplayPosition) {
       openStationInfoWindow(stationId);
     } else {
       const stationDetails = await fetch(
@@ -97,10 +106,46 @@ export const useStationSearchWindow = () => {
     }
   };
 
+  const showStationDetailsIfFound = (searchedStations: SearchedStationResponse) => {
+    const isSearchedStationExisting = searchedStations?.stations.length > 0;
+
+    if (isSearchedStationExisting) {
+      const [{ stationId, latitude, longitude }] = searchedStations.stations;
+      showStationDetails({ stationId, latitude, longitude });
+      handleCloseResult();
+
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_SEARCHED_STATION] });
+    }
+  };
+
+  const handleSubmitSearchWord = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    handleCloseResult();
+
+    const searchWordFromForm = new FormData(event.currentTarget).get('station-search');
+    const encodedSearchWord = encodeURIComponent(String(searchWordFromForm));
+    const isSameAsPreviousSearchWord = encodedSearchWord === userSearchWord;
+
+    if (isSameAsPreviousSearchWord) {
+      return;
+    }
+
+    setUserSearchWord(encodedSearchWord);
+
+    if (searchWord === debouncedSearchWord) {
+      showStationDetailsIfFound(searchResult);
+
+      return;
+    }
+
+    const searchedStations = await fetchSearchedStations(encodedSearchWord);
+    showStationDetailsIfFound(searchedStations);
+  };
+
   const handleChangeSearchWord = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
     const searchWord = encodeURIComponent(value);
 
-    setIsFocused(true);
+    handleOpenResult();
     setSearchWord(searchWord);
   };
 
@@ -111,6 +156,10 @@ export const useStationSearchWindow = () => {
     handleCloseResult,
     showStationDetails,
     isFocused,
-    searchWord,
+    debouncedSearchWord,
+    searchResult,
+    isLoading,
+    isError,
+    isFetching,
   };
 };
