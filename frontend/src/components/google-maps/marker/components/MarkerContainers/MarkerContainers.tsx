@@ -4,7 +4,7 @@ import { deltaAreaStore } from '@stores/google-maps/deltaAreaStore';
 
 import LargeDeltaAreaMarkerContainer from '../LargeDeltaAreaMarkerContainer';
 import MaxDeltaAreaMarkerContainer from '../MaxDeltaAreaMarkerContainer';
-import SmallMediumDeltaAreaMarkerContainer from '../SmallMediumDeltaAreaMarkerContainer/SmallMediumDeltaAreaContainer';
+import SmallMediumDeltaAreaMarkerContainer from '../SmallMediumDeltaAreaMarkerContainer';
 
 const MarkerContainers = () => {
   const deltaAreaState = useExternalValue(deltaAreaStore);
