@@ -17,6 +17,7 @@ export interface FetchRemoveReviewRequest {
 const fetchRemoveReview = async (fetchRemoveReviewRequestParams: FetchRemoveReviewRequest) => {
   const { reviewId } = fetchRemoveReviewRequestParams;
   const memberToken = memberTokenStore.getState();
+
   return fetch(`${SERVER_URL}/reviews/${reviewId}`, {
     method: 'DELETE',
     headers: {
@@ -32,7 +33,7 @@ export const useRemoveReview = (stationId: string, reviewId: number) => {
   const { mutate, isLoading: isRemoveReviewLoading } = useMutation({
     mutationFn: fetchRemoveReview,
     onSuccess: () => {
-      toastActions.showToast('리뷰가 삭제됐습니다.', 'success', 'bottom-center');
+      toastActions.showToast('리뷰가 삭제됐습니다.', 'success');
     },
     onSettled: () => {
       queryClient.invalidateQueries({

@@ -44,16 +44,13 @@
       type="application/manifest+json"
     />
 
-    <link href="https://fonts.googleapis.com" rel="preload" as="font" />
-    <link crossorigin href="https://fonts.gstatic.com" rel="preload" as="font" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=fallback"
       rel="preload"
-      as="style"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
-      rel="stylesheet"
+      as="font"
+      onload="this.onload=null; this.rel='stylesheet'"
     />
     <title>카페인: 편리한 전기차 충전소 지도</title>
   </head>

@@ -42,7 +42,4 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
   }
 
-  button:focus, button:active {
-    outline: none;
-  }
 `;

@@ -21,6 +21,7 @@ const config: StorybookConfig = {
     name: '@storybook/react-webpack5',
     options: {},
   },
+  previewHead: (head) => `${head}`,
   docs: {
     autodocs: 'tag',
   },

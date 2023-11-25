@@ -1,3 +1,4 @@
+import { Wrapper } from '@googlemaps/react-wrapper';
 import type { Preview } from '@storybook/react';
 import { initialize, mswDecorator } from 'msw-storybook-addon';
 
@@ -66,16 +67,33 @@ const preview: Preview = {
     },
   },
   decorators: [
-    (Story) => (
-      <React.Fragment>
-        <QueryClientProvider client={queryClient}>
-          <GlobalStyle />
-          <MemoryRouter initialEntries={['/']}>
-            <Story />
-          </MemoryRouter>
-        </QueryClientProvider>
-      </React.Fragment>
-    ),
+    (Story) => {
+      const map = document.getElementById('map');
+
+      if (map) {
+        map.style.visibility = 'hidden';
+      }
+
+      return (
+        <React.Fragment>
+          <QueryClientProvider client={queryClient}>
+            <GlobalStyle />
+            <MemoryRouter initialEntries={['/']}>
+              <Wrapper
+                apiKey={
+                  process.env.NODE_ENV === 'production'
+                    ? process.env.GOOGLE_MAPS_API_KEY_PROD!
+                    : process.env.GOOGLE_MAPS_API_KEY_DEV!
+                }
+                libraries={['marker']}
+              >
+                <Story />
+              </Wrapper>
+            </MemoryRouter>
+          </QueryClientProvider>
+        </React.Fragment>
+      );
+    },
     mswDecorator,
   ],
 };

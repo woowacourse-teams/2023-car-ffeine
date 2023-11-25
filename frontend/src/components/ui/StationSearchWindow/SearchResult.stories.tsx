@@ -8,6 +8,13 @@ const meta = {
   title: 'UI/SearchResult',
   tags: ['autodocs'],
   component: SearchResult,
+  decorators: [
+    (Story) => (
+      <Container>
+        <Story />
+      </Container>
+    ),
+  ],
   args: {
     cities: [
       {
@@ -80,48 +87,36 @@ export default meta;
 // TODO: 스토리북 빌드 실패로 임시로 조치해뒀으니 수정 바랍니다.
 
 export const Default = ({ ...args }: SearchResultProps) => {
-  return (
-    <Container>
-      <SearchResult {...args} />
-    </Container>
-  );
+  return <SearchResult {...args} />;
 };
 
 export const NoResult = () => {
   return (
-    <SubContainer>
-      <SearchResult
-        cities={[]}
-        stations={[]}
-        closeResult={() => null}
-        isError={false}
-        isLoading={false}
-        showStationDetails={() => null}
-      />
-    </SubContainer>
+    <SearchResult
+      cities={[]}
+      stations={[]}
+      closeResult={() => null}
+      isError={false}
+      isLoading={false}
+      showStationDetails={() => null}
+    />
   );
 };
 
 export const Error = () => {
   return (
-    <Container>
-      <SearchResult
-        cities={[]}
-        stations={[]}
-        closeResult={() => null}
-        isError={true}
-        isLoading={false}
-        showStationDetails={() => null}
-      />
-    </Container>
+    <SearchResult
+      cities={[]}
+      stations={[]}
+      closeResult={() => null}
+      isError={true}
+      isLoading={false}
+      showStationDetails={() => null}
+    />
   );
 };
 
 const Container = styled.div`
   width: 34rem;
-  height: 16rem;
-`;
-
-const SubContainer = styled(Container)`
-  height: 24rem;
+  height: 34rem;
 `;

@@ -3,14 +3,12 @@ import { css } from 'styled-components';
 import { useEffect, useState } from 'react';
 
 import { memberInfoStore } from '@stores/login/memberInfoStore';
-import { memberTokenStore } from '@stores/login/memberTokenStore';
 
 import { useCreateReply } from '@hooks/tanstack-query/station-details/reviews/useCreateReply';
 
 import Box from '@common/Box';
 import ButtonNext from '@common/ButtonNext';
 import FlexBox from '@common/FlexBox';
-import Text from '@common/Text';
 
 import ContentField from '@ui/StationDetailsWindow/reviews/common/ContentField';
 
