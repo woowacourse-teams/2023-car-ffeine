@@ -1,33 +1,10 @@
-import { Status, Wrapper } from '@googlemaps/react-wrapper';
-import Loading from 'components/ui/Loading';
-
-import CarFfeineMap from '@map/CarFfeineMap';
-
-import NotFound from '@ui/NotFound';
-
-const render = (status: Status) => {
-  switch (status) {
-    case Status.LOADING:
-      return <Loading />;
-    case Status.FAILURE:
-      return <NotFound />;
-    case Status.SUCCESS:
-      return <CarFfeineMap />;
-  }
-};
-
-const App = () => {
+function App() {
   return (
-    <Wrapper
-      apiKey={
-        process.env.NODE_ENV === 'production'
-          ? process.env.GOOGLE_MAPS_API_KEY_PROD
-          : process.env.GOOGLE_MAPS_API_KEY_DEV
-      }
-      render={render}
-      libraries={['marker']}
-    />
+    <div>
+      <div style={{ fontSize: '20px' }}>서비스 이전중...</div>
+      <a href="https://dev.carffe.in">개발 서버에서 확인하기 (Click)</a>
+    </div>
   );
-};
+}
 
 export default App;
