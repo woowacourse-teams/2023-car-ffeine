@@ -1,1 +1,5 @@
 rootProject.name = 'carffeine'
+include 'carffeine-batch'
+include 'carffeine-api'
+include 'carffeine-core'
+
