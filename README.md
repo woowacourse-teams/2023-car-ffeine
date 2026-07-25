@@ -2,12 +2,12 @@
 
 # 2023 우아한테크코스 5기 카페인 팀
 
-<a href="https://carffe.in">
+<a href="https://653134b8c1b776a14aafb1d0-meiaxlmapb.chromatic.com/?path=/docs/instruction--docs">
   <p align="center">
     <img src="./frontend/public/icons/192.png"/>
   </p>
   <p align="center" style="font-size: larger;">
-    카페인 바로가기
+    카페인 Storybook 바로가기
   </p>
 </a>
 <p align="center" style="font-size: xx-small;">
